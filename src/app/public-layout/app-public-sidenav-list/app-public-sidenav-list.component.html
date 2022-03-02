@@ -1,0 +1,30 @@
+<div class="wrapper">
+
+    <a class="mosabides" [routerLink]="['/home']" routerLinkActive="active" (click)="onSidenavClose()"><span class="mosa">Mosa</span><span class="bides">bides</span></a>
+
+    <div class="nav">
+
+        <div class="button">
+            <button mat-button [routerLink]="['/home']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">ac_unit</span> Home</button>
+        </div>
+
+        <div class="button">
+            <button mat-button [routerLink]="['/profile']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">person_outline</span> Profile</button>
+        </div>
+
+        <div class="button">
+            <button mat-button [routerLink]="['/store/all']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">store</span> Store</button>
+        </div>
+
+        <div class="button">
+            <button mat-button [routerLink]="['/wishlist']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">favorite_border</span> Wishlist</button>
+        </div>
+
+        <div class="button">
+            <button mat-button [routerLink]="['/about']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">info</span> About Us</button>
+        </div>
+
+    </div>
+
+
+</div>

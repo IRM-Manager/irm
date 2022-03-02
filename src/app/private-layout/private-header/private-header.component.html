@@ -1,0 +1,27 @@
+
+<mat-toolbar class="nav">
+
+    <div class="toggle-icon">
+        <!-- fxHide.gt-xs -->
+        <button mat-icon-button (click)="onPrivateToggleSidenav()" *ngIf="isHandset$ | async">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+
+    <div fxFlex fxLayout fxLayoutGap="7px" class="navbar-nav" fxHide.lt-md>
+     
+        <span class="spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+    </div>
+
+    
+
+
+  </mat-toolbar>

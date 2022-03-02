@@ -1,0 +1,45 @@
+.mosa {
+    height: 38px;
+    font-family: Ruda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 38px;
+    text-transform: lowercase;
+    color: #222831;
+    /* color: #fff; */
+}
+
+.bides {
+    height: 38px;
+    font-family: Ruda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 38px;
+    text-transform: lowercase;
+    color: #FF9B39;
+    /* color: #FF9B39; */
+}
+
+.mosabides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1em;    
+    text-decoration: none;
+}
+
+.nav {
+    margin-top: 3em;
+    margin-left: 1em;
+}
+
+.button {
+    margin-bottom: 1.5em;
+}
+
+.active {
+    background: rgb(0,0,128, 0.1);
+    color: #FF9B39;
+  }

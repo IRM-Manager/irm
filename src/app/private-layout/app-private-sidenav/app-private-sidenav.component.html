@@ -1,0 +1,23 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav hasBackdrop="false" class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+
+        <!-- [(opened)]="opened" -->
+
+        <app-app-private-sidenav-list (PrivatesidenavClose)="sidenav.close()"></app-app-private-sidenav-list>
+
+    </mat-sidenav>
+
+
+    <mat-sidenav-content>
+
+        <app-private-header (PrivatesidenavToggle)="sidenav.toggle()" (PrivateHeadersidenavToggle)="sidenav.toggle()"></app-private-header>
+
+        <!-- <button (click)="sidenav.close()"></button>
+        <button (click)="sidenav.open()"></button> -->
+        <!-- <button (click)="sidenav.toggle()"></button> -->
+
+        <section class="main">
+            <router-outlet></router-outlet>
+        </section>
+    </mat-sidenav-content>
+</mat-sidenav-container>

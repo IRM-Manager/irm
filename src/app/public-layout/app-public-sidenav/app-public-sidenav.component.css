@@ -1,0 +1,35 @@
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 200px;
+    overflow-x: hidden;
+    background: #FF9B39;
+    color: #FFFFFF;
+}
+
+.main {
+    background:linear-gradient(rgba(20, 19, 19, 0.3), rgba(20, 19, 19, 0.5));
+    height: 100%;
+}
+
+.button {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 1000;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background: #FF9B39;
+    color: white;
+    transition: all .2s ease-in-out;
+    opacity: 0;
+  }
+  
+
+.show-scrollTop {
+    opacity: 1;
+    transition: all .2s ease-in-out;
+}

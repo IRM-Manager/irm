@@ -1,0 +1,20 @@
+<mat-sidenav-container hasBackdrop="true">
+    <mat-sidenav #sidenav role="navigation">
+        <div class="main">
+            <app-app-public-sidenav-list (sidenavClose)="sidenav.close()"></app-app-public-sidenav-list>
+        </div>
+    </mat-sidenav>
+
+
+    <mat-sidenav-content (scroll)="handleScroll($event)" class="mat-sidenav-content">
+        <app-header (sidenavToggle)="sidenav.toggle()">
+
+        </app-header>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+        <!-- <button mat-mini-fab [class.show-scrollTop]="windowScrolled" (click)="scrollToTop()" class="button">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+        </button> -->
+    </mat-sidenav-content>
+</mat-sidenav-container>

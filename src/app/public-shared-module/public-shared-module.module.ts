@@ -1,33 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 // import { CodeInputModule } from 'angular-code-input';
 // import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import {ClipboardModule} from '@angular/cdk/clipboard';
-// import {NgxPaginationModule} from 'ngx-pagination';
-// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field';
 import 'hammerjs';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-  import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -46,38 +38,34 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
+// import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-import { ProcessHttpMsgService } from './services/process-http-msg.service';
-import { HttpService } from './services/http.service';
-
-import { DefaultModuleModule } from './default-module/default-module.module';
-import { DashboardModuleModule } from './dashboard-module/dashboard-module.module';
-import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
-// import { BaseUrl } from 'src/environments/environment';
-
-
-// state
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducers } from './reducers/index';
-
+import { AppPublicSidenavComponent } from '../public-layout/app-public-sidenav/app-public-sidenav.component';
+import { HeaderComponent } from '../public-layout/header/header.component';
+import { AppPublicSidenavListComponent } from '../public-layout/app-public-sidenav-list/app-public-sidenav-list.component';
+import { FooterComponent } from '../public-layout/footer/footer.component';
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// import { PaymentDialogComponent } from '../public-layout/payment-dialog/payment-dialog.component';
+// import {IvyCarouselModule} from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    // component here
+    AppPublicSidenavComponent,
+    HeaderComponent,
+    AppPublicSidenavListComponent,
+    FooterComponent,
+  ],
+  entryComponents: [
+    // dialog component here
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-
-    DefaultModuleModule,
-    DashboardModuleModule,
+    CommonModule,
+    RouterModule,
 
     MatListModule,
-    BrowserAnimationsModule,
     MatCardModule,
     MatIconModule,
     MatAutocompleteModule,
@@ -92,7 +80,6 @@ import { reducers } from './reducers/index';
     MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
@@ -113,37 +100,60 @@ import { reducers } from './reducers/index';
     MatTabsModule,
     MatTooltipModule,
     // CodeInputModule,
+    // MatSnackBar,
     FormsModule,
     ReactiveFormsModule,
     // NgxMatSelectSearchModule,
-    ClipboardModule,
-    // NgxPaginationModule,
     // Ng2SearchPipeModule,
-    StoreModule.forRoot(reducers, {}),
-    StoreDevtoolsModule.instrument()
+    // IvyCarouselModule
   ],
-  providers: [
-    HttpService,
-    ProcessHttpMsgService,
+  exports: [
+    // component here
+    AppPublicSidenavComponent,
+    HeaderComponent,
+    AppPublicSidenavListComponent,
+    FooterComponent,
+
+    MatListModule,
+    MatCardModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatChipsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    NetworkAwarePreloadingStrategyService2Service,
-  ],
-  bootstrap: [AppComponent]
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTooltipModule,
+    // CodeInputModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    // NgxMatSelectSearchModule,
+    // Ng2SearchPipeModule,
+    // IvyCarouselModule
+  ]
 })
-export class AppModule { 
-
-  public static forRoot(): ModuleWithProviders<AppModule> {
-    return {
-      ngModule: AppModule,
-      providers: []
-    };
-  }
-
-  constructor(@Optional() @SkipSelf() parentModule: AppModule) {
-    if (parentModule) {
-      throw new Error('StateModule is already loaded. Import it in the AppModule only');
-    }
-  }
-  
-}
+export class PublicSharedModuleModule { }
