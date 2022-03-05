@@ -1,9 +1,97 @@
 $back-white: #F4F6FA;
-$box-white: #F4F6FA;
+$back-green1: #47A83E;
+$back-green2: #2AA977;
+$white: #FFFFFF;
+$ttc: normal normal normal 20px/24px Montserrat;
+$black-shadow: #00000029;
+$font: Montserrat;
 
 .main {
-    height: fit-content;
+    height: 100vh;
     width: 100%;
+    background: transparent linear-gradient(180deg, $back-green1 0%, $back-green2 100%) 0% 0% no-repeat padding-box;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .right {
+        height: 100%;
+        width: 50%;
+        background: $back-white 0% 0% no-repeat padding-box;
+        border-radius: 100px 0px 0px 100px;
+        opacity: 1;
+
+        .right-main {
+            position: relative;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right_green_login {
+            position: absolute;
+            background: transparent linear-gradient(180deg, $back-green1 0%, $back-green2 100%) 0% 0% no-repeat padding-box;
+            height: 95px;
+            width: 230px;
+            padding: 2rem 1.3rem 1.3rem;
+            text-align: center;
+            top: 100px;
+            right: 25%;
+            opacity: 1;
+        }
+
+        .right_white_login {
+            position: absolute;
+            height: 300px;
+            width: 270px;
+            text-align: center;
+            top: 170px;
+            right: 32%;
+            background: $white 0% 0% no-repeat padding-box;
+            box-shadow: 0px 3px 6px $black-shadow;
+            border-radius: 30px;
+            opacity: 1;
+        }
+
+        .ad_ac_log {
+            font: $ttc;
+            letter-spacing: 0px;
+            color: $white;
+            opacity: 1;
+            font-weight: 500;
+        }
+    }
+
+    .left {
+        height: 100%;
+        width: 50%;
+        padding-left: 1em;
+        padding-right: 1em;
+        background: transparent linear-gradient(180deg, $back-green1 0%, $back-green2 100%) 0% 0% no-repeat padding-box;
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .left-image {
+            width: 75%;
+            height: auto;
+        }
+
+        .ttc {
+            text-align: center;
+            font: $ttc;
+            letter-spacing: 0px;
+            color: $white;
+            font-weight: bold;
+            opacity: 1;
+        }
+    }
 }
 
 /* * ****** Extra LArge device only ***** * */
