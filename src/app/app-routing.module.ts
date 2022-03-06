@@ -10,6 +10,7 @@ const routes: Routes = [{
   path: '', component: DefaultLayoutComponent, children: [
     {path: '', loadChildren: () => import('./public-layout/home/home.module').then(m => m.HomeModule)},
     {path: 'home', loadChildren: () => import('./public-layout/home/home.module').then(m => m.HomeModule)},
+    {path: 'dashboard', loadChildren: () => import('./public-layout/dashboard/dashboard.module').then(m => m.DashboardModule) },
      
   ]},
   {
@@ -27,7 +28,6 @@ const routes: Routes = [{
 ]
 },
   
-
 ];
 
 

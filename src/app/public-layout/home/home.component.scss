@@ -1,15 +1,19 @@
 $back-white: #F4F6FA;
-$back-green1: #47A83E;
-$back-green2: #2AA977;
+$background: transparent linear-gradient(180deg, #47A83E 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
 $white: #FFFFFF;
 $ttc: normal normal normal 20px/24px Montserrat;
 $black-shadow: #00000029;
 $font: Montserrat;
+$login-text-green: #44A842;
+$need-green: #31A869;
+$need-font: normal normal normal 15px/19px Montserrat;
+$grey: grey;
+$black: black;
 
 .main {
     height: 100vh;
     width: 100%;
-    background: transparent linear-gradient(180deg, $back-green1 0%, $back-green2 100%) 0% 0% no-repeat padding-box;
+    background: $background;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -34,26 +38,31 @@ $font: Montserrat;
 
         .right_green_login {
             position: absolute;
-            background: transparent linear-gradient(180deg, $back-green1 0%, $back-green2 100%) 0% 0% no-repeat padding-box;
+            background: $background;
             height: 95px;
             width: 230px;
             padding: 2rem 1.3rem 1.3rem;
             text-align: center;
-            top: 100px;
+            top: 90px;
             right: 25%;
             opacity: 1;
         }
 
-        .right_white_login {
+        .right_white_login_parent {
             position: absolute;
             height: 300px;
-            width: 270px;
-            text-align: center;
+            width: 220px;
             top: 170px;
-            right: 32%;
+            right: 40%;
+        }
+
+        .right_white_login {
+            width: 100%;
+            height: 100%;
             background: $white 0% 0% no-repeat padding-box;
             box-shadow: 0px 3px 6px $black-shadow;
             border-radius: 30px;
+            padding: 2rem;
             opacity: 1;
         }
 
@@ -64,6 +73,118 @@ $font: Montserrat;
             opacity: 1;
             font-weight: 500;
         }
+
+        .login_text {
+            margin-top: 1.5rem;
+            text-align: left;
+            font: $ttc;
+            letter-spacing: 0px;
+            color: $login-text-green;
+            font-weight: 500;
+            opacity: 1;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        ::ng-deep .mat-form-field-underline,
+        ::ng-deep .mat-form-field-ripple {
+            background: $need-green;
+        }
+
+        mat-label {
+            color: $grey;
+        }
+
+        input[type="text"], input[type="password"] {
+            caret-color: $black;
+        }
+
+        .submit_p {
+            text-align: center;
+        }
+
+        .submit {
+            margin-top: 1rem;
+            width: 90%;
+            height: 3rem;
+            background: $background;
+            border-radius: 10px;
+            text-align: center;
+            font: $ttc;
+            letter-spacing: 0px;
+            font-weight: 500;
+            color: $white;
+            opacity: 1;
+        }
+
+          .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5em 0 0.5em 0;
+           }
+          
+        
+          .bubble {
+            animation: expand .75s ease-in-out infinite;
+            border-radius: 20px;
+            display: inline-block;
+            transform-origin: center center;
+            margin: 0 3px;
+            width: 7px;
+            height: 7px;
+          }
+        
+          
+          .bubble:nth-child(1) {
+            background: $white;
+          }
+          
+          .bubble:nth-child(2) {
+            animation-delay: 180ms;
+            background: $white;
+          }
+          
+          .bubble:nth-child(3) {
+            animation-delay: 360ms;
+            background: $white;
+          }
+          
+          .bubble:nth-child(4) {
+            animation-delay: 540ms;
+            background: $white;
+          }
+          
+          @keyframes expand {
+            0% {
+              transform: scale(1);
+            }
+            25% {
+              transform: scale(1.55);
+            }
+          }
+        
+
+        .need {
+            position: absolute;
+            bottom: -100px;
+            font: $need-font;
+            letter-spacing: 0px;
+            color: $need-green;
+            font-weight: 500;
+            margin-top: 1rem;
+            width: 100%;
+            text-align: center;
+            width: 100%;
+            // margin-left: 10%;
+            opacity: 1;
+        }
+
+        .click {
+            cursor: pointer;
+        }
     }
 
     .left {
@@ -71,7 +192,7 @@ $font: Montserrat;
         width: 50%;
         padding-left: 1em;
         padding-right: 1em;
-        background: transparent linear-gradient(180deg, $back-green1 0%, $back-green2 100%) 0% 0% no-repeat padding-box;
+        background: $background;
         opacity: 1;
         display: flex;
         justify-content: center;

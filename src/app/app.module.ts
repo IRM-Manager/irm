@@ -48,10 +48,12 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { ProcessHttpMsgService } from './services/process-http-msg.service';
 import { HttpService } from './services/http.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { DefaultModuleModule } from './default-module/default-module.module';
 import { DashboardModuleModule } from './dashboard-module/dashboard-module.module';
@@ -117,6 +119,7 @@ import { reducers } from './reducers/index';
     ReactiveFormsModule,
     // NgxMatSelectSearchModule,
     ClipboardModule,
+    HttpClientModule,
     // NgxPaginationModule,
     // Ng2SearchPipeModule,
     StoreModule.forRoot(reducers, {}),
@@ -124,6 +127,7 @@ import { reducers } from './reducers/index';
   ],
   providers: [
     HttpService,
+    AuthService,
     ProcessHttpMsgService,
     MatDatepickerModule,
     MatNativeDateModule,
