@@ -12,6 +12,8 @@ export class AppPublicSidenavListComponent implements OnInit {
 
   @Output() sidenavClose = new EventEmitter();
   clickEventSubscription?: Subscription;
+
+  panelOpenState = false;
   
   constructor(private shared: ToggleNavService,
     private router: Router) { 

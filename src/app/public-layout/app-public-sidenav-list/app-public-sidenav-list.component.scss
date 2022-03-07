@@ -1,3 +1,135 @@
+$white: #FFFFFF;
+$panel-text: normal normal normal 15px/19px Montserrat;
+$panel-text2: normal normal 300 15px/19px Montserrat;
+$panel-text2-active: #FFFFFF 0% 0% no-repeat padding-box;
+
+.panel-active {
+    background: $panel-text2-active;
+    opacity: 0.48;
+}
+
+.button {
+    margin-top: 1rem;
+    margin-left: 1.7rem;
+    margin-right: 1.7rem;
+
+    .dash-text {
+        font: $panel-text;
+        letter-spacing: 0px;
+        color: $white;
+        font-weight: 500;
+    }
+}
+
+.panel {
+    margin-top: 2rem;
+
+    .mat-expansion-panel-header { 
+        border-top: 1px solid $white;
+        border-radius: unset;
+        opacity: 1;
+    }
+    
+    .mat-expansion-panel-header:hover {
+        background: unset;
+    }
+
+    .mat-expansion-panel-header-title {
+        font: $panel-text;
+        letter-spacing: 0px;
+        color: $white;
+        font-weight: 500;
+        opacity: 1;
+    }
+
+    .mat-expansion-panel {
+        background: None;
+        box-shadow: None;
+        font: $panel-text;
+        letter-spacing: 0px;
+        color: $white;
+        opacity: 1;
+        position: relative;
+    }
+
+    // ::ng-deep .mat-expansion-panel-body {
+    //     border-bottom: 1px solid $white;
+    //     opacity: 1;
+    // }
+
+    ::ng-deep .mat-expansion-indicator::after {
+        color: $white;
+    }
+
+    .mat-expansion-panel-header.mat-expanded {
+        position: relative;
+    } 
+
+    .mat-expansion-panel-header.mat-expanded::before {
+        content: "";
+        display: block;
+        width: 15px;
+        height: 1px;
+        background: $white;
+        left: 10px;
+        top: 50%;
+        position: absolute;
+    } 
+
+    %shared-vertical {
+        position: absolute;
+        left: 10px;
+        top: 34px;
+        border-left: 2px solid $white;
+      }
+
+    .vertical {
+        @extend %shared-vertical;
+        height: 51.3%;
+    }
+
+    .vertical2 {
+        @extend %shared-vertical;
+        height: 76.5%;
+    }
+
+    .vertical3 {
+        @extend %shared-vertical;
+        height: 66%;
+    }
+
+    .panel_text {
+        position: relative;
+        font: $panel-text2;
+        letter-spacing: 0px;
+        color: $white;
+        font-weight: 400;
+        margin-left: 20px;
+        opacity: 1;
+    }
+
+    .panel_text:active {
+        background: $panel-text2-active;
+        opacity: 0.48;
+    }
+
+    .panel_text:before {
+        content: "";
+        display: block;
+        width: 27px;
+        height: 2px;
+        background: $white;
+        left: -33px;
+        top: 50%;
+        position: absolute;
+      }
+
+}
+
+
+
+
+
 
 
 .mosa {

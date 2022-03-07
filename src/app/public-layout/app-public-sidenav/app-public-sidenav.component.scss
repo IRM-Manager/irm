@@ -1,14 +1,16 @@
 $white: #FFFFFF;
 $background: transparent linear-gradient(180deg, #47A83E 0%, #2AA977 100%) 0% 0% no-repeat padding-box;;
+$border-right: #F5F7FA;
 
 mat-sidenav-container {
     height: 100%;
 }
 
 mat-sidenav {
-    width: 250px;
+    width: 320px;
     overflow-x: hidden;
     background: $background;
+    border-right: 40px solid $border-right;
     opacity: 1;
     color: $white;
 }
