@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
         this.disabled = false;
         if (data) {
           this.router.navigate(['/dashboard']);
-          this.snackBar.open('success', "x", {
+          this.snackBar.open('success', "", {
             duration: 3000,
             panelClass: "success"
           });

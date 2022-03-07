@@ -9,8 +9,6 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { ToggleNavService } from '../public-layout/sharedService/toggle-nav.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -32,13 +30,13 @@ export class AuthService {
             mapTo(true),
             catchError((error: any) => {
                 if(error.status === 401) {
-                  this.snackBar.open("wrong username or password", "x", {
+                  this.snackBar.open("wrong username or password", "", {
                   duration: 5000,
                   panelClass: "error"
                 });
                 }
                 else if(error.status === 0) {
-                  this.snackBar.open('error', "x", {
+                  this.snackBar.open('error', "", {
                     duration: 5000,
                     panelClass: "error"
                   });
@@ -48,36 +46,29 @@ export class AuthService {
           );
     }
   
-    // isLoggedIn() {
-    //   return !!this.getJwtToken();
-    // }
+
+    // check if user is login
+    isLoggedIn() {
+      return !!this.getJwtToken();
+    }
   
-    // refreshToken() {
 
-    //   const httpOptions = {
-    //     headers: {
-    //       'Authorization': `Bearer ${this.getRefreshToken()}`
-    //     }
-    //   };
-
-    //   return this.http.post<any>(`${ApiUrl + 'RefreshToken'}`, '', httpOptions)
-    //   .subscribe(token => {
-    //     if(token.msg2) {
-    //       this.snackBar.open(flash.try_again, "x", {
-    //         duration: 5000,
-    //         panelClass: "warning",
-    //         verticalPosition: 'top',
-    //       });
-    //     }
-    //     else {
-    //       this.storeJwtToken(token.access);
-    //     }
-        
-    //   },
-    //   err => {
-       
-    //   })
-    // }
+    // refresh token 
+    refreshToken() {
+      const httpOptions = {
+        headers: {
+          'Authorization': `Bearer ${this.getRefreshToken()}`
+        }
+      };
+      return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', '', httpOptions)
+      .pipe(
+        tap((tokens: any) => {this.storeJwtToken(tokens.access);}),
+          mapTo(true),
+          catchError((error: any) => {
+            return of(false);
+          })
+        );
+    }
 
   
   // checkToken() {
@@ -102,17 +93,17 @@ export class AuthService {
   //   }
 
   // }
-
-
+  
     getJwtToken(): any {
       return localStorage.getItem(this.JWT_TOKEN);
     }
-  
+
+    // logout user
     public logout() {
       this.removeTokens();
     }
-  
-    private getRefreshToken(): any {
+
+    getRefreshToken(): any {
       return localStorage.getItem(this.REFRESH_TOKEN);
     }
   

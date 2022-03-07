@@ -1,21 +1,29 @@
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, map, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-app-public-sidenav',
   templateUrl: './app-public-sidenav.component.html',
-  styleUrls: ['./app-public-sidenav.component.css']
+  styleUrls: ['./app-public-sidenav.component.scss']
 })
 export class AppPublicSidenavComponent implements OnInit {
 
   headeropened = false;
   windowScrolled?: boolean;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   @ViewChild('scroll')
   div!: ElementRef;
 
-  constructor(private router: Router,
+  constructor(private router: Router, private breakpointObserver: BreakpointObserver
     //  @Inject(DOCUMENT) private document: Document
      ) {
   }

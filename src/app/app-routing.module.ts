@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { IsLoggedInGuard } from './guards/IsloggedIn.guards';
+import { LoginGuard } from './guards/login.guards';
+import { SignupGuard } from './guards/signup.guards';
 import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component'
 import { DefaultLayoutComponent } from './default-layout/default-layout.component'
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
@@ -8,9 +10,17 @@ import { NetworkAwarePreloadingStrategyService2Service } from './services/networ
 
 const routes: Routes = [{
   path: '', component: DefaultLayoutComponent, children: [
-    {path: '', loadChildren: () => import('./public-layout/home/home.module').then(m => m.HomeModule)},
-    {path: 'home', loadChildren: () => import('./public-layout/home/home.module').then(m => m.HomeModule)},
-    {path: 'dashboard', loadChildren: () => import('./public-layout/dashboard/dashboard.module').then(m => m.DashboardModule) },
+    {path: '', loadChildren: () => import('./public-layout/home/home.module').then(m => m.HomeModule),
+      canActivate: [LoginGuard],
+      // canLoad: [SignupGuard],
+    },
+    {path: 'home', loadChildren: () => import('./public-layout/home/home.module').then(m => m.HomeModule),
+      canActivate: [LoginGuard],
+      // canLoad: [SignupGuard],
+    },
+    {path: 'dashboard', loadChildren: () => import('./public-layout/dashboard/dashboard.module').then(m => m.DashboardModule),
+      canLoad: [IsLoggedInGuard]
+    },
      
   ]},
   {

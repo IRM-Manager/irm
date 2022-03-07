@@ -6,7 +6,7 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 @Component({
   selector: 'app-app-public-sidenav-list',
   templateUrl: './app-public-sidenav-list.component.html',
-  styleUrls: ['./app-public-sidenav-list.component.css']
+  styleUrls: ['./app-public-sidenav-list.component.scss']
 })
 export class AppPublicSidenavListComponent implements OnInit {
 
