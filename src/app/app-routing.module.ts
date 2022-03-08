@@ -31,7 +31,6 @@ const routes: Routes = [
     { path: 'dashboard/taxpayer', loadChildren: () => import('./public-layout/individual/individual.module').then(m => m.IndividualModule),
         canLoad: [IsLoggedInGuard]
     },
-
     { path: 'dashboard/taxpayer/individual', loadChildren: () => import('./public-layout/individual2/individual2.module').then(m => m.Individual2Module),
         canLoad: [IsLoggedInGuard]
     },

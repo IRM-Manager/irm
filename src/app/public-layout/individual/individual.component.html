@@ -1,7 +1,9 @@
 <div class="header">
-    <button mat-button class="individual">Tax Registration of Individual</button>
-    <button mat-button class="individual2">Tax Registration of Business</button>
-    <button mat-button class="create">Create</button>
-
-    <div class="test">dsdds</div>
+    <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
+        Tax Registration of Individual
+    </button>
+    <button (click)="changeActive('com')" mat-button class="individual2" [class.active]="active == 'com'">
+        Tax Registration of Business
+    </button>
+    <button mat-button class="create" (click)="redirectActive()">Create</button>
 </div>

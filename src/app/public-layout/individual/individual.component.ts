@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-individual',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndividualComponent implements OnInit {
 
-  constructor() { }
+  active: string = 'ind';
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
+
+  changeActive(type: string) {
+    this.active = type;
+  }
+
+  redirectActive() {
+    if (this.active == 'ind') {
+      this.router.navigate(['/dashboard/taxpayer/individual'])
+    }
+    else {
+      this.router.navigate(['/dashboard/taxpayer/business'])
+    }
+  }
+
 
 }

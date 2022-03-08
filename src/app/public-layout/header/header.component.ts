@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
@@ -20,12 +20,13 @@ export class HeaderComponent implements OnInit {
   type: any;
 
   constructor(private dialog: MatDialog, private shared: ToggleNavService, private authService: AuthService,
-    private router: Router, private snackBar: MatSnackBar, private httpService: HttpService,
-    private direct: ActivatedRoute) {
+    private router: Router, private snackBar: MatSnackBar, private httpService: HttpService) {
 
-      this.direct.paramMap.subscribe(params => {
-        this.currentRoute();
-      })
+      this.router.events.subscribe((ev) => {
+        if (ev instanceof NavigationEnd) { 
+          this.currentRoute();
+        }
+      });
 
   }
 
@@ -36,7 +37,7 @@ export class HeaderComponent implements OnInit {
       this.left_text2 = "Check all the list of registered member";
     }
     else if (this.router.url === "/dashboard/taxpayer/individual"){
-      this.type == "reg_tax";
+      this.type = "reg_tax";
       this.left_text1 = "Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
     }
@@ -44,6 +45,11 @@ export class HeaderComponent implements OnInit {
       this.type = "reg_tax";
       this.left_text1 = "Non - Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
+    }
+    else if (this.router.url === "/dashboard"){
+      this.type = "tax";
+      this.left_text1 = "Dashboard";
+      this.left_text2 = "Dashboard";
     }
     else {
       this.type = "tax";
@@ -56,23 +62,23 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  // limit(title: any, limit = 15) {
-  //   if(title === undefined) {
-  //     return ''
-  //   }else {
-  //   const newTitle: any = [];
-  //   if(title.length > limit) {
-  //     title.split('').reduce((acc: any, cur: any) => {
-  //       if(acc + cur.length <= limit) {
-  //         newTitle.push(cur);
-  //       }
-  //       return acc + cur.length;
-  //     }, 0);
-  //     return `${newTitle.join('')}...`;
-  //   }
-  //   return title;
-  // }
-  // }
+  limit(title: any, limit = 11) {
+    if(title === undefined) {
+      return ''
+    }else {
+    const newTitle: any = [];
+    if(title.length > limit) {
+      title.split('').reduce((acc: any, cur: any) => {
+        if(acc + cur.length <= limit) {
+          newTitle.push(cur);
+        }
+        return acc + cur.length;
+      }, 0);
+      return `${newTitle.join('')}...`;
+    }
+    return title;
+  }
+  }
 
   logout() {
     this.authService.logout()

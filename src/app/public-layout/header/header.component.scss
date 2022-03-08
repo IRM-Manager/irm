@@ -1,4 +1,5 @@
 $nav-color: #45A841 0% 0% no-repeat padding-box;
+$nav-color2: transparent linear-gradient(142deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
 $white: #FFFFFF;
 $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
@@ -6,6 +7,10 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
 .nav {
     background: $nav-color;
+}
+
+.nav2 {
+    background: $nav-color2
 }
 
 mat-toolbar {
