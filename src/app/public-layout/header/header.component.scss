@@ -1,0 +1,49 @@
+$nav-color: #45A841 0% 0% no-repeat padding-box;
+$white: #FFFFFF;
+
+mat-toolbar {
+    background: $nav-color;
+    color: $white;
+    opacity: 1;
+}
+
+.spacer {
+    flex: 1 1 auto;
+} 
+
+.left_text1 {
+    font-size: small;
+}
+
+mat-icon {
+    font-size: 50px;
+}
+
+.d-h-l {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+
+.category {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    align-items: initial;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.category-icon {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    
+}
+

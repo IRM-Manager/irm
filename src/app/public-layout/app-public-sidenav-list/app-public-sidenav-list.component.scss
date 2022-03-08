@@ -5,6 +5,7 @@ $panel-text2-active: #FFFFFF 0% 0% no-repeat padding-box;
 
 .wrapper {
     color: $white;
+    overflow-y: auto;
 
     %shared-dash-text {
         font: $panel-text;
@@ -124,7 +125,6 @@ $panel-text2-active: #FFFFFF 0% 0% no-repeat padding-box;
             color: $white;
             font-weight: 400;
             margin-left: 20px;
-            opacity: 1;
         }
 
         .panel_text:active {
