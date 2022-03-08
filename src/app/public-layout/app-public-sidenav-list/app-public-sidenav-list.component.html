@@ -23,8 +23,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <span class="vertical"></span>
-            <p class="panel_text" [routerLink]="['/dashboard/taxpayer']" routerLinkActive="active">Individual TaxPayer</p>
-            <p class="panel_text">Non - Individual TaxPayer</p>
+            <p class="panel_text" [routerLink]="['/dashboard/taxpayer/ind']" routerLinkActive="active">Individual TaxPayer</p>
+            <p class="panel_text" [routerLink]="['/dashboard/taxpayer/non']" routerLinkActive="active">Non - Individual TaxPayer</p>
         </mat-expansion-panel>
 
         <mat-expansion-panel (opened)="panelOpenState = true"

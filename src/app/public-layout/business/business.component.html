@@ -1,8 +1,8 @@
 <div class="header">
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="cac-width" appearance="outline">
-            <mat-label>(NIN/BVN)</mat-label>
-            <input matInput formControlName="nin" placeholder="">
+            <mat-label>CAC Registration number</mat-label>
+            <input matInput formControlName="cac" placeholder="">
         </mat-form-field>
         <button mat-button class="verify" type="submit">Verify</button>
     </form>

@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
       this.left_text2 = "Check all the list of registered member";
     }
     else if (this.router.url === "/dashboard/taxpayer/individual"){
-      this.type = "reg_tax";
+      this.type = "tax";
       this.left_text1 = "Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
     }

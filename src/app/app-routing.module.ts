@@ -28,13 +28,18 @@ const routes: Routes = [
     {path: 'dashboard', loadChildren: () => import('./public-layout/dashboard/dashboard.module').then(m => m.DashboardModule),
       canLoad: [IsLoggedInGuard]
     },
+    { path: 'dashboard/taxpayer/:id', loadChildren: () => import('./public-layout/individual/individual.module').then(m => m.IndividualModule),
+        canLoad: [IsLoggedInGuard]
+    },
     { path: 'dashboard/taxpayer', loadChildren: () => import('./public-layout/individual/individual.module').then(m => m.IndividualModule),
         canLoad: [IsLoggedInGuard]
     },
-    { path: 'dashboard/taxpayer/individual', loadChildren: () => import('./public-layout/individual2/individual2.module').then(m => m.Individual2Module),
+    { path: 'dashboard/taxpayer/ind/individual', loadChildren: () => import('./public-layout/individual2/individual2.module').then(m => m.Individual2Module),
         canLoad: [IsLoggedInGuard]
     },
-     
+    { path: 'dashboard/taxpayer/non/business', loadChildren: () => import('./public-layout/business/business.module').then(m => m.BusinessModule),
+        canLoad: [IsLoggedInGuard]
+    },
   ]},
   {
     path: '', component: DashboardLayoutComponent, children: [

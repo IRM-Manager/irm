@@ -9,6 +9,14 @@ export interface Tokens {
     refresh: string;
 }
 
+export interface CAC {
+    cac: string;
+}
+
+export interface NIN {
+    nin: string;
+}
+
 // export interface forgetPassword {
 //     email: string; 
 // }

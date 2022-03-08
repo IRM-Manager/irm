@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NIN } from '../shared/form';
+import { CAC } from '../shared/form';
 
 @Component({
-  selector: 'app-individual2',
-  templateUrl: './individual2.component.html',
+  selector: 'app-business',
+  templateUrl: './business.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./individual2.component.scss']
+  styleUrls: ['./business.component.scss']
 })
-export class Individual2Component implements OnInit {
+export class BusinessComponent implements OnInit {
 
   @ViewChild('fform') feedbackFormDirective: any;
   feedbackForm: any = FormGroup;
-  feedback!: NIN;
+  feedback!: CAC;
   loading = false;
   disabled = false;
 
@@ -32,7 +32,7 @@ export class Individual2Component implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
-        nin: ['']
+        cac: ['']
       },
     );
 
@@ -70,7 +70,7 @@ export class Individual2Component implements OnInit {
     this.feedback = this.feedbackForm.value;
 
     const data = {
-        cac: this.feedback.nin,
+        cac: this.feedback.cac,
     }
     console.log(this.feedback)
     // perform login

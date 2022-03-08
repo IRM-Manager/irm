@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-individual',
@@ -8,9 +8,25 @@ import { Router } from '@angular/router';
 })
 export class IndividualComponent implements OnInit {
 
-  active: string = 'ind';
+  active: any = 'ind';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private direct: ActivatedRoute) {
+    this.direct.paramMap.subscribe(params => {
+      if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
+        this.active = 'ind'
+      }
+      else if  (params.get('id') == 'non') {
+        this.active = 'com'
+      }
+      else if  (params.get('id') == 'ind') {
+        this.active = 'ind'
+      }
+      else {
+        this.active = 'ind'
+      }
+      
+    })
+  }
 
   ngOnInit(): void {
   }
@@ -21,10 +37,10 @@ export class IndividualComponent implements OnInit {
 
   redirectActive() {
     if (this.active == 'ind') {
-      this.router.navigate(['/dashboard/taxpayer/individual'])
+      this.router.navigate(['/dashboard/taxpayer/ind/individual'])
     }
     else {
-      this.router.navigate(['/dashboard/taxpayer/business'])
+      this.router.navigate(['/dashboard/taxpayer/non/business'])
     }
   }
 
