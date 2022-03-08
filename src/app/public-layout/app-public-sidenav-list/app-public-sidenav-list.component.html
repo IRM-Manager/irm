@@ -1,10 +1,15 @@
 <div class="wrapper">
 
     <div class="button">
-        <p class="dash-text" [routerLink]="['/dashboard']" routerLinkActive="panel-active">
+
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/dashboard']" src="assets/images/side_nav_logo.svg" alt="IRM">
+        </div>
+
+        <p class="dash-text" [routerLink]="['/dashboard']" routerLinkActive="active">
             Dashboard
         </p>
-        <p class="dash-text" [routerLink]="['/notification']" routerLinkActive="panel-active">
+        <p class="dash-text2" [routerLink]="['/notification']" routerLinkActive="active">
             Notification
         </p>
     </div>
@@ -18,7 +23,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <span class="vertical"></span>
-            <p class="panel_text">Individual TaxPayer</p>
+            <p class="panel_text" [routerLink]="['/dashboard']" routerLinkActive="active">Individual TaxPayer</p>
             <p class="panel_text">Non - Individual TaxPayer</p>
         </mat-expansion-panel>
 
@@ -50,7 +55,7 @@
             <p class="panel_text">Vehicle</p>
             <p class="panel_text">Land</p>
             <p class="panel_text">Building</p>
-            <p class="panel_text">Business</p>
+            <p class="panel_text">Businesses</p>
         </mat-expansion-panel>
 
         <mat-expansion-panel (opened)="panelOpenState = true"
