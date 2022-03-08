@@ -1,49 +1,77 @@
 $nav-color: #45A841 0% 0% no-repeat padding-box;
 $white: #FFFFFF;
+$text1-font: normal normal 15px/19px Montserrat;
+$text2-font: normal normal 300 12px/15px Montserrat;
+$right1-font: normal normal 400 15px/19px Montserrat;
+
+.nav {
+    background: $nav-color;
+}
 
 mat-toolbar {
-    background: $nav-color;
     color: $white;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
     opacity: 1;
+
+    @mixin theme($theme) {
+        letter-spacing: 0px;
+        font: $theme;
+    }
+
+    .spacer {
+        flex: 1 1 auto;
+    } 
+
+    .left_text1 {  
+        @include theme($theme: $text1-font);
+        font-weight: bold;
+    }
+
+    .left_text2 {  
+        @include theme($theme: $text2-font);
+        margin-top: 2px;
+    }
+
+    .right_text1 {  
+        @include theme($theme: $right1-font);
+    }
+
+    .right_text2 {  
+        @include theme($theme: $text1-font);
+        font-weight: bold;
+    }
+
+    mat-icon {
+        font-size: 50px;
+    }
+
+    .d-h-l {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-right: 2rem;
+    }
+
+
+    .category {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        justify-content: center;
+        align-items: initial;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .category-icon {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-right: 10px;
+        margin-top: auto;
+        margin-bottom: auto;
+        
+    }
+
 }
-
-.spacer {
-    flex: 1 1 auto;
-} 
-
-.left_text1 {
-    font-size: small;
-}
-
-mat-icon {
-    font-size: 50px;
-}
-
-.d-h-l {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-right: 2rem;
-}
-
-
-.category {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: center;
-    align-items: initial;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.category-icon {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-right: 10px;
-    margin-top: auto;
-    margin-bottom: auto;
-    
-}
-

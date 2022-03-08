@@ -1,8 +1,8 @@
-<mat-toolbar class="nav">
+<mat-toolbar class="nav" *ngIf="type == 'tax'">
 
     <div class="left">
-        <div class="left_text1">dsss</div>
-        <div class="left_text2">dsds</div>
+        <div class="left_text1">Taxpayer Registration</div>
+        <div class="left_text2">Check all the list of registered member</div>
     </div>
 
     <span class="spacer"></span>   
@@ -10,8 +10,30 @@
     <div class="d-h-l">
         <div class="category">
             <div>
-                <div class="right_text1">Total Revenue</div>
-                <div class="right_text2">ddsds</div>
+                <div class="right_text1">Welcome, Admin</div>
+                <div class="right_text2">Becky Taiwo</div>
+            </div>
+            <mat-icon class="category-icon">perm_identity</mat-icon>
+        </div>
+    </div>    
+  
+</mat-toolbar>
+
+<!-- nav2 -->
+<mat-toolbar class="nav2" *ngIf="type == 'reg_tax'">
+
+    <div class="left">
+        <div class="left_text1">Taxpayer Registration</div>
+        <div class="left_text2">Check all the list of registered member</div>
+    </div>
+
+    <span class="spacer"></span>   
+
+    <div class="d-h-l">
+        <div class="category">
+            <div>
+                <div class="right_text1">Welcome, Admin</div>
+                <div class="right_text2">Becky Taiwo</div>
             </div>
             <mat-icon class="category-icon">perm_identity</mat-icon>
         </div>

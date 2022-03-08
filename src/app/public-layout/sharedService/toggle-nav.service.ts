@@ -19,19 +19,16 @@ export class ToggleNavService {
     this.subject.next(null);
   }
 
-
   getClickEvent():Observable<any> {
     return this.subject.asObservable();
   }
 
-
-
-  shoppingClickEvent() {
+  sendHeaderClickEvent(data: any) {
     this.subject3.next(null);
+    return data
   }
 
-
-  getShoppingClickEvent():Observable<any> {
+  getHeaderClickEvent(data: any):Observable<any> {
     return this.subject3.asObservable();
   }
 

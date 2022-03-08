@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { login } from '../shared/form';
+import { login } from '../public-layout/shared/form';
 
 @Component({
   selector: 'app-home',
