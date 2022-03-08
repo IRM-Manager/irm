@@ -15,7 +15,7 @@ $label-color: #565656;
     // background: $header-back;
     border: $header-color;
     // opacity: 0.05;
-    padding: 1em;
+    padding: 1em 1em 0 1em;
     margin-top: 1rem;
 
     @mixin theme($back, $color, $font, $border) {
@@ -25,12 +25,9 @@ $label-color: #565656;
         border: $border;
         color: $color;
         opacity: 1;
-        padding: 1rem;
+        // padding: 1rem;
     }
 
-    .individual {
-        @include theme($back: $ind-back, $color: $ind-color, $font: $ind-font, $border: $ind-border);
-    }
 
     .verify {
         margin-left: 20px;
