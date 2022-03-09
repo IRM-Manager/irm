@@ -15,6 +15,16 @@ export class Individual2Component implements OnInit {
   feedback!: NIN;
   loading = false;
   disabled = false;
+  forms1 = ['title', 'firstname', 'middlename', 'surname']
+  forms2 = ['gender', 'birth', 'place', 'state']
+  forms3 = ['lga', 'nationality', 'trade', 'employment']
+  forms4 = ['contact', 'contact_email']
+  forms5 = ['house', 'street']
+  forms6 = ['state_red', 'lga_red', 'zipcode']
+  forms7 = ['employed', 'unemployed', 'retired']
+  forms8 = ['com_name']
+  forms9 = ['com_house', 'company_street']
+  forms10 = ['com_country', 'com_state', 'com_lga', 'com_zipcode']
 
   formErrors: any = {
   };
