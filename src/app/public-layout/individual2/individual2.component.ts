@@ -337,6 +337,7 @@ export class Individual2Component implements OnInit {
       (data: any) => {
         this.option = data.data;
         this.state = data.data;
+        this.filteredBanks.next(data.data);
         this.stateLoading = false;
       },
       (err: any) => {
@@ -353,6 +354,7 @@ export class Individual2Component implements OnInit {
     .subscribe(
       (data: any) => {
         this.options2 = data.data;
+        this.filteredBanks2.next(data.data);
         this.lgaLoading = false;
       },
       (err: any) => {
