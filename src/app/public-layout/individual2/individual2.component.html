@@ -104,17 +104,18 @@
 
         <div class="session-header">Contact Information</div>
 
-        <p *ngFor="let form of forms4;">
-            <mat-form-field class="half-width" appearance="outline">
-                <!-- phone -->
-                <mat-label *ngIf="form=='contact'">Contact number</mat-label>
-                <input *ngIf="form=='contact'" matInput required>
-                <!-- email -->
-                <mat-label *ngIf="form=='contact_email'">Email Address</mat-label>
-                <input *ngIf="form=='contact_email'" matInput email required>
-                
-                <mat-error *ngIf="form=='contact'">{{formErrors.contact}}</mat-error>
-                <mat-error *ngIf="form=='contact_email'">{{formErrors.contact_email}}</mat-error>
+        <p style="margin-top: 1rem;">
+            <!-- phone -->
+            <mat-form-field class="half-width2" appearance="outline">
+                <mat-label>Contact number</mat-label>
+                <input matInput required>
+                <mat-error>{{formErrors.contact}}</mat-error>
+            </mat-form-field>
+            <!-- email -->
+            <mat-form-field class="half-full" appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput required>
+                <mat-error>{{formErrors.contact_email}}</mat-error>
             </mat-form-field>
         </p>  
 
@@ -127,38 +128,40 @@
     <div class="session-header">Section 2: Residential Address</div>
 
     <form class="form1">
-        <p *ngFor="let form of forms5;">
+        <p>
+            <!-- house -->
             <mat-form-field class="half-width" appearance="outline">
-                <!-- house -->
-                <mat-label *ngIf="form=='house'">House No.</mat-label>
-                <input *ngIf="form=='house'" matInput required>
-                <!-- street -->
-                <mat-label *ngIf="form=='street'">Estate/Street</mat-label>
-                <input *ngIf="form=='street'" matInput required>
-                
-                <mat-error *ngIf="form=='house'">{{formErrors.house}}</mat-error>
-                <mat-error *ngIf="form=='street'">{{formErrors.street}}</mat-error>
+                <mat-label>House No.</mat-label>
+                <input matInput required>
+                <mat-error>{{formErrors.house}}</mat-error>
+            </mat-form-field>
+            <!-- street -->
+            <mat-form-field class="full-half" appearance="outline">
+                <mat-label>Estate/Street</mat-label>
+                <input matInput required>
+                <mat-error>{{formErrors.street}}</mat-error>
             </mat-form-field>
         </p>
-        <p *ngFor="let form of forms6;">
-            <mat-form-field class="half-width" appearance="outline">
-                <!-- state_red -->
-                <mat-label *ngIf="form=='state_red'">State of Residence</mat-label>
-                <mat-select *ngIf="form=='state_red'" matInput required>
+        <p>
+            <!-- state_red -->
+            <mat-form-field class="half-width3" appearance="outline">
+                <mat-label>State of Residence</mat-label>
+                <mat-select matInput required>
                     <mat-option value="option">Option</mat-option>
                 </mat-select>
-                <!-- lga_red -->
-                <mat-label *ngIf="form=='lga_red'">LGA of Residence</mat-label>
-                <mat-select *ngIf="form=='lga_red'" matInput required>
-                    <mat-option value="option">Option</mat-option>
-                </mat-select>
-                <!-- zipcode -->
-                <mat-label *ngIf="form=='zipcode'">Zip Code</mat-label>
-                <input *ngIf="form=='zipcode'" matInput required>
-                
-                <mat-error *ngIf="form=='state_red'">{{formErrors.state_red}}</mat-error>
-                <mat-error *ngIf="form=='lga_red'">{{formErrors.lga_red}}</mat-error>
-                <mat-error *ngIf="form=='zipcode'">{{formErrors.zipcode}}</mat-error>
+                <mat-error>{{formErrors.state_red}}</mat-error>
+            </mat-form-field>
+            <!-- lga_red -->
+            <mat-form-field class="half-width3" appearance="outline">
+                <mat-label>LGA of Residence</mat-label>
+                <input matInput required>
+                <mat-error>{{formErrors.lga_red}}</mat-error>
+            </mat-form-field>
+            <!-- zipcode -->
+            <mat-form-field class="half-width3" appearance="outline">
+                <mat-label>Zip Code</mat-label>
+                <input matInput required>
+                <mat-error>{{formErrors.zipcode}}</mat-error>
             </mat-form-field>
         </p>
     </form>
@@ -169,13 +172,13 @@
     <div class="session-header">Section 3: Employment status</div>
 
     <form class="form1">
-        <div class="radio">
+        <p class="radio">
             <mat-radio-group>
                 <mat-radio-button value="employed">Employed</mat-radio-button>
                 <mat-radio-button value="unemployed" class="radio_button">Unemployed</mat-radio-button>
                 <mat-radio-button value="retired" class="radio_button">Retired</mat-radio-button>
             </mat-radio-group>
-        </div>
+        </p>
     </form>
 </div>
 
@@ -184,54 +187,56 @@
 <div class="session">
 
     <form class="form1">
-        <p *ngFor="let form of forms8;">
-            <mat-form-field class="half-width" appearance="outline">
-                <!-- com_name -->
-                <mat-label *ngIf="form=='com_name'">Business/Company name</mat-label>
-                <input *ngIf="form=='com_name'" matInput required>
-                
-                <mat-error *ngIf="form=='com_name'">{{formErrors.com_name}}</mat-error>
+        <p>
+            <!-- com_name -->
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Business/Company name</mat-label>
+                <input matInput>
             </mat-form-field>
         </p>
-        <p *ngFor="let form of forms9;">
+        <p>
+            <!-- com_house -->
             <mat-form-field class="half-width" appearance="outline">
-                <!-- com_house -->
-                <mat-label *ngIf="form=='com_house'">House No.</mat-label>
-                <input *ngIf="form=='com_house'" matInput required>
-                <!-- state_red -->
-                <mat-label *ngIf="form=='company_street'">Estate/Street address</mat-label>
-                <input *ngIf="form=='company_street'" matInput required>
-                
-                <mat-error *ngIf="form=='com_house'">{{formErrors.com_house}}</mat-error>
-                <mat-error *ngIf="form=='company_street'">{{formErrors.company_street}}</mat-error>
+                <mat-label>House No.</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <!-- state_red -->
+            <mat-form-field class="full-half" appearance="outline">
+                <mat-label>Estate/Street address</mat-label>
+                <input matInput>
             </mat-form-field>
         </p>
-        <p *ngFor="let form of forms10;">
+        <p>
+            <!-- com_country -->
             <mat-form-field class="half-width" appearance="outline">
-                <!-- com_country -->
-                <mat-label *ngIf="form=='com_country'">Country</mat-label>
-                <mat-select *ngIf="form=='com_country'" matInput required>
+                <mat-label>Country</mat-label>
+                <mat-select matInput>
                     <mat-option value="option">Option</mat-option>
                 </mat-select>
-                <!-- com_state -->
-                <mat-label *ngIf="form=='com_state'">State</mat-label>
-                <mat-select *ngIf="form=='com_state'" matInput required>
+            </mat-form-field>
+            <!-- com_state -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <!-- com_lga -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>LGA</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <!-- com_zipcode -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Zip Code</mat-label>
+                <mat-select matInput>
                     <mat-option value="option">Option</mat-option>
                 </mat-select>
-                <!-- com_lga -->
-                <mat-label *ngIf="form=='com_lga'">LGA</mat-label>
-                <mat-select *ngIf="form=='com_lga'" matInput required>
-                    <mat-option value="option">Option</mat-option>
-                </mat-select>
-                <!-- com_zipcode -->
-                <mat-label *ngIf="form=='com_zipcode'">Zip Code</mat-label>
-                <input *ngIf="form=='com_zipcode'" matInput required>
-                
-                <mat-error *ngIf="form=='com_country'">{{formErrors.com_country}}</mat-error>
-                <mat-error *ngIf="form=='com_state'">{{formErrors.com_state}}</mat-error>
-                <mat-error *ngIf="form=='com_lga'">{{formErrors.com_lga}}</mat-error>
-                <mat-error *ngIf="form=='com_zipcode'">{{formErrors.com_zipcode}}</mat-error>
             </mat-form-field>
         </p>
     </form>
+
+</div>
+
+<div class="final_submit">
+    <button mat-button class="verify2" (click)="back()">Back</button>
+    <button mat-button class="verify">Continue</button>
 </div>

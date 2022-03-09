@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NIN } from '../shared/form';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-individual2',
@@ -33,7 +34,7 @@ export class Individual2Component implements OnInit {
   };
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private _location: Location) {
     this.createForm();
   }
 
@@ -100,6 +101,10 @@ export class Individual2Component implements OnInit {
     //   }
     // )
     // end of subscribe
+  }
+
+  back() {
+    this._location.back();
   }
 
 }
