@@ -74,7 +74,7 @@
                         </ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id">
-                        <span>{{option.name}} ({{option.code}}) </span>
+                        <span>{{option.name}}</span>
                     </mat-option>
                 </mat-select>
                 <mat-error>{{formErrors.state}}</mat-error>
@@ -86,10 +86,19 @@
             <!-- lga -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>LGA</mat-label>
-                <mat-select matInput formControlName="lga" required>
-                    <mat-option value="option">Option</mat-option>
+                <mat-select matInput formControlName="lga" #singleSelect required>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredBanks2 | async" [value]="option.id">
+                        <span>{{option.name}}</span>
+                    </mat-option>
                 </mat-select>
                 <mat-error>{{formErrors.lga}}</mat-error>
+                <mat-hint *ngIf="!lga">Select state to get LGA</mat-hint>
+                <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" *ngIf="lgaLoading">Loading...</mat-hint>
             </mat-form-field>
             <!-- nationality -->
             <mat-form-field class="half-width" appearance="outline">
@@ -115,7 +124,7 @@
             </mat-form-field>
         </p>
 
-        <div class="session-header">Contact Information</div>
+        <div class="session-header" style="margin-top: 30px;">Contact Information</div>
 
         <p style="margin-top: 1rem;">
             <!-- phone -->
@@ -169,6 +178,7 @@
                 <mat-label>LGA of Residence</mat-label>
                 <input matInput formControlName="lga_red" required>
                 <mat-error>{{formErrors.lga_red}}</mat-error>
+                <mat-hint>Select state to get LGA</mat-hint>
             </mat-form-field>
             <!-- zipcode -->
             <mat-form-field class="half-width3" appearance="outline">
@@ -204,43 +214,46 @@
             <!-- com_name -->
             <mat-form-field class="full" appearance="outline">
                 <mat-label>Business/Company name</mat-label>
-                <input matInput>
+                <input matInput formControlName="com_name">
             </mat-form-field>
         </p>
         <p>
             <!-- com_house -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>House No.</mat-label>
-                <input matInput>
+                <input matInput formControlName="com_house">
             </mat-form-field>
             <!-- state_red -->
             <mat-form-field class="full-half" appearance="outline">
                 <mat-label>Estate/Street address</mat-label>
-                <input matInput>
+                <input matInput formControlName="company_street">
             </mat-form-field>
         </p>
         <p>
             <!-- com_country -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Country</mat-label>
-                <mat-select matInput>
+                <mat-select matInput formControlName="com_country">
                     <mat-option value="nigeria">Nigeria</mat-option>
                 </mat-select>
             </mat-form-field>
             <!-- com_state -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>State</mat-label>
-                <input matInput>
+                <mat-select matInput formControlName="com_state" required>
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
             </mat-form-field>
             <!-- com_lga -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>LGA</mat-label>
-                <input matInput>
+                <input matInput formControlName="com_lga">
+                <mat-hint>Select state to get LGA</mat-hint>
             </mat-form-field>
             <!-- com_zipcode -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Zip Code</mat-label>
-                <mat-select matInput>
+                <mat-select matInput formControlName="com_zipcode">
                     <mat-option value="option">Option</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -249,7 +262,7 @@
              <!-- username -->
              <mat-form-field class="half-width2" appearance="outline">
                 <mat-label>Username</mat-label>
-                <input matInput required>
+                <input matInput required formControlName="username">
                 <mat-error>{{formErrors.username}}</mat-error>
             </mat-form-field>
         </p>

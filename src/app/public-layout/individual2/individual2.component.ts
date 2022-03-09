@@ -46,6 +46,10 @@ export class Individual2Component implements OnInit {
   protected _onDestroy = new Subject<void>();
   stateError: boolean = false;
   stateLoading = false;
+  lgaError: boolean = false;
+  lgaLoading = false;
+  state: any;
+  lga: any;
 
   formErrors: any = {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
@@ -122,6 +126,7 @@ export class Individual2Component implements OnInit {
     this.createForm1();
     this.createForm2();
     this.createForm3();
+    this.trackCountryField();
   }
 
   createForm() {
@@ -312,12 +317,26 @@ export class Individual2Component implements OnInit {
     this._location.back();
   }
 
+  trackCountryField(): void {
+    this.feedbackForm1.get('state')
+      .valueChanges
+      .subscribe((field: string) => {
+        if(field === undefined) {
+        }else {
+          let coun = this.state.filter((name: any) => name.id===field )
+          this.lga = coun[0]
+          this.AddLga(coun[0].id);
+        }
+      }); 
+  }
+
   AddState() {
     this.stateLoading = true;
     this.httpService.state('state', 1)
     .subscribe(
       (data: any) => {
         this.option = data.data;
+        this.state = data.data;
         this.stateLoading = false;
       },
       (err: any) => {
@@ -326,7 +345,22 @@ export class Individual2Component implements OnInit {
       }
     )
     // end of subscribe
+  }
 
+  AddLga(id: number) {
+    this.lgaLoading = true;
+    this.httpService.state('lga', id)
+    .subscribe(
+      (data: any) => {
+        this.options2 = data.data;
+        this.lgaLoading = false;
+      },
+      (err: any) => {
+        this.lgaLoading = false;
+        this.lgaError = true;
+      }
+    )
+    // end of subscribe
   }
 
   ngOnInit(): void {
