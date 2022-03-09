@@ -78,3 +78,46 @@ export interface Individual3 {
 // export interface voucher {
 //     coupon: string;
 // }
+
+
+
+export interface stateLogo {
+    id: any;
+    name: any;
+    code: any;
+}
+
+
+
+export interface lgaLogo {
+    id: any;
+    name: any;
+    code: any;
+}
+
+
+export let OPTIONS = [
+    {
+        id: "",
+        name: "",
+        code: "",
+    }
+];
+
+
+export let STATE = [
+    {
+        id: "",
+        name: "",
+        code: "",
+    }
+];
+
+
+export let LGA = [
+    {
+        id: "",
+        name: "",
+        code: "",
+    }
+];

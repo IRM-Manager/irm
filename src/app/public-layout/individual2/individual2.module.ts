@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     ReactiveFormsModule,
     MatSelectModule,
     MatRadioModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class Individual2Module { }

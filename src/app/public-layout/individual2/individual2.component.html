@@ -68,10 +68,18 @@
             <!-- state -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>State of Origin</mat-label>
-                <mat-select matInput formControlName="state" required>
-                    <mat-option value="option">Option</mat-option>
+                <mat-select matInput formControlName="state" #singleSelect required>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching" placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id">
+                        <span>{{option.name}} ({{option.code}}) </span>
+                    </mat-option>
                 </mat-select>
                 <mat-error>{{formErrors.state}}</mat-error>
+                <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" *ngIf="stateLoading">Loading...</mat-hint>
             </mat-form-field>
         </p>
         <p>
@@ -252,8 +260,7 @@
 <div class="final_submit">
     <button mat-button class="verify2" (click)="back()">Back</button>
     <button mat-button class="verify"
-        [disabled]="fform1.form.invalid && fform2.form.invalid && fform3.form.invalid
-        || disabled2 === true"
+        [disabled]="fform1.form.invalid || fform2.form.invalid || fform3.form.invalid || disabled2 === true"
         (click)="Submit()"
     >
         <span *ngIf="!loading2">Continue</span>

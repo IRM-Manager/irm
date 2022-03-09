@@ -197,13 +197,13 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
         background: $radio-color;
     }
 
-    ::ng-deep .mat-calendar-body-selected {
-        background-color: $back-color;
-    }
+    // ::ng-deep .mat-calendar-body-selected {
+    //     background-color: $back-color;
+    // }
 
-    ::ng-deep .mat-calendar-body-selected:hover {
-        background-color: $header-color;
-    }
+    // ::ng-deep .mat-calendar-body-selected:hover {
+    //     background-color: $header-color;
+    // }
 
 }
 
@@ -219,7 +219,6 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
     padding: 1rem;
 }
 
-
 .final_submit {
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -229,6 +228,10 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
     width: 150px;
     font-weight: 500;
     @include theme($back: $continue-back, $color: $white, $font: $ind-font, $border: unset);
+}
+
+.verify:disabled{
+    color: $white;
 }
 
 .verify2 {

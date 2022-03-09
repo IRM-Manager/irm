@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Individual1, Individual2, Individual3, NIN } from '../shared/form';
+import { Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
 import {Location} from '@angular/common';
+import { debounceTime, delay, filter, map, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-individual2',
@@ -31,6 +33,19 @@ export class Individual2Component implements OnInit {
 
   loading2 = false;
   disabled2 = false;
+
+  bankCtrl: FormControl = new FormControl();
+  bankCtrl2: FormControl = new FormControl();
+  filteredBanks: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(1);
+  filteredBanks2: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
+  option = STATE;
+  options2 = LGA;
+  searching = false;
+  searching2 = false;
+  searchError!: string;
+  protected _onDestroy = new Subject<void>();
+  stateError: boolean = false;
+  stateLoading = false;
 
   formErrors: any = {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
@@ -101,14 +116,12 @@ export class Individual2Component implements OnInit {
   };
 
 
-  constructor(private fb: FormBuilder, private _location: Location) {
+  constructor(private fb: FormBuilder, private _location: Location,
+    private httpService: HttpService) {
     this.createForm();
     this.createForm1();
     this.createForm2();
     this.createForm3();
-  }
-
-  ngOnInit(): void {
   }
 
   createForm() {
@@ -298,5 +311,89 @@ export class Individual2Component implements OnInit {
   back() {
     this._location.back();
   }
+
+  AddState() {
+    this.stateLoading = true;
+    this.httpService.state('state', 1)
+    .subscribe(
+      (data: any) => {
+        this.option = data.data;
+        this.stateLoading = false;
+      },
+      (err: any) => {
+        this.stateLoading = false;
+        this.stateError = true;
+      }
+    )
+    // end of subscribe
+
+  }
+
+  ngOnInit(): void {
+
+    this.AddState();
+
+    this.bankCtrl.valueChanges
+      .pipe(
+        filter(search => !!search),
+        tap(() => this.searching = true),
+        takeUntil(this._onDestroy),
+        debounceTime(200),
+        map(searchC => {
+          const filterValue = searchC.toLowerCase();
+          if (!this.option) {
+            return [];
+          }
+          // simulate server fetching and filtering data
+          // return this.option.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
+          return this.option.filter((bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1);
+        }),
+        delay(100),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe(filteredBanks => {
+        this.searching = false;
+        this.filteredBanks.next(filteredBanks);
+      },
+        error => {
+          // no errors in our simulated example
+          this.searching = false;
+          // handle error...
+        });
+
+
+      // 2
+      this.bankCtrl2.valueChanges
+      .pipe(
+        filter(search => !!search),
+        tap(() => this.searching2 = true),
+        takeUntil(this._onDestroy),
+        debounceTime(200),
+        map(searchC => {
+          const filterValue = searchC.toLowerCase();
+          if (!this.options2) {
+            return [];
+          }
+          // simulate server fetching and filtering data
+          // return this.options2.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
+          return this.options2.filter((bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1);
+        }),
+        delay(100),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe(filteredBanks => {
+        this.searching2 = false;
+        this.filteredBanks2.next(filteredBanks);
+      },
+        error => {
+          // no errors in our simulated example
+          this.searching = false;
+          // handle error...
+        });
+
+        
+  }
+
+
 
 }
