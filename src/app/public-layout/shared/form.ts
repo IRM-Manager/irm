@@ -17,23 +17,45 @@ export interface NIN {
     nin: string;
 }
 
-// export interface forgetPassword {
-//     email: string; 
-// }
+export interface Individual1 {
+    title: string;
+    firstname: string;
+    middlename: string;
+    surname: string;
+    gender: string;
+    birth: string;
+    place: string;
+    state: string;
+    lga: string;
+    nationality: string;
+    trade: string;
+    employment: string;
+    contact: string;
+    contact_email: string;
+    // employed: string;
+    // unemployed: string;
+    // retired: string;
+}
+
+export interface Individual2 {
+    house: string;
+    street: string;
+    state_red: string;
+    lga_red: string;
+    zipcode: string;
+}
 
 
-// export interface forgetPassword2 {
-//     password: string;
-//     confirmPassword: string;
-// }
-
-
-
-// export interface changePassword {
-//     old_password: string;
-//     new_password: string;
-//     confirmPassword: string;
-// }
+export interface Individual3 {
+    com_name: string;
+    com_house: string;
+    company_street: string;
+    com_country: string;
+    com_state: string;
+    com_lga: string;
+    com_zipcode: string;
+    username: string;
+}
 
 
 // export interface register {
