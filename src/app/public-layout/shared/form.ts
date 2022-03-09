@@ -47,13 +47,13 @@ export interface Individual2 {
 
 
 export interface Individual3 {
-    com_name: string;
-    com_house: string;
-    company_street: string;
-    com_country: string;
-    com_state: string;
-    com_lga: string;
-    com_zipcode: string;
+    company_name: string;
+    company_house_no: string;
+    company_estate_street: string;
+    company_country: string;
+    company_state: string;
+    company_lga: string;
+    company_zipcode: string;
     username: string;
 }
 

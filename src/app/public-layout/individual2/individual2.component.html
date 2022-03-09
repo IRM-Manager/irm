@@ -54,15 +54,15 @@
             <!-- birth -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Date of Birth</mat-label>
-                <input matInput formControlName="birth" required>
+                <input matInput formControlName="birth" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
                 <mat-error>{{formErrors.birth}}</mat-error>
             </mat-form-field>
             <!-- place birth -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Place of Birth</mat-label>
-                <input matInput formControlName="place" [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput formControlName="place" required>
                 <mat-error>{{formErrors.place}}</mat-error>
             </mat-form-field>
             <!-- state -->
@@ -130,7 +130,7 @@
             <!-- phone -->
             <mat-form-field class="half-width2" appearance="outline">
                 <mat-label>Contact number</mat-label>
-                <input matInput formControlName="contact" required>
+                <input matInput formControlName="contact" type="tel" required>
                 <mat-error>{{formErrors.contact}}</mat-error>
             </mat-form-field>
             <!-- email -->
@@ -154,7 +154,7 @@
             <!-- house -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>House No.</mat-label>
-                <input matInput formControlName="house" required>
+                <input matInput formControlName="house" type="number" required>
                 <mat-error>{{formErrors.house}}</mat-error>
             </mat-form-field>
             <!-- street -->
@@ -168,26 +168,45 @@
             <!-- state_red -->
             <mat-form-field class="half-width3" appearance="outline">
                 <mat-label>State of Residence</mat-label>
-                <mat-select matInput formControlName="state_red" required>
-                    <mat-option value="option">Option</mat-option>
+                <mat-select matInput formControlName="state_red" #singleSelect required>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3" placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredBanks3 | async" [value]="option.id">
+                        <span>{{option.name}}</span>
+                    </mat-option>
                 </mat-select>
                 <mat-error>{{formErrors.state_red}}</mat-error>
+                <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" *ngIf="stateLoading2">Loading...</mat-hint>
             </mat-form-field>
             <!-- lga_red -->
             <mat-form-field class="half-width3" appearance="outline">
                 <mat-label>LGA of Residence</mat-label>
-                <input matInput formControlName="lga_red" required>
+                <mat-select matInput formControlName="lga_red" #singleSelect required>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="bankCtrl4" [searching]="searching4" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredBanks4 | async" [value]="option.id">
+                        <span>{{option.name}}</span>
+                    </mat-option>
+                </mat-select>
                 <mat-error>{{formErrors.lga_red}}</mat-error>
-                <mat-hint>Select state to get LGA</mat-hint>
+                <mat-hint *ngIf="!lga2">Select state to get LGA</mat-hint>
+                <mat-hint align="end" (click)="AddLga2(lga.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" *ngIf="lgaLoading2">Loading...</mat-hint>
             </mat-form-field>
             <!-- zipcode -->
             <mat-form-field class="half-width3" appearance="outline">
                 <mat-label>Zip Code</mat-label>
-                <input matInput formControlName="zipcode" required>
+                <input matInput formControlName="zipcode" type="number" required>
                 <mat-error>{{formErrors.zipcode}}</mat-error>
             </mat-form-field>
         </p>
     </form>
+    <div style="margin-top: 30px;"></div>
 </div>
 
 <!-- session3 -->
@@ -214,48 +233,64 @@
             <!-- com_name -->
             <mat-form-field class="full" appearance="outline">
                 <mat-label>Business/Company name</mat-label>
-                <input matInput formControlName="com_name">
+                <input matInput formControlName="company_name">
             </mat-form-field>
         </p>
         <p>
             <!-- com_house -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>House No.</mat-label>
-                <input matInput formControlName="com_house">
+                <input matInput formControlName="company_house_no" type="number">
             </mat-form-field>
             <!-- state_red -->
             <mat-form-field class="full-half" appearance="outline">
                 <mat-label>Estate/Street address</mat-label>
-                <input matInput formControlName="company_street">
+                <input matInput formControlName="company_estate_street">
             </mat-form-field>
         </p>
         <p>
             <!-- com_country -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Country</mat-label>
-                <mat-select matInput formControlName="com_country">
+                <mat-select matInput formControlName="company_country">
                     <mat-option value="nigeria">Nigeria</mat-option>
                 </mat-select>
             </mat-form-field>
             <!-- com_state -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>State</mat-label>
-                <mat-select matInput formControlName="com_state" required>
-                    <mat-option value="option">Option</mat-option>
+                <mat-select matInput formControlName="company_state" #singleSelect>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="bankCtrl5" [searching]="searching5" placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredBanks5 | async" [value]="option.id">
+                        <span>{{option.name}}</span>
+                    </mat-option>
                 </mat-select>
+                <mat-hint align="end" (click)="AddState()" *ngIf="stateError3 && !stateLoading3" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" *ngIf="stateLoading3">Loading...</mat-hint>
             </mat-form-field>
             <!-- com_lga -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>LGA</mat-label>
-                <input matInput formControlName="com_lga">
-                <mat-hint>Select state to get LGA</mat-hint>
+                <mat-select matInput formControlName="company_lga" #singleSelect>
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="bankCtrl6" [searching]="searching6" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredBanks6 | async" [value]="option.id">
+                        <span>{{option.name}}</span>
+                    </mat-option>
+                </mat-select>
+                <mat-hint *ngIf="!lga2">Select state to get LGA</mat-hint>
+                <mat-hint align="end" (click)="AddLga3(lga.id)" *ngIf="lgaError3 && !lgaLoading3" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" *ngIf="lgaLoading3">Loading...</mat-hint>
             </mat-form-field>
             <!-- com_zipcode -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Zip Code</mat-label>
-                <mat-select matInput formControlName="com_zipcode">
-                    <mat-option value="option">Option</mat-option>
-                </mat-select>
+                <input matInput formControlName="company_zipcode" type="number">
             </mat-form-field>
         </p>
         <p>
