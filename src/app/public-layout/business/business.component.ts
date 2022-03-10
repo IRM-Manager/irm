@@ -133,7 +133,8 @@ export class BusinessComponent implements OnInit {
     },
     'contact_email': {
       'required':      'required.',
-      'pattern':         'email not in valid format.'
+      'pattern':         'Not a valid email.',
+      'email':         'Not a valid email.'
     },
     'house': {
       'required':      'required.',
@@ -171,7 +172,8 @@ export class BusinessComponent implements OnInit {
     },
     'email': {
       'required':      'required.',
-      'pattern':         'email not in valid format.'
+      'pattern':         'Not a valid email.',
+      'email':         'Not a valid email.'
     },
   };
 
@@ -222,7 +224,7 @@ export class BusinessComponent implements OnInit {
         trade: ['', [Validators.required] ],
         employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
-        contact_email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
+        contact_email: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
         username: ['', [Validators.required] ],
       },
     );
@@ -255,7 +257,7 @@ export class BusinessComponent implements OnInit {
         num_emp: ['', [Validators.required]],
         date_est: ['', [Validators.required]],
         contact_num: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+        email: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
         alt_num: [''],
         website: [''],
       },

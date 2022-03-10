@@ -127,7 +127,8 @@ export class Individual2Component implements OnInit {
     },
     'contact_email': {
       'required':      'required.',
-      'pattern':         'email not in valid format.'
+      'pattern':         'email not in valid format.',
+      'email':         'Not a valid email'
     },
     'house': {
       'required':      'required.',
@@ -187,7 +188,7 @@ export class Individual2Component implements OnInit {
         trade: ['', [Validators.required] ],
         employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
-        contact_email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
+        contact_email: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
         username: ['', [Validators.required] ],
       },
     );
