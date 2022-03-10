@@ -39,7 +39,7 @@
             <!-- date_est -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Date of establishment</mat-label>
-                <input matInput formControlName="date_est" [matDatepicker]="picker2" required>
+                <input matInput formControlName="date_est" [matDatepicker]="picker2" placeholder="DD/MM/YY" required>
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-error>{{formErrors.date_est}}</mat-error>
@@ -127,7 +127,7 @@
                 </mat-select>
                 <mat-error>{{formErrors.lga_red}}</mat-error>
                 <mat-hint *ngIf="!lga2">Select state to get LGA</mat-hint>
-                <mat-hint align="end" (click)="AddLga2(lga.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;"><button>Reload</button></mat-hint>
+                <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;"><button>Reload</button></mat-hint>
                 <mat-hint align="end" *ngIf="lgaLoading2">Loading...</mat-hint>
             </mat-form-field>
             <!-- zipcode -->

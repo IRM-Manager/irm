@@ -19,8 +19,8 @@ export class LoginGuard implements CanActivate {
         duration: 5000,
         panelClass: "error"
       });
-      // this.router.navigate(['/dashboard']);
-      this._location.back();
+      this.router.navigate(['/dashboard']);
+      // this._location.back();
     }
     return !this.authService.isLoggedIn();
   }
