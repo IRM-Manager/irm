@@ -4,6 +4,7 @@ import { ReplaySubject, Subject, filter, tap, takeUntil, debounceTime, map, dela
 import { HttpService } from 'src/app/services/http.service';
 import {Location} from '@angular/common';
 import { Business, CAC, Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-business',
@@ -179,7 +180,7 @@ export class BusinessComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private _location: Location,
-    private httpService: HttpService) {
+    private httpService: HttpService, private snackBar: MatSnackBar) {
     this.createForm();
     this.createForm1();
     this.createForm2();
@@ -410,57 +411,65 @@ export class BusinessComponent implements OnInit {
 
 
   Submit() {
+    this.loading2 = true
+    this.disabled2 = true
+
     this.feedback1 = this.feedbackForm1.value
     this.feedback2 = this.feedbackForm2.value
     this.feedback3 = this.feedbackForm3.value
-    // let data = {
-    //     payer: {
-    //         address_state: this.feedback2.state_red,
-    //         address_lga: this.feedback2.lga_red
-    //     },
-    //     first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
-    //     surname: this.feedback1.surname, gender: this.feedback1.gender, dob: this.feedback1.birth, 
-    //     pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
-    //     nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
-    //     employment_category: this.feedback1.employment, phone: this.feedback1.contact,
-    //     email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
-    //     zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value,
-    //     company_name: this.feedback3.company_name, company_house_no: this.feedback3.company_house_no || "",
-    //     company_estate_street: this.feedback3.company_estate_street, company_state: this.feedback3.company_state,
-    //     company_lga: this.feedback3.company_lga, company_zipcode: this.feedback3.company_zipcode || "",
-    //     company_country: this.feedback3.company_country
+    let data = {
+        payer: {
+            address_state: this.feedback2.state_red,
+            address_lga: this.feedback2.lga_red
+        },
+        directors_info: {
+          first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+          surname: this.feedback1.surname, gender: this.feedback1.gender, dob: this.feedback1.birth, 
+          pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
+          nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade,
+          employment_category: this.feedback1.employment,  dir_phone: this.feedback1.contact, 
+          dir_email: this.feedback1.contact_email
+        },
+        organisation_name: this.feedback3.org_name, business_nature: this.feedback3.nature_bus,
+        number_employee: this.feedback3.num_emp, establishment_date: this.feedback3.date_est,
+        office_website_url: this.feedback3.website || "", org_phone: this.feedback3.contact_num,
+        org_email: this.feedback3.email, alt_phone: this.feedback3.alt_num || "",
+        address: this.feedback2.street, house_no: this.feedback2.house, zipcode: this.feedback2.zipcode,
+    }
+    console.log(data)
 
-    //     org_name: string;
-    // nature_bus: string;
-    // num_emp: string;
-    // date_est: string;
-    // contact_num: string;
-    // email: string;
-    // alt_num: string;
-    // website: string;
-    // }
-    // console.log(data)
-    // this.floatLabelControl = new FormControl('employed');
-    // this.feedbackForm1.get('firstname').reset();
-    // this.feedbackForm1.get('middlename').reset();
-    // this.feedbackForm1.get('surname').reset();
-    // this.feedbackForm1.get('gender').reset();
-    // this.feedbackForm1.get('birth').reset();
-    // this.feedbackForm1.get('place').reset();
-    // this.feedbackForm1.get('nationality').reset();
-    // this.feedbackForm1.get('trade').reset();
-    // this.feedbackForm1.get('employment').reset();
-    // this.feedbackForm1.get('contact').reset();
-    // this.feedbackForm1.get('contact_email').reset();
-    // this.feedbackForm1.get('title').reset();
-    // this.feedbackForm2.get('street').reset();
-    // this.feedbackForm2.get('house').reset();
-    // this.feedbackForm2.get('zipcode').reset();
-    // this.feedbackForm3.get('company_name').reset();
-    // this.feedbackForm3.get('company_house_no').reset();
-    // this.feedbackForm3.get('company_estate_street').reset();
-    // this.feedbackForm3.get('company_zipcode').reset();
-    // this.feedbackForm3.get('company_country').reset();
+    setTimeout(() => {
+      this.loading2 = false
+      this.disabled2 = false
+      this.feedbackForm1.get('firstname').reset();
+      this.feedbackForm1.get('middlename').reset();
+      this.feedbackForm1.get('surname').reset();
+      this.feedbackForm1.get('gender').reset();
+      this.feedbackForm1.get('birth').reset();
+      this.feedbackForm1.get('place').reset();
+      this.feedbackForm1.get('nationality').reset();
+      this.feedbackForm1.get('trade').reset();
+      this.feedbackForm1.get('employment').reset();
+      this.feedbackForm1.get('contact').reset();
+      this.feedbackForm1.get('contact_email').reset();
+      this.feedbackForm1.get('title').reset();
+      this.feedbackForm2.get('street').reset();
+      this.feedbackForm2.get('house').reset();
+      this.feedbackForm2.get('zipcode').reset();
+      this.feedbackForm3.get('org_name').reset();
+      this.feedbackForm3.get('nature_bus').reset();
+      this.feedbackForm3.get('num_emp').reset();
+      this.feedbackForm3.get('date_est').reset();
+      this.feedbackForm3.get('website').reset();
+      this.feedbackForm3.get('contact_num').reset();
+      this.feedbackForm3.get('email').reset();
+      this.feedbackForm3.get('alt_num').reset();
+      this.feedbackForm1.get('username').reset();
+      this.snackBar.open('success', "", {
+        duration: 3000,
+        panelClass: "success"
+      });
+    }, 2000);
 
   }
 

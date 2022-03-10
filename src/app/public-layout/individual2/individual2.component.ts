@@ -4,6 +4,7 @@ import { Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateL
 import {Location} from '@angular/common';
 import { debounceTime, delay, filter, map, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-individual2',
@@ -152,7 +153,7 @@ export class Individual2Component implements OnInit {
 
 
   constructor(private fb: FormBuilder, private _location: Location,
-    private httpService: HttpService) {
+    private httpService: HttpService, private snackBar: MatSnackBar) {
     this.createForm();
     this.createForm1();
     this.createForm2();
@@ -364,28 +365,37 @@ export class Individual2Component implements OnInit {
         company_country: this.feedback3.company_country, username: this.feedback1.username,
     }
     console.log(data)
-    this.floatLabelControl = new FormControl('employed');
-    this.feedbackForm1.get('firstname').reset();
-    this.feedbackForm1.get('middlename').reset();
-    this.feedbackForm1.get('surname').reset();
-    this.feedbackForm1.get('gender').reset();
-    this.feedbackForm1.get('birth').reset();
-    this.feedbackForm1.get('place').reset();
-    this.feedbackForm1.get('nationality').reset();
-    this.feedbackForm1.get('trade').reset();
-    this.feedbackForm1.get('employment').reset();
-    this.feedbackForm1.get('contact').reset();
-    this.feedbackForm1.get('contact_email').reset();
-    this.feedbackForm1.get('title').reset();
-    this.feedbackForm1.get('username').reset();
-    this.feedbackForm2.get('street').reset();
-    this.feedbackForm2.get('house').reset();
-    this.feedbackForm2.get('zipcode').reset();
-    this.feedbackForm3.get('company_name').reset();
-    this.feedbackForm3.get('company_house_no').reset();
-    this.feedbackForm3.get('company_estate_street').reset();
-    this.feedbackForm3.get('company_zipcode').reset();
-    this.feedbackForm3.get('company_country').reset();
+
+    setTimeout(() => {
+      this.loading2 = false;
+      this.disabled2 = false;
+      this.floatLabelControl = new FormControl('employed');
+      this.feedbackForm1.get('firstname').reset();
+      this.feedbackForm1.get('middlename').reset();
+      this.feedbackForm1.get('surname').reset();
+      this.feedbackForm1.get('gender').reset();
+      this.feedbackForm1.get('birth').reset();
+      this.feedbackForm1.get('place').reset();
+      this.feedbackForm1.get('nationality').reset();
+      this.feedbackForm1.get('trade').reset();
+      this.feedbackForm1.get('employment').reset();
+      this.feedbackForm1.get('contact').reset();
+      this.feedbackForm1.get('contact_email').reset();
+      this.feedbackForm1.get('title').reset();
+      this.feedbackForm1.get('username').reset();
+      this.feedbackForm2.get('street').reset();
+      this.feedbackForm2.get('house').reset();
+      this.feedbackForm2.get('zipcode').reset();
+      this.feedbackForm3.get('company_name').reset();
+      this.feedbackForm3.get('company_house_no').reset();
+      this.feedbackForm3.get('company_estate_street').reset();
+      this.feedbackForm3.get('company_zipcode').reset();
+      this.feedbackForm3.get('company_country').reset();
+      this.snackBar.open('success', "", {
+        duration: 3000,
+        panelClass: "success"
+      });
+    }, 2000);
 
   }
 
