@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import { debounceTime, delay, filter, map, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-individual2',
@@ -153,7 +154,8 @@ export class Individual2Component implements OnInit {
 
 
   constructor(private fb: FormBuilder, private _location: Location,
-    private httpService: HttpService, private snackBar: MatSnackBar) {
+    private httpService: HttpService, private snackBar: MatSnackBar,
+    private authService: AuthService) {
     this.createForm();
     this.createForm1();
     this.createForm2();
@@ -526,6 +528,7 @@ export class Individual2Component implements OnInit {
 
   ngOnInit(): void {
 
+    this.authService.checkExpired();
     this.AddState();
 
     this.bankCtrl.valueChanges

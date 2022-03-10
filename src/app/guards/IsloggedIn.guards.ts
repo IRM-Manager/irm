@@ -29,16 +29,6 @@ export class IsLoggedInGuard implements CanActivate, CanLoad {
       });
       this.router.navigate(['']);
     }
-    // else {
-    //   const isExpired = this.helper.isTokenExpired(this.authService.getJwtToken());
-    //   const RisExpired = this.helper.isTokenExpired(this.authService.getRefreshToken());
-    //   if( (RisExpired === false) && (isExpired === true) ) {
-    //     this.authService.refreshToken();
-    //   }
-    //   else if( (RisExpired === true) && (isExpired === true) ) {
-    //     this.authService.logout();
-    //   }
-    // }
     return this.authService.isLoggedIn();
   }
 

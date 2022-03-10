@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-individual',
@@ -10,7 +11,8 @@ export class IndividualComponent implements OnInit {
 
   active: any = 'ind';
 
-  constructor(private router: Router, private direct: ActivatedRoute) {
+  constructor(private router: Router, private direct: ActivatedRoute, 
+    private authService: AuthService) {
     this.direct.paramMap.subscribe(params => {
       if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
         this.active = 'ind'
@@ -29,6 +31,7 @@ export class IndividualComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.checkExpired();
   }
 
   changeActive(type: string) {

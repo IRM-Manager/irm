@@ -20,7 +20,7 @@ export class AuthService {
   private helper = new JwtHelperService();  
 
   constructor(public shared: ToggleNavService, private http: HttpClient,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar, private router: Router) {
      }
 
     login(user: { username: string, password: string }): Observable<boolean> {
@@ -51,23 +51,44 @@ export class AuthService {
     isLoggedIn() {
       return !!this.getJwtToken();
     }
+
+    checkExpired() {
+      const isExpired = this.helper.isTokenExpired(this.getJwtToken());
+      const RisExpired = this.helper.isTokenExpired(this.getRefreshToken());
+      if( !RisExpired && isExpired ) {
+        this.refreshToken();
+      }
+      else if(RisExpired) {
+        this.logout();
+        this.snackBar.open("Please Relogin", "", {
+          duration: 5000,
+          panelClass: "error"
+        });
+        this.router.navigate(['']);
+      }
+      else if (!RisExpired && !isExpired) {
+      }
+      else  {
+        this.logout();
+        this.router.navigate(['']);
+      }
+    }
   
 
     // refresh token 
     refreshToken() {
-      const httpOptions = {
-        headers: {
-          'Authorization': `Bearer ${this.getRefreshToken()}`
-        }
-      };
-      return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', '', httpOptions)
-      .pipe(
-        tap((tokens: any) => {this.storeJwtToken(tokens.access);}),
-          mapTo(true),
-          catchError((error: any) => {
-            return of(false);
-          })
-        );
+      const data = {
+        refresh: this.getRefreshToken()
+      }
+      return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', data)
+      .subscribe(
+        (tokens: any) => {
+          console.log(tokens)
+          this.storeJwtToken(tokens.access);
+        },
+        (error: any) => {
+          return of(false);
+        })
     }
 
   

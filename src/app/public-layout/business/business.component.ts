@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/services/http.service';
 import {Location} from '@angular/common';
 import { Business, CAC, Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-business',
@@ -180,7 +181,8 @@ export class BusinessComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private _location: Location,
-    private httpService: HttpService, private snackBar: MatSnackBar) {
+    private httpService: HttpService, private snackBar: MatSnackBar,
+    private authService: AuthService) {
     this.createForm();
     this.createForm1();
     this.createForm2();
@@ -569,6 +571,7 @@ export class BusinessComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.authService.checkExpired();
     this.AddState();
 
     this.bankCtrl.valueChanges
