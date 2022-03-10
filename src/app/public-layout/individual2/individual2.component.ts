@@ -188,6 +188,7 @@ export class Individual2Component implements OnInit {
         employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
         contact_email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
+        username: ['', [Validators.required] ],
       },
     );
 
@@ -221,7 +222,6 @@ export class Individual2Component implements OnInit {
         company_state: [''],
         company_lga: [''],
         company_zipcode: [''],
-        username: [''],
       },
     );
 
@@ -360,7 +360,7 @@ export class Individual2Component implements OnInit {
         company_name: this.feedback3.company_name, company_house_no: this.feedback3.company_house_no || "",
         company_estate_street: this.feedback3.company_estate_street, company_state: this.feedback3.company_state,
         company_lga: this.feedback3.company_lga, company_zipcode: this.feedback3.company_zipcode || "",
-        company_country: this.feedback3.company_country
+        company_country: this.feedback3.company_country, username: this.feedback1.username,
     }
     console.log(data)
     this.floatLabelControl = new FormControl('employed');
@@ -376,6 +376,7 @@ export class Individual2Component implements OnInit {
     this.feedbackForm1.get('contact').reset();
     this.feedbackForm1.get('contact_email').reset();
     this.feedbackForm1.get('title').reset();
+    this.feedbackForm1.get('username').reset();
     this.feedbackForm2.get('street').reset();
     this.feedbackForm2.get('house').reset();
     this.feedbackForm2.get('zipcode').reset();

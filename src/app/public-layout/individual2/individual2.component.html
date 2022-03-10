@@ -123,6 +123,14 @@
                 <mat-error>{{formErrors.employment}}</mat-error>
             </mat-form-field>
         </p>
+        <p>
+            <!-- username -->
+            <mat-form-field class="half-width2" appearance="outline">
+               <mat-label>Username</mat-label>
+               <input matInput required formControlName="username">
+               <mat-error>{{formErrors.username}}</mat-error>
+           </mat-form-field>
+       </p>
 
         <div class="session-header" style="margin-top: 30px;">Contact Information</div>
 
@@ -226,7 +234,7 @@
 
 
 <!-- session4 -->
-<div class="session">
+<div class="session" *ngIf="floatLabelControl.value === 'employed'">
 
     <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm">
         <p>
@@ -293,14 +301,6 @@
                 <input matInput formControlName="company_zipcode" type="number">
             </mat-form-field>
         </p>
-        <p>
-             <!-- username -->
-             <mat-form-field class="half-width2" appearance="outline">
-                <mat-label>Username</mat-label>
-                <input matInput required formControlName="username">
-                <mat-error>{{formErrors.username}}</mat-error>
-            </mat-form-field>
-        </p>
     </form>
 
 </div>
@@ -308,9 +308,8 @@
 <div class="final_submit">
     <button mat-button class="verify2" (click)="back()">Back</button>
     <button mat-button class="verify"
-        [disabled]="fform1.form.invalid || fform2.form.invalid || fform3.form.invalid || disabled2 === true"
-        (click)="Submit()"
-    >
+        [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true"
+        (click)="Submit()">
         <span *ngIf="!loading2">Continue</span>
         <div *ngIf="loading2" class="loader">
             <div class="bubble"></div>

@@ -1,7 +1,7 @@
 $white: #FFFFFF;
 $panel-text: normal normal normal 15px/19px Montserrat;
 $panel-text2: normal normal 300 15px/19px Montserrat;
-$panel-text2-active: #FFFFFF 0% 0% no-repeat padding-box;
+$panel-text2-active: #FFFFFF66;
 
 .wrapper {
     color: $white;
@@ -31,7 +31,6 @@ $panel-text2-active: #FFFFFF 0% 0% no-repeat padding-box;
         .active {
             background: $panel-text2-active;
             padding: 0.3rem;
-            opacity: 0.48;
         }
     }
 
@@ -41,8 +40,6 @@ $panel-text2-active: #FFFFFF 0% 0% no-repeat padding-box;
         .active {
             background: $panel-text2-active;
             padding: 0.1rem;
-            opacity: 0.48;
-            color: grey;
         }
 
         .mat-expansion-panel-header { 

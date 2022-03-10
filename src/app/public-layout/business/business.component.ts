@@ -223,6 +223,7 @@ export class BusinessComponent implements OnInit {
         employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
         contact_email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
+        username: ['', [Validators.required] ],
       },
     );
 
@@ -257,7 +258,6 @@ export class BusinessComponent implements OnInit {
         email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
         alt_num: [''],
         website: [''],
-        username: ['', [Validators.required]],
       },
     );
 

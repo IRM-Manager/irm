@@ -32,6 +32,7 @@ export interface Individual1 {
     employment: string;
     contact: string;
     contact_email: string;
+    username: string;
     // employed: string;
     // unemployed: string;
     // retired: string;
@@ -54,7 +55,6 @@ export interface Individual3 {
     company_state: string;
     company_lga: string;
     company_zipcode: string;
-    username: string;
 }
 
 export interface Business {
@@ -66,7 +66,6 @@ export interface Business {
     email: string;
     alt_num: string;
     website: string;
-    username: string;
 }
 
 
