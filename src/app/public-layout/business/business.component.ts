@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ReplaySubject, Subject, filter, tap, takeUntil, debounceTime, map, delay } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import {Location} from '@angular/common';
-import { CAC, Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
+import { Business, CAC, Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
 
 @Component({
   selector: 'app-business',
@@ -34,7 +34,7 @@ export class BusinessComponent implements OnInit {
   floatLabelControl = new FormControl('employed');
   feedback1!: Individual1;
   feedback2!: Individual2;
-  feedback3!: Individual3;
+  feedback3!: Business;
 
   loading2 = false;
   disabled2 = false;
@@ -90,7 +90,8 @@ export class BusinessComponent implements OnInit {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
     'state': '', 'lga': '', 'nationality': '', 'trade': '', 'employment': '', 'contact': '',
     'contact_email': '', 'house': '', 'street': '', 'state_red': '', 'lga_red': '', 'zipcode': '',
-    'username': '',
+    'username': '', 'org_name': '', 'nature_bus': '', 'num_emp': '', 'date_est': '', 'contact_num': '',
+    'email': ''
   };
 
   validationMessages: any = {
@@ -152,6 +153,26 @@ export class BusinessComponent implements OnInit {
     'username': {
       'required':      'required.',
     },
+
+    'org_name': {
+      'required':      'required.',
+    },
+    'nature_bus': {
+      'required':      'required.',
+    },
+    'num_emp': {
+      'required':      'required.',
+    },
+    'date_est': {
+      'required':      'required.',
+    },
+    'contact_num': {
+      'required':      'required.',
+    },
+    'email': {
+      'required':      'required.',
+      'pattern':         'email not in valid format.'
+    },
   };
 
 
@@ -164,7 +185,6 @@ export class BusinessComponent implements OnInit {
     this.nForm();
     this.trackCountryField();
     this.trackCountryField2();
-    this.trackCountryField3();
   }
 
   createForm() {
@@ -229,14 +249,15 @@ export class BusinessComponent implements OnInit {
 
   createForm3() {
     this.feedbackForm3 = this.fb.group({
-        company_name: [''],
-        company_house_no: [''],
-        company_estate_street: [''],
-        company_country: [''],
-        company_state: [''],
-        company_lga: [''],
-        company_zipcode: [''],
-        username: [''],
+        org_name: ['', [Validators.required]],
+        nature_bus: ['', [Validators.required]],
+        num_emp: ['', [Validators.required]],
+        date_est: ['', [Validators.required]],
+        contact_num: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+        alt_num: [''],
+        website: [''],
+        username: ['', [Validators.required]],
       },
     );
 
@@ -390,45 +411,54 @@ export class BusinessComponent implements OnInit {
     this.feedback1 = this.feedbackForm1.value
     this.feedback2 = this.feedbackForm2.value
     this.feedback3 = this.feedbackForm3.value
-    let data = {
-        payer: {
-            address_state: this.feedback2.state_red,
-            address_lga: this.feedback2.lga_red
-        },
-        first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
-        surname: this.feedback1.surname, gender: this.feedback1.gender, dob: this.feedback1.birth, 
-        pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
-        nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
-        employment_category: this.feedback1.employment, phone: this.feedback1.contact,
-        email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
-        zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value,
-        company_name: this.feedback3.company_name, company_house_no: this.feedback3.company_house_no || "",
-        company_estate_street: this.feedback3.company_estate_street, company_state: this.feedback3.company_state,
-        company_lga: this.feedback3.company_lga, company_zipcode: this.feedback3.company_zipcode || "",
-        company_country: this.feedback3.company_country
-    }
-    console.log(data)
-    this.floatLabelControl = new FormControl('employed');
-    this.feedbackForm1.get('firstname').reset();
-    this.feedbackForm1.get('middlename').reset();
-    this.feedbackForm1.get('surname').reset();
-    this.feedbackForm1.get('gender').reset();
-    this.feedbackForm1.get('birth').reset();
-    this.feedbackForm1.get('place').reset();
-    this.feedbackForm1.get('nationality').reset();
-    this.feedbackForm1.get('trade').reset();
-    this.feedbackForm1.get('employment').reset();
-    this.feedbackForm1.get('contact').reset();
-    this.feedbackForm1.get('contact_email').reset();
-    this.feedbackForm1.get('title').reset();
-    this.feedbackForm2.get('street').reset();
-    this.feedbackForm2.get('house').reset();
-    this.feedbackForm2.get('zipcode').reset();
-    this.feedbackForm3.get('company_name').reset();
-    this.feedbackForm3.get('company_house_no').reset();
-    this.feedbackForm3.get('company_estate_street').reset();
-    this.feedbackForm3.get('company_zipcode').reset();
-    this.feedbackForm3.get('company_country').reset();
+    // let data = {
+    //     payer: {
+    //         address_state: this.feedback2.state_red,
+    //         address_lga: this.feedback2.lga_red
+    //     },
+    //     first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+    //     surname: this.feedback1.surname, gender: this.feedback1.gender, dob: this.feedback1.birth, 
+    //     pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
+    //     nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
+    //     employment_category: this.feedback1.employment, phone: this.feedback1.contact,
+    //     email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
+    //     zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value,
+    //     company_name: this.feedback3.company_name, company_house_no: this.feedback3.company_house_no || "",
+    //     company_estate_street: this.feedback3.company_estate_street, company_state: this.feedback3.company_state,
+    //     company_lga: this.feedback3.company_lga, company_zipcode: this.feedback3.company_zipcode || "",
+    //     company_country: this.feedback3.company_country
+
+    //     org_name: string;
+    // nature_bus: string;
+    // num_emp: string;
+    // date_est: string;
+    // contact_num: string;
+    // email: string;
+    // alt_num: string;
+    // website: string;
+    // }
+    // console.log(data)
+    // this.floatLabelControl = new FormControl('employed');
+    // this.feedbackForm1.get('firstname').reset();
+    // this.feedbackForm1.get('middlename').reset();
+    // this.feedbackForm1.get('surname').reset();
+    // this.feedbackForm1.get('gender').reset();
+    // this.feedbackForm1.get('birth').reset();
+    // this.feedbackForm1.get('place').reset();
+    // this.feedbackForm1.get('nationality').reset();
+    // this.feedbackForm1.get('trade').reset();
+    // this.feedbackForm1.get('employment').reset();
+    // this.feedbackForm1.get('contact').reset();
+    // this.feedbackForm1.get('contact_email').reset();
+    // this.feedbackForm1.get('title').reset();
+    // this.feedbackForm2.get('street').reset();
+    // this.feedbackForm2.get('house').reset();
+    // this.feedbackForm2.get('zipcode').reset();
+    // this.feedbackForm3.get('company_name').reset();
+    // this.feedbackForm3.get('company_house_no').reset();
+    // this.feedbackForm3.get('company_estate_street').reset();
+    // this.feedbackForm3.get('company_zipcode').reset();
+    // this.feedbackForm3.get('company_country').reset();
 
   }
 
@@ -462,19 +492,6 @@ export class BusinessComponent implements OnInit {
       }); 
   }
 
-
-  trackCountryField3(): void {
-    this.feedbackForm3.get('company_state')
-      .valueChanges
-      .subscribe((field: string) => {
-        if(field === undefined) {
-        }else {
-          let coun = this.state3.filter((name: any) => name.id===field )
-          this.lga3 = coun[0]
-          this.AddLga3(coun[0].id);
-        }
-      }); 
-  }
 
   AddState() {
     this.stateLoading = true;
@@ -538,21 +555,6 @@ export class BusinessComponent implements OnInit {
     )
   }
 
-  AddLga3(id: number) {
-    this.lgaLoading3 = true;
-    this.httpService.state('lga', id)
-    .subscribe(
-      (data: any) => {
-        this.options4 = data.data;
-        this.filteredBanks6.next(data.data);
-        this.lgaLoading3 = false;
-      },
-      (err: any) => {
-        this.lgaLoading3 = false;
-        this.lgaError3 = true;
-      }
-    )
-  }
 
   ngOnInit(): void {
 
@@ -674,67 +676,6 @@ export class BusinessComponent implements OnInit {
         error => {
           // no errors in our simulated example
           this.searching4 = false;
-          // handle error...
-        });
-
-
-        // third layer
-        // 5
-      this.bankCtrl5.valueChanges
-      .pipe(
-        filter(search => !!search),
-        tap(() => this.searching5 = true),
-        takeUntil(this._onDestroy),
-        debounceTime(200),
-        map(searchC => {
-          const filterValue = searchC.toLowerCase();
-          if (!this.option3) {
-            return [];
-          }
-          // simulate server fetching and filtering data
-          // return this.option.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
-          return this.option3.filter((bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1);
-        }),
-        delay(100),
-        takeUntil(this._onDestroy)
-      )
-      .subscribe(filteredBanks => {
-        this.searching5 = false;
-        this.filteredBanks5.next(filteredBanks);
-      },
-        error => {
-          // no errors in our simulated example
-          this.searching5 = false;
-          // handle error...
-        });
-
-
-      // 6
-      this.bankCtrl6.valueChanges
-      .pipe(
-        filter(search => !!search),
-        tap(() => this.searching6 = true),
-        takeUntil(this._onDestroy),
-        debounceTime(200),
-        map(searchC => {
-          const filterValue = searchC.toLowerCase();
-          if (!this.options4) {
-            return [];
-          }
-          // simulate server fetching and filtering data
-          // return this.options2.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
-          return this.options4.filter((bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1);
-        }),
-        delay(100),
-        takeUntil(this._onDestroy)
-      )
-      .subscribe(filteredBanks4 => {
-        this.searching6 = false;
-        this.filteredBanks6.next(filteredBanks4);
-      },
-        error => {
-          // no errors in our simulated example
-          this.searching6 = false;
           // handle error...
         });
         

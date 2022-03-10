@@ -57,6 +57,19 @@ export interface Individual3 {
     username: string;
 }
 
+export interface Business {
+    org_name: string;
+    nature_bus: string;
+    num_emp: string;
+    date_est: string;
+    contact_num: string;
+    email: string;
+    alt_num: string;
+    website: string;
+    username: string;
+}
+
+
 
 // export interface register {
 //     email: string; 
