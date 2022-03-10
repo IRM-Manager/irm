@@ -344,6 +344,9 @@ export class Individual2Component implements OnInit {
   }
 
   Submit() {
+    this.loading2 = true;
+    this.disabled2 = true;
+
     this.feedback1 = this.feedbackForm1.value
     this.feedback2 = this.feedbackForm2.value
     this.feedback3 = this.feedbackForm3.value
