@@ -18,6 +18,9 @@
     </span>
     
     <span class="search_icon_p">
+        <form class="search-form">
+            <input type="text" class="input">
+        </form>
         <mat-icon class="search_icon">search</mat-icon>
     </span>
 </div>
@@ -40,7 +43,7 @@
                 <td>{{ data.first_name }}</td>
                 <td>{{ data.occupation }}</td>
                 <td>{{ data.phone }}</td>
-                <td><mat-icon class="table-icon">open_with</mat-icon></td>
+                <td><mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon></td>
             </tr>
             </tbody>
             <tbody *ngIf="datas?.length == 0">
@@ -56,3 +59,4 @@
 
 
 </div>
+

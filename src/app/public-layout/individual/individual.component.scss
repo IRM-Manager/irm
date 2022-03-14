@@ -19,6 +19,7 @@ $thead-text: normal normal normal 12px/15px Montserrat;
 $thead-text-color: #3C66A3;
 $tbody-back: normal normal normal 15px/19px Montserrat;
 $tbody-color: #565656;
+$animate-form: 0.5px solid #37A85D;
 
 .wrapper {
     background: $wrapper-back;
@@ -84,8 +85,32 @@ $tbody-color: #565656;
 
     .search_icon_p {
         float: right;
-        vertical-align: middle;
+        display: flex;
+        justify-content: right;
+        align-items: right;
     }
+
+    .search-form {
+        margin-right: 20px;
+        vertical-align: top;
+    }
+    
+    input[type=text] {
+        background: $white;
+        border: $animate-form;
+        box-sizing: border-box;
+        border-radius: 10px;
+        height: 40px;
+        width: 200px;
+        font: $tbody-back;
+        padding-left: 15px;
+        // -webkit-transition: width 0.4s ease-in-out;
+        // transition: width 0.4s ease-in-out;
+      }
+    
+     [type="text"]:focus {
+        outline: none;
+     } 
 
     .search_icon {
         font-size: 40px;

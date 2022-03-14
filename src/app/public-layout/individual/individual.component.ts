@@ -4,7 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Person } from '../shared/form';
-import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-individual',
@@ -21,7 +22,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private router: Router, private direct: ActivatedRoute, 
-    private authService: AuthService, private http: HttpClient) {
+    private authService: AuthService, private http: HttpClient, private dialog: MatDialog) {
     this.direct.paramMap.subscribe(params => {
       if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
         this.active = 'ind'
@@ -65,6 +66,12 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   changeActive(type: string) {
     this.active = type;
+    if (type=="com") {
+      this.left_text = "Tax Registration of Business"
+    }
+    else {
+      this.left_text = "Tax Registration of Individuals"
+    }
   }
 
   redirectActive() {
@@ -76,6 +83,14 @@ export class IndividualComponent implements OnDestroy, OnInit {
     }
   }
 
+  OpenDialog(data: any, type: string) {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: data
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

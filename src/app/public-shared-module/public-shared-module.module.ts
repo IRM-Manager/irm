@@ -46,6 +46,8 @@ import { AppPublicSidenavComponent } from '../public-layout/app-public-sidenav/a
 import { HeaderComponent } from '../public-layout/header/header.component';
 import { AppPublicSidenavListComponent } from '../public-layout/app-public-sidenav-list/app-public-sidenav-list.component';
 import { FooterComponent } from '../public-layout/footer/footer.component';
+
+import { DialogComponent } from '../public-layout/dialog/dialog.component';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { PaymentDialogComponent } from '../public-layout/payment-dialog/payment-dialog.component';
 // import {IvyCarouselModule} from 'angular-responsive-carousel';
@@ -57,6 +59,8 @@ import { FooterComponent } from '../public-layout/footer/footer.component';
     HeaderComponent,
     AppPublicSidenavListComponent,
     FooterComponent,
+    DialogComponent
+    
   ],
   entryComponents: [
     // dialog component here
