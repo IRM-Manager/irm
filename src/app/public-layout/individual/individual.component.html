@@ -1,3 +1,6 @@
+<div class="wrapper">
+    
+
 <div class="header">
     <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
         Tax Registration of Individual
@@ -6,4 +9,50 @@
         Tax Registration of Business
     </button>
     <button mat-button class="create" (click)="redirectActive()">Create</button>
+</div>
+
+
+<div class="header2">
+    <span class="indcom">
+        {{left_text}}
+    </span>
+    
+    <span class="search_icon_p">
+        <mat-icon class="search_icon">search</mat-icon>
+    </span>
+</div>
+
+<div class="table-container">
+    <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+            <thead>
+            <tr>
+                <th>Tin</th>
+                <th>Full Name</th>
+                <th>Field of work/Business</th>
+                <th>Contact Number</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody *ngIf="datas?.length != 0">
+            <tr *ngFor="let data of datas; let i=index">
+                <td>{{i+1}}. {{ data.tin }}</td>
+                <td>{{ data.first_name }}</td>
+                <td>{{ data.occupation }}</td>
+                <td>{{ data.phone }}</td>
+                <td><mat-icon class="table-icon">open_with</mat-icon></td>
+            </tr>
+            </tbody>
+            <tbody *ngIf="datas?.length == 0">
+            <tr>
+                <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
 </div>

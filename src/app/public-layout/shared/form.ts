@@ -133,3 +133,31 @@ export let LGA = [
         code: "",
     }
 ];
+
+
+export const Person = [
+    {
+        tin: "184834843",
+        first_name: "matins luta",
+        occupation: "Lawyer",
+        phone: "08117039368"
+    },
+    {
+        tin: "184834843",
+        first_name: "israel matins",
+        occupation: "Lawyer",
+        phone: "08117039368"
+    },
+    {
+        tin: "184834843",
+        first_name: "danel isaac",
+        occupation: "Lawyer",
+        phone: "08117039368"
+    },
+    {
+        tin: "184834843",
+        first_name: "dora lizzy",
+        occupation: "Lawyer",
+        phone: "08117039368"
+    }   
+]
