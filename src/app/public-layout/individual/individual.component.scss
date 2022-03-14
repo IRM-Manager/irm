@@ -22,8 +22,8 @@ $tbody-color: #565656;
 
 .wrapper {
     background: $wrapper-back;
-    height: 100vh;
     overflow: auto;
+    min-height: 100vh;
 }
 
 .header {
@@ -100,12 +100,14 @@ $tbody-color: #565656;
 
 .table-container {
     margin-top: 1rem;
+    margin-bottom: 2rem;
     width: 90%;
 
     table {
         border: none;
+        margin-bottom: 1rem;
     }
-    
+
     thead {
         border: none;
     }
@@ -155,6 +157,24 @@ $tbody-color: #565656;
 
     ::ng-deep table.dataTable thead .sorting_asc {
         background-image: unset !important;
+    }
+
+    ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+        background: $header-back;
+    }
+
+    ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+        background: $wrapper-back !important;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_length select {
+        border: $ind-border;
+        font: $tbody-back;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_length label {
+        color: $tbody-color;
+        font: $tbody-back;
     }
 
 }
