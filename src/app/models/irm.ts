@@ -4,10 +4,10 @@ export interface Profile {
 }
 
 
-// export interface Order {
-//     id: number;
-//     data: any;
-// }
+export interface States {
+    id: number;
+    data: any;
+}
 
 // export interface Product {
 //     id: number;

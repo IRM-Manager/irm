@@ -16,7 +16,7 @@ export const reducers: ActionReducerMap<AppState, any> = {
 
   
   export const selectProfileState = createSelector(selectExampleModule, fromExample.selectProfileState);
-//   export const selectOrderState = createSelector(selectExampleModule, fromExample.selectOrderState);
+  export const selectStatesState = createSelector(selectExampleModule, fromExample.selectStatesState);
 //   export const selectProductState = createSelector(selectExampleModule, fromExample.selectProductState);
 //   export const selectReviewState = createSelector(selectExampleModule, fromExample.selectReviewState);
 //   export const selectGalleryState = createSelector(selectExampleModule, fromExample.selectGalleryState);
@@ -32,7 +32,7 @@ export const reducers: ActionReducerMap<AppState, any> = {
 
 
   export const selectAllProfile = createSelector(selectProfileState, fromExample.selectAllProfile);
-//   export const selectAllOrder = createSelector(selectOrderState, fromExample.selectAllOrder);
+  export const selectAllStates = createSelector(selectStatesState, fromExample.selectAllStates);
 //   export const selectAllProduct = createSelector(selectProductState, fromExample.selectAllProduct);
 //   export const selectAllReview = createSelector(selectReviewState, fromExample.selectAllReview);
 //   export const selectAllGallery = createSelector(selectGalleryState, fromExample.selectAllGallery);

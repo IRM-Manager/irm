@@ -1,5 +1,5 @@
 import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Profile, 
+import { Profile, States
   // Order, Product, Review, Gallery, Contact, Notification, Transaction, 
   //   Task, Admin_Agent, User, Special_Order, Coupon 
   } from '../models/irm';
@@ -15,9 +15,9 @@ interface ProfileState extends EntityState<Profile> {
   }
 
 
-  // interface OrderState extends EntityState<Order> {
-  //   total: number;
-  // }
+  interface StatesState extends EntityState<States> {
+    total: number;
+  }
 
 
   // interface ProductState extends EntityState<Product> {
@@ -78,7 +78,7 @@ interface ProfileState extends EntityState<Profile> {
 
   export interface State {
     profile: ProfileState;
-    // order: OrderState;
+    states: StatesState;
     // product: ProductState;
     // review: ReviewState;
     // gallery: GalleryState;
@@ -94,7 +94,7 @@ interface ProfileState extends EntityState<Profile> {
 
 
   const adapterProfile = createEntityAdapter<Profile>();
-  // const adapterOrder = createEntityAdapter<Order>();
+  const adapterStates = createEntityAdapter<States>();
   // const adapterProduct = createEntityAdapter<Product>();
   // const adapterReview = createEntityAdapter<Review>();
   // const adapterGallery = createEntityAdapter<Gallery>();
@@ -108,7 +108,7 @@ interface ProfileState extends EntityState<Profile> {
   // const adapterSpecial_Order = createEntityAdapter<Special_Order>();
   
   const ProfileInitialState: ProfileState = adapterProfile.getInitialState({ total: 0 });
-  // const OrderInitialState: OrderState = adapterOrder.getInitialState({ total: 0 });
+  const StatesInitialState: StatesState = adapterStates.getInitialState({ total: 0 });
   // const ProductInitialState: ProductState = adapterProduct.getInitialState({ total: 0 });
   // const ReviewInitialState: ReviewState = adapterReview.getInitialState({ total: 0 });
   // const GalleryInitialState: GalleryState = adapterGallery.getInitialState({ total: 0 });
@@ -124,7 +124,7 @@ interface ProfileState extends EntityState<Profile> {
 
   const initialState = {
     profile: ProfileInitialState,
-    // order: OrderInitialState,
+    states: StatesInitialState,
     // product: ProductInitialState,
     // review: ReviewInitialState,
     // gallery: GalleryInitialState,
@@ -152,13 +152,13 @@ interface ProfileState extends EntityState<Profile> {
       case KonpayActions.ExampleActionTypes2.GetProfile: 
         return { ...state, profile: adapterProfile.removeOne(1, state.profile) };
 
-        // // Order
-        // case KonpayActions.ExampleActionTypes.GetOrder: 
-        // return { ...state, order: adapterOrder.addMany(action.Orderpayload, state.order) };
+        // Order
+        case KonpayActions.ExampleActionTypes.GetStates: 
+        return { ...state, states: adapterStates.addMany(action.Statespayload, state.states) };
 
 
-        // case KonpayActions.ExampleActionTypes2.GetOrder: 
-        // return { ...state, order: adapterOrder.removeOne(1, state.order) };
+        case KonpayActions.ExampleActionTypes2.GetStates: 
+        return { ...state, states: adapterStates.removeOne(1, state.states) };
 
 
 
@@ -270,7 +270,7 @@ interface ProfileState extends EntityState<Profile> {
 
 
 export const selectProfileState = (state: State) => state.profile;
-// export const selectOrderState = (state: State) => state.order;
+export const selectStatesState = (state: State) => state.states;
 // export const selectProductState = (state: State) => state.product;
 // export const selectReviewState = (state: State) => state.review;
 // export const selectGalleryState = (state: State) => state.gallery;
@@ -287,7 +287,7 @@ export const selectProfileState = (state: State) => state.profile;
 
 
 export const { selectAll: selectAllProfile } = adapterProfile.getSelectors();
-// export const { selectAll: selectAllOrder } = adapterOrder.getSelectors();
+export const { selectAll: selectAllStates } = adapterStates.getSelectors();
 // export const { selectAll: selectAllProduct } = adapterProduct.getSelectors();
 // export const { selectAll: selectAllReview } = adapterReview.getSelectors();
 // export const { selectAll: selectAllGallery } = adapterGallery.getSelectors();

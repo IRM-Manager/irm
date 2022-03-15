@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Action } from '@ngrx/store';
-import { Profile, 
+import { Profile, States,
     // Order, Product, Review, Notification, Gallery, 
     // Contact, Transaction, Task, Admin_Agent, User, 
     // Special_Order, Coupon 
@@ -10,7 +10,7 @@ import { Profile,
 
 export enum ExampleActionTypes {
     GetProfile = '[Profile API] Get Profile',
-    // GetOrder = '[Order API] Get Order',
+    GetStates = '[States API] Get States',
     // GetProduct = '[Product API] Get Product',
     // GetReview = '[Review API] Get Review',
     // GetGallery = '[Gallery API] Get Gallery',
@@ -26,7 +26,7 @@ export enum ExampleActionTypes {
 
   export enum ExampleActionTypes2 {
     GetProfile = '[Profile API] Remove Profile',
-    // GetOrder = '[Order API] Remove Order',
+    GetStates = '[States API] Remove States',
     // GetProduct = '[Product API] Remove Product',
     // GetReview = '[Review API] Remove Review',
     // GetGallery = '[Gallery API] Remove Gallery',
@@ -68,23 +68,23 @@ export class RemoveProfile implements Action {
 // Order
 
 
-// // Section 2
-// export const ADD_ORDER  = '[ORDER] Add'
-// export const REMOVE_ORDER   = '[ORDER] Remove'
+// Section 2
+export const ADD_STATES  = '[STATE] Add'
+export const REMOVE_STATES   = '[STATE] Remove'
 
-// // Section 3
-// export class AddOrder implements Action {
-//     public readonly type = ExampleActionTypes.GetOrder
+// Section 3
+export class AddStates implements Action {
+    public readonly type = ExampleActionTypes.GetStates
 
-//     constructor(public Orderpayload: Order[]) {}
+    constructor(public Statespayload: States[]) {}
 
-// }
+}
 
-// export class RemoveOrder implements Action {
-//     public readonly type = ExampleActionTypes2.GetOrder
+export class RemoveStates implements Action {
+    public readonly type = ExampleActionTypes2.GetStates
 
-//     constructor(public Orderpayload: any) {}
-// }
+    constructor(public Statespayload: any) {}
+}
 
 
 
@@ -359,7 +359,7 @@ export class RemoveProfile implements Action {
 
 // action
 
-export type Actions = | AddProfile | RemoveProfile 
+export type Actions = | AddProfile | RemoveProfile | AddStates | RemoveStates
 // | AddOrder | RemoveOrder | AddProduct | RemoveProduct
 // | AddReview | RemoveReview | AddGallery | RemoveGallery | AddContact | RemoveContact | AddTransaction | RemoveTransaction
 // | AddNotification | RemoveNotification | AddTask | RemoveTask | AddAdmin_Agent | RemoveAdmin_Agent
