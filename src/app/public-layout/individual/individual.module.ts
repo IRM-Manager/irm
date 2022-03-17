@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { DataTablesModule } from "angular-datatables";
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DataTablesModule } from "angular-datatables";
     MatFormFieldModule,
     MatIconModule,
     MatCardModule,
-    DataTablesModule
+    DataTablesModule,
+    MatToolbarModule
   ]
 })
 export class IndividualModule { }

@@ -75,12 +75,16 @@ $animate-form: 0.5px solid #37A85D;
     margin-top: 1rem;
     width: 90%;
 
+    .spacer {
+        flex: 1 1 auto;
+    }
+
     .indcom {
         font: $panel-text;
         letter-spacing: 0px;
         color: $panel-color;
         font-weight: 500;
-        
+        font-size: 14px;
     }
 
     .search_icon_p {
@@ -91,7 +95,7 @@ $animate-form: 0.5px solid #37A85D;
     }
 
     .search-form {
-        margin-right: 20px;
+        margin-right: 10px;
         vertical-align: top;
     }
     
@@ -114,9 +118,6 @@ $animate-form: 0.5px solid #37A85D;
 
     .search_icon {
         font-size: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         color: $icon-color;
         cursor: pointer;
     }

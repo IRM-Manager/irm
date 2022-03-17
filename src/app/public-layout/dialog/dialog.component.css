@@ -1,0 +1,132 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.wrapper {
+    width: 100%;
+}
+
+.header {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 1rem;
+}
+
+.ind_com {
+    padding-left: 3rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+    background: #F5F7FA 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.leftt1 {
+    float: left;
+}
+
+.leftt2 {
+    float: left;
+}
+
+.left1 {
+    font: normal normal medium 15px/19px Montserrat;
+    letter-spacing: 0px;
+    color: #3C66A3;
+    opacity: 1;
+    font-weight: 500;
+}
+
+.rightt1 {
+    float: right;
+}
+
+.rightt2 {
+    float: right;
+}
+
+.right {
+    text-align: right;
+}
+
+.right2, .right3, .left2, .right1 {
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #565656;
+    opacity: 1;
+}
+
+.title {
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #3C66A3;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.title2 {
+    font: normal normal medium 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #3C66A3;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.sub_title {
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #565656;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.button_p {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.icon {
+    vertical-align: middle;
+    color:#3E5FA8;
+    opacity: 1;
+}
+
+/* .pay_history {
+    padding-left: 3rem;
+} */
+
+.back {
+    border: 1px solid #40A84A;
+    border-radius: 10px;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    background: #FFFFFF;
+    color: #44A843;
+    width: 150px;
+    text-align: center;
+    padding: 1rem;
+    margin: 10px;
+}
+
+.continue {
+    background: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    text-align: left;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    padding: 1rem;
+    width: 150px;
+    text-align: center;
+    margin: 10px;
+    opacity: 1;
+}
+
+.back:hover, .continue:hover {
+    background: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}

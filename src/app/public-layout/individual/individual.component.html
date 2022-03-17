@@ -12,7 +12,7 @@
 </div>
 
 
-<div class="header2">
+<!-- <div class="header2">
     <span class="indcom">
         {{left_text}}
     </span>
@@ -23,34 +23,70 @@
         </form>
         <mat-icon class="search_icon">search</mat-icon>
     </span>
-</div>
+</div> -->
+
+<mat-toolbar class="header2">
+    <div class="indcom">
+        {{left_text}}
+    </div>
+    <div class="spacer"></div>
+    <div class="search_icon_p">
+        <form class="search-form">
+            <input type="text" class="input">
+        </form>
+        <mat-icon class="search_icon">search</mat-icon>
+    </div>
+</mat-toolbar>
 
 <div class="table-container">
     <div class="table-responsive">
         <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
             <thead>
-            <tr>
+            <tr *ngIf="active == 'ind'">
                 <th>Tin</th>
                 <th>Full Name</th>
                 <th>Field of work/Business</th>
                 <th>Contact Number</th>
                 <th></th>
             </tr>
-            </thead>
-            <tbody *ngIf="datas?.length != 0">
-            <tr *ngFor="let data of datas; let i=index">
-                <td>{{i+1}}. {{ data.tin }}</td>
-                <td>{{ data.first_name }}</td>
-                <td>{{ data.occupation }}</td>
-                <td>{{ data.phone }}</td>
-                <td><mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon></td>
+            <tr *ngIf="active == 'com'">
+                <th>Tin</th>
+                <th>Business name</th>
+                <th>Date of Establishment</th>
+                <th>Contact Person</th>
+                <th></th>
             </tr>
+            </thead>
+            <!-- individual -->
+            <tbody *ngIf="datas?.length != 0">
+                <tr *ngFor="let data of datas; let i=index">
+                    <td>{{i+1}}. {{ data.tin }}</td>
+                    <td>{{ data.first_name }}</td>
+                    <td>{{ data.occupation }}</td>
+                    <td>{{ data.phone }}</td>
+                    <td><mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon></td>
+                </tr>
             </tbody>
             <tbody *ngIf="datas?.length == 0">
-            <tr>
-                <td colspan="3" class="no-data-available">No data!</td>
-            </tr>
+                <tr>
+                    <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
             </tbody>
+            <!-- company -->
+            <!-- <tbody *ngIf="datas?.length != 0 && active == 'com' ">
+                <tr *ngFor="let data of datas; let i=index">
+                    <td>{{i+1}}. {{ data.tin }}</td>
+                    <td>{{ data.first_name }}</td>
+                    <td>{{ data.occupation }}</td>
+                    <td>{{ data.phone }}</td>
+                    <td><mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon></td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="datas?.length == 0">
+                <tr>
+                    <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
+            </tbody> -->
         </table>
     </div>
 </div>

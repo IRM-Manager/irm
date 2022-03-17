@@ -6,6 +6,12 @@ import { debounceTime, delay, filter, map, ReplaySubject, Subject, takeUntil, ta
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
+// state management
+import { Store } from '@ngrx/store';
+import { States } from '../../models/irm';
+import { AppState, selectAllStates } from 'src/app/reducers/index';
+import { AddStates } from '../../actions/irm.action';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-individual2',
@@ -83,6 +89,8 @@ export class Individual2Component implements OnInit {
   lga2: any;
   lga3: any;
 
+  stateStates: Observable<States[]>;
+
   formErrors: any = {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
     'state': '', 'lga': '', 'nationality': '', 'trade': '', 'employment': '', 'contact': '',
@@ -155,7 +163,7 @@ export class Individual2Component implements OnInit {
 
   constructor(private fb: FormBuilder, private _location: Location,
     private httpService: HttpService, private snackBar: MatSnackBar,
-    private authService: AuthService) {
+    private authService: AuthService, private store: Store<AppState>) {
     this.createForm();
     this.createForm1();
     this.createForm2();
@@ -163,6 +171,8 @@ export class Individual2Component implements OnInit {
     this.trackCountryField();
     this.trackCountryField2();
     this.trackCountryField3();
+
+    this.stateStates = store.select(selectAllStates);
   }
 
   createForm() {
@@ -452,30 +462,49 @@ export class Individual2Component implements OnInit {
     this.stateLoading = true;
     this.stateLoading2 = true;
     this.stateLoading3 = true;
-    this.httpService.state('state', 1)
-    .subscribe(
-      (data: any) => {
-        this.option = data.data;
-        this.state = data.data;
-        this.state2 = data.data;
-        this.state3 = data.data;
-        this.filteredBanks.next(data.data);
-        this.filteredBanks3.next(data.data);
-        this.filteredBanks5.next(data.data);
+    this.stateStates.forEach(e => {
+      if(e.length > 0 ) {
+        this.option = e[0].data.data;
+        this.state = e[0].data.data;
+        this.state2 = e[0].data.data;
+        this.state3 = e[0].data.data;
+        this.filteredBanks.next(e[0].data.data);
+        this.filteredBanks3.next(e[0].data.data);
+        this.filteredBanks5.next(e[0].data.data);
         this.stateLoading = false;
         this.stateLoading2 = false;
         this.stateLoading3 = false;
-      },
-      (err: any) => {
-        this.stateLoading = false;
-        this.stateLoading2 = false;
-        this.stateLoading3 = false;
-        this.stateError = true;
-        this.stateError3 = true;
-        this.stateError3 = true;
       }
-    )
-    // end of subscribe
+      else {
+        this.httpService.state('state', 1).subscribe(
+          (data:any) => {
+            if(data.responsecode == "01"){
+            }else{
+              this.option = data.data;
+              this.state = data.data;
+              this.state2 = data.data;
+              this.state3 = data.data;
+              this.filteredBanks.next(data.data);
+              this.filteredBanks3.next(data.data);
+              this.filteredBanks5.next(data.data);
+              this.stateLoading = false;
+              this.stateLoading2 = false;
+              this.stateLoading3 = false;
+              this.store.dispatch(new AddStates([{id: 1, data: data}]));
+            }
+          },
+          err => {
+            this.stateLoading = false;
+            this.stateLoading2 = false;
+            this.stateLoading3 = false;
+            this.stateError = true;
+            this.stateError3 = true;
+            this.stateError3 = true;
+          }
+        )
+      }
+    }) 
+    // end of state
   }
 
   AddLga(id: number) {

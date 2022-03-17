@@ -102,6 +102,20 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  AddState() {
+      this.httpService.state('state', 1).subscribe(
+        (data:any) => {
+          if(data.responsecode == "01"){
+          }else{
+            this.store.dispatch(new AddStates([{id: 1, data: data}]));
+          }
+        },
+        err => {
+        }
+      ) 
+  }
+
+
   limit(title: any, limit = 11) {
     if(title === undefined) {
       return ''
@@ -132,6 +146,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.AddProfile();
+    this.AddState();
   }
 
 
