@@ -13,6 +13,7 @@ $buttons-border: 0.5px solid #45A841;
 $csv-check-font: normal normal medium 12px/15px Montserrat;
 $csv-check-color: #38729B;
 $lists-font: normal normal medium 12px/15px Montserrat;
+$upload-back: rgba(60,102,163,0.05);
 
 .header {
     .tin {
@@ -144,14 +145,36 @@ $lists-font: normal normal medium 12px/15px Montserrat;
     }
 
     .main2 {
-        background: #3C66A3 0% 0% no-repeat padding-box;
-        opacity: 0.05;
+        background: $upload-back;
         height: 50vh;
         margin-bottom: 4rem;
+        position: relative;
     }
 
     .up_csv {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
+    .no_data {
+        font: $buttons1-font;
+        letter-spacing: 0px;
+        font-weight: 500;
+        text-align: center;
+        color: $tin-color;
+        opacity: 1;
+    }
+
+    .upload_csv_file {
+        font: $lists-font;
+        letter-spacing: 0px;
+        text-align: center;
+        font-weight: 500;
+        color: $csv-check-color;
+        cursor: pointer;
+        opacity: 1;
     }
 
 }
