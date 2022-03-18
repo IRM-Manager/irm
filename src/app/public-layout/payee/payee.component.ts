@@ -24,7 +24,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
   left_text!: string;
   loading = false;
   disabled = false;
-  viewMode = 'verify';
+  viewMode = 'staff-income';
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];

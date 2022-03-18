@@ -12,11 +12,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { DataTablesModule } from "angular-datatables";
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { StaffIncomeComponent } from '../staff-income/staff-income.component';
+import { TaxIncomeComponent } from '../tax-income/tax-income.component';
+import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
 
 
 @NgModule({
   declarations: [
-    PayeeComponent
+    PayeeComponent,
+    StaffIncomeComponent,
+    TaxIncomeComponent,
+    PayeeBillsComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +35,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatCardModule,
     DataTablesModule,
-    MatToolbarModule
+    MatToolbarModule,
   ]
 })
 export class PayeeModule { }

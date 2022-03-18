@@ -1,6 +1,5 @@
 <div class="wrapper">
     
-
     <div class="header">
         <button mat-button class="button" [class.active]="viewMode == 'verify'" (click)="viewMode = 'verify'">
             Business Verification
@@ -12,7 +11,7 @@
             Assess taxable income
         </button>
         <button mat-button class="button" [class.active]="viewMode == 'bill'" (click)="viewMode = 'bill'">
-            Generate payable bill
+            Generate payable bills
         </button>
     </div>
 
@@ -79,16 +78,19 @@
 
     <div [ngSwitch]="viewMode">
         <div *ngSwitchCase="'staff-income'" class="staff-income">
+            <app-staff-income></app-staff-income>
         </div>
     </div>
 
     <div [ngSwitch]="viewMode">
         <div *ngSwitchCase="'tax-income'" class="tax-income">
+            <app-tax-income></app-tax-income>
         </div>
     </div>
 
     <div [ngSwitch]="viewMode">
         <div *ngSwitchCase="'bill'" class="bill">
+            <app-payee-bills></app-payee-bills>
         </div>
     </div>
     
