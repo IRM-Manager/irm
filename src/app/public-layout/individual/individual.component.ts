@@ -48,7 +48,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 10
     };
     this.datas = Person;
     // this.http.get<any[]>('data/data.json')
@@ -67,19 +67,21 @@ export class IndividualComponent implements OnDestroy, OnInit {
   changeActive(type: string) {
     this.active = type;
     if (type=="com") {
-      this.left_text = "Tax Registration of Business"
+      this.left_text = "Tax Registration of Business";
+      this.router.navigate(['/dashboard2/taxpayer/non']);
     }
     else {
-      this.left_text = "Tax Registration of Individuals"
+      this.left_text = "Tax Registration of Individuals";
+      this.router.navigate(['/dashboard2/taxpayer/ind']);
     }
   }
 
   redirectActive() {
     if (this.active == 'ind') {
-      this.router.navigate(['/dashboard/taxpayer/ind/individual'])
+      this.router.navigate(['/dashboard2/taxpayer/ind/individual'])
     }
     else {
-      this.router.navigate(['/dashboard/taxpayer/non/business'])
+      this.router.navigate(['/dashboard2/taxpayer/non/business'])
     }
   }
 

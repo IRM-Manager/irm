@@ -33,11 +33,11 @@ $animate-form: 0.5px solid #37A85D;
     margin-top: 1rem;
     width: 90%;
 
-    @mixin theme($back, $color, $font, $border) {
+    @mixin theme($back, $color, $font, $border, $border-radius) {
         letter-spacing: 0px;
         font: $font;
         background: $back;
-        border-radius: unset;
+        border-radius: $border-radius;
         border: $border;
         color: $color;
         opacity: 1;
@@ -52,18 +52,18 @@ $animate-form: 0.5px solid #37A85D;
     }
 
     .individual {
-        @include theme($back: $ind-back, $color: $ind-color, $font: $ind-font, $border: $ind-border);
+        @include theme($back: $ind-back, $color: $ind-color, $font: $ind-font, $border: $ind-border, $border-radius: unset);
     }
 
     .individual2 {
         margin-left: 10px;
-        @include theme($back: $ind-back, $color: $ind-color, $font: $ind-font, $border: $ind-border);
+        @include theme($back: $ind-back, $color: $ind-color, $font: $ind-font, $border: $ind-border, $border-radius: unset);
     }
 
     .create {
         float: right;
         width: 150px;
-        @include theme($back: $create-back, $color: $white, $font: $ind-font, $border: unset);
+        @include theme($back: $create-back, $color: $white, $font: $ind-font, $border: unset, $border-radius: 10px);
     }
 
 }

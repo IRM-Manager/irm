@@ -46,17 +46,17 @@ export class HeaderComponent implements OnInit {
   }
 
   currentRoute() {
-    if (this.router.url == "/dashboard/taxpayer") {
+    if (this.router.url == "/dashboard2/taxpayer") {
       this.type = "tax";
       this.left_text1 = "Taxpayer Registration";
       this.left_text2 = "Check all the list of registered member";
     }
-    else if (this.router.url === "/dashboard/taxpayer/ind/individual"){
+    else if (this.router.url === "/dashboard2/taxpayer/ind/individual"){
       this.type = "tax";
       this.left_text1 = "Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
     }
-    else if (this.router.url === "/dashboard/taxpayer/non/business"){
+    else if (this.router.url === "/dashboard2/taxpayer/non/business"){
       this.type = "reg_tax";
       this.left_text1 = "Non - Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
