@@ -27,6 +27,9 @@ $create-back: transparent linear-gradient(180deg, #3E5FA8 0%, #2AA977 100%) 0% 0
 $header-back: rgba(62,95,168,0.05);
 $wrapper-back: #F5F7FA;
 $ind-border: 1px solid #45A841;
+$form-color: #37A85D;
+$label-color: #565656;
+$select-color: #3EA84E;
 
 .header {
     .tin {
@@ -308,15 +311,85 @@ $ind-border: 1px solid #45A841;
     .body {
         background: rgba(60,102,163,0.05);
         padding-top: 1rem;
-        padding-bottom: 2rem;
         opacity: 1;
     }
 
     .body2 {
         background: rgba(60,102,163,0.05);
-        padding-bottom: 2rem;
         padding-top: 1rem;
         opacity: 1;
+    }
+
+    input[type=text] {
+        background: $label-color;
+      } 
+
+      ::ng-deep .mat-select-arrow {
+        color: $select-color;
+        opacity: 1;
+    }
+    
+    mat-form-field {
+        color: 1px solid $form-color;
+        width: 250px;
+    }
+
+    .material-icons {
+        vertical-align: middle;
+        color: #3E5FA8;
+        opacity: 1;
+    }
+
+    .add {
+        border: 1px solid #40A84A;
+        border-radius: 10px;
+        opacity: 1;
+        padding: 14px;
+        margin-left: .5%;
+        vertical-align: middle;
+    }
+
+    .add_text {
+        font: $tbody-back;
+        letter-spacing: 0px;
+        font-weight: 500;
+        color: #44A843;
+        opacity: 1;
+    }
+
+    .half-width {
+        width: 18%;
+        margin-left: .5%;
+    }
+
+    .half-width2 {
+        width: 18%;
+        margin-left: .5%;
+    }
+
+    .half-full {
+        width: 32%;
+        margin-left: .5%;
+    }
+    
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: $form-color;
+    }
+    
+    ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+        color: $form-color;
+    }
+    
+    ::ng-deep .mat-input-element {
+        caret-color: $form-color;
+    }
+       
+    ::ng-deep .mat-form-field-label {
+        color: $label-color;
+    }
+    
+    ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+        color: $label-color;
     }
 
 }

@@ -116,13 +116,72 @@
                 Employee Basic details
             </div>
             <div class="body">
-
+                <form>
+                        <!-- emp_name -->
+                        <mat-form-field class="half-full" appearance="outline">
+                            <mat-label>Names of employees</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.emp_name}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- tin_emp -->
+                        <mat-form-field class="half-width" appearance="outline">
+                            <mat-label>(TIN) of employee</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.tin_emp}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- year_emp -->
+                        <mat-form-field class="half-width" appearance="outline">
+                            <mat-label>Year of Employment</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="DD/MM/YY">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <!-- <mat-error>{{formErrors.year_emp}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- position -->
+                        <mat-form-field class="half-width" appearance="outline">
+                            <mat-label>Position (optional)</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.position}}</mat-error> -->
+                        </mat-form-field>
+                </form>
             </div>
             <div class="emp_bas2">
                 Employee Income Package (Monthly)
             </div>
             <div class="body2">
+                <form>
+                    <p>
+                        <!-- basic -->
+                        <mat-form-field class="half-width2" appearance="outline">
+                            <mat-label>Basic (-N-)</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.basic}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- housing -->
+                        <mat-form-field class="half-width2" appearance="outline">
+                            <mat-label>Housing (-N-)</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.housing}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- transport -->
+                        <mat-form-field class="half-width2" appearance="outline">
+                            <mat-label>Transport (-N-)</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.transport}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- other -->
+                        <mat-form-field class="half-width2" appearance="outline">
+                            <mat-label>Other allowances (-N-)</mat-label>
+                            <input matInput>
+                            <!-- <mat-error>{{formErrors.other}}</mat-error> -->
+                        </mat-form-field>
 
+                        <button mat-button class="add">
+                            <span class="material-icons">add</span>
+                            <span class="add_text">Add employee</span>
+                        </button>
+                    </p>
+                </form>
             </div>
         </div>
 

@@ -15,6 +15,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { StaffIncomeComponent } from '../staff-income/staff-income.component';
 import { TaxIncomeComponent } from '../tax-income/tax-income.component';
 import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
     MatCardModule,
     DataTablesModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class PayeeModule { }
