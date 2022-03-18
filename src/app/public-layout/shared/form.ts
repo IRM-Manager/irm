@@ -214,3 +214,79 @@ export const Person = [
     }   
 
 ]
+
+
+
+export const Person2 = [
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+    {
+        tin: "184834843",
+        name: "matins luta",
+        gross_income: 47773333333,
+        free_income: 8117039368,
+        tax_income: 17039368
+    },
+
+]

@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 $tin-font: normal normal normal 15px/19px Montserrat;
 $tin-color: #565656;
 $soft-pattern-font: normal normal medium 15px/19px Montserrat;
@@ -14,6 +16,17 @@ $csv-check-font: normal normal medium 12px/15px Montserrat;
 $csv-check-color: #38729B;
 $lists-font: normal normal medium 12px/15px Montserrat;
 $upload-back: rgba(60,102,163,0.05);
+$thead: #FFFFFF 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3C66A3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$panel-text: normal normal medium 12px/15px Montserrat;
+$panel-color: #3C66A3;
+$create-back: transparent linear-gradient(180deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+$header-back: rgba(62,95,168,0.05);
+$wrapper-back: #F5F7FA;
+$ind-border: 1px solid #45A841;
 
 .header {
     .tin {
@@ -176,6 +189,94 @@ $upload-back: rgba(60,102,163,0.05);
         color: $csv-check-color;
         cursor: pointer;
         opacity: 1;
+    }
+
+    .table-container {
+        margin-bottom: 4rem;
+        width: inherit;
+    
+        table {
+            border: none;
+            margin-bottom: 1rem;
+        }
+
+        thead {
+            border: none;
+        }
+
+        thead tr {
+            background: $thead;
+            width: inherit;
+            font: $thead-text;
+            letter-spacing: 0px;
+            color: $thead-text-color;
+        }
+
+        .check {
+            font: $thead-text;
+            letter-spacing: 0px;
+            color: $thead-text-color;
+        }
+
+        tbody tr {
+            font: $tbody-back;
+            letter-spacing: 0px;
+            color: $tbody-color;
+        }
+
+        tr th {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+            font: $buttons1-font;
+            letter-spacing: 0px;
+            color: $soft-pattern-color;
+            font-weight: 500;
+            opacity: 1;
+        }
+
+        .table-icon {
+            color: $panel-color;
+        }
+
+        ::ng-deep .dataTables_wrapper .dataTables_filter {
+            display: none;
+        }
+
+        ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            color: $white !important;
+            background: $create-back !important;
+            border: unset;
+        }
+
+        ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: $white !important;
+            background: $create-back !important;
+            border: unset;
+        }
+
+        ::ng-deep table.dataTable thead .sorting {
+            background-image: unset !important;
+        }
+
+        ::ng-deep table.dataTable thead .sorting_asc {
+            background-image: unset !important;
+        }
+
+        ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+            background: $header-back;
+        }
+
+        ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+            background: $wrapper-back !important;
+        }
+
+        ::ng-deep .dataTables_wrapper .dataTables_length select {
+            display: none;
+        }
+
+        ::ng-deep .dataTables_wrapper .dataTables_length label {
+            display: none;
+        }
     }
 
 }

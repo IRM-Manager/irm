@@ -238,7 +238,7 @@ $button-font: normal normal normal 12px/15px Montserrat;
     }
 
     ::ng-deep table.dataTable thead .sorting {
-        background-image: unset;
+        background-image: unset !important;
     }
 
     ::ng-deep table.dataTable thead .sorting_asc {

@@ -179,7 +179,7 @@ $animate-form: 0.5px solid #37A85D;
     }
 
     ::ng-deep table.dataTable thead .sorting {
-        background-image: unset;
+        background-image: unset !important;
     }
 
     ::ng-deep table.dataTable thead .sorting_asc {
