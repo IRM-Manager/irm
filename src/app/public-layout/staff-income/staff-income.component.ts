@@ -17,7 +17,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   datas: any[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
   type: Boolean = false;
-  toggle: Boolean = false;
+  type2: Boolean = false;
+  viewMode = 'file';
 
   constructor(private dialog: MatDialog, private authService: AuthService,) { }
 

@@ -4,99 +4,206 @@
     <div class="reg_buss">Registered Business</div>
 
     <div class="buttons_p">
-        <button mat-button class="buttons1" (click)="type = !type">Use file Format</button>
-        <button mat-button class="buttons2" (click)="toggle = !toggle">Input Manually</button>
+        <button mat-button class="buttons1" [class.active]="viewMode == 'file'" (click)="viewMode = 'file'">Use file Format</button>
+        <button mat-button class="buttons2" [class.active]="viewMode == 'input'" (click)="viewMode = 'input'">Input Manually</button>
     </div>
 </div>
 
-<div class="header2">
-    <div class="float">
-        <div class="csv" (click)="type = !type"><span class="material-icons">home</span> Upload CSV File</div>
-        <div class="check">Check all <span class="material-icons">home</span></div>
-        <div style="clear: both;"></div>
-    </div>
 
-    <div class="lists">
-        List of added Employee(s)
-    </div>
+<div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'file'" class="file">
 
-    <div *ngIf="type == false">
-        <div class="main">
-            <div class="sn">S/N</div>
-            <div class="tin">TIN</div>
-            <div class="name">Name of Employee</div>
-            <div class="gross_income">
-                <div>Cross income (-N-)</div>
-                <div>Per Annual</div>
+        <div class="header2">
+            <div class="float">
+                <div class="csv" (click)="type = !type"><span class="material-icons">home</span> Upload CSV File</div>
+                <div class="check">Check all <span class="material-icons">home</span></div>
+                <div style="clear: both;"></div>
             </div>
-            <div class="tax_free">
-                <div>Tax free Income (-N-)</div>
-                <div>Per Annual</div>
+
+            <div class="lists">
+                List of added Employee(s)
             </div>
-            <div class="taxable_income">
-                <div>Taxable Income (-N-)</div>
-                <div>Per Annual</div>
+
+            <div *ngIf="type == false">
+                <div class="main">
+                    <div class="sn">S/N</div>
+                    <div class="tin">TIN</div>
+                    <div class="name">Name of Employee</div>
+                    <div class="gross_income">
+                        <div>Cross income (-N-)</div>
+                        <div>Per Annual</div>
+                    </div>
+                    <div class="tax_free">
+                        <div>Tax free Income (-N-)</div>
+                        <div>Per Annual</div>
+                    </div>
+                    <div class="taxable_income">
+                        <div>Taxable Income (-N-)</div>
+                        <div>Per Annual</div>
+                    </div>
+                </div>
+                
+                <div class="main2">
+                    <div class="up_csv">
+                        <div class="no_data" (click)="type = !type">No data yet</div>
+                        <div class="upload_csv_file" (click)="type = !type"><span class="material-icons">home</span> Upload CSV File</div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="type == true">
+
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                            <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>TIN</th>
+                                <th>Name of Employee</th>
+                                <th>
+                                    <div>Cross income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th>
+                                    <div>Tax free Income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th>
+                                    <div>Taxable Income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th> </th>
+
+                            </tr>
+                            </thead>
+                            <!-- payee -->
+                            <tbody *ngIf="datas?.length != 0">
+                                <tr *ngFor="let data of datas; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{ data.tin }}</td>
+                                    <td>{{ data.name }}</td>
+                                    <td>{{ data.gross_income }}</td>
+                                    <td>{{ data.free_income }}</td>
+                                    <td>{{ data.tax_income }}</td>
+                                    <td class="check" (click)="OpenDialog(data, 'payee')">
+                                        check 
+                                        <mat-icon class="table-icon">open_with</mat-icon>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="datas?.length == 0">
+                                <tr>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'input'" class="input">
+
+        <div class="input-header">
+            <div class="emp_bas">
+                Employee Basic details
+            </div>
+            <div class="body">
+
+            </div>
+            <div class="emp_bas2">
+                Employee Income Package (Monthly)
+            </div>
+            <div class="body2">
+
             </div>
         </div>
-        
-        <div class="main2">
-            <div class="up_csv">
-                <div class="no_data" (click)="type = !type">No data yet</div>
-                <div class="upload_csv_file" (click)="type = !type"><span class="material-icons">home</span> Upload CSV File</div>
+
+        <div class="header2">
+    
+            <div class="lists">
+                List of added Employee(s)
             </div>
+
+            <div *ngIf="type2 == false">
+                <div class="main">
+                    <div class="sn">S/N</div>
+                    <div class="tin">TIN</div>
+                    <div class="name">Name of Employee</div>
+                    <div class="gross_income">
+                        <div>Cross income (-N-)</div>
+                    </div>
+                    <div class="tax_free">
+                        <div>Tax free Income (-N-)</div>
+                    </div>
+                    <div class="taxable_income">
+                        <div>Taxable Income</div>
+                    </div>
+                </div>
+                
+                <div class="main2">
+                    <div class="up_csv">
+                        <div class="no_data" (click)="type = !type">No data yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="type2 == true">
+
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                            <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>TIN</th>
+                                <th>Name of Employee</th>
+                                <th>
+                                    <div>Cross income (-N-)</div>
+                                </th>
+                                <th>
+                                    <div>Tax free Income (-N-)</div>
+                                </th>
+                                <th>
+                                    <div>Taxable Income</div>
+                                </th>
+                                <th> </th>
+
+                            </tr>
+                            </thead>
+                            <!-- payee -->
+                            <tbody *ngIf="datas?.length != 0">
+                                <tr *ngFor="let data of datas; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{ data.tin }}</td>
+                                    <td>{{ data.name }}</td>
+                                    <td>{{ data.gross_income }}</td>
+                                    <td>{{ data.free_income }}</td>
+                                    <td>{{ data.tax_income }}</td>
+                                    <td class="check" (click)="OpenDialog(data, 'payee')">
+                                        check 
+                                        <mat-icon class="table-icon">open_with</mat-icon>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="datas?.length == 0">
+                                <tr>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
-
-    <div *ngIf="type == true">
-
-        <div class="table-container">
-            <div class="table-responsive">
-                <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
-                    <thead>
-                    <tr>
-                        <th>S/N</th>
-                        <th>TIN</th>
-                        <th>Name of Employee</th>
-                        <th>
-                            <div>Cross income (-N-)</div>
-                            <div>Per Annual</div>
-                        </th>
-                        <th>
-                            <div>Tax free Income (-N-)</div>
-                            <div>Per Annual</div>
-                        </th>
-                        <th>
-                            <div>Taxable Income (-N-)</div>
-                            <div>Per Annual</div>
-                        </th>
-                        <th> </th>
-
-                    </tr>
-                    </thead>
-                    <!-- payee -->
-                    <tbody *ngIf="datas?.length != 0">
-                        <tr *ngFor="let data of datas; let i=index">
-                            <td>{{i+1}}</td>
-                            <td>{{ data.tin }}</td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.gross_income }}</td>
-                            <td>{{ data.free_income }}</td>
-                            <td>{{ data.tax_income }}</td>
-                            <td class="check" (click)="OpenDialog(data, 'payee')">
-                                check 
-                                <mat-icon class="table-icon">open_with</mat-icon>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="datas?.length == 0">
-                        <tr>
-                            <td colspan="3" class="no-data-available">No data!</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-
 </div>
