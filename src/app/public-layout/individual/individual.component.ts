@@ -25,21 +25,21 @@ export class IndividualComponent implements OnDestroy, OnInit {
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog) {
     this.direct.paramMap.subscribe(params => {
       if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
-        this.active = 'ind'
-        this.left_text = "Tax Registration of Individuals"
+        this.active = 'ind';
+        this.left_text = "Tax Registration of Individuals";
       }
       else if  (params.get('id') == 'non') {
         this.active = 'com';
-        this.left_text = "Tax Registration of Business"
+        this.left_text = "Tax Registration of Business";
 
       }
       else if  (params.get('id') == 'ind') {
         this.active = 'ind';
-        this.left_text = "Tax Registration of Individuals"
+        this.left_text = "Tax Registration of Individuals";
       }
       else {
         this.active = 'ind';
-        this.left_text = "Tax Registration of Individuals"
+        this.left_text = "Tax Registration of Individuals";
       }
       
     })

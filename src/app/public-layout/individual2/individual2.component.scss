@@ -32,6 +32,7 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
         background: $back;
         border: $border;
         color: $color;
+        font-weight: 500;
         opacity: 1;
         padding: 1rem;
     }
@@ -40,7 +41,6 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
     .verify {
         margin-left: 20px;
         width: 150px;
-        font-weight: 500;
         @include theme($back: $create-back, $color: $white, $font: $ind-font, $border: unset);
     }
 
@@ -215,6 +215,7 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
     border: $border;
     border-radius: 10px;
     color: $color;
+    font-weight: 500;
     opacity: 1;
     padding: 1rem;
 }
@@ -226,7 +227,6 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
 
 .verify {
     width: 150px;
-    font-weight: 500;
     @include theme($back: $continue-back, $color: $white, $font: $ind-font, $border: unset);
 }
 

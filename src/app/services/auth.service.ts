@@ -85,9 +85,10 @@ export class AuthService {
         (tokens: any) => {
           console.log(tokens)
           this.storeJwtToken(tokens.access);
+          return true;
         },
         (error: any) => {
-          return of(false);
+          return false;
         })
     }
 

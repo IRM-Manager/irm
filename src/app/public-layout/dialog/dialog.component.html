@@ -65,15 +65,13 @@
 
             <div class="button_p">
                 <button mat-button class="back" mat-dialog-close>Back</button>
-                <button mat-button class="continue">Continue</button>
+                <button mat-button class="continue" [routerLink]="['/dashboard3/taxpayer/payee']" mat-dialog-close>Continue</button>
             </div>
 
         </mat-dialog-content>
         <mat-dialog-actions>
           </mat-dialog-actions>
-        <div class="footer">
 
-        </div>
     </div>
 
     <div *ngIf="data.type =='com'">
@@ -126,12 +124,71 @@
 
                 <div class="button_p">
                     <button mat-button class="back" mat-dialog-close>Back</button>
-                    <button mat-button class="continue">Continue</button>
+                    <button mat-button class="continue" [routerLink]="['/dashboard3/taxpayer/payee']" mat-dialog-close>Continue</button>
                 </div>
 
             </mat-dialog-content>
             <mat-dialog-actions>
             </mat-dialog-actions>
+    </div>
 
+
+        <div *ngIf="data.type =='payee'">
+            <div class="header">
+                    <div>
+                        <div class="leftt1 left1">Softpattern Pattern Technology</div>
+                        <div class="rightt1 right1">TIN 334337434344</div>
+                    </div><br>
+                    <div>
+                        <div class="leftt2 left2">Registered Business</div>        
+                        <div class="rightt2 right2">Reg No: 334337434344</div>
+                    </div><br>
+                    <div class="right right3">Taxpayer ID: 334337434344</div>
+                </div>
+                <mat-dialog-content class="mat-typography ind_com">
+    
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="title">Date Establishment</th>
+                                <th class="sub_title">2017-12-25</th>
+                                <th></th>
+                                <th class="title">Last PayE payment:</th>
+                                <th class="sub_title">No record</th>
+                            </tr>
+                            <tr>
+                                <th class="title">Number of staff</th>
+                                <th class="sub_title">No record</th>
+                                <th></th>
+                                <th></th>
+                                <th class="pay_history">
+                                    <span class="material-icons icon">access_time</span>
+                                    <span class="title2">View PayE History</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="title">Address</th>
+                                <th class="sub_title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</th>
+                            </tr>
+                            <tr>
+                                <th class="title">Director</th>
+                                <th class="sub_title">Matthew Adeboye</th>
+                            </tr>
+                            <tr>
+                                <th class="title">Phone Number</th>
+                                <th class="sub_title">07067069872</th>
+                            </tr>
+                        </thead>
+                    </table>
+    
+                    <div class="button_p">
+                        <button mat-button class="back" mat-dialog-close>Back</button>
+                        <button mat-button class="continue" mat-dialog-close>Continue</button>
+                    </div>
+    
+                </mat-dialog-content>
+                <mat-dialog-actions>
+                </mat-dialog-actions>
+    </div>
 
 </div>

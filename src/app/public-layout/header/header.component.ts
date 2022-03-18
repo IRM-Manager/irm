@@ -61,6 +61,11 @@ export class HeaderComponent implements OnInit {
       this.left_text1 = "Non - Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
     }
+    else if (this.router.url === "/dashboard3/taxpayer/payee"){
+      this.type = "payee";
+      this.left_text1 = "Pay-As-You-Earn (PAYE)";
+      this.left_text2 = "Please fill in the information";
+    }
     else if (this.router.url === "/dashboard"){
       this.type = "tax";
       this.left_text1 = "Dashboard";
@@ -92,9 +97,9 @@ export class HeaderComponent implements OnInit {
               this.store.dispatch(new AddProfile([{id: 1, data: data}]));
               this.profile = data.data;
             }
-            
           },
           err => {
+            this.authService.refreshToken();
           }
         )
       }

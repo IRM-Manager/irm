@@ -4,6 +4,7 @@ $white: #FFFFFF;
 $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
 $right1-font: normal normal 400 15px/19px Montserrat;
+$payee: transparent linear-gradient(142deg, #6F7D9B 0%, #191F1D 100%) 0% 0% no-repeat padding-box;
 
 .nav {
     background: $nav-color;
@@ -11,6 +12,10 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
 .nav2 {
     background: $nav-color2
+}
+
+.nav3 {
+    background: $payee;
 }
 
 mat-toolbar {

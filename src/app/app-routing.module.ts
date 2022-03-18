@@ -15,14 +15,6 @@ const routes: Routes = [
   },
 
   {
-  // {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-  //     canActivate: [LoginGuard],
-  //     // canLoad: [SignupGuard],
-  //   },
-  //   {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-  //     canActivate: [LoginGuard],
-  //     // canLoad: [SignupGuard],
-  //   },
 
   path: '', component: DefaultLayoutComponent, children: [
     {path: 'dashboard', loadChildren: () => import('./public-layout/dashboard/dashboard.module').then(m => m.DashboardModule),
@@ -38,6 +30,9 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard]
     },
     { path: 'dashboard2/taxpayer/non/business', loadChildren: () => import('./public-layout/business/business.module').then(m => m.BusinessModule),
+        canLoad: [IsLoggedInGuard]
+    },
+    { path: 'dashboard3/taxpayer/payee', loadChildren: () => import('./public-layout/payee/payee.module').then(m => m.PayeeModule),
         canLoad: [IsLoggedInGuard]
     },
   ]},

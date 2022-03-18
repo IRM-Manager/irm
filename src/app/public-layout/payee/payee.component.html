@@ -1,0 +1,98 @@
+<div class="wrapper">
+    
+
+    <div class="header">
+        <button mat-button class="button" [class.active]="viewMode == 'verify'" (click)="viewMode = 'verify'">
+            Business Verification
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'staff-income'" (click)="viewMode = 'staff-income'">
+            Declare staff income
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'tax-income'" (click)="viewMode = 'tax-income'">
+            Assess taxable income
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'bill'" (click)="viewMode = 'bill'">
+            Generate payable bill
+        </button>
+    </div>
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'verify'" class="verify">
+
+            <div class="form_header">
+                <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field class="cac-width" appearance="outline">
+                        <mat-label>(TIN or Reg. No)</mat-label>
+                        <input matInput formControlName="tin" placeholder="">
+                    </mat-form-field>
+                    <button mat-button class="verify" type="submit">Verify</button>
+                </form>
+            </div>    
+            
+            <mat-toolbar class="header2">
+                <div class="indcom">
+                    List of Taxable Businesses
+                </div>
+                <div class="spacer"></div>
+                <div class="search_icon_p">
+                    <form class="search-form">
+                        <input type="text" class="input">
+                    </form>
+                    <mat-icon class="search_icon">search</mat-icon>
+                </div>
+            </mat-toolbar>
+
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                        <tr>
+                            <th>Tin</th>
+                            <th>Business name</th>
+                            <th>Date of Establishment</th>
+                            <th>Contact Person</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td>{{i+1}}. {{ data.tin }}</td>
+                                <td>{{ data.first_name }}</td>
+                                <td>{{ data.occupation }}</td>
+                                <td>{{ data.phone }}</td>
+                                <td><mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with</mat-icon></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'staff-income'" class="staff-income">
+        </div>
+    </div>
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'tax-income'" class="tax-income">
+        </div>
+    </div>
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'bill'" class="bill">
+        </div>
+    </div>
+    
+    
+</div>
+    
+    

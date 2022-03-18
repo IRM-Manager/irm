@@ -17,6 +17,10 @@ export interface NIN {
     nin: string;
 }
 
+export interface Tin {
+    tin: string;
+}
+
 export interface Individual1 {
     title: string;
     firstname: string;
