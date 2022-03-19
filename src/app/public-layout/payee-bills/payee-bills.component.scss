@@ -13,6 +13,16 @@ $sche-color: #3C66A3;
 $year-font: normal normal normal 20px/24px Montserrat;
 $footer-table-color: #FF0031;
 $footer-table-font: normal normal normal 17px/20px Montserrat;
+$status: #E8C100;
+$thead: #FFFFFF 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3C66A3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$panel-text: normal normal normal 12px/15px Montserrat;
+$panel-color: #3C66A3;
+$wrapper-back: rgba(60,102,163,0.05);
+$bold: normal normal medium 15px/19px Montserrat;
 
 
 .header {
@@ -48,7 +58,8 @@ $footer-table-font: normal normal normal 17px/20px Montserrat;
 .header2 {
     width: 90%;
     margin-top: 3rem;
-    background: $header-back;
+    margin-bottom: 4rem;
+    background: $white;
     border: $header-border;
     opacity: 1;
 
@@ -93,45 +104,161 @@ $footer-table-font: normal normal normal 17px/20px Montserrat;
         opacity: 1;
     }
 
-    .footer {
-        position: sticky;
-        position: -webkit-sticky;
-        border-top: 2px solid #707070;
-        bottom: 0;
-        z-index: 1000;
+    .main2 {
+        padding-left: 1rem;
 
-        table {
-            margin-top: .5rem;
+        .table-container {
+            width: 100%;
+            margin-top: 2rem;
+        
+            table {
+                border: none;
+                margin-bottom: 1rem;
+            }
+
+            .bold {
+                font-weight: 550;
+                text-transform: capitalize;
+                font: $bold;
+                letter-spacing: 0px;
+            }
+        
+            thead {
+                border: none;
+            }
+
+            .status {
+                color: $status;
+                text-transform: capitalize;
+            }
+        
+            thead tr {
+                background: $thead;
+                text-align: left;
+                font: $thead-text;
+                letter-spacing: 0px;
+                color: $thead-text-color;
+            }
+        
+            tbody tr {
+                font: $tbody-back;
+                letter-spacing: 0px;
+                color: $tbody-color;
+            }
+
+            .body2 {
+                border-top: 1px solid #707070;
+            }
+
+            .body2 td{
+               padding-top: 2rem;
+               padding-bottom: 2rem; 
+            }
+        
+            tr th {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+        
+            .table-icon {
+                color: $panel-color;
+            }
+
+            .tbody2 {
+                border-top: 2px solid #707070;
+            }
+
+            .footer_table {
+                font: $footer-table-font;
+                letter-spacing: 0px;
+                color: $footer-table-color;
+            }    
+
+            .generate {
+                background: #3C66A3 0% 0% no-repeat padding-box;
+                border: 0.5px solid #3C66A3;
+                font: $reg-buss-font;
+                border-radius: 10px;
+                letter-spacing: 0px;
+                padding: .7rem;
+                color: $white;
+                opacity: 1;
+            }
+
+            .generate2 {
+                background: #2AA875 0% 0% no-repeat padding-box;
+                border: 0.5px solid #2BA873;
+                font: $reg-buss-font;
+                border-radius: 10px;
+                letter-spacing: 0px;
+                padding: .7rem;
+                color: $white;
+                opacity: 1;
+            }
+    
+            .assess {
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 0.5px solid #45669E;
+                text-align: left;
+                padding: .7rem;
+                border-radius: 10px;
+                font: $reg-buss-font;
+                letter-spacing: 0px;
+                color: $sche-color;
+                opacity: 1;
+            }    
+
+            .assess2 {
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 0.5px solid #2BA873;
+                text-align: left;
+                padding: .7rem;
+                border-radius: 10px;
+                font: $reg-buss-font;
+                letter-spacing: 0px;
+                color: #2AA876;
+                opacity: 1;
+            }    
+        
+            ::ng-deep .dataTables_wrapper .dataTables_filter {
+                display: none;
+            }
+        
+            ::ng-deep .dataTables_wrapper .dataTables_paginate {
+                display: none;
+            }
+        
+            ::ng-deep table.dataTable thead .sorting {
+                background-image: unset !important;
+            }
+        
+            ::ng-deep table.dataTable thead .sorting_asc {
+                background-image: unset !important;
+            }
+        
+            ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+                background: $wrapper-back;
+            }
+        
+            ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+                background: $wrapper-back !important;
+            }
+        
+            ::ng-deep .dataTables_wrapper .dataTables_length select {
+                display: none;
+            }
+        
+            ::ng-deep .dataTables_wrapper .dataTables_length label {
+                display: none;
+            }
+
+            ::ng-deep .dataTables_wrapper .dataTables_info {
+                display: none;
+            }
+        
         }
 
-        .footer_table {
-            font: $footer-table-font;
-            letter-spacing: 0px;
-            color: $footer-table-color;
-        }
-
-        .generate {
-            background: #3C66A3 0% 0% no-repeat padding-box;
-            border: 0.5px solid #2BA873;
-            font: $reg-buss-font;
-            border-radius: 10px;
-            letter-spacing: 0px;
-            padding: .7rem;
-            color: $white;
-            opacity: 1;
-        }
-
-        .assess {
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            border: 0.5px solid #45669E;
-            text-align: left;
-            padding: .7rem;
-            border-radius: 10px;
-            font: $reg-buss-font;
-            letter-spacing: 0px;
-            color: $sche-color;
-            opacity: 1;
-        }
     }
+
 
 }

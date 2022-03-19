@@ -14,26 +14,56 @@
     </div>
 
     <div class="main2">
-        main works!
-    </div>
-
-    <div class="footer">
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <td class="footer_table">January - December</td>
-                    <td class="footer_table">12</td>
-                    <td class="footer_table">10,000,000.00</td>
-                    <td class="footer_table"> - </td>
-                    <td>
-                        <button mat-button class="generate">Generate Bill</button>
-                    </td>
-                    <td>
-                        <button mat-button class="assess">Re - Assess</button>
-                    </td>
-                </tr>
-            </thead>
-        </table>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Duration(Month)</th>
+                            <th>No. Of Employee</th>
+                            <th>Payable(N)</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <!-- individual -->
+                    <tbody *ngIf="datas?.length != 0">
+                        <tr *ngFor="let data of datas; let i=index">
+                            <td class="bold align-middle">{{ data.duration }}</td>
+                            <td class="align-middle">{{ data.no_emp }}</td>
+                            <td class="align-middle">{{ data.payable }}</td>
+                            <td class="status align-middle">{{ data.status }}</td>
+                            <td class="align-middle">
+                                <button mat-button class="generate2">Generate Bill</button>
+                            </td>
+                            <td class="align-middle">
+                                <button mat-button class="assess2">Re - Assess</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <p></p>
+                    <br/>
+                        <tr class="body2">
+                            <td class="footer_table align-middle">January - December</td>
+                            <td class="footer_table align-middle">12</td>
+                            <td class="footer_table align-middle">10,000,000.00</td>
+                            <td class="footer_table align-middle" style="text-align: center;"> - </td>
+                            <td class="align-middle">
+                                <button mat-button class="generate">Generate Bill</button>
+                            </td>
+                            <td class="align-middle">
+                                <button mat-button class="assess">Re - Assess</button>
+                            </td>
+                        </tr>
+                    <tbody *ngIf="datas?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 </div>

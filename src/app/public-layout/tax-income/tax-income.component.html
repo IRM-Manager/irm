@@ -39,13 +39,13 @@
                 <!-- individual -->
                 <tbody *ngIf="datas?.length != 0">
                     <tr *ngFor="let data of datas; let i=index">
-                        <td>{{i+1}}</td>
-                        <td>{{ data.tin }}</td>
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.gross_income }}</td>
-                        <td>{{ data.tax_income }}</td>
-                        <td class="make_bold">{{ data.free_income }}</td>
-                        <td class="check" (click)="OpenDialog(data, 'payee')">
+                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{ data.tin }}</td>
+                        <td class="align-middle">{{ data.name }}</td>
+                        <td class="align-middle">{{ data.gross_income }}</td>
+                        <td class="align-middle">{{ data.tax_income }}</td>
+                        <td class="make_bold align-middle">{{ data.free_income }}</td>
+                        <td class="check align-middle" (click)="OpenDialog(data, 'payee')">
                             check 
                             <mat-icon class="table-icon">open_with</mat-icon>
                         </td>

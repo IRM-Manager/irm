@@ -290,3 +290,79 @@ export const Person2 = [
     },
 
 ]
+
+
+export const Person3 = [
+    {
+        duration: "Jan",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "Feb",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "March",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "April",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "May",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "June",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "July",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "August",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "September",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "October",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "November",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    },
+    {
+        duration: "December",
+        no_emp: 12,
+        payable: "77,000,000.00",
+        status: "Pending"
+    }
+]
