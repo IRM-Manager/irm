@@ -29,9 +29,10 @@ export class HttpService {
             const refresh = this.authService.refreshToken();
             console.log(refresh)
             if (refresh) {
-              if (retryCount > 2) throw err;
+              if (retryCount > 1) throw err;
               else {
                 retryCount++;
+                console.log(retryCount)
                 return retryCount
               }
             }else {
