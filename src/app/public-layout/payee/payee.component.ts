@@ -24,7 +24,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
   left_text!: string;
   loading = false;
   disabled = false;
-  viewMode = 'tax-income';
+  viewMode = 'bill';
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
