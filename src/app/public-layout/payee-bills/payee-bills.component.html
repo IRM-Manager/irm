@@ -1,6 +1,6 @@
 <div class="header">
     <div class="tin">TIN: IRM1233456</div>
-    <div class="soft_pattern">Softpattern Pattern Technology <span class="material-icons">home</span></div>
+    <div class="soft_pattern">Softpattern Pattern Technology <span class="material-icons">close_fullscreen</span></div>
     <div class="reg_buss">Registered Business</div>
 
 </div>
@@ -35,7 +35,7 @@
                             <td class="align-middle">{{ data.payable }}</td>
                             <td class="status align-middle">{{ data.status }}</td>
                             <td class="align-middle">
-                                <button mat-button class="generate2">Generate Bill</button>
+                                <button mat-button class="generate2" (click)="OpenDialog(data, 'gen_bill')">Generate Bill</button>
                             </td>
                             <td class="align-middle">
                                 <button mat-button class="assess2">Re - Assess</button>
@@ -50,7 +50,7 @@
                             <td class="footer_table align-middle">10,000,000.00</td>
                             <td class="footer_table align-middle" style="text-align: center;"> - </td>
                             <td class="align-middle">
-                                <button mat-button class="generate">Generate Bill</button>
+                                <button mat-button class="generate" (click)="OpenDialog(datas, 'gen_bill')">Generate Bill</button>
                             </td>
                             <td class="align-middle">
                                 <button mat-button class="assess">Re - Assess</button>

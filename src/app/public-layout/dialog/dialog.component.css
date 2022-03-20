@@ -130,6 +130,10 @@
 }
 
 
+
+/* payee  */
+
+
 .header2 {
     padding-top: 1rem;
 }
@@ -256,7 +260,6 @@
 
 .gross_print_p {
     margin-bottom: 2rem;
-    text-align: right;
     vertical-align: middle;
     font: normal normal normal 15px/19px Montserrat;
     color: #42A845;
@@ -269,6 +272,122 @@
     vertical-align: middle;
 }
 
+
+/* generate bill */
+
+.header3 {
+    padding-top: 1rem;
+}
+
+.clear-both2 {
+    margin-bottom: 3.5rem;
+    margin-top: 2rem;
+}
+
+.column_gen1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.column_gen2 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: right;
+}
+
+.gen_pending {
+    font: normal normal normal 15px/19px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    margin-left: 10px;
+    color: #F9D10A;
+    opacity: 1;
+}
+
+.table-content2 {
+    margin-bottom: 2rem;
+}
+
+.gen_total {
+    font: normal normal normal 17px/20px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #FF0031;
+    opacity: 1;
+}
+
+.gen_total_round {
+    border-radius: 50%;
+    border: 2px solid #30B46C;
+    margin-left: 20px;
+    border-bottom-width: thick;
+    font: normal normal normal 17px/20px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #FF0031;
+    opacity: 1;
+}
+
+.gen_body_text {
+    font: normal normal normal 15px/19px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 400;
+    color: #565656;
+    opacity: 1;
+}
+
+/* .brn_image {
+    width: 40px;
+    height: 50px;
+} */
+
+.gen_main {
+    margin-top: 3rem;
+}
+
+.col4 {
+    color: #FFFFFF;
+    background: #FFFFFF;
+    opacity: 0.05;
+}
+
+.col5 {
+    text-align: center;
+}
+
+.gen_main_f {
+    font: normal normal normal 15px/19px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #565656;
+    margin-bottom: 1rem;
+    opacity: 1;
+}
+
+.gen_main_s, .gen_main_t {
+    font: italic normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    font-style: italic;
+    color: #565656;
+    opacity: 1;
+}
+
+
+.gen_print_p {
+    margin-bottom: 10px;
+    margin-left: 7rem;
+    vertical-align: middle;
+    font: normal normal normal 15px/19px Montserrat;
+    color: #42A845;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.gen_print {
+    vertical-align: middle;
+}
 
 @media (min-width: 1200px) {
     .col-xl-1,

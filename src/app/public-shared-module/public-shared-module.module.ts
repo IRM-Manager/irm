@@ -41,6 +41,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 // import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxPrintModule} from 'ngx-print';
 
 import { AppPublicSidenavComponent } from '../public-layout/app-public-sidenav/app-public-sidenav.component';
 import { HeaderComponent } from '../public-layout/header/header.component';
@@ -107,6 +108,7 @@ import { DialogComponent } from '../public-layout/dialog/dialog.component';
     // MatSnackBar,
     FormsModule,
     ReactiveFormsModule,
+    NgxPrintModule,
     // NgxMatSelectSearchModule,
     // Ng2SearchPipeModule,
     // IvyCarouselModule
@@ -155,6 +157,7 @@ import { DialogComponent } from '../public-layout/dialog/dialog.component';
     // CodeInputModule,
     FormsModule, 
     ReactiveFormsModule,
+    NgxPrintModule,
     // NgxMatSelectSearchModule,
     // Ng2SearchPipeModule,
     // IvyCarouselModule
