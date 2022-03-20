@@ -1,5 +1,6 @@
 <div class="wrapper">
 
+    <!-- if is company -->
     <div *ngIf="data.type =='ind'">
         <div class="header">
             <div>
@@ -74,6 +75,8 @@
 
     </div>
 
+
+    <!-- if is business -->
     <div *ngIf="data.type =='com'">
         <div class="header">
                 <div>
@@ -132,7 +135,7 @@
             </mat-dialog-actions>
     </div>
 
-
+    <!-- if is payee -->
         <div *ngIf="data.type =='payee'">
             <div class="header">
                     <div>
@@ -189,6 +192,102 @@
                 </mat-dialog-content>
                 <mat-dialog-actions>
                 </mat-dialog-actions>
+    </div>
+
+
+    <!--  payee employee -->
+
+    <div *ngIf="data.type =='payee2'" class="payee2">
+            <div class="header2">
+                
+                <div class="header-text">individual employee breakdown of pay</div>
+                <div class="payee_clearfix">
+                    <div class="col-xl-3 col-lg-3 col-md-3">
+                        <div class="dark">TIN 334337434344</div>
+                        <div class="blue">Softpattern Pattern Technology</div>
+                        <div class="dark">Registered Business</div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3">
+                        <div class="dark">TIN 334337434344</div>
+                        <div class="blue">Matthew Adeboye Micheal</div>
+                        <div class="dark">Employee - designer</div>   
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3">
+                        <div class="dark">Date - 
+                            <span class="blue">2020</span> <span class="blue">2021</span> <span class="blue">2022</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="clear: both;"></div>
+            <div class="clear-both"></div>
+                
+            <mat-dialog-content class="mat-typography table-content">
+                <div class="table_headline">All Payment Applicable</div>
+                <table class="table table-borderless table-striped">
+                    <thead>
+                        <tr>
+                            <th>Items</th>
+                            <th>Monthly (&#8358;)</th>
+                            <th>Annual (&#8358;)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="align-middle">Basic (B)</td>
+                            <td class="align-middle">33,333,000.00</td>
+                            <td class="align-middle">33,333,000.00</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">House (H)</td>
+                            <td class="align-middle">33,333,000.00</td>
+                            <td class="align-middle">33,333,000.00</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">Transport (T)</td>
+                            <td class="align-middle">33,333,000.00</td>
+                            <td class="align-middle">33,333,000.00</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">Other allowance</td>
+                            <td class="align-middle">33,333,000.00</td>
+                            <td class="align-middle">33,333,000.00</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="align-middle total_gross">Total Gross</td>
+                            <td class="align-middle total_gross">33,333,000.00</td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td></td>
+                        <td class="align-middle total_gross">Consolated Relief <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align-middle total_gross">Exemptions <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align-middle total_gross">Tax Free Pay <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align-middle total_gross">Taxable Income <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align-middle total_blue_gross">Pay-E <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_blue_gross">93,333,000.00</td>
+                    </tr>
+                </table>
+
+            </mat-dialog-content>
     </div>
 
 </div>

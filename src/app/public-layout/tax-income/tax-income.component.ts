@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,7 @@ import { Person2 } from '../shared/form';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./tax-income.component.scss']
 })
-export class TaxIncomeComponent implements OnInit {
+export class TaxIncomeComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
