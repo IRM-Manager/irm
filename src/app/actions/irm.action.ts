@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Action } from '@ngrx/store';
-import { Profile, States,
-    // Order, Product, Review, Notification, Gallery, 
+import { Profile, States, Year
+    // , Product, Review, Notification, Gallery, 
     // Contact, Transaction, Task, Admin_Agent, User, 
     // Special_Order, Coupon 
 } from '../models/irm';
@@ -11,7 +11,7 @@ import { Profile, States,
 export enum ExampleActionTypes {
     GetProfile = '[Profile API] Get Profile',
     GetStates = '[States API] Get States',
-    // GetProduct = '[Product API] Get Product',
+    GetYear = '[Year API] Get Year',
     // GetReview = '[Review API] Get Review',
     // GetGallery = '[Gallery API] Get Gallery',
     // GetContact = '[Contact API] Get Contact',
@@ -27,7 +27,7 @@ export enum ExampleActionTypes {
   export enum ExampleActionTypes2 {
     GetProfile = '[Profile API] Remove Profile',
     GetStates = '[States API] Remove States',
-    // GetProduct = '[Product API] Remove Product',
+    GetYear = '[Year API] Remove Year',
     // GetReview = '[Review API] Remove Review',
     // GetGallery = '[Gallery API] Remove Gallery',
     // GetContact = '[Contact API] Remove Contact',
@@ -89,26 +89,25 @@ export class RemoveStates implements Action {
 
 
 
-// // Product
+// Year
 
+// Section 2
+export const ADD_YEAR  = '[YEAR] Add'
+export const REMOVE_YEAR   = '[YEAR] Remove'
 
-// // Section 2
-// export const ADD_PRODUCT  = '[PRODUCT] Add'
-// export const REMOVE_PRODUCT   = '[PRODUCT] Remove'
+// Section 3
+export class AddYear implements Action {
+    public readonly type = ExampleActionTypes.GetYear
 
-// // Section 3
-// export class AddProduct implements Action {
-//     public readonly type = ExampleActionTypes.GetProduct
+    constructor(public Yearpayload: Year[]) {}
 
-//     constructor(public Productpayload: Product[]) {}
+}
 
-// }
+export class RemoveYear implements Action {
+    public readonly type = ExampleActionTypes2.GetYear
 
-// export class RemoveProduct implements Action {
-//     public readonly type = ExampleActionTypes2.GetProduct
-
-//     constructor(public Productpayload: any) {}
-// }
+    constructor(public Yearpayload: any) {}
+}
 
 
 
@@ -359,8 +358,8 @@ export class RemoveStates implements Action {
 
 // action
 
-export type Actions = | AddProfile | RemoveProfile | AddStates | RemoveStates
-// | AddOrder | RemoveOrder | AddProduct | RemoveProduct
+export type Actions = | AddProfile | RemoveProfile | AddStates | RemoveStates | AddYear | RemoveYear 
+// | AddProduct | RemoveProduct
 // | AddReview | RemoveReview | AddGallery | RemoveGallery | AddContact | RemoveContact | AddTransaction | RemoveTransaction
 // | AddNotification | RemoveNotification | AddTask | RemoveTask | AddAdmin_Agent | RemoveAdmin_Agent
 // | AddUser | RemoveUser | AddCoupon | RemoveCoupon | AddSpecial_Order | RemoveSpecial_Order

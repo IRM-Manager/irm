@@ -1,5 +1,5 @@
 import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Profile, States
+import { Profile, States, Year
   // Order, Product, Review, Gallery, Contact, Notification, Transaction, 
   //   Task, Admin_Agent, User, Special_Order, Coupon 
   } from '../models/irm';
@@ -20,9 +20,9 @@ interface ProfileState extends EntityState<Profile> {
   }
 
 
-  // interface ProductState extends EntityState<Product> {
-  //   total: number;
-  // }
+  interface YearState extends EntityState<Year> {
+    total: number;
+  }
 
 
   // interface ReviewState extends EntityState<Review> {
@@ -79,7 +79,7 @@ interface ProfileState extends EntityState<Profile> {
   export interface State {
     profile: ProfileState;
     states: StatesState;
-    // product: ProductState;
+    year: YearState;
     // review: ReviewState;
     // gallery: GalleryState;
     // contact: ContactState;
@@ -95,7 +95,7 @@ interface ProfileState extends EntityState<Profile> {
 
   const adapterProfile = createEntityAdapter<Profile>();
   const adapterStates = createEntityAdapter<States>();
-  // const adapterProduct = createEntityAdapter<Product>();
+  const adapterYear = createEntityAdapter<Year>();
   // const adapterReview = createEntityAdapter<Review>();
   // const adapterGallery = createEntityAdapter<Gallery>();
   // const adapterContact = createEntityAdapter<Contact>();
@@ -109,7 +109,7 @@ interface ProfileState extends EntityState<Profile> {
   
   const ProfileInitialState: ProfileState = adapterProfile.getInitialState({ total: 0 });
   const StatesInitialState: StatesState = adapterStates.getInitialState({ total: 0 });
-  // const ProductInitialState: ProductState = adapterProduct.getInitialState({ total: 0 });
+  const YearInitialState: YearState = adapterYear.getInitialState({ total: 0 });
   // const ReviewInitialState: ReviewState = adapterReview.getInitialState({ total: 0 });
   // const GalleryInitialState: GalleryState = adapterGallery.getInitialState({ total: 0 });
   // const ContactInitialState: ContactState = adapterContact.getInitialState({ total: 0 });
@@ -125,7 +125,7 @@ interface ProfileState extends EntityState<Profile> {
   const initialState = {
     profile: ProfileInitialState,
     states: StatesInitialState,
-    // product: ProductInitialState,
+    year: YearInitialState,
     // review: ReviewInitialState,
     // gallery: GalleryInitialState,
     // contact: ContactInitialState,
@@ -162,13 +162,13 @@ interface ProfileState extends EntityState<Profile> {
 
 
 
-        // // Product
-        // case KonpayActions.ExampleActionTypes.GetProduct: 
-        // return { ...state, product: adapterProduct.addMany(action.Productpayload, state.product) };
+        // Year
+        case KonpayActions.ExampleActionTypes.GetYear: 
+        return { ...state, year: adapterYear.addMany(action.Yearpayload, state.year) };
 
 
-        // case KonpayActions.ExampleActionTypes2.GetProduct: 
-        // return { ...state, product: adapterProduct.removeOne(1, state.product) };
+        case KonpayActions.ExampleActionTypes2.GetYear: 
+        return { ...state, year: adapterYear.removeOne(1, state.year) };
 
 
         // // Review
@@ -271,7 +271,7 @@ interface ProfileState extends EntityState<Profile> {
 
 export const selectProfileState = (state: State) => state.profile;
 export const selectStatesState = (state: State) => state.states;
-// export const selectProductState = (state: State) => state.product;
+export const selectYearState = (state: State) => state.year;
 // export const selectReviewState = (state: State) => state.review;
 // export const selectGalleryState = (state: State) => state.gallery;
 // export const selectContactState = (state: State) => state.contact;
@@ -288,7 +288,7 @@ export const selectStatesState = (state: State) => state.states;
 
 export const { selectAll: selectAllProfile } = adapterProfile.getSelectors();
 export const { selectAll: selectAllStates } = adapterStates.getSelectors();
-// export const { selectAll: selectAllProduct } = adapterProduct.getSelectors();
+export const { selectAll: selectAllYear } = adapterYear.getSelectors();
 // export const { selectAll: selectAllReview } = adapterReview.getSelectors();
 // export const { selectAll: selectAllGallery } = adapterGallery.getSelectors();
 // export const { selectAll: selectAllContact } = adapterContact.getSelectors();

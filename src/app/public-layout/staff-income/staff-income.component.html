@@ -132,9 +132,11 @@
                         <!-- year_emp -->
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>Year of Employment</mat-label>
-                            <input matInput formControlName="year" [matDatepicker]="picker" placeholder="DD/MM/YY" required>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-select matInput formControlName="year" required>
+                                <mat-option *ngFor="let y of year.data" value="{{y.id}}|{{y.year}}">
+                                    {{y.year}}
+                                </mat-option>
+                            </mat-select>
                             <mat-error>{{formErrors.year}}</mat-error>
                         </mat-form-field>
                         <!-- position -->

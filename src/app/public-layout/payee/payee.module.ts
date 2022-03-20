@@ -17,6 +17,7 @@ import { TaxIncomeComponent } from '../tax-income/tax-income.component';
 import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     PayeeComponent,
     StaffIncomeComponent,
     TaxIncomeComponent,
-    PayeeBillsComponent
+    PayeeBillsComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +40,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     DataTablesModule,
     MatToolbarModule,
     MatDatepickerModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatSelectModule
   ]
 })
 export class PayeeModule { }

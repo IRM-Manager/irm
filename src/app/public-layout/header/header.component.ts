@@ -6,11 +6,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
-import { select, Store } from '@ngrx/store';
-import { Profile, States } from '../../models/irm';
-import * as konpayActions from '../../actions/irm.action';
-import { AppState, selectAllProfile, selectAllStates } from 'src/app/reducers/index';
-import { AddProfile, RemoveProfile, AddStates, RemoveStates } from '../../actions/irm.action';
+import { Store } from '@ngrx/store';
+import { Profile, States, Year } from '../../models/irm';
+import { AppState, selectAllProfile, selectAllStates, selectAllYear } from 'src/app/reducers/index';
+import { AddProfile, RemoveProfile, AddStates, RemoveStates, AddYear, RemoveYear } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -29,6 +28,7 @@ export class HeaderComponent implements OnInit {
 
   stateProfile: Observable<Profile[]>;
   stateStates: Observable<States[]>;
+  stateYear: Observable<Year[]>;
 
   constructor(private dialog: MatDialog, private shared: ToggleNavService, private authService: AuthService,
     private router: Router, private snackBar: MatSnackBar, private httpService: HttpService,
@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
 
       this.stateProfile = store.select(selectAllProfile);
       this.stateStates = store.select(selectAllStates);
+      this.stateYear = store.select(selectAllYear);
 
   }
 
@@ -107,18 +108,32 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  AddState() {
-      this.httpService.state('state', 1).subscribe(
+  AddYear() {
+      this.httpService.year().subscribe(
         (data:any) => {
           if(data.responsecode == "01"){
           }else{
-            this.store.dispatch(new AddStates([{id: 1, data: data}]));
+            this.store.dispatch(new AddYear([{id: 1, data: data}]));
           }
         },
         err => {
         }
       ) 
   }
+
+
+  AddState() {
+    this.httpService.state('state', 1).subscribe(
+      (data:any) => {
+        if(data.responsecode == "01"){
+        }else{
+          this.store.dispatch(new AddStates([{id: 1, data: data}]));
+        }
+      },
+      err => {
+      }
+    ) 
+}
 
 
   limit(title: any, limit = 11) {
@@ -152,6 +167,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.AddProfile();
     this.AddState();
+    this.AddYear();
   }
 
 

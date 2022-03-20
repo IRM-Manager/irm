@@ -9,10 +9,10 @@ export interface States {
     data: any;
 }
 
-// export interface Product {
-//     id: number;
-//     data: any;
-// }
+export interface Year {
+    id: number;
+    data: any;
+}
 
 // export interface Review {
 //     id: number;

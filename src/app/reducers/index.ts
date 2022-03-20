@@ -17,7 +17,7 @@ export const reducers: ActionReducerMap<AppState, any> = {
   
   export const selectProfileState = createSelector(selectExampleModule, fromExample.selectProfileState);
   export const selectStatesState = createSelector(selectExampleModule, fromExample.selectStatesState);
-//   export const selectProductState = createSelector(selectExampleModule, fromExample.selectProductState);
+  export const selectYearState = createSelector(selectExampleModule, fromExample.selectYearState);
 //   export const selectReviewState = createSelector(selectExampleModule, fromExample.selectReviewState);
 //   export const selectGalleryState = createSelector(selectExampleModule, fromExample.selectGalleryState);
 //   export const selectContactState = createSelector(selectExampleModule, fromExample.selectContactState);
@@ -33,7 +33,7 @@ export const reducers: ActionReducerMap<AppState, any> = {
 
   export const selectAllProfile = createSelector(selectProfileState, fromExample.selectAllProfile);
   export const selectAllStates = createSelector(selectStatesState, fromExample.selectAllStates);
-//   export const selectAllProduct = createSelector(selectProductState, fromExample.selectAllProduct);
+  export const selectAllYear = createSelector(selectYearState, fromExample.selectAllYear);
 //   export const selectAllReview = createSelector(selectReviewState, fromExample.selectAllReview);
 //   export const selectAllGallery = createSelector(selectGalleryState, fromExample.selectAllGallery);
 //   export const selectAllContact = createSelector(selectContactState, fromExample.selectAllContact);

@@ -6,6 +6,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { payee1, payee2, Person2 } from '../shared/form';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
+// state management
+import { select, Store } from '@ngrx/store';
+import { Year } from '../../models/irm';
+import * as konpayActions from '../../actions/irm.action';
+import { AppState, selectAllYear } from 'src/app/reducers/index';
+import { AddYear, RemoveYear } from '../../actions/irm.action';
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-staff-income',
@@ -23,6 +31,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   feedback2!: payee2;
   loading = false;
   disabled = false;
+  year: any;
   // table
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -31,6 +40,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   type2: Boolean = false;
   viewMode = 'file';
   clickEventSubscription?: Subscription;
+
+  stateYear: Observable<Year[]>;
 
   formErrors: any = {
     'name': '', 'tin': '', 'year': '', 'basic': '', 'housing': '', 'transport': '',
@@ -59,9 +70,13 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   };
 
   constructor(private dialog: MatDialog, private authService: AuthService,
-    public shared: ToggleNavService, private fb: FormBuilder,) {
+    public shared: ToggleNavService, private fb: FormBuilder, private store: Store<AppState>,
+    private httpService: HttpService) {
       this.createForm();
       this.createForm1();
+
+      this.stateYear = store.select(selectAllYear);
+
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.datas = data.data;
         this.type = true;
@@ -164,9 +179,34 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     //   });
   }
 
+
+  AddYear() {
+    this.stateYear.forEach(e => {
+      if(e.length > 0 ) {
+        this.year = e[0].data;
+        console.log(e[0].data.data)
+      }
+      else {
+        this.httpService.year().subscribe(
+          (data:any) => {
+            if(data.responsecode == "01"){
+            }else{
+              this.store.dispatch(new AddYear([{id: 1, data: data}]));
+              this.year = data.data;
+            }
+          },
+          err => {
+          }
+        )
+      }
+    }) 
+  }
+
+
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
+    this.AddYear();
   }
 
   back() {
