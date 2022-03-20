@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -18,7 +18,6 @@ export class PayeeBillsComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
-
 
   constructor(private router: Router,
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog) {
@@ -42,6 +41,7 @@ export class PayeeBillsComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
+
   }
 
 

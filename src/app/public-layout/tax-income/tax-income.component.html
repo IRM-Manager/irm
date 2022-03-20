@@ -17,18 +17,18 @@
             <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
                 <thead>
                     <tr>
-                        <th>S/N</th>
-                        <th>TIN</th>
-                        <th>Name of Employee</th>
-                        <th>
+                        <th class="align-middle">S/N</th>
+                        <th class="align-middle">TIN</th>
+                        <th class="align-middle">Name of Employee</th>
+                        <th class="align-middle">
                             <div>Cross income (-N-)</div>
                             <div>Per Annual</div>
                         </th>
-                        <th>
+                        <th class="align-middle">
                             <div>Taxable Income (-N-)</div>
                             <div>Per Annual</div>
                         </th>
-                        <th>
+                        <th class="align-middle">
                             <div class="make_bold">Pay E (&#8358;)</div>
                             <div class="make_bold">Per Annual</div>
                         </th>
@@ -45,7 +45,7 @@
                         <td class="align-middle">{{ data.gross_income }}</td>
                         <td class="align-middle">{{ data.tax_income }}</td>
                         <td class="make_bold align-middle">{{ data.free_income }}</td>
-                        <td class="check align-middle" (click)="OpenDialog(data, 'payee')">
+                        <td class="check align-middle">
                             check 
                             <mat-icon class="table-icon">dashboard_customize</mat-icon>
                         </td>
@@ -66,8 +66,8 @@
     </div>
 
     <div class="buttons">
-        <button mat-button class="verify2">Back</button>
-        <button mat-button class="verify">Generate Bill</button>
+        <button mat-button class="verify2" (click)="back()">Back</button>
+        <button mat-button class="verify" (click)="Continue()">Generate Bill</button>
     </div>
 
 

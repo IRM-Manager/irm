@@ -4,13 +4,13 @@
         <button mat-button class="button" [class.active]="viewMode == 'verify'" (click)="viewMode = 'verify'">
             Business Verification
         </button>
-        <button mat-button class="button" [class.active]="viewMode == 'staff-income'" (click)="viewMode = 'staff-income'">
+        <button mat-button class="button" [class.active]="viewMode == 'staff-income'">
             Declare staff income
         </button>
-        <button mat-button class="button" [class.active]="viewMode == 'tax-income'" (click)="viewMode = 'tax-income'">
+        <button mat-button class="button" [class.active]="viewMode == 'tax-income'">
             Assess taxable income
         </button>
-        <button mat-button class="button" [class.active]="viewMode == 'bill'" (click)="viewMode = 'bill'">
+        <button mat-button class="button" [class.active]="viewMode == 'bill'">
             Generate payable bills
         </button>
     </div>

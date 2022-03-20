@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Tin, Person } from '../shared/form';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-payee',
@@ -24,7 +25,8 @@ export class PayeeComponent implements OnDestroy, OnInit {
   left_text!: string;
   loading = false;
   disabled = false;
-  viewMode = 'bill';
+  viewMode = 'verify';
+  clickEventSubscription?: Subscription;
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -37,8 +39,12 @@ export class PayeeComponent implements OnDestroy, OnInit {
   };
 
   constructor(private router: Router, private direct: ActivatedRoute, private fb: FormBuilder,
-    private authService: AuthService, private http: HttpClient, private dialog: MatDialog) {
+    private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
+    public shared: ToggleNavService) {
       this.createForm();
+      this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
+        this.viewMode = data.type;
+      })
   }
 
   createForm() {

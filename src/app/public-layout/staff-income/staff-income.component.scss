@@ -30,6 +30,14 @@ $ind-border: 1px solid #45A841;
 $form-color: #37A85D;
 $label-color: #565656;
 $select-color: #3EA84E;
+$continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$back-border: 1px solid #40A84A;
+$back-color: #44A843;
+$verify-hover-b: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+$verify-hover-box: 0px 3px 6px #00000029;
+
+
 
 .header {
     .tin {
@@ -165,7 +173,6 @@ $select-color: #3EA84E;
     .main2 {
         background: $upload-back;
         height: 50vh;
-        margin-bottom: 4rem;
         position: relative;
     }
 
@@ -196,7 +203,6 @@ $select-color: #3EA84E;
     }
 
     .table-container {
-        margin-bottom: 4rem;
     
         table {
             border: none;
@@ -286,7 +292,6 @@ $select-color: #3EA84E;
 }
 
 .input-header {
-    margin-bottom: 1rem;
     width: 90%;
 
     .emp_bas {
@@ -395,4 +400,47 @@ $select-color: #3EA84E;
         color: $label-color;
     }
 
+}
+
+
+
+.buttons {
+    text-align: right;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+    width: 90%;
+}
+
+@mixin theme($back, $color, $font, $border) {
+    letter-spacing: 0px;
+    font: $font;
+    background: $back;
+    border: $border;
+    border-radius: 10px;
+    color: $color;
+    font-weight: 500;
+    opacity: 1;
+    padding: 1rem;
+}
+
+.verify {
+    width: 150px;
+    @include theme($back: $continue-back, $color: $white, $font: $ind-font, $border: unset);
+}
+
+.verify:disabled{
+    color: $white;
+}
+
+.verify2 {
+    margin-right: 20px;
+    width: 150px;
+    font-weight: 500;
+    @include theme($back: $white, $color: $back-color, $font: $ind-font, $border: $back-border);
+}
+
+.verify:hover, .verify2:hover {
+    background: $verify-hover-b;
+    box-shadow: $verify-hover-box;
+    color: $white;
 }

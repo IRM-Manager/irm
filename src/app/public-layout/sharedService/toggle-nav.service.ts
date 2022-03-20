@@ -12,9 +12,6 @@ export class ToggleNavService {
 
   constructor() { }
 
-
-  // Updata changes in header component
-
   sendClickEvent() {
     this.subject.next(null);
   }
@@ -23,12 +20,21 @@ export class ToggleNavService {
     return this.subject.asObservable();
   }
 
-  sendHeaderClickEvent(data: any) {
-    this.subject3.next(null);
-    return data
+  // payee
+  PayeesendClickEvent(data: any) {
+    this.subject.next(data);
   }
 
-  getHeaderClickEvent(data: any):Observable<any> {
+  PayeegetClickEvent():Observable<any> {
+    return this.subject.asObservable();
+  }
+  // 
+
+  sendHeaderClickEvent() {
+    this.subject3.next(null);
+  }
+
+  getHeaderClickEvent():Observable<any> {
     return this.subject3.asObservable();
   }
 
