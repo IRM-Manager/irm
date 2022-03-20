@@ -15,8 +15,8 @@
 
         <div class="header2">
             <div class="float">
-                <div class="csv" (click)="type = !type"><span class="material-icons">home</span> Upload CSV File</div>
-                <div class="check">Check all <span class="material-icons">home</span></div>
+                <div class="csv" (click)="type = !type"><span class="material-icons">upload_file</span> Upload CSV File</div>
+                <div class="check">Check all <span class="material-icons">dashboard_customize</span></div>
                 <div style="clear: both;"></div>
             </div>
 
@@ -46,7 +46,7 @@
                 <div class="main2">
                     <div class="up_csv">
                         <div class="no_data" (click)="type = !type">No data yet</div>
-                        <div class="upload_csv_file" (click)="type = !type"><span class="material-icons">home</span> Upload CSV File</div>
+                        <div class="upload_csv_file" (click)="type = !type"><span class="material-icons">upload_file</span> Upload CSV File</div>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                                     <td class="align-middle">{{ data.tax_income }}</td>
                                     <td class="check align-middle" (click)="OpenDialog(data, 'payee2')">
                                         check 
-                                        <mat-icon class="table-icon">open_with</mat-icon>
+                                        <mat-icon class="table-icon">dashboard_customize</mat-icon>
                                     </td>
                                 </tr>
                             </tbody>

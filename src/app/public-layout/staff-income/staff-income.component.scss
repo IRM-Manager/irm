@@ -91,6 +91,7 @@ $select-color: #3EA84E;
 
     .material-icons {
         vertical-align: middle;
+        color: $form-color;
     }
 }
 
@@ -120,6 +121,7 @@ $select-color: #3EA84E;
 
     .material-icons {
         vertical-align: middle;
+        color: $form-color;
     }
 
     .lists {
@@ -236,7 +238,7 @@ $select-color: #3EA84E;
         }
 
         .table-icon {
-            color: $panel-color;
+            color: $form-color;
         }
 
         ::ng-deep .dataTables_wrapper .dataTables_filter {

@@ -202,19 +202,19 @@
                 
                 <div class="header-text">individual employee breakdown of pay</div>
                 <div class="payee_clearfix">
-                    <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="column1 col-xl-3 col-lg-3 col-md-3">
                         <div class="dark">TIN 334337434344</div>
                         <div class="blue">Softpattern Pattern Technology</div>
                         <div class="dark">Registered Business</div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="column2 col-xl-3 col-lg-3 col-md-3">
                         <div class="dark">TIN 334337434344</div>
                         <div class="blue">Matthew Adeboye Micheal</div>
                         <div class="dark">Employee - designer</div>   
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="column3 col-xl-3 col-lg-3 col-md-3">
                         <div class="dark">Date - 
-                            <span class="blue">2020</span> <span class="blue">2021</span> <span class="blue">2022</span>
+                            <span class="blue_year">2020</span> <span class="blue_year">2021</span> <span class="dark">2022</span>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
             <mat-dialog-content class="mat-typography table-content">
                 <div class="table_headline">All Payment Applicable</div>
                 <table class="table table-borderless table-striped">
-                    <thead>
+                    <thead class="payee_table_strip">
                         <tr>
                             <th>Items</th>
                             <th>Monthly (&#8358;)</th>
@@ -262,32 +262,37 @@
                     </tbody>
                     <tr>
                         <td></td>
-                        <td class="align-middle total_gross">Consolated Relief <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">Consolated Relief <span class="material-icons error_icon">error_outline</span></td>
                         <td class="align-middle total_gross">33,333,000.00</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="align-middle total_gross">Exemptions <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">Exemptions <span class="material-icons error_icon">error_outline</span></td>
                         <td class="align-middle total_gross">33,333,000.00</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="align-middle total_gross">Tax Free Pay <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">Tax Free Pay <span class="material-icons error_icon">error_outline</span></td>
                         <td class="align-middle total_gross">33,333,000.00</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="align-middle total_gross">Taxable Income <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_gross">Taxable Income <span class="material-icons error_icon">error_outline</span></td>
                         <td class="align-middle total_gross">33,333,000.00</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="align-middle total_blue_gross">Pay-E <span class="material-icons">error_outline</span></td>
+                        <td class="align-middle total_blue_gross">Pay-E <span class="material-icons error_icon">error_outline</span></td>
                         <td class="align-middle total_blue_gross">93,333,000.00</td>
                     </tr>
                 </table>
 
             </mat-dialog-content>
+
+            <div class="gross_print_p">
+                    <mat-icon class="gross_print">print</mat-icon>
+                    Print
+            </div>
     </div>
 
 </div>
