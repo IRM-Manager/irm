@@ -74,21 +74,20 @@ export interface Business {
 
 
 
-// export interface register {
-//     email: string; 
-//     password: string;
-//     confirmPassword: string;
-//     phone: string;
-//     name: string;
-// }
+export interface payee1 {
+    name: string; 
+    tin: string;
+    year: string;
+    position: string;
+}
 
 
-// export interface billingDetails {
-//     notes: string;
-//     street_address: string; 
-//     apartment_suit_unit: string;
-//     delivery_type: string;
-// }
+export interface payee2 {
+    basic: string;
+    housing: string; 
+    transport: string;
+    other: string;
+}
 
 
 // export interface voucher {
