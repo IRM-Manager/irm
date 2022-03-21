@@ -29,4 +29,14 @@ export class DialogComponent implements OnInit {
     this.shared.PayeesendClickEvent(data);
   }
 
+  StaffIncome2() {
+    const data = {
+      type: 'staff-income',
+      data: this.data.data
+    }
+    this.shared.PayeesendClickEvent(data);
+    this.router.navigate(['/dashboard3/taxpayer/payee/staff-income'])
+  }
+
+
 }

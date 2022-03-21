@@ -42,10 +42,23 @@ export class PayeeComponent implements OnDestroy, OnInit {
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
     public shared: ToggleNavService) {
       this.createForm();
+
+      this.direct.paramMap.subscribe(params => {
+        if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
+        }
+        else {
+          if (params.get('id') == 'staff-income') {
+            this.viewMode = 'staff-income';
+          }
+          else {}
+        }
+      })
+      
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.viewMode = data.type;
       })
   }
+
 
   createForm() {
     this.feedbackForm = this.fb.group({

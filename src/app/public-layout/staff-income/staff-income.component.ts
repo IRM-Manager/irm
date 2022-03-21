@@ -31,6 +31,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   feedback2!: payee2;
   loading = false;
   disabled = false;
+  yearLoading = false;
+  yearError = false;
+  upLoading = false
   year: any;
   // table
   dtOptions: DataTables.Settings = {};
@@ -38,8 +41,10 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   type: Boolean = false;
   type2: Boolean = false;
+  formData = new FormData();
   viewMode = 'file';
   clickEventSubscription?: Subscription;
+  fileName = '';
 
   stateYear: Observable<Year[]>;
 
@@ -82,6 +87,17 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
         this.type = true;
       })
    }
+
+
+   onFileSelected(event: any) {
+    const file:File = event.target.files[0];
+      if (file) {
+          this.fileName = file.name;
+          const formData = new FormData();
+          formData.append("file", file);
+          this.formData = formData;
+      }
+    }
 
 
    createForm() {
@@ -164,6 +180,13 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     console.log(this.feedback2)
   }
 
+  UploadFIle() {
+
+    this.upLoading = true
+    // this.formData
+    
+  }
+
 
   renderTable() {
     this.dtOptions = {
@@ -181,10 +204,14 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
 
   AddYear() {
+    this.yearLoading = true;
+    this.yearError = false;
     this.stateYear.forEach(e => {
       if(e.length > 0 ) {
-        this.year = e[0].data;
-        console.log(e[0].data.data)
+        this.year = e[0].data.data;
+        console.log(e[0].data)
+        this.yearLoading = false;
+        this.yearError = false;
       }
       else {
         this.httpService.year().subscribe(
@@ -193,9 +220,13 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
             }else{
               this.store.dispatch(new AddYear([{id: 1, data: data}]));
               this.year = data.data;
+              this.yearLoading = false;
+              this.yearError = false;
             }
           },
           err => {
+            this.yearLoading = false;
+            this.yearError = true;
           }
         )
       }

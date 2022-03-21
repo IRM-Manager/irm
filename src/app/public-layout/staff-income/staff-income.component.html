@@ -15,7 +15,15 @@
 
         <div class="header2">
             <div class="float">
-                <div class="csv" (click)="type = !type"><span class="material-icons">upload_file</span> Upload CSV File</div>
+                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+                <div class="csv" (click)="type = !type">
+                    <span (click)="fileUpload.click()">
+                        <span class="material-icons">upload_file</span> 
+                        Upload CSV File <span class="no_csv" *ngIf="fileName">{{fileName || "No file uploaded yet."}}</span>
+                    </span>
+                </div>
+
                 <div class="check">Check all <span class="material-icons">dashboard_customize</span></div>
                 <div style="clear: both;"></div>
             </div>
@@ -45,8 +53,28 @@
                 
                 <div class="main2">
                     <div class="up_csv">
-                        <div class="no_data" (click)="type = !type">No data yet</div>
-                        <div class="upload_csv_file" (click)="type = !type"><span class="material-icons">upload_file</span> Upload CSV File</div>
+                        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                        
+                        <div class="no_data" *ngIf="!fileName">No data yet</div>
+                            <div class="upload_csv_file">
+                                <span (click)="fileUpload.click()">
+                                <span class="material-icons">upload_file</span>
+                                    Upload CSV File 
+                                    <span class="no_csv" *ngIf="fileName">{{fileName || "No file uploaded yet."}}</span>
+                                </span>
+                            </div>
+                        <div style="text-align: center;" *ngIf="fileName">
+                            <button mat-button class="extract_data" (clicl)="UploadFIle()">
+                                <span *ngIf="!upLoading">Extract Data</span>
+                                <div class="loader" *ngIf="upLoading">
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                </div>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -133,11 +161,13 @@
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>Year of Employment</mat-label>
                             <mat-select matInput formControlName="year" required>
-                                <mat-option *ngFor="let y of year.data" value="{{y.id}}|{{y.year}}">
+                                <mat-option *ngFor="let y of year" value="{{y.id}}|{{y.year}}">
                                     {{y.year}}
                                 </mat-option>
                             </mat-select>
                             <mat-error>{{formErrors.year}}</mat-error>
+                            <mat-hint align="end" (click)="AddYear()" *ngIf="yearError && !yearLoading" style="color: red;"><button>Reload</button></mat-hint>
+                            <mat-hint align="end" *ngIf="yearLoading">Loading...</mat-hint>
                         </mat-form-field>
                         <!-- position -->
                         <mat-form-field class="half-width" appearance="outline">
@@ -177,9 +207,15 @@
                             <input matInput formControlName="other">
                         </mat-form-field>
 
-                        <button mat-button class="add" (click)="onSubmit()">
-                            <span class="material-icons">add</span>
-                            <span class="add_text">Add employee</span>
+                        <button mat-button class="add" [disabled]="fform1.form.invalid || fform.form.invalid || disabled === true" (click)="onSubmit()">
+                            <span class="material-icons" *ngIf="!loading">add</span>
+                            <span *ngIf="!loading" class="add_text">Add employee</span>
+                            <div *ngIf="loading" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
                         </button>
                     <!-- </p> -->
                 </form>

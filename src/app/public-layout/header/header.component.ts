@@ -52,22 +52,22 @@ export class HeaderComponent implements OnInit {
       this.left_text1 = "Taxpayer Registration";
       this.left_text2 = "Check all the list of registered member";
     }
-    else if (this.router.url === "/dashboard2/taxpayer/ind/individual"){
+    else if (this.router.url == "/dashboard2/taxpayer/ind/individual"){
       this.type = "tax";
       this.left_text1 = "Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
     }
-    else if (this.router.url === "/dashboard2/taxpayer/non/business"){
+    else if (this.router.url == "/dashboard2/taxpayer/non/business"){
       this.type = "reg_tax";
       this.left_text1 = "Non - Individual Taxpayer Registration Form";
       this.left_text2 = "Please fill in the information";
     }
-    else if (this.router.url === "/dashboard3/taxpayer/payee"){
+    else if (this.router.url == "/dashboard3/taxpayer/payee" || this.router.url == "/dashboard3/taxpayer/payee/staff-income"){
       this.type = "payee";
       this.left_text1 = "Pay-As-You-Earn (PAYE)";
       this.left_text2 = "Please fill in the information";
     }
-    else if (this.router.url === "/dashboard"){
+    else if (this.router.url == "/dashboard"){
       this.type = "tax";
       this.left_text1 = "Dashboard";
       this.left_text2 = "Dashboard";

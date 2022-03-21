@@ -17,7 +17,7 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
-  previous_data: any;
+  previous_data: any[] = [];
   clickEventSubscription?: Subscription;
 
   constructor(private dialog: MatDialog, private authService: AuthService,
@@ -49,6 +49,7 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
   }
 
   back() {
+    console.log(this.previous_data)
     const data = {
       type: 'staff-income',
       data: this.previous_data

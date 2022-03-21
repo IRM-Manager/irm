@@ -32,6 +32,9 @@ const routes: Routes = [
     { path: 'dashboard2/taxpayer/non/business', loadChildren: () => import('./public-layout/business/business.module').then(m => m.BusinessModule),
         canLoad: [IsLoggedInGuard]
     },
+    { path: 'dashboard3/taxpayer/payee/:id', loadChildren: () => import('./public-layout/payee/payee.module').then(m => m.PayeeModule),
+        canLoad: [IsLoggedInGuard]
+    },
     { path: 'dashboard3/taxpayer/payee', loadChildren: () => import('./public-layout/payee/payee.module').then(m => m.PayeeModule),
         canLoad: [IsLoggedInGuard]
     },
