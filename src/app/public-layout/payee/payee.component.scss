@@ -105,6 +105,53 @@ $button-font: normal normal normal 12px/15px Montserrat;
         color: 1px solid $form-color;
         width: 250px;
     }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em 0 0.5em 0;
+    }
+      
+    
+      .bubble {
+        animation: expand .75s ease-in-out infinite;
+        border-radius: 20px;
+        display: inline-block;
+        transform-origin: center center;
+        margin: 0 3px;
+        width: 7px;
+        height: 7px;
+      }
+    
+      
+      .bubble:nth-child(1) {
+        background: $white;
+      }
+      
+      .bubble:nth-child(2) {
+        animation-delay: 180ms;
+        background: $white;
+      }
+      
+      .bubble:nth-child(3) {
+        animation-delay: 360ms;
+        background: $white;
+      }
+      
+      .bubble:nth-child(4) {
+        animation-delay: 540ms;
+        background: $white;
+      }
+      
+      @keyframes expand {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.55);
+        }
+      }
     
     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
         color: $form-color;

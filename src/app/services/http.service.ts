@@ -29,19 +29,21 @@ export class HttpService {
   //   })
   // }
 
-
+    // get list of state and get lga of a selected state
   state(type: string, state_id: number) {
     return this.http.get<any>(BaseUrl.api + `user/api/v1/getstate/?type=${type}&state_id=${state_id}`).pipe(
       retry(1)
     )
   }
 
+  // get lists of years
   year() {
     return this.http.get<any>(BaseUrl.api2 + `paye/api/v1/paye/year/`).pipe(
       retry(1)
     )
   }
 
+  // get user profile
   getProfile(token: string): Observable<any[]> {
       const httpOptions = {
         headers: {
@@ -68,6 +70,7 @@ export class HttpService {
   }
 
 
+  // add individual or company payer
   AddPayer(data: any, username: string, type: string): Observable<any[]> {
     const httpOptions = {
       headers: {
@@ -77,6 +80,7 @@ export class HttpService {
     return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}&user=${username}`, data, httpOptions)
   }
 
+  // get payer data
   GetPayerList(): Observable<any[]> {
     const httpOptions = {
       headers: {
@@ -84,6 +88,16 @@ export class HttpService {
       }
     };
     return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getallpayer/`, httpOptions)
+  }
+
+  // get payer by tin
+  GetPayerTin(tin: string): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`, httpOptions)
   }
   
 

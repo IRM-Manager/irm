@@ -15,6 +15,7 @@ import { AppState, selectAllComPayer } from 'src/app/reducers/index';
 import { AddComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -51,7 +52,8 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   constructor(private router: Router, private direct: ActivatedRoute, private fb: FormBuilder,
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
-    public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>) {
+    public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>,
+    private snackBar: MatSnackBar) {
       this.createForm();
 
       this.stateComPayer = store.select(selectAllComPayer);
@@ -83,6 +85,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.onValueChanged(); // (re)set validation messages now
   }
 
+
   onValueChanged(data?: any) {
     if (!this.feedbackForm) { return; }
     const form = this.feedbackForm;
@@ -110,26 +113,39 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.disabled = true
     this.feedback = this.feedbackForm.value;
 
-    const data = {
-        cac: this.feedback.tin,
-    }
-    console.log(this.feedback)
-    // perform login
-    // this.authService.login(user)
-    // .subscribe(
-    //   (data: any) => {
-    //     this.loading = false
-    //     this.disabled = false;
-    //     if (data) {
-    //       this.router.navigate(['/dashboard']);
-    //       this.snackBar.open('success', "", {
-    //         duration: 3000,
-    //         panelClass: "success"
-    //       });
-    //     }
-
-    //   }
-    // )
+    this.httpService.GetPayerTin(this.feedback.tin)
+    .subscribe(
+      (data: any) => {
+        this.loading = false
+        this.disabled = false;
+        const datas = {
+          type: 'staff-income',
+          data: data.data
+        }
+        this.shared.PayeesendClickEvent(datas);
+        this.snackBar.open("Valid", "", {
+          duration: 3000,
+          panelClass: "success"
+        });
+      },
+      err => {
+        this.loading = false
+        this.disabled = false;
+        console.log(err)
+        if (err.status === 404) {
+          this.snackBar.open("Tin or Reg.No does not exists", "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
+        else {
+          this.snackBar.open('Error', "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
+      }
+    )
     // end of subscribe
   }
 

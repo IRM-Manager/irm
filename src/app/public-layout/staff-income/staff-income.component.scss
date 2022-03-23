@@ -36,7 +36,7 @@ $back-border: 1px solid #40A84A;
 $back-color: #44A843;
 $verify-hover-b: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
-
+$red: #BC333E;
 
 
 .header {
@@ -311,6 +311,11 @@ $verify-hover-box: 0px 3px 6px #00000029;
 
         .table-icon {
             color: $form-color;
+        }
+
+        .table-icon-delete {
+            color: $red;
+            cursor: pointer;
         }
 
         ::ng-deep .dataTables_wrapper .dataTables_filter {
