@@ -16,6 +16,8 @@ import { AddComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { BaseUrl } from 'src/environments/environment';
 
 
 @Component({
@@ -43,6 +45,10 @@ export class PayeeComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   stateComPayer: Observable<ComPayer[]>;
+
+  private readonly JWT_TOKEN = BaseUrl.jwt_token;
+  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
+  private helper = new JwtHelperService();
 
   formErrors: any = {
   };
@@ -74,6 +80,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
       })
   }
 
+  decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
 
   createForm() {
     this.feedbackForm = this.fb.group({
@@ -118,19 +125,36 @@ export class PayeeComponent implements OnDestroy, OnInit {
       (data: any) => {
         this.loading = false
         this.disabled = false;
-        const datas = {
-          type: 'staff-income',
-          data: data.data
+        if (data.data.payer.payer_type == "company") {
+          if (this.decodedToken.user_id == data.data.user.id) {
+            const datas = {
+              type: 'staff-income',
+              data: data.data
+            }
+            this.shared.PayeesendClickEvent(datas);
+            this.snackBar.open("Valid", "", {
+              duration: 3000,
+              panelClass: "success"
+            });
+          }
+          else {
+            this.snackBar.open("You do not have permission to access this Payer", "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
         }
-        this.shared.PayeesendClickEvent(datas);
-        this.snackBar.open("Valid", "", {
-          duration: 3000,
-          panelClass: "success"
-        });
+        else {
+          this.snackBar.open("Not A Registered Business Taxpayer", "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
       },
       err => {
         this.loading = false
         this.disabled = false;
+        this.authService.refreshToken();
         console.log(err)
         if (err.status === 404) {
           this.snackBar.open("Tin or Reg.No does not exists", "", {
@@ -195,12 +219,21 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
 
   OpenDialog(data: any, type: string) {
-    let dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        type: type,
-        data: data
-      }
-    });
+    if (this.decodedToken.user_id == data.user.id) {
+      this.snackBar.dismiss()
+      let dialogRef = this.dialog.open(DialogComponent, {
+        data: {
+          type: type,
+          data: data
+        }
+      });
+    }
+    else {
+      this.snackBar.open("You do not have permission to access this Payer", "", {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }
   }
 
   ngOnDestroy(): void {

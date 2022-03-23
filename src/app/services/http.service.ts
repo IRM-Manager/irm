@@ -99,6 +99,16 @@ export class HttpService {
     };
     return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`, httpOptions)
   }
+
+  // upload csv payee file
+  // UploadPayeeFile(data: any): Observable<any[]> {
+  //   const httpOptions = {
+  //     headers: {
+  //       'Authorization': `Bearer ${this.authService.getJwtToken()}`
+  //     }
+  //   };
+  //   return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`, httpOptions)
+  // }
   
 
 }

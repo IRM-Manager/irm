@@ -13,6 +13,9 @@ import { AppState, selectAllIndPayer, selectAllStates, selectAllComPayer } from 
 import { AddIndPayer, RemoveIndPayer, AddComPayer, RemoveComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { BaseUrl } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-individual',
@@ -32,8 +35,14 @@ export class IndividualComponent implements OnDestroy, OnInit {
   stateIndPayer: Observable<IndPayer[]>;
   stateComPayer: Observable<ComPayer[]>;
 
+  private readonly JWT_TOKEN = BaseUrl.jwt_token;
+  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
+  private helper = new JwtHelperService();
+
   constructor(private router: Router, private direct: ActivatedRoute, private store: Store<AppState>,
-    private authService: AuthService, private httpService: HttpService, private dialog: MatDialog) {
+    private authService: AuthService, private httpService: HttpService, private dialog: MatDialog,
+    private snackBar: MatSnackBar) {
+
     this.direct.paramMap.subscribe(params => {
       if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
         this.active = 'ind';
@@ -60,6 +69,8 @@ export class IndividualComponent implements OnDestroy, OnInit {
     this.stateComPayer = store.select(selectAllComPayer);
 
   }
+
+  decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
 
   renderTable() {
     this.dtOptions = {
@@ -158,12 +169,22 @@ export class IndividualComponent implements OnDestroy, OnInit {
   }
 
   OpenDialog(data: any, type: string) {
-    let dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        type: type,
-        data: data
-      }
-    });
+    if (this.decodedToken.user_id == data.user.id) {
+      this.snackBar.dismiss()
+      let dialogRef = this.dialog.open(DialogComponent, {
+        data: {
+          type: type,
+          data: data
+        }
+      });
+    }
+    else {
+      this.snackBar.open("You do not have permission to access this Payer", "", {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }
+
   }
 
   ngOnDestroy(): void {

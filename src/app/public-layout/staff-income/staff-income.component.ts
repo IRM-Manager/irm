@@ -185,6 +185,48 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
     this.upLoading = true
     // this.formData
+    // this.httpService.GetPayerTin(this.feedback.tin)
+    // .subscribe(
+    //   (data: any) => {
+    //     this.loading = false
+    //     this.disabled = false;
+    //     if (data.data.payer.payer_type == "company") {
+    //       const datas = {
+    //         type: 'staff-income',
+    //         data: data.data
+    //       }
+    //       this.shared.PayeesendClickEvent(datas);
+    //       this.snackBar.open("Valid", "", {
+    //         duration: 3000,
+    //         panelClass: "success"
+    //       });
+    //     }
+    //     else {
+    //       this.snackBar.open("Not A Registered Business Taxpayer", "", {
+    //         duration: 5000,
+    //         panelClass: "error"
+    //       });
+    //     }
+    //   },
+    //   err => {
+    //     this.loading = false
+    //     this.disabled = false;
+    //     console.log(err)
+    //     if (err.status === 404) {
+    //       this.snackBar.open("Tin or Reg.No does not exists", "", {
+    //         duration: 5000,
+    //         panelClass: "error"
+    //       });
+    //     }
+    //     else {
+    //       this.snackBar.open('Error', "", {
+    //         duration: 5000,
+    //         panelClass: "error"
+    //       });
+    //     }
+    //   }
+    // )
+    // end of subscribe
     
   }
 
@@ -264,6 +306,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
         data: data
       }
     });
+    
   }
 
   ngOnDestroy(): void {
