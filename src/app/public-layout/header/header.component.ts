@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit {
     this.stateProfile.forEach(e => {
       if(e.length > 0 ) {
         this.profile = e[0].data.data;
-        console.log(e[0].data.data)
+        console.log("profile_state",e[0].data.data)
       }
       else {
         this.httpService.getProfile(this.getJwtToken()).subscribe(
@@ -97,6 +97,7 @@ export class HeaderComponent implements OnInit {
             }else{
               this.store.dispatch(new AddProfile([{id: 1, data: data}]));
               this.profile = data.data;
+              console.log("http_profile", data.data)
             }
           },
           err => {

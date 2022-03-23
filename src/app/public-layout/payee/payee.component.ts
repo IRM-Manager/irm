@@ -8,6 +8,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
+// state management
+import { Store } from '@ngrx/store';
+import { ComPayer } from '../../models/irm';
+import { AppState, selectAllComPayer } from 'src/app/reducers/index';
+import { AddComPayer } from '../../actions/irm.action';
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
+
 
 @Component({
   selector: 'app-payee',
@@ -25,12 +33,15 @@ export class PayeeComponent implements OnDestroy, OnInit {
   left_text!: string;
   loading = false;
   disabled = false;
+  is_reload = false;
   viewMode = 'verify';
   clickEventSubscription?: Subscription;
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
+
+  stateComPayer: Observable<ComPayer[]>;
 
   formErrors: any = {
   };
@@ -40,8 +51,10 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   constructor(private router: Router, private direct: ActivatedRoute, private fb: FormBuilder,
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
-    public shared: ToggleNavService) {
+    public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>) {
       this.createForm();
+
+      this.stateComPayer = store.select(selectAllComPayer);
 
       this.direct.paramMap.subscribe(params => {
         if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
@@ -124,20 +137,44 @@ export class PayeeComponent implements OnDestroy, OnInit {
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
+      pageLength: 10,
     };
-    this.datas = Person;
-    // this.http.get<any[]>('data/data.json')
-    //   .subscribe((data: any) => {
-    //     this.persons = (data as any).data;
-    //     // Calling the DT trigger to manually render the table
-    //     this.dtTrigger.next
-    //   });
+
+      this.stateComPayer?.forEach(e => {
+        if(e.length > 0 ) {
+          this.datas = e[0].data;
+          console.log(e[0].data)
+          this.dtTrigger.next
+        }
+        else {
+          this.httpService.GetPayerList().subscribe(
+            (data:any) => {
+              console.log(data.data.company_tax_payer)
+              if(data.responsecode == "01"){
+              }else{
+                this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
+                this.datas = data.data.company_tax_payer;
+                this.dtTrigger.next
+              }
+            },
+            err => {
+              this.authService.refreshToken();
+            }
+          )
+        }
+      }) 
   }
+
 
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
+  }
+
+  Reload() {
+    this.is_reload = true;
+    this.renderTable();
+    this.is_reload = false;
   }
 
 

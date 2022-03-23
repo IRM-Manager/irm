@@ -57,21 +57,36 @@
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
-                                <td class="align-middle">{{i+1}}. {{ data.tin }}</td>
-                                <td class="align-middle">{{ data.first_name }}</td>
-                                <td class="align-middle">{{ data.occupation }}</td>
-                                <td class="align-middle">{{ data.phone }}</td>
+                                <td class="align-middle">{{i+1}}. {{ data.payer.tin }}</td>
+                                <td class="align-middle">{{ data.directors_info.surname }} 
+                                    {{ data.directors_info.first_name }} 
+                                    {{ data.directors_info.middle_name }}
+                                </td>
+                                <td class="align-middle">{{ data.directors_info.profession_trade }}</td>
+                                <td class="align-middle">{{ data.org_phone }}</td>
                                 <td class="align-middle">
-                                    <mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with
-                                    </mat-icon>
+                                    <mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with</mat-icon>
                                 </td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                                <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
                         </tbody>
+                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                            <span *ngIf="!is_reload">RELOAD</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
                     </table>
                 </div>
             </div>

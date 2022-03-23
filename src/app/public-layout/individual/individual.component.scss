@@ -20,6 +20,7 @@ $thead-text-color: #3C66A3;
 $tbody-back: normal normal normal 15px/19px Montserrat;
 $tbody-color: #565656;
 $animate-form: 0.5px solid #37A85D;
+$green: #37A85D;
 
 .wrapper {
     background: $wrapper-back;
@@ -161,6 +162,65 @@ $animate-form: 0.5px solid #37A85D;
     .table-icon {
         color: $panel-color;
     }
+
+    .reload {
+        background: $wrapper-back;
+        color: $ind-border;
+        font: $tbody-back;
+        margin-top: 1.5rem;
+        border-radius: 10px;
+        padding: .5rem;
+        margin-left: 10px;
+        width: 5rem;
+    }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em 0 0.5em 0;
+    }
+      
+    
+      .bubble {
+        animation: expand .75s ease-in-out infinite;
+        border-radius: 20px;
+        display: inline-block;
+        transform-origin: center center;
+        margin: 0 3px;
+        width: 7px;
+        height: 7px;
+      }
+    
+      
+      .bubble:nth-child(1) {
+        background: $panel-color;
+      }
+      
+      .bubble:nth-child(2) {
+        animation-delay: 180ms;
+        background: $panel-color;
+      }
+      
+      .bubble:nth-child(3) {
+        animation-delay: 360ms;
+        background: $panel-color;
+      }
+      
+      .bubble:nth-child(4) {
+        animation-delay: 540ms;
+        background: $panel-color;
+      }
+      
+      @keyframes expand {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.55);
+        }
+      }
+
 
     ::ng-deep .dataTables_wrapper .dataTables_filter {
         display: none;

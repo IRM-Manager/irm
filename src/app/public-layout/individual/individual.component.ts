@@ -23,6 +23,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   active: any = 'ind';
   left_text!: string;
+  is_reload = false;
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -66,14 +67,12 @@ export class IndividualComponent implements OnDestroy, OnInit {
       pageLength: 10,
     };
 
-    this.datas = [];
-
     if (this.active == 'com') {
-      this.stateComPayer.forEach(e => {
+      this.stateComPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
           console.log(e[0].data)
-          // this.dtTrigger.next
+          this.dtTrigger.next
         }
         else {
           this.httpService.GetPayerList().subscribe(
@@ -83,7 +82,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
               }else{
                 this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
                 this.datas = data.data.company_tax_payer;
-                // this.dtTrigger.next
+                this.dtTrigger.next
               }
             },
             err => {
@@ -94,11 +93,11 @@ export class IndividualComponent implements OnDestroy, OnInit {
       }) 
     }
     else {
-      this.stateIndPayer.forEach(e => {
+      this.stateIndPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
           console.log(e[0].data)
-          // this.dtTrigger.next
+          this.dtTrigger.next
         }
         else {
           this.httpService.GetPayerList().subscribe(
@@ -108,7 +107,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
               }else{
                 this.store.dispatch(new AddIndPayer([{id: 1, data: data.data.individual_tax_payer}]));
                 this.datas = data.data.individual_tax_payer;
-                // this.dtTrigger.next
+                this.dtTrigger.next
               }
             },
             err => {
@@ -127,6 +126,14 @@ export class IndividualComponent implements OnDestroy, OnInit {
     this.authService.checkExpired();
     this.renderTable();
   }
+
+
+  Reload() {
+    this.is_reload = true;
+    this.renderTable();
+    this.is_reload = false;
+  }
+
 
   changeActive(type: string) {
     this.active = type;

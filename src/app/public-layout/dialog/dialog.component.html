@@ -4,12 +4,12 @@
     <div *ngIf="data.type =='ind'">
         <div class="header">
             <div>
-                <div class="leftt1 left1">Matthew Olayinka Adeboye</div>
-                <div class="rightt1 right1">TIN: 334337434344</div>
+                <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}</div>
+                <div class="rightt1 right1">TIN: {{data.data.payer.tin}}</div>
             </div><br>
             <div>
                 <div class="leftt2 left2">Registered Taxpayer</div>        
-                <div class="rightt2 right2">Tax ID: 334337434344</div>
+                <div class="rightt2 right2">Tax ID: {{data.data.payer.id}}</div>
             </div><br>
         </div>
         <mat-dialog-content class="mat-typography ind_com">
@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th class="title">Registered DateDate</th>
-                        <th class="sub_title">2017-12-25</th>
+                        <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
                         <th></th>
                         <th class="title">Last PayE payment:</th>
                         <th class="sub_title">No record</th>
@@ -35,19 +35,19 @@
                     </tr>
                     <tr>
                         <th class="title">Address</th>
-                        <th class="sub_title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</th>
+                        <th class="sub_title">{{data.data.address}}</th>
                     </tr>
                     <tr>
                         <th class="title">Gender</th>
-                        <th class="sub_title">Male</th>
+                        <th class="sub_title" style="text-transform: capitalize;">{{data.data.gender}}</th>
                     </tr>
                     <tr>
                         <th class="title">Phone Number</th>
-                        <th class="sub_title">07067069872</th>
+                        <th class="sub_title">{{data.data.phone}}</th>
                     </tr>
                     <tr>
                         <th class="title">Occupation</th>
-                        <th class="sub_title">No record</th>
+                        <th class="sub_title">{{data.data.profession_trade}}</th>
                     </tr>
                     <tr>
                         <th class="title">Email</th>
@@ -59,7 +59,7 @@
                     </tr>
                     <tr>
                         <th class="title">Nigerian</th>
-                        <th class="sub_title">No record</th>
+                        <th class="sub_title">Yes</th>
                     </tr>
                 </thead>
             </table>
@@ -80,14 +80,14 @@
     <div *ngIf="data.type =='com'">
         <div class="header">
                 <div>
-                    <div class="leftt1 left1">Softpattern Pattern Technology</div>
-                    <div class="rightt1 right1">TIN 334337434344</div>
+                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                    <div class="rightt1 right1">TIN: {{data.data.payer.tin}}</div>
                 </div><br>
                 <div>
                     <div class="leftt2 left2">Registered Business</div>        
                     <div class="rightt2 right2">Reg No: 334337434344</div>
                 </div><br>
-                <div class="right right3">Taxpayer ID: 334337434344</div>
+                <div class="right right3">Taxpayer ID: {{data.data.payer.id}}</div>
             </div>
             <mat-dialog-content class="mat-typography ind_com">
 
@@ -95,14 +95,14 @@
                     <thead>
                         <tr>
                             <th class="title">Date Establishment</th>
-                            <th class="sub_title">2017-12-25</th>
+                            <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
                             <th></th>
                             <th class="title">Last PayE payment:</th>
                             <th class="sub_title">No record</th>
                         </tr>
                         <tr>
                             <th class="title">Number of staff</th>
-                            <th class="sub_title">No record</th>
+                            <th class="sub_title">{{data.data.number_employee}}</th>
                             <th></th>
                             <th></th>
                             <th class="pay_history">
@@ -112,15 +112,15 @@
                         </tr>
                         <tr>
                             <th class="title">Address</th>
-                            <th class="sub_title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</th>
+                            <th class="sub_title">{{data.data.address}}</th>
                         </tr>
                         <tr>
                             <th class="title">Director</th>
-                            <th class="sub_title">Matthew Adeboye</th>
+                            <th class="sub_title">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
                         </tr>
                         <tr>
                             <th class="title">Phone Number</th>
-                            <th class="sub_title">07067069872</th>
+                            <th class="sub_title">{{data.data.org_phone}}</th>
                         </tr>
                     </thead>
                 </table>
@@ -139,14 +139,14 @@
         <div *ngIf="data.type =='payee'">
             <div class="header">
                     <div>
-                        <div class="leftt1 left1">Softpattern Pattern Technology</div>
-                        <div class="rightt1 right1">TIN 334337434344</div>
+                        <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                        <div class="rightt1 right1">TIN: {{data.data.payer.tin}}</div>
                     </div><br>
                     <div>
                         <div class="leftt2 left2">Registered Business</div>        
                         <div class="rightt2 right2">Reg No: 334337434344</div>
                     </div><br>
-                    <div class="right right3">Taxpayer ID: 334337434344</div>
+                    <div class="right right3">Taxpayer ID: {{data.data.payer.id}}</div>
                 </div>
                 <mat-dialog-content class="mat-typography ind_com">
     
@@ -154,14 +154,14 @@
                         <thead>
                             <tr>
                                 <th class="title">Date Establishment</th>
-                                <th class="sub_title">2017-12-25</th>
+                                <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
                                 <th></th>
                                 <th class="title">Last PayE payment:</th>
                                 <th class="sub_title">No record</th>
                             </tr>
                             <tr>
                                 <th class="title">Number of staff</th>
-                                <th class="sub_title">No record</th>
+                                <th class="sub_title">{{data.data.number_employee}}</th>
                                 <th></th>
                                 <th></th>
                                 <th class="pay_history">
@@ -171,15 +171,15 @@
                             </tr>
                             <tr>
                                 <th class="title">Address</th>
-                                <th class="sub_title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</th>
+                                <th class="sub_title">{{data.data.address}}</th>
                             </tr>
                             <tr>
                                 <th class="title">Director</th>
-                                <th class="sub_title">Matthew Adeboye</th>
+                                <th class="sub_title">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
                             </tr>
                             <tr>
                                 <th class="title">Phone Number</th>
-                                <th class="sub_title">07067069872</th>
+                                <th class="sub_title">{{data.data.org_phone}}</th>
                             </tr>
                         </thead>
                     </table>
