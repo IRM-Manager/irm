@@ -1,8 +1,5 @@
 import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Profile, States, Year
-  // Order, Product, Review, Gallery, Contact, Notification, Transaction, 
-  //   Task, Admin_Agent, User, Special_Order, Coupon 
-  } from '../models/irm';
+import { Profile, States, Year, IndPayer, ComPayer} from '../models/irm';
 import * as KonpayActions from '../actions/irm.action';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Actions } from '../actions/irm.action';
@@ -25,14 +22,14 @@ interface ProfileState extends EntityState<Profile> {
   }
 
 
-  // interface ReviewState extends EntityState<Review> {
-  //   total: number;
-  // }
+  interface IndPayerState extends EntityState<IndPayer> {
+    total: number;
+  }
 
 
-  // interface GalleryState extends EntityState<Gallery> {
-  //   total: number;
-  // }
+  interface ComPayerState extends EntityState<ComPayer> {
+    total: number;
+  }
 
 
   // interface ContactState extends EntityState<Contact> {
@@ -80,8 +77,8 @@ interface ProfileState extends EntityState<Profile> {
     profile: ProfileState;
     states: StatesState;
     year: YearState;
-    // review: ReviewState;
-    // gallery: GalleryState;
+    indpayer: IndPayerState;
+    compayer: ComPayerState;
     // contact: ContactState;
     // transaction: TransactionState;
     // notification: NotificationState;
@@ -96,8 +93,8 @@ interface ProfileState extends EntityState<Profile> {
   const adapterProfile = createEntityAdapter<Profile>();
   const adapterStates = createEntityAdapter<States>();
   const adapterYear = createEntityAdapter<Year>();
-  // const adapterReview = createEntityAdapter<Review>();
-  // const adapterGallery = createEntityAdapter<Gallery>();
+  const adapterIndPayer = createEntityAdapter<IndPayer>();
+  const adapterComPayer = createEntityAdapter<ComPayer>();
   // const adapterContact = createEntityAdapter<Contact>();
   // const adapterTransaction = createEntityAdapter<Transaction>();
   // const adapterNotification = createEntityAdapter<Notification>();
@@ -110,8 +107,8 @@ interface ProfileState extends EntityState<Profile> {
   const ProfileInitialState: ProfileState = adapterProfile.getInitialState({ total: 0 });
   const StatesInitialState: StatesState = adapterStates.getInitialState({ total: 0 });
   const YearInitialState: YearState = adapterYear.getInitialState({ total: 0 });
-  // const ReviewInitialState: ReviewState = adapterReview.getInitialState({ total: 0 });
-  // const GalleryInitialState: GalleryState = adapterGallery.getInitialState({ total: 0 });
+  const IndPayerInitialState: IndPayerState = adapterIndPayer.getInitialState({ total: 0 });
+  const ComPayerInitialState: ComPayerState = adapterComPayer.getInitialState({ total: 0 });
   // const ContactInitialState: ContactState = adapterContact.getInitialState({ total: 0 });
   // const TransactionInitialState: TransactionState = adapterTransaction.getInitialState({ total: 0 });
   // const NotificationInitialState: NotificationState = adapterNotification.getInitialState({ total: 0 });
@@ -126,8 +123,8 @@ interface ProfileState extends EntityState<Profile> {
     profile: ProfileInitialState,
     states: StatesInitialState,
     year: YearInitialState,
-    // review: ReviewInitialState,
-    // gallery: GalleryInitialState,
+    indpayer: IndPayerInitialState,
+    compayer: ComPayerInitialState,
     // contact: ContactInitialState,
     // transaction: TransactionInitialState,
     // notification: NotificationInitialState,
@@ -137,8 +134,6 @@ interface ProfileState extends EntityState<Profile> {
     // coupon: CouponInitialState,
     // special_order: Special_OrderInitialState,
   }
-
-
 
 
   export function reducer(state: State = initialState, action: Actions): State {
@@ -171,23 +166,23 @@ interface ProfileState extends EntityState<Profile> {
         return { ...state, year: adapterYear.removeOne(1, state.year) };
 
 
-        // // Review
-        // case KonpayActions.ExampleActionTypes.GetReview: 
-        // return { ...state, review: adapterReview.addMany(action.Reviewpayload, state.review) };
+        // IndPayer
+        case KonpayActions.ExampleActionTypes.GetIndPayer: 
+        return { ...state, indpayer: adapterIndPayer.addMany(action.IndPayerpayload, state.indpayer) };
 
 
-        // case KonpayActions.ExampleActionTypes2.GetReview: 
-        // return { ...state, review: adapterReview.removeOne(1, state.review) };
+        case KonpayActions.ExampleActionTypes2.GetIndPayer: 
+        return { ...state, indpayer: adapterIndPayer.removeOne(1, state.indpayer) };
 
 
 
-        // // Gallery
-        // case KonpayActions.ExampleActionTypes.GetGallery: 
-        // return { ...state, gallery: adapterGallery.addMany(action.Gallerypayload, state.gallery) };
+        // ComPayer
+        case KonpayActions.ExampleActionTypes.GetComPayer: 
+        return { ...state, compayer: adapterComPayer.addMany(action.ComPayerpayload, state.compayer) };
 
 
-        // case KonpayActions.ExampleActionTypes2.GetGallery: 
-        // return { ...state, gallery: adapterGallery.removeOne(1, state.gallery) };
+        case KonpayActions.ExampleActionTypes2.GetComPayer: 
+        return { ...state, compayer: adapterComPayer.removeOne(1, state.compayer) };
 
 
         //  // Compare
@@ -272,8 +267,8 @@ interface ProfileState extends EntityState<Profile> {
 export const selectProfileState = (state: State) => state.profile;
 export const selectStatesState = (state: State) => state.states;
 export const selectYearState = (state: State) => state.year;
-// export const selectReviewState = (state: State) => state.review;
-// export const selectGalleryState = (state: State) => state.gallery;
+export const selectIndPayerState = (state: State) => state.indpayer;
+export const selectComPayerState = (state: State) => state.compayer;
 // export const selectContactState = (state: State) => state.contact;
 // export const selectTransactionState = (state: State) => state.transaction;
 // export const selectNotificationState = (state: State) => state.notification;
@@ -289,8 +284,8 @@ export const selectYearState = (state: State) => state.year;
 export const { selectAll: selectAllProfile } = adapterProfile.getSelectors();
 export const { selectAll: selectAllStates } = adapterStates.getSelectors();
 export const { selectAll: selectAllYear } = adapterYear.getSelectors();
-// export const { selectAll: selectAllReview } = adapterReview.getSelectors();
-// export const { selectAll: selectAllGallery } = adapterGallery.getSelectors();
+export const { selectAll: selectAllIndPayer } = adapterIndPayer.getSelectors();
+export const { selectAll: selectAllComPayer } = adapterComPayer.getSelectors();
 // export const { selectAll: selectAllContact } = adapterContact.getSelectors();
 // export const { selectAll: selectAllNotification } = adapterNotification.getSelectors();
 // export const { selectAll: selectAllTransaction } = adapterTransaction.getSelectors();

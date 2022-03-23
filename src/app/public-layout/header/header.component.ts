@@ -87,7 +87,7 @@ export class HeaderComponent implements OnInit {
   AddProfile() {
     this.stateProfile.forEach(e => {
       if(e.length > 0 ) {
-        this.profile = e[0].data;
+        this.profile = e[0].data.data;
         console.log(e[0].data.data)
       }
       else {

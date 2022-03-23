@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Action } from '@ngrx/store';
-import { Profile, States, Year
-    // , Product, Review, Notification, Gallery, 
-    // Contact, Transaction, Task, Admin_Agent, User, 
-    // Special_Order, Coupon 
-} from '../models/irm';
+import { Profile, States, Year, IndPayer, ComPayer } from '../models/irm';
 
 
 
@@ -12,8 +8,8 @@ export enum ExampleActionTypes {
     GetProfile = '[Profile API] Get Profile',
     GetStates = '[States API] Get States',
     GetYear = '[Year API] Get Year',
-    // GetReview = '[Review API] Get Review',
-    // GetGallery = '[Gallery API] Get Gallery',
+    GetIndPayer = '[Review API] Get IndPayer',
+    GetComPayer = '[Gallery API] Get ComPayer',
     // GetContact = '[Contact API] Get Contact',
     // GetTransaction = '[Transaction API] Get Transaction',
     // GetNotification = '[Notification API] Get Notification',
@@ -28,8 +24,8 @@ export enum ExampleActionTypes {
     GetProfile = '[Profile API] Remove Profile',
     GetStates = '[States API] Remove States',
     GetYear = '[Year API] Remove Year',
-    // GetReview = '[Review API] Remove Review',
-    // GetGallery = '[Gallery API] Remove Gallery',
+    GetIndPayer = '[Review API] Remove GetIndPayer',
+    GetComPayer = '[Gallery API] Remove ComPayer',
     // GetContact = '[Contact API] Remove Contact',
     // GetTransaction = '[Transaction API] Remove Transaction',
     // GetNotification = '[Notification API] Remove Notification',
@@ -112,50 +108,50 @@ export class RemoveYear implements Action {
 
 
 
-// // Review
+// IndPayer
 
 
-// // Section 2
-// export const ADD_REVIEW  = '[REVIEW] Add'
-// export const REMOVE_REVIEW   = '[REVIEW] Remove'
+// Section 2
+export const ADD_INDPAYER  = '[INDPAYER] Add'
+export const REMOVE_INDPAYER   = '[INDPAYER] Remove'
 
-// // Section 3
-// export class AddReview implements Action {
-//     public readonly type = ExampleActionTypes.GetReview
+// Section 3
+export class AddIndPayer implements Action {
+    public readonly type = ExampleActionTypes.GetIndPayer
 
-//     constructor(public Reviewpayload: Review[]) {}
+    constructor(public IndPayerpayload: IndPayer[]) {}
 
-// }
+}
 
-// export class RemoveReview implements Action {
-//     public readonly type = ExampleActionTypes2.GetReview
+export class RemoveIndPayer implements Action {
+    public readonly type = ExampleActionTypes2.GetIndPayer
 
-//     constructor(public Reviewpayload: any) {}
-// }
-
-
+    constructor(public IndPayerpayload: any) {}
+}
 
 
-// // Gallery
 
 
-// // Section 2
-// export const ADD_GALLERY  = '[GALLERY] Add'
-// export const REMOVE_GALLERY  = '[GALLERY] Remove'
+// Gallery
 
-// // Section 3
-// export class AddGallery implements Action {
-//     public readonly type = ExampleActionTypes.GetGallery
 
-//     constructor(public Gallerypayload: Gallery[]) {}
+// Section 2
+export const ADD_COMPAYER  = '[COMPAYER] Add'
+export const REMOVE_COMPAYER  = '[COMPAYER] Remove'
 
-// }
+// Section 3
+export class AddComPayer implements Action {
+    public readonly type = ExampleActionTypes.GetComPayer
 
-// export class RemoveGallery implements Action {
-//     public readonly type = ExampleActionTypes2.GetGallery
+    constructor(public ComPayerpayload: ComPayer[]) {}
 
-//     constructor(public Gallerypayload: any) {}
-// }
+}
+
+export class RemoveComPayer implements Action {
+    public readonly type = ExampleActionTypes2.GetComPayer
+
+    constructor(public ComPayerpayload: any) {}
+}
 
 
 
@@ -359,7 +355,7 @@ export class RemoveYear implements Action {
 // action
 
 export type Actions = | AddProfile | RemoveProfile | AddStates | RemoveStates | AddYear | RemoveYear 
-// | AddProduct | RemoveProduct
+    | AddIndPayer | RemoveIndPayer | AddComPayer | RemoveComPayer
 // | AddReview | RemoveReview | AddGallery | RemoveGallery | AddContact | RemoveContact | AddTransaction | RemoveTransaction
 // | AddNotification | RemoveNotification | AddTask | RemoveTask | AddAdmin_Agent | RemoveAdmin_Agent
 // | AddUser | RemoveUser | AddCoupon | RemoveCoupon | AddSpecial_Order | RemoveSpecial_Order

@@ -14,15 +14,15 @@ export interface Year {
     data: any;
 }
 
-// export interface Review {
-//     id: number;
-//     data: any;
-// }
+export interface IndPayer {
+    id: number;
+    data: any;
+}
 
-// export interface Gallery {
-//     id: number;
-//     data: any;
-// }
+export interface ComPayer {
+    id: number;
+    data: any;
+}
 
 // export interface Contact {
 //     id: number;

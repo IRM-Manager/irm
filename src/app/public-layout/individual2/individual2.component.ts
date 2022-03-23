@@ -430,10 +430,26 @@ export class Individual2Component implements OnInit {
         console.log(err)
         this.loading2 = false;
         this.disabled2 = false;
-        this.snackBar.open(err.error.message || "error", "", {
-          duration: 5000,
-          panelClass: "error"
-        });
+        if (err.error.message == "required") {
+          if (err.error.data.email) {
+            this.snackBar.open("Email Address already exists in (Section 1)", "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
+          else if (err.error.data.phone) {
+            this.snackBar.open("Contact number already exists in (Section 1)", "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
+        }
+        else{
+          this.snackBar.open(err.error.message || "error", "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
       }
     )
 

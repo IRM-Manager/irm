@@ -6,6 +6,13 @@ import { Subject } from 'rxjs';
 import { Person } from '../shared/form';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+// state management
+import { Store } from '@ngrx/store';
+import { IndPayer, ComPayer } from '../../models/irm';
+import { AppState, selectAllIndPayer, selectAllStates, selectAllComPayer } from 'src/app/reducers/index';
+import { AddIndPayer, RemoveIndPayer, AddComPayer, RemoveComPayer } from '../../actions/irm.action';
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-individual',
@@ -21,8 +28,11 @@ export class IndividualComponent implements OnDestroy, OnInit {
   datas: any[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private router: Router, private direct: ActivatedRoute, 
-    private authService: AuthService, private http: HttpClient, private dialog: MatDialog) {
+  stateIndPayer: Observable<IndPayer[]>;
+  stateComPayer: Observable<ComPayer[]>;
+
+  constructor(private router: Router, private direct: ActivatedRoute, private store: Store<AppState>,
+    private authService: AuthService, private httpService: HttpService, private dialog: MatDialog) {
     this.direct.paramMap.subscribe(params => {
       if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
         this.active = 'ind';
@@ -41,23 +51,77 @@ export class IndividualComponent implements OnDestroy, OnInit {
         this.active = 'ind';
         this.left_text = "Tax Registration of Individuals";
       }
+      this.renderTable();
       
     })
+
+    this.stateIndPayer = store.select(selectAllIndPayer);
+    this.stateComPayer = store.select(selectAllComPayer);
+
   }
 
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
+      pageLength: 10,
     };
-    this.datas = Person;
-    // this.http.get<any[]>('data/data.json')
-    //   .subscribe((data: any) => {
-    //     this.persons = (data as any).data;
-    //     // Calling the DT trigger to manually render the table
-    //     this.dtTrigger.next
-    //   });
+
+    this.datas = [];
+
+    if (this.active == 'com') {
+      this.stateComPayer.forEach(e => {
+        if(e.length > 0 ) {
+          this.datas = e[0].data;
+          console.log(e[0].data)
+          // this.dtTrigger.next
+        }
+        else {
+          this.httpService.GetPayerList().subscribe(
+            (data:any) => {
+              console.log(data.data.company_tax_payer)
+              if(data.responsecode == "01"){
+              }else{
+                this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
+                this.datas = data.data.company_tax_payer;
+                // this.dtTrigger.next
+              }
+            },
+            err => {
+              this.authService.refreshToken();
+            }
+          )
+        }
+      }) 
+    }
+    else {
+      this.stateIndPayer.forEach(e => {
+        if(e.length > 0 ) {
+          this.datas = e[0].data;
+          console.log(e[0].data)
+          // this.dtTrigger.next
+        }
+        else {
+          this.httpService.GetPayerList().subscribe(
+            (data:any) => {
+              console.log(data.data.individual_tax_payer)
+              if(data.responsecode == "01"){
+              }else{
+                this.store.dispatch(new AddIndPayer([{id: 1, data: data.data.individual_tax_payer}]));
+                this.datas = data.data.individual_tax_payer;
+                // this.dtTrigger.next
+              }
+            },
+            err => {
+              this.authService.refreshToken();
+            }
+          )
+        }
+      }) 
+    }
+
+
   }
+
 
   ngOnInit(): void {
     this.authService.checkExpired();
@@ -74,6 +138,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
       this.left_text = "Tax Registration of Individuals";
       this.router.navigate(['/dashboard2/taxpayer/ind']);
     }
+    this.renderTable();
   }
 
   redirectActive() {

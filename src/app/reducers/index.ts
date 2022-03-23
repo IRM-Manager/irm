@@ -6,7 +6,7 @@ export interface AppState {
     example: fromExample.State;
 }
   
-export const reducers: ActionReducerMap<AppState, any> = {  
+export const reducers: ActionReducerMap<AppState, any> = {
     example: fromExample.reducer
 };
   
@@ -18,8 +18,8 @@ export const reducers: ActionReducerMap<AppState, any> = {
   export const selectProfileState = createSelector(selectExampleModule, fromExample.selectProfileState);
   export const selectStatesState = createSelector(selectExampleModule, fromExample.selectStatesState);
   export const selectYearState = createSelector(selectExampleModule, fromExample.selectYearState);
-//   export const selectReviewState = createSelector(selectExampleModule, fromExample.selectReviewState);
-//   export const selectGalleryState = createSelector(selectExampleModule, fromExample.selectGalleryState);
+  export const selectIndPayerState = createSelector(selectExampleModule, fromExample.selectIndPayerState);
+  export const selectComPayerState = createSelector(selectExampleModule, fromExample.selectComPayerState);
 //   export const selectContactState = createSelector(selectExampleModule, fromExample.selectContactState);
 //   export const selectTransactionState = createSelector(selectExampleModule, fromExample.selectTransactionState);
 //   export const selectNotificationState = createSelector(selectExampleModule, fromExample.selectNotificationState);
@@ -34,8 +34,8 @@ export const reducers: ActionReducerMap<AppState, any> = {
   export const selectAllProfile = createSelector(selectProfileState, fromExample.selectAllProfile);
   export const selectAllStates = createSelector(selectStatesState, fromExample.selectAllStates);
   export const selectAllYear = createSelector(selectYearState, fromExample.selectAllYear);
-//   export const selectAllReview = createSelector(selectReviewState, fromExample.selectAllReview);
-//   export const selectAllGallery = createSelector(selectGalleryState, fromExample.selectAllGallery);
+  export const selectAllIndPayer = createSelector(selectIndPayerState, fromExample.selectAllIndPayer);
+  export const selectAllComPayer = createSelector(selectComPayerState, fromExample.selectAllComPayer);
 //   export const selectAllContact = createSelector(selectContactState, fromExample.selectAllContact);
 //   export const selectAllNotification = createSelector(selectNotificationState, fromExample.selectAllNotification);
 //   export const selectAllTransaction = createSelector(selectTransactionState, fromExample.selectAllTransaction);
