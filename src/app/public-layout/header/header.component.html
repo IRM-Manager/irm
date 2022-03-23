@@ -34,8 +34,10 @@
     <div class="d-h-l">
         <div class="category">
             <div>
-                <div class="right_text1">Welcome, Admin</div>
-                <div class="right_text2">Becky Taiwo</div>
+                <div class="right_text1" *ngIf="profile?.is_staff">Welcome, Admin</div>
+                <div class="right_text1" *ngIf="!profile?.is_staff">Welcome</div>
+                <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
+                <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
             <mat-icon class="category-icon">perm_identity</mat-icon>
         </div>

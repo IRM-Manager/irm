@@ -85,6 +85,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.datas = data.data;
         this.type = true;
+        console.log("staff-income",data.data)
       })
    }
 

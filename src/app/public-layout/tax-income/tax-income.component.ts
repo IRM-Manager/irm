@@ -23,7 +23,8 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
   constructor(private dialog: MatDialog, private authService: AuthService,
     public shared: ToggleNavService) {
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
-        if (data.type == 'staff-income') {
+        console.log(data)
+        if (data.data.length > 0) {
           this.previous_data = data.data;
         }
       })

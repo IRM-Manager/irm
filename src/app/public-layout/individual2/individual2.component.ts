@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
-import {Location} from '@angular/common';
+import {Location, DatePipe} from '@angular/common';
 import { debounceTime, delay, filter, map, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +12,7 @@ import { States } from '../../models/irm';
 import { AppState, selectAllStates } from 'src/app/reducers/index';
 import { AddStates } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-individual2',
@@ -38,6 +39,7 @@ export class Individual2Component implements OnInit {
   feedback1!: Individual1;
   feedback2!: Individual2;
   feedback3!: Individual3;
+  includedFields: any;
 
   loading2 = false;
   disabled2 = false;
@@ -161,7 +163,7 @@ export class Individual2Component implements OnInit {
   };
 
 
-  constructor(private fb: FormBuilder, private _location: Location,
+  constructor(private fb: FormBuilder, private _location: Location, public datepipe: DatePipe,
     private httpService: HttpService, private snackBar: MatSnackBar,
     private authService: AuthService, private store: Store<AppState>) {
     this.createForm();
@@ -171,6 +173,7 @@ export class Individual2Component implements OnInit {
     this.trackCountryField();
     this.trackCountryField2();
     this.trackCountryField3();
+    this.trackEmptyFields();
 
     this.stateStates = store.select(selectAllStates);
   }
@@ -355,35 +358,7 @@ export class Individual2Component implements OnInit {
     // end of subscribe
   }
 
-  Submit() {
-    this.loading2 = true;
-    this.disabled2 = true;
-
-    this.feedback1 = this.feedbackForm1.value
-    this.feedback2 = this.feedbackForm2.value
-    this.feedback3 = this.feedbackForm3.value
-    let data = {
-        payer: {
-            address_state: this.feedback2.state_red,
-            address_lga: this.feedback2.lga_red
-        },
-        first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
-        surname: this.feedback1.surname, gender: this.feedback1.gender, dob: this.feedback1.birth, 
-        pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
-        nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
-        employment_category: this.feedback1.employment, phone: this.feedback1.contact,
-        email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
-        zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value,
-        company_name: this.feedback3.company_name, company_house_no: this.feedback3.company_house_no || "",
-        company_estate_street: this.feedback3.company_estate_street, company_state: this.feedback3.company_state,
-        company_lga: this.feedback3.company_lga, company_zipcode: this.feedback3.company_zipcode || "",
-        company_country: this.feedback3.company_country, username: this.feedback1.username,
-    }
-    console.log(data)
-
-    setTimeout(() => {
-      this.loading2 = false;
-      this.disabled2 = false;
+  RemoveFormData() {
       this.floatLabelControl = new FormControl('employed');
       this.feedbackForm1.get('firstname').reset();
       this.feedbackForm1.get('middlename').reset();
@@ -406,13 +381,79 @@ export class Individual2Component implements OnInit {
       this.feedbackForm3.get('company_estate_street').reset();
       this.feedbackForm3.get('company_zipcode').reset();
       this.feedbackForm3.get('company_country').reset();
-      this.snackBar.open('success', "", {
-        duration: 3000,
-        panelClass: "success"
-      });
-    }, 2000);
+  }
+
+
+  Submit() {
+    this.loading2 = true;
+    this.disabled2 = true;
+
+    this.feedback1 = this.feedbackForm1.value
+    this.feedback2 = this.feedbackForm2.value
+    this.feedback3 = this.feedbackForm3.value
+    let data: any = {
+        payer: {
+            address_state: this.feedback2.state_red,
+            address_lga: this.feedback2.lga_red
+        },
+        first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+        gender: this.feedback1.gender, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
+        pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
+        nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
+        employment_category: this.feedback1.employment, phone: this.feedback1.contact, surname: this.feedback1.surname,
+        email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
+        zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
+    }
+    Object.assign(data, this.includedFields);
+    console.log(data)
+
+    this.httpService.AddPayer(data, this.feedback1.username, 'individual').subscribe(
+      (data: any) => {
+        this.loading2 = false;
+        this.disabled2 = false;
+        if (data.responsecode === "00") {
+          this.snackBar.open('Registration successful', "", {
+            duration: 3000,
+            panelClass: "success"
+          });
+          this.RemoveFormData();
+        }
+        else {
+          this.snackBar.open(data.message || "error", "", {
+            duration: 3000,
+            panelClass: "error"
+          });
+        }
+        
+      },
+      (err: any) => {
+        console.log(err)
+        this.loading2 = false;
+        this.disabled2 = false;
+        this.snackBar.open(err.error.message || "error", "", {
+          duration: 5000,
+          panelClass: "error"
+        });
+      }
+    )
 
   }
+
+
+  trackEmptyFields(): void {
+    this.feedbackForm3
+      .valueChanges
+      .pipe(map(this.filterEmptyFields))
+      .subscribe((field: any) => this.includedFields = field); 
+  }
+
+
+  filterEmptyFields(data: any): any {
+    let fields: any = {};
+    Object.keys(data).forEach(key =>  data[key] != '' ? fields[key] = data[key] : key);
+    return fields;
+  }
+
 
   back() {
     this._location.back();
@@ -457,6 +498,7 @@ export class Individual2Component implements OnInit {
         }
       }); 
   }
+
 
   AddState() {
     this.stateLoading = true;

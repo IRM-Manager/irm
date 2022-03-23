@@ -3,13 +3,32 @@ import { Injectable } from '@angular/core';
 import { Observable, retry, retryWhen, scan } from 'rxjs';
 import { BaseUrl } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+// state management
+import { Store } from '@ngrx/store';
+import { Profile } from '../models/irm';
+import { AppState, selectAllProfile } from 'src/app/reducers/index';
+import { AddProfile, RemoveProfile } from '../actions/irm.action';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  stateProfile: Observable<Profile[]>;
+
+  constructor(private http: HttpClient, private authService: AuthService,
+    private store: Store<AppState>) {
+      this.stateProfile = store.select(selectAllProfile);
+    }
+
+
+  // getUsername(): any {
+  //   this.stateProfile.forEach(e => {
+  //     return e[0].data.data;
+  //   })
+  // }
+
 
   state(type: string, state_id: number) {
     return this.http.get<any>(BaseUrl.api + `user/api/v1/getstate/?type=${type}&state_id=${state_id}`).pipe(
@@ -46,6 +65,16 @@ export class HttpService {
           }, 0)
         ))
       )
+  }
+
+
+  AddPayer(data: any, username: string, type: string): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}&user=${username}`, data, httpOptions)
   }
   
 
