@@ -42,5 +42,10 @@ export class DialogComponent implements OnInit {
     this.router.navigate(['/dashboard3/taxpayer/payee/staff-income'])
   }
 
+  formatMoney(n: any) {
+    const tostring = n.toString()
+   return (Math.round(tostring * 100) / 100).toLocaleString();
+ }
+
 
 }

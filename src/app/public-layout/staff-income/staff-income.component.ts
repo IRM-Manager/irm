@@ -380,7 +380,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         type: type,
-        data: data
+        data: data,
+        data2: this.data2
       }
     });
     
