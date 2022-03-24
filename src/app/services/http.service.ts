@@ -23,11 +23,11 @@ export class HttpService {
     }
 
 
-  // getUsername(): any {
-  //   this.stateProfile.forEach(e => {
-  //     return e[0].data.data;
-  //   })
-  // }
+  getUsername(): any {
+    this.stateProfile.forEach(e => {
+      return e[0].data.data;
+    })
+  }
 
     // get list of state and get lga of a selected state
   state(type: string, state_id: number) {
@@ -101,14 +101,14 @@ export class HttpService {
   }
 
   // upload csv payee file
-  // UploadPayeeFile(data: any): Observable<any[]> {
-  //   const httpOptions = {
-  //     headers: {
-  //       'Authorization': `Bearer ${this.authService.getJwtToken()}`
-  //     }
-  //   };
-  //   return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`, httpOptions)
-  // }
+  UploadPayeeFile(data: any, tin: string, year_id: number): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/csv/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
+  }
   
 
 }

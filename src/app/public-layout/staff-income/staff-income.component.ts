@@ -14,6 +14,7 @@ import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { AddYear, RemoveYear } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-staff-income',
@@ -41,6 +42,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   type: Boolean = false;
   type2: Boolean = false;
+  data: any;
+  tin: any;
   formData = new FormData();
   viewMode = 'file';
   clickEventSubscription?: Subscription;
@@ -76,17 +79,28 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
   constructor(private dialog: MatDialog, private authService: AuthService,
     public shared: ToggleNavService, private fb: FormBuilder, private store: Store<AppState>,
-    private httpService: HttpService) {
+    private httpService: HttpService, private snackBar: MatSnackBar) {
       this.createForm();
       this.createForm1();
 
       this.stateYear = store.select(selectAllYear);
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
-        this.datas = data.data;
+        this.data = data.data
+        this.tin = data?.data?.payer?.tin;
         this.type = true;
         console.log("staff-income",data.data)
       })
+      
+      if(this.tin !== undefined || this.tin !== "" || this.tin !== null) {
+      }else {
+        const data = {
+          type: 'verify',
+          data: null
+        }
+        this.shared.PayeesendClickEvent(data);
+      }
+
    }
 
 
@@ -181,53 +195,46 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     console.log(this.feedback2)
   }
 
-  UploadFIle() {
 
+  UploadFIle() {
+    console.log(this.tin)
     this.upLoading = true
-    // this.formData
-    // this.httpService.GetPayerTin(this.feedback.tin)
-    // .subscribe(
-    //   (data: any) => {
-    //     this.loading = false
-    //     this.disabled = false;
-    //     if (data.data.payer.payer_type == "company") {
-    //       const datas = {
-    //         type: 'staff-income',
-    //         data: data.data
-    //       }
-    //       this.shared.PayeesendClickEvent(datas);
-    //       this.snackBar.open("Valid", "", {
-    //         duration: 3000,
-    //         panelClass: "success"
-    //       });
-    //     }
-    //     else {
-    //       this.snackBar.open("Not A Registered Business Taxpayer", "", {
-    //         duration: 5000,
-    //         panelClass: "error"
-    //       });
-    //     }
-    //   },
-    //   err => {
-    //     this.loading = false
-    //     this.disabled = false;
-    //     console.log(err)
-    //     if (err.status === 404) {
-    //       this.snackBar.open("Tin or Reg.No does not exists", "", {
-    //         duration: 5000,
-    //         panelClass: "error"
-    //       });
-    //     }
-    //     else {
-    //       this.snackBar.open('Error', "", {
-    //         duration: 5000,
-    //         panelClass: "error"
-    //       });
-    //     }
-    //   }
-    // )
+    const d = new Date();
+    let year = d.getFullYear();
+    const get_year = this.year.filter((data: any) => {
+      return data.year === year;
+    });
+
+    this.httpService.UploadPayeeFile(this.formData, "4379909897", get_year.id)
+    .subscribe(
+      (data: any) => {
+        this.upLoading = false;
+        console.log(data)
+      },
+      err => {
+        this.upLoading = false;
+        console.log(err)
+        if (err.status === 500) {
+          this.snackBar.open("Error", "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
+        else if (err.status === 0) {
+          this.snackBar.open("Error", "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
+        else {
+          this.snackBar.open(err.error.status, "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
+      }
+    )
     // end of subscribe
-    
   }
 
 
