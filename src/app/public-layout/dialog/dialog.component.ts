@@ -24,16 +24,20 @@ export class DialogComponent implements OnInit {
   StaffIncome() {
     const data = {
       type: 'staff-income',
+      is_type: false,
     }
     this.shared.setMessage(this.data.data);
+    this.shared.setMessage2(this.data.data);
     this.shared.PayeesendClickEvent(data);
   }
 
   StaffIncome2() {
     const data = {
       type: 'staff-income',
+      is_type: false,
     }
     this.shared.setMessage(this.data.data);
+    this.shared.setMessage2(this.data.data);
     this.shared.PayeesendClickEvent(data);
     this.router.navigate(['/dashboard3/taxpayer/payee/staff-income'])
   }

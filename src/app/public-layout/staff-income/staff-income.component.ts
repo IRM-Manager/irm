@@ -43,6 +43,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   type: Boolean = false;
   type2: Boolean = false;
   data: any;
+  data2: any;
   formData = new FormData();
   viewMode = 'file';
   clickEventSubscription?: Subscription;
@@ -86,8 +87,16 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
       })
-      
-      this.data = this.shared.getMessage();      
+
+      this.data = this.shared.getMessage();
+      this.data2 = this.shared.getMessage2();
+      if (this.shared.getMessage3() === undefined) {
+      }else {
+        console.log("proviouse data", this.shared.getMessage3())
+        this.data = this.shared.getMessage3();
+        this.renderTable(this.shared.getMessage3())
+        this.type = true;
+      }
 
    }
 
@@ -202,54 +211,99 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     const d = new Date();
     let year = d.getFullYear();
     const get_year = this.year.filter((data: any) => {
-      return data.year === year;
+      return data.year === year.toString();
     });
 
-    this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, get_year.id)
+    this.httpService.GetPayee(this.data.payer.tin, get_year[0].id)
     .subscribe(
       (data: any) => {
-        this.upLoading = false;
-        console.log(data)
-      },
-      err => {
-        this.upLoading = false;
-        console.log(err)
-        if (err.status === 500) {
-          this.snackBar.open("Invalid data format or File not Valid!", "", {
-            duration: 5000,
-            panelClass: "error"
-          });
+        if (data.data !== []) {
+          this.upLoading = false;
+          console.log(data)
+          this.datas = data.data;
+          this.renderTable(data.data);
+          this.type = true;
         }
-        else if (err.status === 0) {
+        else{
+          this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, get_year[0].id)
+          .subscribe(
+            (data: any) => {
+              console.log(data)
+              this.httpService.UploadPayeeValidatedFile({data: data.data}, this.data.payer.tin, get_year[0].id).subscribe(
+                (data: any) => {
+                  this.upLoading = false;
+                  console.log(data)
+                  this.datas = data.data;
+                  this.renderTable(data.data);
+                  this.type = true;
+                },
+                err => {
+                  this.upLoading = false;
+                  console.log(err)
+                  if (err.status === 500) {
+                    this.snackBar.open("An error occur. Please try Again", "", {
+                      duration: 5000,
+                      panelClass: "error"
+                    });
+                  }
+                  else if (err.status === 0) {
+                    this.snackBar.open("Error", "", {
+                      duration: 5000,
+                      panelClass: "error"
+                    });
+                  }
+                  else {
+                    this.snackBar.open(err.error.status, "", {
+                      duration: 5000,
+                      panelClass: "error"
+                    });
+                  }
+                }
+              )
+            },
+            err => {
+              this.upLoading = false;
+              console.log(err)
+              if (err.status === 500) {
+                this.snackBar.open("Invalid data format or File not Valid! (Should be CSV)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+              else if (err.status === 0) {
+                this.snackBar.open("Error", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+              else {
+                this.snackBar.open(err.error.status, "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+            }
+          )
+          // end of subscribe
+        }},
+        err => {
+          this.upLoading = false;
           this.snackBar.open("Error", "", {
             duration: 5000,
             panelClass: "error"
           });
         }
-        else {
-          this.snackBar.open(err.error.status, "", {
-            duration: 5000,
-            panelClass: "error"
-          });
-        }
-      }
-    )
-    // end of subscribe
+    ) // end of subscribe
   }
 
 
-  renderTable() {
+  renderTable(data: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5
+      pageLength: 10
     };
-    this.datas = Person2;
-    // this.http.get<any[]>('data/data.json')
-    //   .subscribe((data: any) => {
-    //     this.persons = (data as any).data;
-    //     // Calling the DT trigger to manually render the table
-    //     this.dtTrigger.next
-    //   });
+    this.datas = data;
+    this.dtTrigger.next
   }
 
 
@@ -286,7 +340,6 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.authService.checkExpired();
-    this.renderTable();
     this.AddYear();
   }
 
@@ -299,11 +352,21 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   }
 
   Continue() {
-    const data = {
-      type: 'tax-income',
-      data: this.datas
+    if (this.datas?.length == 0){
+      this.snackBar.open("Employee not yet added!", "", {
+        duration: 5000,
+        panelClass: "error"
+      });
     }
-    this.shared.PayeesendClickEvent(data);
+    else{
+      const data = {
+        type: 'tax-income',
+      }
+      this.shared.setMessage(this.datas);
+      this.shared.setMessage2(this.data2);
+      this.shared.PayeesendClickEvent(data);
+    }
+
   }
 
   OpenDialog(data: any, type: string) {

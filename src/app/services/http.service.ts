@@ -109,6 +109,26 @@ export class HttpService {
     };
     return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/csv/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
   }
+
+  // upload validated csv payee file
+  UploadPayeeValidatedFile(data: any, tin: string, year_id: number): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/bulkupload/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
+  }
+
+  // upload validated csv payee file
+  GetPayee(tin: string, year_id: number): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.get<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, httpOptions)
+  }
   
 
 }

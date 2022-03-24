@@ -129,8 +129,10 @@ export class PayeeComponent implements OnDestroy, OnInit {
           if (this.decodedToken.user_id == data.data.user.id) {
             const datas = {
               type: 'staff-income',
-              data: data.data
+              is_type: false,
             }
+            this.shared.setMessage(data.data);
+            this.shared.setMessage2(data.data);
             this.shared.PayeesendClickEvent(datas);
             this.snackBar.open("Valid", "", {
               duration: 3000,

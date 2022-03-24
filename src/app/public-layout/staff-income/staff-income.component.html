@@ -1,6 +1,6 @@
 <div class="header">
-    <div class="tin">TIN: {{data?.payer.tin}}</div>
-    <div class="soft_pattern"> {{data?.organisation_name}} <span class="material-icons">close_fullscreen</span></div>
+    <div class="tin">TIN: {{data2?.payer.tin}}</div>
+    <div class="soft_pattern"> {{data2?.organisation_name}} <span class="material-icons">close_fullscreen</span></div>
     <div class="reg_buss">Registered Business</div>
 
     <div class="buttons_p">
@@ -17,7 +17,7 @@
             <div class="float">
                 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
-                <div class="csv" (click)="type = !type">
+                <div class="csv">
                     <span (click)="fileUpload.click()">
                         <span class="material-icons">upload_file</span> 
                         Upload CSV File <span class="no_csv" *ngIf="fileName">{{fileName || "No file uploaded yet."}}</span>
@@ -38,7 +38,7 @@
                     <div class="tin">TIN</div>
                     <div class="name">Name of Employee</div>
                     <div class="gross_income">
-                        <div>Cross income (-N-)</div>
+                        <div>Gross income (-N-)</div>
                         <div>Per Annual</div>
                     </div>
                     <div class="tax_free">
@@ -90,7 +90,7 @@
                                 <th>TIN</th>
                                 <th>Name of Employee</th>
                                 <th>
-                                    <div>Cross income (-N-)</div>
+                                    <div>Gross income (-N-)</div>
                                     <div>Per Annual</div>
                                 </th>
                                 <th>
@@ -109,11 +109,11 @@
                             <tbody *ngIf="datas?.length != 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle">{{i+1}}</td>
-                                    <td class="align-middle">{{ data.tin }}</td>
-                                    <td class="align-middle">{{ data.name }}</td>
-                                    <td class="align-middle">{{ data.gross_income }}</td>
-                                    <td class="align-middle">{{ data.free_income }}</td>
-                                    <td class="align-middle">{{ data.tax_income }}</td>
+                                    <td class="align-middle">{{ data.employeeTin }}</td>
+                                    <td class="align-middle">{{ data.employee }}</td>
+                                    <td class="align-middle">{{ data.gross }}</td>
+                                    <td class="align-middle">{{ data.compute_annualtax }}</td>
+                                    <td class="align-middle">{{ data.compute_taxable }}</td>
                                     <td class="check align-middle" (click)="OpenDialog(data, 'payee2')">
                                         check 
                                         <mat-icon class="table-icon">dashboard_customize</mat-icon>
@@ -125,6 +125,13 @@
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
                                     <td colspan="3" class="no-data-available">No data!</td>
                                 </tr>
                             </tbody>
@@ -237,7 +244,7 @@
                     <div class="tin">TIN</div>
                     <div class="name">Name of Employee</div>
                     <div class="gross_income">
-                        <div>Cross income (-N-)</div>
+                        <div>Gross income (-N-)</div>
                     </div>
                     <div class="tax_free">
                         <div>Tax free Income (-N-)</div>
@@ -265,7 +272,7 @@
                                 <th>TIN</th>
                                 <th>Name of Employee</th>
                                 <th>
-                                    <div>Cross income (-N-)</div>
+                                    <div>Gross income (-N-)</div>
                                 </th>
                                 <th>
                                     <div>Tax free Income (-N-)</div>
@@ -282,11 +289,11 @@
                             <tbody *ngIf="datas?.length != 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle">{{i+1}}</td>
-                                    <td class="align-middle">{{ data.tin }}</td>
-                                    <td class="align-middle">{{ data.name }}</td>
-                                    <td class="align-middle">{{ data.gross_income }}</td>
-                                    <td class="align-middle">{{ data.free_income }}</td>
-                                    <td class="align-middle">{{ data.tax_income }}</td>
+                                    <td class="align-middle">{{ data.employeeTin }}</td>
+                                    <td class="align-middle">{{ data.employee }}</td>
+                                    <td class="align-middle">{{ data.gross }}</td>
+                                    <td class="align-middle">{{ data.compute_annualtax }}</td>
+                                    <td class="align-middle">{{ data.compute_taxable }}</td>
                                     <td class="check align-middle" (click)="OpenDialog(data, 'payee2')">
                                         check 
                                         <mat-icon class="table-icon">open_with</mat-icon>
@@ -298,6 +305,13 @@
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
+                                    <td colspan="3" class="no-data-available">No data!</td>
                                     <td colspan="3" class="no-data-available">No data!</td>
                                 </tr>
                             </tbody>

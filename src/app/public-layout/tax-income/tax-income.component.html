@@ -1,6 +1,6 @@
 <div class="header">
-    <div class="tin">TIN: IRM1233456</div>
-    <div class="soft_pattern">Softpattern Pattern Technology <span class="material-icons">close_fullscreen</span></div>
+    <div class="tin">TIN: {{data2?.payer.tin}}</div>
+    <div class="soft_pattern">{{data2?.organisation_name}} <span class="material-icons">close_fullscreen</span></div>
     <div class="reg_buss">Registered Business</div>
 
 </div>
@@ -21,7 +21,7 @@
                         <th class="align-middle">TIN</th>
                         <th class="align-middle">Name of Employee</th>
                         <th class="align-middle">
-                            <div>Cross income (-N-)</div>
+                            <div>Gross income (-N-)</div>
                             <div>Per Annual</div>
                         </th>
                         <th class="align-middle">
@@ -40,11 +40,11 @@
                 <tbody *ngIf="datas?.length != 0">
                     <tr *ngFor="let data of datas; let i=index">
                         <td class="align-middle">{{i+1}}</td>
-                        <td class="align-middle">{{ data.tin }}</td>
-                        <td class="align-middle">{{ data.name }}</td>
-                        <td class="align-middle">{{ data.gross_income }}</td>
-                        <td class="align-middle">{{ data.tax_income }}</td>
-                        <td class="make_bold align-middle">{{ data.free_income }}</td>
+                        <td class="align-middle">{{ data.employeeTin }}</td>
+                        <td class="align-middle">{{ data.employee }}</td>
+                        <td class="align-middle">{{ data.gross }}</td>
+                        <td class="align-middle">{{ data.compute_annualtax }}</td>
+                        <td class="make_bold align-middle">{{ data.compute_taxable }}</td>
                         <td class="check align-middle">
                             check 
                             <mat-icon class="table-icon">dashboard_customize</mat-icon>
@@ -53,6 +53,12 @@
                 </tbody>
                 <tbody *ngIf="datas?.length == 0">
                     <tr>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
                         <td colspan="3" class="no-data-available">No data!</td>
                     </tr>
                 </tbody>

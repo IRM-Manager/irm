@@ -19,52 +19,57 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   previous_data: any[] = [];
   clickEventSubscription?: Subscription;
+  data: any;
+  data2: any;
+  previousData: any;
 
   constructor(private dialog: MatDialog, private authService: AuthService,
     public shared: ToggleNavService) {
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
-        console.log(data)
-        // if (data.data.length > 0) {
-        //   this.previous_data = data.data;
-        // }
       })
+
+      this.data = this.shared.getMessage();
+      this.data2 = this.shared.getMessage2();
+
     }
 
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5
+      pageLength: 10
     };
-    this.datas = Person2;
-    // this.http.get<any[]>('data/data.json')
-    //   .subscribe((data: any) => {
-    //     this.persons = (data as any).data;
-    //     // Calling the DT trigger to manually render the table
-    //     this.dtTrigger.next
-    //   });
+    this.datas = this.data;
+    this.dtTrigger.next
   }
 
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
+    // console.log(this.GetTotal())
   }
 
   back() {
-    console.log(this.previous_data)
+    console.log("staff previous data", this.previous_data)
     const data = {
       type: 'staff-income',
-      data: this.previous_data
+      is_true: true
     }
+    this.shared.setMessage3(this.data);
+    this.shared.setMessage2(this.data2);
     this.shared.PayeesendClickEvent(data);
   }
 
   Continue() {
     const data = {
       type: 'bill',
-      data: this.datas
     }
+    this.shared.setMessage(this.datas);
     this.shared.PayeesendClickEvent(data);
   }
+
+  // GetTotal() {
+  //   return this.datas.reduce((accumulator:any, current:any) => accumulator + current.compute_taxable, 0);
+  // }
 
   OpenDialog(data: any, type: string) {
     let dialogRef = this.dialog.open(DialogComponent, {
