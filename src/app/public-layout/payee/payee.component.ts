@@ -29,8 +29,10 @@ import { BaseUrl } from 'src/environments/environment';
 export class PayeeComponent implements OnDestroy, OnInit {
 
   @ViewChild('fform') feedbackFormDirective: any;
+  @ViewChild('fformsearch') searchFormDirective: any;
 
   feedbackForm: any = FormGroup;
+  SearchForm: any = FormGroup;
   feedback!: Tin;
   active: any = 'ind';
   left_text!: string;
@@ -40,10 +42,10 @@ export class PayeeComponent implements OnDestroy, OnInit {
   viewMode = 'verify';
   clickEventSubscription?: Subscription;
   isLoading = false;
-  search: string = "";
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
+  searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
   stateComPayer: Observable<ComPayer[]>;
@@ -62,7 +64,10 @@ export class PayeeComponent implements OnDestroy, OnInit {
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
     public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>,
     private snackBar: MatSnackBar) {
+
       this.createForm();
+      this.createSearchForm();
+      this.trackSearchField();
 
       this.stateComPayer = store.select(selectAllComPayer);
 
@@ -85,10 +90,50 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
 
-  keyPress(event: KeyboardEvent) {
-    // this.datas = this.datas.st
-    console.log(event)
+  formatDate(data: any) {
+    var d = new Date(data),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    return [year, month, day].join('-');
   }
+
+
+  keyPress(search: any) {
+    const data = this.searchData.filter((data: any) => {
+      return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
+      data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+      data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||
+      this.formatDate(data.payer.created_at).startsWith(search.toLowerCase())
+    })
+    console.log(data)
+    this.datas = data;
+  }
+
+
+  createSearchForm() {
+    this.SearchForm = this.fb.group({
+        search: ['']
+      },
+    );
+  }
+
+  trackSearchField(): void {
+    this.SearchForm.get('search')
+      .valueChanges
+      .subscribe((field: string) => {
+        if(field === undefined) {
+        }else {
+          this.keyPress(field)
+        }
+      }); 
+  }
+
 
   createForm() {
     this.feedbackForm = this.fb.group({
@@ -194,6 +239,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
       this.stateComPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
+          this.searchData = e[0].data;
           console.log(e[0].data)
           this.dtTrigger.next
           this.isLoading = false;
@@ -206,6 +252,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
               }else{
                 this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
                 this.datas = data.data.company_tax_payer;
+                this.searchData = data.data.company_tax_payer;
                 this.dtTrigger.next
                 this.isLoading = false;
               }

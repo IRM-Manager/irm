@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-individual',
@@ -24,6 +25,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class IndividualComponent implements OnDestroy, OnInit {
 
+  @ViewChild('fformsearch') searchFormDirective: any;
+  
+  SearchForm: any = FormGroup;
   active: any = 'ind';
   left_text!: string;
   is_reload = false;
@@ -31,6 +35,8 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
+  searchData: any;
+  searchData2: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
   stateIndPayer: Observable<IndPayer[]>;
@@ -42,7 +48,10 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   constructor(private router: Router, private direct: ActivatedRoute, private store: Store<AppState>,
     private authService: AuthService, private httpService: HttpService, private dialog: MatDialog,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar, private fb: FormBuilder) {
+
+      this.createSearchForm();
+      this.trackSearchField();
 
     this.direct.paramMap.subscribe(params => {
       if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
@@ -73,6 +82,63 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
 
+  formatDate(data: any) {
+    var d = new Date(data),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    return [year, month, day].join('-');
+  }
+
+
+  keyPress(search: any) {
+    if (this.active == 'com') {
+      const data = this.searchData2.filter((data: any) => {
+        return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||
+        this.formatDate(data.payer.created_at).startsWith(search.toLowerCase())
+      })
+      this.datas = data;
+    }else {
+      const data = this.searchData.filter((data: any) => {
+        return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.profession_trade.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.first_name.startsWith(search.toLowerCase()) ||
+        data.surname.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.middle_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        this.formatDate(data.payer.created_at).startsWith(search.toLowerCase())
+      })
+      this.datas = data;
+    }
+  }
+
+
+  createSearchForm() {
+    this.SearchForm = this.fb.group({
+        search: ['']
+      },
+    );
+  }
+
+  trackSearchField(): void {
+    this.SearchForm.get('search')
+      .valueChanges
+      .subscribe((field: string) => {
+        if(field === undefined) {
+        }else {
+          this.keyPress(field)
+        }
+      }); 
+  }
+
+
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -84,6 +150,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
       this.stateComPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
+          this.searchData2 = e[0].data;
           console.log(e[0].data)
           this.dtTrigger.next
           this.isLoading = false;
@@ -96,6 +163,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
               }else{
                 this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
                 this.datas = data.data.company_tax_payer;
+                this.searchData2 = data.data.company_tax_payer;
                 this.dtTrigger.next
                 this.isLoading = false;
               }
@@ -113,6 +181,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
       this.stateIndPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
+          this.searchData = e[0].data;
           console.log(e[0].data)
           this.dtTrigger.next
           this.isLoading = false;
@@ -125,6 +194,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
               }else{
                 this.store.dispatch(new AddIndPayer([{id: 1, data: data.data.individual_tax_payer}]));
                 this.datas = data.data.individual_tax_payer;
+                this.searchData = data.data.individual_tax_payer;
                 this.dtTrigger.next
                 this.isLoading = false;
               }

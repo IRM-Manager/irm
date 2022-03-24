@@ -18,8 +18,8 @@
     </div>
     <div class="spacer"></div>
     <div class="search_icon_p">
-        <form class="search-form">
-            <input type="text" class="input">
+        <form class="search-form" novalidate [formGroup]="SearchForm" #fformsearch="ngForm">
+            <input matInput formControlName="search" type="text" class="input" >
         </form>
         <mat-icon class="search_icon">search</mat-icon>
     </div>
@@ -45,15 +45,26 @@
             </tr>
             </thead>
             <!-- individual -->
-            <tbody *ngIf="datas?.length != 0">
+            <tbody *ngIf="datas?.length != 0 && active == 'ind' ">
                 <tr *ngFor="let data of datas; let i=index">
                     <td class="align-middle">{{i+1}}. {{ data.payer.tin }}</td>
-                    <td class="align-middle">{{ data.surname || data.directors_info.surname }} 
-                        {{ data.first_name || data.directors_info.first_name }} 
-                        {{ data.middle_name || data.directors_info.middle_name }}
+                    <td class="align-middle">{{ data.surname }} {{ data.first_name }} 
+                        {{ data.middle_name }}
                     </td>
-                    <td class="align-middle">{{ data.profession_trade || data.directors_info.profession_trade }}</td>
-                    <td class="align-middle">{{ data.phone || data.org_phone }}</td>
+                    <td class="align-middle">{{ data.profession_trade }}</td>
+                    <td class="align-middle">{{ data.phone }}</td>
+                    <td class="align-middle">
+                        <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="datas?.length != 0 && active == 'com' ">
+                <tr *ngFor="let data of datas; let i=index">
+                    <td class="align-middle">{{i+1}}. {{ data.payer.tin }}</td>
+                    <td class="align-middle">{{ data.organisation_name }}
+                    </td>
+                    <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
+                    <td class="align-middle">{{ data.org_phone }}</td>
                     <td class="align-middle">
                         <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
                     </td>
