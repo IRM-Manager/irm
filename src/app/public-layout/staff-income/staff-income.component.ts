@@ -43,7 +43,6 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   type: Boolean = false;
   type2: Boolean = false;
   data: any;
-  tin: any;
   formData = new FormData();
   viewMode = 'file';
   clickEventSubscription?: Subscription;
@@ -86,32 +85,33 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.stateYear = store.select(selectAllYear);
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
-        this.data = data.data
-        this.tin = data?.data?.payer?.tin;
-        this.type = true;
-        console.log("staff-income",data.data)
       })
       
-      if(this.tin !== undefined || this.tin !== "" || this.tin !== null) {
-      }else {
-        const data = {
-          type: 'verify',
-          data: null
-        }
-        this.shared.PayeesendClickEvent(data);
-      }
+      this.data = this.shared.getMessage();      
 
    }
 
 
    onFileSelected(event: any) {
-    const file:File = event.target.files[0];
+    if(this.data === undefined) {
+      const data = {
+        type: 'verify'
+      }
+      this.shared.PayeesendClickEvent(data);
+      this.snackBar.open("Unable to retrieve data", "", {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }else {
+      const file:File = event.target.files[0];
       if (file) {
           this.fileName = file.name;
           const formData = new FormData();
           formData.append("file", file);
           this.formData = formData;
       }
+    }
+    
     }
 
 
@@ -197,7 +197,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
 
   UploadFIle() {
-    console.log(this.tin)
+    console.log(this.data)
     this.upLoading = true
     const d = new Date();
     let year = d.getFullYear();
@@ -205,7 +205,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       return data.year === year;
     });
 
-    this.httpService.UploadPayeeFile(this.formData, "4379909897", get_year.id)
+    this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, get_year.id)
     .subscribe(
       (data: any) => {
         this.upLoading = false;
@@ -215,7 +215,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
         this.upLoading = false;
         console.log(err)
         if (err.status === 500) {
-          this.snackBar.open("Error", "", {
+          this.snackBar.open("Invalid data format or File not Valid!", "", {
             duration: 5000,
             panelClass: "error"
           });

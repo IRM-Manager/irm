@@ -24,9 +24,9 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
     public shared: ToggleNavService) {
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         console.log(data)
-        if (data.data.length > 0) {
-          this.previous_data = data.data;
-        }
+        // if (data.data.length > 0) {
+        //   this.previous_data = data.data;
+        // }
       })
     }
 

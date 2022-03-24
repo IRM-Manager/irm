@@ -6,11 +6,20 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ToggleNavService {
 
-  
+  message: string | undefined;
+
   private subject = new Subject<any>();
   private subject3 = new Subject<any>();
 
   constructor() { }
+
+  setMessage(data: any) {
+    this.message = data
+  }
+  
+  getMessage() {
+    return this.message
+  }
 
   sendClickEvent() {
     this.subject.next(null);

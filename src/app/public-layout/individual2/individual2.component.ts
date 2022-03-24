@@ -8,9 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 // state management
 import { Store } from '@ngrx/store';
-import { States } from '../../models/irm';
-import { AppState, selectAllStates } from 'src/app/reducers/index';
-import { AddStates } from '../../actions/irm.action';
+import { States, Profile } from '../../models/irm';
+import { AppState, selectAllStates, selectAllProfile } from 'src/app/reducers/index';
+import { AddStates, AddProfile } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { DataTablesModule } from 'angular-datatables';
 
@@ -91,7 +91,10 @@ export class Individual2Component implements OnInit {
   lga2: any;
   lga3: any;
 
+  profile: any;
+
   stateStates: Observable<States[]>;
+  stateProfile: Observable<Profile[]>;
 
   formErrors: any = {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
@@ -176,6 +179,7 @@ export class Individual2Component implements OnInit {
     this.trackEmptyFields();
 
     this.stateStates = store.select(selectAllStates);
+    this.stateProfile = store.select(selectAllProfile);
   }
 
   createForm() {
@@ -613,9 +617,24 @@ export class Individual2Component implements OnInit {
     )
   }
 
+
+  getUsername(): any {
+    this.stateProfile.forEach(e => {
+      if (e[0] === undefined){}
+      else {this.profile = e[0].data.data;}
+    })
+  }
+
+
   ngOnInit(): void {
 
     this.authService.checkExpired();
+
+    this.getUsername();
+    if (this.profile === undefined) {
+    }else{this.feedbackForm1.patchValue({"username": this.profile.username });}
+
+
     this.AddState();
 
     this.bankCtrl.valueChanges
