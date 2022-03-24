@@ -42,9 +42,9 @@
                         <td class="align-middle">{{i+1}}</td>
                         <td class="align-middle">{{ data.employeeTin }}</td>
                         <td class="align-middle">{{ data.employee }}</td>
-                        <td class="align-middle">{{ data.gross }}</td>
-                        <td class="align-middle">{{ data.compute_annualtax }}</td>
-                        <td class="make_bold align-middle">{{ data.compute_taxable }}</td>
+                        <td class="align-middle">{{ formatMoney(data.gross) }}</td>
+                        <td class="align-middle">{{ formatMoney(data.compute_annualtax) }}</td>
+                        <td class="make_bold align-middle">{{ formatMoney(data.compute_taxable) }}</td>
                         <td class="check align-middle">
                             check 
                             <mat-icon class="table-icon">dashboard_customize</mat-icon>
@@ -68,7 +68,7 @@
 
     <div class="total">
         <span class="total_paye">Total Employee PayE</span>
-        <span class="total_paye2">(&#8358;) 10,000,000.00</span>
+        <span class="total_paye2">(&#8358;) {{ formatMoney(GetTotal()) }} </span>
     </div>
 
     <div class="buttons">

@@ -262,6 +262,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
               )
             },
             err => {
+              this.authService.refreshToken();
               this.upLoading = false;
               console.log(err)
               if (err.status === 500) {
@@ -287,6 +288,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           // end of subscribe
         }},
         err => {
+          this.authService.refreshToken();
           this.upLoading = false;
           this.snackBar.open("Error", "", {
             duration: 5000,
@@ -349,6 +351,11 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       data: null
     }
     this.shared.PayeesendClickEvent(data);
+  }
+
+   formatMoney(n: any) {
+     const tostring = n.toString()
+    return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
   Continue() {

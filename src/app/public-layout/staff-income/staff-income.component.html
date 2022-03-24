@@ -111,9 +111,9 @@
                                     <td class="align-middle">{{i+1}}</td>
                                     <td class="align-middle">{{ data.employeeTin }}</td>
                                     <td class="align-middle">{{ data.employee }}</td>
-                                    <td class="align-middle">{{ data.gross }}</td>
-                                    <td class="align-middle">{{ data.compute_annualtax }}</td>
-                                    <td class="align-middle">{{ data.compute_taxable }}</td>
+                                    <td class="align-middle">{{ formatMoney(data.gross) }}</td>
+                                    <td class="align-middle">{{ formatMoney(data.compute_annualtax) }}</td>
+                                    <td class="align-middle">{{ formatMoney(data.compute_taxable) }}</td>
                                     <td class="check align-middle" (click)="OpenDialog(data, 'payee2')">
                                         check 
                                         <mat-icon class="table-icon">dashboard_customize</mat-icon>

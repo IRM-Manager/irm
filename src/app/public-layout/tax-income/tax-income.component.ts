@@ -45,8 +45,12 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
-    // console.log(this.GetTotal())
   }
+
+  formatMoney(n: any) {
+    const tostring = n.toString()
+   return (Math.round(tostring * 100) / 100).toLocaleString();
+ }
 
   back() {
     console.log("staff previous data", this.previous_data)
@@ -67,9 +71,9 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
     this.shared.PayeesendClickEvent(data);
   }
 
-  // GetTotal() {
-  //   return this.datas.reduce((accumulator:any, current:any) => accumulator + current.compute_taxable, 0);
-  // }
+  GetTotal() {
+    return this.datas.reduce((accumulator:any, current:any) => accumulator + current.compute_taxable, 0);
+  }
 
   OpenDialog(data: any, type: string) {
     let dialogRef = this.dialog.open(DialogComponent, {
