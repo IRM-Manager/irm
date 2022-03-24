@@ -9,7 +9,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 // state management
 import { Store } from '@ngrx/store';
 import { IndPayer, ComPayer } from '../../models/irm';
-import { AppState, selectAllIndPayer, selectAllStates, selectAllComPayer } from 'src/app/reducers/index';
+import { AppState, selectAllIndPayer, selectAllComPayer } from 'src/app/reducers/index';
 import { AddIndPayer, RemoveIndPayer, AddComPayer, RemoveComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
@@ -27,6 +27,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
   active: any = 'ind';
   left_text!: string;
   is_reload = false;
+  isLoading = false;
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -79,11 +80,13 @@ export class IndividualComponent implements OnDestroy, OnInit {
     };
 
     if (this.active == 'com') {
+      this.isLoading = true;
       this.stateComPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
           console.log(e[0].data)
           this.dtTrigger.next
+          this.isLoading = false;
         }
         else {
           this.httpService.GetPayerList().subscribe(
@@ -94,9 +97,11 @@ export class IndividualComponent implements OnDestroy, OnInit {
                 this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
                 this.datas = data.data.company_tax_payer;
                 this.dtTrigger.next
+                this.isLoading = false;
               }
             },
             err => {
+              this.isLoading = false;
               this.authService.refreshToken();
             }
           )
@@ -104,11 +109,13 @@ export class IndividualComponent implements OnDestroy, OnInit {
       }) 
     }
     else {
+      this.isLoading = true;
       this.stateIndPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
           console.log(e[0].data)
           this.dtTrigger.next
+          this.isLoading = false;
         }
         else {
           this.httpService.GetPayerList().subscribe(
@@ -119,9 +126,11 @@ export class IndividualComponent implements OnDestroy, OnInit {
                 this.store.dispatch(new AddIndPayer([{id: 1, data: data.data.individual_tax_payer}]));
                 this.datas = data.data.individual_tax_payer;
                 this.dtTrigger.next
+                this.isLoading = false;
               }
             },
             err => {
+              this.isLoading = false;
               this.authService.refreshToken();
             }
           )

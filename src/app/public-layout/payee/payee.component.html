@@ -44,7 +44,7 @@
                 <div class="spacer"></div>
                 <div class="search_icon_p">
                     <form class="search-form">
-                        <input type="text" class="input">
+                        <input type="text" class="input" [(ngModel)]="search" #ctrl="ngModel" name="search" (keypress)="keyPress($event)">
                     </form>
                     <mat-icon class="search_icon">search</mat-icon>
                 </div>
@@ -87,6 +87,14 @@
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
                         </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
                         <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
                             <span *ngIf="!is_reload">RELOAD</span>
                             <div *ngIf="is_reload" class="loader">

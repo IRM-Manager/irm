@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -39,6 +39,8 @@ export class PayeeComponent implements OnDestroy, OnInit {
   is_reload = false;
   viewMode = 'verify';
   clickEventSubscription?: Subscription;
+  isLoading = false;
+  search: string = "";
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -78,9 +80,15 @@ export class PayeeComponent implements OnDestroy, OnInit {
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.viewMode = data.type;
       })
+
   }
 
   decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
+
+  keyPress(event: KeyboardEvent) {
+    // this.datas = this.datas.st
+    console.log(event)
+  }
 
   createForm() {
     this.feedbackForm = this.fb.group({
@@ -182,11 +190,13 @@ export class PayeeComponent implements OnDestroy, OnInit {
       pageLength: 10,
     };
 
+      this.isLoading = true;
       this.stateComPayer?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
           console.log(e[0].data)
           this.dtTrigger.next
+          this.isLoading = false;
         }
         else {
           this.httpService.GetPayerList().subscribe(
@@ -197,9 +207,11 @@ export class PayeeComponent implements OnDestroy, OnInit {
                 this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
                 this.datas = data.data.company_tax_payer;
                 this.dtTrigger.next
+                this.isLoading = false;
               }
             },
             err => {
+              this.isLoading = false;
               this.authService.refreshToken();
             }
           )

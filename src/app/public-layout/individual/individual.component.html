@@ -30,17 +30,17 @@
         <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
             <thead>
             <tr *ngIf="active == 'ind'">
-                <th>Tin</th>
-                <th>Full Name</th>
-                <th>Field of work/Business</th>
-                <th>Contact Number</th>
+                <th class="align-middle">Tin</th>
+                <th class="align-middle">Full Name</th>
+                <th class="align-middle">Field of work/Business</th>
+                <th class="align-middle">Contact Number</th>
                 <th></th>
             </tr>
             <tr *ngIf="active == 'com'">
-                <th>Tin</th>
-                <th>Business name</th>
-                <th>Date of Establishment</th>
-                <th>Contact Person</th>
+                <th class="align-middle">Tin</th>
+                <th class="align-middle">Business name</th>
+                <th class="align-middle">Date of Establishment</th>
+                <th class="align-middle">Contact Person</th>
                 <th></th>
             </tr>
             </thead>
@@ -68,6 +68,14 @@
                     <td colspan="3" class="no-data-available">No data!</td>
                 </tr>
             </tbody>
+
+            <div *ngIf="isLoading" class="loader loading">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+            </div>
+
             <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
                 <span *ngIf="!is_reload">RELOAD</span>
                 <div *ngIf="is_reload" class="loader">

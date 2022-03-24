@@ -7,9 +7,11 @@ import { HttpService } from 'src/app/services/http.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { Profile, States, Year } from '../../models/irm';
-import { AppState, selectAllProfile, selectAllStates, selectAllYear } from 'src/app/reducers/index';
-import { AddProfile, RemoveProfile, AddStates, RemoveStates, AddYear, RemoveYear } from '../../actions/irm.action';
+import { Profile, States, Year, IndPayer, ComPayer } from '../../models/irm';
+import { AppState, selectAllProfile, selectAllStates, selectAllYear, 
+         selectAllIndPayer, selectAllComPayer } from 'src/app/reducers/index';
+import { AddProfile, RemoveProfile, AddStates, RemoveStates, AddYear, RemoveYear,
+         AddIndPayer, RemoveIndPayer, AddComPayer, RemoveComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -29,6 +31,8 @@ export class HeaderComponent implements OnInit {
   stateProfile: Observable<Profile[]>;
   stateStates: Observable<States[]>;
   stateYear: Observable<Year[]>;
+  stateIndPayer: Observable<IndPayer[]>;
+  stateComPayer: Observable<ComPayer[]>;
 
   constructor(private dialog: MatDialog, private shared: ToggleNavService, private authService: AuthService,
     private router: Router, private snackBar: MatSnackBar, private httpService: HttpService,
@@ -43,6 +47,8 @@ export class HeaderComponent implements OnInit {
       this.stateProfile = store.select(selectAllProfile);
       this.stateStates = store.select(selectAllStates);
       this.stateYear = store.select(selectAllYear);
+      this.stateIndPayer = store.select(selectAllIndPayer);
+      this.stateComPayer = store.select(selectAllComPayer);
 
   }
 
@@ -123,6 +129,21 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  AddRegisteredPayer() {
+    this.httpService.GetPayerList().subscribe(
+      (data:any) => {
+        if(data.responsecode == "01"){
+        }else{
+          this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
+          this.store.dispatch(new AddIndPayer([{id: 1, data: data.data.individual_tax_payer}]));
+        }
+      },
+      err => {
+      }
+    ) 
+}
+
+
   AddState() {
     this.httpService.state('state', 1).subscribe(
       (data:any) => {
@@ -169,6 +190,7 @@ export class HeaderComponent implements OnInit {
     this.AddProfile();
     this.AddState();
     this.AddYear();
+    this.AddRegisteredPayer();
   }
 
 
