@@ -120,8 +120,18 @@ export class HttpService {
     return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/bulkupload/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
   }
 
+  // add single payee
+  AddSinglePayee(data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/`, data, httpOptions)
+  }
+
   // upload validated csv payee file
-  GetPayee(tin: string, year_id: number): Observable<any[]> {
+  GetPayee(tin: string, year_id: number | string): Observable<any[]> {
     const httpOptions = {
       headers: {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`

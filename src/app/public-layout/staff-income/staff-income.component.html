@@ -164,7 +164,7 @@
                         <!-- tin_emp -->
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>(TIN) of employee</mat-label>
-                            <input matInput formControlName="tin" required>
+                            <input matInput formControlName="tin" type="tel" required>
                             <mat-error>{{formErrors.tin}}</mat-error>
                         </mat-form-field>
                         <!-- year_emp -->
@@ -196,25 +196,25 @@
                         <!-- basic -->
                         <mat-form-field class="half-width2" appearance="outline">
                             <mat-label>Basic (-N-)</mat-label>
-                            <input matInput formControlName="basic" required>
+                            <input matInput formControlName="basic" type="number" required>
                             <mat-error>{{formErrors.basic}}</mat-error>
                         </mat-form-field>
                         <!-- transport -->
                         <mat-form-field class="half-width2" appearance="outline">
                             <mat-label>Housing (-N-)</mat-label>
-                            <input matInput formControlName="housing" required>
+                            <input matInput formControlName="housing" type="number" required>
                             <mat-error>{{formErrors.housing}}</mat-error>
                         </mat-form-field>
                         <!-- transport -->
                         <mat-form-field class="half-width2" appearance="outline">
                             <mat-label>Transport (-N-)</mat-label>
-                            <input matInput formControlName="transport" required>
+                            <input matInput formControlName="transport" type="number" required>
                             <mat-error>{{formErrors.transport}}</mat-error>
                         </mat-form-field>
                         <!-- other -->
                         <mat-form-field class="half-width2" appearance="outline">
                             <mat-label>Other allowances (-N-)</mat-label>
-                            <input matInput formControlName="other">
+                            <input matInput formControlName="other" type="number">
                         </mat-form-field>
 
                         <button mat-button class="add" [disabled]="fform1.form.invalid || fform.form.invalid || disabled === true" (click)="onSubmit()">

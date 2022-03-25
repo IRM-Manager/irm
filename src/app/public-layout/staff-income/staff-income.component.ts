@@ -192,6 +192,15 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     }
   }
 
+  clearForm() {
+    this.feedbackForm.get('tin').reset();
+    this.feedbackForm.get('name').reset();
+    this.feedbackForm.get('position').reset();
+    this.feedbackForm1.get('basic').reset();
+    this.feedbackForm1.get('housing').reset();
+    this.feedbackForm1.get('transport').reset();
+    this.feedbackForm1.get('other').reset();
+  }
 
   onSubmit() {
 
@@ -200,8 +209,115 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     this.feedback1 = this.feedbackForm.value;
     this.feedback2 = this.feedbackForm1.value;
 
-    console.log(this.feedback1)
-    console.log(this.feedback2)
+    const get_year = this.feedback1.year.split('|')
+    // check employee tin
+    this.httpService.GetPayerTin(this.feedback1.tin).subscribe(
+      (userId: any) => {
+
+        if (userId.data.payer.payer_type == "individual"){
+            this.httpService.GetPayee(this.feedback1.tin, get_year[0])
+            .subscribe(
+              (dataa: any) => {
+
+                if (dataa.data.length > 0) {
+                  this.loading = false;
+                  this.disabled = false;
+                  this.datas.push(dataa.data);
+                  // this.renderTable(dataa.data);
+                  this.type2 = true;
+                  this.clearForm();
+                  console.log("get payee list wheter regis",dataa)
+                }
+                else{
+                  const datas = {
+                    payerId: this.data2.payer.id, userId: userId.data.user.id, employerTin: this.data2.payer.tin,
+                    employeeTin: this.feedback1.tin, status: true, basic: this.feedback2.basic,
+                    housing: this.feedback2.housing, pension: false, nhf: false, tp: this.feedback2.transport,
+                    nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position || userId.data.profession_trade,
+                    taxYear: get_year[1], yearId: get_year[0], employerId: this.data2.user.id
+                  }
+                  console.log("form daata",datas)
+                  this.httpService.AddSinglePayee(datas).subscribe(
+                    (data: any) => {
+                      this.loading = false;
+                      this.disabled = false;
+                      this.datas.push(data.data);
+                      // this.renderTable(data.data);
+                      this.type2 = true;
+                      this.clearForm();
+                      console.log("added payee data",data)
+                    },
+                    err => {
+                      console.log(err)
+                      this.loading = false;
+                      this.disabled = false;
+                      this.authService.refreshToken();
+                      if (err.status === 500) {
+                        this.snackBar.open("An error occur. Please try Again", "", {
+                          duration: 5000,
+                          panelClass: "error"
+                        });
+                      }
+                      else if(err.status === 400) {
+                        this.snackBar.open(err.error.message, "", {
+                          duration: 5000,
+                          panelClass: "error"
+                        });
+                      }
+                      else {
+                        this.snackBar.open("Error", "", {
+                          duration: 5000,
+                          panelClass: "error"
+                        });
+                      }
+                    }
+                  )
+                  // end
+                }
+                // end else
+              },
+              err => {
+                this.loading = false;
+                this.disabled = false;
+                console.log(err)
+                this.authService.refreshToken();
+                this.snackBar.open("Error", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+            ) // end subscription
+        }
+        else {
+          this.loading = false;
+          this.disabled = false;
+          this.snackBar.open('Invalid Tin', "", {
+            duration: 5000,
+            panelClass: "error"
+          });
+        }
+
+      },
+      err => {
+        this.loading = false;
+          this.disabled = false;
+          this.authService.refreshToken();
+          if (err.status === 404) {
+            this.snackBar.open("Employee Tin does not exists", "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
+          else {
+            this.snackBar.open('Error', "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
+      }
+    )
+
+
   }
 
 
@@ -217,7 +333,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     this.httpService.GetPayee(this.data.payer.tin, get_year[0].id)
     .subscribe(
       (data: any) => {
-        if (data.data !== []) {
+        if (data.data.length > 0) {
           this.upLoading = false;
           console.log(data)
           this.datas = data.data;
