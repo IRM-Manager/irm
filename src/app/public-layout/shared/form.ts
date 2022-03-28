@@ -37,9 +37,6 @@ export interface Individual1 {
     contact: string;
     contact_email: string;
     username: string;
-    // employed: string;
-    // unemployed: string;
-    // retired: string;
 }
 
 export interface Individual2 {
@@ -90,9 +87,18 @@ export interface payee2 {
 }
 
 
-// export interface voucher {
-//     coupon: string;
-// }
+export interface MDA {
+    title: string;
+    firstname: string;
+    middlename: string;
+    surname: string;
+    contact: string;
+    contact_email: string;
+    mda_name: string;
+    service_name: string;
+    amount: string;
+    description: string;
+}
 
 
 

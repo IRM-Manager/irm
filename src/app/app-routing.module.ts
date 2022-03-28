@@ -38,6 +38,9 @@ const routes: Routes = [
     { path: 'dashboard3/taxpayer/payee', loadChildren: () => import('./public-layout/payee/payee.module').then(m => m.PayeeModule),
         canLoad: [IsLoggedInGuard]
     },
+    { path: 'dashboard3/taxpayer/mda', loadChildren: () => import('./public-layout/mda/mda.module').then(m => m.MDAModule),
+        canLoad: [IsLoggedInGuard]
+    },
   ]},
   {
     path: '', component: DashboardLayoutComponent, children: [

@@ -73,6 +73,11 @@ export class HeaderComponent implements OnInit {
       this.left_text1 = "Pay-As-You-Earn (PAYE)";
       this.left_text2 = "Please fill in the information";
     }
+    else if (this.router.url == "/dashboard3/taxpayer/mda"){
+      this.type = "mda";
+      this.left_text1 = "MDA Collection";
+      this.left_text2 = "Please fill in the information";
+    }
     else if (this.router.url == "/dashboard"){
       this.type = "tax";
       this.left_text1 = "Dashboard";

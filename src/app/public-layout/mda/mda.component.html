@@ -1,0 +1,123 @@
+<div class="header">
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="cac-width" appearance="outline">
+            <mat-label>(PayID/TIN)</mat-label>
+            <input matInput formControlName="tin" placeholder="">
+        </mat-form-field>
+        <button mat-button class="verify" type="submit">
+            <span  *ngIf="!loading">Search Information</span>
+            <div *ngIf="loading" class="loader">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+            </div>
+        </button>
+    </form>
+</div>
+
+
+<!-- session1 -->
+<div class="session">
+
+    <div class="session-header">Section 1: Personal Details</div>
+
+    <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm">
+        <p>
+            <!-- title -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Title</mat-label>
+                <mat-select matInput formControlName="title">
+                    <mat-option value="mr">Mr.</mat-option>
+                    <mat-option value="mrs">Mrs.</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- firstname -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>First name</mat-label>
+                <input matInput formControlName="firstname" required>
+                <mat-error>{{formErrors.firstname}}</mat-error>
+            </mat-form-field>
+            <!-- middlename -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Middle name</mat-label>
+                <input matInput formControlName="middlename" required>
+                <mat-error>{{formErrors.middlename}}</mat-error>
+            </mat-form-field>
+            <!-- surname -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Surname</mat-label>
+                <input matInput formControlName="surname" required>
+                <mat-error>{{formErrors.surname}}</mat-error>
+            </mat-form-field>
+        </p>
+        <p style="margin-top: 1rem;">
+            <!-- phone -->
+            <mat-form-field class="half-width2" appearance="outline">
+                <mat-label>Contact number</mat-label>
+                <input matInput formControlName="contact" type="tel" required>
+                <mat-error>{{formErrors.contact}}</mat-error>
+            </mat-form-field>
+            <!-- email -->
+            <mat-form-field class="half-full" appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput type="email" formControlName="contact_email" email required>
+                <mat-error>{{formErrors.contact_email}}</mat-error>
+            </mat-form-field>
+        </p>  
+        <p>
+            <!-- mda_name -->
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Name of MDA</mat-label>
+                <input matInput formControlName="mda_name" required>
+                <mat-error>{{formErrors.mda_name}}</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <!-- service_name -->
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Name of Service/Purpose</mat-label>
+                <input matInput formControlName="service_name" required>
+                <mat-error>{{formErrors.service_name}}</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <!-- amount -->
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Amount To Pay (&#8358;)</mat-label>
+                <input matInput formControlName="amount" type="number" required>
+                <mat-error>{{formErrors.amount}}</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <!-- description -->
+            <mat-form-field class="full" appearance="outline">
+            <mat-label>Description(Optional)</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+        </p>
+    </form>
+
+
+    <div class="final_submit">
+        <button mat-button class="verify2">Generate Bill</button>
+        <button mat-button class="verify"
+            [disabled]="fform3.form.invalid || disabled2 === true"
+            (click)="Submit()"
+        >
+            <span *ngIf="!loading2">Make Payment</span>
+            <div *ngIf="loading2" class="loader">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+            </div>
+        </button>
+    </div>
+
+</div>
+
+
+
+
+
