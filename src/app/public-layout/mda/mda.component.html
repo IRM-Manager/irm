@@ -69,7 +69,15 @@
             <!-- mda_name -->
             <mat-form-field class="full" appearance="outline">
                 <mat-label>Name of MDA</mat-label>
-                <input matInput formControlName="mda_name" required>
+                <input matInput formControlName="mda_name" [matAutocomplete]="auto" required>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+                </mat-autocomplete>
+                <button matSuffix mat-icon-button class="drop_down">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
                 <mat-error>{{formErrors.mda_name}}</mat-error>
             </mat-form-field>
         </p>
@@ -77,7 +85,15 @@
             <!-- service_name -->
             <mat-form-field class="full" appearance="outline">
                 <mat-label>Name of Service/Purpose</mat-label>
-                <input matInput formControlName="service_name" required>
+                <input matInput formControlName="service_name" [matAutocomplete]="auto" required>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                    {{option}}
+                </mat-option>
+                </mat-autocomplete>
+                <button matSuffix mat-icon-button class="drop_down">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
                 <mat-error>{{formErrors.service_name}}</mat-error>
             </mat-form-field>
         </p>
@@ -86,6 +102,9 @@
             <mat-form-field class="full" appearance="outline">
                 <mat-label>Amount To Pay (&#8358;)</mat-label>
                 <input matInput formControlName="amount" type="number" required>
+                <button matSuffix mat-icon-button class="lock">
+                    <mat-icon>lock</mat-icon>
+                </button>
                 <mat-error>{{formErrors.amount}}</mat-error>
             </mat-form-field>
         </p>

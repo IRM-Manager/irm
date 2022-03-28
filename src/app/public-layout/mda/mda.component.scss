@@ -20,6 +20,8 @@ $back-color: #44A843;
 $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
 $nin-back: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
 $nin-shadow: 0px 3px 6px #00000029;
+$lock: #37A85C;
+$drop-down: #3E538F;
 
 
 .header {
@@ -34,6 +36,7 @@ $nin-shadow: 0px 3px 6px #00000029;
         font: $font;
         background: $back;
         border: $border;
+        border-radius: 10px;
         color: $color;
         font-weight: 500;
         opacity: 1;
@@ -142,7 +145,6 @@ $nin-shadow: 0px 3px 6px #00000029;
     margin-bottom: 2rem;
     opacity: 1;
     width: 50rem;
-    // border: 1px solid green;
 
     .session-header {
         font: $session-h2-font;
@@ -205,6 +207,14 @@ $nin-shadow: 0px 3px 6px #00000029;
 
     .radio_button {
         margin-left: 30px;
+    }
+
+    .lock {
+        color: $lock;
+    }
+
+    .drop_down {
+        color: $drop-down;
     }
 
     .final_submit {

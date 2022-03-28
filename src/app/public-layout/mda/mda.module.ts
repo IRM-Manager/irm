@@ -12,6 +12,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatSelectModule,
     MatRadioModule,
     MatDatepickerModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatIconModule,
+    MatAutocompleteModule
   ]
 })
 export class MDAModule { }

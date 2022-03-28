@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Tin, MDA } from '../shared/form';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-mda',
@@ -24,6 +25,11 @@ export class MDAComponent implements OnInit {
   loading = false;
   loading2 = false;
   disabled2 = false;
+
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]> | undefined;
+  options2: string[] = ['One', 'Two', 'Three'];
+  filteredOptions2: Observable<string[]> | undefined;
 
   formErrors: any = {
     'firstname': '', 'middlename': '', 'surname': '', 'contact': '', 'contact_email': '', 'mda_name': '',
@@ -222,6 +228,28 @@ export class MDAComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.checkExpired();
+
+    this.filteredOptions = this.feedbackForm3.get('mda_name').valueChanges.pipe(
+      startWith(''),
+      map((value: string) => this._filter(value)),
+    );
+
+    this.filteredOptions2 = this.feedbackForm3.get('service_name').valueChanges.pipe(
+      startWith(''),
+      map((value: string) => this._filter2(value)),
+    );
+    
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  private _filter2(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options2.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 
