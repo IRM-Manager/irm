@@ -15,7 +15,7 @@
     </div>
 
     <div class="panel">
-        <mat-expansion-panel>
+        <mat-expansion-panel hideToggle="true">
             <mat-expansion-panel-header #panelH (click)="panelH._toggle()">
                 <mat-panel-title [routerLink]="['/dashboard2/taxpayer']" routerLinkActive="active">
                     Taxpayer Registration
@@ -57,7 +57,7 @@
             <p class="panel_text">Businesses</p>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel hideToggle="true">
             <mat-expansion-panel-header #panelH2 (click)="panelH2._toggle()">
                 <mat-panel-title [routerLink]="['/dashboard3/taxpayer/mda']" routerLinkActive="active">
                     MDA Collection
