@@ -21,9 +21,6 @@
                     Taxpayer Registration
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <!-- <span class="vertical"></span> -->
-            <!-- <p class="panel_text" [routerLink]="['/dashboard/taxpayer/ind']" routerLinkActive="active">Individual TaxPayer</p>
-            <p class="panel_text" [routerLink]="['/dashboard/taxpayer/non']" routerLinkActive="active">Non - Individual TaxPayer</p> -->
         </mat-expansion-panel>
 
         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -36,14 +33,14 @@
             <span class="vertical2"></span>
             <p class="panel_text">Direct Assessment</p>
             <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">Pay-As-You-Earn (PAYE)</p>
-            <p class="panel_text">Direct Taxation</p>
+            <!-- <p class="panel_text">Direct Taxation</p>
             <p class="panel_text">Withholding Tax</p>
             <p class="panel_text">Capital Gains Tax</p>
             <p class="panel_text">Property Tax</p>
-            <p class="panel_text" style="font-weight: bold;">Other taxes</p>
+            <p class="panel_text" style="font-weight: bold;">Other taxes</p> -->
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
+        <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -55,23 +52,23 @@
             <p class="panel_text">Land</p>
             <p class="panel_text">Building</p>
             <p class="panel_text">Businesses</p>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
 
         <mat-expansion-panel hideToggle="true">
-            <mat-expansion-panel-header #panelH2 (click)="panelH2._toggle()">
+            <mat-expansion-panel-header #panelH2 (click)="panelH2._toggle()" class="mda">
                 <mat-panel-title [routerLink]="['/dashboard3/taxpayer/mda']" routerLinkActive="active">
                     MDA Collection
                 </mat-panel-title>
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <!-- <mat-expansion-panel>
             <mat-expansion-panel-header class="mda" #panelH3 (click)="panelH3._toggle()">
                 <mat-panel-title>
                     Reference Data
                 </mat-panel-title>
             </mat-expansion-panel-header>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
 
     </div>
 

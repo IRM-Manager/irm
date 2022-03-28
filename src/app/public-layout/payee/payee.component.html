@@ -56,7 +56,8 @@
                     <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
                         <thead>
                         <tr>
-                            <th>Tin</th>
+                            <th>S/N</th>
+                            <th>Tax ID</th>
                             <th>Business name</th>
                             <th>Date of Establishment</th>
                             <th>Contact Person</th>
@@ -66,7 +67,8 @@
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
-                                <td class="align-middle">{{i+1}}. {{ data.payer.tin }}</td>
+                                <td class="align-middle">{{i+1}}</td>
+                                <td class="align-middle">{{ data.payer.tin }}</td>
                                 <td class="align-middle">{{ data.organisation_name }}</td>
                                 <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle">{{ data.org_phone }}</td>
@@ -77,6 +79,7 @@
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
                                 <td colspan="3" class="no-data-available">No data!</td>
                                 <td colspan="3" class="no-data-available">No data!</td>
                                 <td colspan="3" class="no-data-available">No data!</td>

@@ -81,7 +81,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
         ::ng-deep .mat-expansion-indicator::after {
             color: $white;
-            // transform: rotate(320deg);
+            transform: rotate(320deg);
         }
 
         .mat-expansion-panel-header.mat-expanded {
@@ -158,6 +158,9 @@ $right1-font: normal normal 400 15px/19px Montserrat;
             margin-top: 10px;
             margin-bottom: 10px;
             width: 100vw;
+            // position: sticky;
+            // position: -webkit-sticky;
+            // z-index: 1000;
         }
 
         .d-h-l {

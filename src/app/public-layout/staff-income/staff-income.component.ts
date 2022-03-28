@@ -80,6 +80,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   constructor(private dialog: MatDialog, private authService: AuthService,
     public shared: ToggleNavService, private fb: FormBuilder, private store: Store<AppState>,
     private httpService: HttpService, private snackBar: MatSnackBar) {
+      this.authService.checkExpired()
       this.createForm();
       this.createForm1();
 
@@ -330,59 +331,23 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       return data.year === year.toString();
     });
 
-    this.httpService.GetPayee(this.data.payer.tin, get_year[0].id)
-    .subscribe(
-      (data: any) => {
-        if (data.data.length > 0) {
-          this.upLoading = false;
+      this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, get_year[0].id)
+      .subscribe(
+        (data: any) => {
           console.log(data)
-          this.datas = data.data;
-          this.renderTable(data.data);
-          this.type = true;
-        }
-        else{
-          this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, get_year[0].id)
-          .subscribe(
+          this.httpService.UploadPayeeValidatedFile({data: data.data}, this.data.payer.tin, get_year[0].id).subscribe(
             (data: any) => {
+              this.upLoading = false;
               console.log(data)
-              this.httpService.UploadPayeeValidatedFile({data: data.data}, this.data.payer.tin, get_year[0].id).subscribe(
-                (data: any) => {
-                  this.upLoading = false;
-                  console.log(data)
-                  this.datas = data.data;
-                  this.renderTable(data.data);
-                  this.type = true;
-                },
-                err => {
-                  this.upLoading = false;
-                  console.log(err)
-                  if (err.status === 500) {
-                    this.snackBar.open("An error occur. Please try Again", "", {
-                      duration: 5000,
-                      panelClass: "error"
-                    });
-                  }
-                  else if (err.status === 0) {
-                    this.snackBar.open("Error", "", {
-                      duration: 5000,
-                      panelClass: "error"
-                    });
-                  }
-                  else {
-                    this.snackBar.open(err.error.status, "", {
-                      duration: 5000,
-                      panelClass: "error"
-                    });
-                  }
-                }
-              )
+              this.datas = data.data;
+              this.renderTable(data.data);
+              this.type = true;
             },
             err => {
-              this.authService.refreshToken();
               this.upLoading = false;
               console.log(err)
               if (err.status === 500) {
-                this.snackBar.open("Invalid data format or File not Valid! (Should be CSV)", "", {
+                this.snackBar.open("An error occur. Please try Again", "", {
                   duration: 5000,
                   panelClass: "error"
                 });
@@ -401,17 +366,33 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
               }
             }
           )
-          // end of subscribe
-        }},
+        },
         err => {
           this.authService.refreshToken();
           this.upLoading = false;
-          this.snackBar.open("Error", "", {
-            duration: 5000,
-            panelClass: "error"
-          });
+          console.log(err)
+          if (err.status === 500) {
+            this.snackBar.open("Invalid data format or File not Valid! (Should be CSV)", "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
+          else if (err.status === 0) {
+            this.snackBar.open("Error", "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
+          else {
+            this.snackBar.open(err.error.status, "", {
+              duration: 5000,
+              panelClass: "error"
+            });
+          }
         }
-    ) // end of subscribe
+      )
+      // end of subscribe
+
   }
 
 

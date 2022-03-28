@@ -29,6 +29,7 @@ export class AppPublicSidenavListComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService,
     private httpService: HttpService, private store: Store<AppState>) { 
+      this.authService.checkExpired()
       this.stateProfile = store.select(selectAllProfile);
   }
 

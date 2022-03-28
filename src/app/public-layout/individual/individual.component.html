@@ -30,14 +30,16 @@
         <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
             <thead>
             <tr *ngIf="active == 'ind'">
-                <th class="align-middle">Tin</th>
+                <th class="align-middle">S/N</th>
+                <th class="align-middle">Tax ID</th>
                 <th class="align-middle">Full Name</th>
                 <th class="align-middle">Field of work/Business</th>
                 <th class="align-middle">Contact Number</th>
                 <th></th>
             </tr>
             <tr *ngIf="active == 'com'">
-                <th class="align-middle">Tin</th>
+                <th class="align-middle">S/N</th>
+                <th class="align-middle">Tax ID</th>
                 <th class="align-middle">Business name</th>
                 <th class="align-middle">Date of Establishment</th>
                 <th class="align-middle">Contact Person</th>
@@ -47,7 +49,8 @@
             <!-- individual -->
             <tbody *ngIf="datas?.length != 0 && active == 'ind' ">
                 <tr *ngFor="let data of datas; let i=index">
-                    <td class="align-middle">{{i+1}}. {{ data.payer.tin }}</td>
+                    <td class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">{{ data.payer.tin }}</td>
                     <td class="align-middle">{{ data.surname }} {{ data.first_name }} 
                         {{ data.middle_name }}
                     </td>
@@ -60,7 +63,8 @@
             </tbody>
             <tbody *ngIf="datas?.length != 0 && active == 'com' ">
                 <tr *ngFor="let data of datas; let i=index">
-                    <td class="align-middle">{{i+1}}. {{ data.payer.tin }}</td>
+                    <td class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">{{ data.payer.tin }}</td>
                     <td class="align-middle">{{ data.organisation_name }}
                     </td>
                     <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
@@ -72,6 +76,7 @@
             </tbody>
             <tbody *ngIf="datas?.length == 0">
                 <tr>
+                    <td colspan="3" class="no-data-available">No data!</td>
                     <td colspan="3" class="no-data-available">No data!</td>
                     <td colspan="3" class="no-data-available">No data!</td>
                     <td colspan="3" class="no-data-available">No data!</td>

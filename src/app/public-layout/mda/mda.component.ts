@@ -73,8 +73,9 @@ export class MDAComponent implements OnInit {
   constructor(private fb: FormBuilder, private _location: Location,
     private httpService: HttpService, private snackBar: MatSnackBar,
     private authService: AuthService) {
-    this.createForm();
-    this.createForm3();
+      this.authService.checkExpired()
+      this.createForm();
+      this.createForm3();
   }
 
   createForm() {

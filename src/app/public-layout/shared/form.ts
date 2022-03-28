@@ -36,7 +36,6 @@ export interface Individual1 {
     employment: string;
     contact: string;
     contact_email: string;
-    username: string;
 }
 
 export interface Individual2 {

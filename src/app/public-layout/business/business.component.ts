@@ -3,14 +3,14 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ReplaySubject, Subject, filter, tap, takeUntil, debounceTime, map, delay } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { Location, DatePipe } from '@angular/common';
-import { Business, CAC, Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
+import { Business, CAC, Individual1, Individual2, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 // state management
 import { Store } from '@ngrx/store';
 import { States, Profile } from '../../models/irm';
 import { AppState, selectAllStates, selectAllProfile } from 'src/app/reducers/index';
-import { AddStates, AddProfile } from '../../actions/irm.action';
+import { AddStates, RemoveComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -94,8 +94,6 @@ export class BusinessComponent implements OnInit {
   lga2: any;
   lga3: any;
 
-  profile: any;
-
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
 
@@ -103,7 +101,7 @@ export class BusinessComponent implements OnInit {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
     'state': '', 'lga': '', 'nationality': '', 'trade': '', 'employment': '', 'contact': '',
     'contact_email': '', 'house': '', 'street': '', 'state_red': '', 'lga_red': '', 'zipcode': '',
-    'username': '', 'org_name': '', 'nature_bus': '', 'num_emp': '', 'date_est': '', 'contact_num': '',
+    'org_name': '', 'nature_bus': '', 'num_emp': '', 'date_est': '', 'contact_num': '',
     'email': ''
   };
 
@@ -164,10 +162,6 @@ export class BusinessComponent implements OnInit {
     'zipcode': {
       'required':      'required.',
     },
-    'username': {
-      'required':      'required.',
-    },
-
     'org_name': {
       'required':      'required.',
     },
@@ -241,7 +235,6 @@ export class BusinessComponent implements OnInit {
         employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
         contact_email: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
-        username: ['', [Validators.required] ],
       },
     );
 
@@ -449,7 +442,6 @@ export class BusinessComponent implements OnInit {
       this.feedbackForm3.get('contact_num').reset();
       this.feedbackForm3.get('email').reset();
       this.feedbackForm3.get('alt_num').reset();
-      this.feedbackForm1.get('username').reset();
   }
 
 
@@ -481,11 +473,12 @@ export class BusinessComponent implements OnInit {
     }
     console.log(data)
 
-    this.httpService.AddPayer(data, this.feedback1.username, 'company').subscribe(
+    this.httpService.AddPayer(data, 'company').subscribe(
       (data: any) => {
         this.loading2 = false;
         this.disabled2 = false;
         if (data.responsecode === "00") {
+          this.store.dispatch(new RemoveComPayer([{id: 1, data: []}]));
           this.snackBar.open('Registration successful', "", {
             duration: 3000,
             panelClass: "success"
@@ -652,21 +645,9 @@ export class BusinessComponent implements OnInit {
   }
 
 
-  getUsername(): any {
-    this.stateProfile.forEach(e => {
-      if (e[0] === undefined){}
-      else {this.profile = e[0].data.data;}
-    })
-  }
-
-
   ngOnInit(): void {
     
     this.authService.checkExpired();
-
-    this.getUsername();
-    if (this.profile === undefined) {
-    }else{this.feedbackForm1.patchValue({"username": this.profile.username });}
 
     this.AddState();
 

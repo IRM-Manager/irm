@@ -65,6 +65,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>,
     private snackBar: MatSnackBar) {
 
+      this.authService.checkExpired()
       this.createForm();
       this.createSearchForm();
       this.trackSearchField();
@@ -87,8 +88,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
       })
 
   }
-
-  decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
 
   formatDate(data: any) {
     var d = new Date(data),
@@ -179,7 +178,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
         this.loading = false
         this.disabled = false;
         if (data.data.payer.payer_type == "company") {
-          if (this.decodedToken.user_id == data.data.user.id) {
             const datas = {
               type: 'staff-income',
               is_type: false,
@@ -191,13 +189,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
               duration: 3000,
               panelClass: "success"
             });
-          }
-          else {
-            this.snackBar.open("You do not have permission to access this Payer", "", {
-              duration: 5000,
-              panelClass: "error"
-            });
-          }
         }
         else {
           this.snackBar.open("Not A Registered Business Taxpayer", "", {
@@ -280,7 +271,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
 
   OpenDialog(data: any, type: string) {
-    if (this.decodedToken.user_id == data.user.id) {
       this.snackBar.dismiss()
       let dialogRef = this.dialog.open(DialogComponent, {
         data: {
@@ -288,13 +278,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
           data: data
         }
       });
-    }
-    else {
-      this.snackBar.open("You do not have permission to access this Payer", "", {
-        duration: 5000,
-        panelClass: "error"
-      });
-    }
   }
 
   ngOnDestroy(): void {

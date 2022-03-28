@@ -71,13 +71,13 @@ export class HttpService {
 
 
   // add individual or company payer
-  AddPayer(data: any, username: string, type: string): Observable<any[]> {
+  AddPayer(data: any, type: string): Observable<any[]> {
     const httpOptions = {
       headers: {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}&user=${username}`, data, httpOptions)
+    return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}`, data, httpOptions)
   }
 
   // get payer data

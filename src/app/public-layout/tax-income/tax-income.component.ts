@@ -25,6 +25,8 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
 
   constructor(private dialog: MatDialog, private authService: AuthService,
     public shared: ToggleNavService) {
+      this.authService.checkExpired()
+      
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
       })
 

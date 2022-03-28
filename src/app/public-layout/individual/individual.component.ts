@@ -50,6 +50,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
     private authService: AuthService, private httpService: HttpService, private dialog: MatDialog,
     private snackBar: MatSnackBar, private fb: FormBuilder) {
 
+      this.authService.checkExpired()
       this.createSearchForm();
       this.trackSearchField();
 
@@ -80,7 +81,6 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   }
 
-  decodedToken = this.helper.decodeToken(this.authService.getRefreshToken());
 
   formatDate(data: any) {
     var d = new Date(data),
@@ -248,7 +248,6 @@ export class IndividualComponent implements OnDestroy, OnInit {
   }
 
   OpenDialog(data: any, type: string) {
-    if (this.decodedToken.user_id == data.user.id) {
       this.snackBar.dismiss()
       let dialogRef = this.dialog.open(DialogComponent, {
         data: {
@@ -256,14 +255,6 @@ export class IndividualComponent implements OnDestroy, OnInit {
           data: data
         }
       });
-    }
-    else {
-      this.snackBar.open("You do not have permission to access this Payer", "", {
-        duration: 5000,
-        panelClass: "error"
-      });
-    }
-
   }
 
   ngOnDestroy(): void {

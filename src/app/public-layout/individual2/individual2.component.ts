@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Store } from '@ngrx/store';
 import { States, Profile } from '../../models/irm';
 import { AppState, selectAllStates, selectAllProfile } from 'src/app/reducers/index';
-import { AddStates, AddProfile } from '../../actions/irm.action';
+import { AddStates, AddProfile, RemoveIndPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { DataTablesModule } from 'angular-datatables';
 
@@ -91,8 +91,6 @@ export class Individual2Component implements OnInit {
   lga2: any;
   lga3: any;
 
-  profile: any;
-
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
 
@@ -100,7 +98,6 @@ export class Individual2Component implements OnInit {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
     'state': '', 'lga': '', 'nationality': '', 'trade': '', 'employment': '', 'contact': '',
     'contact_email': '', 'house': '', 'street': '', 'state_red': '', 'lga_red': '', 'zipcode': '',
-    'username': '',
   };
 
   validationMessages: any = {
@@ -159,10 +156,7 @@ export class Individual2Component implements OnInit {
     },
     'zipcode': {
       'required':      'required.',
-    },
-    'username': {
-      'required':      'required.',
-    },
+    }
   };
 
 
@@ -209,7 +203,6 @@ export class Individual2Component implements OnInit {
         employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
         contact_email: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
-        username: ['', [Validators.required] ],
       },
     );
 
@@ -376,7 +369,6 @@ export class Individual2Component implements OnInit {
       this.feedbackForm1.get('contact').reset();
       this.feedbackForm1.get('contact_email').reset();
       this.feedbackForm1.get('title').reset();
-      this.feedbackForm1.get('username').reset();
       this.feedbackForm2.get('street').reset();
       this.feedbackForm2.get('house').reset();
       this.feedbackForm2.get('zipcode').reset();
@@ -411,11 +403,12 @@ export class Individual2Component implements OnInit {
     Object.assign(data, this.includedFields);
     console.log(data)
 
-    this.httpService.AddPayer(data, this.feedback1.username, 'individual').subscribe(
+    this.httpService.AddPayer(data, 'individual').subscribe(
       (data: any) => {
         this.loading2 = false;
         this.disabled2 = false;
         if (data.responsecode === "00") {
+          this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
           this.snackBar.open('Registration successful', "", {
             duration: 3000,
             panelClass: "success"
@@ -618,22 +611,9 @@ export class Individual2Component implements OnInit {
   }
 
 
-  getUsername(): any {
-    this.stateProfile.forEach(e => {
-      if (e[0] === undefined){}
-      else {this.profile = e[0].data.data;}
-    })
-  }
-
-
   ngOnInit(): void {
 
     this.authService.checkExpired();
-
-    this.getUsername();
-    if (this.profile === undefined) {
-    }else{this.feedbackForm1.patchValue({"username": this.profile.username });}
-
 
     this.AddState();
 

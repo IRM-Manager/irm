@@ -38,6 +38,8 @@ export class HeaderComponent implements OnInit {
     private router: Router, private snackBar: MatSnackBar, private httpService: HttpService,
     private store: Store<AppState>) {
 
+      this.authService.checkExpired()
+      
       this.router.events.subscribe((ev) => {
         if (ev instanceof NavigationEnd) { 
           this.currentRoute();
