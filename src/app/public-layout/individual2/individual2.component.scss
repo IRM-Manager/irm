@@ -19,6 +19,12 @@ $back-border: 1px solid #40A84A;
 $back-color: #44A843;
 $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
 
+
+.wrapper {
+    padding-left: 20px;
+}
+
+
 .header {
     background: $header-back;
     padding: 1em 1em 0 1em;
@@ -91,7 +97,7 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
     margin-top: 2rem;
     opacity: 1;
     width: 50rem;
-    // border: 1px solid green;
+    padding-left: 20px;
 
     .session-header {
         font: $session-h2-font;
@@ -223,6 +229,7 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
 .final_submit {
     margin-top: 1.5rem;
     margin-bottom: 2rem;
+    padding-left: 20px;
 }
 
 .verify {

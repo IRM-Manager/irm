@@ -393,6 +393,90 @@
     vertical-align: middle;
 }
 
+.align-delete-payer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.delete-payer-text {
+    font: normal normal normal 15px/19px Montserrat;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.delete-payer-tin {
+    font: normal normal normal 15px/19px Montserrat;
+    font-weight: 500;
+}
+
+.cancel-payer-button {
+    background: #f1f1f1;
+    color: black;
+    font: normal normal normal 15px/19px Montserrat;
+    padding: .7rem;
+    border-radius: 10px;
+}
+
+.delete-payer-button {
+    background: #BC333E;
+    font: normal normal normal 15px/19px Montserrat;
+    color: white;
+    padding: .7rem;
+    border-radius: 10px;
+}
+
+.loader_delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0 0.5em 0;
+   }
+  
+
+  .bubble_delete {
+    animation: expand .75s ease-in-out infinite;
+    border-radius: 20px;
+    display: inline-block;
+    transform-origin: center center;
+    margin: 0 3px;
+    width: 7px;
+    height: 7px;
+  }
+
+  
+  .bubble_delete:nth-child(1) {
+    background: white;
+  }
+  
+  .bubble_delete:nth-child(2) {
+    animation-delay: 180ms;
+    background: white;
+  }
+  
+  .bubble_delete:nth-child(3) {
+    animation-delay: 360ms;
+    background: white;
+  }
+  
+  .bubble_delete:nth-child(4) {
+    animation-delay: 540ms;
+    background: white;
+  }
+  
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.55);
+    }
+  }
+
+
+
+
 @media (min-width: 1200px) {
     .col-xl-1,
     .col-xl-2,

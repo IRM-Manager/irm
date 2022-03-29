@@ -21,11 +21,13 @@ $tbody-back: normal normal normal 15px/19px Montserrat;
 $tbody-color: #565656;
 $animate-form: 0.5px solid #37A85D;
 $green: #37A85D;
+$red: #BC333E;
 
 .wrapper {
     background: $wrapper-back;
     overflow: auto;
     min-height: 100vh;
+    padding-left: 20px;
 }
 
 .header {
@@ -225,6 +227,10 @@ $green: #37A85D;
         }
       }
 
+      .table-icon-delete {
+        color: $red;
+        cursor: pointer;
+      }
 
     ::ng-deep .dataTables_wrapper .dataTables_filter {
         display: none;

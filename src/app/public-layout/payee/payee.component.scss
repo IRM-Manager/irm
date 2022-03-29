@@ -27,11 +27,13 @@ $select-color: #3EA84E;
 $form-color: #37A85D;
 $active-button: 3px solid #42A847;
 $button-font: normal normal normal 12px/15px Montserrat;
+$red: #BC333E;
 
 .wrapper {
     background: $wrapper-back;
     overflow: auto;
     min-height: 100vh;
+    padding-left: 20px;
 }
 
 .header {
@@ -328,6 +330,11 @@ $button-font: normal normal normal 12px/15px Montserrat;
         25% {
           transform: scale(1.55);
         }
+      }
+
+      .table-icon-delete {
+        color: $red;
+        cursor: pointer;
       }
 
 

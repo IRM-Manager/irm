@@ -26,6 +26,8 @@ $bold: normal normal medium 15px/19px Montserrat;
 
 
 .header {
+    padding-left: 20px;
+
     .tin {
         font: $tin-font;
         letter-spacing: 0px;
@@ -62,6 +64,7 @@ $bold: normal normal medium 15px/19px Montserrat;
     margin-bottom: 4rem;
     background: $white;
     border: $header-border;
+    padding-left: 20px;
     opacity: 1;
 
     .main {

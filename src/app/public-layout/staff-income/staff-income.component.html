@@ -15,7 +15,8 @@
 
         <div class="header2">
             <div class="float">
-                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload 
+                        accept=".csv" />
 
                 <div class="csv">
                     <span (click)="fileUpload.click()">
@@ -35,7 +36,7 @@
             <div *ngIf="type == false">
                 <div class="main">
                     <div class="sn">S/N</div>
-                    <div class="tin">TIN</div>
+                    <div class="tin">Tax ID</div>
                     <div class="name">Name of Employee</div>
                     <div class="gross_income">
                         <div>Gross income (-N-)</div>
@@ -53,7 +54,7 @@
                 
                 <div class="main2">
                     <div class="up_csv">
-                        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept=".csv" />
                         
                         <div class="no_data" *ngIf="!fileName">No data yet</div>
                             <div class="upload_csv_file">
@@ -87,7 +88,7 @@
                             <thead>
                             <tr>
                                 <th class="align-middle">S/N</th>
-                                <th class="align-middle">TIN</th>
+                                <th class="align-middle">Tax ID</th>
                                 <th class="align-middle">Name of Employee</th>
                                 <th class="align-middle">
                                     <div>Gross income (-N-)</div>
@@ -241,7 +242,7 @@
             <div *ngIf="type2 == false">
                 <div class="main">
                     <div class="sn">S/N</div>
-                    <div class="tin">TIN</div>
+                    <div class="tin">Tax ID</div>
                     <div class="name">Name of Employee</div>
                     <div class="gross_income">
                         <div>Gross income (-N-)</div>
@@ -269,7 +270,7 @@
                             <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>TIN</th>
+                                <th>Tax ID</th>
                                 <th>Name of Employee</th>
                                 <th>
                                     <div>Gross income (-N-)</div>

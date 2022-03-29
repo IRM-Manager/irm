@@ -1,5 +1,10 @@
 <mat-toolbar class="nav" *ngIf="type == 'tax'">
 
+    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+
     <div class="left">
         <div class="left_text1">{{left_text1}}</div>
         <div class="left_text2">{{left_text2}}</div>
@@ -15,7 +20,7 @@
                 <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
-            <mat-icon class="category-icon">perm_identity</mat-icon>
+            <mat-icon class="category-icon identity">perm_identity</mat-icon>
         </div>
     </div>    
   
@@ -24,6 +29,10 @@
 <!-- nav2 -->
 <mat-toolbar class="nav2" *ngIf="type == 'reg_tax'">
 
+    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
     <div class="left">
         <div class="left_text1">{{left_text1}}</div>
         <div class="left_text2">{{left_text2}}</div>
@@ -39,7 +48,7 @@
                 <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
-            <mat-icon class="category-icon">perm_identity</mat-icon>
+            <mat-icon class="category-icon identity">perm_identity</mat-icon>
         </div>
     </div>    
   
@@ -48,6 +57,10 @@
 
 <!-- nav3 -->
 <mat-toolbar class="nav3" *ngIf="type == 'payee'">
+
+    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
 
     <div class="left">
         <div class="left_text1">{{left_text1}}</div>
@@ -60,6 +73,10 @@
 <!-- nav4 -->
 <mat-toolbar class="nav4" *ngIf="type == 'mda'">
 
+    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
     <div class="left">
         <div class="left_text1">{{left_text1}}</div>
         <div class="left_text2">{{left_text2}}</div>
@@ -75,7 +92,7 @@
                 <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
-            <mat-icon class="category-icon">perm_identity</mat-icon>
+            <mat-icon class="category-icon identity">perm_identity</mat-icon>
         </div>
     </div>    
   

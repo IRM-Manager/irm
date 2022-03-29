@@ -389,5 +389,24 @@
 
     </div>
 
+    <div *ngIf="data.type =='delete-payer'" class="delete-payer">
+        <h5 mat-dialog-title class="delete-payer-text">Delete TaxPayer with Tax ID: <span class="delete-payer-tin">{{data.data.payer.tin}}</span></h5>
+        <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Payer? This process cannot be undone.</div>
+        <div mat-dialog-actions>
+        <div class="align-delete-payer">
+            <button mat-button mat-dialog-close class="cancel-payer-button">Cancel</button>
+            <button mat-button class="delete-payer-button" (click)="DeletePayer()">
+                <span *ngIf="!isdelete" class="add_text">Delete</span>
+                <div *ngIf="isdelete" class="loader_delete">
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                </div>
+            </button>
+        </div>
+        </div>
+    </div>
+
 
 </div>

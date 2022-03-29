@@ -2,8 +2,15 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
+// state management
+import { Store } from '@ngrx/store';
+import { IndPayer, ComPayer } from '../../models/irm';
+import { AppState, selectAllIndPayer, selectAllComPayer } from 'src/app/reducers/index';
+import { AddIndPayer, RemoveIndPayer, AddComPayer, RemoveComPayer } from '../../actions/irm.action';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dialog',
@@ -12,10 +19,20 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 })
 export class DialogComponent implements OnInit {
 
+  isdelete = false;
+
+  stateIndPayer: Observable<IndPayer[]>;
+  stateComPayer: Observable<ComPayer[]>;
+
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
     public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
-    private httpService: HttpService, private snackBar: MatSnackBar,
-    private router: Router, public shared: ToggleNavService) { }
+    private httpService: HttpService, private snackBar: MatSnackBar, private store: Store<AppState>,
+    private router: Router, public shared: ToggleNavService, private authService: AuthService) {
+
+      this.stateIndPayer = store.select(selectAllIndPayer);
+    this.stateComPayer = store.select(selectAllComPayer);
+
+    }
 
   ngOnInit(): void {
     console.log(this.data)
@@ -45,6 +62,35 @@ export class DialogComponent implements OnInit {
   formatMoney(n: any) {
     const tostring = n.toString()
    return (Math.round(tostring * 100) / 100).toLocaleString();
+ }
+
+
+//  delete tax payer
+ DeletePayer() {
+    this.isdelete = true;
+    this.httpService.DeletePayer(this.data.data.payer.id).subscribe(
+      (data: any) => {
+        this.isdelete = false;
+        if (this.data.data.payer.payer_type == 'individual') {
+          this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
+        }
+        else {
+          this.store.dispatch(new RemoveComPayer([{id: 1, data: []}]));
+        }
+        this.snackBar.open("TaxPayer successfully deleted", "", {
+          duration: 3000,
+          panelClass: "success"
+        });
+        this.dialogRef.close()
+      }, 
+      err => {
+        this.isdelete = false;
+        this.snackBar.open("Error deleting TaxPayer", "", {
+          duration: 5000,
+          panelClass: "error"
+        });
+      }
+    )
  }
 
 

@@ -1,9 +1,10 @@
 <div class="wrapper">
     
     <div class="header">
-        <button mat-button class="button" [class.active]="viewMode == 'verify'" (click)="viewMode = 'verify'">
+        <button mat-button class="button" [class.active]="viewMode == 'verify'">
             Business Verification
         </button>
+        <!-- (click)="viewMode = 'verify'" -->
         <button mat-button class="button" [class.active]="viewMode == 'staff-income'">
             Declare staff income
         </button>
@@ -62,6 +63,7 @@
                             <th>Date of Establishment</th>
                             <th>Contact Person</th>
                             <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <!-- individual -->
@@ -75,10 +77,14 @@
                                 <td class="align-middle">
                                     <mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with</mat-icon>
                                 </td>
+                                <td class="align-middle">
+                                    <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">delete_forever</mat-icon>
+                                </td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
                                 <td colspan="3" class="no-data-available">No data!</td>
                                 <td colspan="3" class="no-data-available">No data!</td>
                                 <td colspan="3" class="no-data-available">No data!</td>

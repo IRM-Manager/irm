@@ -214,7 +214,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     // check employee tin
     this.httpService.GetPayerTin(this.feedback1.tin).subscribe(
       (userId: any) => {
-
+        console.log(userId)
         if (userId.data.payer.payer_type == "individual"){
             this.httpService.GetPayee(this.feedback1.tin, get_year[0])
             .subscribe(
@@ -230,12 +230,14 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
                   console.log("get payee list wheter regis",dataa)
                 }
                 else{
+                  console.log("data2",this.data2)
                   const datas = {
-                    payerId: this.data2.payer.id, userId: userId.data.user.id, employerTin: this.data2.payer.tin,
+                    payerId: this.data2.payer.id, employerTin: this.data2.payer.tin,
                     employeeTin: this.feedback1.tin, status: true, basic: this.feedback2.basic,
                     housing: this.feedback2.housing, pension: false, nhf: false, tp: this.feedback2.transport,
                     nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position || userId.data.profession_trade,
-                    taxYear: get_year[1], yearId: get_year[0], employerId: this.data2.user.id
+                    taxYear: get_year[1], yearId: get_year[0]
+                    // employerId: this.data2.user.id
                   }
                   console.log("form daata",datas)
                   this.httpService.AddSinglePayee(datas).subscribe(
@@ -447,6 +449,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       type: 'verify',
       data: null
     }
+    this.shared.setMessage(undefined)
+    this.shared.setMessage2(undefined)
+    this.shared.setMessage3(undefined)
     this.shared.PayeesendClickEvent(data);
   }
 

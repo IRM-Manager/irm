@@ -10,13 +10,9 @@ mat-sidenav {
     width: 320px;
     overflow-x: hidden;
     background: $background;
-    border-right: 40px solid $border-right;
+    border-right: 30px solid $border-right;
     opacity: 1;
     color: $white;
-}
-
-.main {
-    height: 100%;
 }
 
 // .button {

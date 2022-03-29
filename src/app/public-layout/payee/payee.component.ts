@@ -65,7 +65,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>,
     private snackBar: MatSnackBar) {
 
-      this.authService.checkExpired()
+      this.authService.checkExpired();
       this.createForm();
       this.createSearchForm();
       this.trackSearchField();
@@ -104,7 +104,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
 
   keyPress(search: any) {
-    const data = this.searchData.filter((data: any) => {
+    const data = this.searchData?.filter((data: any) => {
       return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
       data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
       data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||

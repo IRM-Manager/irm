@@ -139,6 +139,16 @@ export class HttpService {
     };
     return this.http.get<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, httpOptions)
   }
+
+  // delete a payer
+  DeletePayer(id: number): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.delete<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_id=${id}`,httpOptions)
+  }
   
 
 }

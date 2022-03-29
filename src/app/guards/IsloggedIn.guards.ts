@@ -14,6 +14,7 @@ export class IsLoggedInGuard implements CanActivate, CanLoad {
 
   constructor(private authService: AuthService, private router: Router,
     private snackBar: MatSnackBar) {
+      this.authService.checkExpired();
   }
 
   canActivate() {

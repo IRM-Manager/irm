@@ -22,6 +22,11 @@ $nin-back: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% n
 $nin-shadow: 0px 3px 6px #00000029;
 
 
+.wrapper {
+    padding-left: 20px;
+}
+
+
 .header {
     background: $header-back;
     padding: 1em 1em 0 1em;

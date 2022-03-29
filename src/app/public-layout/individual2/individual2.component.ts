@@ -163,17 +163,18 @@ export class Individual2Component implements OnInit {
   constructor(private fb: FormBuilder, private _location: Location, public datepipe: DatePipe,
     private httpService: HttpService, private snackBar: MatSnackBar,
     private authService: AuthService, private store: Store<AppState>) {
-    this.createForm();
-    this.createForm1();
-    this.createForm2();
-    this.createForm3();
-    this.trackCountryField();
-    this.trackCountryField2();
-    this.trackCountryField3();
-    this.trackEmptyFields();
+      this.authService.checkExpired();
+      this.createForm();
+      this.createForm1();
+      this.createForm2();
+      this.createForm3();
+      this.trackCountryField();
+      this.trackCountryField2();
+      this.trackCountryField3();
+      this.trackEmptyFields();
 
-    this.stateStates = store.select(selectAllStates);
-    this.stateProfile = store.select(selectAllProfile);
+      this.stateStates = store.select(selectAllStates);
+      this.stateProfile = store.select(selectAllProfile);
   }
 
   createForm() {

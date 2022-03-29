@@ -98,7 +98,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
 
   keyPress(search: any) {
     if (this.active == 'com') {
-      const data = this.searchData2.filter((data: any) => {
+      const data = this.searchData2?.filter((data: any) => {
         return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
         data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
         data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||
@@ -106,7 +106,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
       })
       this.datas = data;
     }else {
-      const data = this.searchData.filter((data: any) => {
+      const data = this.searchData?.filter((data: any) => {
         return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
         data.profession_trade.toLowerCase().startsWith(search.toLowerCase()) ||
         data.phone.toLowerCase().startsWith(search.toLowerCase()) ||

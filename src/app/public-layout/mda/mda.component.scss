@@ -24,6 +24,10 @@ $lock: #37A85C;
 $drop-down: #3E538F;
 
 
+.wrapper {
+    padding-left: 20px;
+}
+
 .header {
     background: $header-back;
     padding: 1em 1em 0 1em;
@@ -145,6 +149,7 @@ $drop-down: #3E538F;
     margin-bottom: 2rem;
     opacity: 1;
     width: 50rem;
+    padding-left: 20px;
 
     .session-header {
         font: $session-h2-font;

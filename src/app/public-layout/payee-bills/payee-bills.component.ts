@@ -21,6 +21,7 @@ export class PayeeBillsComponent implements OnDestroy, OnInit {
 
   constructor(private router: Router,
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog) {
+      this.authService.checkExpired();
   }
 
 

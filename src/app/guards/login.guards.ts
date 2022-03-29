@@ -11,7 +11,9 @@ import {Location} from '@angular/common';
 export class LoginGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router,
-    private snackBar: MatSnackBar, private _location: Location) { }
+    private snackBar: MatSnackBar, private _location: Location) {
+      this.authService.checkExpired();
+    }
 
   canActivate() {
     if (this.authService.isLoggedIn()) {
