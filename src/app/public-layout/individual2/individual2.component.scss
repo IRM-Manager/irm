@@ -157,7 +157,6 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
     .radio_button {
         margin-left: 30px;
     }
-
     
     ::ng-deep .mat-step-header .mat-step-icon-selected,
     .mat-step-header .mat-step-icon-state-done,
@@ -202,6 +201,25 @@ $continue-back: transparent linear-gradient(150deg, #3E5FA8 0%, #2AA977 100%) 0%
         border-color:$radio-color; /*outer ring color change*/
         background: $radio-color;
     }
+
+    .hint-error {
+        color: #f44336;
+    }
+
+    // ::ng-deep .mat-form-field-invalid .mat-input-element,
+    // .mat-warn .mat-input-element {
+    //     caret-color: #f44336 !important;
+    // }
+
+    // ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    //     color: #f44336 !important;
+    //     opacity: 0.8 !important;
+    // }
+
+    // ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label{
+    //     color: #f44336 !important;
+    // }
+
 
     // ::ng-deep .mat-calendar-body-selected {
     //     background-color: $back-color;

@@ -51,21 +51,7 @@ export class HttpService {
         }
       };
       return this.http.get<any[]>(BaseUrl.api + `user/api/v1/profile/`, httpOptions).pipe(
-        retryWhen(err => err.pipe(
-          scan((retryCount: any) => {
-            const refresh = this.authService.refreshToken();
-            console.log(refresh)
-            if (refresh) {
-              if (retryCount > 1) throw err;
-              else {
-                retryCount++;
-                console.log(retryCount)
-                return retryCount
-              }
-            }else {
-            }
-          }, 0)
-        ))
+        retry(1)
       )
   }
 
@@ -77,7 +63,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}`, data, httpOptions)
+    return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}`, data, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // get payer data
@@ -87,7 +75,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getallpayer/`, httpOptions)
+    return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getallpayer/`, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // get payer by tin
@@ -97,7 +87,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`, httpOptions)
+    return this.http.get<any[]>(BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // upload csv payee file
@@ -107,7 +99,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/csv/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
+    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/csv/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // upload validated csv payee file
@@ -117,7 +111,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/bulkupload/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
+    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/bulkupload/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // add single payee
@@ -127,7 +123,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/`, data, httpOptions)
+    return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/`, data, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // upload validated csv payee file
@@ -137,7 +135,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.get<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, httpOptions)
+    return this.http.get<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, httpOptions).pipe(
+      retry(1)
+    )
   }
 
   // delete a payer
@@ -147,7 +147,9 @@ export class HttpService {
         'Authorization': `Bearer ${this.authService.getJwtToken()}`
       }
     };
-    return this.http.delete<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_id=${id}`,httpOptions)
+    return this.http.delete<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_id=${id}`,httpOptions).pipe(
+      retry(1)
+    )
   }
   
 

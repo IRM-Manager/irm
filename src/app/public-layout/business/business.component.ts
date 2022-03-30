@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ReplaySubject, Subject, filter, tap, takeUntil, debounceTime, map, delay } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { Location, DatePipe } from '@angular/common';
-import { Business, CAC, Individual1, Individual2, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
+import { Business, CAC, BusinessIndividual1, Individual2, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 // state management
@@ -40,7 +40,7 @@ export class BusinessComponent implements OnInit {
   nindisabled = false;
 
   floatLabelControl = new FormControl('employed');
-  feedback1!: Individual1;
+  feedback1!: BusinessIndividual1;
   feedback2!: Individual2;
   feedback3!: Business;
 
@@ -222,7 +222,7 @@ export class BusinessComponent implements OnInit {
 
   createForm1() {
     this.feedbackForm1 = this.fb.group({
-        title: ['', [Validators.required] ],
+        title: [''],
         firstname: ['', [Validators.required] ],
         middlename: ['', [Validators.required] ],
         surname: ['', [Validators.required] ],

@@ -1,6 +1,9 @@
 $white: #FFFFFF;
 $background: transparent linear-gradient(180deg, #47A83E 0%, #2AA977 100%) 0% 0% no-repeat padding-box;;
 $border-right: #F5F7FA;
+$text1-font: normal normal 15px/19px Montserrat;
+$text2-font: normal normal 300 12px/15px Montserrat;
+$right1-font: normal normal 400 15px/19px Montserrat;
 
 mat-sidenav-container {
     height: 100%;
@@ -34,3 +37,4 @@ mat-sidenav {
 //     opacity: 1;
 //     transition: all .2s ease-in-out;
 // }
+

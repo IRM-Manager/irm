@@ -1,6 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #publicsidenav hasBackdrop="false" class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
         <div class="main">
+
             <app-app-public-sidenav-list (publicsidenavClose)="publicsidenav.close()"></app-app-public-sidenav-list>
         </div>
     </mat-sidenav>
@@ -9,7 +10,7 @@
         <app-header (publicsidenavToggle)="publicsidenav.toggle()">
 
         </app-header>
-        <div class="main">
+        <div class="main2">
             <router-outlet></router-outlet>
         </div>
         <!-- <button mat-mini-fab [class.show-scrollTop]="windowScrolled" (click)="scrollToTop()" class="button">

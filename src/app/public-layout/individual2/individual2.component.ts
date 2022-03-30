@@ -96,8 +96,9 @@ export class Individual2Component implements OnInit {
 
   formErrors: any = {
     'firstname': '', 'middlename': '', 'surname': '', 'gender': '', 'birth': '', 'place': '',
-    'state': '', 'lga': '', 'nationality': '', 'trade': '', 'employment': '', 'contact': '',
+    'state': '', 'lga': '', 'nationality': '', 'trade': '', 'contact': '',
     'contact_email': '', 'house': '', 'street': '', 'state_red': '', 'lga_red': '', 'zipcode': '',
+    // 'employment': '',
   };
 
   validationMessages: any = {
@@ -131,9 +132,9 @@ export class Individual2Component implements OnInit {
     'trade': {
       'required':      'required.',
     },
-    'employment': {
-      'required':      'required.',
-    },
+    // 'employment': {
+    //   'required':      'required.',
+    // },
     'contact': {
       'required':      'required.',
     },
@@ -190,7 +191,7 @@ export class Individual2Component implements OnInit {
 
   createForm1() {
     this.feedbackForm1 = this.fb.group({
-        title: ['', [Validators.required] ],
+        title: [''],
         firstname: ['', [Validators.required] ],
         middlename: ['', [Validators.required] ],
         surname: ['', [Validators.required] ],
@@ -201,7 +202,7 @@ export class Individual2Component implements OnInit {
         lga: ['', [Validators.required] ],
         nationality: ['', [Validators.required] ],
         trade: ['', [Validators.required] ],
-        employment: ['', [Validators.required] ],
+        // employment: ['', [Validators.required] ],
         contact: ['', [Validators.required] ],
         contact_email: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')] ],
       },
@@ -366,7 +367,6 @@ export class Individual2Component implements OnInit {
       this.feedbackForm1.get('place').reset();
       this.feedbackForm1.get('nationality').reset();
       this.feedbackForm1.get('trade').reset();
-      this.feedbackForm1.get('employment').reset();
       this.feedbackForm1.get('contact').reset();
       this.feedbackForm1.get('contact_email').reset();
       this.feedbackForm1.get('title').reset();
@@ -381,75 +381,183 @@ export class Individual2Component implements OnInit {
   }
 
 
-  Submit() {
-    this.loading2 = true;
-    this.disabled2 = true;
+  firstnameError = false; middlenameError = false; surnameError = false; genderError = false; birthError = false;
+  placeError = false; nationalityError = false; tradeError = false; contactError = false; contact_emailError = false;
+  stateeError = false; lgaaError = false;
 
-    this.feedback1 = this.feedbackForm1.value
-    this.feedback2 = this.feedbackForm2.value
-    this.feedback3 = this.feedbackForm3.value
-    let data: any = {
-        payer: {
-            address_state: this.feedback2.state_red,
-            address_lga: this.feedback2.lga_red
-        },
-        first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
-        gender: this.feedback1.gender, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
-        pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
-        nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
-        employment_category: this.feedback1.employment, phone: this.feedback1.contact, surname: this.feedback1.surname,
-        email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
-        zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
-    }
-    Object.assign(data, this.includedFields);
-    console.log(data)
-
-    this.httpService.AddPayer(data, 'individual').subscribe(
-      (data: any) => {
-        this.loading2 = false;
-        this.disabled2 = false;
-        if (data.responsecode === "00") {
-          this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
-          this.snackBar.open('Registration successful', "", {
-            duration: 3000,
-            panelClass: "success"
-          });
-          this.RemoveFormData();
-        }
-        else {
-          this.snackBar.open(data.message || "error", "", {
-            duration: 3000,
-            panelClass: "error"
-          });
-        }
-        
-      },
-      (err: any) => {
-        console.log(err)
-        this.loading2 = false;
-        this.disabled2 = false;
-        if (err.error.message == "required") {
-          if (err.error.data.email) {
-            this.snackBar.open("Email Address already exists in (Section 1)", "", {
-              duration: 5000,
-              panelClass: "error"
-            });
-          }
-          else if (err.error.data.phone) {
-            this.snackBar.open("Contact number already exists in (Section 1)", "", {
-              duration: 5000,
-              panelClass: "error"
-            });
-          }
-        }
-        else{
-          this.snackBar.open(err.error.message || "error", "", {
-            duration: 5000,
-            panelClass: "error"
-          });
-        }
+  onSubmit1() {
+    const feed1 = this.feedbackFormDirective1.invalid
+    const control = this.feedbackFormDirective1.form.controls
+    console.log(control)
+    if (feed1) {
+      if (control.firstname.status == "INVALID") {
+        this.firstnameError = true;
+        this.formErrors['firstname'] = 'required.';
       }
-    )
+      if(control.middlename.status == "INVALID") {
+        this.middlenameError = true;
+        this.formErrors['middlename'] = 'required.';
+      }
+      if(control.surname.status == "INVALID") {
+        this.surnameError = true;
+        this.formErrors['surname'] = 'required.';
+      }
+      if(control.gender.status == "INVALID") {
+        this.genderError = true;
+        this.formErrors['gender'] = 'required.';
+      }
+      if(control.birth.status == "INVALID") {
+        this.birthError = true;
+        this.formErrors['birth'] = 'required.';
+      }
+      if(control.place.status == "INVALID") {
+        this.placeError = true;
+        this.formErrors['place'] = 'required.';
+      }
+      if(control.nationality.status == "INVALID") {
+        this.nationalityError = true;
+        this.formErrors['nationality'] = 'required.';
+      }
+      if(control.trade.status == "INVALID") {
+        this.tradeError = true;
+        this.formErrors['trade'] = 'required.';
+      }
+      if(control.contact.status == "INVALID") {
+        this.contactError = true;
+        this.formErrors['contact'] = 'required.';
+      }
+      if(control.contact_email.status == "INVALID") {
+        this.contact_emailError = true;
+        this.formErrors['contact_email'] = 'required.';
+      }
+      if(control.state.status == "INVALID") {
+        this.stateeError = true;
+        this.formErrors['state'] = 'required.';
+      }
+      if(control.lga.status == "INVALID") {
+        this.lgaaError = true;
+        this.formErrors['lga'] = 'required.';
+      }
+
+    }
+  }
+
+
+  streetError = false; houseError = false; zipcodeError = false; state_redError = false; lga_redError = false;
+
+  onSubmit2() {
+    const feed1 = this.feedbackFormDirective2.invalid
+    const control = this.feedbackFormDirective2.form.controls
+    if (feed1) {
+      if (control.street.status == "INVALID") {
+        this.streetError = true;
+        this.formErrors['street'] = 'required.';
+      }
+      if(control.house.status == "INVALID") {
+        this.houseError = true;
+        this.formErrors['house'] = 'required.';
+      }
+      if(control.zipcode.status == "INVALID") {
+        this.zipcodeError = true;
+        this.formErrors['zipcode'] = 'required.';
+      }
+      if(control.state_red.status == "INVALID") {
+        this.state_redError = true;
+        this.formErrors['state_red'] = 'required.';
+      }
+      if(control.lga_red.status == "INVALID") {
+        this.lga_redError = true;
+        this.formErrors['lga_red'] = 'required.';
+      }
+
+    }
+  }
+  onSubmit3() {}
+
+  Submit() {
+    this.onSubmit1();
+    this.onSubmit2();
+    const feed1 = this.feedbackFormDirective1.invalid
+    const feed2 = this.feedbackFormDirective2.invalid
+    const feed3 = this.feedbackFormDirective3.Invalid
+
+    if (feed1 || feed2 || feed3) {
+      this.snackBar.open('Errors in Fields please check it out.', "", {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }  // end of if
+    else {
+        this.loading2 = true;
+        this.disabled2 = true;
+
+        this.feedback1 = this.feedbackForm1.value
+        this.feedback2 = this.feedbackForm2.value
+        this.feedback3 = this.feedbackForm3.value
+        let data: any = {
+            payer: {
+                address_state: this.feedback2.state_red,
+                address_lga: this.feedback2.lga_red
+            },
+            first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+            gender: this.feedback1.gender, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
+            pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
+            nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
+            employment_category: this.floatLabelControl.value, phone: this.feedback1.contact, surname: this.feedback1.surname,
+            email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
+            zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
+        }
+        Object.assign(data, this.includedFields);
+        console.log(data)
+
+        this.httpService.AddPayer(data, 'individual').subscribe(
+          (data: any) => {
+            this.loading2 = false;
+            this.disabled2 = false;
+            if (data.responsecode === "00") {
+              this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
+              this.snackBar.open('Registration successful', "", {
+                duration: 3000,
+                panelClass: "success"
+              });
+              this.RemoveFormData();
+            }
+            else {
+              this.snackBar.open(data.message || "error", "", {
+                duration: 3000,
+                panelClass: "error"
+              });
+            }
+            
+          },
+          (err: any) => {
+            console.log(err)
+            this.loading2 = false;
+            this.disabled2 = false;
+            if (err.error.message == "required") {
+              if (err.error.data.email) {
+                this.snackBar.open("Email Address already exists in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+              else if (err.error.data.phone) {
+                this.snackBar.open("Contact number already exists in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+            }
+            else{
+              this.snackBar.open(err.error.message || "error", "", {
+                duration: 5000,
+                panelClass: "error"
+              });
+            }
+          }
+        )
+
+    } // end if
 
   }
 

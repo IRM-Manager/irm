@@ -123,6 +123,7 @@ export class AuthService {
     // logout user
     public logout() {
       this.removeTokens();
+      this.router.navigate(['/'])
     }
 
     getRefreshToken(): any {
@@ -133,7 +134,7 @@ export class AuthService {
       localStorage.setItem(this.JWT_TOKEN, jwt);
     }
   
-    private storeTokens(tokens: Tokens) {
+    public storeTokens(tokens: Tokens) {
       localStorage.setItem(this.JWT_TOKEN, tokens.access);
       localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
     }

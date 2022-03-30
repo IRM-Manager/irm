@@ -48,7 +48,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
 import { ProcessHttpMsgService } from './services/process-http-msg.service';
@@ -68,6 +68,8 @@ import { reducers } from './reducers/index';
 
 import { HomeComponent } from './home/home.component';
 
+// http interceptors
+import { AuthInterceptor } from './_helpers/auth.interceptor'
 
 @NgModule({
   declarations: [
@@ -136,6 +138,11 @@ import { HomeComponent } from './home/home.component';
     MatNativeDateModule,
     NetworkAwarePreloadingStrategyService2Service,
     DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
