@@ -226,6 +226,10 @@ $nin-shadow: 0px 3px 6px #00000029;
         background: $radio-color;
     }
 
+    .hint-error {
+        color: #f44336;
+    }
+
     // ::ng-deep .mat-calendar-body-selected {
     //     background-color: $back-color;
     // }

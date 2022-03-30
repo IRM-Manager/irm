@@ -411,7 +411,7 @@ export class BusinessComponent implements OnInit {
   }
 
 
-  onSubmit2() {
+  onNinSubmit() {
     this.ninloading = true
     this.nindisabled = true
     this.ninfeedback = this.ninForm.value;
@@ -446,87 +446,332 @@ export class BusinessComponent implements OnInit {
   }
 
 
-  Submit() {
-    this.loading2 = true
-    this.disabled2 = true
+  firstnameError = false; middlenameError = false; surnameError = false; genderError = false; birthError = false;
+  placeError = false; nationalityError = false; tradeError = false; contactError = false; contact_emailError = false;
+  stateeError = false; lgaaError = false; employmentError = false;
 
-    this.feedback1 = this.feedbackForm1.value
-    this.feedback2 = this.feedbackForm2.value
-    this.feedback3 = this.feedbackForm3.value
-    let data = {
-        payer: {
-            address_state: this.feedback2.state_red,
-            address_lga: this.feedback2.lga_red
-        },
-        directors_info: {
-          first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
-          surname: this.feedback1.surname, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'), 
-          pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
-          nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade,
-          employment_category: this.feedback1.employment,  dir_phone: this.feedback1.contact, 
-          dir_email: this.feedback1.contact_email, gender: this.feedback1.gender
-        },
-        organisation_name: this.feedback3.org_name, business_nature: this.feedback3.nature_bus,
-        number_employee: this.feedback3.num_emp, establishment_date: this.datepipe.transform(this.feedback3.date_est, 'yyyy-MM-dd'),
-        office_website_url: this.feedback3.website || "", org_phone: this.feedback3.contact_num,
-        org_email: this.feedback3.email, alt_phone: this.feedback3.alt_num || "",
-        address: this.feedback2.street, house_no: this.feedback2.house, zipcode: this.feedback2.zipcode,
-    }
-    console.log(data)
-
-    this.httpService.AddPayer(data, 'company').subscribe(
-      (data: any) => {
-        this.loading2 = false;
-        this.disabled2 = false;
-        if (data.responsecode === "00") {
-          this.store.dispatch(new RemoveComPayer([{id: 1, data: []}]));
-          this.snackBar.open('Registration successful', "", {
-            duration: 3000,
-            panelClass: "success"
-          });
-          this.RemoveFormData();
-        }
-        else {
-          this.snackBar.open(data.message || "error", "", {
-            duration: 3000,
-            panelClass: "error"
-          });
-        }
-        
-      },
-      (err: any) => {
-        console.log(err)
-        this.loading2 = false;
-        this.disabled2 = false;
-        if (err.error.message == "required") {
-          if (err.error.data.org_email) {
-            this.snackBar.open("Email Address already exists in (Section 1)", "", {
-              duration: 5000,
-              panelClass: "error"
-            });
-          }
-          else if (err.error.data.org_phone) {
-            this.snackBar.open("Contact number already exists in (Section 1)", "", {
-              duration: 5000,
-              panelClass: "error"
-            });
-          }
-          else if (err.error.data.office_website_url) {
-            this.snackBar.open("Invalid Office Website URL in (Section 1)", "", {
-              duration: 5000,
-              panelClass: "error"
-            });
-          }
-        }
-        else{
-          this.snackBar.open(err.error.message || "error", "", {
-            duration: 5000,
-            panelClass: "error"
-          });
-        }
+  onSubmit1() {
+    const feed1 = this.feedbackFormDirective1.invalid
+    const control = this.feedbackFormDirective1.form.controls
+    if (feed1) {
+      if (control.firstname.status == "INVALID") {
+        this.firstnameError = true;
+        this.formErrors['firstname'] = 'required.';
       }
-    )
+      else {
+        this.firstnameError = false;
+      }
+      if(control.middlename.status == "INVALID") {
+        this.middlenameError = true;
+        this.formErrors['middlename'] = 'required.';
+      }
+      else {
+        this.middlenameError = false;
+      }
+      if(control.surname.status == "INVALID") {
+        this.surnameError = true;
+        this.formErrors['surname'] = 'required.';
+      }
+      else {
+        this.surnameError = false;
+      }
+      if(control.gender.status == "INVALID") {
+        this.genderError = true;
+        this.formErrors['gender'] = 'required.';
+      }
+      else {
+        this.genderError = false;
+      }
+      if(control.birth.status == "INVALID") {
+        this.birthError = true;
+        this.formErrors['birth'] = 'required.';
+      }
+      else {
+        this.birthError = false;
+      }
+      if(control.place.status == "INVALID") {
+        this.placeError = true;
+        this.formErrors['place'] = 'required.';
+      }
+      else {
+        this.placeError = false;
+      }
+      if(control.nationality.status == "INVALID") {
+        this.nationalityError = true;
+        this.formErrors['nationality'] = 'required.';
+      }
+      else {
+        this.nationalityError = false;
+      }
+      if(control.trade.status == "INVALID") {
+        this.tradeError = true;
+        this.formErrors['trade'] = 'required.';
+      }
+      else {
+        this.tradeError = false;
+      }
+      if(control.contact.status == "INVALID") {
+        this.contactError = true;
+        this.formErrors['contact'] = 'required.';
+      }
+      else {
+        this.contactError = false;
+      }
+      if(control.contact_email.status == "INVALID") {
+        this.contact_emailError = true;
+        this.formErrors['contact_email'] = 'required or Not a valid Email.';
+      }
+      else {
+        this.contact_emailError = false;
+      }
+      if(control.state.status == "INVALID") {
+        this.stateeError = true;
+        this.formErrors['state'] = 'required.';
+      }
+      else {
+        this.stateeError = false;
+      }
+      if(control.lga.status == "INVALID") {
+        this.lgaaError = true;
+        this.formErrors['lga'] = 'required.';
+      }
+      if(control.employment.status == "INVALID") {
+        this.employmentError = true;
+        this.formErrors['employment'] = 'required.';
+      }
+      else {
+        this.employmentError = false;
+      }
+    }else {
+      console.log("personal", true)
+      this.lgaaError = false;
+      this.stateeError = false;
+      this.contact_emailError = false;
+      this.contactError = false;
+      this.tradeError = false;
+      this.nationalityError = false;
+      this.placeError = false;
+      this.birthError = false;
+      this.genderError = false;
+      this.surnameError = false;
+      this.middlenameError = false;
+      this.firstnameError = false;
+      this.employmentError = false;
+    }
+  }
 
+
+  streetError = false; houseError = false; zipcodeError = false; state_redError = false; lga_redError = false;
+
+  onSubmit2() {
+    const feed1 = this.feedbackFormDirective2.invalid
+    const control = this.feedbackFormDirective2.form.controls
+    if (feed1) {
+      if (control.street.status == "INVALID") {
+        this.streetError = true;
+        this.formErrors['street'] = 'required.';
+      }
+      else {
+        this.streetError = false;
+      }
+      if(control.house.status == "INVALID") {
+        this.houseError = true;
+        this.formErrors['house'] = 'required.';
+      }
+      else {
+        this.houseError = false;
+      }
+      if(control.zipcode.status == "INVALID") {
+        this.zipcodeError = true;
+        this.formErrors['zipcode'] = 'required.';
+      }
+      else {
+        this.zipcodeError = false;
+      }
+      if(control.state_red.status == "INVALID") {
+        this.state_redError = true;
+        this.formErrors['state_red'] = 'required.';
+      }
+      else {
+        this.state_redError = false;
+      }
+      if(control.lga_red.status == "INVALID") {
+        this.lga_redError = true;
+        this.formErrors['lga_red'] = 'required.';
+      }
+      else {
+        this.lga_redError = false;
+      }
+    }else {
+      this.streetError = false;
+      this.houseError = false;
+      this.zipcodeError = false;
+      this.state_redError = false;
+      this.lga_redError = false;
+    }
+  }
+
+
+  org_nameError = false; nature_busError = false; num_empError = false; date_estError = false;
+  contact_numError = false; emailError = false;
+
+  onSubmit3() {
+
+    const feed1 = this.feedbackFormDirective3.invalid
+    const control = this.feedbackFormDirective3.form.controls
+    console.log(control)
+    if (feed1) {
+      if (control.org_name.status == "INVALID") {
+        this.org_nameError = true;
+        this.formErrors['org_name'] = 'required.';
+      }
+      else {
+        this.org_nameError = false;
+      }
+      if(control.nature_bus.status == "INVALID") {
+        this.nature_busError = true;
+        this.formErrors['nature_bus'] = 'required.';
+      }
+      else {
+        this.nature_busError = false;
+      }
+      if(control.num_emp.status == "INVALID") {
+        this.num_empError = true;
+        this.formErrors['num_emp'] = 'required.';
+      }
+      else {
+        this.num_empError = false;
+      }
+      if(control.date_est.status == "INVALID") {
+        this.date_estError = true;
+        this.formErrors['date_est'] = 'required.';
+      }
+      else {
+        this.date_estError = false;
+      }
+      if(control.contact_num.status == "INVALID") {
+        this.contact_numError = true;
+        this.formErrors['contact_num'] = 'required.';
+      }
+      else {
+        this.contact_numError = false;
+      }
+      if(control.email.status == "INVALID") {
+        this.emailError = true;
+        this.formErrors['email'] = 'required or Not a valid email.';
+      }
+      else {
+        this.emailError = false;
+      }
+    }else {
+        this.emailError = false;
+        this.contact_numError = false;
+        this.date_estError = false;
+        this.num_empError = false;
+        this.nature_busError = false;
+        this.org_nameError = false;
+    }
+
+  }
+
+
+  Submit() {
+
+    this.onSubmit1();
+    this.onSubmit2();
+    this.onSubmit3();
+    const feed1 = this.feedbackFormDirective1.invalid
+    const feed2 = this.feedbackFormDirective2.invalid
+    const feed3 = this.feedbackFormDirective3.invalid
+
+    if (feed1 || feed2 || feed3) {
+      this.snackBar.open('Errors in Form fields please check it out.', "", {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }  // end of if
+    else {
+
+        this.loading2 = true
+        this.disabled2 = true
+
+        this.feedback1 = this.feedbackForm1.value
+        this.feedback2 = this.feedbackForm2.value
+        this.feedback3 = this.feedbackForm3.value
+        let data = {
+            payer: {
+                address_state: this.feedback2.state_red,
+                address_lga: this.feedback2.lga_red
+            },
+            directors_info: {
+              first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+              surname: this.feedback1.surname, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'), 
+              pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
+              nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade,
+              employment_category: this.feedback1.employment,  dir_phone: this.feedback1.contact, 
+              dir_email: this.feedback1.contact_email, gender: this.feedback1.gender
+            },
+            organisation_name: this.feedback3.org_name, business_nature: this.feedback3.nature_bus,
+            number_employee: this.feedback3.num_emp, establishment_date: this.datepipe.transform(this.feedback3.date_est, 'yyyy-MM-dd'),
+            office_website_url: this.feedback3.website || "", org_phone: this.feedback3.contact_num,
+            org_email: this.feedback3.email, alt_phone: this.feedback3.alt_num || "",
+            address: this.feedback2.street, house_no: this.feedback2.house, zipcode: this.feedback2.zipcode,
+        }
+        console.log(data)
+
+        this.httpService.AddPayer(data, 'company').subscribe(
+          (data: any) => {
+            this.loading2 = false;
+            this.disabled2 = false;
+            if (data.responsecode === "00") {
+              this.store.dispatch(new RemoveComPayer([{id: 1, data: []}]));
+              this.snackBar.open('Registration successful', "", {
+                duration: 3000,
+                panelClass: "success"
+              });
+              this.RemoveFormData();
+            }
+            else {
+              this.snackBar.open(data.message || "error", "", {
+                duration: 3000,
+                panelClass: "error"
+              });
+            }
+            
+          },
+          (err: any) => {
+            console.log(err)
+            this.loading2 = false;
+            this.disabled2 = false;
+            if (err.error?.message == "required") {
+              if (err.error?.data.org_email) {
+                this.snackBar.open("Email Address already exists in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+              else if (err.error.data.org_phone) {
+                this.snackBar.open("Contact number already exists in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+              else if (err.error.data.office_website_url) {
+                this.snackBar.open("Invalid Office Website URL in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+            }
+            else{
+              this.snackBar.open(err.error.message || "error", "", {
+                duration: 5000,
+                panelClass: "error"
+              });
+            }
+          }
+        )
+    } // end else
 
   }
 

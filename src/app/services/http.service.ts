@@ -64,7 +64,7 @@ export class HttpService {
       }
     };
     return this.http.post<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}`, data, httpOptions).pipe(
-      retry(1)
+      retry(2)
     )
   }
 
@@ -100,7 +100,7 @@ export class HttpService {
       }
     };
     return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/csv/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions).pipe(
-      retry(1)
+      retry(2)
     )
   }
 
@@ -112,7 +112,7 @@ export class HttpService {
       }
     };
     return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/bulkupload/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions).pipe(
-      retry(1)
+      retry(2)
     )
   }
 
@@ -124,7 +124,7 @@ export class HttpService {
       }
     };
     return this.http.post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/`, data, httpOptions).pipe(
-      retry(1)
+      retry(2)
     )
   }
 

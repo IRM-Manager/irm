@@ -16,13 +16,14 @@
 
         <div class="session-header">Section 1: Organisation Details</div>
 
-        <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm">
+        <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit3()">
             <p>
                 <!-- com_name -->
                 <mat-form-field class="full" appearance="outline">
                     <mat-label>Name of Organisation</mat-label>
                     <input matInput formControlName="org_name" required>
                     <mat-error>{{formErrors.org_name}}</mat-error>
+                    <mat-hint *ngIf="org_nameError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
             <p>
@@ -31,12 +32,14 @@
                     <mat-label>Nature of Business</mat-label>
                     <input matInput formControlName="nature_bus" required>
                     <mat-error>{{formErrors.nature_bus}}</mat-error>
+                    <mat-hint *ngIf="nature_busError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- num_emp -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Number of Employee</mat-label>
                     <input matInput formControlName="num_emp" type="number" required>
                     <mat-error>{{formErrors.num_emp}}</mat-error>
+                    <mat-hint *ngIf="num_empError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- date_est -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -45,12 +48,14 @@
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                     <mat-error>{{formErrors.date_est}}</mat-error>
+                    <mat-hint *ngIf="date_estError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- contact_num -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Contact number</mat-label>
                     <input matInput formControlName="contact_num" type="tel" required>
                     <mat-error>{{formErrors.contact_num}}</mat-error>
+                    <mat-hint *ngIf="contact_numError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
             <p>
@@ -59,6 +64,7 @@
                     <mat-label>Email Address</mat-label>
                     <input matInput formControlName="email" email required>
                     <mat-error>{{formErrors.email}}</mat-error>
+                    <mat-hint *ngIf="emailError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- alt_num -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -83,18 +89,20 @@
     <div class="session">
         <div class="session-header">Section 2: Head office Address</div>
 
-        <form class="form1" novalidate [formGroup]="feedbackForm2" #fform2="ngForm">
+        <form class="form1" novalidate [formGroup]="feedbackForm2" #fform2="ngForm" (ngSubmit)="onSubmit2()">
             <p>
                 <!-- house -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>House No.</mat-label>
                     <input matInput formControlName="house" type="tel" required>
                     <mat-error>{{formErrors.house}}</mat-error>
+                    <mat-hint *ngIf="houseError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- street -->
                 <mat-form-field class="full-half" appearance="outline">
                     <mat-label>Estate/Street</mat-label>
                     <input matInput formControlName="street" required>
+                    <mat-hint *ngIf="streetError" class="hint-error">required.</mat-hint>
                     <mat-error>{{formErrors.street}}</mat-error>
                 </mat-form-field>
             </p>
@@ -112,6 +120,7 @@
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.state_red}}</mat-error>
+                    <mat-hint *ngIf="state_redError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2" style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint align="end" *ngIf="stateLoading2">Loading...</mat-hint>
                 </mat-form-field>
@@ -128,7 +137,8 @@
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.lga_red}}</mat-error>
-                    <mat-hint *ngIf="!lga2">Select state to get LGA</mat-hint>
+                    <mat-hint *ngIf="!lga2" align="end">Select state to get LGA</mat-hint>
+                    <mat-hint *ngIf="lga_redError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint align="end" *ngIf="lgaLoading2">Loading...</mat-hint>
                 </mat-form-field>
@@ -137,6 +147,7 @@
                     <mat-label>Zip Code</mat-label>
                     <input matInput formControlName="zipcode" type="tel" required>
                     <mat-error>{{formErrors.zipcode}}</mat-error>
+                    <mat-hint *ngIf="zipcodeError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
         </form>
@@ -148,7 +159,7 @@
     <div class="session">
         <div class="session-header">Section 3: Personal Details</div>
 
-            <form novalidate [formGroup]="ninForm" #fform4="ngForm" (ngSubmit)="onSubmit2()" style="margin-top: 30px;">
+            <form novalidate [formGroup]="ninForm" #fform4="ngForm" (ngSubmit)="onNinSubmit()" style="margin-top: 30px;">
                 <mat-form-field class="nin-width" appearance="outline">
                     <mat-label>National Identification number (NIN)</mat-label>
                     <input matInput formControlName="nin" placeholder="">
@@ -156,7 +167,7 @@
                 <button mat-button class="verify" type="submit">Verify</button>
             </form>
 
-        <form class="form1" novalidate [formGroup]="feedbackForm1" #fform1="ngForm">
+        <form class="form1" novalidate [formGroup]="feedbackForm1" #fform1="ngForm" (ngSubmit)="onSubmit1()">
             <p>
                 <!-- title -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -171,18 +182,21 @@
                     <mat-label>First name</mat-label>
                     <input matInput formControlName="firstname" required>
                     <mat-error>{{formErrors.firstname}}</mat-error>
+                    <mat-hint *ngIf="firstnameError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- middlename -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Middle name</mat-label>
                     <input matInput formControlName="middlename" required>
                     <mat-error>{{formErrors.middlename}}</mat-error>
+                    <mat-hint *ngIf="middlenameError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- surname -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Surname</mat-label>
                     <input matInput formControlName="surname" required>
                     <mat-error>{{formErrors.surname}}</mat-error>
+                    <mat-hint *ngIf="surnameError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
             <p>
@@ -194,6 +208,7 @@
                         <mat-option value="female">Female</mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.gender}}</mat-error>
+                    <mat-hint *ngIf="genderError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- birth -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -208,6 +223,7 @@
                     <mat-label>Place of Birth</mat-label>
                     <input matInput formControlName="place" required>
                     <mat-error>{{formErrors.place}}</mat-error>
+                    <mat-hint *ngIf="birthError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- state -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -222,6 +238,7 @@
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.state}}</mat-error>
+                    <mat-hint *ngIf="stateeError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint align="end" *ngIf="stateLoading">Loading...</mat-hint>
                 </mat-form-field>
@@ -240,7 +257,8 @@
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.lga}}</mat-error>
-                    <mat-hint *ngIf="!lga">Select state to get LGA</mat-hint>
+                    <mat-hint *ngIf="!lga" align="end">Select state to get LGA</mat-hint>
+                    <mat-hint *ngIf="lgaaError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint align="end" *ngIf="lgaLoading">Loading...</mat-hint>
                 </mat-form-field>
@@ -249,12 +267,14 @@
                     <mat-label>Nationality</mat-label>
                     <input matInput formControlName="nationality" required>
                     <mat-error>{{formErrors.nationality}}</mat-error>
+                    <mat-hint *ngIf="nationalityError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- trade -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Profession/Trade</mat-label>
                     <input matInput formControlName="trade" required>
                     <mat-error>{{formErrors.trade}}</mat-error>
+                    <mat-hint *ngIf="tradeError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- employment -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -265,6 +285,7 @@
                         <mat-option value="retired">Retired</mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.employment}}</mat-error>
+                    <mat-hint *ngIf="employmentError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
 
@@ -276,12 +297,14 @@
                     <mat-label>Contact number</mat-label>
                     <input matInput formControlName="contact" type="tel" required>
                     <mat-error>{{formErrors.contact}}</mat-error>
+                    <mat-hint *ngIf="contactError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- email -->
                 <mat-form-field class="half-full" appearance="outline">
                     <mat-label>Email Address</mat-label>
                     <input matInput type="email" formControlName="contact_email" email required>
                     <mat-error>{{formErrors.contact_email}}</mat-error>
+                    <mat-hint *ngIf="contact_emailError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>  
 
@@ -292,9 +315,9 @@
     <div class="final_submit">
         <button mat-button class="verify2" (click)="back()">Back</button>
         <button mat-button class="verify"
-            [disabled]="fform1.form.invalid || fform2.form.invalid || fform3.form.invalid || disabled2 === true"
             (click)="Submit()"
         >
+        <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || fform3.form.invalid || disabled2 === true" -->
             <span *ngIf="!loading2">Continue</span>
             <div *ngIf="loading2" class="loader">
                 <div class="bubble"></div>

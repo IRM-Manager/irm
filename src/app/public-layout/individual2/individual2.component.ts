@@ -388,57 +388,101 @@ export class Individual2Component implements OnInit {
   onSubmit1() {
     const feed1 = this.feedbackFormDirective1.invalid
     const control = this.feedbackFormDirective1.form.controls
-    console.log(control)
     if (feed1) {
       if (control.firstname.status == "INVALID") {
         this.firstnameError = true;
         this.formErrors['firstname'] = 'required.';
       }
+      else {
+        this.firstnameError = false;
+      }
       if(control.middlename.status == "INVALID") {
         this.middlenameError = true;
         this.formErrors['middlename'] = 'required.';
+      }
+      else {
+        this.middlenameError = false;
       }
       if(control.surname.status == "INVALID") {
         this.surnameError = true;
         this.formErrors['surname'] = 'required.';
       }
+      else {
+        this.surnameError = false;
+      }
       if(control.gender.status == "INVALID") {
         this.genderError = true;
         this.formErrors['gender'] = 'required.';
+      }
+      else {
+        this.genderError = false;
       }
       if(control.birth.status == "INVALID") {
         this.birthError = true;
         this.formErrors['birth'] = 'required.';
       }
+      else {
+        this.birthError = false;
+      }
       if(control.place.status == "INVALID") {
         this.placeError = true;
         this.formErrors['place'] = 'required.';
+      }
+      else {
+        this.placeError = false;
       }
       if(control.nationality.status == "INVALID") {
         this.nationalityError = true;
         this.formErrors['nationality'] = 'required.';
       }
+      else {
+        this.nationalityError = false;
+      }
       if(control.trade.status == "INVALID") {
         this.tradeError = true;
         this.formErrors['trade'] = 'required.';
+      }
+      else {
+        this.tradeError = false;
       }
       if(control.contact.status == "INVALID") {
         this.contactError = true;
         this.formErrors['contact'] = 'required.';
       }
+      else {
+        this.contactError = false;
+      }
       if(control.contact_email.status == "INVALID") {
         this.contact_emailError = true;
-        this.formErrors['contact_email'] = 'required.';
+        this.formErrors['contact_email'] = 'required or Not a valid Email.';
+      }
+      else {
+        this.contact_emailError = false;
       }
       if(control.state.status == "INVALID") {
         this.stateeError = true;
         this.formErrors['state'] = 'required.';
       }
+      else {
+        this.stateeError = false;
+      }
       if(control.lga.status == "INVALID") {
         this.lgaaError = true;
         this.formErrors['lga'] = 'required.';
       }
-
+    }else {
+      this.lgaaError = false;
+      this.stateeError = false;
+      this.contact_emailError = false;
+      this.contactError = false;
+      this.tradeError = false;
+      this.nationalityError = false;
+      this.placeError = false;
+      this.birthError = false;
+      this.genderError = false;
+      this.surnameError = false;
+      this.middlenameError = false;
+      this.firstnameError = false;
     }
   }
 
@@ -453,23 +497,43 @@ export class Individual2Component implements OnInit {
         this.streetError = true;
         this.formErrors['street'] = 'required.';
       }
+      else {
+        this.streetError = false;
+      }
       if(control.house.status == "INVALID") {
         this.houseError = true;
         this.formErrors['house'] = 'required.';
+      }
+      else {
+        this.houseError = false;
       }
       if(control.zipcode.status == "INVALID") {
         this.zipcodeError = true;
         this.formErrors['zipcode'] = 'required.';
       }
+      else {
+        this.zipcodeError = false;
+      }
       if(control.state_red.status == "INVALID") {
         this.state_redError = true;
         this.formErrors['state_red'] = 'required.';
+      }
+      else {
+        this.state_redError = false;
       }
       if(control.lga_red.status == "INVALID") {
         this.lga_redError = true;
         this.formErrors['lga_red'] = 'required.';
       }
-
+      else {
+        this.lga_redError = false;
+      }
+    }else {
+      this.streetError = false;
+      this.houseError = false;
+      this.zipcodeError = false;
+      this.state_redError = false;
+      this.lga_redError = false;
     }
   }
   onSubmit3() {}
@@ -479,10 +543,9 @@ export class Individual2Component implements OnInit {
     this.onSubmit2();
     const feed1 = this.feedbackFormDirective1.invalid
     const feed2 = this.feedbackFormDirective2.invalid
-    const feed3 = this.feedbackFormDirective3.Invalid
 
-    if (feed1 || feed2 || feed3) {
-      this.snackBar.open('Errors in Fields please check it out.', "", {
+    if (feed1 || feed2) {
+      this.snackBar.open('Errors in Form fields please check it out.', "", {
         duration: 5000,
         panelClass: "error"
       });
@@ -534,7 +597,7 @@ export class Individual2Component implements OnInit {
             console.log(err)
             this.loading2 = false;
             this.disabled2 = false;
-            if (err.error.message == "required") {
+            if (err.error?.message == "required") {
               if (err.error.data.email) {
                 this.snackBar.open("Email Address already exists in (Section 1)", "", {
                   duration: 5000,
