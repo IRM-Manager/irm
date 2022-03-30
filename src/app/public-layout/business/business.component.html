@@ -187,9 +187,7 @@
                 <!-- middlename -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Middle name</mat-label>
-                    <input matInput formControlName="middlename" required>
-                    <mat-error>{{formErrors.middlename}}</mat-error>
-                    <mat-hint *ngIf="middlenameError" class="hint-error">required.</mat-hint>
+                    <input matInput formControlName="middlename">
                 </mat-form-field>
                 <!-- surname -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -217,13 +215,14 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error>{{formErrors.birth}}</mat-error>
+                    <mat-hint *ngIf="birthError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- place birth -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Place of Birth</mat-label>
                     <input matInput formControlName="place" required>
                     <mat-error>{{formErrors.place}}</mat-error>
-                    <mat-hint *ngIf="birthError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="placeError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- state -->
                 <mat-form-field class="half-width" appearance="outline">

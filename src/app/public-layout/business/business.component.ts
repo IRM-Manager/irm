@@ -224,7 +224,7 @@ export class BusinessComponent implements OnInit {
     this.feedbackForm1 = this.fb.group({
         title: [''],
         firstname: ['', [Validators.required] ],
-        middlename: ['', [Validators.required] ],
+        middlename: [''],
         surname: ['', [Validators.required] ],
         gender: ['', [Validators.required] ],
         birth: ['', [Validators.required] ],
@@ -446,7 +446,7 @@ export class BusinessComponent implements OnInit {
   }
 
 
-  firstnameError = false; middlenameError = false; surnameError = false; genderError = false; birthError = false;
+  firstnameError = false; surnameError = false; genderError = false; birthError = false;
   placeError = false; nationalityError = false; tradeError = false; contactError = false; contact_emailError = false;
   stateeError = false; lgaaError = false; employmentError = false;
 
@@ -460,13 +460,6 @@ export class BusinessComponent implements OnInit {
       }
       else {
         this.firstnameError = false;
-      }
-      if(control.middlename.status == "INVALID") {
-        this.middlenameError = true;
-        this.formErrors['middlename'] = 'required.';
-      }
-      else {
-        this.middlenameError = false;
       }
       if(control.surname.status == "INVALID") {
         this.surnameError = true;
@@ -554,7 +547,6 @@ export class BusinessComponent implements OnInit {
       this.birthError = false;
       this.genderError = false;
       this.surnameError = false;
-      this.middlenameError = false;
       this.firstnameError = false;
       this.employmentError = false;
     }
