@@ -28,8 +28,7 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Taxes
@@ -37,7 +36,8 @@
             </mat-expansion-panel-header>
             <span class="vertical2"></span>
             <p class="panel_text">Direct Assessment</p>
-            <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">Pay-As-You-Earn (PAYE)</p>
+            <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
+                Pay-As-You-Earn (PAYE)</p>
             <!-- <p class="panel_text">Direct Taxation</p>
             <p class="panel_text">Withholding Tax</p>
             <p class="panel_text">Capital Gains Tax</p>
@@ -92,22 +92,22 @@
                         </div>
                         <span class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></span>
                     </div>
-                </div>    
+                </div>
             </div>
         </div>
 
         <mat-menu #menu="matMenu">
             <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
             </button>
             <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voice mail</span>
             </button>
             <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
             </button>
         </mat-menu>
 

@@ -1,245 +1,239 @@
-$white: #FFFFFF;
+$white: #ffffff;
 $panel-text: normal normal normal 15px/19px Montserrat;
 $panel-text2: normal normal 300 15px/19px Montserrat;
-$panel-text2-active: #FFFFFF66;
+$panel-text2-active: #ffffff66;
 $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
 $right1-font: normal normal 400 15px/19px Montserrat;
-$green: #45A841;
+$green: #45a841;
 
 .wrapper {
-    color: $white;
-    overflow-y: auto;
+  color: $white;
+  overflow-y: auto;
 
-    %shared-dash-text {
-        font: $panel-text;
-        letter-spacing: 0px;
-        cursor: pointer;
-        font-weight: 500;
+  %shared-dash-text {
+    font: $panel-text;
+    letter-spacing: 0px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .button {
+    margin-top: 1rem;
+    margin-left: 1.7rem;
+    margin-right: 1.7rem;
+
+    .hambugger {
+      float: right;
+      background: $white;
+      color: $green;
+      margin-right: -10px;
     }
 
-    .button {
-        margin-top: 1rem;
-        margin-left: 1.7rem;
-        margin-right: 1.7rem;
-
-        .hambugger {
-            float: right;
-            background: $white;
-            color: $green;
-            margin-right: -10px
-        }
-
-        .dash-text {
-            @extend %shared-dash-text;
-            margin-top: 2rem
-        }
-
-        .dash-text2 {
-            @extend %shared-dash-text;
-            margin-top: 1.5rem;
-        }
-
-        .active {
-            background: $panel-text2-active;
-            padding: 0.3rem;
-        }
+    .dash-text {
+      @extend %shared-dash-text;
+      margin-top: 2rem;
     }
 
-    .panel {
-        margin-top: 2rem;
-
-        .active {
-            background: $panel-text2-active;
-            padding: 0.1rem;
-        }
-
-        .mat-expansion-panel-header { 
-            border-top: 1px solid $white;
-            border-radius: unset;
-            opacity: 1;
-        }
-        
-        .mat-expansion-panel-header:hover {
-            background: unset;
-        }
-
-        .mat-expansion-panel-header-title {
-            font: $panel-text;
-            letter-spacing: 0px;
-            color: $white;
-            font-weight: 500;
-            opacity: 1;
-        }
-
-        .mat-expansion-panel {
-            background: None;
-            box-shadow: None;
-            font: $panel-text;
-            letter-spacing: 0px;
-            color: $white;
-            opacity: 1;
-            position: relative;
-        }
-
-        .mda {
-            border-bottom: 1px solid $white;
-            opacity: 1;
-        }
-
-        ::ng-deep .mat-expansion-indicator::after {
-            color: $white;
-            transform: rotate(320deg);
-        }
-
-        .mat-expansion-panel-header.mat-expanded {
-            position: relative;
-        } 
-
-        .mat-expansion-panel-header.mat-expanded::before {
-            content: "";
-            display: block;
-            width: 15px;
-            height: 1px;
-            background: $white;
-            left: 10px;
-            top: 50%;
-            position: absolute;
-        } 
-
-        %shared-vertical {
-            position: absolute;
-            left: 10px;
-            top: 34px;
-            border-left: 2px solid $white;
-        }
-
-        .vertical {
-            @extend %shared-vertical;
-            height: 51.3%;
-        }
-
-        .vertical2 {
-            @extend %shared-vertical;
-            height: 76.5%;
-        }
-
-        .vertical3 {
-            @extend %shared-vertical;
-            height: 66%;
-        }
-
-        .panel_text {
-            position: relative;
-            font: $panel-text2;
-            letter-spacing: 0px;
-            color: $white;
-            font-weight: 400;
-            margin-left: 20px;
-            cursor: pointer;
-        }
-
-        .panel_text:active {
-            background: $panel-text2-active;
-            opacity: 0.48;
-        }
-
-        .panel_text:before {
-            content: "";
-            display: block;
-            width: 27px;
-            height: 2px;
-            background: $white;
-            left: -33px;
-            top: 50%;
-            position: absolute;
-        }
-
+    .dash-text2 {
+      @extend %shared-dash-text;
+      margin-top: 1.5rem;
     }
 
-    .footer {
-        border-top: 1px solid $white;
-        position: absolute;
-        bottom: 0;
+    .active {
+      background: $panel-text2-active;
+      padding: 0.3rem;
+    }
+  }
 
-        .menu {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            width: 100vw;
-            // position: sticky;
-            // position: -webkit-sticky;
-            // z-index: 1000;
-        }
+  .panel {
+    margin-top: 2rem;
 
-        .d-h-l {
-            display: flex;
-            justify-content: left;
-            align-items: center;
-            margin-right: 2rem;
-        }
-    
-        .category {
-            display: flex;
-            flex-direction: row;
-            position: relative;
-            justify-content: center;
-            align-items: initial;
-            margin-top: auto;
-            margin-bottom: auto;
-        }
-    
-        .category-icon {
-            display: flex;
-            justify-content: right;
-            align-items: right;
-            margin-left: 3.5rem;
-            text-align: right;
-            vertical-align: middle;
-            margin-top: auto;
-            margin-bottom: auto;
-            
-        }
-
-        .category-icon2 {
-            display: flex;
-            justify-content: left;
-            align-items: left;
-            width: 2em;
-            height: 2em;
-            vertical-align: middle;
-            margin-right: 15px;
-            margin-left: 15px;
-            margin-top: auto;
-            margin-bottom: auto;
-            
-        }
-
-        @mixin theme($theme) {
-            letter-spacing: 0px;
-            font: $theme;
-            text-align: left;
-        }
-    
-        .left_text1 {  
-            @include theme($theme: $text1-font);
-            font-weight: bold;
-        }
-    
-        .left_text2 {  
-            @include theme($theme: $text2-font);
-            margin-top: 2px;
-        }
-    
-        .right_text1 {  
-            @include theme($theme: $right1-font);
-        }
-    
-        .right_text2 {  
-            @include theme($theme: $text1-font);
-            font-weight: bold;
-        }
-
-        
+    .active {
+      background: $panel-text2-active;
+      padding: 0.1rem;
     }
 
+    .mat-expansion-panel-header {
+      border-top: 1px solid $white;
+      border-radius: unset;
+      opacity: 1;
+    }
+
+    .mat-expansion-panel-header:hover {
+      background: unset;
+    }
+
+    .mat-expansion-panel-header-title {
+      font: $panel-text;
+      letter-spacing: 0px;
+      color: $white;
+      font-weight: 500;
+      opacity: 1;
+    }
+
+    .mat-expansion-panel {
+      background: None;
+      box-shadow: None;
+      font: $panel-text;
+      letter-spacing: 0px;
+      color: $white;
+      opacity: 1;
+      position: relative;
+    }
+
+    .mda {
+      border-bottom: 1px solid $white;
+      opacity: 1;
+    }
+
+    ::ng-deep .mat-expansion-indicator::after {
+      color: $white;
+    //   transform: rotate(320deg);
+    }
+
+    .mat-expansion-panel-header.mat-expanded {
+      position: relative;
+    }
+
+    .mat-expansion-panel-header.mat-expanded::before {
+      content: "";
+      display: block;
+      width: 15px;
+      height: 1px;
+      background: $white;
+      left: 10px;
+      top: 50%;
+      position: absolute;
+    }
+
+    %shared-vertical {
+      position: absolute;
+      left: 10px;
+      top: 34px;
+      border-left: 2px solid $white;
+    }
+
+    .vertical {
+      @extend %shared-vertical;
+      height: 51.3%;
+    }
+
+    .vertical2 {
+      @extend %shared-vertical;
+      height: 76.5%;
+    }
+
+    .vertical3 {
+      @extend %shared-vertical;
+      height: 66%;
+    }
+
+    .panel_text {
+      position: relative;
+      font: $panel-text2;
+      letter-spacing: 0px;
+      color: $white;
+      font-weight: 400;
+      margin-left: 20px;
+      cursor: pointer;
+    }
+
+    .panel_text:active {
+      background: $panel-text2-active;
+      opacity: 0.48;
+    }
+
+    .panel_text:before {
+      content: "";
+      display: block;
+      width: 27px;
+      height: 2px;
+      background: $white;
+      left: -33px;
+      top: 50%;
+      position: absolute;
+    }
+  }
+
+  .footer {
+    border-top: 1px solid $white;
+    position: absolute;
+    bottom: 0;
+
+    .menu {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100vw;
+      // position: sticky;
+      // position: -webkit-sticky;
+      // z-index: 1000;
+    }
+
+    .d-h-l {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      margin-right: 2rem;
+    }
+
+    .category {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      justify-content: center;
+      align-items: initial;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .category-icon {
+      display: flex;
+      justify-content: right;
+      align-items: right;
+      margin-left: 3.5rem;
+      text-align: right;
+      vertical-align: middle;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .category-icon2 {
+      display: flex;
+      justify-content: left;
+      align-items: left;
+      width: 2em;
+      height: 2em;
+      vertical-align: middle;
+      margin-right: 15px;
+      margin-left: 15px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    @mixin theme($theme) {
+      letter-spacing: 0px;
+      font: $theme;
+      text-align: left;
+    }
+
+    .left_text1 {
+      @include theme($theme: $text1-font);
+      font-weight: bold;
+    }
+
+    .left_text2 {
+      @include theme($theme: $text2-font);
+      margin-top: 2px;
+    }
+
+    .right_text1 {
+      @include theme($theme: $right1-font);
+    }
+
+    .right_text2 {
+      @include theme($theme: $text1-font);
+      font-weight: bold;
+    }
+  }
 }

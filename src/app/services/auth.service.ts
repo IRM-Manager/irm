@@ -4,95 +4,97 @@ import { of, Observable } from 'rxjs';
 import { catchError, mapTo, retry, tap } from 'rxjs/operators';
 import { BaseUrl } from 'src/environments/environment';
 import { Tokens } from 'src/app/public-layout/shared/form';
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { ToggleNavService } from '../public-layout/sharedService/toggle-nav.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   @Output() public sidenavToggle2 = new EventEmitter();
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();  
+  private helper = new JwtHelperService();
 
-  constructor(public shared: ToggleNavService, private http: HttpClient,
-    private snackBar: MatSnackBar, private router: Router) {
-     }
+  constructor(
+    public shared: ToggleNavService,
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
-    login(user: { username: string, password: string }): Observable<boolean> {
-      return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/', user)
-        .pipe(
-          tap((tokens: any) => {this.storeTokens(tokens)}),
-            mapTo(true),
-            catchError((error: any) => {
-                if(error.status === 401) {
-                  this.snackBar.open("wrong username or password", "", {
-                  duration: 5000,
-                  panelClass: "error"
-                });
-                }
-                else if(error.status === 0) {
-                  this.snackBar.open('error', "", {
-                    duration: 5000,
-                    panelClass: "error"
-                  });
-                }
-              return of(false);
-            })
-          );
+  login(user: { username: string; password: string }): Observable<boolean> {
+    return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/', user).pipe(
+      tap((tokens: any) => {
+        this.storeTokens(tokens);
+      }),
+      mapTo(true),
+      catchError((error: any) => {
+        if (error.status === 401) {
+          this.snackBar.open('wrong username or password', '', {
+            duration: 5000,
+            panelClass: 'error',
+          });
+        } else if (error.status === 0) {
+          this.snackBar.open('error', '', {
+            duration: 5000,
+            panelClass: 'error',
+          });
+        }
+        return of(false);
+      })
+    );
+  }
+
+  // check if user is login
+  isLoggedIn() {
+    return !!this.getJwtToken();
+  }
+
+  checkExpired() {
+    const isExpired = this.helper.isTokenExpired(this.getJwtToken());
+    const RisExpired = this.helper.isTokenExpired(this.getRefreshToken());
+    if (!RisExpired && isExpired) {
+      this.refreshToken();
+    } else if (RisExpired) {
+      this.logout();
+      this.snackBar.open('Please Relogin', '', {
+        duration: 5000,
+        panelClass: 'error',
+      });
+      this.router.navigate(['']);
+    } else if (!RisExpired && !isExpired) {
+    } else {
+      this.logout();
+      this.router.navigate(['']);
     }
-  
+  }
 
-    // check if user is login
-    isLoggedIn() {
-      return !!this.getJwtToken();
-    }
-
-    checkExpired() {
-      const isExpired = this.helper.isTokenExpired(this.getJwtToken());
-      const RisExpired = this.helper.isTokenExpired(this.getRefreshToken());
-      if( !RisExpired && isExpired ) {
-        this.refreshToken();
-      }
-      else if(RisExpired) {
-        this.logout();
-        this.snackBar.open("Please Relogin", "", {
-          duration: 5000,
-          panelClass: "error"
-        });
-        this.router.navigate(['']);
-      }
-      else if (!RisExpired && !isExpired) {
-      }
-      else  {
-        this.logout();
-        this.router.navigate(['']);
-      }
-    }
-  
-
-    // refresh token 
-    refreshToken() {
-      const data = {
-        refresh: this.getRefreshToken()
-      }
-      return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', data)
+  // refresh token
+  refreshToken() {
+    const data = {
+      refresh: this.getRefreshToken(),
+    };
+    return this.http
+      .post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', data)
       .subscribe(
         (tokens: any) => {
-          console.log(tokens)
+          console.log(tokens);
           this.storeJwtToken(tokens.access);
           return true;
         },
         (error: any) => {
           return false;
-        })
-    }
+        }
+      );
+  }
 
-  
   // checkToken() {
   //   // const decodedToken = this.helper.decodeToken(this.getJwtToken());
   //   // const expirationDate = this.helper.getTokenExpirationDate(this.getJwtToken());
@@ -102,7 +104,7 @@ export class AuthService {
   //     this.refreshToken();
   //   }
   //   else if( (RisExpired === true) && (isExpired === true) ) {
-      
+
   //     this.logout();
   //     this.router.navigate(['']);
   //     this.shared.sendClickEvent();
@@ -111,37 +113,36 @@ export class AuthService {
   //       panelClass: "warning"
   //     });
   //     this.removeTokens();
-  //     this.dialog.closeAll(); 
+  //     this.dialog.closeAll();
   //   }
 
   // }
-  
-    getJwtToken(): any {
-      return localStorage.getItem(this.JWT_TOKEN);
-    }
 
-    // logout user
-    public logout() {
-      this.removeTokens();
-      this.router.navigate(['/'])
-    }
+  getJwtToken(): any {
+    return localStorage.getItem(this.JWT_TOKEN);
+  }
 
-    getRefreshToken(): any {
-      return localStorage.getItem(this.REFRESH_TOKEN);
-    }
-  
-    private storeJwtToken(jwt: string) {
-      localStorage.setItem(this.JWT_TOKEN, jwt);
-    }
-  
-    public storeTokens(tokens: Tokens) {
-      localStorage.setItem(this.JWT_TOKEN, tokens.access);
-      localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
-    }
-  
-    private removeTokens() {
-      localStorage.removeItem(this.JWT_TOKEN);
-      localStorage.removeItem(this.REFRESH_TOKEN);
-    }
+  // logout user
+  public logout() {
+    this.removeTokens();
+    this.router.navigate(['/']);
+  }
 
+  getRefreshToken(): any {
+    return localStorage.getItem(this.REFRESH_TOKEN);
+  }
+
+  private storeJwtToken(jwt: string) {
+    localStorage.setItem(this.JWT_TOKEN, jwt);
+  }
+
+  public storeTokens(tokens: Tokens) {
+    localStorage.setItem(this.JWT_TOKEN, tokens.access);
+    localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
+  }
+
+  private removeTokens() {
+    localStorage.removeItem(this.JWT_TOKEN);
+    localStorage.removeItem(this.REFRESH_TOKEN);
+  }
 }
