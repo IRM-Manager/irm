@@ -3,26 +3,31 @@
     <!-- if is individual -->
     <div *ngIf="data.type =='ind'">
 
-        <div class="payee-sidenav2 col-xl-3 col-lg-3">
+        <div class="payee-sidenav2 col-xl-3 col-lg-3 col-md-3">
             <div class="payee_edit_panel">
-                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'ind')">Edit Details</button>
+                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'ind')">Edit
+                    Details</button>
                 <button mat-button class="payee_edit_text">View Transaction</button>
-                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
+                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
+                    Payer</button>
             </div>
-            <div style="clear: both;"></div>
+            <!-- <div style="clear: both;"></div> -->
         </div>
 
-        <div class="payee-sidenav2 col-xl-9 col-lg-9">
+        <div class="payee-sidenav2 col-xl-9 col-lg-9 col-md-9">
 
             <div class="header">
                 <div>
-                    <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}</div>
+                    <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}
+                    </div>
                     <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
                     <div class="right2">Reg No: {{data.data.payer.id}}</div>
                     <div class="left2">Individual Tax Payer</div>
                 </div>
                 <div class="payee_cancel_button">
-                    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+                    <button mat-icon-button mat-dialog-close>
+                        <mat-icon>close</mat-icon>
+                    </button>
                 </div>
             </div>
 
@@ -55,7 +60,7 @@
                             <th class="sub_title">{{data.data.profession_trade}}</th>
                         </tr>
                         <tr>
-                            <th class="title">Email</th>
+                            <th class="title">E-mail</th>
                             <th class="sub_title">{{data.data.email}}</th>
                         </tr>
                         <tr>
@@ -84,16 +89,18 @@
     <!-- if is business -->
     <div *ngIf="data.type =='com'">
 
-        <div class="payee-sidenav2 col-xl-3 col-lg-3">
+        <div class="payee-sidenav2 col-xl-3 col-lg-3 col-md-3">
             <div class="payee_edit_panel">
-                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit Details</button>
+                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit
+                    Details</button>
                 <button mat-button class="payee_edit_text">View Transaction</button>
-                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
+                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
+                    Payer</button>
             </div>
             <div style="clear: both;"></div>
         </div>
 
-        <div class="payee-sidenav2 col-xl-9 col-lg-9">
+        <div class="payee-sidenav2 col-xl-9 col-lg-9 col-md-9">
 
             <div class="header">
                 <div>
@@ -103,215 +110,236 @@
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
-                    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+                    <button mat-icon-button mat-dialog-close>
+                        <mat-icon>close</mat-icon>
+                    </button>
                 </div>
             </div>
-                <mat-dialog-content class="mat-typography ind_com">
+            <mat-dialog-content class="mat-typography ind_com">
 
-                    <table class="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th class="title">Date Establishment</th>
-                                <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Number of staff</th>
-                                <th class="sub_title align-middle">{{data.data.number_employee}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Address</th>
-                                <th class="sub_title align-middle">{{data.data.address}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Director</th>
-                                <th class="sub_title align-middle director">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Phone Number</th>
-                                <th class="sub_title align-middle">{{data.data.org_phone}}</th>
-                            </tr>
-                        </thead>
-                    </table>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="title">Date Establishment</th>
+                            <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Number of staff</th>
+                            <th class="sub_title align-middle">{{data.data.number_employee}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Address</th>
+                            <th class="sub_title align-middle">{{data.data.address}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Director</th>
+                            <th class="sub_title align-middle director">{{data.data.directors_info.surname}}
+                                {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Phone Number</th>
+                            <th class="sub_title align-middle">{{data.data.org_phone}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">E-mail Address</th>
+                            <th class="sub_title align-middle">{{data.data.org_email}}</th>
+                        </tr>
+                    </thead>
+                </table>
 
-                    <!-- <div class="button_p">
+                <!-- <div class="button_p">
                         <button mat-button class="back" mat-dialog-close>Back</button>
                         <button mat-button class="continue" (click)="StaffIncome2()" mat-dialog-close>Continue</button>
                     </div> -->
 
-                </mat-dialog-content>
-                <mat-dialog-actions>
-                </mat-dialog-actions>
+            </mat-dialog-content>
+            <mat-dialog-actions>
+            </mat-dialog-actions>
 
         </div>
 
     </div>
 
-         <!-- if is payee -->
-        <div *ngIf="data.type =='payee'">
+    <!-- if is payee -->
+    <div *ngIf="data.type =='payee'">
 
-            <div class="payee-sidenav2 col-xl-3 col-lg-3">
-                <div class="payee_edit_panel">
-                    <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit Details</button>
-                    <button mat-button class="payee_edit_text">View Transaction</button>
-                    <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
-                </div>
-                <div style="clear: both;"></div>
+        <div class="payee-sidenav2 col-xl-3 col-lg-3 col-md-3">
+            <div class="payee_edit_panel">
+                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit
+                    Details</button>
+                <button mat-button class="payee_edit_text">View Transaction</button>
+                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
+                    Payer</button>
             </div>
-
-            <div class="payee-sidenav2 col-xl-9 col-lg-9">
-
-                <div class="header">
-                    <div>
-                        <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                        <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                        <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                        <div class="left2">Registered Business</div>
-                    </div>
-                    <div class="payee_cancel_button">
-                        <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
-                    </div>
-                </div>
-                <div style="clear: both;"></div>
-                <mat-dialog-content class="mat-typography ind_com_payee">
-    
-                    <table class="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th class="title align-middle">Date Establishment</th>
-                                <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>                                
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Number of staff</th>
-                                <th class="sub_title align-middle">{{data.data.number_employee}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Address</th>
-                                <th class="sub_title align-middle">{{data.data.address}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Director</th>
-                                <th class="sub_title align-middle director">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
-                            </tr>
-                            <tr>
-                                <th class="title align-middle">Phone Number</th>
-                                <th class="sub_title align-middle">{{data.data.org_phone}}</th>
-                            </tr>
-                        </thead>
-                    </table>
-    
-                    <div class="button_p">
-                        <button mat-button class="back" mat-dialog-close>Back</button>
-                        <button mat-button class="continue" (click)="StaffIncome()" mat-dialog-close>Continue</button>
-                    </div>
-    
-                </mat-dialog-content>
-                <mat-dialog-actions>
-                </mat-dialog-actions>
-            </div>
+            <div style="clear: both;"></div>
         </div>
+
+        <div class="payee-sidenav2 col-xl-9 col-lg-9 col-md-9">
+
+            <div class="header">
+                <div>
+                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="left2">Registered Business</div>
+                </div>
+                <div class="payee_cancel_button">
+                    <button mat-icon-button mat-dialog-close>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <mat-dialog-content class="mat-typography ind_com_payee">
+
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="title align-middle">Date Establishment</th>
+                            <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Number of staff</th>
+                            <th class="sub_title align-middle">{{data.data.number_employee}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Address</th>
+                            <th class="sub_title align-middle">{{data.data.address}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Director</th>
+                            <th class="sub_title align-middle director">{{data.data.directors_info.surname}}
+                                {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Phone Number</th>
+                            <th class="sub_title align-middle">{{data.data.org_phone}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">E-mail <Address></Address></th>
+                            <th class="sub_title align-middle">{{data.data.org_email}}</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <div class="button_p">
+                    <button mat-button class="back" mat-dialog-close>Back</button>
+                    <button mat-button class="continue" (click)="StaffIncome()" mat-dialog-close>Continue</button>
+                </div>
+
+            </mat-dialog-content>
+            <mat-dialog-actions>
+            </mat-dialog-actions>
+        </div>
+    </div>
 
 
     <!--  payee employee -->
 
     <div *ngIf="data.type =='payee2'" class="payee2" id="print-section2">
-            <div class="header2">
-                
-                <div class="header-text">individual employee breakdown of pay</div>
-                <div class="payee_clearfix">
-                    <div class="column1 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="dark">Tax ID: {{data.data.employerTin}}</div>
-                        <div class="blue">{{data.data2.organisation_name}}</div>
-                        <div class="dark">Registered Business</div>
-                    </div>
-                    <div class="column2 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <div class="dark">Tax ID {{data.data.employeeTin}}</div>
-                        <div class="blue">{{data.data.employee}}</div>
-                        <div class="dark">Employee - {{data.data.employee_position}}</div>   
-                    </div>
-                    <div class="column3 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <div class="dark">Date - 
-                            <span class="blue_year">{{data.data.taxYear}}</span> 
-                            <!-- <span class="blue_year">2021</span> <span class="dark">2022</span> -->
-                        </div>
+        <div class="header2">
+
+            <div class="header-text">individual employee breakdown of pay</div>
+            <div class="payee_clearfix">
+                <div class="column1 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="dark">Tax ID: {{data.data.employerTin}}</div>
+                    <div class="blue">{{data.data2.organisation_name}}</div>
+                    <div class="dark">Registered Business</div>
+                </div>
+                <div class="column2 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="dark">Tax ID {{data.data.employeeTin}}</div>
+                    <div class="blue">{{data.data.employee}}</div>
+                    <div class="dark">Employee - {{data.data.employee_position}}</div>
+                </div>
+                <div class="column3 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="dark">Date -
+                        <span class="blue_year">{{data.data.taxYear}}</span>
+                        <!-- <span class="blue_year">2021</span> <span class="dark">2022</span> -->
                     </div>
                 </div>
-
             </div>
-            <div style="clear: both;"></div>
-            <div class="clear-both"></div>
-                
-            <mat-dialog-content class="mat-typography table-content">
-                <div class="table_headline">All Payment Applicable</div>
-                <table class="table table-borderless table-striped">
-                    <thead class="payee_table_strip">
-                        <tr>
-                            <th>Items</th>
-                            <th>Monthly (&#8358;)</th>
-                            <th>Annual (&#8358;)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="align-middle">Basic (B)</td>
-                            <td class="align-middle">{{formatMoney(data.data.basic)}}</td>
-                            <td class="align-middle">33,333,000.00</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">House (H)</td>
-                            <td class="align-middle">{{formatMoney(data.data.housing)}}</td>
-                            <td class="align-middle">33,333,000.00</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">Transport (T)</td>
-                            <td class="align-middle">{{formatMoney(data.data.tp)}}</td>
-                            <td class="align-middle">33,333,000.00</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">Other allowance</td>
-                            <td class="align-middle"></td>
-                            <td class="align-middle"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="align-middle total_gross">Total Gross</td>
-                            <td class="align-middle total_gross">{{formatMoney(data.data.gross)}}</td>
-                        </tr>
-                    </tbody>
-                    <tr>
-                        <td></td>
-                        <td class="align-middle total_gross">Consolated Relief <span class="material-icons error_icon">error_outline</span></td>
-                        <td class="align-middle total_gross">33,333,000.00</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="align-middle total_gross">Exemptions <span class="material-icons error_icon">error_outline</span></td>
-                        <td class="align-middle total_gross">33,333,000.00</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="align-middle total_gross">Tax Free Pay <span class="material-icons error_icon">error_outline</span></td>
-                        <td class="align-middle total_gross">{{formatMoney(data.data.compute_annualtax)}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="align-middle total_gross">Taxable Income <span class="material-icons error_icon">error_outline</span></td>
-                        <td class="align-middle total_gross">33,333,000.00</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="align-middle total_blue_gross">Pay-E <span class="material-icons error_icon">error_outline</span></td>
-                        <td class="align-middle total_blue_gross">93,333,000.00</td>
-                    </tr>
-                </table>
 
-            </mat-dialog-content>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="clear-both"></div>
 
-            <div style="text-align: right;">
-                <button mat-button class="gross_print_p" [useExistingCss]="true" printSectionId="print-section2" ngxPrint>
-                        <mat-icon class="gross_print">print</mat-icon>
-                        Print
-                </button>
-            </div>
+        <mat-dialog-content class="mat-typography table-content">
+            <div class="table_headline">All Payment Applicable</div>
+            <table class="table table-borderless table-striped">
+                <thead class="payee_table_strip">
+                    <tr>
+                        <th>Items</th>
+                        <th>Monthly (&#8358;)</th>
+                        <th>Annual (&#8358;)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle">Basic (B)</td>
+                        <td class="align-middle">{{formatMoney(data.data.basic)}}</td>
+                        <td class="align-middle">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">House (H)</td>
+                        <td class="align-middle">{{formatMoney(data.data.housing)}}</td>
+                        <td class="align-middle">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">Transport (T)</td>
+                        <td class="align-middle">{{formatMoney(data.data.tp)}}</td>
+                        <td class="align-middle">33,333,000.00</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">Other allowance</td>
+                        <td class="align-middle"></td>
+                        <td class="align-middle"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align-middle total_gross">Total Gross</td>
+                        <td class="align-middle total_gross">{{formatMoney(data.data.gross)}}</td>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td></td>
+                    <td class="align-middle total_gross">Consolated Relief <span
+                            class="material-icons error_icon">error_outline</span></td>
+                    <td class="align-middle total_gross">33,333,000.00</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="align-middle total_gross">Exemptions <span
+                            class="material-icons error_icon">error_outline</span></td>
+                    <td class="align-middle total_gross">33,333,000.00</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="align-middle total_gross">Tax Free Pay <span
+                            class="material-icons error_icon">error_outline</span></td>
+                    <td class="align-middle total_gross">{{formatMoney(data.data.compute_annualtax)}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="align-middle total_gross">Taxable Income <span
+                            class="material-icons error_icon">error_outline</span></td>
+                    <td class="align-middle total_gross">33,333,000.00</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="align-middle total_blue_gross">Pay-E <span
+                            class="material-icons error_icon">error_outline</span></td>
+                    <td class="align-middle total_blue_gross">93,333,000.00</td>
+                </tr>
+            </table>
+
+        </mat-dialog-content>
+
+        <div style="text-align: right;">
+            <button mat-button class="gross_print_p" [useExistingCss]="true" printSectionId="print-section2" ngxPrint>
+                <mat-icon class="gross_print">print</mat-icon>
+                Print
+            </button>
+        </div>
     </div>
 
 
@@ -319,7 +347,7 @@
 
     <div *ngIf="data.type =='gen_bill'" class="gen_bill_p" id="print-section">
         <div class="header3">
-            
+
             <div class="header-text">business pay as you earn bill</div>
             <div class="payee_clearfix">
                 <div class="column_gen1 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -333,14 +361,14 @@
                 <div class="column_gen2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <!-- <div class="brn_image"><img src="assets/images/login_left.svg" alt=""></div> -->
                     <div class="dark">BRN3244YH4H</div>
-                    <div class="dark">(&#8358;) 12,000,000.00</div>   
+                    <div class="dark">(&#8358;) 12,000,000.00</div>
                 </div>
             </div>
 
         </div>
         <div style="clear: both;"></div>
         <div class="clear-both2"></div>
-            
+
         <mat-dialog-content class="mat-typography table-content2">
             <div class="table_headline">All Payment Applicable</div>
             <table class="table table-borderless table-striped">
@@ -388,7 +416,8 @@
                     </div>
                 </div>
                 <div class="col6 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <button mat-button class="gen_print_p" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+                    <button mat-button class="gen_print_p" [useExistingCss]="true" printSectionId="print-section"
+                        ngxPrint>
                         <mat-icon class="gen_print">print</mat-icon>
                         Print
                     </button>
@@ -406,21 +435,23 @@
     </div>
 
     <div *ngIf="data.type =='delete-payer'" class="delete-payer">
-        <h5 mat-dialog-title class="delete-payer-text">Delete TaxPayer with Tax ID: <span class="delete-payer-tin">{{data.data.payer.tin}}</span></h5>
-        <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Payer? This process cannot be undone.</div>
+        <h5 mat-dialog-title class="delete-payer-text">Delete TaxPayer with Tax ID: <span
+                class="delete-payer-tin">{{data.data.payer.tin}}</span></h5>
+        <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Payer? This process cannot
+            be undone.</div>
         <div mat-dialog-actions>
-        <div class="align-delete-payer">
-            <button mat-button mat-dialog-close class="cancel-payer-button">Cancel</button>
-            <button mat-button class="delete-payer-button" (click)="DeletePayer()">
-                <span *ngIf="!isdelete" class="add_text">Delete</span>
-                <div *ngIf="isdelete" class="loader_delete">
-                    <div class="bubble_delete"></div>
-                    <div class="bubble_delete"></div>
-                    <div class="bubble_delete"></div>
-                    <div class="bubble_delete"></div>
-                </div>
-            </button>
-        </div>
+            <div class="align-delete-payer">
+                <button mat-button mat-dialog-close class="cancel-payer-button">Cancel</button>
+                <button mat-button class="delete-payer-button" (click)="DeletePayer()">
+                    <span *ngIf="!isdelete" class="add_text">Delete</span>
+                    <div *ngIf="isdelete" class="loader_delete">
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 

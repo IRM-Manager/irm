@@ -1,104 +1,103 @@
-$nav-color: #45A841 0% 0% no-repeat padding-box;
-$nav-color2: transparent linear-gradient(142deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
-$white: #FFFFFF;
+$nav-color: #45a841 0% 0% no-repeat padding-box;
+$nav-color2: transparent linear-gradient(142deg, #3e5fa8 0%, #2aa977 100%) 0% 0%
+  no-repeat padding-box;
+$white: #ffffff;
 $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
 $right1-font: normal normal 400 15px/19px Montserrat;
-$payee: transparent linear-gradient(142deg, #6F7D9B 0%, #191F1D 100%) 0% 0% no-repeat padding-box;
-$mda: transparent linear-gradient(142deg, #364E83 0%, #4E5BA5 100%) 0% 0% no-repeat padding-box;
-$green: #45A841;
-
+$payee: transparent linear-gradient(142deg, #6f7d9b 0%, #191f1d 100%) 0% 0%
+  no-repeat padding-box;
+$mda: transparent linear-gradient(142deg, #364e83 0%, #4e5ba5 100%) 0% 0%
+  no-repeat padding-box;
+$green: #45a841;
 
 .nav {
-    background: $nav-color;
+  background: $nav-color;
 }
 
 .nav2 {
-    background: $nav-color2
+  background: $nav-color2;
 }
 
 .nav3 {
-    background: $payee;
+  background: $payee;
 }
 
 .nav4 {
-    background: $mda;
+  background: $mda;
 }
 
 mat-toolbar {
-    color: $white;
-    padding-top: 2.5rem;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    z-index: 1000;
-    padding-bottom: 2.5rem;
-    opacity: 1;
+  color: $white;
+  padding-top: 2.5rem;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+  padding-bottom: 2.5rem;
+  opacity: 1;
 
-    .hambugger {
-        background: $white;
-        color: $green;
-        margin-right: 10px;
-    }
+  .hambugger {
+    background: $white;
+    color: $green;
+    margin-right: 10px;
+  }
 
-    @mixin theme($theme) {
-        letter-spacing: 0px;
-        font: $theme;
-    }
+  @mixin theme($theme) {
+    letter-spacing: 0px;
+    font: $theme;
+  }
 
-    .spacer {
-        flex: 1 1 auto;
-    } 
+  .spacer {
+    flex: 1 1 auto;
+  }
 
-    .left_text1 {  
-        @include theme($theme: $text1-font);
-        font-weight: bold;
-    }
+  .left_text1 {
+    @include theme($theme: $text1-font);
+    font-weight: bold;
+  }
 
-    .left_text2 {  
-        @include theme($theme: $text2-font);
-        margin-top: 2px;
-    }
+  .left_text2 {
+    @include theme($theme: $text2-font);
+    margin-top: 2px;
+  }
 
-    .right_text1 {  
-        @include theme($theme: $right1-font);
-    }
+  .right_text1 {
+    @include theme($theme: $right1-font);
+  }
 
-    .right_text2 {  
-        @include theme($theme: $text1-font);
-        font-weight: bold;
-    }
+  .right_text2 {
+    @include theme($theme: $text1-font);
+    font-weight: bold;
+  }
 
-    .identity {
-        font-size: 50px;
-    }
+  .identity {
+    font-size: 50px;
+  }
 
-    .d-h-l {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        margin-right: 2rem;
-    }
+  .d-h-l {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-right: 2rem;
+  }
 
+  .category {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    align-items: initial;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 
-    .category {
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        justify-content: center;
-        align-items: initial;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
-    .category-icon {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        margin-right: 10px;
-        margin-top: auto;
-        margin-bottom: auto;
-        
-    }
-
+  .category-icon {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 }
