@@ -1,185 +1,200 @@
 <div class="wrapper">
 
-    <!-- if is company -->
+    <!-- if is individual -->
     <div *ngIf="data.type =='ind'">
-        <div class="header">
-            <div>
-                <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}</div>
-                <div class="rightt1 right1">TIN: {{data.data.payer.tin}}</div>
-            </div><br>
-            <div>
-                <div class="leftt2 left2">Registered Taxpayer</div>        
-                <div class="rightt2 right2">Tax ID: {{data.data.payer.id}}</div>
-            </div><br>
+
+        <div class="payee-sidenav2 col-xl-3 col-lg-3">
+            <div class="payee_edit_panel">
+                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'ind')">Edit Details</button>
+                <button mat-button class="payee_edit_text">View Tax History</button>
+                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
+            </div>
+            <div style="clear: both;"></div>
         </div>
-        <mat-dialog-content class="mat-typography ind_com">
 
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th class="title">Registered DateDate</th>
-                        <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
-                        <th></th>
-                        <th class="title">Last PayE payment:</th>
-                        <th class="sub_title">No record</th>
-                    </tr>
-                    <tr>
-                        <th class="title">No. Of Dependent</th>
-                        <th class="sub_title">No record</th>
-                        <th></th>
-                        <th></th>
-                        <th class="pay_history">
-                            <span class="material-icons icon">access_time</span>
-                            <span class="title2">View PayE History</span>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="title">Address</th>
-                        <th class="sub_title">{{data.data.address}}</th>
-                    </tr>
-                    <tr>
-                        <th class="title">Gender</th>
-                        <th class="sub_title" style="text-transform: capitalize;">{{data.data.gender}}</th>
-                    </tr>
-                    <tr>
-                        <th class="title">Phone Number</th>
-                        <th class="sub_title">{{data.data.phone}}</th>
-                    </tr>
-                    <tr>
-                        <th class="title">Occupation</th>
-                        <th class="sub_title">{{data.data.profession_trade}}</th>
-                    </tr>
-                    <tr>
-                        <th class="title">Email</th>
-                        <th class="sub_title">emma@gmail.com</th>
-                    </tr>
-                    <tr>
-                        <th class="title">Marital status</th>
-                        <th class="sub_title">No record</th>
-                    </tr>
-                    <tr>
-                        <th class="title">Nigerian</th>
-                        <th class="sub_title">Yes</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="payee-sidenav2 col-xl-9 col-lg-9">
 
-            <div class="button_p">
-                <button mat-button class="back" mat-dialog-close>Back</button>
-                <button mat-button class="continue" mat-dialog-close>Continue</button>
+            <div class="header">
+                <div>
+                    <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="left2">Registered Business</div>
+                </div>
+                <div class="payee_cancel_button">
+                    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+                </div>
             </div>
 
-        </mat-dialog-content>
-        <mat-dialog-actions>
-          </mat-dialog-actions>
-
-    </div>
-
-
-    <!-- if is business -->
-    <div *ngIf="data.type =='com'">
-        <div class="header">
-                <div>
-                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                    <div class="rightt1 right1">TIN: {{data.data.payer.tin}}</div>
-                </div><br>
-                <div>
-                    <div class="leftt2 left2">Registered Business</div>        
-                    <div class="rightt2 right2">Reg No: 334337434344</div>
-                </div><br>
-                <div class="right right3">Taxpayer ID: {{data.data.payer.id}}</div>
-            </div>
             <mat-dialog-content class="mat-typography ind_com">
 
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th class="title">Date Establishment</th>
+                            <th class="title">Registered DateDate</th>
                             <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
-                            <th></th>
-                            <th class="title">Last PayE payment:</th>
-                            <th class="sub_title">No record</th>
                         </tr>
                         <tr>
-                            <th class="title">Number of staff</th>
-                            <th class="sub_title">{{data.data.number_employee}}</th>
-                            <th></th>
-                            <th></th>
-                            <th class="pay_history">
-                                <span class="material-icons icon">access_time</span>
-                                <span class="title2">View PayE History</span>
-                            </th>
+                            <th class="title">No. Of Dependent</th>
+                            <th class="sub_title">No record</th>
                         </tr>
                         <tr>
                             <th class="title">Address</th>
                             <th class="sub_title">{{data.data.address}}</th>
                         </tr>
                         <tr>
-                            <th class="title">Director</th>
-                            <th class="sub_title">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                            <th class="title">Gender</th>
+                            <th class="sub_title" style="text-transform: capitalize;">{{data.data.gender}}</th>
                         </tr>
                         <tr>
                             <th class="title">Phone Number</th>
-                            <th class="sub_title">{{data.data.org_phone}}</th>
+                            <th class="sub_title">{{data.data.phone}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Occupation</th>
+                            <th class="sub_title">{{data.data.profession_trade}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Email</th>
+                            <th class="sub_title">emma@gmail.com</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Marital status</th>
+                            <th class="sub_title">No record</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Nigerian</th>
+                            <th class="sub_title">Yes</th>
                         </tr>
                     </thead>
                 </table>
 
-                <div class="button_p">
+                <!-- <div class="button_p">
                     <button mat-button class="back" mat-dialog-close>Back</button>
-                    <button mat-button class="continue" (click)="StaffIncome2()" mat-dialog-close>Continue</button>
-                </div>
+                    <button mat-button class="continue" mat-dialog-close>Continue</button>
+                </div> -->
 
             </mat-dialog-content>
             <mat-dialog-actions>
             </mat-dialog-actions>
+        </div>
     </div>
 
-    <!-- if is payee -->
-        <div *ngIf="data.type =='payee'">
+
+    <!-- if is business -->
+    <div *ngIf="data.type =='com'">
+
+        <div class="payee-sidenav2 col-xl-3 col-lg-3">
+            <div class="payee_edit_panel">
+                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit Details</button>
+                <button mat-button class="payee_edit_text">View Tax History</button>
+                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="payee-sidenav2 col-xl-9 col-lg-9">
+
             <div class="header">
-                    <div>
-                        <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                        <div class="rightt1 right1">TIN: {{data.data.payer.tin}}</div>
-                    </div><br>
-                    <div>
-                        <div class="leftt2 left2">Registered Business</div>        
-                        <div class="rightt2 right2">Reg No: 334337434344</div>
-                    </div><br>
-                    <div class="right right3">Taxpayer ID: {{data.data.payer.id}}</div>
+                <div>
+                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="left2">Registered Business</div>
                 </div>
+                <div class="payee_cancel_button">
+                    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+                </div>
+            </div>
                 <mat-dialog-content class="mat-typography ind_com">
-    
+
                     <table class="table table-borderless">
                         <thead>
                             <tr>
                                 <th class="title">Date Establishment</th>
-                                <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
-                                <th></th>
-                                <th class="title">Last PayE payment:</th>
-                                <th class="sub_title">No record</th>
+                                <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
                             </tr>
                             <tr>
-                                <th class="title">Number of staff</th>
-                                <th class="sub_title">{{data.data.number_employee}}</th>
-                                <th></th>
-                                <th></th>
-                                <th class="pay_history">
-                                    <span class="material-icons icon">access_time</span>
-                                    <span class="title2">View PayE History</span>
-                                </th>
+                                <th class="title align-middle">Number of staff</th>
+                                <th class="sub_title align-middle">{{data.data.number_employee}}</th>
                             </tr>
                             <tr>
-                                <th class="title">Address</th>
-                                <th class="sub_title">{{data.data.address}}</th>
+                                <th class="title align-middle">Address</th>
+                                <th class="sub_title align-middle">{{data.data.address}}</th>
                             </tr>
                             <tr>
-                                <th class="title">Director</th>
-                                <th class="sub_title">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                                <th class="title align-middle">Director</th>
+                                <th class="sub_title align-middle director">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
                             </tr>
                             <tr>
-                                <th class="title">Phone Number</th>
-                                <th class="sub_title">{{data.data.org_phone}}</th>
+                                <th class="title align-middle">Phone Number</th>
+                                <th class="sub_title align-middle">{{data.data.org_phone}}</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <!-- <div class="button_p">
+                        <button mat-button class="back" mat-dialog-close>Back</button>
+                        <button mat-button class="continue" (click)="StaffIncome2()" mat-dialog-close>Continue</button>
+                    </div> -->
+
+                </mat-dialog-content>
+                <mat-dialog-actions>
+                </mat-dialog-actions>
+
+        </div>
+
+    </div>
+
+         <!-- if is payee -->
+        <div *ngIf="data.type =='payee'">
+
+            <div class="payee-sidenav2 col-xl-3 col-lg-3">
+                <div class="payee_edit_panel">
+                    <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit Details</button>
+                    <button mat-button class="payee_edit_text">View Tax History</button>
+                    <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="payee-sidenav2 col-xl-9 col-lg-9">
+
+                <div class="header">
+                    <div>
+                        <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                        <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                        <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                        <div class="left2">Registered Business</div>
+                    </div>
+                    <div class="payee_cancel_button">
+                        <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <mat-dialog-content class="mat-typography ind_com_payee">
+    
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="title align-middle">Date Establishment</th>
+                                <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>                                
+                            </tr>
+                            <tr>
+                                <th class="title align-middle">Number of staff</th>
+                                <th class="sub_title align-middle">{{data.data.number_employee}}</th>
+                            </tr>
+                            <tr>
+                                <th class="title align-middle">Address</th>
+                                <th class="sub_title align-middle">{{data.data.address}}</th>
+                            </tr>
+                            <tr>
+                                <th class="title align-middle">Director</th>
+                                <th class="sub_title align-middle director">{{data.data.directors_info.surname}} {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                            </tr>
+                            <tr>
+                                <th class="title align-middle">Phone Number</th>
+                                <th class="sub_title align-middle">{{data.data.org_phone}}</th>
                             </tr>
                         </thead>
                     </table>
@@ -192,7 +207,8 @@
                 </mat-dialog-content>
                 <mat-dialog-actions>
                 </mat-dialog-actions>
-    </div>
+            </div>
+        </div>
 
 
     <!--  payee employee -->
@@ -203,12 +219,12 @@
                 <div class="header-text">individual employee breakdown of pay</div>
                 <div class="payee_clearfix">
                     <div class="column1 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="dark">TIN: {{data.data.employerTin}}</div>
+                        <div class="dark">Tax ID: {{data.data.employerTin}}</div>
                         <div class="blue">{{data.data2.organisation_name}}</div>
                         <div class="dark">Registered Business</div>
                     </div>
                     <div class="column2 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <div class="dark">TIN {{data.data.employeeTin}}</div>
+                        <div class="dark">Tax ID {{data.data.employeeTin}}</div>
                         <div class="blue">{{data.data.employee}}</div>
                         <div class="dark">Employee - {{data.data.employee_position}}</div>   
                     </div>
@@ -310,7 +326,7 @@
                     <div>
                         <span class="blue">Bill status</span> <span class="gen_pending">Pending</span>
                     </div><br>
-                    <div class="dark">TIN 334337434344</div>
+                    <div class="dark">Tax ID: 334337434344</div>
                     <div class="blue">Softpattern Pattern Technology</div>
                     <div class="dark">Registered Business</div>
                 </div>

@@ -151,6 +151,21 @@ export class HttpService {
       retry(1)
     )
   }
+
+
+  // update a payer
+  UpdatePayer(type: string, id: number, data: any): Observable<any[]> {
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getJwtToken()}`
+      }
+    };
+    return this.http.put<any[]>(BaseUrl.api + `user/api/v1/register-payer/?type=${type}&payer_id=${id}`, data, httpOptions).pipe(
+      retry(2)
+    )
+  }
+  
+
   
 
 }

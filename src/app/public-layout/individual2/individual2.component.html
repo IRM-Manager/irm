@@ -1,6 +1,6 @@
 <div class="wrapper">
     
-    <div class="header">
+    <div class="header" *ngIf="!update">
         <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <mat-form-field class="cac-width" appearance="outline">
                 <mat-label>(NIN/BVN)</mat-label>
@@ -93,13 +93,14 @@
                 <!-- lga -->
                 <mat-form-field class="half-width3" appearance="outline">
                     <mat-label>LGA</mat-label>
-                    <mat-select matInput formControlName="lga" #singleSelect required>
+                    <mat-select matInput formControlName="lga" #singleSelect required id="lga">
                         <mat-option>
                             <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
                             </ngx-mat-select-search>
                         </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks2 | async" [value]="option.id">
-                            <span>{{option.name}}</span>
+                        <mat-option *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id">
+                            <!-- <span></span> -->
+                            {{lgaOption.name}}
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.lga}}</mat-error>
@@ -304,13 +305,28 @@
 
     </div>
 
-    <div class="final_submit">
+    <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>
         <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true" -->
         <button mat-button class="verify"
             (click)="Submit()">
             <span *ngIf="!loading2">Continue</span>
             <div *ngIf="loading2" class="loader">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+            </div>
+        </button>
+    </div>
+
+    <div class="final_submit" *ngIf="update">
+        <button mat-button class="verify2" (click)="back()">Back</button>
+        <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true" -->
+        <button mat-button class="verify"
+            (click)="SubmitUpdate()">
+            <span *ngIf="!Updateloading">Update</span>
+            <div *ngIf="Updateloading" class="loader">
                 <div class="bubble"></div>
                 <div class="bubble"></div>
                 <div class="bubble"></div>

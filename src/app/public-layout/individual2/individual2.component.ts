@@ -13,6 +13,8 @@ import { AppState, selectAllStates, selectAllProfile } from 'src/app/reducers/in
 import { AddStates, AddProfile, RemoveIndPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { DataTablesModule } from 'angular-datatables';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-individual2',
@@ -84,12 +86,16 @@ export class Individual2Component implements OnInit {
   lgaLoading = false;
   lgaLoading2 = false;
   lgaLoading3 = false;
+  update = false;
+  Updateloading = false;
   state: any;
   state2: any;
   state3: any;
   lga: any;
   lga2: any;
   lga3: any;
+
+  editDetails: any;
 
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
@@ -162,8 +168,9 @@ export class Individual2Component implements OnInit {
 
 
   constructor(private fb: FormBuilder, private _location: Location, public datepipe: DatePipe,
-    private httpService: HttpService, private snackBar: MatSnackBar,
-    private authService: AuthService, private store: Store<AppState>) {
+    private httpService: HttpService, private snackBar: MatSnackBar, private router: Router,
+    private authService: AuthService, private store: Store<AppState>,
+    public shared: ToggleNavService) {
       this.authService.checkExpired();
       this.createForm();
       this.createForm1();
@@ -176,6 +183,9 @@ export class Individual2Component implements OnInit {
 
       this.stateStates = store.select(selectAllStates);
       this.stateProfile = store.select(selectAllProfile);
+
+      this.editDetails = this.shared.getPayerEditMessage();
+
   }
 
   createForm() {
@@ -562,7 +572,7 @@ export class Individual2Component implements OnInit {
             email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
             zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
         }
-        Object.assign(data, this.includedFields);
+        Object.assign(data, this.floatLabelControl.value === "employed" ? this.includedFields : {});
         console.log(data)
 
         this.httpService.AddPayer(data, 'individual').subscribe(
@@ -613,6 +623,101 @@ export class Individual2Component implements OnInit {
         )
 
     } // end if
+
+  }
+
+
+
+// update individual function
+  SubmitUpdate() {
+    this.onSubmit1();
+    this.onSubmit2();
+    const feed1 = this.feedbackFormDirective1.invalid
+    const feed2 = this.feedbackFormDirective2.invalid
+
+    if (feed1 || feed2) {
+      this.snackBar.open('Errors in Form fields please check it out.', "", {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }  // end of if
+    else {
+        this.Updateloading = true;
+
+        this.feedback1 = this.feedbackForm1.value
+        this.feedback2 = this.feedbackForm2.value
+        this.feedback3 = this.feedbackForm3.value
+        let data: any = {
+            payer: {
+                address_state: this.feedback2.state_red,
+                address_lga: this.feedback2.lga_red
+            },
+            first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+            gender: this.feedback1.gender, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
+            pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
+            nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
+            employment_category: this.floatLabelControl.value, phone: this.feedback1.contact, surname: this.feedback1.surname,
+            email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
+            zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
+        }
+        Object.assign(data, this.floatLabelControl.value === "employed" ? this.includedFields : {});
+        console.log(data)
+
+        this.httpService.UpdatePayer('individual', this.editDetails.data.payer.id, data).subscribe(
+          (data: any) => {
+            console.log(data)
+            this.Updateloading = false;
+            if (data.responsecode === "00") {
+              this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
+              this.router.navigate(['/dashboard2/taxpayer'])
+              this.snackBar.open('Update successful', "", {
+                duration: 3000,
+                panelClass: "success"
+              });
+              this.RemoveFormData();
+            }
+            else {
+              this.snackBar.open(data.message || "error", "", {
+                duration: 3000,
+                panelClass: "error"
+              });
+            }
+            
+          },
+          (err: any) => {
+            console.log(err)
+            this.Updateloading = false;
+            if(err.status === 500){
+              this.snackBar.open("Email Address or Contact number Already exists", "", {
+                duration: 5000,
+                panelClass: "error"
+              });
+            }
+            if (err.error?.message == "required") {
+              if (err.error.data.email) {
+                this.snackBar.open("Email Address already exists in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+              else if (err.error.data.phone) {
+                this.snackBar.open("Contact number already exists in (Section 1)", "", {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              }
+            }
+            else{
+              this.snackBar.open(err.error?.message || "error", "", {
+                duration: 5000,
+                panelClass: "error"
+              });
+            }
+          }
+        )
+
+    } // end if
+
 
   }
 
@@ -670,8 +775,10 @@ export class Individual2Component implements OnInit {
         if(field === undefined) {
         }else {
           let coun = this.state3.filter((name: any) => name.id===field )
-          this.lga3 = coun[0]
-          this.AddLga3(coun[0].id);
+          if (coun[0]?.id) {
+            this.lga3 = coun[0]
+            this.AddLga3(coun[0].id);
+          }
         }
       }); 
   }
@@ -775,11 +882,49 @@ export class Individual2Component implements OnInit {
   }
 
 
+  UpdateValue() {
+    if (this.editDetails != undefined) {
+      if (this.editDetails.type == 'ind') {
+        this.update = true;
+        const data = this.editDetails;
+        console.log(data)
+        this.feedbackForm1.controls['state'].patchValue(data.data.state_origin.id);
+        this.feedbackForm2.controls['state_red'].patchValue(data.data.payer.address_state.id);
+        this.feedbackForm3.controls['company_state'].patchValue(data.data?.company_state?.id || 0);
+        this.feedbackForm1.patchValue({firstname: data.data.first_name});
+        this.feedbackForm1.patchValue({surname: data.data.surname});
+        this.feedbackForm1.patchValue({middlename: data.data.middle_name || ""});
+        this.feedbackForm1.patchValue({gender: data.data.gender});
+        this.feedbackForm1.patchValue({birth: data.data.dob});
+        this.feedbackForm1.patchValue({place: data.data.pob});
+        this.feedbackForm1.controls['lga'].patchValue(data.data.lga_origin.id);
+        this.feedbackForm1.patchValue({nationality: data.data.nationality});
+        this.feedbackForm1.patchValue({trade: data.data.profession_trade});
+        this.feedbackForm1.patchValue({contact: data.data.phone});
+        this.feedbackForm1.patchValue({contact_email: data.data.email});
+        this.feedbackForm2.patchValue({street: data.data.address});
+        this.feedbackForm2.patchValue({house: data.data.house_no});
+        this.feedbackForm2.patchValue({zipcode: data.data.zipcode});
+        this.feedbackForm2.controls['lga_red'].patchValue(data.data.payer.address_lga.id);
+        this.feedbackForm3.patchValue({company_name: data.data.company_name || ""});
+        this.feedbackForm3.patchValue({company_house_no: data.data.company_house_no || ""});
+        this.feedbackForm3.patchValue({company_estate_street: data.data.company_estate_street || ""});
+        this.feedbackForm3.patchValue({company_zipcode: data.data.company_zipcode || ""});
+        this.feedbackForm3.patchValue({company_country: data.data.company_country || ""});
+        this.feedbackForm3.controls['company_lga'].patchValue(data.data?.company_lga?.id || "");
+        this.floatLabelControl = new FormControl(data.data.employment_status);
+      }
+    }else {}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////
+
   ngOnInit(): void {
 
     this.authService.checkExpired();
 
     this.AddState();
+    this.UpdateValue();
 
     this.bankCtrl.valueChanges
       .pipe(

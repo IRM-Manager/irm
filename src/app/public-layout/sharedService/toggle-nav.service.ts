@@ -9,6 +9,7 @@ export class ToggleNavService {
   message: string | undefined;
   message2: string | undefined;
   message3: string | undefined;
+  payerEditMessage: string | undefined;
 
   private subject = new Subject<any>();
   private subject3 = new Subject<any>();
@@ -41,6 +42,18 @@ export class ToggleNavService {
   getMessage3() {
     return this.message3
   }
+
+  // payer edit message 
+
+  setPayerEditMessage(data: any) {
+    this.payerEditMessage = data
+  }
+  
+  getPayerEditMessage() {
+    return this.payerEditMessage
+  }
+
+  // 
 
   sendClickEvent() {
     this.subject.next(null);

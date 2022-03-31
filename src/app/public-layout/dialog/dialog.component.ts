@@ -30,7 +30,7 @@ export class DialogComponent implements OnInit {
     private router: Router, public shared: ToggleNavService, private authService: AuthService) {
 
       this.stateIndPayer = store.select(selectAllIndPayer);
-    this.stateComPayer = store.select(selectAllComPayer);
+      this.stateComPayer = store.select(selectAllComPayer);
 
     }
 
@@ -92,6 +92,33 @@ export class DialogComponent implements OnInit {
       }
     )
  }
+
+
+ OpenDialog(data: any, type: string) {
+  this.snackBar.dismiss();
+  this.dialogRef.close();
+  let dialogRef = this.dialog.open(DialogComponent, {
+    data: {
+      type: type,
+      data: data
+    }
+  });
+}
+
+
+EditPayerDetails(data: any, type: string) {
+  if (type == 'ind') {
+    this.dialogRef.close();
+    this.shared.setPayerEditMessage({data: data, type: 'ind'});
+    this.router.navigate(['/dashboard2/taxpayer/ind/individual'])
+  }
+  else {
+    this.dialogRef.close();
+    this.shared.setPayerEditMessage({data: data, type: 'com'});
+    this.router.navigate(['/dashboard2/taxpayer/non/business'])
+  }
+}
+
 
 
 }
