@@ -29,7 +29,7 @@
 <!-- nav2 -->
 <mat-toolbar class="nav2" *ngIf="type == 'reg_tax'">
 
-    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+    <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
 
@@ -58,7 +58,7 @@
 <!-- nav3 -->
 <mat-toolbar class="nav3" *ngIf="type == 'payee'">
 
-    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+    <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
 
@@ -73,7 +73,7 @@
 <!-- nav4 -->
 <mat-toolbar class="nav4" *ngIf="type == 'mda'">
 
-    <button mat-icon-button (click)="onPublicHeaderToggleSidenav()">
+    <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
 
