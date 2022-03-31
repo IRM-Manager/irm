@@ -173,13 +173,17 @@ export class MDAComponent implements OnInit {
           this.feedbackForm3.controls["title"].setValue(data.data.gender == 'male' ? 'mr' : 'mrs');
             this.snackBar.open("Valid", "", {
               duration: 3000,
-              panelClass: "success"
+              panelClass: "success",
+              horizontalPosition: "center",
+              verticalPosition: "top",
             });
         }
         else {
           this.snackBar.open("Not A Registered Individual Taxpayer", "", {
             duration: 5000,
-            panelClass: "error"
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
           });
         }
       },
@@ -190,13 +194,17 @@ export class MDAComponent implements OnInit {
         if (err.status === 404) {
           this.snackBar.open("Tin or Reg.No does not exists", "", {
             duration: 5000,
-            panelClass: "error"
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
           });
         }
         else {
           this.snackBar.open('Error', "", {
             duration: 5000,
-            panelClass: "error"
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
           });
         }
       }

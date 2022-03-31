@@ -110,7 +110,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.shared.PayeesendClickEvent(data);
       this.snackBar.open("Unable to retrieve data", "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
     }else {
       const file:File = event.target.files[0];
@@ -258,19 +260,25 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
                       if (err.status === 500) {
                         this.snackBar.open("An error occur. Please try Again", "", {
                           duration: 5000,
-                          panelClass: "error"
+                          panelClass: "error",
+                          horizontalPosition: "center",
+                          verticalPosition: "top",
                         });
                       }
                       else if(err.status === 400) {
                         this.snackBar.open(err.error.message, "", {
                           duration: 5000,
-                          panelClass: "error"
+                          panelClass: "error",
+                          horizontalPosition: "center",
+                          verticalPosition: "top",
                         });
                       }
                       else {
                         this.snackBar.open("Error", "", {
                           duration: 5000,
-                          panelClass: "error"
+                          panelClass: "error",
+                          horizontalPosition: "center",
+                          verticalPosition: "top",
                         });
                       }
                     }
@@ -286,7 +294,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
                 this.authService.refreshToken();
                 this.snackBar.open("Error", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
             ) // end subscription
@@ -296,7 +306,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           this.disabled = false;
           this.snackBar.open('Invalid Tin', "", {
             duration: 5000,
-            panelClass: "error"
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
           });
         }
 
@@ -308,13 +320,17 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           if (err.status === 404) {
             this.snackBar.open("Employee Tin does not exists", "", {
               duration: 5000,
-              panelClass: "error"
+              panelClass: "error",
+              horizontalPosition: "center",
+              verticalPosition: "top",
             });
           }
           else {
             this.snackBar.open('Error', "", {
               duration: 5000,
-              panelClass: "error"
+              panelClass: "error",
+              horizontalPosition: "center",
+              verticalPosition: "top",
             });
           }
       }
@@ -351,19 +367,25 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
               if (err.status === 500) {
                 this.snackBar.open("An error occur. Please try Again", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
               else if (err.status === 0) {
                 this.snackBar.open("Error", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
               else {
                 this.snackBar.open(err.error.status, "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
             }
@@ -376,19 +398,25 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           if (err.status === 500) {
             this.snackBar.open("Invalid data format or File not Valid! (Should be CSV)", "", {
               duration: 5000,
-              panelClass: "error"
+              panelClass: "error",
+              horizontalPosition: "center",
+              verticalPosition: "top",
             });
           }
           else if (err.status === 0) {
             this.snackBar.open("Error", "", {
               duration: 5000,
-              panelClass: "error"
+              panelClass: "error",
+              horizontalPosition: "center",
+              verticalPosition: "top",
             });
           }
           else {
             this.snackBar.open(err.error.status, "", {
               duration: 5000,
-              panelClass: "error"
+              panelClass: "error",
+              horizontalPosition: "center",
+              verticalPosition: "top",
             });
           }
         }
@@ -464,7 +492,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     if (this.datas?.length == 0){
       this.snackBar.open("Employee not yet added!", "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
     }
     else{

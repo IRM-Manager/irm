@@ -136,7 +136,7 @@ export class HttpService {
       }
     };
     return this.http.get<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, httpOptions).pipe(
-      retry(1)
+      retry(2)
     )
   }
 
@@ -148,7 +148,7 @@ export class HttpService {
       }
     };
     return this.http.delete<any[]>(BaseUrl.api + `user/api/v1/register-payer/?payer_id=${id}`,httpOptions).pipe(
-      retry(1)
+      retry(2)
     )
   }
 

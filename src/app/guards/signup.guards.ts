@@ -22,7 +22,9 @@ export class SignupGuard implements CanActivate, CanLoad {
     if (this.authService.isLoggedIn()) {
       this.snackBar.open("Unauthorised", "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
       // this._location.back();
       this.router.navigate(['/dashboard']);

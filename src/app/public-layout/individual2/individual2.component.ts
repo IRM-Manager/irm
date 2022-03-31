@@ -549,7 +549,9 @@ export class Individual2Component implements OnInit {
     if (feed1 || feed2) {
       this.snackBar.open('Errors in Form fields please check it out.', "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
     }  // end of if
     else {
@@ -583,14 +585,18 @@ export class Individual2Component implements OnInit {
               this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
               this.snackBar.open('Registration successful', "", {
                 duration: 3000,
-                panelClass: "success"
+                panelClass: "success",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
               this.RemoveFormData();
             }
             else {
               this.snackBar.open(data.message || "error", "", {
                 duration: 3000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
             
@@ -603,20 +609,26 @@ export class Individual2Component implements OnInit {
               if (err.error.data.email) {
                 this.snackBar.open("Email Address already exists in (Section 1)", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
               else if (err.error.data.phone) {
                 this.snackBar.open("Contact number already exists in (Section 1)", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
             }
             else{
               this.snackBar.open(err.error.message || "error", "", {
                 duration: 5000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
           }
@@ -638,7 +650,9 @@ export class Individual2Component implements OnInit {
     if (feed1 || feed2) {
       this.snackBar.open('Errors in Form fields please check it out.', "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
     }  // end of if
     else {
@@ -652,7 +666,7 @@ export class Individual2Component implements OnInit {
                 address_state: this.feedback2.state_red,
                 address_lga: this.feedback2.lga_red
             },
-            first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+            first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename || "",
             gender: this.feedback1.gender, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
             pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
             nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade, 
@@ -669,17 +683,21 @@ export class Individual2Component implements OnInit {
             this.Updateloading = false;
             if (data.responsecode === "00") {
               this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
-              this.router.navigate(['/dashboard2/taxpayer'])
-              this.snackBar.open('Update successful', "", {
+              this.router.navigate(['/dashboard2/taxpayer/ind'])
+              this.snackBar.open('successfully updated Details', "", {
                 duration: 3000,
-                panelClass: "success"
+                panelClass: "success",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
               this.RemoveFormData();
             }
             else {
               this.snackBar.open(data.message || "error", "", {
-                duration: 3000,
-                panelClass: "error"
+                duration: 5000,
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
             
@@ -688,29 +706,19 @@ export class Individual2Component implements OnInit {
             console.log(err)
             this.Updateloading = false;
             if(err.status === 500){
-              this.snackBar.open("Email Address or Contact number Already exists", "", {
+              this.snackBar.open("Email Address or Contact number Already exists in (Section 1)", "", {
                 duration: 5000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
-            }
-            if (err.error?.message == "required") {
-              if (err.error.data.email) {
-                this.snackBar.open("Email Address already exists in (Section 1)", "", {
-                  duration: 5000,
-                  panelClass: "error"
-                });
-              }
-              else if (err.error.data.phone) {
-                this.snackBar.open("Contact number already exists in (Section 1)", "", {
-                  duration: 5000,
-                  panelClass: "error"
-                });
-              }
             }
             else{
               this.snackBar.open(err.error?.message || "error", "", {
                 duration: 5000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
           }

@@ -98,7 +98,9 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['/dashboard']);
           this.snackBar.open('success', "", {
             duration: 3000,
-            panelClass: "success"
+            panelClass: "success",
+            horizontalPosition: "center",
+            verticalPosition: "top",
           });
         }
 

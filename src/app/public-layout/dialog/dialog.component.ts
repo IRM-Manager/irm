@@ -79,7 +79,9 @@ export class DialogComponent implements OnInit {
         }
         this.snackBar.open("TaxPayer successfully deleted", "", {
           duration: 3000,
-          panelClass: "success"
+          panelClass: "success",
+          horizontalPosition: "center",
+          verticalPosition: "top",
         });
         this.dialogRef.close()
       }, 
@@ -87,7 +89,9 @@ export class DialogComponent implements OnInit {
         this.isdelete = false;
         this.snackBar.open("Error deleting TaxPayer", "", {
           duration: 5000,
-          panelClass: "error"
+          panelClass: "error",
+          horizontalPosition: "center",
+          verticalPosition: "top",
         });
       }
     )

@@ -26,7 +26,9 @@ export class IsLoggedInGuard implements CanActivate, CanLoad {
     if (!this.authService.isLoggedIn()) {
       this.snackBar.open("Please Login", "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
       this.router.navigate(['']);
     }

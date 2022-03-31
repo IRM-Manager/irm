@@ -6,7 +6,7 @@
         <div class="payee-sidenav2 col-xl-3 col-lg-3">
             <div class="payee_edit_panel">
                 <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'ind')">Edit Details</button>
-                <button mat-button class="payee_edit_text">View Tax History</button>
+                <button mat-button class="payee_edit_text">View Transaction</button>
                 <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
             </div>
             <div style="clear: both;"></div>
@@ -19,7 +19,7 @@
                     <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}</div>
                     <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
                     <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                    <div class="left2">Registered Business</div>
+                    <div class="left2">Individual Tax Payer</div>
                 </div>
                 <div class="payee_cancel_button">
                     <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
@@ -56,7 +56,7 @@
                         </tr>
                         <tr>
                             <th class="title">Email</th>
-                            <th class="sub_title">emma@gmail.com</th>
+                            <th class="sub_title">{{data.data.email}}</th>
                         </tr>
                         <tr>
                             <th class="title">Marital status</th>
@@ -87,7 +87,7 @@
         <div class="payee-sidenav2 col-xl-3 col-lg-3">
             <div class="payee_edit_panel">
                 <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit Details</button>
-                <button mat-button class="payee_edit_text">View Tax History</button>
+                <button mat-button class="payee_edit_text">View Transaction</button>
                 <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
             </div>
             <div style="clear: both;"></div>
@@ -152,7 +152,7 @@
             <div class="payee-sidenav2 col-xl-3 col-lg-3">
                 <div class="payee_edit_panel">
                     <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit Details</button>
-                    <button mat-button class="payee_edit_text">View Tax History</button>
+                    <button mat-button class="payee_edit_text">View Transaction</button>
                     <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax Payer</button>
                 </div>
                 <div style="clear: both;"></div>

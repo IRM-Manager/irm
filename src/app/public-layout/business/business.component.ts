@@ -13,6 +13,7 @@ import { AppState, selectAllStates, selectAllProfile } from 'src/app/reducers/in
 import { AddStates, RemoveComPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-business',
@@ -192,7 +193,8 @@ export class BusinessComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private _location: Location, public datepipe: DatePipe,
     private httpService: HttpService, private snackBar: MatSnackBar, public shared: ToggleNavService,
-    private authService: AuthService, private store: Store<AppState>) {
+    private authService: AuthService, private store: Store<AppState>,
+    private router: Router,) {
       this.authService.checkExpired();
       this.createForm();
       this.createForm1();
@@ -686,7 +688,9 @@ export class BusinessComponent implements OnInit {
     if (feed1 || feed2 || feed3) {
       this.snackBar.open('Errors in Form fields please check it out.', "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
     }  // end of if
     else {
@@ -707,7 +711,7 @@ export class BusinessComponent implements OnInit {
               surname: this.feedback1.surname, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'), 
               pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
               nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade,
-              employment_category: this.feedback1.employment,  dir_phone: this.feedback1.contact, 
+              employment_category: this.feedback1.employment, dir_phone: this.feedback1.contact,
               dir_email: this.feedback1.contact_email, gender: this.feedback1.gender
             },
             organisation_name: this.feedback3.org_name, business_nature: this.feedback3.nature_bus,
@@ -726,14 +730,18 @@ export class BusinessComponent implements OnInit {
               this.store.dispatch(new RemoveComPayer([{id: 1, data: []}]));
               this.snackBar.open('Registration successful', "", {
                 duration: 3000,
-                panelClass: "success"
+                panelClass: "success",
+                horizontalPosition: "center",
+              verticalPosition: "top",
               });
               this.RemoveFormData();
             }
             else {
               this.snackBar.open(data.message || "error", "", {
                 duration: 3000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
             
@@ -746,7 +754,9 @@ export class BusinessComponent implements OnInit {
               if (err.error?.data.org_email) {
                 this.snackBar.open("Email Address already exists in (Section 1)", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
               else if (err.error.data.org_phone) {
@@ -758,14 +768,18 @@ export class BusinessComponent implements OnInit {
               else if (err.error.data.office_website_url) {
                 this.snackBar.open("Invalid Office Website URL in (Section 1)", "", {
                   duration: 5000,
-                  panelClass: "error"
+                  panelClass: "error",
+                  horizontalPosition: "center",
+                  verticalPosition: "top",
                 });
               }
             }
             else{
               this.snackBar.open(err.error?.message || "error", "", {
                 duration: 5000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
           }
@@ -941,7 +955,9 @@ export class BusinessComponent implements OnInit {
     if (feed1 || feed2 || feed3) {
       this.snackBar.open('Errors in Form fields please check it out.', "", {
         duration: 5000,
-        panelClass: "error"
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
       });
     }  // end of if
     else {
@@ -957,12 +973,12 @@ export class BusinessComponent implements OnInit {
                 address_lga: this.feedback2.lga_red
             },
             directors_info: {
-              first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename,
+              first_name: this.feedback1.firstname, middle_name: this.feedback1.middlename || "",
               surname: this.feedback1.surname, dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'), 
               pob: this.feedback1.place, state_origin: this.feedback1.state, lga_origin: this.feedback1.lga,
               nationality: this.feedback1.nationality, profession_trade: this.feedback1.trade,
               employment_category: this.feedback1.employment,  dir_phone: this.feedback1.contact, 
-              dir_email: this.feedback1.contact_email, gender: this.feedback1.gender
+              dir_email: this.feedback1.contact_email, gender: this.feedback1.gender, id: this.editDetails.data.directors_info.id
             },
             organisation_name: this.feedback3.org_name, business_nature: this.feedback3.nature_bus,
             number_employee: this.feedback3.num_emp, establishment_date: this.datepipe.transform(this.feedback3.date_est, 'yyyy-MM-dd'),
@@ -972,21 +988,26 @@ export class BusinessComponent implements OnInit {
         }
         console.log(data)
 
-        this.httpService.AddPayer(data, 'company').subscribe(
+        this.httpService.UpdatePayer('company', this.editDetails.data.payer.id, data).subscribe(
           (data: any) => {
             this.Updateloading = false;
             if (data.responsecode === "00") {
               this.store.dispatch(new RemoveComPayer([{id: 1, data: []}]));
-              this.snackBar.open('Registration successful', "", {
+              this.router.navigate(['/dashboard2/taxpayer/non'])
+              this.snackBar.open('successfully updated Details', "", {
                 duration: 3000,
-                panelClass: "success"
+                panelClass: "success",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
               this.RemoveFormData();
             }
             else {
               this.snackBar.open(data.message || "error", "", {
-                duration: 3000,
-                panelClass: "error"
+                duration: 5000,
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
             
@@ -995,35 +1016,19 @@ export class BusinessComponent implements OnInit {
             console.log(err)
             this.Updateloading = false;
             if(err.status === 500){
-              this.snackBar.open("Email Address or Contact number Already exists", "", {
+              this.snackBar.open("Email Address or Contact number Already exists in (Section 1)", "", {
                 duration: 5000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
-            }
-            if (err.error?.message == "required") {
-              if (err.error?.data.org_email) {
-                this.snackBar.open("Email Address already exists in (Section 1)", "", {
-                  duration: 5000,
-                  panelClass: "error"
-                });
-              }
-              else if (err.error.data.org_phone) {
-                this.snackBar.open("Contact number already exists in (Section 1)", "", {
-                  duration: 5000,
-                  panelClass: "error"
-                });
-              }
-              else if (err.error.data.office_website_url) {
-                this.snackBar.open("Invalid Office Website URL in (Section 1)", "", {
-                  duration: 5000,
-                  panelClass: "error"
-                });
-              }
             }
             else{
               this.snackBar.open(err.error?.message || "error", "", {
                 duration: 5000,
-                panelClass: "error"
+                panelClass: "error",
+                horizontalPosition: "center",
+                verticalPosition: "top",
               });
             }
           }
