@@ -19,22 +19,28 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class AppPublicSidenavListComponent implements OnInit {
   
-  @Output() sidenavClose = new EventEmitter();
-  clickEventSubscription?: Subscription;
+  @Output() public publicsidenavClose = new EventEmitter();
 
+  clickEventSubscription?: Subscription;
+  hide = false;
   panelOpenState = false;
   profile: any;
   
   stateProfile: Observable<Profile[]>;
 
   constructor(private router: Router, private authService: AuthService,
-    private httpService: HttpService, private store: Store<AppState>) { 
+    private httpService: HttpService, private store: Store<AppState>, public shared: ToggleNavService) { 
+
+      this.clickEventSubscription = this.shared.getHeaderSideClickEvent().subscribe((data: any) => {
+        this.hide = false;
+      })
+
       this.authService.checkExpired()
       this.stateProfile = store.select(selectAllProfile);
   }
 
   routeRedirect() {
-    this.onSidenavClose()
+    this.onPublicHeaderToggleSidenav()
   }
 
 
@@ -98,8 +104,10 @@ export class AppPublicSidenavListComponent implements OnInit {
   }
   
 
-  public onSidenavClose = () => {
-    this.sidenavClose.emit();
+  public onPublicHeaderToggleSidenav = () => {
+    this.publicsidenavClose.emit();
+    this.shared.sendHeaderClickEvent();
+    this.hide = true;
   } 
 
   

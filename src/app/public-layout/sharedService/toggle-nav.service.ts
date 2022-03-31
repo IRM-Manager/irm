@@ -13,6 +13,7 @@ export class ToggleNavService {
 
   private subject = new Subject<any>();
   private subject3 = new Subject<any>();
+  private subject4 = new Subject<any>();
 
   constructor() { }
 
@@ -78,6 +79,14 @@ export class ToggleNavService {
   }
 
   getHeaderClickEvent():Observable<any> {
+    return this.subject3.asObservable();
+  }
+
+  sendHeaderSideClickEvent() {
+    this.subject3.next(null);
+  }
+
+  getHeaderSideClickEvent():Observable<any> {
     return this.subject3.asObservable();
   }
 

@@ -4,6 +4,11 @@
 
         <div class="logo_p">
             <img class="logo" [routerLink]="['/dashboard']" src="assets/images/side_nav_logo.svg" alt="IRM">
+
+            <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+
         </div>
 
         <p class="dash-text" [routerLink]="['/dashboard']" routerLinkActive="active">

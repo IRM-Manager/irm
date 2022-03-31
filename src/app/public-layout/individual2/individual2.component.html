@@ -223,11 +223,19 @@
 
         <form class="form1">
             <p class="radio">
-                <mat-radio-group [formControl]="floatLabelControl">
+                <!-- <mat-radio-group [formControl]="floatLabelControl">
                     <mat-radio-button value="employed">Employed</mat-radio-button>
                     <mat-radio-button value="unemployed" class="radio_button">Unemployed</mat-radio-button>
                     <mat-radio-button value="retired" class="radio_button">Retired</mat-radio-button>
-                </mat-radio-group>
+                </mat-radio-group> -->
+                <mat-form-field class="full" appearance="outline">
+                    <mat-label>Choose Employment status</mat-label>
+                    <mat-select matInput [formControl]="floatLabelControl">
+                        <mat-option value="employed">Employed</mat-option>
+                        <mat-option value="unemployed">Unemployed</mat-option>
+                        <mat-option value="retired">Retired</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </p>
         </form>
     </div>

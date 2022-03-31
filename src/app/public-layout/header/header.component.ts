@@ -12,7 +12,7 @@ import { AppState, selectAllProfile, selectAllStates, selectAllYear,
          selectAllIndPayer, selectAllComPayer } from 'src/app/reducers/index';
 import { AddProfile, RemoveProfile, AddStates, RemoveStates, AddYear, RemoveYear,
          AddIndPayer, RemoveIndPayer, AddComPayer, RemoveComPayer } from '../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -27,6 +27,9 @@ export class HeaderComponent implements OnInit {
   left_text2!: string;
   type: any;
   profile: any;
+  hide = true;
+
+  clickEventSubscription?: Subscription;
 
   stateProfile: Observable<Profile[]>;
   stateStates: Observable<States[]>;
@@ -37,6 +40,10 @@ export class HeaderComponent implements OnInit {
   constructor(private dialog: MatDialog, private shared: ToggleNavService, private authService: AuthService,
     private router: Router, private snackBar: MatSnackBar, private httpService: HttpService,
     private store: Store<AppState>) {
+
+      this.clickEventSubscription = this.shared.getHeaderClickEvent().subscribe((data: any) => {
+        this.hide = false;
+      })
 
       this.authService.checkExpired()
       
@@ -191,6 +198,8 @@ export class HeaderComponent implements OnInit {
 
   public onPublicHeaderToggleSidenav = () => {
     this.publicsidenavToggle.emit();
+    this.shared.sendHeaderSideClickEvent();
+    this.hide = true;
   }  
 
   ngOnInit(): void {
