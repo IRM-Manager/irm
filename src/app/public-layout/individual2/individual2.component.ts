@@ -574,7 +574,7 @@ export class Individual2Component implements OnDestroy, OnInit {
             email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
             zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
         }
-        Object.assign(data, this.floatLabelControl.value === "employed" ? this.includedFields : {});
+        Object.assign(data, this.floatLabelControl.value == "employed" ? this.includedFields : {});
         console.log(data)
 
         this.httpService.AddPayer(data, 'individual').subscribe(
@@ -592,7 +592,7 @@ export class Individual2Component implements OnDestroy, OnInit {
               this.RemoveFormData();
             }
             else {
-              this.snackBar.open(data.message || "error", "", {
+              this.snackBar.open(data?.message || "error", "", {
                 duration: 3000,
                 panelClass: "error",
                 horizontalPosition: "center",
@@ -624,7 +624,7 @@ export class Individual2Component implements OnDestroy, OnInit {
               }
             }
             else{
-              this.snackBar.open(err.error.message || "error", "", {
+              this.snackBar.open(err.error?.message || "error", "", {
                 duration: 5000,
                 panelClass: "error",
                 horizontalPosition: "center",
@@ -674,7 +674,7 @@ export class Individual2Component implements OnDestroy, OnInit {
             email: this.feedback1.contact_email, address: this.feedback2.street, house_no: this.feedback2.house,
             zipcode: this.feedback2.zipcode, employment_status: this.floatLabelControl.value
         }
-        Object.assign(data, this.floatLabelControl.value === "employed" ? this.includedFields : {});
+        Object.assign(data, this.floatLabelControl.value == "employed" ? this.includedFields : {});
         console.log(data)
 
         this.httpService.UpdatePayer('individual', this.editDetails.data.payer.id, data).subscribe(

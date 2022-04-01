@@ -207,7 +207,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
         this.authService.refreshToken();
         console.log(err)
         if (err.status === 404) {
-          this.snackBar.open("Tin or Reg.No does not exists", "", {
+          this.snackBar.open("Tin or Tax ID does not exists", "", {
             duration: 5000,
             panelClass: "error",
             horizontalPosition: "center",

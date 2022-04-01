@@ -381,7 +381,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
                 });
               }
               else {
-                this.snackBar.open(err.error.status, "", {
+                this.snackBar.open(err.error?.status || "Error", "", {
                   duration: 5000,
                   panelClass: "error",
                   horizontalPosition: "center",
@@ -412,7 +412,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
             });
           }
           else {
-            this.snackBar.open(err.error.status, "", {
+            this.snackBar.open(err.error?.status || "Error", "", {
               duration: 5000,
               panelClass: "error",
               horizontalPosition: "center",

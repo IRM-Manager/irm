@@ -125,7 +125,7 @@
                     <mat-hint *ngIf="state_redError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2"
                         style="color: red;"><button>Reload</button></mat-hint>
-                    <mat-hint align="end" *ngIf="stateLoading2">Loading...</mat-hint>
+                    <mat-hint *ngIf="stateLoading2">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- lga_red -->
                 <mat-form-field class="half-width3" appearance="outline">
@@ -145,12 +145,12 @@
                     <mat-hint *ngIf="lga_redError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2"
                         style="color: red;"><button>Reload</button></mat-hint>
-                    <mat-hint align="end" *ngIf="lgaLoading2">Loading...</mat-hint>
+                    <mat-hint *ngIf="lgaLoading2">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- zipcode -->
                 <mat-form-field class="half-width3" appearance="outline">
                     <mat-label>Zip Code</mat-label>
-                    <input matInput formControlName="zipcode" type="tel" required>
+                    <input matInput formControlName="zipcode" type="number" required>
                     <mat-error>{{formErrors.zipcode}}</mat-error>
                     <mat-hint *ngIf="zipcodeError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
@@ -246,7 +246,7 @@
                     <mat-hint *ngIf="stateeError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;">
                         <button>Reload</button></mat-hint>
-                    <mat-hint align="end" *ngIf="stateLoading">Loading...</mat-hint>
+                    <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
                 </mat-form-field>
             </p>
             <p>
@@ -268,7 +268,7 @@
                     <mat-hint *ngIf="lgaaError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
                         <button>Reload</button></mat-hint>
-                    <mat-hint align="end" *ngIf="lgaLoading">Loading...</mat-hint>
+                    <mat-hint *ngIf="lgaLoading">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- nationality -->
                 <mat-form-field class="half-width" appearance="outline">
