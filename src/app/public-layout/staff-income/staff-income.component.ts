@@ -381,7 +381,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
                 });
               }
               else {
-                this.snackBar.open(err.error?.status || "Error", "", {
+                this.snackBar.open(err.error?.status || "Error Uploading File", "", {
                   duration: 5000,
                   panelClass: "error",
                   horizontalPosition: "center",
@@ -404,7 +404,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
             });
           }
           else if (err.status === 0) {
-            this.snackBar.open("Error", "", {
+            this.snackBar.open("Error Uploading File", "", {
               duration: 5000,
               panelClass: "error",
               horizontalPosition: "center",
@@ -412,7 +412,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
             });
           }
           else {
-            this.snackBar.open(err.error?.status || "Error", "", {
+            this.snackBar.open(err.error?.status || "Error Uploading File", "", {
               duration: 5000,
               panelClass: "error",
               horizontalPosition: "center",
