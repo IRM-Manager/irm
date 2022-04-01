@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import { ReplaySubject, Subject, filter, tap, takeUntil, debounceTime, map, delay } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./business.component.scss'],
 })
-export class BusinessComponent implements OnInit {
+export class BusinessComponent implements OnDestroy, OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
   @ViewChild('fform1') feedbackFormDirective1: any;
   @ViewChild('fform2') feedbackFormDirective2: any;
@@ -42,7 +42,6 @@ export class BusinessComponent implements OnInit {
   ninloading = false;
   nindisabled = false;
 
-  floatLabelControl = new FormControl('employed');
   feedback1!: BusinessIndividual1;
   feedback2!: Individual2;
   feedback3!: Business;
@@ -829,6 +828,7 @@ export class BusinessComponent implements OnInit {
   }
 
   back() {
+    this.shared.setPayerEditMessage(undefined);
     this._location.back();
   }
 
@@ -1073,6 +1073,7 @@ export class BusinessComponent implements OnInit {
             this.Updateloading = false;
             if (data.responsecode === '00') {
               this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
+              this.shared.setPayerEditMessage(undefined);
               this.router.navigate(['/dashboard2/taxpayer/non']);
               this.snackBar.open('successfully updated Details', '', {
                 duration: 3000,
@@ -1255,4 +1256,11 @@ export class BusinessComponent implements OnInit {
         }
       );
   }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.shared.setPayerEditMessage(undefined);
+  }
+
+
 }

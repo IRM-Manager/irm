@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Individual1, Individual2, Individual3, LGA, lgaLogo, NIN, STATE, stateLogo } from '../shared/form';
 import {Location, DatePipe} from '@angular/common';
@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./individual2.component.scss']
 })
-export class Individual2Component implements OnInit {
+export class Individual2Component implements OnDestroy, OnInit {
 
   @ViewChild('fform') feedbackFormDirective: any;
   @ViewChild('fform1') feedbackFormDirective1: any;
@@ -681,8 +681,9 @@ export class Individual2Component implements OnInit {
           (data: any) => {
             console.log(data)
             this.Updateloading = false;
-            if (data.responsecode === "00") {
+            if (data.responsecode === "00") {              
               this.store.dispatch(new RemoveIndPayer([{id: 1, data: []}]));
+              this.shared.setPayerEditMessage(undefined);
               this.router.navigate(['/dashboard2/taxpayer/ind'])
               this.snackBar.open('successfully updated Details', "", {
                 duration: 3000,
@@ -746,6 +747,7 @@ export class Individual2Component implements OnInit {
 
 
   back() {
+    this.shared.setPayerEditMessage(undefined);
     this._location.back();
   }
 
@@ -1116,6 +1118,11 @@ export class Individual2Component implements OnInit {
         
   }
 
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.shared.setPayerEditMessage(undefined);
+  }
 
 
 }
