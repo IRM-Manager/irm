@@ -14,7 +14,7 @@
     <!-- session1 -->
     <div class="session">
 
-        <div class="session-header">Section 1: Organisation Details</div>
+        <div class="session-header">Section 1: Directors Information</div>
 
         <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit3()">
             <p>
@@ -162,7 +162,7 @@
 
     <!-- session 3 -->
     <div class="session">
-        <div class="session-header">Section 3: Personal Details</div>
+        <div class="session-header">Section 3: Directors Information</div>
 
         <form novalidate [formGroup]="ninForm" #fform4="ngForm" (ngSubmit)="onNinSubmit()" style="margin-top: 30px;">
             <mat-form-field class="nin-width" appearance="outline">
@@ -171,6 +171,8 @@
             </mat-form-field>
             <button mat-button class="verify" type="submit">Verify</button>
         </form>
+
+        <div class="session-header" style="margin-bottom: 30px;">Director personal details</div>
 
         <form class="form1" novalidate [formGroup]="feedbackForm1" #fform1="ngForm" (ngSubmit)="onSubmit1()">
             <p>
@@ -296,8 +298,6 @@
                     <mat-hint *ngIf="employmentError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
-
-            <div class="session-header" style="margin-top: 30px;">Contact Information</div>
 
             <p style="margin-top: 1rem;">
                 <!-- phone -->
