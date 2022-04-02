@@ -36,16 +36,12 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th class="title">Registered DateDate</th>
+                            <th class="title">Registered Date</th>
                             <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
                         </tr>
                         <tr>
                             <th class="title">No. Of Dependent</th>
                             <th class="sub_title">No record</th>
-                        </tr>
-                        <tr>
-                            <th class="title">Address</th>
-                            <th class="sub_title">{{data.data.address}}</th>
                         </tr>
                         <tr>
                             <th class="title">Gender</th>
@@ -64,12 +60,32 @@
                             <th class="sub_title">{{data.data.email}}</th>
                         </tr>
                         <tr>
-                            <th class="title">Marital status</th>
-                            <th class="sub_title">No record</th>
+                            <th class="title">Employment Status</th>
+                            <th class="sub_title">{{data.data.employment_status}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">House No.</th>
+                            <th class="sub_title">{{data.data.house_no}}</th>
                         </tr>
                         <tr>
                             <th class="title">Nigerian</th>
                             <th class="sub_title">Yes</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Date of Birth</th>
+                            <th class="sub_title">{{data.data.dob}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Place of Birth</th>
+                            <th class="sub_title">{{data.data.pob}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Zipcode</th>
+                            <th class="sub_title">{{data.data.zipcode}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">Address</th>
+                            <th class="sub_title">{{data.data.address}}</th>
                         </tr>
                     </thead>
                 </table>
@@ -128,13 +144,19 @@
                             <th class="sub_title align-middle">{{data.data.number_employee}}</th>
                         </tr>
                         <tr>
-                            <th class="title align-middle">Address</th>
-                            <th class="sub_title align-middle">{{data.data.address}}</th>
+                            <th class="title align-middle">Business Nature</th>
+                            <th class="sub_title align-middle">{{data.data.business_nature}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Director</th>
                             <th class="sub_title align-middle director">{{data.data.directors_info.surname}}
                                 {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Office Website URL</th>
+                            <th class="sub_title align-middle">
+                                <a href="{{data.data.office_website_url}}" target="_blank">{{data.data.office_website_url}}</a>
+                            </th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Phone Number</th>
@@ -143,6 +165,22 @@
                         <tr>
                             <th class="title align-middle">E-mail Address</th>
                             <th class="sub_title align-middle">{{data.data.org_email}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Alt. Phone no.</th>
+                            <th class="sub_title align-middle">{{data.data.alt_phone}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">House no.</th>
+                            <th class="sub_title align-middle">{{data.data.house_no}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Zipcode</th>
+                            <th class="sub_title align-middle">{{data.data.zipcode}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Address</th>
+                            <th class="sub_title align-middle">{{data.data.address}}</th>
                         </tr>
                     </thead>
                 </table>
@@ -195,7 +233,7 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th class="title align-middle">Date Establishment</th>
+                            <th class="title">Date Establishment</th>
                             <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
                         </tr>
                         <tr>
@@ -203,8 +241,8 @@
                             <th class="sub_title align-middle">{{data.data.number_employee}}</th>
                         </tr>
                         <tr>
-                            <th class="title align-middle">Address</th>
-                            <th class="sub_title align-middle">{{data.data.address}}</th>
+                            <th class="title align-middle">Business Nature</th>
+                            <th class="sub_title align-middle">{{data.data.business_nature}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Director</th>
@@ -212,12 +250,34 @@
                                 {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
                         </tr>
                         <tr>
+                            <th class="title align-middle">Office Website URL</th>
+                            <th class="sub_title align-middle">
+                                <a href="{{data.data.office_website_url}}" target="_blank">{{data.data.office_website_url}}</a>
+                            </th>
+                        </tr>
+                        <tr>
                             <th class="title align-middle">Phone Number</th>
                             <th class="sub_title align-middle">{{data.data.org_phone}}</th>
                         </tr>
                         <tr>
-                            <th class="title align-middle">E-mail <Address></Address></th>
+                            <th class="title align-middle">E-mail Address</th>
                             <th class="sub_title align-middle">{{data.data.org_email}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Alt. Phone no.</th>
+                            <th class="sub_title align-middle">{{data.data.alt_phone}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">House no.</th>
+                            <th class="sub_title align-middle">{{data.data.house_no}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Zipcode</th>
+                            <th class="sub_title align-middle">{{data.data.zipcode}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title align-middle">Address</th>
+                            <th class="sub_title align-middle">{{data.data.address}}</th>
                         </tr>
                     </thead>
                 </table>
