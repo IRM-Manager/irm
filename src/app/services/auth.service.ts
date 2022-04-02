@@ -5,11 +5,7 @@ import { catchError, mapTo, retry, tap } from 'rxjs/operators';
 import { BaseUrl } from 'src/environments/environment';
 import { Tokens } from 'src/app/public-layout/shared/form';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { ToggleNavService } from '../public-layout/sharedService/toggle-nav.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -42,7 +38,7 @@ export class AuthService {
             panelClass: 'error',
           });
         } else if (error.status === 0) {
-          this.snackBar.open('error', '', {
+          this.snackBar.open('Error', '', {
             duration: 5000,
             panelClass: 'error',
           });
@@ -94,29 +90,6 @@ export class AuthService {
         }
       );
   }
-
-  // checkToken() {
-  //   // const decodedToken = this.helper.decodeToken(this.getJwtToken());
-  //   // const expirationDate = this.helper.getTokenExpirationDate(this.getJwtToken());
-  //   const isExpired = this.helper.isTokenExpired(this.getJwtToken());
-  //   const RisExpired = this.helper.isTokenExpired(this.getRefreshToken());
-  //   if( (RisExpired === false) && (isExpired === true) ) {
-  //     this.refreshToken();
-  //   }
-  //   else if( (RisExpired === true) && (isExpired === true) ) {
-
-  //     this.logout();
-  //     this.router.navigate(['']);
-  //     this.shared.sendClickEvent();
-  //     this.snackBar.open("Please Login", "x", {
-  //       duration: 5000,
-  //       panelClass: "warning"
-  //     });
-  //     this.removeTokens();
-  //     this.dialog.closeAll();
-  //   }
-
-  // }
 
   getJwtToken(): any {
     return localStorage.getItem(this.JWT_TOKEN);

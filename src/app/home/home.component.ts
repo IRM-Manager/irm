@@ -9,56 +9,58 @@ import { login } from '../public-layout/shared/form';
   selector: 'app-home',
   templateUrl: './home.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   @ViewChild('fform') feedbackFormDirective: any;
   feedbackForm: any = FormGroup;
   feedback!: login;
   hide = true;
-  forms = ['username', 'password']
+  forms = ['username', 'password'];
   loading = false;
   disabled = false;
 
   formErrors: any = {
-    'username': '',
-    'password': '',
+    username: '',
+    password: '',
   };
 
   validationMessages: any = {
-    'username': {
-      'required':      'username is required.',
+    username: {
+      required: 'username is required.',
     },
-    'password': {
-      'required':      'password is required.'
-    }
+    password: {
+      required: 'password is required.',
+    },
   };
 
-
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private authService: AuthService,
-    private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.createForm();
-   }
-
-  ngOnInit(): void {
   }
+
+  ngOnInit(): void {}
 
   createForm() {
     this.feedbackForm = this.fb.group({
-        username: ['', [Validators.required] ],
-        password: ['', [Validators.required] ],
-      },
-    );
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
 
-    this.feedbackForm.valueChanges
-      .subscribe((data: any) => this.onValueChanged(data));
+    this.feedbackForm.valueChanges.subscribe((data: any) =>
+      this.onValueChanged(data)
+    );
     this.onValueChanged(); // (re)set validation messages now
   }
 
-
   onValueChanged(data?: any) {
-    if (!this.feedbackForm) { return; }
+    if (!this.feedbackForm) {
+      return;
+    }
     const form = this.feedbackForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
@@ -77,37 +79,29 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   onSubmit() {
-
-    this.loading = true
-    this.disabled = true
+    this.loading = true;
+    this.disabled = true;
     this.feedback = this.feedbackForm.value;
 
     const user = {
-        username: this.feedback.username,
-        password: this.feedback.password,
-    }
+      username: this.feedback.username,
+      password: this.feedback.password,
+    };
     // perform login
-    this.authService.login(user)
-    .subscribe(
-      (data: any) => {
-        this.loading = false
-        this.disabled = false;
-        if (data) {
-          this.router.navigate(['/dashboard']);
-          this.snackBar.open('success', "", {
-            duration: 3000,
-            panelClass: "success",
-            horizontalPosition: "center",
-            verticalPosition: "top",
-          });
-        }
-
+    this.authService.login(user).subscribe((data: any) => {
+      this.loading = false;
+      this.disabled = false;
+      if (data) {
+        this.router.navigate(['/dashboard']);
+        this.snackBar.open('success', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
       }
-    )
+    });
     // end of subscribe
   }
-
-
 }

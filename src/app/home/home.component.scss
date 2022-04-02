@@ -1,553 +1,215 @@
-$back-white: #F4F6FA;
-$background: transparent linear-gradient(180deg, #47A83E 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
-$white: #FFFFFF;
+$back-white: #f4f6fa;
+$background: transparent linear-gradient(180deg, #47a83e 0%, #2aa977 100%) 0% 0%
+  no-repeat padding-box;
+$white: #ffffff;
 $ttc: normal normal normal 20px/24px Montserrat;
 $black-shadow: #00000029;
 $font: Montserrat;
-$login-text-green: #44A842;
-$need-green: #31A869;
+$login-text-green: #44a842;
+$need-green: #31a869;
 $need-font: normal normal normal 15px/19px Montserrat;
 $grey: grey;
 $black: black;
 
 .main {
-    height: 100vh;
-    width: 100%;
+  height: 100vh;
+  width: 100%;
+  background: $background;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .right {
+    height: 100%;
+    width: 50%;
+    background: $back-white 0% 0% no-repeat padding-box;
+    border-radius: 100px 0px 0px 100px;
+    opacity: 1;
+
+    .right-main {
+      position: relative;
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .right_green_login {
+      position: absolute;
+      background: $background;
+      height: 95px;
+      width: 230px;
+      padding: 2rem 1.3rem 1.3rem;
+      text-align: center;
+      top: 90px;
+      right: 25%;
+      opacity: 1;
+    }
+
+    .right_white_login_parent {
+      position: absolute;
+      height: 300px;
+      width: 220px;
+      top: 170px;
+      right: 40%;
+    }
+
+    .right_white_login {
+      width: 100%;
+      height: 100%;
+      background: $white 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 6px $black-shadow;
+      border-radius: 30px;
+      padding: 2rem;
+      opacity: 1;
+    }
+
+    .ad_ac_log {
+      font: $ttc;
+      letter-spacing: 0px;
+      color: $white;
+      opacity: 1;
+      font-weight: 500;
+    }
+
+    .login_text {
+      margin-top: 1.5rem;
+      text-align: left;
+      font: $ttc;
+      letter-spacing: 0px;
+      color: $login-text-green;
+      font-weight: 500;
+      opacity: 1;
+    }
+
+    .full-width {
+      width: 100%;
+    }
+
+    ::ng-deep .mat-form-field-underline,
+    ::ng-deep .mat-form-field-ripple {
+      background: $need-green;
+    }
+
+    mat-label {
+      color: $grey;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      caret-color: $black;
+    }
+
+    .submit_p {
+      text-align: center;
+    }
+
+    .submit {
+      margin-top: 1rem;
+      width: 90%;
+      height: 3rem;
+      background: $background;
+      border-radius: 10px;
+      text-align: center;
+      font: $ttc;
+      letter-spacing: 0px;
+      font-weight: 500;
+      color: $white;
+      opacity: 1;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5em 0 0.5em 0;
+    }
+
+    .bubble {
+      animation: expand 0.75s ease-in-out infinite;
+      border-radius: 20px;
+      display: inline-block;
+      transform-origin: center center;
+      margin: 0 3px;
+      width: 7px;
+      height: 7px;
+    }
+
+    .bubble:nth-child(1) {
+      background: $white;
+    }
+
+    .bubble:nth-child(2) {
+      animation-delay: 180ms;
+      background: $white;
+    }
+
+    .bubble:nth-child(3) {
+      animation-delay: 360ms;
+      background: $white;
+    }
+
+    .bubble:nth-child(4) {
+      animation-delay: 540ms;
+      background: $white;
+    }
+
+    @keyframes expand {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.55);
+      }
+    }
+
+    .need {
+      position: absolute;
+      bottom: -100px;
+      font: $need-font;
+      letter-spacing: 0px;
+      color: $need-green;
+      font-weight: 500;
+      margin-top: 1rem;
+      width: 100%;
+      text-align: center;
+      width: 100%;
+      // margin-left: 10%;
+      opacity: 1;
+    }
+
+    .click {
+      cursor: pointer;
+    }
+  }
+
+  .left {
+    height: 100%;
+    width: 50%;
+    padding-left: 1em;
+    padding-right: 1em;
     background: $background;
-    position: relative;
-    overflow: hidden;
+    opacity: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
-    .right {
-        height: 100%;
-        width: 50%;
-        background: $back-white 0% 0% no-repeat padding-box;
-        border-radius: 100px 0px 0px 100px;
-        opacity: 1;
-
-        .right-main {
-            position: relative;
-            width: 100%;
-            height: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .right_green_login {
-            position: absolute;
-            background: $background;
-            height: 95px;
-            width: 230px;
-            padding: 2rem 1.3rem 1.3rem;
-            text-align: center;
-            top: 90px;
-            right: 25%;
-            opacity: 1;
-        }
-
-        .right_white_login_parent {
-            position: absolute;
-            height: 300px;
-            width: 220px;
-            top: 170px;
-            right: 40%;
-        }
-
-        .right_white_login {
-            width: 100%;
-            height: 100%;
-            background: $white 0% 0% no-repeat padding-box;
-            box-shadow: 0px 3px 6px $black-shadow;
-            border-radius: 30px;
-            padding: 2rem;
-            opacity: 1;
-        }
-
-        .ad_ac_log {
-            font: $ttc;
-            letter-spacing: 0px;
-            color: $white;
-            opacity: 1;
-            font-weight: 500;
-        }
-
-        .login_text {
-            margin-top: 1.5rem;
-            text-align: left;
-            font: $ttc;
-            letter-spacing: 0px;
-            color: $login-text-green;
-            font-weight: 500;
-            opacity: 1;
-        }
-
-        .full-width {
-            width: 100%;
-        }
-
-        ::ng-deep .mat-form-field-underline,
-        ::ng-deep .mat-form-field-ripple {
-            background: $need-green;
-        }
-
-        mat-label {
-            color: $grey;
-        }
-
-        input[type="text"], input[type="password"] {
-            caret-color: $black;
-        }
-
-        .submit_p {
-            text-align: center;
-        }
-
-        .submit {
-            margin-top: 1rem;
-            width: 90%;
-            height: 3rem;
-            background: $background;
-            border-radius: 10px;
-            text-align: center;
-            font: $ttc;
-            letter-spacing: 0px;
-            font-weight: 500;
-            color: $white;
-            opacity: 1;
-        }
-
-          .loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0.5em 0 0.5em 0;
-           }
-          
-        
-          .bubble {
-            animation: expand .75s ease-in-out infinite;
-            border-radius: 20px;
-            display: inline-block;
-            transform-origin: center center;
-            margin: 0 3px;
-            width: 7px;
-            height: 7px;
-          }
-        
-          
-          .bubble:nth-child(1) {
-            background: $white;
-          }
-          
-          .bubble:nth-child(2) {
-            animation-delay: 180ms;
-            background: $white;
-          }
-          
-          .bubble:nth-child(3) {
-            animation-delay: 360ms;
-            background: $white;
-          }
-          
-          .bubble:nth-child(4) {
-            animation-delay: 540ms;
-            background: $white;
-          }
-          
-          @keyframes expand {
-            0% {
-              transform: scale(1);
-            }
-            25% {
-              transform: scale(1.55);
-            }
-          }
-        
-
-        .need {
-            position: absolute;
-            bottom: -100px;
-            font: $need-font;
-            letter-spacing: 0px;
-            color: $need-green;
-            font-weight: 500;
-            margin-top: 1rem;
-            width: 100%;
-            text-align: center;
-            width: 100%;
-            // margin-left: 10%;
-            opacity: 1;
-        }
-
-        .click {
-            cursor: pointer;
-        }
+    .left-image {
+      width: 75%;
+      height: auto;
     }
 
-    .left {
-        height: 100%;
-        width: 50%;
-        padding-left: 1em;
-        padding-right: 1em;
-        background: $background;
-        opacity: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-
-        .left-image {
-            width: 75%;
-            height: auto;
-        }
-
-        .ttc {
-            text-align: center;
-            font: $ttc;
-            letter-spacing: 0px;
-            color: $white;
-            font-weight: bold;
-            opacity: 1;
-        }
-    }
-}
-
-/* * ****** Extra LArge device only ***** * */
-
-@media (min-width: 1200px) {
-    .col-xl-1,
-    .col-xl-2,
-    .col-xl-3,
-    .col-xl-4,
-    .col-xl-5,
-    .col-xl-6,
-    .col-xl-7,
-    .col-xl-8,
-    .col-xl-9,
-    .col-xl-10,
-    .col-xl-11,
-    .col-xl-12 {
-        float: left;
-    }
-    .col-xl-1 {
-        width: 8.33%;
-    }
-    .col-xl-2 {
-        width: 16.66%;
-    }
-    .col-xl-3 {
-        width: 25%;
-    }
-    .col-xl-4 {
-        width: 33.33%;
-    }
-    .col-xl-5 {
-        width: 41.66%;
-    }
-    .col-xl-6 {
-        width: 50%;
-    }
-    .col-xl-7 {
-        width: 58.33%;
-    }
-    .col-xl-8 {
-        width: 66.66%;
-    }
-    .col-xl-9 {
-        width: 74.99%;
-    }
-    .col-xl-10 {
-        width: 83.33%;
-    }
-    .col-xl-11 {
-        width: 91.66%;
-    }
-    .col-xl-12 {
-        width: 100%;
-    }
-
-}
-
-
-/* ****** LArge device only ***** */
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .col-lg-1,
-    .col-lg-2,
-    .col-lg-3,
-    .col-lg-4,
-    .col-lg-5,
-    .col-lg-6,
-    .col-lg-7,
-    .col-lg-8,
-    .col-lg-9,
-    .col-lg-10,
-    .col-lg-11,
-    .col-lg-12 {
-        float: left;
-    }
-    .col-lg-1 {
-        width: 8.33%;
-    }
-    .col-lg-2 {
-        width: 16.66%;
-    }
-    .col-lg-3 {
-        width: 25%;
-    }
-    .col-lg-4 {
-        width: 33.33%;
-    }
-    .col-lg-5 {
-        width: 41.66%;
-    }
-    .col-lg-6 {
-        width: 50%;
-    }
-    .col-lg-7 {
-        width: 58.33%;
-    }
-    .col-lg-8 {
-        width: 66.66%;
-    }
-    .col-lg-9 {
-        width: 74.99%;
-    }
-    .col-lg-10 {
-        width: 83.33%;
-    }
-    .col-lg-11 {
-        width: 91.66%;
-    }
-    .col-lg-12 {
-        width: 100%;
-    }
-}
-
-
-/* ****** Tablet medium device only ***** */
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .col-md-1,
-    .col-md-2,
-    .col-md-3,
-    .col-md-4,
-    .col-md-5,
-    .col-md-6,
-    .col-md-7,
-    .col-md-8,
-    .col-md-9,
-    .col-md-10,
-    .col-md-11,
-    .col-md-12 {
-        float: left;
-    }
-    .col-md-1 {
-        width: 8.33%;
-    }
-    .col-md-2 {
-        width: 16.66%;
-    }
-    .col-md-3 {
-        width: 25%;
-    }
-    .col-md-4 {
-        width: 33.33%;
-    }
-    .col-md-5 {
-        width: 41.66%;
-    }
-    .col-md-6 {
-        width: 50%;
-    }
-    .col-md-7 {
-        width: 58.33%;
-    }
-    .col-md-8 {
-        width: 66.66%;
-    }
-    .col-md-9 {
-        width: 74.99%;
-    }
-    .col-md-10 {
-        width: 83.33%;
-    }
-    .col-md-11 {
-        width: 91.66%;
-    }
-    .col-md-12 {
-        width: 100%;
-    }
-
-}
-
-
-/* ****** small  device only ***** */
-
-@media (min-width: 580px) and (max-width: 767px) {
-    .col-sm-1,
-    .col-sm-2,
-    .col-sm-3,
-    .col-sm-4,
-    .col-sm-5,
-    .col-sm-6,
-    .col-sm-7,
-    .col-sm-8,
-    .col-sm-9,
-    .col-sm-10,
-    .col-sm-11,
-    .col-sm-12 {
-        float: left;
-    }
-    .col-sm-1 {
-        width: 8.33%;
-    }
-    .col-sm-2 {
-        width: 16.66%;
-    }
-    .col-sm-3 {
-        width: 25%;
-    }
-    .col-sm-4 {
-        width: 33%;
-    }
-    .col-sm-5 {
-        width: 41.66%;
-    }
-    .col-sm-6 {
-        width: 50%;
-    }
-    .col-sm-7 {
-        width: 58.33%;
-    }
-    .col-sm-8 {
-        width: 66.66%;
-    }
-    .col-sm-9 {
-        width: 74.99%;
-    }
-    .col-sm-10 {
-        width: 83.33%;
-    }
-    .col-sm-11 {
-        width: 91.66%;
-    }
-    .col-sm-12 {
-        width: 100%;
-    }
-    
-}
-
-
-/* extra small device */
-
-@media (min-width: 321px) and (max-width: 579px) {
-    .col-xs-1,
-    .col-xs-2,
-    .col-xs-3,
-    .col-xs-4,
-    .col-xs-5,
-    .col-xs-6,
-    .col-xs-7,
-    .col-xs-8,
-    .col-xs-9,
-    .col-xs-10,
-    .col-xs-11,
-    .col-xs-12 {
-        float: left;
-    }
-    .col-xs-1 {
-        width: 8.33%;
-    }
-    .col-xs-2 {
-        width: 16.66%;
-    }
-    .col-xs-3 {
-        width: 25%;
-    }
-    .col-xs-4 {
-        width: 33%;
-    }
-    .col-xs-5 {
-        width: 41.66%;
-    }
-    .col-xs-6 {
-        width: 50%;
-    }
-    .col-xs-7 {
-        width: 58.33%;
-    }
-    .col-xs-8 {
-        width: 66.66%;
-    }
-    .col-xs-9 {
-        width: 74.99%;
-    }
-    .col-xs-10 {
-        width: 83.33%;
-    }
-    .col-xs-11 {
-        width: 91.66%;
-    }
-    .col-xs-12 {
-        width: 100%;
-    }
-
-}
-
-@media (max-width: 320px) {
-    .col-xxs-1,
-    .col-xxs-2,
-    .col-xxs-3,
-    .col-xxs-4,
-    .col-xxs-5,
-    .col-xxs-6,
-    .col-xxs-7,
-    .col-xxs-8,
-    .col-xxs-9,
-    .col-xxs-10,
-    .col-xxs-11,
-    .col-xxs-12 {
-        float: left;
-    }
-    .col-xxs-1 {
-        width: 8.33%;
-    }
-    .col-xxs-2 {
-        width: 16.66%;
-    }
-    .col-xxs-3 {
-        width: 25%;
-    }
-    .col-xxs-4 {
-        width: 33%;
-    }
-    .col-xxs-5 {
-        width: 41.66%;
-    }
-    .col-xxs-6 {
-        width: 50%;
-    }
-    .col-xxs-7 {
-        width: 58.33%;
-    }
-    .col-xxs-8 {
-        width: 66.66%;
-    }
-    .col-xxs-9 {
-        width: 74.99%;
-    }
-    .col-xxs-10 {
-        width: 83.33%;
-    }
-    .col-xxs-11 {
-        width: 91.66%;
-    }
-    .col-xxs-12 {
-        width: 100%;
-    }
-
+    .ttc {
+      text-align: center;
+      font: $ttc;
+      letter-spacing: 0px;
+      color: $white;
+      font-weight: bold;
+      opacity: 1;
+    }
+  }
 }

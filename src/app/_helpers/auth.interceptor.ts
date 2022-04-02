@@ -1,15 +1,6 @@
-import {
-  HTTP_INTERCEPTORS,
-  HttpEvent,
-  HttpErrorResponse,
-  HttpClient,
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS,HttpEvent, HttpErrorResponse, HttpClient, } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest,} from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
@@ -27,11 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   handleHttpError = (err: HttpErrorResponse, req: any, next: HttpHandler) => {
     if (
-      err instanceof HttpErrorResponse &&
-      // !req.url.includes(BaseUrl.api + 'user/api/v1/token/') ||
-      // !req.url.includes(BaseUrl.api2 + 'paye/api/v1/paye/year/') ||
-      // !req.url.includes(BaseUrl.api2 + 'user/api/v1/getstate/?type=state&state_id=1')
-      err.status === 401
+      err instanceof HttpErrorResponse && err.status === 401
     ) {
       return this.handle401Error(req, next);
     }
@@ -51,11 +38,6 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         this.handleHttpError(err, authReq, next);
         return throwError(err);
-        // if (err instanceof HttpErrorResponse && !authReq.url.includes('') && err.status === 401) {
-        //     return this.handle401Error(authReq, next);
-        // }
-        // return Observable.throw(error)
-        // return throwError(err);
       })
     );
   }

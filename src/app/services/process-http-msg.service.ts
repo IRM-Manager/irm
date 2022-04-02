@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import {HttpService} from './http.service'
+import { HttpService } from './http.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProcessHttpMsgService {
-
-  constructor() { }
+  constructor() {}
 
   public handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
@@ -22,5 +21,4 @@ export class ProcessHttpMsgService {
 
     return throwError(errMsg);
   }
-  
 }

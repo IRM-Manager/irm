@@ -8,41 +8,44 @@
     <!-- right -->
     <div class="right">
         <div class="right-main">
-                <div class="right_green_login">
-                    <div class="ad_ac_log">Admin Access Login</div>
-                </div>
-                <div class="right_white_login_parent">
-                    <div class="right_white_login">
-                        <div class="login_text">Login ID</div>
-                        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <div class="right_green_login">
+                <div class="ad_ac_log">Admin Access Login</div>
+            </div>
+            <div class="right_white_login_parent">
+                <div class="right_white_login">
+                    <div class="login_text">Login ID</div>
+                    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
 
-                            <mat-form-field class="full-width" appearance="standard">
-                                <input matInput formControlName="username" type="text" placeholder="Type id here" class="email">
-                                <mat-error *ngIf="formErrors.username">{{formErrors.username}}</mat-error>
-                            </mat-form-field>
+                        <mat-form-field class="full-width" appearance="standard">
+                            <input matInput formControlName="username" type="text" placeholder="Type id here"
+                                class="email">
+                            <mat-error *ngIf="formErrors.username">{{formErrors.username}}</mat-error>
+                        </mat-form-field>
 
-                            <mat-form-field class="full-width" appearance="standard">
-                                <input matInput formControlName="password" type="password" placeholder="Password" class="password">
-                                <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
-                            </mat-form-field>
-                            
-                            <div class="submit_p">
-                                <button mat-button type="submit" [disabled]="fform.form.invalid || disabled === true" class="submit">
-                                    <span *ngIf="!loading">Access</span>
-                                    <div *ngIf="loading" class="loader">
-                                        <div class="bubble"></div>
-                                        <div class="bubble"></div>
-                                        <div class="bubble"></div>
-                                        <div class="bubble"></div>
-                                    </div>
-                                </button>
-                            </div>
-                        
-                        </form>
-                        <div class="need">Need help? <span class="click">Click</span></div>
-                    </div>
-                    <!-- <div class="need">Need help? <span class="click">Click</span></div> -->
+                        <mat-form-field class="full-width" appearance="standard">
+                            <input matInput formControlName="password" type="password" placeholder="Password"
+                                class="password">
+                            <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
+                        </mat-form-field>
+
+                        <div class="submit_p">
+                            <button mat-button type="submit" [disabled]="fform.form.invalid || disabled === true"
+                                class="submit">
+                                <span *ngIf="!loading">Access</span>
+                                <div *ngIf="loading" class="loader">
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                </div>
+                            </button>
+                        </div>
+
+                    </form>
+                    <div class="need">Need help? <span class="click">Click</span></div>
                 </div>
+                <!-- <div class="need">Need help? <span class="click">Click</span></div> -->
+            </div>
         </div>
     </div>
 </div>

@@ -3,15 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
 };
 
 export const BaseUrl = {
   jwt_token: 'IRM_ACCESS',
   refresh_token: 'IRM_REFRESH',
-  api: "https://irmpayer.herokuapp.com/", 
-  api2: "https://irmpaye.herokuapp.com/"  
-}
+  api: 'https://irmpayer.herokuapp.com/',
+  api2: 'https://irmpaye.herokuapp.com/',
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -7,7 +7,6 @@ import { AuthService } from './auth.service';
 import { Store } from '@ngrx/store';
 import { Profile } from '../models/irm';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
-import { AddProfile, RemoveProfile } from '../actions/irm.action';
 
 @Injectable({
   providedIn: 'root',

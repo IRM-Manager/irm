@@ -1,27 +1,26 @@
 export interface Profile {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
-
 export interface States {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface Year {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface IndPayer {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface ComPayer {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 // export interface Contact {
@@ -34,18 +33,15 @@ export interface ComPayer {
 //     data: any;
 // }
 
-
 // export interface Notification {
 //     id: number;
 //     data: any;
 // }
 
-
 // export interface Task {
 //     id: number;
 //     data: any;
 // }
-
 
 // export interface Admin_Agent {
 //     id: number;
@@ -56,7 +52,6 @@ export interface ComPayer {
 //     id: number;
 //     data: any;
 // }
-
 
 // export interface Coupon {
 //     id: number;
