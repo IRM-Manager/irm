@@ -96,7 +96,7 @@ export class HttpService {
         BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`,
         httpOptions
       )
-      .pipe(retry(1));
+      .pipe(retry(2));
   }
 
   // upload csv payee file
