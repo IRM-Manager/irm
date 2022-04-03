@@ -61,7 +61,7 @@
                         </tr>
                         <tr>
                             <th class="title">Employment Status</th>
-                            <th class="sub_title">{{data.data.employment_status}}</th>
+                            <th class="sub_title" style="text-transform: capitalize;">{{data.data.employment_status}}</th>
                         </tr>
                         <tr>
                             <th class="title">House No.</th>
@@ -78,6 +78,14 @@
                         <tr>
                             <th class="title">Place of Birth</th>
                             <th class="sub_title">{{data.data.pob}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">State of Origin</th>
+                            <th class="sub_title">{{data.data.state_origin.name}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">LGA</th>
+                            <th class="sub_title">{{data.data.lga_origin.name}}</th>
                         </tr>
                         <tr>
                             <th class="title">Zipcode</th>
@@ -149,8 +157,65 @@
                         </tr>
                         <tr>
                             <th class="title align-middle">Director</th>
-                            <th class="sub_title align-middle director">{{data.data.directors_info.surname}}
-                                {{data.data.directors_info.first_name}} {{data.data.directors_info.middle_name}}</th>
+                            <th class="sub_title align-middle director dropdown"> 
+                                <span class="dropbtn">
+                                    {{data.data.directors_info.surname}}
+                                    {{data.data.directors_info.first_name}}
+                                    {{data.data.directors_info.middle_name}}
+                                </span>
+
+                                <div class="dropdown-content">
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th class="title">Name</th>
+                                                <th class="sub_title align-middle">
+                                                    {{data.data.directors_info.surname}}
+                                                    {{data.data.directors_info.first_name}}
+                                                    {{data.data.directors_info.lastname}}
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">E-mail</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.dir_email}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">Phone No.</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.dir_phone}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">Date of Birth</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.dob}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">Place of Birth</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.pob}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">Gender</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.gender}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">Occupation</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.profession_trade}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">State of Origin</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.state_origin.name}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">LGA</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.lga_origin.name}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="title align-middle">Nigerian</th>
+                                                <th class="sub_title align-middle">Yes</th>
+                                            </tr>
+                                        </thead>
+                                    </table>    
+                                </div>
+                                
+                            </th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Office Website URL</th>
@@ -173,6 +238,14 @@
                         <tr>
                             <th class="title align-middle">House no.</th>
                             <th class="sub_title align-middle">{{data.data.house_no}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">State</th>
+                            <th class="sub_title">{{data.data.payer.address_state.name}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">LGA</th>
+                            <th class="sub_title">{{data.data.payer.address_lga.name}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Zipcode</th>
@@ -270,6 +343,14 @@
                         <tr>
                             <th class="title align-middle">House no.</th>
                             <th class="sub_title align-middle">{{data.data.house_no}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">State</th>
+                            <th class="sub_title">{{data.data.payer.address_state.name}}</th>
+                        </tr>
+                        <tr>
+                            <th class="title">LGA</th>
+                            <th class="sub_title">{{data.data.payer.address_lga.name}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Zipcode</th>

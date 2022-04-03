@@ -118,7 +118,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     lga: '',
     nationality: '',
     trade: '',
-    employment: '',
+    // employment: '',
     contact: '',
     contact_email: '',
     house: '',
@@ -165,9 +165,9 @@ export class BusinessComponent implements OnDestroy, OnInit {
     trade: {
       required: 'required.',
     },
-    employment: {
-      required: 'required.',
-    },
+    // employment: {
+    //   required: 'required.',
+    // },
     contact: {
       required: 'required.',
     },
@@ -271,7 +271,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
       lga: ['', [Validators.required]],
       nationality: ['', [Validators.required]],
       trade: ['', [Validators.required]],
-      employment: ['', [Validators.required]],
+      // employment: ['', [Validators.required]],
       contact: ['', [Validators.required]],
       contact_email: [
         '',
@@ -482,8 +482,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.feedbackForm1.get('birth').reset();
     this.feedbackForm1.get('place').reset();
     this.feedbackForm1.get('nationality').reset();
-    this.feedbackForm1.get('trade').reset();
-    this.feedbackForm1.get('employment').reset();
+    this.feedbackForm1.get('trade').reset();    
     this.feedbackForm1.get('contact').reset();
     this.feedbackForm1.get('contact_email').reset();
     this.feedbackForm1.get('title').reset();
@@ -572,12 +571,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
         this.lgaaError = true;
         this.formErrors['lga'] = 'required.';
       }
-      if (control.employment.status == 'INVALID') {
-        this.employmentError = true;
-        this.formErrors['employment'] = 'required.';
-      } else {
-        this.employmentError = false;
-      }
     } else {
       console.log('personal', true);
       this.lgaaError = false;
@@ -591,7 +584,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
       this.genderError = false;
       this.surnameError = false;
       this.firstnameError = false;
-      this.employmentError = false;
     }
   }
 
@@ -733,7 +725,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
           lga_origin: this.feedback1.lga,
           nationality: this.feedback1.nationality,
           profession_trade: this.feedback1.trade,
-          employment_category: this.feedback1.employment,
           dir_phone: this.feedback1.contact,
           dir_email: this.feedback1.contact_email,
           gender: this.feedback1.gender,
@@ -975,9 +966,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
         this.feedbackForm1.patchValue({
           contact_email: data.data.directors_info.dir_email,
         });
-        this.feedbackForm1.patchValue({
-          employment: data.data.directors_info.employment_category,
-        });
         this.feedbackForm2.patchValue({ street: data.data.address });
         this.feedbackForm2.patchValue({ house: data.data.house_no });
         this.feedbackForm2.patchValue({ zipcode: data.data.zipcode });
@@ -1043,7 +1031,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
           lga_origin: this.feedback1.lga,
           nationality: this.feedback1.nationality,
           profession_trade: this.feedback1.trade,
-          employment_category: this.feedback1.employment,
           dir_phone: this.feedback1.contact,
           dir_email: this.feedback1.contact_email,
           gender: this.feedback1.gender,

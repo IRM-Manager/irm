@@ -51,7 +51,7 @@ export interface BusinessIndividual1 {
     lga: string;
     nationality: string;
     trade: string;
-    employment: string;
+    // employment: string;
     contact: string;
     contact_email: string;
 }

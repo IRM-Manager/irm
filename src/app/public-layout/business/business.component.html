@@ -253,7 +253,7 @@
             </p>
             <p>
                 <!-- lga -->
-                <mat-form-field class="half-width" appearance="outline">
+                <mat-form-field class="half-width3" appearance="outline">
                     <mat-label>LGA</mat-label>
                     <mat-select matInput formControlName="lga" #singleSelect required>
                         <mat-option>
@@ -273,29 +273,18 @@
                     <mat-hint *ngIf="lgaLoading">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- nationality -->
-                <mat-form-field class="half-width" appearance="outline">
+                <mat-form-field class="half-width3" appearance="outline">
                     <mat-label>Nationality</mat-label>
                     <input matInput formControlName="nationality" required>
                     <mat-error>{{formErrors.nationality}}</mat-error>
                     <mat-hint *ngIf="nationalityError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
                 <!-- trade -->
-                <mat-form-field class="half-width" appearance="outline">
+                <mat-form-field class="half-width3" appearance="outline">
                     <mat-label>Profession/Trade</mat-label>
                     <input matInput formControlName="trade" required>
                     <mat-error>{{formErrors.trade}}</mat-error>
                     <mat-hint *ngIf="tradeError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-                <!-- employment -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Employment category</mat-label>
-                    <mat-select matInput formControlName="employment" required>
-                        <mat-option value="employed">Employed</mat-option>
-                        <mat-option value="unemployed">Unemployed</mat-option>
-                        <mat-option value="retired">Retired</mat-option>
-                    </mat-select>
-                    <mat-error>{{formErrors.employment}}</mat-error>
-                    <mat-hint *ngIf="employmentError" class="hint-error">required.</mat-hint>
                 </mat-form-field>
             </p>
 
