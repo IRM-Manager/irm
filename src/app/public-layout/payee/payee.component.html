@@ -22,7 +22,7 @@
             <div class="form_header">
                 <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
                     <mat-form-field class="cac-width" appearance="outline">
-                        <mat-label>(TIN or Tax ID)</mat-label>
+                        <mat-label>(Tax ID)</mat-label>
                         <input matInput formControlName="tin" placeholder="">
                     </mat-form-field>
                     <button mat-button class="verify" type="submit">

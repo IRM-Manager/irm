@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
-import { Tin, Person } from '../shared/form';
+import { Tin } from '../shared/form';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -182,15 +182,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
               type: 'staff-income',
               is_type: false,
             }
-            this.shared.setMessage(data.data);
-            this.shared.setMessage2(data.data);
-            this.shared.PayeesendClickEvent(datas);
-            this.snackBar.open("Valid", "", {
-              duration: 3000,
-              panelClass: "success",
-              horizontalPosition: "center",
-              verticalPosition: "top",
-            });
+            this.OpenDialog(data.data, 'payee')
         }
         else {
           this.snackBar.open("Not A Registered Business Taxpayer", "", {
