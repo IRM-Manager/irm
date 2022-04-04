@@ -2,7 +2,7 @@ import { Options } from 'highcharts';
 
 export const AreaChartOptions: Options = {
   chart: {
-    styledMode: true,
+    type: 'spline',
   },
   credits: {
     enabled: false,
@@ -13,20 +13,36 @@ export const AreaChartOptions: Options = {
         enabled: false,
       }
     },
+    spline: {
+        marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+        }
+    }
   },
   title: {
     verticalAlign: 'middle',
     floating: true,
-    text: 'Area Chart',
+    text: '',
   },
   legend: {
     enabled: false,
   },
   yAxis: {
-    visible: false,
+    visible: true,
+    title: {
+        text: ''
+    },
+    labels: {
+        formatter: function () {
+            return this.value + ' M';
+        }
+    }
   },
   xAxis: {
-    visible: false,
+    visible: true,
+    lineColor: "#FFFFFF",
     categories: [
         'Jan',
         'Feb',
@@ -38,7 +54,7 @@ export const AreaChartOptions: Options = {
     ]
   },
   defs: {
-    gradients: {
+    gradient0: {
         tagName: 'linearGradient',
         id: 'gradient-0',
         x1: 0,
@@ -56,5 +72,21 @@ export const AreaChartOptions: Options = {
             }
         ]
     },
-  } as any
+  } as any,
+  series: [
+      {
+          color: '#32A969',
+          type: 'spline',
+          keys: ['y', 'selected'],
+          data: [
+              [29.9, false],
+              [24.9, false],
+              [21.9, false],
+              [22.9, false],
+              [294.9, false],
+              [67.9, false],
+              [89.9, false],
+          ]
+      }
+  ]
 };

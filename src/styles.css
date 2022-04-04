@@ -42,3 +42,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 #gradient-0 stop[offset="1"] {
   stop-opacity: 0;
 }
+
+.highcharts-color-0 {
+  fill: #506ef9;
+  stroke: #506ef9;
+}
+
+.highcharts-color-0 .highcharts-area {
+  fill-opacity: 1;
+  fill: url(#gradient-0);
+}

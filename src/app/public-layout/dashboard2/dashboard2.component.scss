@@ -57,6 +57,7 @@ $export-back: #ffffff 0% 0% no-repeat padding-box;
     background: $category-icon-back;
     border-radius: 10px;
     font: $category-icon-font;
+    font-weight: bold;
     letter-spacing: 0.12px;
     color: $category-icon-color;
   }
@@ -99,16 +100,20 @@ $export-back: #ffffff 0% 0% no-repeat padding-box;
 
   .chart_p {
     margin-top: 4rem;
-    margin-bottom: 1rem;
   }
 
   .chart {
     display: flex;
+    margin-bottom: 1rem;
     justify-content: space-between;
     align-self: center;
     word-wrap: break-word;
     word-break: break-all;
     overflow-wrap: break-word;
+}
+
+.myChart {
+    margin-top: 1rem;
 }
 
 .line {
@@ -122,6 +127,7 @@ $export-back: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 16px;
     width: 30%;
     height: 250px;
+    margin-top: 1rem;
     padding: 1rem;
     opacity: 1;
   }
@@ -187,4 +193,20 @@ $export-back: #ffffff 0% 0% no-repeat padding-box;
       margin-bottom: 10px;
   }
 
+}
+
+
+@media (max-width: 1300px) {
+    .chart {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        .chart-catalog {
+            width: 50%;
+            margin-bottom: 1rem;
+        }
+    }
 }
