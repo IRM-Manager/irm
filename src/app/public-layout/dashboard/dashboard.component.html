@@ -1,1 +1,105 @@
-<p>dashboard works!</p>
+<div class="wrapper">
+    <mat-toolbar>
+
+        <div class="dashboard-text">Dashboard</div>
+
+        <div class="spacer"></div>
+
+        <div class="search_icon_p">
+            <form class="search-form">
+                <button matSuffix mat-icon-button class="form-icon">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <input type="text" placeholder="Search for transaction, TaxID, Reference no., etc">
+            </form>
+        </div>
+
+        <button mat-button class="example-icon">
+            <mat-icon>download_for_offline</mat-icon>
+            <span class="export-report">Export Reports</span>
+        </button>
+    </mat-toolbar>
+
+
+
+    <div class="card_p">
+
+        <div class="card_row">
+
+            <div class="card1">
+                <div class="header">IRM</div>
+                <div class="header2">Welcome, Becky</div>
+                <div class="table_header2">Recent Transaction</div>
+                <hr class="table_hr">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="sub_title align-middle">10 March</th>
+                            <th class="title align-middle">PAYEE</th>
+                            <th class="sub_title align-middle">Individual</th>
+                            <th class="sub_title align-middle">10,000,000.00</th>
+                        </tr>
+                        <tr>
+                            <th class="sub_title align-middle">10 March</th>
+                            <th class="title align-middle">PAYEE</th>
+                            <th class="sub_title align-middle">Individual</th>
+                            <th class="sub_title align-middle">10,000,000.00</th>
+                        </tr>
+                    </thead>
+                </table>
+                <hr class="table_hr">
+
+                <div class="table_view_trans">
+                    View All Transactions
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </div>
+            </div>
+
+            <div class="card2">
+                <div class="header">Total registered Taxpayer</div>
+                <div class="header2">200, 000
+                    <div class="" style="font-size: 11px; font-weight: 400;">Taxpayers</div>
+                </div>
+                <div class="table_header">Recent Registration</div>
+                <hr class="table_hr">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="sub_title align-middle">10 March</th>
+                            <th class="title align-middle">Matthew Adeboye</th>
+                            <th class="sub_title align-middle">Individual</th>
+                            <th class="sub_title align-middle">ID22335</th>
+                        </tr>
+                        <tr>
+                            <th class="sub_title">10 March</th>
+                            <th class="title align-middle">Matthew Adeboye</th>
+                            <th class="sub_title">Individual</th>
+                            <th class="sub_title">ID22335</th>
+                        </tr>
+                    </thead>
+                </table>
+                <hr class="table_hr">
+
+                <div class="table_view_trans">
+                    View all registered Taxpayer
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <app-dashboard2></app-dashboard2>
+
+            <div style="clear: both;"></div>
+
+            <app-dashboard3></app-dashboard3>
+
+            <div style="clear: both;"></div>
+
+        </div>
+
+    </div>
+
+    
+
+</div>

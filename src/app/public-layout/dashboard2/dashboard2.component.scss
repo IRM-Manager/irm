@@ -1,0 +1,20 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$card-back: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
+$card-box-shadow: 0px 6px 6px #00000029;
+
+.card {
+    width: 99.1%;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: $card-back;
+    box-shadow: $card-box-shadow;
+    border-radius: 10px;
+
+    .myChart {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 500px));
+        place-content: center;
+    }
+
+}

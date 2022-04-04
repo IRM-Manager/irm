@@ -102,7 +102,7 @@ export class HeaderComponent implements OnInit {
       this.left_text1 = 'MDA Collection';
       this.left_text2 = 'Please fill in the information';
     } else if (this.router.url == '/dashboard') {
-      this.type = 'tax';
+      this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
     } else {

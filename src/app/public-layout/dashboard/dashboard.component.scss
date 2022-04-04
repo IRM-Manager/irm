@@ -1,0 +1,201 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$background: #f5f7fa 0% 0% no-repeat padding-box;
+$form-icon-color: rgba(27, 87, 63, 0.54);
+$placeholder-font: normal normal normal 15px/24px Montserrat;
+$dash-font: normal normal medium 15px/24px Montserrat;
+$dash-text-color: #565656;
+$white: #ffffff;
+$export-border: 0.5px solid #20b07e;
+$green: #36a861;
+$export-back: #ffffff 0% 0% no-repeat padding-box;
+$card-back: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
+$card-box-shadow: 0px 6px 6px #00000029;
+$header-font: normal normal normal 15px/19px Montserrat;
+$header-color: #3c66a3;
+$header2-font: normal normal medium 20px/24px Montserrat;
+$view-color: #34a965;
+
+.wrapper {
+  background: $background;
+  min-height: 100vh;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.dashboard-text {
+  text-transform: capitalize;
+  font: $dash-font;
+  letter-spacing: 0.14px;
+  color: $dash-text-color;
+  opacity: 1;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  background: None;
+}
+
+.search_icon_p {
+  float: right;
+  display: flex;
+  justify-content: right;
+  align-items: right;
+}
+
+.search-form {
+  margin-right: 10px;
+  vertical-align: top;
+  background: $white;
+}
+
+input[type="text"] {
+  background: $white;
+  box-sizing: border-box;
+  border: 1px solid $white;
+  border-radius: 2px;
+  height: 35px;
+  width: 40vw;
+  font: $placeholder-font;
+  padding-left: 15px;
+}
+
+[type="text"]:focus {
+  outline: none;
+}
+
+.form-icon {
+  color: $form-icon-color;
+  margin-left: 10px;
+}
+
+.example-icon {
+  background: $export-back;
+  border: 2px solid $green;
+  border: $export-border;
+  border-radius: 10px;
+  opacity: 1;
+}
+
+.example-icon mat-icon {
+  color: $green;
+  opacity: 1;
+}
+
+.export-report {
+  font: $placeholder-font;
+  letter-spacing: 0px;
+  color: $dash-text-color;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.card_p {
+  margin-top: 2rem;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .card1 {
+    float: left;
+    padding: 1rem;
+    margin-right: 5px;
+    background: $card-back;
+    box-shadow: $card-box-shadow;
+    border-radius: 10px;
+    width: 44%;
+    // height: 400px;
+  }
+
+  .card2 {
+      float: left;
+      width: 54%;
+    padding: 1rem;
+    margin-left: 5px;
+    background: $card-back;
+    box-shadow: $card-box-shadow;
+    border-radius: 10px;
+    // height: 400px;
+  }
+
+  .header {
+    font: $header-font;
+    margin-top: 1rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: $header-color;
+    opacity: 1;
+  }
+
+  .header2 {
+    font: $header2-font;
+    font-size: 23px;
+    text-transform: capitalize;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: $dash-text-color;
+    opacity: 1;
+  }
+
+  .sub_title {
+    color: $dash-text-color;
+    font: $header-font;
+    letter-spacing: 0px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    opacity: 1;
+  }
+
+  .title {
+    color: $dash-text-color;
+    font: $header-font;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    font-weight: 550;
+    opacity: 1;
+  }
+
+  .table_header {
+    margin-top: 1.5rem;
+    font: $header-font;
+    letter-spacing: 0px;
+    color: $dash-text-color;
+    opacity: 1;
+  }
+
+  .table_header2 {
+      margin-top: 2.7rem;
+      font: $header-font;
+        letter-spacing: 0px;
+        color: $dash-text-color;
+        opacity: 1;
+  }
+
+  .table_hr {
+    height: 2px;
+    color: #00000029;
+  }
+
+  .table_view_trans {
+    vertical-align: middle;
+    text-align: right;
+    text-decoration: underline;
+    font: $header-font;
+    font-weight: 500;
+    letter-spacing: 0px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    color: $view-color;
+    opacity: 1;
+  }
+
+  .table_view_trans mat-icon {
+    vertical-align: middle;
+  }
+}

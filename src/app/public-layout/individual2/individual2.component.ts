@@ -10,9 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Store } from '@ngrx/store';
 import { States, Profile } from '../../models/irm';
 import { AppState, selectAllStates, selectAllProfile } from 'src/app/reducers/index';
-import { AddStates, AddProfile, RemoveIndPayer } from '../../actions/irm.action';
+import { AddStates, RemoveIndPayer } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
-import { DataTablesModule } from 'angular-datatables';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 import { Router } from '@angular/router';
 

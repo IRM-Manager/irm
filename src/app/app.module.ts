@@ -74,6 +74,7 @@ import { HomeComponent } from './home/home.component';
 // http interceptors
 import { AuthInterceptor } from './_helpers/auth.interceptor';
 
+
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   imports: [

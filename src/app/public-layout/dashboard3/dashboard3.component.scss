@@ -1,0 +1,117 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$card-back: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
+$card-box-shadow: 0px 6px 6px #00000029;
+$header-text: normal normal normal 15px/19px Montserrat;
+$header-color: #3C66A3;
+
+.card_p {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+
+  .card1 {
+    float: left;
+    width: 49.1%;
+    padding: 1rem;
+    margin-right: 5px;
+    background: $card-back;
+    box-shadow: $card-box-shadow;
+    border-radius: 10px;
+  }
+
+  .card2 {
+    float: left;
+    width: 49.1%;
+    padding: 1rem;
+    margin-left: 5px;
+    background: $card-back;
+    box-shadow: $card-box-shadow;
+    border-radius: 10px;
+  }
+
+  .line {
+    height: 370px;
+    width: 370px;
+  }
+
+  .header {
+    text-align: left;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font: $header-text;
+    letter-spacing: 0px;
+    color: $header-color;
+    opacity: 1;
+  }
+
+  .chart {
+      display: flex;
+      justify-content: left;
+      align-self: left;
+  }
+
+  .chart-catalog {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 20px;
+  }
+
+  .chart-catalog div {
+    margin-bottom: 10px;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+  }
+
+  .catalog-payee {
+      background:#224478;
+      color: #224478;
+  }
+
+  .catalog-vehicle {
+    background: #BC333E;
+    color: #BC333E;
+}
+
+.catalog-direct {
+    background: #286C65;
+    color: #286C65;
+}
+
+.catalog-land {
+    background: #4B9934;
+    color: #4B9934;
+}
+
+.catalog-other {
+    background: #C36F38;
+    color: #C36F38;
+}
+
+.catalog-a {
+    background: #4F3F8E;
+    color: #4F3F8E;
+}
+
+.catalog-b {
+    background: #4D3E00;
+    color: #4D3E00;
+}
+
+.catalog-c {
+    background: #CECB4C;
+    color: #CECB4C;
+}
+
+.catalog-d {
+    background: #69388A;
+    color: #69388A;
+}
+
+.catalog-o {
+    background: #2E1301;
+    color: #2E1301;
+}
+
+}

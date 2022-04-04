@@ -30,3 +30,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+
+#gradient-0 stop {
+  stop-color: #506ef9;
+}
+
+#gradient-0 stop[offset="0"] {
+  stop-opacity: 0.25;
+}
+
+#gradient-0 stop[offset="1"] {
+  stop-opacity: 0;
+}
