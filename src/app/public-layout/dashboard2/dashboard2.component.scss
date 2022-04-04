@@ -161,15 +161,11 @@ $export-back: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
   }
 
-  .arrow-up mat-icon {
-      vertical-align: middle;
-      font-size: 16px;
-  }
-
   .catalog-f {
     font: normal normal normal 20px/24px Montserrat;
     vertical-align: middle;
     letter-spacing: 0.15px;
+    margin-bottom: 20px;
     color: #FFFFFF;
     opacity: 1;
     display: flex;
@@ -186,9 +182,5 @@ $export-back: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
   }
 
-  .arrow-down mat-icon {
-      vertical-align: middle;
-      font-size: 16px;
-  }
 
 }
