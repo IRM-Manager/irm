@@ -48,6 +48,9 @@ $header-color: #3C66A3;
       display: flex;
       justify-content: left;
       align-self: left;
+      word-wrap: break-word;
+      word-break: break-all;
+      overflow-wrap: break-word;
   }
 
   .chart-catalog {
@@ -114,4 +117,13 @@ $header-color: #3C66A3;
     color: #2E1301;
 }
 
+}
+
+
+@media (max-width: 1300px) {
+    .chart {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
