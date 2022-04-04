@@ -110,8 +110,8 @@ input[type="text"] {
   }
 
   .card2 {
-      float: left;
-      width: 54%;
+    float: left;
+    width: 54%;
     padding: 1rem;
     margin-left: 5px;
     background: $card-back;
@@ -169,11 +169,11 @@ input[type="text"] {
   }
 
   .table_header2 {
-      margin-top: 2.7rem;
-      font: $header-font;
-        letter-spacing: 0px;
-        color: $dash-text-color;
-        opacity: 1;
+    margin-top: 2.7rem;
+    font: $header-font;
+    letter-spacing: 0px;
+    color: $dash-text-color;
+    opacity: 1;
   }
 
   .table_hr {

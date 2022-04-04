@@ -18,6 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
 import { Dashboard3Component } from '../dashboard3/dashboard3.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { Dashboard3Component } from '../dashboard3/dashboard3.component';
     NgxMatSelectSearchModule,
     MatSelectModule,
     ChartModule,
+    MatMenuModule,
   ]
 })
 export class DashboardModule { }

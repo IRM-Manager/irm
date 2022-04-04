@@ -1,6 +1,87 @@
 <div class="card">
-    fewfwe
-    <!-- <div class="myChart">
-        <div class="line" [chart]="areaChart"></div>
-    </div> -->
+
+    <div class="overview">
+
+        <div class="d-h-l">
+            <div class="category">
+                <div>
+                    <div class="text">Total Revenue</div>
+                    <div class="text2">
+                        &#8358;6,000,000.0
+                    </div>
+                </div>
+                <div class="category-icon">
+                    +6.2%
+                </div>
+            </div>
+        </div>
+
+        <div class="d-h-l">
+            <div class="category">
+                <div>
+                    <div class="text">Monthly Revenue</div>
+                    <div class="text2">
+                        &#8358;10,000,000.0
+                    </div>
+                </div>
+                <div class="category-icon">
+                    +25.2%
+                </div>
+            </div>
+        </div>
+
+        <div class="d-h-l">
+            <div class="category">
+                <div>
+                    <div class="text">Weekly Revenue</div>
+                    <div class="text2">
+                        &#8358;1000,000.0
+                    </div>
+                </div>
+                <div class="category-icon">
+                    +9.2%
+                </div>
+            </div>
+        </div>
+
+        <div class="d-h-l">
+            <button mat-button class="example-icon" [matMenuTriggerFor]="menu">
+                <span class="export-report">All revenue streams</span>
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>Item 1</button>
+                <button mat-menu-item>Item 2</button>
+              </mat-menu>
+        </div>
+
+    </div>
+
+
+    <div class="chart_p">
+        <button mat-button class="example-icon" [matMenuTriggerFor]="menu2">
+            <span class="export-report">Weekly Revenue</span>
+            <mat-icon>filter_list</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item>Item 3</button>
+            <button mat-menu-item>Item 4</button>
+        </mat-menu>
+
+        <div class="chart">
+            <div class="myChart">
+                <!-- <div class="line" [chart]="donutChart2"></div> -->
+                ghgg
+            </div>
+            <div class="chart-catalog">
+                <div><span class="catalog-a">cc</span> LGA A</div>
+                <div><span class="catalog-b">cc</span> LGA B</div>
+                <div><span class="catalog-c">cc</span> LGA C</div>
+                <div><span class="catalog-d">cc</span> LGA D</div>
+                <div><span class="catalog-o">cc</span> Other LGA</div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
