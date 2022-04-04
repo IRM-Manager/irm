@@ -127,7 +127,7 @@ $back-color: #44a843;
   tbody tr {
     font: $tbody-back;
     letter-spacing: 0px;
-    color: $tbody-color;
+    color: rgba(86,86,86,0.7);
   }
 
   tr th {
@@ -143,7 +143,7 @@ $back-color: #44a843;
   .status {
     text-transform: capitalize;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
   }
  
 
