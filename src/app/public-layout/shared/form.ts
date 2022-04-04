@@ -243,72 +243,65 @@ export const Person2 = [
     {
         tin: "184834843",
         name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'bank'
     },
     {
         tin: "184834843",
         name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
+        ref: 47773333333,
+        status: 'pending',
+        payment: 'Online Payment'
+    },
+    {
+        tin: "184834843",
+        name: "matins luta rere rerer",
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'bank'
     },
     {
         tin: "184834843",
         name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'Agent point'
+    },
+    {
+        tin: "184834843",
+        name: "matins luta rere rerer",
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'bank'
     },
     {
         tin: "184834843",
         name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'bank'
+    },
+    {
+        tin: "184834843",
+        name: "matins luta reereg",
+        ref: 47773333333,
+        status: 'pending',
+        payment: 'bank'
     },
     {
         tin: "184834843",
         name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'agent point'
     },
     {
         tin: "184834843",
         name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
-    },
-    {
-        tin: "184834843",
-        name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
-    },
-    {
-        tin: "184834843",
-        name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
-    },
-    {
-        tin: "184834843",
-        name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
-    },
-    {
-        tin: "184834843",
-        name: "matins luta",
-        gross_income: 47773333333,
-        free_income: 8117039368,
-        tax_income: 17039368
+        ref: 47773333333,
+        status: 'paid',
+        payment: 'bank'
     },
 
 ]

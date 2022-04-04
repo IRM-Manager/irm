@@ -19,12 +19,15 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
 import { Dashboard3Component } from '../dashboard3/dashboard3.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { Dashboard4Component } from '../dashboard4/dashboard4.component';
+
 
 @NgModule({
   declarations: [
     DashboardComponent,
     Dashboard2Component,
     Dashboard3Component,
+    Dashboard4Component,
   ],
   imports: [
     CommonModule,

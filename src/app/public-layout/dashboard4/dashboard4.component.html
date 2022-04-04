@@ -1,0 +1,61 @@
+<div class="card">
+
+    <mat-toolbar class="header2">
+        <div class="indcom">Transactions</div>
+        <div class="spacer"></div>
+        <div class="search_icon_p">
+            <form class="search-form">
+                <button matSuffix mat-icon-button class="form-icon">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <input type="text" placeholder="Search for transaction, TaxID, Reference no., etc">
+            </form>
+        </div>
+    </mat-toolbar>
+
+    <div class="table-container">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                <thead>
+                    <tr>
+                        <th class="align-middle">S/N</th>
+                        <th class="align-middle">Tax ID</th>
+                        <th class="align-middle">Name</th>
+                        <th class="align-middle">Bill Ref.</th>
+                        <th class="align-middle">Status</th>
+                        <th class="align-middle">Payment Method</th>
+                    </tr>
+                </thead>
+                <!-- individual -->
+                <tbody *ngIf="datas?.length != 0">
+                    <tr *ngFor="let data of datas; let i=index">
+                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{ data.tin }}</td>
+                        <td class="align-middle">{{ data.name }}</td>
+                        <td class="align-middle">{{ data.ref }}</td>
+                        <td class="align-middle status">
+                            <button mat-button *ngIf="data.status == 'paid'" class="paid">
+                                {{ data.status }}
+                            </button>
+                            <button mat-button *ngIf="data.status == 'pending'" class="pending">
+                                {{ data.status }}
+                            </button>
+                        </td>
+                        <td class="align-middle payment">{{ data.payment }}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="datas?.length == 0">
+                    <tr>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                        <td colspan="3" class="no-data-available">No data!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

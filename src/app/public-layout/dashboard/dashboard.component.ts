@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,7 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  hide = true;
+
+  constructor(private authService: AuthService, private shared: ToggleNavService,) { }
 
   ngOnInit(): void {
     this.authService.checkExpired();

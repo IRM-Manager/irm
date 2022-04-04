@@ -13,7 +13,7 @@
 
         </app-header>
         <div class="main2">
-            <router-outlet></router-outlet>
+            <router-outlet (publicsidenavToggle2)="publicsidenav.toggle()"></router-outlet>
         </div>
         <!-- <button mat-mini-fab [class.show-scrollTop]="windowScrolled" (click)="scrollToTop()" class="button">
             <mat-icon>keyboard_arrow_up</mat-icon>

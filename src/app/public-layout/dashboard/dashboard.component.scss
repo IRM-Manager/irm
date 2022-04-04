@@ -15,6 +15,7 @@ $header-font: normal normal normal 15px/19px Montserrat;
 $header-color: #3c66a3;
 $header2-font: normal normal medium 20px/24px Montserrat;
 $view-color: #34a965;
+$white: #FFFFFF;
 
 .wrapper {
   background: $background;
@@ -22,6 +23,12 @@ $view-color: #34a965;
   opacity: 1;
   overflow: hidden;
 }
+
+.hambugger {
+    background: $white;
+    color: $green;
+    margin-right: 10px;
+  }
 
 .dashboard-text {
   text-transform: capitalize;
