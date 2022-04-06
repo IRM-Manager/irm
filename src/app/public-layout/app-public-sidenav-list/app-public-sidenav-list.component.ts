@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
@@ -24,6 +24,7 @@ export class AppPublicSidenavListComponent implements OnInit {
   hide = false;
   panelOpenState = false;
   profile: any;
+  type: any;
 
   stateProfile: Observable<Profile[]>;
 
@@ -32,7 +33,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     private authService: AuthService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    public shared: ToggleNavService
+    public shared: ToggleNavService,
   ) {
     this.clickEventSubscription = this.shared
       .getHeaderSideClickEvent()
@@ -42,7 +43,29 @@ export class AppPublicSidenavListComponent implements OnInit {
 
     this.authService.checkExpired();
     this.stateProfile = store.select(selectAllProfile);
+
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.currentRoute();
+      }
+    });
+
   }
+
+
+  currentRoute() {
+    if (
+      this.router.url == '/dashboard3/taxpayer/payee' ||
+      this.router.url == '/dashboard3/taxpayer/payee/staff-income'
+    ) {
+      this.type = 'payee';
+    }
+    else {
+      this.type = 'home';
+    }
+  }
+
+
 
   routeRedirect() {
     this.onPublicHeaderToggleSidenav();

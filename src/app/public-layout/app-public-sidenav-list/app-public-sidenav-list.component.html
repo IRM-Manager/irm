@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="type=='home'">
 
     <div class="button">
 
@@ -28,7 +28,23 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel hideToggle="true">
+            <mat-expansion-panel-header #panelH3 (click)="panelH3._toggle()">
+                <mat-panel-title [routerLink]="['/dashboard3/taxpayer/payee']">
+                    Pay-As-You-Earn (PAYE)
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle="true">
+            <mat-expansion-panel-header #panelH4 (click)="panelH4._toggle()">
+                <mat-panel-title [routerLink]="['/dashboard3/taxpayer/payee']">
+                    Direct Assessment
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+        <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Taxes
@@ -38,12 +54,7 @@
             <p class="panel_text">Direct Assessment</p>
             <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
                 Pay-As-You-Earn (PAYE)</p>
-            <!-- <p class="panel_text">Direct Taxation</p>
-            <p class="panel_text">Withholding Tax</p>
-            <p class="panel_text">Capital Gains Tax</p>
-            <p class="panel_text">Property Tax</p>
-            <p class="panel_text" style="font-weight: bold;">Other taxes</p> -->
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
 
         <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
@@ -113,31 +124,41 @@
 
     </div>
 
-    <!-- <a class="mosabides" [routerLink]="['/home']" routerLinkActive="active" (click)="onSidenavClose()"><span class="mosa">Mosa</span><span class="bides">bides</span></a>
 
-    <div class="nav">
+</div>
 
-        <div class="button">
-            <button mat-button [routerLink]="['/home']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">ac_unit</span> Home</button>
+
+<div class="wrapper2" *ngIf="type=='payee'">
+    <div class="button">
+
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/dashboard']" src="assets/images/side_nav_logo.svg" alt="IRM">
+
+            <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+
         </div>
 
-        <div class="button">
-            <button mat-button [routerLink]="['/profile']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">person_outline</span> Profile</button>
-        </div>
+        <p class="back" [routerLink]="['/dashboard']">
+            <mat-icon>keyboard_backspace</mat-icon> Back
+        </p>
 
-        <div class="button">
-            <button mat-button [routerLink]="['/store/all']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">store</span> Store</button>
-        </div>
+        <p class="pay_as_you_earn">
+            Pay as you Earn
+        </p>
 
-        <div class="button">
-            <button mat-button [routerLink]="['/wishlist']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">favorite_border</span> Wishlist</button>
-        </div>
-
-        <div class="button">
-            <button mat-button [routerLink]="['/about']" routerLinkActive="active" (click)="onSidenavClose()"> <span class="material-icons-round">info</span> About Us</button>
-        </div>
-
-    </div> -->
-
-
+        <p class="dash-text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
+            All Businesses
+        </p>
+        <p class="dash-text2">
+            Assessment
+        </p>
+        <p class="dash-text2">
+            Bills
+        </p>
+        <p class="dash-text2">
+            TCC Certificate
+        </p>
+    </div>
 </div>

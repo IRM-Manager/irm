@@ -97,3 +97,30 @@
     </div>
 
 </mat-toolbar>
+
+<!-- dashboard  -->
+<mat-toolbar class="nav5" *ngIf="type == 'tax_dashboard'">
+
+    <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="dashboard-text">Dashboard</div>
+
+    <div class="spacer"></div>
+
+    <div class="search_icon_p">
+        <form class="search-form">
+            <button matSuffix mat-icon-button class="form-icon">
+                <mat-icon>search</mat-icon>
+            </button>
+            <input type="text" placeholder="Search for transaction, TaxID, Reference no., etc">
+        </form>
+    </div>
+
+    <button mat-button class="example-icon">
+        <mat-icon>download_for_offline</mat-icon>
+        <span class="export-report">Export Reports</span>
+    </button>
+
+</mat-toolbar>

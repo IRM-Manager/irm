@@ -10,6 +10,13 @@ $payee: transparent linear-gradient(142deg, #6f7d9b 0%, #191f1d 100%) 0% 0%
 $mda: transparent linear-gradient(142deg, #364e83 0%, #4e5ba5 100%) 0% 0%
   no-repeat padding-box;
 $green: #45a841;
+$form-icon-color: rgba(27, 87, 63, 0.54);
+$placeholder-font: normal normal normal 15px/24px Montserrat;
+$dash-font: normal normal medium 15px/24px Montserrat;
+$dash-text-color: #565656;
+$export-back: #ffffff 0% 0% no-repeat padding-box;
+$export-border: 0.5px solid #20b07e;
+$green2: #36a861;
 
 .nav {
   background: $nav-color;
@@ -27,7 +34,7 @@ $green: #45a841;
   background: $mda;
 }
 
-mat-toolbar {
+.nav, .nav2, .nav3, .nav4 {
   color: $white;
   padding-top: 2.5rem;
   position: sticky;
@@ -99,5 +106,82 @@ mat-toolbar {
     margin-right: 10px;
     margin-top: auto;
     margin-bottom: auto;
+  }
+}
+
+
+.nav5 {
+  background: None;
+  
+  .hambugger {
+    background: $white;
+    color: $green2;
+    margin-right: 10px;
+  }
+
+  .dashboard-text {
+    text-transform: capitalize;
+    font: $dash-font;
+    letter-spacing: 0.14px;
+    color: $dash-text-color;
+    opacity: 1;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .search_icon_p {
+    float: right;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+  }
+
+  .search-form {
+    margin-right: 10px;
+    vertical-align: top;
+    background: $white;
+  }
+
+  input[type="text"] {
+    background: $white;
+    box-sizing: border-box;
+    border: 1px solid $white;
+    border-radius: 2px;
+    height: 35px;
+    width: 40vw;
+    font: $placeholder-font;
+    padding-left: 15px;
+  }
+
+  [type="text"]:focus {
+    outline: none;
+  }
+
+  .form-icon {
+    color: $form-icon-color;
+    margin-left: 10px;
+  }
+
+  .example-icon {
+    background: $export-back;
+    border: 2px solid $green2;
+    border: $export-border;
+    border-radius: 10px;
+    opacity: 1;
+  }
+
+  .example-icon mat-icon {
+    color: $green2;
+    opacity: 1;
+  }
+
+  .export-report {
+    font: $placeholder-font;
+    letter-spacing: 0px;
+    color: $dash-text-color;
+    font-weight: 500;
+    opacity: 1;
   }
 }
