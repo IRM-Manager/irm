@@ -75,7 +75,18 @@ export class DialogComponent implements OnInit {
     this.shared.setMessage(this.data.data);
     this.shared.setMessage2(this.data.data);
     this.shared.PayeesendClickEvent(data);
-    this.router.navigate(['/dashboard3/taxpayer/payee/staff-income']);
+    this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
+  }
+
+  StaffIncome3(is_file: Boolean) {
+    const data = {
+      type: 'staff-income',
+      is_file: is_file,
+    };
+    this.shared.setMessage(this.data.data);
+    this.shared.setMessage2(this.data.data);
+    this.shared.PayeesendClickEvent(data);
+    this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
   }
 
   formatMoney(n: any) {

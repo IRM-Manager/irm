@@ -14,7 +14,16 @@
     </div>
 
     <div class="header" *ngIf="routeviewMode=='access'">
-        <span class="access_year">{{currentYear}} Assessment</span>  <span class="access_change_year">Change Year</span>
+        <span class="access_year">{{currentYear}} Assessment</span>  <span [matMenuTriggerFor]="menu" class="access_change_year">Change Year</span>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <span>202</span>
+            </button>
+            <button mat-menu-item>
+              <span>2021</span>
+            </button>
+          </mat-menu>
+
     </div>
 
     <div [ngSwitch]="viewMode">

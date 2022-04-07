@@ -18,6 +18,7 @@ import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatToolbarModule,
     MatDatepickerModule,
     NgxMatSelectSearchModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule
   ]
 })
 export class PayeeAssessmentModule { }

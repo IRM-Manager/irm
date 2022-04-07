@@ -87,6 +87,12 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.stateYear = store.select(selectAllYear);
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
+        if (data?.is_file) {
+          this.viewMode = "file"
+        }
+        else if(!data?.is_file) {
+          this.viewMode = "input"
+        }
       })
 
       this.data = this.shared.getMessage();
