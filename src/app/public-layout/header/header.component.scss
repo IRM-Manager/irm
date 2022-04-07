@@ -135,6 +135,11 @@ $nav3-color: #38729B;
 
 .nav5 {
   background: #f5f7fa 0% 0% no-repeat padding-box;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+  opacity: 1;
   
   .hambugger {
     background: $white;

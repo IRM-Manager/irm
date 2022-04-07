@@ -749,4 +749,55 @@
 
 </div>
 
+
+
+<!-- Extract data information -->
+<div *ngIf="data.type =='extract'">
+
+    <div class="payee-sidenav2">
+
+        <div class="header">
+            <div>
+                <!-- <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                <div class="left2">Registered Business</div> -->
+                <div class="leftt1 left1">ferferf eferfer refre</div>
+                <div class="right2">Tax ID: 454346666553</div>
+                <div class="right2">Reg No: 34</div>
+                <div class="left2">Registered Business</div>
+            </div>
+            <div class="payee_cancel_button">
+                <button mat-icon-button mat-dialog-close>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-dialog-content class="mat-typography ind_com">
+            <div class="payee_lists">
+                List of added Employee(s) <span style="margin-left: 10px;">(Preview)</span>
+            </div>
+            <table class="payee_lists_table table table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th class="title align-middle">S/N</th>
+                        <th class="title align-middle">TIN</th>
+                        <th class="title align-middle">Name of Employee</th>
+                        <th class="title align-middle">Basic</th>
+                        <th class="title align-middle">Housing</th>
+                        <th class="title align-middle">Transaportation</th>
+                        <th class="title align-middle">Other allowances</th>
+                        <th class="title align-middle">Position</th>
+                        <th class="title align-middle">Review</th>
+                    </tr>
+                </thead>
+            </table>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+        </mat-dialog-actions>
+
+    </div>
+
+</div>
+
 </div>
