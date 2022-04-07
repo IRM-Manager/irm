@@ -63,6 +63,8 @@ export class DialogComponent implements OnInit {
     this.shared.setMessage(this.data.data);
     this.shared.setMessage2(this.data.data);
     this.shared.PayeesendClickEvent(data);
+    this.router.navigate(['/dashboard4/taxpayer/payee/access']);
+    this.shared.sendPayeeHeaderButtonClickEvent();
   }
 
   StaffIncome2() {

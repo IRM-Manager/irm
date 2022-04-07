@@ -38,7 +38,7 @@ export class PayeeAssessmentComponent implements OnInit {
   loading = false;
   disabled = false;
   is_reload = false;
-  viewMode = 'staff-income';
+  viewMode = 'verify';
   routeviewMode = "access"
   clickEventSubscription?: Subscription;
   isLoading = false;
@@ -80,6 +80,7 @@ export class PayeeAssessmentComponent implements OnInit {
         else {
           if (params.get('id') == 'staff-input') {
             this.routeviewMode = 'staff';
+            this.viewMode = "staff-income"
           }
           else {
             this.routeviewMode = "access"

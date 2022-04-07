@@ -90,5 +90,15 @@ export class ToggleNavService {
     return this.subject3.asObservable();
   }
 
+  // remove payee year header button
+
+  sendPayeeHeaderButtonClickEvent() {
+    this.subject4.next(null);
+  }
+
+  getPayeeHeaderButtonClickEvent():Observable<any> {
+    return this.subject4.asObservable();
+  }
+
 
 }

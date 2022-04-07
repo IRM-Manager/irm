@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   type: any;
   profile: any;
   hide = true;
+  hidePaye = true;
 
   clickEventSubscription?: Subscription;
 
@@ -61,6 +62,11 @@ export class HeaderComponent implements OnInit {
       .getHeaderClickEvent()
       .subscribe((data: any) => {
         this.hide = false;
+      });
+
+      this.clickEventSubscription = this.shared
+      .getPayeeHeaderButtonClickEvent().subscribe((data: string) => {
+        this.hidePaye = false;
       });
 
     this.authService.checkExpired();
