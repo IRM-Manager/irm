@@ -1,8 +1,42 @@
 <div class="wrapper">
+    
+    <div class="header">
+        <button mat-button class="button" [class.active]="viewMode == 'verify'">
+            Business Verification
+        </button>
+        <!-- (click)="viewMode = 'verify'" -->
+        <button mat-button class="button" [class.active]="viewMode == 'staff-income'">
+            Declare staff income
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'tax-income'">
+            Assess taxable income
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'bill'">
+            Generate payable bills
+        </button>
+    </div>
 
     <div [ngSwitch]="viewMode">
         <div *ngSwitchCase="'verify'" class="verify">
 
+            <div class="form_header">
+                <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field class="cac-width" appearance="outline">
+                        <mat-label>(Tax ID)</mat-label>
+                        <input matInput formControlName="tin" placeholder="">
+                    </mat-form-field>
+                    <button mat-button class="verify" type="submit">
+                        <span  *ngIf="!loading">Verify</span>
+                        <div *ngIf="loading" class="loader">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </button>
+
+                </form>
+            </div>    
             
             <mat-toolbar class="header2">
                 <div class="indcom">
@@ -83,7 +117,7 @@
     </div>
 
 
-    <!-- <div [ngSwitch]="viewMode">
+    <div [ngSwitch]="viewMode">
         <div *ngSwitchCase="'staff-income'" class="staff-income">
             <app-staff-income></app-staff-income>
         </div>
@@ -99,7 +133,7 @@
         <div *ngSwitchCase="'bill'" class="bill">
             <app-payee-bills></app-payee-bills>
         </div>
-    </div> -->
+    </div>
     
     
 </div>

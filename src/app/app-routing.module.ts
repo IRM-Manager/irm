@@ -77,6 +77,13 @@ const routes: Routes = [
           import('./public-layout/mda/mda.module').then((m) => m.MDAModule),
         canLoad: [IsLoggedInGuard],
       },
+      {
+        path: 'dashboard4/taxpayer/payee/access',
+        loadChildren: () =>
+          import('./public-layout/payee-assessment/payee-assessment.module').then(
+            (m) => m.PayeeAssessmentModule
+          ),
+      },
     ],
   },
   {
@@ -102,6 +109,7 @@ const routes: Routes = [
       },
     ],
   },
+
 ];
 
 @NgModule({

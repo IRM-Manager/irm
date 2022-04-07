@@ -56,7 +56,8 @@ export class AppPublicSidenavListComponent implements OnInit {
   currentRoute() {
     if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
-      this.router.url == '/dashboard3/taxpayer/payee/staff-income'
+      this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
+      this.router.url == '/dashboard4/taxpayer/payee/access'
     ) {
       this.type = 'payee';
     }

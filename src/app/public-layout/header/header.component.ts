@@ -92,7 +92,8 @@ export class HeaderComponent implements OnInit {
       this.left_text2 = 'Please fill in the information';
     } else if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
-      this.router.url == '/dashboard3/taxpayer/payee/staff-income'
+      this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
+      this.router.url == '/dashboard4/taxpayer/payee/access'
     ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';

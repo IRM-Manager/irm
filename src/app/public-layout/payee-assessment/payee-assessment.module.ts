@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PayeeRoutingModule } from './payee-routing.module';
-import { PayeeComponent } from './payee.component';
+import { PayeeAssessmentRoutingModule } from './payee-assessment-routing.module';
+import { PayeeAssessmentComponent } from './payee-assessment.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,9 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { DataTablesModule } from "angular-datatables";
 import { MatToolbarModule } from '@angular/material/toolbar';
-// import { StaffIncomeComponent } from '../staff-income/staff-income.component';
-// import { TaxIncomeComponent } from '../tax-income/tax-income.component';
-// import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
+import { StaffIncomeComponent } from '../staff-income/staff-income.component';
+import { TaxIncomeComponent } from '../tax-income/tax-income.component';
+import { PayeeBillsComponent } from '../payee-bills/payee-bills.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,14 +22,14 @@ import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
-    PayeeComponent,
-    // StaffIncomeComponent,
-    // TaxIncomeComponent,
-    // PayeeBillsComponent,
+    PayeeAssessmentComponent,
+    StaffIncomeComponent,
+    TaxIncomeComponent,
+    PayeeBillsComponent,
   ],
   imports: [
     CommonModule,
-    PayeeRoutingModule,
+    PayeeAssessmentRoutingModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
@@ -44,4 +44,4 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ]
 })
-export class PayeeModule { }
+export class PayeeAssessmentModule { }
