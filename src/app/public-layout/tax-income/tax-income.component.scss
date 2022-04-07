@@ -98,6 +98,17 @@ $total-font: normal normal normal 17px/20px Montserrat;
         opacity: 1;
     }
 
+    .access_change_year {
+        text-transform: capitalize;
+        font: $tbody-back;
+        font-weight: 600;
+        letter-spacing: 0px;
+        color: $back-color;
+        margin-left: 10px;
+        cursor: pointer;
+        opacity: 1;
+    }
+
     .table-container {
         margin-bottom: 2rem;
     

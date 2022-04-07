@@ -24,6 +24,7 @@ import {
   AddComPayer,
 } from '../../actions/irm.action';
 import { Observable, Subscription } from 'rxjs';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -93,7 +94,8 @@ export class HeaderComponent implements OnInit {
     } else if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
       this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
-      this.router.url == '/dashboard4/taxpayer/payee/access'
+      this.router.url == '/dashboard4/taxpayer/payee/access' ||
+      this.router.url == '/dashboard4/taxpayer/payee/access/staff-input'
     ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
@@ -209,6 +211,17 @@ export class HeaderComponent implements OnInit {
     this.shared.sendHeaderSideClickEvent();
     this.hide = true;
   };
+
+
+  OpenDialog(data: any, type: string) {
+    this.snackBar.dismiss()
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: data
+      }
+    });
+}
 
   ngOnInit(): void {
     this.AddProfile();

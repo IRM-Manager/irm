@@ -56,14 +56,6 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard3/taxpayer/payee/:id',
-        loadChildren: () =>
-          import('./public-layout/payee/payee.module').then(
-            (m) => m.PayeeModule
-          ),
-        canLoad: [IsLoggedInGuard],
-      },
-      {
         path: 'dashboard3/taxpayer/payee',
         loadChildren: () =>
           import('./public-layout/payee/payee.module').then(
@@ -76,6 +68,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./public-layout/mda/mda.module').then((m) => m.MDAModule),
         canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard4/taxpayer/payee/access/:id',
+        loadChildren: () =>
+          import('./public-layout/payee-assessment/payee-assessment.module').then(
+            (m) => m.PayeeAssessmentModule
+          ),
       },
       {
         path: 'dashboard4/taxpayer/payee/access',

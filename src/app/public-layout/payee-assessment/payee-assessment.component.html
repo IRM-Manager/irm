@@ -1,12 +1,9 @@
 <div class="wrapper">
     
-    <div class="header">
-        <button mat-button class="button" [class.active]="viewMode == 'verify'">
-            Business Verification
-        </button>
+    <div class="header" *ngIf="routeviewMode=='staff'">
         <!-- (click)="viewMode = 'verify'" -->
         <button mat-button class="button" [class.active]="viewMode == 'staff-income'">
-            Declare staff income
+            Staff setup
         </button>
         <button mat-button class="button" [class.active]="viewMode == 'tax-income'">
             Assess taxable income
@@ -16,10 +13,14 @@
         </button>
     </div>
 
+    <div class="header" *ngIf="routeviewMode=='access'">
+        <span class="access_year">{{currentYear}} Assessment</span>  <span class="access_change_year">Change Year</span>
+    </div>
+
     <div [ngSwitch]="viewMode">
         <div *ngSwitchCase="'verify'" class="verify">
 
-            <div class="form_header">
+            <!-- <div class="form_header">
                 <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
                     <mat-form-field class="cac-width" appearance="outline">
                         <mat-label>(Tax ID)</mat-label>
@@ -36,11 +37,20 @@
                     </button>
 
                 </form>
-            </div>    
+            </div>     -->
+
+            <div class="business_header">
+                <!-- <div class="tin">Tax ID: {{data2?.payer.tin}}</div> -->
+                <div class="tin">Tax ID: 545465666565</div>
+                <!-- <div class="soft_pattern"> {{data2?.organisation_name}} <span class="material-icons">close_fullscreen</span></div> -->
+                <div class="soft_pattern"> Softpattern Technology Limited <span class="material-icons">close_fullscreen</span></div>
+                <div class="reg_buss">Registered Business</div>
+            </div>
+
             
             <mat-toolbar class="header2">
                 <div class="indcom">
-                    List of Taxable Businesses
+                    List of Added Employee ({{currentYear}})
                 </div>
                 <div class="spacer"></div>
                 <div class="search_icon_p">
@@ -57,28 +67,45 @@
                     <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
                         <thead>
                         <tr>
-                            <th>S/N</th>
-                            <th>Tax ID</th>
-                            <th>Business name</th>
-                            <th>Date of Establishment</th>
-                            <th>Contact Person</th>
-                            <th></th>
-                            <th></th>
+                                <th class="align-middle">S/N</th>
+                                <th class="align-middle">Tax ID</th>
+                                <th class="align-middle">Name of Employee</th>
+                                <th class="align-middle">
+                                    <div>Gross income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th class="align-middle">
+                                    <div>Tax free Income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th class="align-middle">
+                                    <div>Taxable Income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th> </th>
                         </tr>
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.payer.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.org_phone }}</td>
-                                <td class="align-middle">
-                                    <mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with</mat-icon>
-                                </td>
-                                <td class="align-middle">
-                                    <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">delete_forever</mat-icon>
+                                <!-- <td class="align-middle">{{ data.employeeTin }}</td>
+                                <td class="align-middle">{{ data.employee }}</td>
+                                <td class="align-middle">{{ formatMoney(data.gross) }}</td>
+                                <td class="align-middle">{{ formatMoney(data.compute_annualtax) }}</td>
+                                <td class="align-middle">{{ formatMoney(data.compute_taxable) }}</td>
+                                <td class="check align-middle" (click)="OpenDialog(data, 'payee2')">
+                                    check 
+                                    <mat-icon class="table-icon">dashboard_customize</mat-icon>
+                                </td> -->
+                                <td class="align-middle">434443443</td>
+                                <td class="align-middle">frwferf rferfref</td>
+                                <td class="align-middle">10,000,444.00</td>
+                                <td class="align-middle">12.4555.443</td>
+                                <td class="align-middle">4344,443432</td>
+                                <td class="check align-middle">
+                                    check 
+                                    <mat-icon class="table-icon">dashboard_customize</mat-icon>
                                 </td>
                             </tr>
                         </tbody>

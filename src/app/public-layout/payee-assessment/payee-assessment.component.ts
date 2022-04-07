@@ -38,9 +38,11 @@ export class PayeeAssessmentComponent implements OnInit {
   loading = false;
   disabled = false;
   is_reload = false;
-  viewMode = 'verify';
+  viewMode = 'staff-income';
+  routeviewMode = "access"
   clickEventSubscription?: Subscription;
   isLoading = false;
+  currentYear = new Date().getFullYear();
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -73,12 +75,15 @@ export class PayeeAssessmentComponent implements OnInit {
 
       this.direct.paramMap.subscribe(params => {
         if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
+          this.routeviewMode = "access"
         }
         else {
-          if (params.get('id') == 'staff-income') {
-            this.viewMode = 'staff-income';
+          if (params.get('id') == 'staff-input') {
+            this.routeviewMode = 'staff';
           }
-          else {}
+          else {
+            this.routeviewMode = "access"
+          }
         }
       })
       
