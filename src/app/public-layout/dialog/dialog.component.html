@@ -752,7 +752,7 @@
 
 
 <!-- Extract data information -->
-<div *ngIf="data.type =='extract'">
+<div *ngIf="data.type =='extract'" class="extract">
 
     <div class="payee-sidenav2">
 
@@ -791,9 +791,53 @@
                         <th class="title align-middle">Review</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle">1</td>
+                        <td class="align-middle">4344343434</td>
+                        <td class="align-middle">Oshodu Isaac Aloa</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">Banker</td>
+                        <td class="align-middle">
+                            <span class="extract_data_success">Registered</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">2</td>
+                        <td class="align-middle">4344343434</td>
+                        <td class="align-middle">Oshodu Isaac Aloa</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">Banker</td>
+                        <td class="align-middle">
+                            <span class="extract_data_warning">Not Registered</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">3</td>
+                        <td class="align-middle">4344343434</td>
+                        <td class="align-middle">Oshodu Isaac Aloa</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle">32,3344,33.00</td>
+                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">Banker</td>
+                        <td class="align-middle">
+                            <span class="extract_data_success">Registered</span>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </mat-dialog-content>
-        <mat-dialog-actions>
+        <mat-dialog-actions align="end">
+            <div class="extract_note">Note: Only 50 employee will be added</div>
+            <button mat-button class="extract_continue">Save and continue</button>
+            <!-- redirected to taxable income page -->
         </mat-dialog-actions>
 
     </div>
