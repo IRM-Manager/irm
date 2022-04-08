@@ -72,15 +72,22 @@ const routes: Routes = [
       {
         path: 'dashboard4/taxpayer/payee/access/:id',
         loadChildren: () =>
-          import('./public-layout/payee-assessment/payee-assessment.module').then(
-            (m) => m.PayeeAssessmentModule
-          ),
+          import(
+            './public-layout/payee-assessment/payee-assessment.module'
+          ).then((m) => m.PayeeAssessmentModule),
       },
       {
         path: 'dashboard4/taxpayer/payee/access',
         loadChildren: () =>
-          import('./public-layout/payee-assessment/payee-assessment.module').then(
-            (m) => m.PayeeAssessmentModule
+          import(
+            './public-layout/payee-assessment/payee-assessment.module'
+          ).then((m) => m.PayeeAssessmentModule),
+      },
+      {
+        path: 'dashboard4/taxpayer/payee/bills',
+        loadChildren: () =>
+          import('./public-layout/trans-bills/trans-bills.module').then(
+            (m) => m.TransBillsModule
           ),
       },
     ],
@@ -108,7 +115,7 @@ const routes: Routes = [
       },
     ],
   },
-
+  
 ];
 
 @NgModule({

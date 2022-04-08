@@ -1,0 +1,464 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$header-color: 1px solid #42A845;
+$header-back: rgba(62,95,168,0.05);
+$header-back2: #FFFFFF 0% 0% no-repeat padding-box;
+$ind-back: #FFFFFF 0% 0% no-repeat padding-box;
+$white: #FFFFFF;
+$ind-border: 1px solid #45A841;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$ind-color: #565656;
+$create-back: transparent linear-gradient(180deg, #3E5FA8 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+$active-back: #387499 0% 0% no-repeat padding-box;
+$panel-text: normal normal medium 12px/15px Montserrat;
+$panel-color: #3C66A3;
+$icon-color: #45669E;
+$wrapper-back: #F5F7FA;
+$thead: #FFFFFF 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3C66A3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$animate-form: 0.5px solid #37A85D;
+$verify-hover-b: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+$verify-hover-box: 0px 3px 6px #00000029;
+$label-color: #565656;
+$select-color: #3EA84E;
+$form-color: #37A85D;
+$active-button: 3px solid #42A847;
+$button-font: normal normal normal 12px/15px Montserrat;
+$red: #BC333E;
+$tin-font: normal normal normal 15px/19px Montserrat;
+$tin-color: #565656;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3C66A3;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+
+.wrapper {
+    background: $wrapper-back;
+    overflow: auto;
+    min-height: 100vh;
+    padding-left: 20px;
+}
+
+.header {
+    padding-left: 20px;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+
+    .tin {
+        font: $tin-font;
+        letter-spacing: 0px;
+        color: $tin-color;
+        font-weight: 500;
+        opacity: 1;
+    }
+
+    .soft_pattern {
+        font: $soft-pattern-font;
+        letter-spacing: 0px;
+        color: $soft-pattern-color;
+        font-weight: 500;
+        opacity: 1;
+    }
+
+    .reg_buss {
+        font: $reg-buss-font;
+        letter-spacing: 0px;
+        color: $tin-color;
+        font-weight: 500;
+        opacity: 1;
+    }
+
+    .material-icons {
+        vertical-align: middle;
+        color: #42A845;
+    }
+}
+
+.form_header {
+    background: $header-back;
+    padding: 1em 1em 0 1em;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    opacity: 1;
+    width: 90%;
+
+    @mixin theme($back, $color, $font, $border) {
+        letter-spacing: 0px;
+        font: $font;
+        background: $back;
+        border: $border;
+        color: $color;
+        opacity: 1;
+        font-weight: 500;
+        padding: 1rem;
+    }
+
+
+    .verify {
+        margin-left: 20px;
+        width: 150px;
+        border-radius: 10px;
+        @include theme($back: $create-back, $color: $white, $font: $ind-font, $border: unset);
+    }
+
+    .verify:hover {
+        background: $verify-hover-b;
+        box-shadow: $verify-hover-box;
+    }
+
+    input[type=text] {
+        background: $label-color;
+      } 
+
+      ::ng-deep .mat-select-arrow {
+        color: $select-color;
+        opacity: 1;
+    }
+    
+    mat-form-field {
+        color: 1px solid $form-color;
+        width: 250px;
+    }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em 0 0.5em 0;
+    }
+      
+    
+      .bubble {
+        animation: expand .75s ease-in-out infinite;
+        border-radius: 20px;
+        display: inline-block;
+        transform-origin: center center;
+        margin: 0 3px;
+        width: 7px;
+        height: 7px;
+      }
+    
+      
+      .bubble:nth-child(1) {
+        background: $white;
+      }
+      
+      .bubble:nth-child(2) {
+        animation-delay: 180ms;
+        background: $white;
+      }
+      
+      .bubble:nth-child(3) {
+        animation-delay: 360ms;
+        background: $white;
+      }
+      
+      .bubble:nth-child(4) {
+        animation-delay: 540ms;
+        background: $white;
+      }
+      
+      @keyframes expand {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.55);
+        }
+      }
+    
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: $form-color;
+    }
+    
+    ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+        color: $form-color;
+    }
+    
+    ::ng-deep .mat-input-element {
+        caret-color: $form-color;
+    }
+       
+    ::ng-deep .mat-form-field-label {
+        color: $label-color;
+    }
+    
+    ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+        color: $label-color;
+    }
+
+}
+
+
+.header2 {
+    background: $header-back2;
+    padding: 1.5rem 1rem 1.5rem 1rem;
+    margin-top: 1rem;
+    width: 90%;
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    .view {
+        font: $panel-text;
+        letter-spacing: 0px;
+        color: #5EA55A;
+        opacity: 1;
+        font-size: 500;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .indcom {
+        font: $panel-text;
+        letter-spacing: 0px;
+        color: $panel-color;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .search_icon_p {
+        float: right;
+        display: flex;
+        justify-content: right;
+        align-items: right;
+    }
+
+    .search-form {
+        margin-right: 10px;
+        vertical-align: top;
+    }
+    
+    input[type=text] {
+        background: $white;
+        border: $animate-form;
+        box-sizing: border-box;
+        border-radius: 10px;
+        height: 40px;
+        width: 200px;
+        font: $tbody-back;
+        padding-left: 15px;
+        // -webkit-transition: width 0.4s ease-in-out;
+        // transition: width 0.4s ease-in-out;
+      }
+    
+     [type="text"]:focus {
+        outline: none;
+     } 
+
+    .search_icon {
+        font-size: 40px;
+        color: $icon-color;
+        cursor: pointer;
+    }
+
+}
+
+.table-container {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: 90%;
+
+    table {
+        border: none;
+        margin-bottom: 1rem;
+    }
+
+    thead {
+        border: none;
+    }
+
+    thead tr {
+        background: $thead;
+        text-align: left;
+        font: $thead-text;
+        letter-spacing: 0px;
+        color: $thead-text-color;
+    }
+
+    tbody tr {
+        font: $tbody-back;
+        letter-spacing: 0px;
+        color: $tbody-color;
+    }
+
+    tr th {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .table-icon {
+        color: $panel-color;
+    }
+
+    .loading {
+        margin-top: 1.5rem;
+    }
+
+    .reload {
+        background: $wrapper-back;
+        color: $ind-border;
+        font: $tbody-back;
+        margin-top: 1.5rem;
+        border-radius: 10px;
+        padding: .5rem;
+        margin-left: 10px;
+        width: 5rem;
+    }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em 0 0.5em 0;
+    }
+    
+    
+      .bubble {
+        animation: expand .75s ease-in-out infinite;
+        border-radius: 20px;
+        display: inline-block;
+        transform-origin: center center;
+        margin: 0 3px;
+        width: 7px;
+        height: 7px;
+      }
+    
+      
+      .bubble:nth-child(1) {
+        background: $panel-color;
+      }
+      
+      .bubble:nth-child(2) {
+        animation-delay: 180ms;
+        background: $panel-color;
+      }
+      
+      .bubble:nth-child(3) {
+        animation-delay: 360ms;
+        background: $panel-color;
+      }
+      
+      .bubble:nth-child(4) {
+        animation-delay: 540ms;
+        background: $panel-color;
+      }
+      
+      @keyframes expand {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.55);
+        }
+      }
+
+      .table-icon-delete {
+        color: $red;
+        cursor: pointer;
+      }
+
+      .status {
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 12px;
+      }
+
+      .payment {
+        text-transform: capitalize;
+      }
+    
+      .paid {
+        background: transparent linear-gradient(180deg, #47A83E 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+        opacity: 1;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        font: normal normal medium 12px/8px Montserrat;
+        letter-spacing: 0px;
+        color: $white;
+        padding: .4em;
+        border-radius: 20px;
+        width: auto;
+        opacity: 1;
+      }
+    
+      .pending {
+        background: #FFBD69 0% 0% no-repeat padding-box;
+        border-radius: 10px;
+        opacity: 1;
+        padding: .5em;
+        border-radius: 20px;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        font: normal normal medium 12px/8px Montserrat;
+        letter-spacing: 0px;
+        color: $white;
+        opacity: 1;
+      }
+    
+      .view {
+          cursor: pointer;
+          font-weight: 500;
+      }
+
+    ::ng-deep .dataTables_wrapper .dataTables_filter {
+        display: none;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        color: $white !important;
+        background: $create-back !important;
+        border: unset;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        color: $white !important;
+        background: $create-back !important;
+        border: unset;
+    }
+
+    ::ng-deep table.dataTable thead .sorting {
+        background-image: unset !important;
+    }
+
+    ::ng-deep table.dataTable thead .sorting_asc {
+        background-image: unset !important;
+    }
+
+    ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+        background: unset !important;
+    }
+
+    ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+        background: $wrapper-back !important;
+    }
+
+    ::ng-deep .table-striped > tbody .view:nth-of-type(odd) {
+        color: rgba(60,102,163,0.7) !important;
+        font-weight: 500;
+    }
+
+    ::ng-deep .table-striped > tbody .view:nth-of-type(even) {
+        color: rgba(60,102,163,0.7) !important;
+    }
+
+    ::ng-deep .table-striped > tbody .view:nth-of-type(even):hover {
+        color: rgba(60,102,163,0.7) !important;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_length select {
+        border: $ind-border;
+        font: $tbody-back;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_length label {
+        color: $tbody-color;
+        font: $tbody-back;
+    }
+
+}
+
+
