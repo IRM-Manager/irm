@@ -36,7 +36,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <span class="vertical3"></span>
-            <p class="panel_text">Overview</p>
+            <p class="panel_text" [routerLink]="['/dashboard4/taxpayer/payee/overview']" routerLinkActive="active">Overview</p>
             <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
                 Paye Assessment/Bills
             </p>
@@ -44,7 +44,7 @@
 
         <mat-expansion-panel hideToggle="true">
             <mat-expansion-panel-header #panelH4 (click)="panelH4._toggle()">
-                <mat-panel-title [routerLink]="['/dashboard3/taxpayer/payee']">
+                <mat-panel-title>
                     Direct Assessment
                 </mat-panel-title>
             </mat-expansion-panel-header>
@@ -94,7 +94,7 @@
 
     </div>
 
-    <div class="footer">
+    <div class="footer" *ngIf="type=='home'">
 
         <div class="menu">
             <div mat-button [matMenuTriggerFor]="menu">
@@ -167,4 +167,44 @@
             TCC Certificate
         </p>
     </div>
+
+
+    <div class="footer">
+
+        <div class="menu">
+            <div mat-button [matMenuTriggerFor]="menu">
+                <div class="d-h-l">
+                    <div class="category">
+                        <img src="assets/images/emoji.png" class="category-icon2" alt="">
+                        <div>
+                            <div class="right_text1" *ngIf="profile?.is_staff">Welcome, Admin</div>
+                            <div class="right_text1" *ngIf="!profile?.is_staff">Welcome</div>
+                            <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
+                            <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
+                        </div>
+                        <span class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+            </button>
+            <button mat-menu-item disabled>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+            </button>
+        </mat-menu>
+
+    </div>
+
+
+
 </div>

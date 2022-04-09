@@ -90,6 +90,13 @@ const routes: Routes = [
             (m) => m.TransBillsModule
           ),
       },
+      {
+        path: 'dashboard4/taxpayer/payee/overview',
+        loadChildren: () =>
+          import('./public-layout/payee-overview/payee-overview.module').then(
+            (m) => m.PayeeOverviewModule
+          ),
+      },
     ],
   },
   {

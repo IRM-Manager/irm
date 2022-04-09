@@ -303,4 +303,85 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 
   }
 
+  .footer {
+    border-top: 1px solid $white;
+    position: absolute;
+    bottom: 0;
+
+    .menu {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100vw;
+      // position: sticky;
+      // position: -webkit-sticky;
+      // z-index: 1000;
+    }
+
+    .d-h-l {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      margin-right: 2rem;
+    }
+
+    .category {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      justify-content: center;
+      align-items: initial;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .category-icon {
+      display: flex;
+      justify-content: right;
+      align-items: right;
+      margin-left: 3.5rem;
+      text-align: right;
+      vertical-align: middle;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .category-icon2 {
+      display: flex;
+      justify-content: left;
+      align-items: left;
+      width: 2em;
+      height: 2em;
+      vertical-align: middle;
+      margin-right: 15px;
+      margin-left: 15px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    @mixin theme($theme) {
+      letter-spacing: 0px;
+      font: $theme;
+      text-align: left;
+    }
+
+    .left_text1 {
+      @include theme($theme: $text1-font);
+      font-weight: bold;
+    }
+
+    .left_text2 {
+      @include theme($theme: $text2-font);
+      margin-top: 2px;
+    }
+
+    .right_text1 {
+      @include theme($theme: $right1-font);
+    }
+
+    .right_text2 {
+      @include theme($theme: $text1-font);
+      font-weight: bold;
+    }
+  }
+
 }

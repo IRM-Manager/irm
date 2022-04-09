@@ -155,6 +155,26 @@ $nav3-color: #38729B;
     opacity: 1;
   }
 
+  .dashboard-text2 {
+    text-transform: capitalize;
+    font: $dash-font;
+    letter-spacing: 0.14px;
+    color: $dash-text-color;
+    padding-left: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    opacity: 1;
+  }
+
+  .payee_note {
+    margin-left: 20px;
+    font: normal normal normal 15px/24px Montserrat;
+    letter-spacing: 0.14px;
+    color: #FF0707;
+    font-weight: 500;
+    opacity: 1;
+  }
+
   .spacer {
     flex: 1 1 auto;
   }

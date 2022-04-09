@@ -115,7 +115,11 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
-    } else {
+    } else if (this.router.url == '/dashboard4/taxpayer/payee/overview') {
+      this.type = 'tax_dashboard2';
+      this.left_text1 = 'Dashboard';
+      this.left_text2 = 'Dashboard';
+    }else {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer Registration';
       this.left_text2 = 'Check all the list of registered member';

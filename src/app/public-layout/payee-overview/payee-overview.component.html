@@ -1,0 +1,109 @@
+<div class="wrapper">
+
+    <div class="card">
+
+        <div class="overview">
+
+            <div class="d-h-l">
+                <div class="category">
+                    <div>
+                        <div class="text">Total Revenue</div>
+                        <div class="text2">
+                            &#8358;6,000,000.0
+                        </div>
+                    </div>
+                    <div class="category-icon">
+                        +6.2%
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-h-l">
+                <div class="category">
+                    <div>
+                        <div class="text">Monthly Revenue</div>
+                        <div class="text2">
+                            &#8358;10,000,000.0
+                        </div>
+                    </div>
+                    <div class="category-icon">
+                        +25.2%
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-h-l">
+                <div class="category">
+                    <div>
+                        <div class="text">Weekly Revenue</div>
+                        <div class="text2">
+                            &#8358;1000,000.0
+                        </div>
+                    </div>
+                    <div class="category-icon">
+                        +9.2%
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-h-l">
+                <button mat-button class="example-icon" [matMenuTriggerFor]="menu">
+                    <span class="export-report">All Local Government</span>
+                    <mat-icon>filter_list</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Item 1</button>
+                    <button mat-menu-item>Item 2</button>
+                </mat-menu>
+            </div>
+
+        </div>
+
+
+        <div class="chart_p">
+            <button mat-button class="example-icon" [matMenuTriggerFor]="menu2">
+                <span class="export-report">Weekly Revenue</span>
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu2="matMenu">
+                <button mat-menu-item>Item 3</button>
+                <button mat-menu-item>Item 4</button>
+            </mat-menu>
+
+            <div class="chart">
+                <div class="myChart">
+                    <div class="line" [chart]="areaChart"></div>
+                </div>
+                <div class="chart-catalog">
+                    <div class="catalog-a">OCT 11</div>
+                    <div class="catalog-b">&#8358;10,000,000.0</div>
+                    <div class="catalog-c">MDA Revenue</div>
+                    <div class="catalog-d">&#8358;10,000,000.0
+                        <div class="arrow-up">
+                            <i class="fa fa-arrow-up"></i>12%
+                        </div>
+                    </div>
+                    <div class="catalog-e">GENERATED MDA BILLS</div>
+                    <div class="catalog-f">&#8358;100,000,000.0
+                        <div class="arrow-down">
+                            <i class="fa fa-arrow-down"></i>16%
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="clear: both;"></div>
+
+    <app-payee-overview2></app-payee-overview2>
+
+    <div style="clear: both;"></div>
+
+    <app-payee-overview3></app-payee-overview3>
+
+    <div style="clear: both;"></div>
+
+</div>

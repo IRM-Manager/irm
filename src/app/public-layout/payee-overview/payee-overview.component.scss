@@ -1,0 +1,220 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$background: #f5f7fa 0% 0% no-repeat padding-box;
+$card-back: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
+$card-box-shadow: 0px 6px 6px #00000029;
+$category-icon-back: rgba(78, 184, 98, 0.1) 0% 0% no-repeat padding-box;
+$category-icon-font: normal normal normal 16px/19px Montserrat;
+$category-icon-color: #4eb862;
+$text-color: #3c66a3;
+$text-font: normal normal normal 15px/19px Montserrat;
+$text2-font: normal normal normal 20px/24px Montserrat;
+$text2-font: #565656;
+$green: #3aa858;
+$export-border: 0.5px solid #20b07e;
+$export-back: #ffffff 0% 0% no-repeat padding-box;
+
+.wrapper {
+    background: $background;
+    min-height: 100vh;
+    opacity: 1;
+    overflow: hidden;
+  }
+
+.card {
+  width: 99.1%;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: $card-back;
+  box-shadow: $card-box-shadow;
+  border-radius: 10px;
+
+  .overview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .d-h-l {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 1rem;
+    margin-right: 10px;
+  }
+
+  .category {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    align-items: initial;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .category-icon {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-left: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0.7rem;
+    background: $category-icon-back;
+    border-radius: 10px;
+    font: $category-icon-font;
+    font-weight: bold;
+    letter-spacing: 0.12px;
+    color: $category-icon-color;
+  }
+
+  .text {
+    white-space: nowrap;
+    font: $text-font;
+    letter-spacing: 0px;
+    color: $text-color;
+    font-size: 17px;
+    font-weight: 500;
+    opacity: 1;
+    margin-bottom: 10px;
+  }
+
+  .text2 {
+    white-space: nowrap;
+    font: $text2-font;
+    letter-spacing: 0px;
+    color: $text2-font;
+    font-size: 22px;
+    font-weight: 500;
+    opacity: 1;
+  }
+
+  .example-icon {
+    background: $export-back;
+    border: 2px solid $green;
+    border: $export-border;
+    padding: .5rem;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    opacity: 1;
+  }
+
+  .example-icon mat-icon {
+    color: $green;
+    opacity: 1;
+  }
+
+  .chart_p {
+    margin-top: 4rem;
+  }
+
+  .chart {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    align-self: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+.myChart {
+    margin-top: 1rem;
+}
+
+.line {
+    height: 250px;
+    width: 100%;
+  }
+
+  .chart-catalog {
+      margin-left: 20px;
+      background: #286C65 0% 0% no-repeat padding-box;
+    border-radius: 16px;
+    width: 30%;
+    height: 250px;
+    margin-top: 1rem;
+    padding: 1rem;
+    opacity: 1;
+  }
+
+  .catalog-a, .catalog-c, .catalog-e {
+    font: normal normal 600 12px/16px Titillium Web;
+    letter-spacing: 1.8px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+  }
+
+  .catalog-b {
+    font: normal normal normal 25px/40px Montserrat;
+    letter-spacing: 0.18px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+    opacity: 1;
+  }
+
+  .catalog-d {
+    font: normal normal normal 20px/24px Montserrat;
+    vertical-align: middle;
+    letter-spacing: 0.15px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+    opacity: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .arrow-up {
+    vertical-align: middle;
+    font: normal normal normal 12px/16px Montserrat;
+    letter-spacing: 1.8px;
+    color: #4EB862;
+    text-transform: uppercase;
+    opacity: 1;
+  }
+
+  .catalog-f {
+    font: normal normal normal 20px/24px Montserrat;
+    vertical-align: middle;
+    letter-spacing: 0.15px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+    opacity: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .arrow-down {
+    vertical-align: middle;
+    font: normal normal normal 12px/16px Montserrat;
+    letter-spacing: 1.8px;
+    color: #FF134A;
+    text-transform: uppercase;
+    opacity: 1;
+  }
+
+  .catalog-c, .catalog-e {
+      margin-bottom: 10px;
+  }
+
+}
+
+
+@media (max-width: 1300px) {
+    .chart {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        .chart-catalog {
+            width: 50%;
+            margin-bottom: 1rem;
+        }
+    }
+}

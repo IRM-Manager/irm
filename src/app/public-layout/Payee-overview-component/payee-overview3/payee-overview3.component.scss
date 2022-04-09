@@ -1,0 +1,233 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$card-back: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
+$card-box-shadow: 0px 6px 6px #00000029;
+$form-icon-color: rgba(27, 87, 63, 0.54);
+$placeholder-font: normal normal normal 15px/24px Montserrat;
+$dash-font: normal normal medium 15px/24px Montserrat;
+$dash-text-color: #565656;
+$white: #ffffff;
+$header-back2: #ffffff 0% 0% no-repeat padding-box;
+$export-border: 0.5px solid #20b07e;
+$green: #36a861;
+$export-back: #ffffff 0% 0% no-repeat padding-box;
+$panel-text: normal normal medium 12px/15px Montserrat;
+$panel-color: #3c66a3;
+$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
+  0% no-repeat padding-box;
+$header-back: rgba(62, 95, 168, 0.05);
+$wrapper-back: #f5f7fa;
+$thead: #ffffff 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3c66a3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$buttons1-font: normal normal normal 12px/15px Montserrat;
+$tin-font: normal normal normal 15px/19px Montserrat;
+$tin-color: #565656;
+$soft-pattern-color: #3c66a3;
+$back-color: #44a843;
+
+.card {
+  background: $card-back;
+  box-shadow: $card-box-shadow;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 99.1%;
+}
+
+.header2 {
+  background: $header-back2;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  margin-top: 1rem;
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .indcom {
+    font: $panel-text;
+    letter-spacing: 0px;
+    color: $panel-color;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .search-form {
+    margin-right: 10px;
+    vertical-align: top;
+    border: 1px solid #2ca544;
+    border-radius: 5px;
+  }
+
+  input[type="text"] {
+    background: $white;
+    box-sizing: border-box;
+    border: 1px solid $white;
+    border-radius: 2px;
+    height: 35px;
+    width: 40vw;
+    font: $placeholder-font;
+    padding-left: 15px;
+  }
+
+  [type="text"]:focus {
+    outline: none;
+  }
+
+  .form-icon {
+    color: $form-icon-color;
+    margin-left: 10px;
+  }
+
+  .example-icon {
+    background: $export-back;
+    border: 2px solid $green;
+    border: $export-border;
+    border-radius: 10px;
+    opacity: 1;
+  }
+
+  .example-icon mat-icon {
+    color: $green;
+    opacity: 1;
+  }
+}
+
+.table-container {
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+
+  table {
+    border: none;
+    margin-bottom: 1rem;
+  }
+
+
+  thead {
+    border: none;
+  }
+
+  thead tr {
+    background: $thead;
+    width: inherit;
+    font: $thead-text;
+    letter-spacing: 0px;
+    color: $thead-text-color;
+  }
+
+  .check {
+    font: $thead-text;
+    letter-spacing: 0px;
+    color: $thead-text-color !important;
+  }
+
+  tbody tr {
+    font: $tbody-back;
+    letter-spacing: 0px;
+    color: rgba(86,86,86,0.7);
+  }
+
+  tr th {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    font: $buttons1-font;
+    letter-spacing: 0px;
+    color: $soft-pattern-color;
+    font-weight: bold;
+    opacity: 1;
+  }
+
+  .status {
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 12px;
+  }
+ 
+
+  .payment {
+    text-transform: capitalize;
+  }
+
+  .paid {
+    background: transparent linear-gradient(180deg, #47A83E 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    font: normal normal medium 12px/8px Montserrat;
+    letter-spacing: 0px;
+    color: $white;
+    padding: .4em;
+    border-radius: 20px;
+    width: auto;
+    opacity: 1;
+  }
+
+  .pending {
+    background: #FFBD69 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    padding: .5em;
+    border-radius: 20px;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    font: normal normal medium 12px/8px Montserrat;
+    letter-spacing: 0px;
+    color: $white;
+    opacity: 1;
+  }
+
+  .table-icon {
+    color: $back-color;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_filter {
+    display: none;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: $white !important;
+    background: $create-back !important;
+    border: unset;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: $white !important;
+    background: $create-back !important;
+    border: unset;
+  }
+
+  ::ng-deep table.dataTable thead .sorting {
+    background-image: unset !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting_asc {
+    background-image: unset !important;
+  }
+
+//   ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+//     background: $header-back;
+//   }
+
+  // ::ng-deep .table-striped > tbody > .make_bold:nth-of-type(odd) {
+  //     color: $panel-color !important;
+  // }
+
+  ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+    background: $header-back !important;
+  }
+
+  ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(odd):hover {
+    background: $header-back !important;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_length select {
+    display: none;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_length label {
+    display: none;
+  }
+}
