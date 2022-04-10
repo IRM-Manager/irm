@@ -40,7 +40,7 @@ export class HttpService {
   // get lists of years
   year() {
     return this.http
-      .get<any>(BaseUrl.api2 + `paye/api/v1/paye/year/`)
+      .get<any>(BaseUrl.api2 + `paye/api/paye/year/`)
       .pipe(retry(1));
   }
 

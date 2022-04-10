@@ -10,9 +10,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer } from '../../models/irm';
-import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../actions/irm.action';
+import { ComPayer, Year } from '../../models/irm';
+import { AppState, selectAllComPayer, selectAllYear } from 'src/app/reducers/index';
+import { AddComPayer, AddYear } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -43,6 +43,7 @@ export class PayeeAssessmentComponent implements OnInit {
   clickEventSubscription?: Subscription;
   isLoading = false;
   currentYear = new Date().getFullYear();
+  year: any;
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
@@ -50,6 +51,7 @@ export class PayeeAssessmentComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   stateComPayer: Observable<ComPayer[]>;
+  stateYear: Observable<Year[]>;
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
@@ -72,6 +74,7 @@ export class PayeeAssessmentComponent implements OnInit {
       this.trackSearchField();
 
       this.stateComPayer = store.select(selectAllComPayer);
+      this.stateYear = store.select(selectAllYear);
 
       this.direct.paramMap.subscribe(params => {
         if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
@@ -263,9 +266,32 @@ export class PayeeAssessmentComponent implements OnInit {
   }
 
 
+  AddYear() {
+    this.stateYear.forEach(e => {
+      if(e.length > 0 ) {
+        this.year = e[0].data.data;
+      }
+      else {
+        this.httpService.year().subscribe(
+          (data:any) => {
+            if(data.responsecode == "01"){
+            }else{
+              this.store.dispatch(new AddYear([{id: 1, data: data}]));
+              this.year = data.data;
+            }
+          },
+          err => {
+          }
+        )
+      }
+    }) 
+  }
+
+
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
+    this.AddYear();
   }
 
   Reload() {
