@@ -100,11 +100,11 @@ export class DialogComponent implements OnInit {
         is_file: is_file,
         year: this.choosen_year
       };
-      this.shared.setMessage(this.data.data);
-      this.shared.setMessage2(this.data.data);
       this.shared.PayeesendClickEvent(data);
+      this.shared.PayeesenddataEvent(data);
+      this.shared.sendPayeeHeaderButtonClickEvent();
       this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
-      this.dialogRef.close()
+      this.dialogRef.close();
     }
   }
 
@@ -225,6 +225,47 @@ export class DialogComponent implements OnInit {
     });
 
   }
+
+
+
+  // this.httpService.UploadPayeeValidatedFile({data: data.data}, this.data.payer.tin, get_year[0].id).subscribe(
+  //   (data: any) => {
+  //     this.upLoading = false;
+  //     console.log(data)
+  //     this.datas = data.data;
+  //     this.renderTable(data.data);
+  //     this.type = true;
+  //   },
+  //   err => {
+  //     this.upLoading = false;
+  //     console.log(err)
+  //     if (err.status === 500) {
+  //       this.snackBar.open("An error occur. Please try Again", "", {
+  //         duration: 5000,
+  //         panelClass: "error",
+  //         horizontalPosition: "center",
+  //         verticalPosition: "top",
+  //       });
+  //     }
+  //     else if (err.status === 0) {
+  //       this.snackBar.open("Error", "", {
+  //         duration: 5000,
+  //         panelClass: "error",
+  //         horizontalPosition: "center",
+  //         verticalPosition: "top",
+  //       });
+  //     }
+  //     else {
+  //       this.snackBar.open(err.error?.status || "Error Uploading File", "", {
+  //         duration: 5000,
+  //         panelClass: "error",
+  //         horizontalPosition: "center",
+  //         verticalPosition: "top",
+  //       });
+  //     }
+  //   }
+  // )
+
 
 
 }

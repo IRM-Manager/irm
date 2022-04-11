@@ -87,22 +87,26 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
       this.stateYear = store.select(selectAllYear);
 
-      this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
-        console.log("selected year \n",data)
-        this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}` || "");
-        this.selected_year = data;
-        if (data?.is_file) {
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}` || "");
-          this.viewMode = "file"
-        }
-        else if(!data?.is_file) {
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}` || "");
-          this.viewMode = "input"
-        }
+      this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {        
       })
 
+      
       this.data = this.shared.getMessage();
       this.data2 = this.shared.getMessage2();
+
+      if (this.shared.PayeegetdataEvent() === undefined) {
+      }else {
+        this.selected_year = this.shared.PayeegetdataEvent();
+        if (this.selected_year?.is_file) {
+          this.viewMode = "file"
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        }
+        else if(!this.selected_year?.is_file) {
+          this.viewMode = "input"
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        }
+      }
+
       if (this.shared.getMessage3() === undefined) {
       }else {
         console.log("proviouse data", this.shared.getMessage3())
@@ -245,21 +249,18 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
                 }
                 else{
                   console.log("data2",this.data2)
+                  // "pension":true,
                   const datas = {
-                    payerId: this.data2.payer.id, employerTin: this.data2.payer.tin,
-                    employeeTin: this.feedback1.tin, status: true, basic: this.feedback2.basic,
-                    housing: this.feedback2.housing, pension: false, nhf: false, tp: this.feedback2.transport,
+                    employeeTin: this.feedback1.tin, basic: this.feedback2.basic, yearId: get_year[0],
+                    housing: this.feedback2.housing, pension: false, tp: this.feedback2.transport,
                     nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position || userId.data.profession_trade,
-                    taxYear: get_year[1], yearId: get_year[0]
-                    // employerId: this.data2.user.id
                   }
                   console.log("form daata",datas)
-                  this.httpService.AddSinglePayee(datas).subscribe(
+                  this.httpService.AddSinglePayee(datas, this.data2.payer.tin, get_year[0]).subscribe(
                     (data: any) => {
                       this.loading = false;
                       this.disabled = false;
                       this.datas.push(data.data);
-                      // this.renderTable(data.data);
                       this.type2 = true;
                       this.clearForm();
                       console.log("added payee data",data)
@@ -365,43 +366,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       .subscribe(
         (data: any) => {
           console.log(data)
-          this.httpService.UploadPayeeValidatedFile({data: data.data}, this.data.payer.tin, get_year[0].id).subscribe(
-            (data: any) => {
-              this.upLoading = false;
-              console.log(data)
-              this.datas = data.data;
-              this.renderTable(data.data);
-              this.type = true;
-            },
-            err => {
-              this.upLoading = false;
-              console.log(err)
-              if (err.status === 500) {
-                this.snackBar.open("An error occur. Please try Again", "", {
-                  duration: 5000,
-                  panelClass: "error",
-                  horizontalPosition: "center",
-                  verticalPosition: "top",
-                });
-              }
-              else if (err.status === 0) {
-                this.snackBar.open("Error", "", {
-                  duration: 5000,
-                  panelClass: "error",
-                  horizontalPosition: "center",
-                  verticalPosition: "top",
-                });
-              }
-              else {
-                this.snackBar.open(err.error?.status || "Error Uploading File", "", {
-                  duration: 5000,
-                  panelClass: "error",
-                  horizontalPosition: "center",
-                  verticalPosition: "top",
-                });
-              }
-            }
-          )
+          this.OpenDialog(data,'extract')
         },
         err => {
           this.authService.refreshToken();

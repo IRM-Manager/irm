@@ -109,7 +109,7 @@ export class HttpService {
     return this.http
       .post<any[]>(
         BaseUrl.api2 +
-          `paye/api/v1/paye/csv/?comp_tin=${tin}&yearId=${year_id}`,
+          `paye/api/v1/paye/upload/?comp_tin=${tin}&yearId=${year_id}`,
         data,
         httpOptions
       )
@@ -130,7 +130,7 @@ export class HttpService {
     return this.http
       .post<any[]>(
         BaseUrl.api2 +
-          `paye/api/v1/paye/bulkupload/?comp_tin=${tin}&yearId=${year_id}`,
+          `paye/api/v1/paye/confirm_upload/?comp_tin=${tin}&yearId=${year_id}`,
         data,
         httpOptions
       )
@@ -138,14 +138,14 @@ export class HttpService {
   }
 
   // add single payee
-  AddSinglePayee(data: any): Observable<any[]> {
+  AddSinglePayee(data: any, tin: string, year_id: string): Observable<any[]> {
     const httpOptions = {
       headers: {
         Authorization: `Bearer ${this.authService.getJwtToken()}`,
       },
     };
     return this.http
-      .post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/`, data, httpOptions)
+      .post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
       .pipe(retry(2));
   }
 

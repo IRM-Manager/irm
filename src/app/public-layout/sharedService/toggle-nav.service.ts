@@ -10,6 +10,7 @@ export class ToggleNavService {
   message2: string | undefined;
   message3: string | undefined;
   payerEditMessage: string | undefined;
+  payeeData: string | undefined;
 
   private subject = new Subject<any>();
   private subject3 = new Subject<any>();
@@ -71,6 +72,15 @@ export class ToggleNavService {
 
   PayeegetClickEvent():Observable<any> {
     return this.subject.asObservable();
+  }
+
+  // payee data
+  PayeesenddataEvent(data: any) {
+    this.payeeData = data;
+  }
+
+  PayeegetdataEvent() {
+    return this.payeeData;
   }
   // 
 
