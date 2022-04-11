@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
   profile: any;
   hide = true;
   hidePaye = true;
+  companyData: any;
 
   clickEventSubscription?: Subscription;
 
@@ -63,11 +64,14 @@ export class HeaderComponent implements OnInit {
       .subscribe((data: any) => {
         this.hide = false;
       });
-
+      
       this.clickEventSubscription = this.shared
       .getPayeeHeaderButtonClickEvent().subscribe((data: string) => {
         this.hidePaye = false;
+        this.companyData = this.shared.getMessage2();
       });
+
+      console.log(this.shared.getMessage2(),"ddddddddddddddddddd")
 
     this.authService.checkExpired();
 

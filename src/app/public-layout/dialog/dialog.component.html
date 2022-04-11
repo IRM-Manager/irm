@@ -657,6 +657,31 @@
 
 
 
+    <!-- delete payee -->
+
+    <div *ngIf="data.type =='delete-payee'" class="delete-payer">
+        <h5 mat-dialog-title class="delete-payer-text">Delete Employee with Tax ID: <span
+                class="delete-payer-tin">{{data.data.payer.tin}}</span></h5>
+        <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Employee? This process cannot
+            be undone.</div>
+        <div mat-dialog-actions>
+            <div class="align-delete-payer">
+                <button mat-button mat-dialog-close class="cancel-payer-button">Cancel</button>
+                <button mat-button class="delete-payer-button" (click)="DeletePayee()">
+                    <span *ngIf="!isdelete" class="add_text">Delete</span>
+                    <div *ngIf="isdelete" class="loader_delete">
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- payee file input -->
 <div *ngIf="data.type =='file_upload'">
 
@@ -664,13 +689,9 @@
 
         <div class="header">
             <div>
-                <!-- <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                <div class="leftt1 left1">{{data.data.organisation_name}}</div>
                 <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
                 <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                <div class="left2">Registered Business</div> -->
-                <div class="leftt1 left1">ferferf eferfer refre</div>
-                <div class="right2">Tax ID: 454346666553</div>
-                <div class="right2">Reg No: 34</div>
                 <div class="left2">Registered Business</div>
             </div>
             <div class="payee_cancel_button">
@@ -711,13 +732,9 @@
 
         <div class="header">
             <div>
-                <!-- <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                <div class="leftt1 left1">{{data.data.organisation_name}}</div>
                 <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
                 <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                <div class="left2">Registered Business</div> -->
-                <div class="leftt1 left1">ferferf eferfer refre</div>
-                <div class="right2">Tax ID: 454346666553</div>
-                <div class="right2">Reg No: 34</div>
                 <div class="left2">Registered Business</div>
             </div>
             <div class="payee_cancel_button">
@@ -733,9 +750,7 @@
                             <mat-form-field class="half-width" appearance="outline">
                                 <mat-label>Year</mat-label>
                                 <mat-select>
-                                    <mat-option value="2">2022</mat-option>
-                                    <mat-option value="3">2021</mat-option>
-                                    <mat-option value="4">2020</mat-option>
+                                    <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                     </form>

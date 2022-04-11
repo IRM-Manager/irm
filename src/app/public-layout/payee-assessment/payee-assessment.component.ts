@@ -171,12 +171,12 @@ export class PayeeAssessmentComponent implements OnInit {
         else {
           this.httpService.GetPayee(this.payeedata.payer.tin, this.currentYear).subscribe(
             (data:any) => {
-              console.log(data.data.company_tax_payer)
+              console.log(data.data)
               if(data.responsecode == "01"){
               }else{
-                // this.store.dispatch(new AddComPayee([{id: 1, data: data.data.company_tax_payer}]));
-                this.datas = data.data.company_tax_payer;
-                this.searchData = data.data.company_tax_payer;
+                this.store.dispatch(new AddPayee([{id: 1, data: data.data}]));
+                this.datas = data?.data;
+                this.searchData = data?.data;
                 this.dtTrigger.next
                 this.isLoading = false;
               }

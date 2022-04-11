@@ -73,11 +73,11 @@
         New Paye Assessment <i class="fa fa-chevron-down"></i>
     </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item class="payee_button_menu" (click)="OpenDialog('dddd', 'file_upload')">
+        <button mat-menu-item class="payee_button_menu" (click)="OpenDialog(companyData, 'file_upload')">
           <mat-icon>upload_file</mat-icon>
           <span>Upload File</span>
         </button>
-        <button mat-menu-item class="payee_button_menu" (click)="OpenDialog('dddd', 'manual_input')">
+        <button mat-menu-item class="payee_button_menu" (click)="OpenDialog(companyData, 'manual_input')">
           <mat-icon>save_as</mat-icon>
           <span>Manual Input</span>
         </button>

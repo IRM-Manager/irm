@@ -48,6 +48,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   viewMode = 'file';
   clickEventSubscription?: Subscription;
   fileName = '';
+  selected_year: any;
 
   stateYear: Observable<Year[]>;
 
@@ -87,6 +88,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.stateYear = store.select(selectAllYear);
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
+        this.selected_year = data;
         if (data?.is_file) {
           this.viewMode = "file"
         }
