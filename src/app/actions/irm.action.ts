@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Action } from '@ngrx/store';
-import { Profile, States, Year, IndPayer, ComPayer } from '../models/irm';
+import { Profile, States, Year, IndPayer, ComPayer, Payee } from '../models/irm';
 
 
 
@@ -10,7 +10,7 @@ export enum ExampleActionTypes {
     GetYear = '[Year API] Get Year',
     GetIndPayer = '[Review API] Get IndPayer',
     GetComPayer = '[Gallery API] Get ComPayer',
-    // GetContact = '[Contact API] Get Contact',
+    GetPayee = '[Payee API] Get Payee',
     // GetTransaction = '[Transaction API] Get Transaction',
     // GetNotification = '[Notification API] Get Notification',
     // GetTask = '[Task API] Get Task',
@@ -26,7 +26,7 @@ export enum ExampleActionTypes {
     GetYear = '[Year API] Remove Year',
     GetIndPayer = '[Review API] Remove GetIndPayer',
     GetComPayer = '[Gallery API] Remove ComPayer',
-    // GetContact = '[Contact API] Remove Contact',
+    GetPayee = '[Payee API] Remove Payee',
     // GetTransaction = '[Transaction API] Remove Transaction',
     // GetNotification = '[Notification API] Remove Notification',
     // GetTask = '[Task API] Remove Task',
@@ -155,26 +155,26 @@ export class RemoveComPayer implements Action {
 
 
 
-// // Contact
+// Contact
 
 
-// // Section 2
-// export const ADD_CONTACT  = '[CONTACT] Add'
-// export const REMOVE_CONTACT   = '[CONTACT] Remove'
+// Section 2
+export const ADD_PAYEE  = '[PAYEE] Add'
+export const REMOVE_PAYEE   = '[PAYEE] Remove'
 
-// // Section 3
-// export class AddContact implements Action {
-//     public readonly type = ExampleActionTypes.GetContact
+// Section 3
+export class AddPayee implements Action {
+    public readonly type = ExampleActionTypes.GetPayee
 
-//     constructor(public Contactpayload: Contact[]) {}
+    constructor(public Payeepayload: Payee[]) {}
 
-// }
+}
 
-// export class RemoveContact implements Action {
-//     public readonly type = ExampleActionTypes2.GetContact
+export class RemovePayee implements Action {
+    public readonly type = ExampleActionTypes2.GetPayee
 
-//     constructor(public Contactpayload: any) {}
-// }
+    constructor(public Payeepayload: any) {}
+}
 
 
 
@@ -355,7 +355,7 @@ export class RemoveComPayer implements Action {
 // action
 
 export type Actions = | AddProfile | RemoveProfile | AddStates | RemoveStates | AddYear | RemoveYear 
-    | AddIndPayer | RemoveIndPayer | AddComPayer | RemoveComPayer
-// | AddReview | RemoveReview | AddGallery | RemoveGallery | AddContact | RemoveContact | AddTransaction | RemoveTransaction
+    | AddIndPayer | RemoveIndPayer | AddComPayer | RemoveComPayer | AddPayee | RemovePayee
+// | AddGallery | RemoveGallery | AddContact | RemoveContact | AddTransaction | RemoveTransaction
 // | AddNotification | RemoveNotification | AddTask | RemoveTask | AddAdmin_Agent | RemoveAdmin_Agent
 // | AddUser | RemoveUser | AddCoupon | RemoveCoupon | AddSpecial_Order | RemoveSpecial_Order

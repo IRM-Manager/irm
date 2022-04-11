@@ -23,10 +23,10 @@ export interface ComPayer {
   data: any;
 }
 
-// export interface Contact {
-//     id: number;
-//     data: any;
-// }
+export interface Payee {
+    id: number;
+    data: any;
+}
 
 // export interface Transaction {
 //     id: number;

@@ -37,7 +37,10 @@ export const selectComPayerState = createSelector(
   selectExampleModule,
   fromExample.selectComPayerState
 );
-//   export const selectContactState = createSelector(selectExampleModule, fromExample.selectContactState);
+export const selectPayeeState = createSelector(
+  selectExampleModule,
+  fromExample.selectPayeeState
+);
 //   export const selectTransactionState = createSelector(selectExampleModule, fromExample.selectTransactionState);
 //   export const selectNotificationState = createSelector(selectExampleModule, fromExample.selectNotificationState);
 //   export const selectTaskState = createSelector(selectExampleModule, fromExample.selectTaskState);
@@ -66,7 +69,10 @@ export const selectAllComPayer = createSelector(
   selectComPayerState,
   fromExample.selectAllComPayer
 );
-//   export const selectAllContact = createSelector(selectContactState, fromExample.selectAllContact);
+export const selectAllPayee = createSelector(
+  selectPayeeState,
+  fromExample.selectAllPayee
+);
 //   export const selectAllNotification = createSelector(selectNotificationState, fromExample.selectAllNotification);
 //   export const selectAllTransaction = createSelector(selectTransactionState, fromExample.selectAllTransaction);
 //   export const selectAllTask = createSelector(selectTaskState, fromExample.selectAllTask);

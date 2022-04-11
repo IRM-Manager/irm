@@ -10,14 +10,15 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer, Year } from '../../models/irm';
-import { AppState, selectAllComPayer, selectAllYear } from 'src/app/reducers/index';
-import { AddComPayer, AddYear } from '../../actions/irm.action';
+import { Year, Payee } from '../../models/irm';
+import { AppState, selectAllYear, selectAllPayee } from 'src/app/reducers/index';
+import { AddPayee, AddYear } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-payee-assessment',
@@ -27,16 +28,11 @@ import { BaseUrl } from 'src/environments/environment';
 })
 export class PayeeAssessmentComponent implements OnInit {
 
-  @ViewChild('fform') feedbackFormDirective: any;
   @ViewChild('fformsearch') searchFormDirective: any;
 
-  feedbackForm: any = FormGroup;
   SearchForm: any = FormGroup;
-  feedback!: Tin;
   active: any = 'ind';
   left_text!: string;
-  loading = false;
-  disabled = false;
   is_reload = false;
   viewMode = 'verify';
   routeviewMode = "access"
@@ -47,11 +43,13 @@ export class PayeeAssessmentComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
+  payeedata2: any;
+  payeedata: any;
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
-  stateComPayer: Observable<ComPayer[]>;
   stateYear: Observable<Year[]>;
+  statePayee: Observable<Payee[]>;
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
@@ -66,14 +64,13 @@ export class PayeeAssessmentComponent implements OnInit {
   constructor(private router: Router, private direct: ActivatedRoute, private fb: FormBuilder,
     private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
     public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar, private location: Location) {
 
       this.authService.checkExpired();
-      this.createForm();
       this.createSearchForm();
       this.trackSearchField();
 
-      this.stateComPayer = store.select(selectAllComPayer);
+      this.statePayee = store.select(selectAllPayee);
       this.stateYear = store.select(selectAllYear);
 
       this.direct.paramMap.subscribe(params => {
@@ -90,6 +87,14 @@ export class PayeeAssessmentComponent implements OnInit {
           }
         }
       })
+
+
+      this.payeedata = this.shared.getMessage();
+      this.payeedata2 = this.shared.getMessage2();
+      console.log("Payeeeee\n",this.payeedata)
+      if (this.payeedata == undefined || this.payeedata == null) {
+        this.location.back();
+      }else {}
       
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.viewMode = data.type;
@@ -123,6 +128,12 @@ export class PayeeAssessmentComponent implements OnInit {
   }
 
 
+  changeCurrentYear(data: any) {
+    this.currentYear = data.year;
+    this.renderTable();
+  }
+
+
   createSearchForm() {
     this.SearchForm = this.fb.group({
         search: ['']
@@ -142,92 +153,6 @@ export class PayeeAssessmentComponent implements OnInit {
   }
 
 
-  createForm() {
-    this.feedbackForm = this.fb.group({
-        tin: ['']
-      },
-    );
-    this.feedbackForm.valueChanges
-      .subscribe((data: any) => this.onValueChanged(data));
-    this.onValueChanged(); // (re)set validation messages now
-  }
-
-
-  onValueChanged(data?: any) {
-    if (!this.feedbackForm) { return; }
-    const form = this.feedbackForm;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
-        }
-      }
-    }
-  }
-
-
-  onSubmit() {
-
-    this.loading = true
-    this.disabled = true
-    this.feedback = this.feedbackForm.value;
-
-    this.httpService.GetPayerTin(this.feedback.tin)
-    .subscribe(
-      (data: any) => {
-        this.loading = false
-        this.disabled = false;
-        if (data.data.payer.payer_type == "company") {
-            const datas = {
-              type: 'staff-income',
-              is_type: false,
-            }
-            this.OpenDialog(data.data, 'payee')
-        }
-        else {
-          this.snackBar.open("Not A Registered Business Taxpayer", "", {
-            duration: 5000,
-            panelClass: "error",
-            horizontalPosition: "center",
-            verticalPosition: "top",
-          });
-        }
-      },
-      err => {
-        this.loading = false
-        this.disabled = false;
-        this.authService.refreshToken();
-        console.log(err)
-        if (err.status === 404) {
-          this.snackBar.open("Tin or Tax ID does not exists", "", {
-            duration: 5000,
-            panelClass: "error",
-            horizontalPosition: "center",
-            verticalPosition: "top",
-          });
-        }
-        else {
-          this.snackBar.open('Error', "", {
-            duration: 5000,
-            panelClass: "error",
-            horizontalPosition: "center",
-            verticalPosition: "top",
-          });
-        }
-      }
-    )
-    // end of subscribe
-  }
-
-
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -235,7 +160,7 @@ export class PayeeAssessmentComponent implements OnInit {
     };
 
       this.isLoading = true;
-      this.stateComPayer?.forEach(e => {
+      this.statePayee?.forEach(e => {
         if(e.length > 0 ) {
           this.datas = e[0].data;
           this.searchData = e[0].data;
@@ -244,12 +169,12 @@ export class PayeeAssessmentComponent implements OnInit {
           this.isLoading = false;
         }
         else {
-          this.httpService.GetPayerList().subscribe(
+          this.httpService.GetPayee(this.payeedata.payer.tin, this.currentYear).subscribe(
             (data:any) => {
               console.log(data.data.company_tax_payer)
               if(data.responsecode == "01"){
               }else{
-                this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
+                // this.store.dispatch(new AddComPayee([{id: 1, data: data.data.company_tax_payer}]));
                 this.datas = data.data.company_tax_payer;
                 this.searchData = data.data.company_tax_payer;
                 this.dtTrigger.next
@@ -299,6 +224,11 @@ export class PayeeAssessmentComponent implements OnInit {
     this.renderTable();
     this.is_reload = false;
   }
+
+  formatMoney(n: any) {
+    const tostring = n.toString()
+   return (Math.round(tostring * 100) / 100).toLocaleString();
+ }
 
 
   OpenDialog(data: any, type: string) {
