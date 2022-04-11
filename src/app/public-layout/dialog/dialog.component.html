@@ -707,13 +707,11 @@
                             <mat-form-field class="half-width" appearance="outline">
                                 <mat-label>Year</mat-label>
                                 <mat-select>
-                                    <mat-option value="2">2022</mat-option>
-                                    <mat-option value="3">2021</mat-option>
-                                    <mat-option value="4">2020</mat-option>
+                                    <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                     </form>
-                    <button mat-button class="continue" (click)="StaffIncome3(true)" mat-dialog-close>Continue</button>
+                    <button mat-button class="continue" (click)="StaffIncome3(true)">Continue</button>
                 </div>
         </mat-dialog-content>
         <mat-dialog-actions>
@@ -754,7 +752,7 @@
                                 </mat-select>
                             </mat-form-field>
                     </form>
-                    <button mat-button class="continue" (click)="StaffIncome3(false)" mat-dialog-close>Continue</button>
+                    <button mat-button class="continue" (click)="StaffIncome3(false)">Continue</button>
                 </div>
         </mat-dialog-content>
         <mat-dialog-actions>

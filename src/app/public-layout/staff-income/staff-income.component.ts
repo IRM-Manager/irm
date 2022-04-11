@@ -88,11 +88,15 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.stateYear = store.select(selectAllYear);
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
+        console.log("selected year \n",data)
+        this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}` || "");
         this.selected_year = data;
         if (data?.is_file) {
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}` || "");
           this.viewMode = "file"
         }
         else if(!data?.is_file) {
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}` || "");
           this.viewMode = "input"
         }
       })

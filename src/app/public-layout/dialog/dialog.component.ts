@@ -86,15 +86,26 @@ export class DialogComponent implements OnInit {
   }
 
   StaffIncome3(is_file: Boolean) {
-    const data = {
-      type: 'staff-income',
-      is_file: is_file,
-      year: this.choosen_year
-    };
-    this.shared.setMessage(this.data.data);
-    this.shared.setMessage2(this.data.data);
-    this.shared.PayeesendClickEvent(data);
-    this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
+    if (this.choosen_year == undefined){
+      this.snackBar.open('Choose Year', '', {
+        duration: 4000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    }
+    else {
+      const data = {
+        type: 'staff-income',
+        is_file: is_file,
+        year: this.choosen_year
+      };
+      this.shared.setMessage(this.data.data);
+      this.shared.setMessage2(this.data.data);
+      this.shared.PayeesendClickEvent(data);
+      this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
+      this.dialogRef.close()
+    }
   }
 
   formatMoney(n: any) {

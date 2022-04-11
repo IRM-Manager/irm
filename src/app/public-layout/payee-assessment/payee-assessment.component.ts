@@ -169,7 +169,7 @@ export class PayeeAssessmentComponent implements OnInit {
           this.isLoading = false;
         }
         else {
-          this.httpService.GetPayee(this.payeedata.payer.tin, this.currentYear).subscribe(
+          this.httpService.GetPayee(this.payeedata?.payer.tin, this.currentYear).subscribe(
             (data:any) => {
               console.log(data.data)
               if(data.responsecode == "01"){
