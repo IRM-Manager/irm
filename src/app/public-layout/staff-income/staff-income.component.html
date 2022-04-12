@@ -102,8 +102,9 @@
                                     <div>Taxable Income (-N-)</div>
                                     <div>Per Annual</div>
                                 </th>
-                                <th> </th>
-                                <th> </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <!-- payee -->
@@ -120,12 +121,16 @@
                                         <mat-icon class="table-icon">dashboard_customize</mat-icon>
                                     </td>
                                     <td class="align-middle">
-                                        <mat-icon class="table-icon-delete">delete_forever</mat-icon>
+                                        <button mat-icon-button>
+                                            <mat-icon class="table-icon-delete">delete_forever</mat-icon>
+                                        </button>
                                     </td>
+                                    <td class="align-middle view_payee">Edit</td>
                                 </tr>
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
@@ -281,9 +286,9 @@
                                 <th>
                                     <div>Taxable Income</div>
                                 </th>
-                                <th> </th>
-                                <th> </th>
-
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <!-- payee -->
@@ -300,12 +305,16 @@
                                         <mat-icon class="table-icon">open_with</mat-icon>
                                     </td>
                                     <td class="align-middle">
-                                        <mat-icon class="table-icon-delete">delete_forever</mat-icon>
+                                        <button mat-icon-button>
+                                            <mat-icon class="table-icon-delete">delete_forever</mat-icon>
+                                        </button>
                                     </td>
+                                    <td class="align-middle view_payee">Edit</td>
                                 </tr>
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>

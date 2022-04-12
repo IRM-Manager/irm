@@ -69,7 +69,6 @@
                                 </th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
                         </tr>
                         </thead>
                         <!-- individual -->
@@ -88,12 +87,10 @@
                                 <td class="align-middle">
                                     <mat-icon (click)="OpenDialog(data, 'delete-payee')" class="table-icon-delete">delete_forever</mat-icon>
                                 </td>
-                                <td class="check align-middle view_payee">Edit</td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
-                                <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>

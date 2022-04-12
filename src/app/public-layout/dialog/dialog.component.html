@@ -777,7 +777,7 @@
                 <div class="left2">Registered Business</div>
             </div>
             <div class="payee_cancel_button">
-                <button mat-icon-button mat-dialog-close>
+                <button mat-icon-button (click)="closeDialog()">
                     <mat-icon>close</mat-icon>
                 </button>
             </div>
@@ -797,11 +797,12 @@
                         <th class="title align-middle">Transaportation</th>
                         <th class="title align-middle">Other allowances</th>
                         <th class="title align-middle">Position</th>
+                        <th></th>
                         <!-- <th class="title align-middle">Review</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of data.data.data; let i=index">
+                    <tr *ngFor="let data of payee_data; let i=index">
                         <td class="align-middle">{{i+1}}</td>
                         <td class="align-middle">{{data.employeeTin}}</td>
                         <!-- <td class="align-middle">Oshodu Isaac Aloa</td> -->
@@ -810,6 +811,11 @@
                         <td class="align-middle">{{formatMoney(data.tp)}}</td>
                         <td class="align-middle">{{formatMoney(data.nhis)}}</td>
                         <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data.employee_position}}</td>
+                        <td class="align-middle">
+                            <button mat-icon-button (click)="DeteleAddedPayee(i)">
+                                <mat-icon class="table-icon-delete">delete_forever</mat-icon>
+                            </button>
+                        </td>
                         <!-- <td class="align-middle">
                             <span class="extract_data_success">Registered</span>
                         </td> -->

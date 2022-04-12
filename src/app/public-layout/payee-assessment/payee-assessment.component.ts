@@ -75,6 +75,13 @@ export class PayeeAssessmentComponent implements OnInit {
       this.statePayee = store.select(selectAllPayee);
       this.stateYear = store.select(selectAllYear);
 
+      this.payeedata = this.shared.getMessage();
+      this.payeedata2 = this.shared.getMessage2();
+      console.log("Payeeeee\n",this.payeedata)
+      if (this.payeedata == undefined || this.payeedata == null) {
+        this.location.back();
+      }else {}
+
       this.direct.paramMap.subscribe(params => {
         if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
           this.routeviewMode = "access"
@@ -89,14 +96,6 @@ export class PayeeAssessmentComponent implements OnInit {
           }
         }
       })
-
-
-      this.payeedata = this.shared.getMessage();
-      this.payeedata2 = this.shared.getMessage2();
-      console.log("Payeeeee\n",this.payeedata)
-      if (this.payeedata == undefined || this.payeedata == null) {
-        this.location.back();
-      }else {}
       
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.viewMode = data.type;

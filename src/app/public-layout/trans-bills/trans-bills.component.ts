@@ -38,6 +38,7 @@ export class TransBillsComponent implements OnInit {
   loading = false;
   disabled = false;
   is_reload = false;
+  data2: any;
   viewMode = 'verify';
   clickEventSubscription?: Subscription;
   isLoading = false;
@@ -82,6 +83,11 @@ export class TransBillsComponent implements OnInit {
         }
       })
       
+      this.data2 = this.shared.getMessage2();
+      if (this.shared.getMessage2() == undefined || this.shared.getMessage2() == null) {
+        this.router.navigate(['dashboard3/taxpayer/payee'])
+      }else {}
+
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
         this.viewMode = data.type;
       })

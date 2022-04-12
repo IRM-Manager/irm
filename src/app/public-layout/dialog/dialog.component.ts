@@ -23,7 +23,7 @@ import {
   RemoveIndPayer,
   AddComPayer,
   RemoveComPayer,
-  AddYear
+  AddYear,
 } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 
@@ -35,9 +35,10 @@ import { Observable } from 'rxjs';
 export class DialogComponent implements OnInit {
   isdelete = false;
   year: any;
-  choosen_year: number | undefined
+  choosen_year: number | undefined;
   isExtract = false;
   selected_year: any;
+  payee_data: any;
 
   stateIndPayer: Observable<IndPayer[]>;
   stateComPayer: Observable<ComPayer[]>;
@@ -54,10 +55,14 @@ export class DialogComponent implements OnInit {
     public shared: ToggleNavService,
     private authService: AuthService
   ) {
+    if (this.data.type == 'extract') {
+      dialogRef.disableClose = true;
+      this.payee_data = this.data.data.data;
+    }
     this.stateIndPayer = store.select(selectAllIndPayer);
     this.stateComPayer = store.select(selectAllComPayer);
     this.stateYear = store.select(selectAllYear);
-    this.AddYear()
+    this.AddYear();
   }
 
   ngOnInit(): void {
@@ -90,19 +95,18 @@ export class DialogComponent implements OnInit {
   }
 
   StaffIncome3(is_file: Boolean) {
-    if (this.choosen_year == undefined){
+    if (this.choosen_year == undefined) {
       this.snackBar.open('Choose Year', '', {
         duration: 4000,
         panelClass: 'error',
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
-    }
-    else {
+    } else {
       const data = {
         type: 'staff-income',
         is_file: is_file,
-        year: this.choosen_year
+        year: this.choosen_year,
       };
       this.shared.PayeesendClickEvent(data);
       this.shared.PayeesendClickEvent2();
@@ -149,7 +153,6 @@ export class DialogComponent implements OnInit {
     );
   }
 
-
   //  delete tax payer
   DeletePayee() {
     this.isdelete = true;
@@ -180,7 +183,6 @@ export class DialogComponent implements OnInit {
     //   }
     // );
   }
-
 
   OpenDialog(data: any, type: string) {
     this.snackBar.dismiss();
@@ -228,65 +230,93 @@ export class DialogComponent implements OnInit {
         );
       }
     });
-
   }
-
 
   extract_continue() {
     this.selected_year = this.shared.PayeegetdataEvent();
     this.isExtract = true;
-    const data = {data: this.data.data.data}
-    console.log(data)
-    this.httpService.UploadPayeeValidatedFile(data, this.data.data2.payer.tin, this.data.data3.id || this.data.data3[0]).subscribe(
-    (data: any) => {
+    const data = { data: this.payee_data };
+    console.log(this.payee_data)
+    if (this.payee_data.length !== 0) {
+      this.httpService
+        .UploadPayeeValidatedFile(
+          data,
+          this.data.data2.payer.tin,
+          this.data.data3.id || this.data.data3[0]
+        )
+        .subscribe(
+          (data: any) => {
+            this.isExtract = false;
+            this.shared.setMessage3(data.data);
+            const dataa = {
+              type: 'staff-income',
+            };
+            this.shared.PayeesendClickEvent(dataa);
+            this.shared.PayeesendClickEvent2();
+            this.dialogRef.close();
+            this.snackBar.dismiss();
+            this.snackBar.open('Success', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          },
+          (err) => {
+            this.isExtract = false;
+            console.log(err);
+            if (err.status === 500) {
+              this.snackBar.open('An error occur. Please try Again', '', {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+            } else if (err.status === 0) {
+              this.snackBar.open('Error', '', {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+            } else {
+              this.snackBar.open(
+                err.error?.status || err.error?.detail || 'Error Uploading File',
+                '',
+                {
+                  duration: 5000,
+                  panelClass: 'error',
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                }
+              );
+            }
+          }
+        );
+    }else {
       this.isExtract = false;
-      this.shared.setMessage3(data.data);
-      const dataa = {
-        type: 'staff-income',
-      };
-      this.shared.PayeesendClickEvent(dataa);
-      this.shared.PayeesendClickEvent2();
-      this.dialogRef.close();
-      this.snackBar.dismiss();
-      this.snackBar.open("Success", "", {
-        duration: 3000,
-        panelClass: "success",
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
-    },
-    err => {
-      this.isExtract = false;
-      console.log(err)
-      if (err.status === 500) {
-        this.snackBar.open("An error occur. Please try Again", "", {
+      this.snackBar.open('Cannot Add Empty Employee', '',
+        {
           duration: 5000,
-          panelClass: "error",
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      }
-      else if (err.status === 0) {
-        this.snackBar.open("Error", "", {
-          duration: 5000,
-          panelClass: "error",
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      }
-      else {
-        this.snackBar.open(err.error?.status || err.error?.detail || "Error Uploading File", "", {
-          duration: 5000,
-          panelClass: "error",
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      }
+          panelClass: 'error',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        }
+      );
     }
-  )
   }
-  
 
+  closeDialog() {
+    this.shared.setMessage3(undefined);
+    const dataa = {
+      type: 'staff-income',
+    };
+    this.shared.PayeesendClickEvent(dataa);
+    this.shared.PayeesendClickEvent2();
+    this.dialogRef.close();
+  }
 
-
+  DeteleAddedPayee(index: number) {
+    this.payee_data.splice(index, 1);
+  }
 }

@@ -318,6 +318,24 @@ $red: #BC333E;
             cursor: pointer;
         }
 
+        .view_payee {
+            cursor: pointer;
+            color: rgba(60,102,163,0.7);
+            font-weight: 500;
+        }
+
+        ::ng-deep .table-striped > tbody .view_payee:nth-of-type(odd) {
+            color: rgba(60,102,163,0.7) !important;
+        }
+    
+        ::ng-deep .table-striped > tbody .view_payee:nth-of-type(even) {
+            color: rgba(60,102,163,0.7) !important;
+        }
+    
+        ::ng-deep .table-striped > tbody .view_payee:nth-of-type(even):hover {
+            color: rgba(60,102,163,0.7) !important;
+        }
+
         ::ng-deep .dataTables_wrapper .dataTables_filter {
             display: none;
         }

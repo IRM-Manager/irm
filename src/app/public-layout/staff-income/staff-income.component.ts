@@ -88,6 +88,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       this.stateYear = store.select(selectAllYear);
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent2().subscribe(() => {
+        this.selected_year = this.shared.PayeegetdataEvent();
         this.fileName = "";
         this.formData = new FormData();
         if (this.shared.getMessage3() === undefined) {
@@ -96,7 +97,20 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           this.data = this.shared.getMessage3();
           this.renderTable(this.shared.getMessage3())
           this.type = true;
-        }     
+        }
+        switch(this.selected_year?.is_file) {
+          case true:
+            this.viewMode = "file"
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+            break;
+          case false:
+            this.viewMode = "input"
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+            break;
+          default:
+            this.viewMode = "input"
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        }
       })
 
       
@@ -108,12 +122,17 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
         this.selected_year = this.shared.PayeegetdataEvent();
         this.fileName = "";
         this.formData = new FormData();
-        if (this.selected_year?.is_file) {
-          this.viewMode = "file"
+        switch(this.selected_year?.is_file) {
+          case true:
+            this.viewMode = "file"
           this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
-        }
-        else if(!this.selected_year?.is_file) {
-          this.viewMode = "input"
+            break;
+          case false:
+            this.viewMode = "input"
+          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+            break;
+          default:
+            this.viewMode = "input"
           this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
         }
       }
@@ -240,126 +259,60 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     this.feedback2 = this.feedbackForm1.value;
 
     const get_year = this.feedback1.year.split('|')
-    // check employee tin
-    this.httpService.GetPayerTin(this.feedback1.tin).subscribe(
-      (userId: any) => {
-        console.log(userId)
-        if (userId.data.payer.payer_type == "individual"){
-            this.httpService.GetPayee(this.feedback1.tin, get_year[0])
-            .subscribe(
-              (dataa: any) => {
-
-                if (dataa.data.length > 0) {
-                  this.loading = false;
-                  this.disabled = false;
-                  this.datas.push(dataa.data);
-                  // this.renderTable(dataa.data);
-                  this.type2 = true;
-                  this.clearForm();
-                  console.log("get payee list wheter regis",dataa)
-                }
-                else{
-                  console.log("data2",this.data2)
-                  // "pension":true,
-                  const datas = {
-                    employeeTin: this.feedback1.tin, basic: this.feedback2.basic, yearId: get_year[0],
-                    housing: this.feedback2.housing, pension: false, tp: this.feedback2.transport,
-                    nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position || userId.data.profession_trade,
-                  }
-                  console.log("form daata",datas)
-                  this.httpService.AddSinglePayee(datas, this.data2.payer.tin, get_year[0]).subscribe(
-                    (data: any) => {
-                      this.loading = false;
-                      this.disabled = false;
-                      this.datas.push(data.data);
-                      this.type2 = true;
-                      this.clearForm();
-                      console.log("added payee data",data)
-                    },
-                    err => {
-                      console.log(err)
-                      this.loading = false;
-                      this.disabled = false;
-                      this.authService.refreshToken();
-                      if (err.status === 500) {
-                        this.snackBar.open("An error occur. Please try Again", "", {
-                          duration: 5000,
-                          panelClass: "error",
-                          horizontalPosition: "center",
-                          verticalPosition: "top",
-                        });
-                      }
-                      else if(err.status === 400) {
-                        this.snackBar.open(err.error.message, "", {
-                          duration: 5000,
-                          panelClass: "error",
-                          horizontalPosition: "center",
-                          verticalPosition: "top",
-                        });
-                      }
-                      else {
-                        this.snackBar.open("Error", "", {
-                          duration: 5000,
-                          panelClass: "error",
-                          horizontalPosition: "center",
-                          verticalPosition: "top",
-                        });
-                      }
-                    }
-                  )
-                  // end
-                }
-                // end else
-              },
-              err => {
-                this.loading = false;
-                this.disabled = false;
-                console.log(err)
-                this.authService.refreshToken();
-                this.snackBar.open("Error", "", {
-                  duration: 5000,
-                  panelClass: "error",
-                  horizontalPosition: "center",
-                  verticalPosition: "top",
-                });
-              }
-            ) // end subscription
-        }
-        else {
-          this.loading = false;
-          this.disabled = false;
-          this.snackBar.open('Invalid Tin', "", {
+    // "pension":true,
+    const datas = {
+      employeeTin: this.feedback1.tin, basic: this.feedback2.basic, yearId: get_year[0],
+      housing: this.feedback2.housing, pension: false, tp: this.feedback2.transport,
+      nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position,
+    }
+    console.log("form daata",datas)
+    this.httpService.AddSinglePayee(datas, this.data2.payer.tin, get_year[0]).subscribe(
+      (data: any) => {
+        this.loading = false;
+        this.disabled = false;
+        this.datas.push(data.data);
+        this.type2 = true;
+        this.clearForm();
+        this.snackBar.open("Successfully Added", "", {
+          duration: 3000,
+          panelClass: "success",
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
+        console.log("added payee data",data)
+      },
+      err => {
+        console.log(err)
+        this.loading = false;
+        this.disabled = false;
+        this.authService.refreshToken();
+        if (err.status === 500) {
+          this.snackBar.open("An error occur. Please try Again", "", {
             duration: 5000,
             panelClass: "error",
             horizontalPosition: "center",
             verticalPosition: "top",
           });
         }
-
-      },
-      err => {
-        this.loading = false;
-          this.disabled = false;
-          this.authService.refreshToken();
-          if (err.status === 404) {
-            this.snackBar.open("Employee Tin does not exists", "", {
-              duration: 5000,
-              panelClass: "error",
-              horizontalPosition: "center",
-              verticalPosition: "top",
-            });
-          }
-          else {
-            this.snackBar.open('Error', "", {
-              duration: 5000,
-              panelClass: "error",
-              horizontalPosition: "center",
-              verticalPosition: "top",
-            });
-          }
+        else if(err.status === 400) {
+          this.snackBar.open(err.error.message, "", {
+            duration: 5000,
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+        else {
+          this.snackBar.open("Error", "", {
+            duration: 5000,
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
       }
     )
-
+    // end
 
   }
 

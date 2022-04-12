@@ -641,6 +641,12 @@
 }
 
 
+.table-icon-delete {
+  color: #A33C3C;
+  cursor: pointer;
+}
+
+
   ::ng-deep .mat-step-header .mat-step-icon-selected,
     .mat-step-header .mat-step-icon-state-done,
     .mat-step-header .mat-step-icon-state-edit {
