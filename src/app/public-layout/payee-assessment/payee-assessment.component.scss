@@ -399,6 +399,10 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
       }
 
 
+      .view_payee {
+          color: $panel-color;
+      }
+
     // ::ng-deep .dataTables_wrapper .dataTables_filter {
     //     display: none;
     // }
