@@ -94,7 +94,7 @@ export class DialogComponent implements OnInit {
     this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
   }
 
-  StaffIncome3(is_file: Boolean) {
+  StaffIncome3(is_file: string) {
     if (this.choosen_year == undefined) {
       this.snackBar.open('Choose Year', '', {
         duration: 4000,
@@ -109,9 +109,9 @@ export class DialogComponent implements OnInit {
         year: this.choosen_year,
       };
       this.shared.PayeesendClickEvent(data);
-      this.shared.PayeesendClickEvent2();
       this.shared.PayeesenddataEvent(data);
       this.shared.sendPayeeHeaderButtonClickEvent();
+      this.shared.PayeesendClickEvent2();
       this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
       this.dialogRef.close();
     }

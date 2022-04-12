@@ -89,27 +89,13 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
       this.clickEventSubscription = this.shared.PayeegetClickEvent2().subscribe(() => {
         this.selected_year = this.shared.PayeegetdataEvent();
-        this.fileName = "";
-        this.formData = new FormData();
+        this.GetPayeeDataEvent();
         if (this.shared.getMessage3() === undefined) {
         }else {
           console.log("proviouse data", this.shared.getMessage3())
           this.data = this.shared.getMessage3();
           this.renderTable(this.shared.getMessage3())
           this.type = true;
-        }
-        switch(this.selected_year?.is_file) {
-          case true:
-            this.viewMode = "file"
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
-            break;
-          case false:
-            this.viewMode = "input"
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
-            break;
-          default:
-            this.viewMode = "input"
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
         }
       })
 
@@ -120,21 +106,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       if (this.shared.PayeegetdataEvent() === undefined) {
       }else {
         this.selected_year = this.shared.PayeegetdataEvent();
-        this.fileName = "";
-        this.formData = new FormData();
-        switch(this.selected_year?.is_file) {
-          case true:
-            this.viewMode = "file"
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
-            break;
-          case false:
-            this.viewMode = "input"
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
-            break;
-          default:
-            this.viewMode = "input"
-          this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
-        }
+        this.GetPayeeDataEvent();
       }
 
       if (this.shared.getMessage3() === undefined) {
@@ -145,6 +117,27 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
         this.type = true;
       }
 
+   }
+
+
+   GetPayeeDataEvent() {
+    this.fileName = "";
+    this.formData = new FormData();
+    switch(this.selected_year?.is_file) {
+      case 'file':
+        console.log("file")
+        this.viewMode = "file"
+      this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        break;
+      case 'input':
+        console.log("input")
+        this.viewMode = "input"
+      this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        break;
+      default:
+        this.viewMode = "input"
+      this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+    }
    }
 
 

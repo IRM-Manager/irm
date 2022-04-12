@@ -12,6 +12,7 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 .wrapper {
   color: $white;
   overflow-y: auto;
+  overflow-x: hidden;
 
   %shared-dash-text {
     font: $panel-text;
