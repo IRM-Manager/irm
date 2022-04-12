@@ -241,7 +241,10 @@ export class DialogComponent implements OnInit {
     (data: any) => {
       this.isExtract = false;
       this.shared.setMessage3(data.data);
-      this.shared.PayeesendClickEvent(undefined);
+      const dataa = {
+        type: 'staff-income',
+      };
+      this.shared.PayeesendClickEvent(dataa);
       this.shared.PayeesendClickEvent2();
       this.dialogRef.close();
       this.snackBar.dismiss();

@@ -12,7 +12,7 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 import { Store } from '@ngrx/store';
 import { Year, Payee } from '../../models/irm';
 import { AppState, selectAllYear, selectAllPayee } from 'src/app/reducers/index';
-import { AddPayee, AddYear } from '../../actions/irm.action';
+import { AddPayee, AddYear, RemovePayee } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -132,7 +132,8 @@ export class PayeeAssessmentComponent implements OnInit {
 
   changeCurrentYear(data: any) {
     this.currentYear = data.year;
-    this.currentYearID = data.id
+    this.currentYearID = data.id;
+    this.store.dispatch(new RemovePayee([{id: 1, data: []}]));
     this.renderTable();
   }
 
@@ -207,6 +208,7 @@ export class PayeeAssessmentComponent implements OnInit {
               this.store.dispatch(new AddYear([{id: 1, data: data}]));
               this.year = data.data;
               this.currentYearID = data.data.slice(-1)[0].id;
+              this.store.dispatch(new RemovePayee([{id: 1, data: []}]));
               this.renderTable();
             }
           },
