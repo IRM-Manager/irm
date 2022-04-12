@@ -39,6 +39,7 @@ export class PayeeAssessmentComponent implements OnInit {
   clickEventSubscription?: Subscription;
   isLoading = false;
   currentYear = new Date().getFullYear();
+  currentYearID: any;
   year: any;
 
   dtOptions: DataTables.Settings = {};
@@ -47,6 +48,7 @@ export class PayeeAssessmentComponent implements OnInit {
   payeedata: any;
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
+  payeeEventData: any;
 
   stateYear: Observable<Year[]>;
   statePayee: Observable<Payee[]>;
@@ -130,6 +132,7 @@ export class PayeeAssessmentComponent implements OnInit {
 
   changeCurrentYear(data: any) {
     this.currentYear = data.year;
+    this.currentYearID = data.id
     this.renderTable();
   }
 
@@ -169,7 +172,7 @@ export class PayeeAssessmentComponent implements OnInit {
           this.isLoading = false;
         }
         else {
-          this.httpService.GetPayee(this.payeedata?.payer.tin, this.currentYear).subscribe(
+          this.httpService.GetPayee(this.payeedata?.payer.tin, this.currentYearID).subscribe(
             (data:any) => {
               console.log(data.data)
               if(data.responsecode == "01"){
@@ -203,6 +206,8 @@ export class PayeeAssessmentComponent implements OnInit {
             }else{
               this.store.dispatch(new AddYear([{id: 1, data: data}]));
               this.year = data.data;
+              this.currentYearID = data.data.slice(-1)[0].id;
+              this.renderTable();
             }
           },
           err => {
@@ -236,7 +241,8 @@ export class PayeeAssessmentComponent implements OnInit {
       let dialogRef = this.dialog.open(DialogComponent, {
         data: {
           type: type,
-          data: data
+          data: data,
+          data2: this.payeedata2
         }
       });
   }

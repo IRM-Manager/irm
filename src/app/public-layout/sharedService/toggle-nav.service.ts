@@ -15,6 +15,7 @@ export class ToggleNavService {
   private subject = new Subject<any>();
   private subject3 = new Subject<any>();
   private subject4 = new Subject<any>();
+  private subject5 = new Subject<any>();
 
   constructor() { }
 
@@ -72,6 +73,15 @@ export class ToggleNavService {
 
   PayeegetClickEvent():Observable<any> {
     return this.subject.asObservable();
+  }
+
+
+  PayeesendClickEvent2() {
+    this.subject5.next(null);
+  }
+
+  PayeegetClickEvent2():Observable<any> {
+    return this.subject5.asObservable();
   }
 
   // payee data

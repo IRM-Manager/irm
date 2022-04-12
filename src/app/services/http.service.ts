@@ -120,7 +120,7 @@ export class HttpService {
   UploadPayeeValidatedFile(
     data: any,
     tin: string,
-    year_id: number
+    year_id: number | string
   ): Observable<any[]> {
     const httpOptions = {
       headers: {
@@ -158,7 +158,7 @@ export class HttpService {
     };
     return this.http
       .get<any[]>(
-        BaseUrl.api2 + `paye/api/v1/paye/118/?comp_tin=${tin}&yearId=${year_id}`,
+        BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`,
         httpOptions
       )
       .pipe(retry(2));

@@ -338,9 +338,9 @@ $red: #BC333E;
       }
 
 
-    ::ng-deep .dataTables_wrapper .dataTables_filter {
-        display: none;
-    }
+    // ::ng-deep .dataTables_wrapper .dataTables_filter {
+    //     display: none;
+    // }
 
     ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
         color: $white !important;

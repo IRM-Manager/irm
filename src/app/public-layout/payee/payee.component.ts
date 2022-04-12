@@ -84,6 +84,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
       })
       
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
+        console.log("llllllll", data)
         this.viewMode = data.type;
       })
 

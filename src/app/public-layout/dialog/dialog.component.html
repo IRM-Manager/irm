@@ -440,7 +440,7 @@
             <div class="header-text">individual employee breakdown of pay</div>
             <div class="payee_clearfix">
                 <div class="column1 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="dark">Tax ID: {{data.data.employerTin}}</div>
+                    <div class="dark">Tax ID: {{data.data2.payer.tin}}</div>
                     <div class="blue">{{data.data2.organisation_name}}</div>
                     <div class="dark">Registered Business</div>
                 </div>
@@ -661,7 +661,7 @@
 
     <div *ngIf="data.type =='delete-payee'" class="delete-payer">
         <h5 mat-dialog-title class="delete-payer-text">Delete Employee with Tax ID: <span
-                class="delete-payer-tin">{{data.data.payer.tin}}</span></h5>
+                class="delete-payer-tin">{{data.data.employeeTin}}</span></h5>
         <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Employee? This process cannot
             be undone.</div>
         <div mat-dialog-actions>
@@ -771,13 +771,9 @@
 
         <div class="header">
             <div>
-                <!-- <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                <div class="left2">Registered Business</div> -->
-                <div class="leftt1 left1">ferferf eferfer refre</div>
-                <div class="right2">Tax ID: 454346666553</div>
-                <div class="right2">Reg No: 34</div>
+                <div class="leftt1 left1">{{data.data2.organisation_name}}</div>
+                <div class="right2">Tax ID: {{data.data2.payer.tin}}</div>
+                <div class="right2">Reg No: {{data.data2.payer.id}}</div>
                 <div class="left2">Registered Business</div>
             </div>
             <div class="payee_cancel_button">
@@ -795,64 +791,45 @@
                     <tr>
                         <th class="title align-middle">S/N</th>
                         <th class="title align-middle">TIN</th>
-                        <th class="title align-middle">Name of Employee</th>
+                        <!-- <th class="title align-middle">Name of Employee</th> -->
                         <th class="title align-middle">Basic</th>
                         <th class="title align-middle">Housing</th>
                         <th class="title align-middle">Transaportation</th>
                         <th class="title align-middle">Other allowances</th>
                         <th class="title align-middle">Position</th>
-                        <th class="title align-middle">Review</th>
+                        <!-- <th class="title align-middle">Review</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="align-middle">1</td>
-                        <td class="align-middle">4344343434</td>
-                        <td class="align-middle">Oshodu Isaac Aloa</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">Banker</td>
-                        <td class="align-middle">
+                    <tr *ngFor="let data of data.data.data; let i=index">
+                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{data.employeeTin}}</td>
+                        <!-- <td class="align-middle">Oshodu Isaac Aloa</td> -->
+                        <td class="align-middle">{{formatMoney(data.basic)}}</td>
+                        <td class="align-middle">{{formatMoney(data.housing)}}</td>
+                        <td class="align-middle">{{formatMoney(data.tp)}}</td>
+                        <td class="align-middle">{{formatMoney(data.nhis)}}</td>
+                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data.employee_position}}</td>
+                        <!-- <td class="align-middle">
                             <span class="extract_data_success">Registered</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">2</td>
-                        <td class="align-middle">4344343434</td>
-                        <td class="align-middle">Oshodu Isaac Aloa</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">Banker</td>
-                        <td class="align-middle">
-                            <span class="extract_data_warning">Not Registered</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">3</td>
-                        <td class="align-middle">4344343434</td>
-                        <td class="align-middle">Oshodu Isaac Aloa</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle">32,3344,33.00</td>
-                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">Banker</td>
-                        <td class="align-middle">
-                            <span class="extract_data_success">Registered</span>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <div class="extract_note">Note: Only 50 employee will be added</div>
-            <button mat-button class="extract_continue">Save and continue</button>
+            <div class="extract_note">Note: Only {{data.data.data.length}} employee will be added</div>
+            <button mat-button class="extract_continue" (click)="extract_continue()">
+                <span *ngIf="!isExtract">Save and continue</span>
+                <div *ngIf="isExtract" class="loader_delete">
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                </div>
+            </button>
             <!-- redirected to taxable income page -->
         </mat-dialog-actions>
-
     </div>
 
 </div>

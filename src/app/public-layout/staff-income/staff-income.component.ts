@@ -87,7 +87,16 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
       this.stateYear = store.select(selectAllYear);
 
-      this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {        
+      this.clickEventSubscription = this.shared.PayeegetClickEvent2().subscribe(() => {
+        this.fileName = "";
+        this.formData = new FormData();
+        if (this.shared.getMessage3() === undefined) {
+        }else {
+          console.log("proviouse data", this.shared.getMessage3())
+          this.data = this.shared.getMessage3();
+          this.renderTable(this.shared.getMessage3())
+          this.type = true;
+        }     
       })
 
       
@@ -97,6 +106,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       if (this.shared.PayeegetdataEvent() === undefined) {
       }else {
         this.selected_year = this.shared.PayeegetdataEvent();
+        this.fileName = "";
+        this.formData = new FormData();
         if (this.selected_year?.is_file) {
           this.viewMode = "file"
           this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
@@ -358,11 +369,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     this.upLoading = true
     const d = new Date();
     let year = d.getFullYear();
-    const get_year = this.year.filter((data: any) => {
-      return data.year === year.toString();
-    });
 
-      this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, get_year[0].id)
+      this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, this.selected_year.year.id)
       .subscribe(
         (data: any) => {
           console.log(data)
@@ -373,7 +381,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           this.upLoading = false;
           console.log(err)
           if (err.status === 500) {
-            this.snackBar.open("Invalid data format or File not Valid! (Should be CSV)", "", {
+            this.snackBar.open(err.error?.detail || "Invalid data format or File not Valid! (Should be CSV)", "", {
               duration: 5000,
               panelClass: "error",
               horizontalPosition: "center",
@@ -486,11 +494,13 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   }
 
   OpenDialog(data: any, type: string) {
+    const get_year = this.feedbackForm.value
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         type: type,
         data: data,
-        data2: this.data2
+        data2: this.data2,
+        data3: this.viewMode == 'file' ? this.selected_year.year : get_year.year.split('|')
       }
     });
     

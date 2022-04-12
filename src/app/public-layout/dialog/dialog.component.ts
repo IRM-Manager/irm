@@ -36,6 +36,8 @@ export class DialogComponent implements OnInit {
   isdelete = false;
   year: any;
   choosen_year: number | undefined
+  isExtract = false;
+  selected_year: any;
 
   stateIndPayer: Observable<IndPayer[]>;
   stateComPayer: Observable<ComPayer[]>;
@@ -70,6 +72,7 @@ export class DialogComponent implements OnInit {
     this.shared.setMessage(this.data.data);
     this.shared.setMessage2(this.data.data);
     this.shared.PayeesendClickEvent(data);
+    this.shared.PayeesenddataEvent(data);
     this.router.navigate(['/dashboard4/taxpayer/payee/access']);
     this.shared.sendPayeeHeaderButtonClickEvent();
   }
@@ -82,6 +85,7 @@ export class DialogComponent implements OnInit {
     this.shared.setMessage(this.data.data);
     this.shared.setMessage2(this.data.data);
     this.shared.PayeesendClickEvent(data);
+    this.shared.PayeesenddataEvent(data);
     this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
   }
 
@@ -101,6 +105,7 @@ export class DialogComponent implements OnInit {
         year: this.choosen_year
       };
       this.shared.PayeesendClickEvent(data);
+      this.shared.PayeesendClickEvent2();
       this.shared.PayeesenddataEvent(data);
       this.shared.sendPayeeHeaderButtonClickEvent();
       this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
@@ -227,44 +232,57 @@ export class DialogComponent implements OnInit {
   }
 
 
-
-  // this.httpService.UploadPayeeValidatedFile({data: data.data}, this.data.payer.tin, get_year[0].id).subscribe(
-  //   (data: any) => {
-  //     this.upLoading = false;
-  //     console.log(data)
-  //     this.datas = data.data;
-  //     this.renderTable(data.data);
-  //     this.type = true;
-  //   },
-  //   err => {
-  //     this.upLoading = false;
-  //     console.log(err)
-  //     if (err.status === 500) {
-  //       this.snackBar.open("An error occur. Please try Again", "", {
-  //         duration: 5000,
-  //         panelClass: "error",
-  //         horizontalPosition: "center",
-  //         verticalPosition: "top",
-  //       });
-  //     }
-  //     else if (err.status === 0) {
-  //       this.snackBar.open("Error", "", {
-  //         duration: 5000,
-  //         panelClass: "error",
-  //         horizontalPosition: "center",
-  //         verticalPosition: "top",
-  //       });
-  //     }
-  //     else {
-  //       this.snackBar.open(err.error?.status || "Error Uploading File", "", {
-  //         duration: 5000,
-  //         panelClass: "error",
-  //         horizontalPosition: "center",
-  //         verticalPosition: "top",
-  //       });
-  //     }
-  //   }
-  // )
+  extract_continue() {
+    this.selected_year = this.shared.PayeegetdataEvent();
+    this.isExtract = true;
+    const data = {data: this.data.data.data}
+    console.log(data)
+    this.httpService.UploadPayeeValidatedFile(data, this.data.data2.payer.tin, this.data.data3.id || this.data.data3[0]).subscribe(
+    (data: any) => {
+      this.isExtract = false;
+      this.shared.setMessage3(data.data);
+      this.shared.PayeesendClickEvent(undefined);
+      this.shared.PayeesendClickEvent2();
+      this.dialogRef.close();
+      this.snackBar.dismiss();
+      this.snackBar.open("Success", "", {
+        duration: 3000,
+        panelClass: "success",
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      });
+    },
+    err => {
+      this.isExtract = false;
+      console.log(err)
+      if (err.status === 500) {
+        this.snackBar.open("An error occur. Please try Again", "", {
+          duration: 5000,
+          panelClass: "error",
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
+      }
+      else if (err.status === 0) {
+        this.snackBar.open("Error", "", {
+          duration: 5000,
+          panelClass: "error",
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
+      }
+      else {
+        this.snackBar.open(err.error?.status || err.error?.detail || "Error Uploading File", "", {
+          duration: 5000,
+          panelClass: "error",
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
+      }
+    }
+  )
+  }
+  
 
 
 
