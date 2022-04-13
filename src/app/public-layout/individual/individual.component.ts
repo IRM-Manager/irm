@@ -170,7 +170,6 @@ export class IndividualComponent implements OnDestroy, OnInit {
             },
             err => {
               this.isLoading = false;
-              this.authService.refreshToken();
             }
           )
         }
@@ -201,7 +200,6 @@ export class IndividualComponent implements OnDestroy, OnInit {
             },
             err => {
               this.isLoading = false;
-              this.authService.refreshToken();
             }
           )
         }

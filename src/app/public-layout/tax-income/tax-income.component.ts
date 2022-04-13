@@ -30,7 +30,7 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
       this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
       })
 
-      this.data = this.shared.getMessage();
+      this.data = this.shared.getMessage4();
       this.data2 = this.shared.getMessage2();
 
     }
@@ -89,6 +89,8 @@ export class TaxIncomeComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+    this.shared.setMessage3(undefined)
+    this.shared.setMessage4(undefined)
   }
 
 }

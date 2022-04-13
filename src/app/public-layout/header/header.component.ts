@@ -75,8 +75,6 @@ export class HeaderComponent implements OnInit {
         this.companyData = this.shared.getMessage2();
       });
 
-      console.log(this.shared.getMessage2(),"ddddddddddddddddddd")
-
     this.authService.checkExpired();
 
     this.router.events.subscribe((ev) => {
@@ -154,7 +152,6 @@ export class HeaderComponent implements OnInit {
             }
           },
           (err) => {
-            this.authService.refreshToken();
           }
         );
       }

@@ -9,6 +9,7 @@ export class ToggleNavService {
   message: string | undefined;
   message2: string | undefined;
   message3: string | undefined;
+  message4: string | undefined;
   payerEditMessage: string | undefined;
   payeeData: string | undefined;
 
@@ -45,6 +46,17 @@ export class ToggleNavService {
   getMessage3() {
     return this.message3
   }
+
+
+// message 3
+
+setMessage4(data: any) {
+  this.message4 = data
+}
+
+getMessage4() {
+  return this.message4
+}
 
   // payer edit message 
 

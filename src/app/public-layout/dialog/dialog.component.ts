@@ -55,6 +55,7 @@ export class DialogComponent implements OnInit {
     public shared: ToggleNavService,
     private authService: AuthService
   ) {
+    this.authService.checkExpired();
     if (this.data.type == 'extract') {
       dialogRef.disableClose = true;
       this.payee_data = this.data.data.data;

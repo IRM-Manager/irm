@@ -79,7 +79,6 @@ export class AppPublicSidenavListComponent implements OnInit {
   }
 
   PayeeBusinessBack() {
-    this.shared.PayeesendClickEvent("");
     this.shared.PayeesenddataEvent("");
     this.shared.setMessage(undefined);
     this.shared.setMessage2(undefined);
@@ -112,7 +111,6 @@ export class AppPublicSidenavListComponent implements OnInit {
             }
           },
           (err: any) => {
-            this.authService.refreshToken();
           }
         );
       }

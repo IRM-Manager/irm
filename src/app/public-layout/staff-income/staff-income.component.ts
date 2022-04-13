@@ -15,6 +15,7 @@ import { AddYear, RemoveYear } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-staff-income',
@@ -80,8 +81,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
   constructor(private dialog: MatDialog, private authService: AuthService,
     public shared: ToggleNavService, private fb: FormBuilder, private store: Store<AppState>,
-    private httpService: HttpService, private snackBar: MatSnackBar) {
-      this.authService.checkExpired()
+    private httpService: HttpService, private snackBar: MatSnackBar, private router: Router,) {
+      this.authService.checkExpired();
       this.createForm();
       this.createForm1();
 
@@ -127,16 +128,16 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       case 'file':
         console.log("file")
         this.viewMode = "file"
-      this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
         break;
       case 'input':
         console.log("input")
         this.viewMode = "input"
-      this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
         break;
       default:
         this.viewMode = "input"
-      this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
+        this.feedbackForm.controls['year'].setValue(`${this.selected_year?.year?.id}|${this.selected_year?.year?.year}`);
     }
    }
 
@@ -278,7 +279,6 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
         console.log(err)
         this.loading = false;
         this.disabled = false;
-        this.authService.refreshToken();
         if (err.status === 500) {
           this.snackBar.open("An error occur. Please try Again", "", {
             duration: 5000,
@@ -323,7 +323,6 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           this.OpenDialog(data,'extract')
         },
         err => {
-          this.authService.refreshToken();
           this.upLoading = false;
           console.log(err)
           if (err.status === 500) {
@@ -408,10 +407,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       type: 'verify',
       data: null
     }
-    this.shared.setMessage(undefined)
-    this.shared.setMessage2(undefined)
     this.shared.setMessage3(undefined)
-    this.shared.PayeesendClickEvent(data);
+    this.shared.setMessage4(undefined)
+    this.router.navigate(['dashboard4/taxpayer/payee/access'])
   }
 
    formatMoney(n: any) {
@@ -432,7 +430,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       const data = {
         type: 'tax-income',
       }
-      this.shared.setMessage(this.datas);
+      this.shared.setMessage4(this.datas);
       this.shared.setMessage2(this.data2);
       this.shared.PayeesendClickEvent(data);
     }
@@ -455,6 +453,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+    this.shared.PayeesendClickEvent2();
   }
 
 }

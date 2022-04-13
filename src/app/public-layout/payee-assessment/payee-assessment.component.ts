@@ -79,7 +79,7 @@ export class PayeeAssessmentComponent implements OnInit {
       this.payeedata2 = this.shared.getMessage2();
       console.log("Payeeeee\n",this.payeedata)
       if (this.payeedata == undefined || this.payeedata == null) {
-        this.location.back();
+        this.router.navigate(['/dashboard3/taxpayer/payee'])
       }else {}
 
       this.direct.paramMap.subscribe(params => {
@@ -186,7 +186,6 @@ export class PayeeAssessmentComponent implements OnInit {
             },
             err => {
               this.isLoading = false;
-              this.authService.refreshToken();
             }
           )
         }
