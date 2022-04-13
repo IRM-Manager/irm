@@ -95,6 +95,8 @@ export class DialogComponent implements OnInit {
   }
 
   StaffIncome3(is_file: string) {
+    this.shared.PayeesendClickEvent("");
+    this.shared.PayeesenddataEvent("");
     if (this.choosen_year == undefined) {
       this.snackBar.open('Choose Year', '', {
         duration: 4000,
