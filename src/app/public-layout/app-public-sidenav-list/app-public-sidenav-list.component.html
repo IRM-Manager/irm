@@ -146,7 +146,7 @@
 
         </div>
 
-        <p class="back" (click)="PayeeBack()">
+        <p class="back" (click)="PayeeBack()" [routerLink]="['/dashboard']">
             <mat-icon>keyboard_backspace</mat-icon> Back
         </p>
 
@@ -154,7 +154,7 @@
             Pay as you Earn
         </p>
 
-        <p class="dash-text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
+        <p class="dash-text" (click)="PayeeBusinessBack()" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
             All Businesses
         </p>
         <p class="dash-text2" [routerLink]="['/dashboard4/taxpayer/payee/access']" routerLinkActive="active">

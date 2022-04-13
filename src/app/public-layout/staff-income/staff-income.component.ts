@@ -259,7 +259,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position,
     }
     console.log("form daata",datas)
-    this.httpService.AddSinglePayee(datas, this.data2.payer.tin, get_year[0]).subscribe(
+    this.httpService.AddSinglePayee(datas, this.data2?.payer?.tin, get_year[0]).subscribe(
       (data: any) => {
         this.loading = false;
         this.disabled = false;
@@ -316,7 +316,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
     const d = new Date();
     let year = d.getFullYear();
 
-      this.httpService.UploadPayeeFile(this.formData, this.data.payer.tin, this.selected_year.year.id)
+      this.httpService.UploadPayeeFile(this.formData, this.data?.payer?.tin, this.selected_year?.year?.id)
       .subscribe(
         (data: any) => {
           console.log(data)

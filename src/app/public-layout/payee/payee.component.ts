@@ -239,7 +239,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
         else {
           this.httpService.GetPayerList().subscribe(
             (data:any) => {
-              console.log(data.data.company_tax_payer)
               if(data.responsecode == "01"){
               }else{
                 this.store.dispatch(new AddComPayer([{id: 1, data: data.data.company_tax_payer}]));
