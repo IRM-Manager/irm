@@ -68,7 +68,15 @@ export class AppPublicSidenavListComponent implements OnInit {
     }
   }
 
-
+  PayeeBack() {
+    this.shared.PayeesendClickEvent("");
+    this.shared.PayeesenddataEvent("");
+    this.shared.setMessage(undefined);
+    this.shared.setMessage2(undefined);
+    this.shared.setMessage3(undefined);
+    this.shared.sendPayeeHeaderButtonClickEvent(false);
+    this.router.navigate(['/dashboard'])
+  }
 
   routeRedirect() {
     this.onPublicHeaderToggleSidenav();

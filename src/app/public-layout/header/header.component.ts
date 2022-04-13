@@ -67,7 +67,11 @@ export class HeaderComponent implements OnInit {
       
       this.clickEventSubscription = this.shared
       .getPayeeHeaderButtonClickEvent().subscribe((data: string) => {
-        this.hidePaye = false;
+        if (data) {
+          this.hidePaye = false;
+        }else if(!data) {
+          this.hidePaye = true;
+        }
         this.companyData = this.shared.getMessage2();
       });
 
@@ -223,7 +227,7 @@ export class HeaderComponent implements OnInit {
 
   public onPublicHeaderToggleSidenav = () => {
     this.publicsidenavToggle.emit();
-    this.shared.sendHeaderSideClickEvent();
+    // this.shared.sendHeaderSideClickEvent();
     this.hide = true;
   };
 

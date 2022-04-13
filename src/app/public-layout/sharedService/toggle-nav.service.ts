@@ -112,8 +112,8 @@ export class ToggleNavService {
 
   // remove payee year header button
 
-  sendPayeeHeaderButtonClickEvent() {
-    this.subject4.next(null);
+  sendPayeeHeaderButtonClickEvent(data: Boolean) {
+    this.subject4.next(data);
   }
 
   getPayeeHeaderButtonClickEvent():Observable<any> {

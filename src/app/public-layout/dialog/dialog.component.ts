@@ -79,7 +79,7 @@ export class DialogComponent implements OnInit {
     this.shared.PayeesendClickEvent(data);
     this.shared.PayeesenddataEvent(data);
     this.router.navigate(['/dashboard4/taxpayer/payee/access']);
-    this.shared.sendPayeeHeaderButtonClickEvent();
+    this.shared.sendPayeeHeaderButtonClickEvent(true);
   }
 
   StaffIncome2() {
@@ -110,7 +110,7 @@ export class DialogComponent implements OnInit {
       };
       this.shared.PayeesendClickEvent(data);
       this.shared.PayeesenddataEvent(data);
-      this.shared.sendPayeeHeaderButtonClickEvent();
+      this.shared.sendPayeeHeaderButtonClickEvent(true);
       this.shared.PayeesendClickEvent2();
       this.router.navigate(['/dashboard4/taxpayer/payee/access/staff-input']);
       this.dialogRef.close();
