@@ -227,7 +227,7 @@ export class HeaderComponent implements OnInit {
 
   public onPublicHeaderToggleSidenav = () => {
     this.publicsidenavToggle.emit();
-    // this.shared.sendHeaderSideClickEvent();
+    this.shared.sendHeaderSideClickEvent();
     this.hide = true;
   };
 
