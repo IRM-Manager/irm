@@ -111,6 +111,7 @@ export class AppPublicSidenavListComponent implements OnInit {
             }
           },
           (err: any) => {
+            this.authService.checkExpired();
           }
         );
       }

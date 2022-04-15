@@ -195,5 +195,37 @@ export class HttpService {
       .pipe(retry(2));
   }
 
+  // Delete payee
+  DeletePayee(id: number) {
+    const httpOptions = {
+      headers: {
+        Authorization: `Bearer ${this.authService.getJwtToken()}`,
+      },
+    };
+    return this.http
+      .delete<any[]>(
+        BaseUrl.api2 + `paye/api/v1/paye/${id}/`,
+        httpOptions
+      )
+      .pipe(retry(1));
+  }
+
+  // Update payee
+  UpdatePayee(data: any, tin: string, id: number | string) {
+    const httpOptions = {
+      headers: {
+        Authorization: `Bearer ${this.authService.getJwtToken()}`,
+      },
+    };
+    return this.http
+      .patch<any[]>(
+        BaseUrl.api2 + `paye/api/v1/paye/117/?comp_tin=${tin}&yearId=${id}`,
+        data,
+        httpOptions
+      )
+      .pipe(retry(2));
+  }
+
+
 
 }

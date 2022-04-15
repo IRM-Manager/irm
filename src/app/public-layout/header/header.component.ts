@@ -152,6 +152,7 @@ export class HeaderComponent implements OnInit {
             }
           },
           (err) => {
+            this.authService.checkExpired();
           }
         );
       }

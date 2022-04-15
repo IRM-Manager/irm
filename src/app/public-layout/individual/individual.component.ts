@@ -170,6 +170,7 @@ export class IndividualComponent implements OnDestroy, OnInit {
             },
             err => {
               this.isLoading = false;
+              this.authService.checkExpired();
             }
           )
         }

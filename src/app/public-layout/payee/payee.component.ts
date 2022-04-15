@@ -197,7 +197,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
       err => {
         this.loading = false
         this.disabled = false;
-        this.authService.refreshToken();
+        this.authService.checkExpired();
         console.log(err)
         if (err.status === 404) {
           this.snackBar.open("Tin or Tax ID does not exists", "", {
@@ -250,7 +250,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
             },
             err => {
               this.isLoading = false;
-              this.authService.refreshToken();
+              this.authService.checkExpired();
             }
           )
         }

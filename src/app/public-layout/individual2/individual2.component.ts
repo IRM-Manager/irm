@@ -602,6 +602,7 @@ export class Individual2Component implements OnDestroy, OnInit {
           },
           (err: any) => {
             console.log(err)
+            this.authService.checkExpired();
             this.loading2 = false;
             this.disabled2 = false;
             if (err.error?.message == "required") {
@@ -704,6 +705,7 @@ export class Individual2Component implements OnDestroy, OnInit {
           },
           (err: any) => {
             console.log(err)
+            this.authService.checkExpired();
             this.Updateloading = false;
             if(err.status === 500){
               this.snackBar.open("Email Address or Contact number Already exists in (Section 1)", "", {

@@ -50,6 +50,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   clickEventSubscription?: Subscription;
   fileName = '';
   selected_year: any;
+  isSavingR: any[] = [];
+  update = false;
+  updateIndex!: number;
 
   stateYear: Observable<Year[]>;
 
@@ -122,8 +125,8 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
 
 
    GetPayeeDataEvent() {
-    this.fileName = "";
-    this.formData = new FormData();
+    // this.fileName = "";
+    // this.formData = new FormData();
     switch(this.selected_year?.is_file) {
       case 'file':
         console.log("file")
@@ -277,6 +280,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       },
       err => {
         console.log(err)
+        this.authService.checkExpired();
         this.loading = false;
         this.disabled = false;
         if (err.status === 500) {
@@ -310,6 +314,84 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   }
 
 
+  onUpdate() {
+    this.loading = true
+    this.disabled = true
+    this.feedback1 = this.feedbackForm.getRawValue();
+    this.feedback2 = this.feedbackForm1.getRawValue();
+    // "pension":true,
+    console.log(this.feedback1)
+    const datas = {
+      employeeTin: this.feedback1.tin, basic: this.feedback2.basic, nhf: false,
+      housing: this.feedback2.housing, pension: false, tp: this.feedback2.transport,
+      nhis: this.feedback2.other || parseFloat('0.0'), employee_position: this.feedback1.position,
+    }
+    const get_year = this.feedback1?.year.split('|')
+    console.log("form daata",datas)
+    this.httpService.UpdatePayee(datas, this.data2?.payer?.tin, get_year[0]).subscribe(
+      (data: any) => {
+        this.loading = false;
+        this.disabled = false;
+        this.update = false;
+        // this.datas.splice(this.updateIndex, 1)
+        this.datas[this.updateIndex] = data.data;
+        this.feedbackForm.controls['year'].enable();
+        this.feedbackForm.controls['tin'].enable();
+        this.datas.push(data.data);
+        this.type2 = true;
+        this.clearForm();
+        this.snackBar.open("Successfully Updated", "", {
+          duration: 3000,
+          panelClass: "success",
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
+        console.log("updated payee data",data)
+      },
+      err => {
+        console.log(err)
+        this.authService.checkExpired();
+        this.loading = false;
+        this.disabled = false;
+        this.update = false;
+        if (err.status === 500) {
+          this.snackBar.open("An error occur. Please try Again", "", {
+            duration: 5000,
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+        else if(err.status === 400) {
+          this.snackBar.open(err.error?.detail || err.error?.message || "An error occur. Please try Again", "", {
+            duration: 5000,
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+        else if(err.status === 404) {
+          this.snackBar.open(err.error.detail, "", {
+            duration: 5000,
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+        else {
+          this.snackBar.open("Error", "", {
+            duration: 5000,
+            panelClass: "error",
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+      }
+    )
+    // end
+  }
+
+
   UploadFIle() {
     console.log(this.data)
     this.upLoading = true
@@ -323,6 +405,7 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
           this.OpenDialog(data,'extract')
         },
         err => {
+          this.authService.checkExpired();
           this.upLoading = false;
           console.log(err)
           if (err.status === 500) {
@@ -438,8 +521,9 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
   }
 
   OpenDialog(data: any, type: string) {
-    const get_year = this.feedbackForm.value
-    let dialogRef = this.dialog.open(DialogComponent, {
+    const get_year = this.feedbackForm.getRawValue();
+    console.log(get_year)
+    this.dialog.open(DialogComponent, {
       data: {
         type: type,
         data: data,
@@ -448,6 +532,63 @@ export class StaffIncomeComponent implements OnDestroy, OnInit {
       }
     });
     
+  }
+
+  remove(id: any, index2: number) {
+    const form_data = this.feedbackForm.getRawValue();
+    const check = this.datas.filter((data: any) => {
+      return data.id == id
+    })
+    if(check[0].employeeTin == form_data.tin) {
+      this.snackBar.open("Cannot Delete what you want to Edit!", "", {
+        duration: 5000,
+        panelClass: "error",
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      });
+    }
+    else {
+      this.isSavingR.push(id);
+      this.httpService.DeletePayee(id).subscribe(
+        (data:any) => {
+            const index = this.isSavingR.indexOf(id);
+            if (index > -1) {
+              this.isSavingR.splice(index, 1);
+            }
+            this.datas.splice(index2, 1);
+            this.snackBar.open("Successfully deleted", "", {
+              duration: 3000,
+              panelClass: "success",
+              horizontalPosition: "center",
+              verticalPosition: "top",
+            });
+        },
+        err => {
+          this.authService.checkExpired();
+          const index = this.isSavingR.indexOf(id);
+          if (index > -1) {
+            this.isSavingR.splice(index, 1);
+          }
+        })
+    }
+
+  }
+
+
+  Edit(data: any, index: number) {
+    this.updateIndex = index;
+    this.update = true;
+    this.feedbackForm.controls['year'].setValue(`${data.yearId}|${data.taxYear}`);
+    this.feedbackForm.controls['year'].disable();
+    this.feedbackForm.patchValue({name: data.employee});
+    this.feedbackForm.patchValue({tin: data.employeeTin});
+    this.feedbackForm.controls['tin'].disable();
+    this.feedbackForm.patchValue({position: data.employee_position});
+    this.feedbackForm1.patchValue({basic: data.basic});
+    this.feedbackForm1.patchValue({housing: data.housing});
+    this.feedbackForm1.patchValue({transport: data.tp});
+    this.viewMode = 'input';
+    this.type2 = true;
   }
 
   ngOnDestroy(): void {

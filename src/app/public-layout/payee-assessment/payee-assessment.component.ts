@@ -133,7 +133,7 @@ export class PayeeAssessmentComponent implements OnInit {
     this.currentYear = data.year;
     this.currentYearID = data.id;
     this.store.dispatch(new RemovePayee([{id: 1, data: []}]));
-    this.renderTable();
+    this.renderTable(data.id);
   }
 
 
@@ -156,7 +156,7 @@ export class PayeeAssessmentComponent implements OnInit {
   }
 
 
-  renderTable() {
+  renderTable(year: number) {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -172,7 +172,7 @@ export class PayeeAssessmentComponent implements OnInit {
           this.isLoading = false;
         }
         else {
-          this.httpService.GetPayee(this.payeedata?.payer?.tin, this.currentYearID).subscribe(
+          this.httpService.GetPayee(this.payeedata?.payer?.tin, this.currentYearID || year || 23).subscribe(
             (data:any) => {
               console.log(data.data)
               if(data.responsecode == "01"){
@@ -186,6 +186,7 @@ export class PayeeAssessmentComponent implements OnInit {
             },
             err => {
               this.isLoading = false;
+              this.authService.checkExpired();
             }
           )
         }
@@ -207,7 +208,7 @@ export class PayeeAssessmentComponent implements OnInit {
               this.year = data.data;
               this.currentYearID = data.data.slice(-1)[0].id;
               this.store.dispatch(new RemovePayee([{id: 1, data: []}]));
-              this.renderTable();
+              this.renderTable(data.data.slice(-1)[0].id);
             }
           },
           err => {
@@ -220,13 +221,13 @@ export class PayeeAssessmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.checkExpired();
-    this.renderTable();
+    this.renderTable(this.currentYearID);
     this.AddYear();
   }
 
   Reload() {
     this.is_reload = true;
-    this.renderTable();
+    this.renderTable(this.currentYearID);
     this.is_reload = false;
   }
 
