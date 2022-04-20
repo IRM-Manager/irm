@@ -42,7 +42,6 @@ export const donutChartOptions: Options = {
   ],
 };
 
-
 export const donutChartOptions2: Options = {
   chart: {
     type: 'pie',

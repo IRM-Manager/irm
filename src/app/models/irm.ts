@@ -24,8 +24,8 @@ export interface ComPayer {
 }
 
 export interface Payee {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 // export interface Transaction {

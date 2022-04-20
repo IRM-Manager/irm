@@ -247,7 +247,8 @@
                     <mat-error>{{formErrors.state}}</mat-error>
                     <mat-hint *ngIf="stateeError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;">
-                        <button>Reload</button></mat-hint>
+                        <button>Reload</button>
+                    </mat-hint>
                     <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
                 </mat-form-field>
             </p>
@@ -269,7 +270,8 @@
                     <mat-hint *ngIf="!lga" align="end">Select state to get LGA</mat-hint>
                     <mat-hint *ngIf="lgaaError" class="hint-error">required.</mat-hint>
                     <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
-                        <button>Reload</button></mat-hint>
+                        <button>Reload</button>
+                    </mat-hint>
                     <mat-hint *ngIf="lgaLoading">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- nationality -->

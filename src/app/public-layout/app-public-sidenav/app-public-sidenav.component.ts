@@ -31,9 +31,8 @@ export class AppPublicSidenavComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private breakpointObserver: BreakpointObserver
-  ) //  @Inject(DOCUMENT) private document: Document
-  {}
+    private breakpointObserver: BreakpointObserver //  @Inject(DOCUMENT) private document: Document
+  ) {}
 
   handleScroll(event: any) {
     if (event.target.scrollTop > 150) {

@@ -28,15 +28,15 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Pay-As-You-Earn (PAYE)
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <span class="vertical3"></span>
-            <p class="panel_text" [routerLink]="['/dashboard4/taxpayer/payee/overview']" routerLinkActive="active">Overview</p>
+            <p class="panel_text" [routerLink]="['/dashboard4/taxpayer/payee/overview']" routerLinkActive="active">
+                Overview</p>
             <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
                 Paye Assessment/Bills
             </p>
@@ -154,7 +154,8 @@
             Pay as you Earn
         </p>
 
-        <p class="dash-text" (click)="PayeeBusinessBack()" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
+        <p class="dash-text" (click)="PayeeBusinessBack()" [routerLink]="['/dashboard3/taxpayer/payee']"
+            routerLinkActive="active">
             All Businesses
         </p>
         <p class="dash-text2" [routerLink]="['/dashboard4/taxpayer/payee/access']" routerLinkActive="active">

@@ -8,9 +8,8 @@ describe('AppPublicSidenavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppPublicSidenavComponent ]
-    })
-    .compileComponents();
+      declarations: [AppPublicSidenavComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

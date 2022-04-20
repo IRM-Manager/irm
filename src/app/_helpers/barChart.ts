@@ -19,7 +19,7 @@ export const barChart: Options = {
   },
   xAxis: {
     lineColor: '#fff',
-    categories: ['#','#','#','#','#','#'],
+    categories: ['#', '#', '#', '#', '#', '#'],
   },
 
   plotOptions: {
@@ -35,7 +35,7 @@ export const barChart: Options = {
       type: 'column',
       // color: '#506ef9',
       data: [
-        { y: 2, color: '#eeeeee'},
+        { y: 2, color: '#eeeeee' },
         { y: 4, color: '#506ef9' },
         { y: 5, color: '#ffe8df' },
         { y: 8, color: '#fc5185' },

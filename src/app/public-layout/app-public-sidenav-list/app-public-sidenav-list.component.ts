@@ -33,7 +33,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     private authService: AuthService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    public shared: ToggleNavService,
+    public shared: ToggleNavService
   ) {
     this.clickEventSubscription = this.shared
       .getHeaderSideClickEvent()
@@ -49,9 +49,7 @@ export class AppPublicSidenavListComponent implements OnInit {
         this.currentRoute();
       }
     });
-
   }
-
 
   currentRoute() {
     if (
@@ -62,29 +60,28 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard4/taxpayer/payee/bills'
     ) {
       this.type = 'payee';
-    }
-    else {
+    } else {
       this.type = 'home';
     }
   }
 
   PayeeBack() {
-    this.shared.PayeesendClickEvent("");
-    this.shared.PayeesenddataEvent("");
+    this.shared.PayeesendClickEvent('');
+    this.shared.PayeesenddataEvent('');
     this.shared.setMessage(undefined);
     this.shared.setMessage2(undefined);
     this.shared.setMessage3(undefined);
     this.shared.sendPayeeHeaderButtonClickEvent(false);
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/dashboard']);
   }
 
   PayeeBusinessBack() {
-    this.shared.PayeesenddataEvent("");
+    this.shared.PayeesenddataEvent('');
     this.shared.setMessage(undefined);
     this.shared.setMessage2(undefined);
     this.shared.setMessage3(undefined);
     this.shared.sendPayeeHeaderButtonClickEvent(false);
-    this.router.navigate(['/dashboard3/taxpayer/payee'])
+    this.router.navigate(['/dashboard3/taxpayer/payee']);
   }
 
   routeRedirect() {

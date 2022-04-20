@@ -1,121 +1,123 @@
 <div class="wrapper">
-    
-
-<div class="header">
-    <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
-        Tax Registration of Individual
-    </button>
-    <button (click)="changeActive('com')" mat-button class="individual2" [class.active]="active == 'com'">
-        Tax Registration of Business
-    </button>
-    <button mat-button class="create" (click)="redirectActive()">Create</button>
-</div>
 
 
-<mat-toolbar class="header2">
-    <div class="indcom">
-        {{left_text}}
+    <div class="header">
+        <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
+            Tax Registration of Individual
+        </button>
+        <button (click)="changeActive('com')" mat-button class="individual2" [class.active]="active == 'com'">
+            Tax Registration of Business
+        </button>
+        <button mat-button class="create" (click)="redirectActive()">Create</button>
     </div>
-    <div class="spacer"></div>
-    <!-- <div class="search_icon_p">
+
+
+    <mat-toolbar class="header2">
+        <div class="indcom">
+            {{left_text}}
+        </div>
+        <div class="spacer"></div>
+        <!-- <div class="search_icon_p">
         <form class="search-form" novalidate [formGroup]="SearchForm" #fformsearch="ngForm">
             <input matInput formControlName="search" type="text" class="input" >
         </form>
         <mat-icon class="search_icon">search</mat-icon>
     </div> -->
-</mat-toolbar>
+    </mat-toolbar>
 
-<div class="table-container">
-    <div class="table-responsive">
-        <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
-            <thead>
-            <tr *ngIf="active == 'ind'">
-                <th class="align-middle">S/N</th>
-                <th class="align-middle">Tax ID</th>
-                <th class="align-middle">Full Name</th>
-                <th class="align-middle">Field of work/Business</th>
-                <th class="align-middle">Contact Number</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr *ngIf="active == 'com'">
-                <th class="align-middle">S/N</th>
-                <th class="align-middle">Tax ID</th>
-                <th class="align-middle">Business name</th>
-                <th class="align-middle">Date of Establishment</th>
-                <th class="align-middle">Contact Person</th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <!-- individual -->
-            <tbody *ngIf="datas?.length != 0 && active == 'ind' ">
-                <tr *ngFor="let data of datas; let i=index">
-                    <td class="align-middle">{{i+1}}</td>
-                    <td class="align-middle">{{ data.payer.tin }}</td>
-                    <td class="align-middle">{{ data.surname }} {{ data.first_name }} 
-                        {{ data.middle_name }}
-                    </td>
-                    <td class="align-middle">{{ data.profession_trade }}</td>
-                    <td class="align-middle">{{ data.phone }}</td>
-                    <td class="align-middle">
-                        <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
-                    </td>
-                    <td class="align-middle">
-                        <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">delete_forever</mat-icon>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="datas?.length != 0 && active == 'com' ">
-                <tr *ngFor="let data of datas; let i=index">
-                    <td class="align-middle">{{i+1}}</td>
-                    <td class="align-middle">{{ data.payer.tin }}</td>
-                    <td class="align-middle">{{ data.organisation_name }}
-                    </td>
-                    <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
-                    <td class="align-middle">{{ data.org_phone }}</td>
-                    <td class="align-middle">
-                        <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
-                    </td>
-                    <td class="align-middle">
-                        <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">delete_forever</mat-icon>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="datas?.length == 0">
-                <tr>
-                    <td class="no-data-available">No data!</td>
-                    <td class="no-data-available">No data!</td>
-                    <td class="no-data-available">No data!</td>
-                    <td class="no-data-available">No data!</td>
-                    <td class="no-data-available">No data!</td>
-                    <td class="no-data-available">No data!</td>
-                    <td class="no-data-available">No data!</td>
-                </tr>
-            </tbody>
+    <div class="table-container">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions"
+                class="row-border table table-striped table-hover table-borderless">
+                <thead>
+                    <tr *ngIf="active == 'ind'">
+                        <th class="align-middle">S/N</th>
+                        <th class="align-middle">Tax ID</th>
+                        <th class="align-middle">Full Name</th>
+                        <th class="align-middle">Field of work/Business</th>
+                        <th class="align-middle">Contact Number</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr *ngIf="active == 'com'">
+                        <th class="align-middle">S/N</th>
+                        <th class="align-middle">Tax ID</th>
+                        <th class="align-middle">Business name</th>
+                        <th class="align-middle">Date of Establishment</th>
+                        <th class="align-middle">Contact Person</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <!-- individual -->
+                <tbody *ngIf="datas?.length != 0 && active == 'ind' ">
+                    <tr *ngFor="let data of datas; let i=index">
+                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{ data.payer.tin }}</td>
+                        <td class="align-middle">{{ data.surname }} {{ data.first_name }}
+                            {{ data.middle_name }}
+                        </td>
+                        <td class="align-middle">{{ data.profession_trade }}</td>
+                        <td class="align-middle">{{ data.phone }}</td>
+                        <td class="align-middle">
+                            <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
+                        </td>
+                        <td class="align-middle">
+                            <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">
+                                delete_forever</mat-icon>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="datas?.length != 0 && active == 'com' ">
+                    <tr *ngFor="let data of datas; let i=index">
+                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{ data.payer.tin }}</td>
+                        <td class="align-middle">{{ data.organisation_name }}
+                        </td>
+                        <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
+                        <td class="align-middle">{{ data.org_phone }}</td>
+                        <td class="align-middle">
+                            <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
+                        </td>
+                        <td class="align-middle">
+                            <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">
+                                delete_forever</mat-icon>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="datas?.length == 0">
+                    <tr>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                    </tr>
+                </tbody>
 
-            <div *ngIf="isLoading" class="loader loading">
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-            </div>
-
-            <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
-                <span *ngIf="!is_reload">RELOAD</span>
-                <div *ngIf="is_reload" class="loader">
+                <div *ngIf="isLoading" class="loader loading">
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                 </div>
-            </button>
-        </table>
+
+                <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                    <span *ngIf="!is_reload">RELOAD</span>
+                    <div *ngIf="is_reload" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </table>
+        </div>
     </div>
-</div>
 
 
 
 
 </div>
-

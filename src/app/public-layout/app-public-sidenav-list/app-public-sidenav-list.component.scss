@@ -6,7 +6,7 @@ $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
 $right1-font: normal normal 400 15px/19px Montserrat;
 $green: #45a841;
-$pay-as-you-earn: rgba(255,255,255,0.5);
+$pay-as-you-earn: rgba(255, 255, 255, 0.5);
 $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 
 .wrapper {
@@ -92,7 +92,7 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 
     ::ng-deep .mat-expansion-indicator::after {
       color: $white;
-    //   transform: rotate(320deg);
+      //   transform: rotate(320deg);
     }
 
     .mat-expansion-panel-header.mat-expanded {
@@ -241,7 +241,6 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
   }
 }
 
-
 .wrapper2 {
   color: $white;
   overflow-y: auto;
@@ -301,7 +300,6 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
       font: $pay-as-you-earn-font;
       letter-spacing: 0px;
     }
-
   }
 
   .footer {
@@ -384,5 +382,4 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
       font-weight: bold;
     }
   }
-
 }
