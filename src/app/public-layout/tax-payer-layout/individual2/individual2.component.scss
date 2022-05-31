@@ -1,5 +1,5 @@
 $header-color: 1px solid #42a845;
-$header-back: rgba(62, 95, 168, 0.05);
+$header-back: #f6fbf6;
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
 $white: #ffffff;
 $ind-border: 1px solid #45a841;
@@ -21,9 +21,6 @@ $back-border: 1px solid #40a84a;
 $back-color: #44a843;
 $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
   0% no-repeat padding-box;
-$nin-back: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%) 0% 0%
-  no-repeat padding-box;
-$nin-shadow: 0px 3px 6px #00000029;
 
 .wrapper {
   padding-left: 20px;
@@ -63,40 +60,35 @@ $nin-shadow: 0px 3px 6px #00000029;
     box-shadow: $verify-hover-box;
   }
 
-  input[type="text"] {
-    background: $label-color;
+  .nin-text {
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+    text-align: left;
   }
 
-  ::ng-deep .mat-select-arrow {
-    color: $select-color;
-    opacity: 1;
+  .header-text {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
   }
 
-  mat-form-field {
-    color: 1px solid $form-color;
-    width: 250px;
+  .nin-number {
+    font: normal normal normal 20px/24px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    margin-right: 20px;
+    color: rgba(86, 86, 86, 0.7);
   }
 
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: $form-color;
-  }
-
-  ::ng-deep
-    .mat-form-field-appearance-outline.mat-focused
-    .mat-form-field-outline-thick {
-    color: $form-color;
-  }
-
-  ::ng-deep .mat-input-element {
-    caret-color: $form-color;
-  }
-
-  ::ng-deep .mat-form-field-label {
-    color: $label-color;
-  }
-
-  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: $label-color;
+  .header-change {
+    font: normal normal normal 20px/24px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: rgba(51, 169, 101, 0.7);
+    text-transform: capitalize;
+    padding: 0.3rem;
   }
 }
 
@@ -106,7 +98,7 @@ $nin-shadow: 0px 3px 6px #00000029;
   margin-top: 2rem;
   opacity: 1;
   width: 50rem;
-  // border: 1px solid green;
+  padding-left: 20px;
 
   .session-header {
     font: $session-h2-font;
@@ -127,6 +119,10 @@ $nin-shadow: 0px 3px 6px #00000029;
 
   .form1 {
     margin-top: 1rem;
+  }
+
+  mat-error {
+      text-transform: capitalize;
   }
 
   mat-form-field {
@@ -162,36 +158,10 @@ $nin-shadow: 0px 3px 6px #00000029;
     @include form($width: 86%);
   }
 
-  .nin-width {
-    @include form($width: 40%);
-  }
-
   .radio_button {
     margin-left: 30px;
   }
 
-  @mixin veryfy($back, $color, $font, $border) {
-    letter-spacing: 0px;
-    font: $font;
-    background: $back;
-    border: $border;
-    border-radius: 10px;
-    color: $color;
-    font-weight: 500;
-    opacity: 1;
-    padding: 1rem;
-    box-shadow: $nin-shadow;
-  }
-
-  .verify {
-    width: 150px;
-    @include veryfy(
-      $back: $nin-back,
-      $color: $white,
-      $font: $ind-font,
-      $border: unset
-    );
-  }
 
   ::ng-deep .mat-step-header .mat-step-icon-selected,
   .mat-step-header .mat-step-icon-state-done,
@@ -245,6 +215,20 @@ $nin-shadow: 0px 3px 6px #00000029;
     color: #f44336;
   }
 
+  // ::ng-deep .mat-form-field-invalid .mat-input-element,
+  // .mat-warn .mat-input-element {
+  //     caret-color: #f44336 !important;
+  // }
+
+  // ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  //     color: #f44336 !important;
+  //     opacity: 0.8 !important;
+  // }
+
+  // ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label{
+  //     color: #f44336 !important;
+  // }
+
   // ::ng-deep .mat-calendar-body-selected {
   //     background-color: $back-color;
   // }
@@ -267,13 +251,13 @@ $nin-shadow: 0px 3px 6px #00000029;
 }
 
 .final_submit {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
+  padding-left: 20px;
 }
 
 .verify {
   width: 150px;
-  font-weight: 500;
   @include theme(
     $back: $continue-back,
     $color: $white,
@@ -289,6 +273,7 @@ $nin-shadow: 0px 3px 6px #00000029;
 .verify2 {
   margin-right: 20px;
   width: 150px;
+  font-weight: 500;
   @include theme(
     $back: $white,
     $color: $back-color,

@@ -64,12 +64,13 @@ export class HeaderComponent implements OnInit {
       .subscribe((data: any) => {
         this.hide = false;
       });
-      
-      this.clickEventSubscription = this.shared
-      .getPayeeHeaderButtonClickEvent().subscribe((data: string) => {
+
+    this.clickEventSubscription = this.shared
+      .getPayeeHeaderButtonClickEvent()
+      .subscribe((data: string) => {
         if (data) {
           this.hidePaye = false;
-        }else if(!data) {
+        } else if (!data) {
           this.hidePaye = true;
         }
         this.companyData = this.shared.getMessage2();
@@ -93,8 +94,36 @@ export class HeaderComponent implements OnInit {
   currentRoute() {
     if (this.router.url == '/dashboard2/taxpayer') {
       this.type = 'tax';
-      this.left_text1 = 'Taxpayer Registration';
+      this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
+    } else if (this.router.url == '/dashboard2/taxpayer/non') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer';
+      this.left_text2 = 'Check all the list of registered member';
+    } else if (this.router.url == '/dashboard2/taxpayer/non') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer';
+      this.left_text2 = 'Check all the list of registered member';
+    } else if (this.router.url == '/dashboard2/taxpayer/non/individual') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer';
+      this.left_text2 = 'Check all the list of registered member';
+    } else if (this.router.url == '/dashboard2/taxpayer/business') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer';
+      this.left_text2 = 'Check all the list of registered member';
+    } else if (this.router.url == '/dashboard22/taxpayer') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer Registration';
+      this.left_text2 = 'Register A Tax Payer';
+    } else if (this.router.url == '/dashboard22/taxpayer/non') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer Registration';
+      this.left_text2 = 'Register A Tax Payer';
+    } else if (this.router.url == '/dashboard22/taxpayer/ind') {
+      this.type = 'tax';
+      this.left_text1 = 'Taxpayer Registration';
+      this.left_text2 = 'Register A Tax Payer';
     } else if (this.router.url == '/dashboard2/taxpayer/ind/individual') {
       this.type = 'tax';
       this.left_text1 = 'Individual Taxpayer Registration Form';
@@ -125,11 +154,12 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax_dashboard2';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
-    }else {
-      this.type = 'tax';
-      this.left_text1 = 'Taxpayer Registration';
-      this.left_text2 = 'Check all the list of registered member';
     }
+    // else {
+    //   this.type = 'tax';
+    //   this.left_text1 = 'Taxpayer Registration';
+    //   this.left_text2 = 'Check all the list of registered member';
+    // }
   }
 
   getJwtToken(): any {
@@ -139,16 +169,16 @@ export class HeaderComponent implements OnInit {
   AddProfile() {
     this.stateProfile.forEach((e) => {
       if (e.length > 0) {
-        this.profile = e[0].data.data;
-        console.log('profile_state', e[0].data.data);
+        this.profile = e[0].data;
+        console.log('profile_state', e[0].data);
       } else {
-        this.httpService.getProfile(this.getJwtToken()).subscribe(
+        this.httpService.getProfile().subscribe(
           (data: any) => {
             if (data.responsecode == '01') {
             } else {
               this.store.dispatch(new AddProfile([{ id: 1, data: data }]));
-              this.profile = data.data;
-              console.log('http_profile', data.data);
+              this.profile = data;
+              console.log('http_profile', data);
             }
           },
           (err) => {
@@ -176,12 +206,14 @@ export class HeaderComponent implements OnInit {
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
-          this.store.dispatch(
-            new AddComPayer([{ id: 1, data: data.data.company_tax_payer }])
-          );
-          this.store.dispatch(
-            new AddIndPayer([{ id: 1, data: data.data.individual_tax_payer }])
-          );
+          const company = data.filter((type: any) => {
+            return type.payer_type == 'company';
+          });
+          const individual = data.filter((type: any) => {
+            return type.payer_type == 'individual';
+          });
+          this.store.dispatch(new AddComPayer([{ id: 1, data: company }]));
+          this.store.dispatch(new AddIndPayer([{ id: 1, data: individual }]));
         }
       },
       (err) => {}
@@ -189,7 +221,7 @@ export class HeaderComponent implements OnInit {
   }
 
   AddState() {
-    this.httpService.state('state', 1).subscribe(
+    this.httpService.state().subscribe(
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
@@ -229,16 +261,15 @@ export class HeaderComponent implements OnInit {
     this.hide = true;
   };
 
-
   OpenDialog(data: any, type: string) {
-    this.snackBar.dismiss()
+    this.snackBar.dismiss();
     let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         type: type,
-        data: data
-      }
+        data: data,
+      },
     });
-}
+  }
 
   ngOnInit(): void {
     this.AddProfile();

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { IndividualRoutingModule } from './individual-routing.module';
-import { IndividualComponent } from './individual.component';
+import { TaxPayerRoutingModule } from './tax-payer-routing.module';
+import { TaxPayerComponent } from './tax-payer.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,11 +15,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
-    IndividualComponent
+    TaxPayerComponent
   ],
   imports: [
     CommonModule,
-    IndividualRoutingModule,
+    TaxPayerRoutingModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,

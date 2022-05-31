@@ -60,28 +60,43 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard4/taxpayer/payee/bills'
     ) {
       this.type = 'payee';
+    } else if (this.router.url == '/dashboard') {
+      this.type = 'dashboard';
+    } else if (
+      this.router.url == '/dashboard2/taxpayer' ||
+      this.router.url == '/dashboard2/taxpayer/non' ||
+      this.router.url == '/dashboard2/taxpayer/ind' ||
+      this.router.url == '/dashboard22/taxpayer' ||
+      this.router.url == '/dashboard22/taxpayer/ind/individual' ||
+      this.router.url == '/dashboard22/taxpayer/non/business' ||
+      this.router.url == '/dashboard22/taxpayer/ind' ||
+      this.router.url == '/dashboard22/taxpayer/non'
+    ) {
+      this.type = 'tax_payer';
     } else {
       this.type = 'home';
     }
   }
 
   PayeeBack() {
-    this.shared.PayeesendClickEvent('');
-    this.shared.PayeesenddataEvent('');
-    this.shared.setMessage(undefined);
-    this.shared.setMessage2(undefined);
-    this.shared.setMessage3(undefined);
-    this.shared.sendPayeeHeaderButtonClickEvent(false);
-    this.router.navigate(['/dashboard']);
+    // this.shared.PayeesendClickEvent('');
+    // this.shared.PayeesenddataEvent('');
+    // this.shared.setMessage(undefined);
+    // this.shared.setMessage2(undefined);
+    // this.shared.setMessage3(undefined);
+    // this.shared.sendPayeeHeaderButtonClickEvent(false);
+    // this.router.navigate(['/dashboard']);
+    this.router.navigate(['/preview']);
   }
 
   PayeeBusinessBack() {
-    this.shared.PayeesenddataEvent('');
-    this.shared.setMessage(undefined);
-    this.shared.setMessage2(undefined);
-    this.shared.setMessage3(undefined);
-    this.shared.sendPayeeHeaderButtonClickEvent(false);
-    this.router.navigate(['/dashboard3/taxpayer/payee']);
+    // this.shared.PayeesenddataEvent('');
+    // this.shared.setMessage(undefined);
+    // this.shared.setMessage2(undefined);
+    // this.shared.setMessage3(undefined);
+    // this.shared.sendPayeeHeaderButtonClickEvent(false);
+    // this.router.navigate(['/dashboard3/taxpayer/payee']);
+    this.router.navigate(['/preview']);
   }
 
   routeRedirect() {
@@ -95,17 +110,14 @@ export class AppPublicSidenavListComponent implements OnInit {
   AddProfile() {
     this.stateProfile.forEach((e) => {
       if (e.length > 0) {
-        this.profile = e[0].data.data;
-        console.log('profile_state', e[0].data.data);
+        this.profile = e[0].data;
+        console.log('profile_state', e[0].data);
       } else {
-        this.httpService.getProfile(this.getJwtToken()).subscribe(
+        this.httpService.getProfile().subscribe(
           (data: any) => {
-            if (data.responsecode == '01') {
-            } else {
-              this.store.dispatch(new AddProfile([{ id: 1, data: data }]));
-              this.profile = data.data;
-              console.log('http_profile', data.data);
-            }
+            this.store.dispatch(new AddProfile([{ id: 1, data: data }]));
+            this.profile = data;
+            console.log('http_profile', data.data);
           },
           (err: any) => {
             this.authService.checkExpired();

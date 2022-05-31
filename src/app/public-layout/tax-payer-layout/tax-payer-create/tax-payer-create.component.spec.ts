@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndividualComponent } from './individual.component';
+import { TaxPayerCreateComponent } from './tax-payer-create.component';
 
-describe('IndividualComponent', () => {
-  let component: IndividualComponent;
-  let fixture: ComponentFixture<IndividualComponent>;
+describe('TaxPayerCreateComponent', () => {
+  let component: TaxPayerCreateComponent;
+  let fixture: ComponentFixture<TaxPayerCreateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IndividualComponent ]
+      declarations: [ TaxPayerCreateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IndividualComponent);
+    fixture = TestBed.createComponent(TaxPayerCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

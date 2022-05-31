@@ -70,12 +70,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './reducers/index';
 
 import { HomeComponent } from './home/home.component';
+import { PreviewComponent } from './preview/preview.component';
 
 // http interceptors
 import { AuthInterceptor } from './_helpers/auth.interceptor';
 
+
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, PreviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

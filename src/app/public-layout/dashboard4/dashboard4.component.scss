@@ -187,17 +187,40 @@ $back-color: #44a843;
     display: none;
   }
 
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: $green !important;
+    background: $white !important;
+    border-radius: 3px;
+    transition: all 0.5s;
+    border: 1px solid $green;
+    margin: 5px;
+  }
+
+
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     color: $white !important;
     background: $create-back !important;
-    border: unset;
+    border: 1px solid $green;
+    transition: all 0.5s;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     color: $white !important;
     background: $create-back !important;
-    border: unset;
+    border: 1px solid $green;
   }
+
+  // ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  //   color: $white !important;
+  //   background: $create-back !important;
+  //   border: unset;
+  // }
+
+  // ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  //   color: $white !important;
+  //   background: $create-back !important;
+  //   border: unset;
+  // }
 
   ::ng-deep table.dataTable thead .sorting {
     background-image: unset !important;

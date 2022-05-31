@@ -27,7 +27,7 @@ export class SignupGuard implements CanActivate, CanLoad {
         verticalPosition: "top",
       });
       // this._location.back();
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/preview']);
     }
     return !this.authService.isLoggedIn();
   }

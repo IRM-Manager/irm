@@ -77,17 +77,6 @@ $red: #bc333e;
     );
   }
 
-  .create {
-    float: right;
-    width: 150px;
-    @include theme(
-      $back: $create-back,
-      $color: $white,
-      $font: $ind-font,
-      $border: unset,
-      $border-radius: 10px
-    );
-  }
 }
 
 .header2 {
@@ -246,29 +235,36 @@ $red: #bc333e;
     cursor: pointer;
   }
 
-  // ::ng-deep .dataTables_wrapper .dataTables_filter {
-  //     display: none;
-  // }
-
-  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
     color: $white !important;
     background: $create-back !important;
-    border: unset;
+    border-radius: 3px;
+    transition: all 0.5s;
+    border: 1px solid $green;
+    margin: 5px;
+  }
+
+
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: $green !important;
+    background: $white !important;
+    border: 1px solid $green;
+    transition: all 0.5s;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     color: $white !important;
     background: $create-back !important;
-    border: unset;
+    border: 1px solid $green;
   }
 
   ::ng-deep table.dataTable thead .sorting {
     background-image: unset !important;
   }
 
-  ::ng-deep table.dataTable thead .sorting_asc {
-    background-image: unset !important;
-  }
+  // ::ng-deep table.dataTable thead .sorting_asc {
+  //   background-image: unset !important;
+  // }
 
   ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
     background: $header-back;
@@ -287,4 +283,20 @@ $red: #bc333e;
     color: $tbody-color;
     font: $tbody-back;
   }
+
+  ::ng-deep .dataTables_wrapper .dataTables_filter {
+    display: none;
+  }
+
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    font: $tbody-back;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+
 }

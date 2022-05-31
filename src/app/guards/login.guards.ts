@@ -23,7 +23,7 @@ export class LoginGuard implements CanActivate {
         horizontalPosition: "center",
         verticalPosition: "top",
       });
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/preview']);
       // this._location.back();
     }
     return !this.authService.isLoggedIn();

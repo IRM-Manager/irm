@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
       this.loading = false;
       this.disabled = false;
       if (data) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/preview']);
         this.snackBar.open('success', '', {
           duration: 3000,
           panelClass: 'success',

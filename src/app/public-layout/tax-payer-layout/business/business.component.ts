@@ -4,17 +4,17 @@ import { ReplaySubject, Subject, filter, tap, takeUntil, debounceTime, map, dela
 import { HttpService } from 'src/app/services/http.service';
 import { Location, DatePipe } from '@angular/common';
 import { Business, CAC, BusinessIndividual1, Individual2, LGA, lgaLogo, NIN, STATE, stateLogo,
-} from '../shared/form';
+} from '../../shared/form';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 // state management
 import { Store } from '@ngrx/store';
-import { States, Profile } from '../../models/irm';
+import { States, Profile } from '../../../models/irm';
 import { AppState, selectAllStates, selectAllProfile,
 } from 'src/app/reducers/index';
-import { AddStates, RemoveComPayer } from '../../actions/irm.action';
+import { AddStates, RemoveComPayer } from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -853,28 +853,28 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.stateLoading3 = true;
     this.stateStates.forEach((e) => {
       if (e.length > 0) {
-        this.option = e[0].data.data;
-        this.state = e[0].data.data;
-        this.state2 = e[0].data.data;
-        this.state3 = e[0].data.data;
-        this.filteredBanks.next(e[0].data.data);
-        this.filteredBanks3.next(e[0].data.data);
-        this.filteredBanks5.next(e[0].data.data);
+        this.option = e[0].data;
+        this.state = e[0].data;
+        this.state2 = e[0].data;
+        this.state3 = e[0].data;
+        this.filteredBanks.next(e[0].data);
+        this.filteredBanks3.next(e[0].data);
+        this.filteredBanks5.next(e[0].data);
         this.stateLoading = false;
         this.stateLoading2 = false;
         this.stateLoading3 = false;
       } else {
-        this.httpService.state('state', 1).subscribe(
+        this.httpService.state().subscribe(
           (data: any) => {
             if (data.responsecode == '01') {
             } else {
-              this.option = data.data;
-              this.state = data.data;
-              this.state2 = data.data;
-              this.state3 = data.data;
-              this.filteredBanks.next(data.data);
-              this.filteredBanks3.next(data.data);
-              this.filteredBanks5.next(data.data);
+              this.option = data;
+              this.state = data;
+              this.state2 = data;
+              this.state3 = data;
+              this.filteredBanks.next(data);
+              this.filteredBanks3.next(data);
+              this.filteredBanks5.next(data);
               this.stateLoading = false;
               this.stateLoading2 = false;
               this.stateLoading3 = false;
@@ -897,10 +897,10 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
   AddLga(id: number) {
     this.lgaLoading = true;
-    this.httpService.state('lga', id).subscribe(
+    this.httpService.lga(id).subscribe(
       (data: any) => {
-        this.options2 = data.data;
-        this.filteredBanks2.next(data.data);
+        this.options2 = data.lga;
+        this.filteredBanks2.next(data.lga);
         this.lgaLoading = false;
       },
       (err: any) => {
@@ -912,10 +912,10 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
   AddLga2(id: number) {
     this.lgaLoading2 = true;
-    this.httpService.state('lga', id).subscribe(
+    this.httpService.lga(id).subscribe(
       (data: any) => {
-        this.options3 = data.data;
-        this.filteredBanks4.next(data.data);
+        this.options3 = data.lga;
+        this.filteredBanks4.next(data.lga);
         this.lgaLoading2 = false;
       },
       (err: any) => {

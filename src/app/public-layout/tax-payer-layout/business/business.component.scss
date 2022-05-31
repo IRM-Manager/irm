@@ -24,8 +24,6 @@ $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
 $nin-back: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%) 0% 0%
   no-repeat padding-box;
 $nin-shadow: 0px 3px 6px #00000029;
-$lock: #37a85c;
-$drop-down: #3e538f;
 
 .wrapper {
   padding-left: 20px;
@@ -43,7 +41,6 @@ $drop-down: #3e538f;
     font: $font;
     background: $back;
     border: $border;
-    border-radius: 10px;
     color: $color;
     font-weight: 500;
     opacity: 1;
@@ -64,51 +61,6 @@ $drop-down: #3e538f;
   .verify:hover {
     background: $verify-hover-b;
     box-shadow: $verify-hover-box;
-  }
-
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5em 0 0.5em 0;
-  }
-
-  .bubble {
-    animation: expand 0.75s ease-in-out infinite;
-    border-radius: 20px;
-    display: inline-block;
-    transform-origin: center center;
-    margin: 0 3px;
-    width: 7px;
-    height: 7px;
-  }
-
-  .bubble:nth-child(1) {
-    background: $white;
-  }
-
-  .bubble:nth-child(2) {
-    animation-delay: 180ms;
-    background: $white;
-  }
-
-  .bubble:nth-child(3) {
-    animation-delay: 360ms;
-    background: $white;
-  }
-
-  .bubble:nth-child(4) {
-    animation-delay: 540ms;
-    background: $white;
-  }
-
-  @keyframes expand {
-    0% {
-      transform: scale(1);
-    }
-    25% {
-      transform: scale(1.55);
-    }
   }
 
   input[type="text"] {
@@ -156,10 +108,9 @@ $drop-down: #3e538f;
   background: $header-back;
   padding: 1em 1em 0 1em;
   margin-top: 2rem;
-  margin-bottom: 2rem;
   opacity: 1;
   width: 50rem;
-  padding-left: 20px;
+  // border: 1px solid green;
 
   .session-header {
     font: $session-h2-font;
@@ -223,107 +174,27 @@ $drop-down: #3e538f;
     margin-left: 30px;
   }
 
-  .lock {
-    color: $lock;
+  @mixin veryfy($back, $color, $font, $border) {
+    letter-spacing: 0px;
+    font: $font;
+    background: $back;
+    border: $border;
+    border-radius: 10px;
+    color: $color;
+    font-weight: 500;
+    opacity: 1;
+    padding: 1rem;
+    box-shadow: $nin-shadow;
   }
 
-  .drop_down {
-    color: $drop-down;
-  }
-
-  .final_submit {
-    margin-top: 3rem;
-    padding-bottom: 3rem;
-
-    @mixin theme($back, $color, $font, $border) {
-      letter-spacing: 0px;
-      font: $font;
-      background: $back;
-      border: $border;
-      border-radius: 10px;
-      color: $color;
-      font-weight: 500;
-      opacity: 1;
-      padding: 1rem;
-    }
-
-    .verify {
-      width: 150px;
-      font-weight: 500;
-      @include theme(
-        $back: $continue-back,
-        $color: $white,
-        $font: $ind-font,
-        $border: unset
-      );
-    }
-
-    .verify:disabled {
-      color: $white;
-    }
-
-    .verify2 {
-      margin-right: 20px;
-      width: 150px;
-      @include theme(
-        $back: $white,
-        $color: $back-color,
-        $font: $ind-font,
-        $border: $back-border
-      );
-    }
-
-    .verify:hover,
-    .verify2:hover {
-      background: $verify-hover-b;
-      box-shadow: $verify-hover-box;
-      color: $white;
-    }
-
-    .loader {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.5em 0 0.5em 0;
-    }
-
-    .bubble {
-      animation: expand 0.75s ease-in-out infinite;
-      border-radius: 20px;
-      display: inline-block;
-      transform-origin: center center;
-      margin: 0 3px;
-      width: 7px;
-      height: 7px;
-    }
-
-    .bubble:nth-child(1) {
-      background: $white;
-    }
-
-    .bubble:nth-child(2) {
-      animation-delay: 180ms;
-      background: $white;
-    }
-
-    .bubble:nth-child(3) {
-      animation-delay: 360ms;
-      background: $white;
-    }
-
-    .bubble:nth-child(4) {
-      animation-delay: 540ms;
-      background: $white;
-    }
-
-    @keyframes expand {
-      0% {
-        transform: scale(1);
-      }
-      25% {
-        transform: scale(1.55);
-      }
-    }
+  .verify {
+    width: 150px;
+    @include veryfy(
+      $back: $nin-back,
+      $color: $white,
+      $font: $ind-font,
+      $border: unset
+    );
   }
 
   ::ng-deep .mat-step-header .mat-step-icon-selected,
@@ -374,6 +245,10 @@ $drop-down: #3e538f;
     background: $radio-color;
   }
 
+  .hint-error {
+    color: #f44336;
+  }
+
   // ::ng-deep .mat-calendar-body-selected {
   //     background-color: $back-color;
   // }
@@ -381,6 +256,101 @@ $drop-down: #3e538f;
   // ::ng-deep .mat-calendar-body-selected:hover {
   //     background-color: $header-color;
   // }
+}
+
+@mixin theme($back, $color, $font, $border) {
+  letter-spacing: 0px;
+  font: $font;
+  background: $back;
+  border: $border;
+  border-radius: 10px;
+  color: $color;
+  font-weight: 500;
+  opacity: 1;
+  padding: 1rem;
+}
+
+.final_submit {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.verify {
+  width: 150px;
+  font-weight: 500;
+  @include theme(
+    $back: $continue-back,
+    $color: $white,
+    $font: $ind-font,
+    $border: unset
+  );
+}
+
+.verify:disabled {
+  color: $white;
+}
+
+.verify2 {
+  margin-right: 20px;
+  width: 150px;
+  @include theme(
+    $back: $white,
+    $color: $back-color,
+    $font: $ind-font,
+    $border: $back-border
+  );
+}
+
+.verify:hover,
+.verify2:hover {
+  background: $verify-hover-b;
+  box-shadow: $verify-hover-box;
+  color: $white;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 0 0.5em 0;
+}
+
+.bubble {
+  animation: expand 0.75s ease-in-out infinite;
+  border-radius: 20px;
+  display: inline-block;
+  transform-origin: center center;
+  margin: 0 3px;
+  width: 7px;
+  height: 7px;
+}
+
+.bubble:nth-child(1) {
+  background: $white;
+}
+
+.bubble:nth-child(2) {
+  animation-delay: 180ms;
+  background: $white;
+}
+
+.bubble:nth-child(3) {
+  animation-delay: 360ms;
+  background: $white;
+}
+
+.bubble:nth-child(4) {
+  animation-delay: 540ms;
+  background: $white;
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.55);
+  }
 }
 
 @media (max-width: 1170px) {

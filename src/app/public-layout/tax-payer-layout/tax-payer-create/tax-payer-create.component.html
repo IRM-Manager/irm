@@ -1,0 +1,72 @@
+<div class="wrapper">
+
+
+    <div class="header">
+        <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
+            Tax Registration of Individual
+        </button>
+        <button (click)="changeActive('com')" mat-button class="individual2" [class.active]="active == 'com'">
+            Tax Registration of Business
+        </button>
+    </div>
+
+    <div class="payer-container" *ngIf="active == 'ind'">
+        <div class="text">{{ left_text }}</div>
+
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <!-- NIN -->
+            <mat-form-field class="half-width nin" appearance="outline">
+                <mat-label>NIN</mat-label>
+                <input matInput formControlName="nin" type="tel" required>
+                <mat-error>{{formErrors.nin}}</mat-error>
+            </mat-form-field>
+            <!-- birth -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Date of Birth</mat-label>
+                <input matInput formControlName="birth" [matDatepicker]="picker" placeholder="DD/MM/YY"
+                    required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>{{formErrors.birth}}</mat-error>
+            </mat-form-field>
+
+            <button type="submit" mat-button class="verify">
+                <span *ngIf="!loading">verify</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </form>
+
+    </div>
+
+    <div class="payer-container2" *ngIf="active == 'com'">
+        <div class="text">{{ left_text }}</div>
+
+        <form novalidate [formGroup]="feedbackForm2" #fform2="ngForm" (ngSubmit)="onSubmit2()">
+            <!-- CAC -->
+            <mat-form-field class="half-width nin" appearance="outline">
+                <mat-label>CAC Registration number</mat-label>
+                <input matInput formControlName="cac" type="tel" required>
+                <mat-error>{{formErrors.cac}}</mat-error>
+            </mat-form-field>
+
+            <button type="submit" mat-button class="verify">
+                <span *ngIf="!loading2">verify</span>
+                <div *ngIf="loading2" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </form>
+
+
+    </div>
+
+
+</div>

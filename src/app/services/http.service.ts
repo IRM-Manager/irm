@@ -1,38 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry, retryWhen, scan } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { BaseUrl } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-// state management
-import { Store } from '@ngrx/store';
-import { Profile } from '../models/irm';
-import { AppState, selectAllProfile } from 'src/app/reducers/index';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  stateProfile: Observable<Profile[]>;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private store: Store<AppState>
   ) {
-    this.stateProfile = store.select(selectAllProfile);
   }
 
-  getUsername(): any {
-    this.stateProfile.forEach((e) => {
-      return e[0].data.data;
-    });
-  }
-
-  // get list of state and get lga of a selected state
-  state(type: string, state_id: number) {
+  // get list of state
+  state() {
     return this.http
       .get<any>(
-        BaseUrl.api + `user/api/v1/getstate/?type=${type}&state_id=${state_id}`
+        BaseUrl.api + `user/api/v1/list-state/`
+      )
+      .pipe(retry(1));
+  }
+
+  // get list of lga selected from a state
+  lga(state_id: number) {
+    return this.http
+      .get<any>(
+        BaseUrl.api + `user/api/v1/get-state/${state_id}`
       )
       .pipe(retry(1));
   }
@@ -45,10 +42,10 @@ export class HttpService {
   }
 
   // get user profile
-  getProfile(token: string): Observable<any[]> {
+  getProfile(): Observable<any[]> {
     const httpOptions = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${this.authService.getJwtToken()}`,
       },
     };
     return this.http
@@ -80,7 +77,7 @@ export class HttpService {
       },
     };
     return this.http
-      .get<any[]>(BaseUrl.api + `user/api/v1/getallpayer/`, httpOptions)
+      .get<any[]>(BaseUrl.api + `user/api/v1/list-payer/`, httpOptions)
       .pipe(retry(1));
   }
 

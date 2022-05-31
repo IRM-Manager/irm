@@ -1,0 +1,42 @@
+<div class="preview_wrapper">
+
+    <mat-toolbar class="nav_preview">
+
+        <div class="logo">
+            <img src="assets/images/side_nav_logo.svg" alt="">
+        </div>
+
+        <div class="module">all modules</div>
+
+        <span class="spacer"></span>
+
+        <button mat-icon-button class="bell-icon">
+            <span class="fa fa-bell"></span>
+        </button>
+
+    </mat-toolbar>
+
+    <div class="container">
+        <div class="card" [routerLink]="['/dashboard']">
+            <div class="icon">sdds</div>
+            <div class="text">dashboard</div>
+        </div>
+        <div class="card" [routerLink]="['/dashboard2/taxpayer']">
+            <div class="icon">sdds</div>
+            <div class="text">Tax payer</div>
+        </div>
+        <div class="card">
+            <div class="icon">sdds</div>
+            <div class="text">Pay as you Earn</div>
+        </div>
+        <div class="card">
+            <div class="icon">sdds</div>
+            <div class="text">Vehicle Licensing</div>
+        </div>
+        <div class="card">
+            <div class="icon">sdds</div>
+            <div class="text">MDA</div>
+        </div>
+    </div>
+
+</div>

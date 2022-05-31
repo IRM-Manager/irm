@@ -17,7 +17,7 @@
                     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
 
                         <mat-form-field class="full-width" appearance="standard">
-                            <input matInput formControlName="username" type="text" placeholder="Type id here"
+                            <input matInput formControlName="username" type="text" placeholder="Type ID here"
                                 class="email">
                             <mat-error *ngIf="formErrors.username">{{formErrors.username}}</mat-error>
                         </mat-form-field>
@@ -42,7 +42,10 @@
                         </div>
 
                     </form>
-                    <div class="need">Need help? <span class="click">Click</span></div>
+
+                    <div class="register">Don’t have an account? Register</div>
+                    <div class="forget">Forget Password</div>
+                    <!-- <div class="need">Need help? <span class="click">Click</span></div> -->
                 </div>
                 <!-- <div class="need">Need help? <span class="click">Click</span></div> -->
             </div>

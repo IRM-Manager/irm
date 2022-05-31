@@ -7,10 +7,11 @@ import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.co
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
 import { HomeComponent } from './home/home.component';
+import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
-
+  { path: 'preview', component: PreviewComponent, canLoad: [IsLoggedInGuard] },
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -26,7 +27,7 @@ const routes: Routes = [
       {
         path: 'dashboard2/taxpayer/:id',
         loadChildren: () =>
-          import('./public-layout/individual/individual.module').then(
+          import('./public-layout/tax-payer/tax-payer.module').then(
             (m) => m.IndividualModule
           ),
         canLoad: [IsLoggedInGuard],
@@ -34,25 +35,46 @@ const routes: Routes = [
       {
         path: 'dashboard2/taxpayer',
         loadChildren: () =>
-          import('./public-layout/individual/individual.module').then(
+          import('./public-layout/tax-payer/tax-payer.module').then(
             (m) => m.IndividualModule
           ),
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard2/taxpayer/ind/individual',
+        path: 'dashboard22/taxpayer',
         loadChildren: () =>
-          import('./public-layout/individual2/individual2.module').then(
-            (m) => m.Individual2Module
-          ),
+          import('./public-layout/tax-payer-layout/tax-payer-create/tax-payer-create.module'
+          ).then((m) => m.TaxPayerCreateModule),
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard2/taxpayer/non/business',
+        path: 'dashboard22/taxpayer/ind',
         loadChildren: () =>
-          import('./public-layout/business/business.module').then(
-            (m) => m.BusinessModule
-          ),
+          import(
+            './public-layout/tax-payer-layout/tax-payer-create/tax-payer-create.module'
+          ).then((m) => m.TaxPayerCreateModule),
+      },
+      {
+        path: 'dashboard22/taxpayer/non',
+        loadChildren: () =>
+          import(
+            './public-layout/tax-payer-layout/tax-payer-create/tax-payer-create.module'
+          ).then((m) => m.TaxPayerCreateModule),
+      },
+      {
+        path: 'dashboard22/taxpayer/ind/individual',
+        loadChildren: () =>
+          import(
+            './public-layout/tax-payer-layout/individual2/individual2.module'
+          ).then((m) => m.Individual2Module),
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard22/taxpayer/non/business',
+        loadChildren: () =>
+          import(
+            './public-layout/tax-payer-layout/business/business.module'
+          ).then((m) => m.BusinessModule),
         canLoad: [IsLoggedInGuard],
       },
       {
@@ -122,7 +144,6 @@ const routes: Routes = [
       },
     ],
   },
-  
 ];
 
 @NgModule({

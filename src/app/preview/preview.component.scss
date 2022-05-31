@@ -1,0 +1,82 @@
+$white: #ffffff;
+$text1-font: normal normal 18px/20px Montserrat;
+$nav-color: #45a841 0% 0% no-repeat padding-box;
+
+.preview_wrapper {
+  background: rgba(60, 102, 163, 0.1);
+  min-height: 100%;
+
+  .nav_preview {
+    color: $white;
+    background: $nav-color;
+    height: 90px;
+
+    .logo {
+      margin-left: 30px;
+      margin-right: 50px;
+    }
+
+    .logo img {
+      width: 80px;
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .fa {
+      font-size: 30px;
+    }
+
+    .module {
+      font: $text1-font;
+      letter-spacing: 0px;
+      font-weight: 500;
+      color: $white;
+      text-transform: capitalize;
+      opacity: 1;
+    }
+
+    .bell-icon {
+      color: $white;
+      margin-right: 30px;
+    }
+  }
+
+  .container {
+    padding: 8rem 3rem 4rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    padding: 1rem;
+    width: 10rem;
+    height: 4rem;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+
+  .card:hover {
+    transform: scale(1.2);
+  }
+
+  .text {
+    margin-left: 10px;
+    font: normal normal normal 15px/19px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #3c66a3;
+    opacity: 1;
+  }
+
+}
