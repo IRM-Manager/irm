@@ -1,20 +1,17 @@
 <div class="wrapper">
 
     <div class="header" *ngIf="!update">
-        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-            <mat-form-field class="cac-width" appearance="outline">
-                <mat-label>CAC Registration number</mat-label>
-                <input matInput formControlName="cac" placeholder="">
-            </mat-form-field>
-            <button mat-button class="verify" type="submit">Verify</button>
-        </form>
+        <div class="nin-text">CAC Registration number</div>
+        <div class="header-text">
+            <div class="nin-number">44561244325</div>
+            <button mat-button class="header-change">change</button>
+        </div>
     </div>
-
 
     <!-- session1 -->
     <div class="session">
 
-        <div class="session-header">Section 1: Directors Information</div>
+        <div class="session-header">Section 1: Organisation Details</div>
 
         <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit3()">
             <p>
@@ -23,7 +20,7 @@
                     <mat-label>Name of Organisation</mat-label>
                     <input matInput formControlName="org_name" required>
                     <mat-error>{{formErrors.org_name}}</mat-error>
-                    <mat-hint *ngIf="org_nameError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="org_nameError" class="hint-error">{{org_nameError}}</mat-hint>
                 </mat-form-field>
             </p>
             <p>
@@ -32,14 +29,14 @@
                     <mat-label>Nature of Business</mat-label>
                     <input matInput formControlName="nature_bus" required>
                     <mat-error>{{formErrors.nature_bus}}</mat-error>
-                    <mat-hint *ngIf="nature_busError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="nature_busError" class="hint-error">{{nature_busError}}</mat-hint>
                 </mat-form-field>
                 <!-- num_emp -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Number of Employee</mat-label>
                     <input matInput formControlName="num_emp" type="number" required>
                     <mat-error>{{formErrors.num_emp}}</mat-error>
-                    <mat-hint *ngIf="num_empError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="num_empError" class="hint-error">{{num_empError}}</mat-hint>
                 </mat-form-field>
                 <!-- date_est -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -49,14 +46,14 @@
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                     <mat-error>{{formErrors.date_est}}</mat-error>
-                    <mat-hint *ngIf="date_estError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="date_estError" class="hint-error">{{date_estError}}</mat-hint>
                 </mat-form-field>
                 <!-- contact_num -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Contact number</mat-label>
                     <input matInput formControlName="contact_num" type="tel" required>
                     <mat-error>{{formErrors.contact_num}}</mat-error>
-                    <mat-hint *ngIf="contact_numError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="contact_numError" class="hint-error">{{contact_numError}}</mat-hint>
                 </mat-form-field>
             </p>
             <p>
@@ -65,7 +62,7 @@
                     <mat-label>Email Address</mat-label>
                     <input matInput formControlName="email" email required>
                     <mat-error>{{formErrors.email}}</mat-error>
-                    <mat-hint *ngIf="emailError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="emailError" class="hint-error">{{emailError}}</mat-hint>
                 </mat-form-field>
                 <!-- alt_num -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -97,13 +94,13 @@
                     <mat-label>House No.</mat-label>
                     <input matInput formControlName="house" type="tel" required>
                     <mat-error>{{formErrors.house}}</mat-error>
-                    <mat-hint *ngIf="houseError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="houseError" class="hint-error">{{houseError}}</mat-hint>
                 </mat-form-field>
                 <!-- street -->
                 <mat-form-field class="full-half" appearance="outline">
                     <mat-label>Estate/Street</mat-label>
                     <input matInput formControlName="street" required>
-                    <mat-hint *ngIf="streetError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="streetError" class="hint-error">{{streetError}}</mat-hint>
                     <mat-error>{{formErrors.street}}</mat-error>
                 </mat-form-field>
             </p>
@@ -121,11 +118,10 @@
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
-                    <mat-error>{{formErrors.state_red}}</mat-error>
-                    <mat-hint *ngIf="state_redError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="state_redError" class="hint-error">{{state_redError}}</mat-hint>
                     <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2"
                         style="color: red;"><button>Reload</button></mat-hint>
-                    <mat-hint *ngIf="stateLoading2">Loading...</mat-hint>
+                    <mat-hint align="end" *ngIf="stateLoading2">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- lga_red -->
                 <mat-form-field class="half-width3" appearance="outline">
@@ -140,155 +136,22 @@
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
-                    <mat-error>{{formErrors.lga_red}}</mat-error>
                     <mat-hint *ngIf="!lga2" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint *ngIf="lga_redError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="lga_redError" class="hint-error">{{lga_redError}}</mat-hint>
                     <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2"
                         style="color: red;"><button>Reload</button></mat-hint>
-                    <mat-hint *ngIf="lgaLoading2">Loading...</mat-hint>
+                    <mat-hint align="end" *ngIf="lgaLoading2">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- zipcode -->
                 <mat-form-field class="half-width3" appearance="outline">
                     <mat-label>Zip Code</mat-label>
                     <input matInput formControlName="zipcode" type="number" required>
                     <mat-error>{{formErrors.zipcode}}</mat-error>
-                    <mat-hint *ngIf="zipcodeError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="zipcodeError" class="hint-error">{{zipcodeError}}</mat-hint>
                 </mat-form-field>
             </p>
-        </form>
-        <div style="margin-top: 30px;"></div>
-    </div>
 
-
-    <!-- session 3 -->
-    <div class="session">
-        <div class="session-header">Section 3: Directors Information</div>
-
-        <form novalidate [formGroup]="ninForm" #fform4="ngForm" (ngSubmit)="onNinSubmit()" style="margin-top: 30px;">
-            <mat-form-field class="nin-width" appearance="outline">
-                <mat-label>National Identification number (NIN)</mat-label>
-                <input matInput formControlName="nin" placeholder="">
-            </mat-form-field>
-            <button mat-button class="verify" type="submit">Verify</button>
-        </form>
-
-        <div class="session-header" style="margin-bottom: 30px;">Director personal details</div>
-
-        <form class="form1" novalidate [formGroup]="feedbackForm1" #fform1="ngForm" (ngSubmit)="onSubmit1()">
-            <p>
-                <!-- title -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Title</mat-label>
-                    <mat-select matInput formControlName="title">
-                        <mat-option value="mr">Mr.</mat-option>
-                        <mat-option value="mrs">Mrs.</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <!-- firstname -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>First name</mat-label>
-                    <input matInput formControlName="firstname" required>
-                    <mat-error>{{formErrors.firstname}}</mat-error>
-                    <mat-hint *ngIf="firstnameError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-                <!-- middlename -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Middle name</mat-label>
-                    <input matInput formControlName="middlename">
-                </mat-form-field>
-                <!-- surname -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Surname</mat-label>
-                    <input matInput formControlName="surname" required>
-                    <mat-error>{{formErrors.surname}}</mat-error>
-                    <mat-hint *ngIf="surnameError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- gender -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Gender</mat-label>
-                    <mat-select matInput formControlName="gender" required>
-                        <mat-option value="male">Male</mat-option>
-                        <mat-option value="female">Female</mat-option>
-                    </mat-select>
-                    <mat-error>{{formErrors.gender}}</mat-error>
-                    <mat-hint *ngIf="genderError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-                <!-- birth -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Date of Birth</mat-label>
-                    <input matInput formControlName="birth" [matDatepicker]="picker" placeholder="DD/MM/YY" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error>{{formErrors.birth}}</mat-error>
-                    <mat-hint *ngIf="birthError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-                <!-- place birth -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Place of Birth</mat-label>
-                    <input matInput formControlName="place" required>
-                    <mat-error>{{formErrors.place}}</mat-error>
-                    <mat-hint *ngIf="placeError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-                <!-- state -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>State of Origin</mat-label>
-                    <mat-select matInput formControlName="state" #singleSelect required>
-                        <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching"
-                                placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
-                            </ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id">
-                            <span>{{option.name}}</span>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>{{formErrors.state}}</mat-error>
-                    <mat-hint *ngIf="stateeError" class="hint-error">required.</mat-hint>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;">
-                        <button>Reload</button>
-                    </mat-hint>
-                    <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- lga -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>LGA</mat-label>
-                    <mat-select matInput formControlName="lga" #singleSelect required>
-                        <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2"
-                                placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
-                            </ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks2 | async" [value]="option.id">
-                            <span>{{option.name}}</span>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>{{formErrors.lga}}</mat-error>
-                    <mat-hint *ngIf="!lga" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint *ngIf="lgaaError" class="hint-error">required.</mat-hint>
-                    <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
-                        <button>Reload</button>
-                    </mat-hint>
-                    <mat-hint *ngIf="lgaLoading">Loading...</mat-hint>
-                </mat-form-field>
-                <!-- nationality -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>Nationality</mat-label>
-                    <input matInput formControlName="nationality" required>
-                    <mat-error>{{formErrors.nationality}}</mat-error>
-                    <mat-hint *ngIf="nationalityError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-                <!-- trade -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>Profession/Trade</mat-label>
-                    <input matInput formControlName="trade" required>
-                    <mat-error>{{formErrors.trade}}</mat-error>
-                    <mat-hint *ngIf="tradeError" class="hint-error">required.</mat-hint>
-                </mat-form-field>
-            </p>
+            <div class="session-header" style="margin-bottom: 30px;">Contact Information</div>
 
             <p style="margin-top: 1rem;">
                 <!-- phone -->
@@ -296,19 +159,19 @@
                     <mat-label>Contact number</mat-label>
                     <input matInput formControlName="contact" type="tel" required>
                     <mat-error>{{formErrors.contact}}</mat-error>
-                    <mat-hint *ngIf="contactError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="contactError" class="hint-error">{{contactError}}</mat-hint>
                 </mat-form-field>
                 <!-- email -->
                 <mat-form-field class="half-full" appearance="outline">
                     <mat-label>Email Address</mat-label>
                     <input matInput type="email" formControlName="contact_email" email required>
                     <mat-error>{{formErrors.contact_email}}</mat-error>
-                    <mat-hint *ngIf="contact_emailError" class="hint-error">required.</mat-hint>
+                    <mat-hint *ngIf="contact_emailError" class="hint-error">{{contact_emailError}}</mat-hint>
                 </mat-form-field>
             </p>
 
         </form>
-
+        <div style="margin-top: 30px;"></div>
     </div>
 
     <div class="final_submit" *ngIf="!update">

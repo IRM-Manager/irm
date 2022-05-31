@@ -33,32 +33,6 @@ $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
   opacity: 1;
   width: 50rem;
 
-  @mixin theme($back, $color, $font, $border) {
-    letter-spacing: 0px;
-    font: $font;
-    background: $back;
-    border: $border;
-    color: $color;
-    font-weight: 500;
-    opacity: 1;
-    padding: 1rem;
-  }
-
-  .verify {
-    margin-left: 20px;
-    width: 150px;
-    @include theme(
-      $back: $create-back,
-      $color: $white,
-      $font: $ind-font,
-      $border: unset
-    );
-  }
-
-  .verify:hover {
-    background: $verify-hover-b;
-    box-shadow: $verify-hover-box;
-  }
 
   .nin-text {
     font: normal normal normal 12px/15px Montserrat;
@@ -69,6 +43,7 @@ $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
 
   .header-text {
     margin-top: 1rem;
+    padding-bottom: 2rem;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -213,6 +188,7 @@ $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
 
   .hint-error {
     color: #f44336;
+    text-transform: capitalize;
   }
 
   // ::ng-deep .mat-form-field-invalid .mat-input-element,

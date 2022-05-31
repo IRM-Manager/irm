@@ -253,13 +253,7 @@ export class Individual2Component implements OnDestroy, OnInit {
       trade: ['', [Validators.required]],
       // employment: ['', [Validators.required] ],
       contact: ['', [Validators.required]],
-      contact_email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-        ],
-      ],
+      contact_email: ['', [Validators.required, Validators.email]],
     });
 
     this.feedbackForm1.valueChanges.subscribe((data: any) =>
@@ -389,149 +383,153 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.feedbackForm3.get('company_country').reset();
   }
 
-  firstnameError = false;
-  surnameError = false;
-  genderError = false;
-  birthError = false;
-  placeError = false;
-  nationalityError = false;
-  tradeError = false;
-  contactError = false;
-  contact_emailError = false;
-  stateeError = false;
-  lgaaError = false;
+  firstnameError: any;
+  surnameError: any;
+  genderError: any;
+  birthError: any;
+  placeError: any;
+  nationalityError: any;
+  tradeError: any;
+  contactError: any;
+  contact_emailError: any;
+  stateeError: any;
+  lgaaError: any;
 
   onSubmit1() {
     const feed1 = this.feedbackFormDirective1.invalid;
     const control = this.feedbackFormDirective1.form.controls;
     if (feed1) {
       if (control.firstname.status == 'INVALID') {
-        this.firstnameError = true;
+        this.firstnameError = 'required.';
         this.formErrors['firstname'] = 'required.';
       } else {
-        this.firstnameError = false;
+        this.firstnameError = '';
       }
       if (control.surname.status == 'INVALID') {
-        this.surnameError = true;
+        this.surnameError = 'required.';
         this.formErrors['surname'] = 'required.';
       } else {
-        this.surnameError = false;
+        this.surnameError = '';
       }
       if (control.gender.status == 'INVALID') {
-        this.genderError = true;
+        this.genderError = 'required.';
         this.formErrors['gender'] = 'required.';
       } else {
-        this.genderError = false;
+        this.genderError = '';
       }
       if (control.birth.status == 'INVALID') {
-        this.birthError = true;
+        this.birthError = 'required.';
         this.formErrors['birth'] = 'required.';
       } else {
-        this.birthError = false;
+        this.birthError = '';
       }
       if (control.place.status == 'INVALID') {
-        this.placeError = true;
+        this.placeError = 'required.';
         this.formErrors['place'] = 'required.';
       } else {
-        this.placeError = false;
+        this.placeError = '';
       }
       if (control.nationality.status == 'INVALID') {
-        this.nationalityError = true;
+        this.nationalityError = 'required.';
         this.formErrors['nationality'] = 'required.';
       } else {
-        this.nationalityError = false;
+        this.nationalityError = '';
       }
       if (control.trade.status == 'INVALID') {
-        this.tradeError = true;
+        this.tradeError = 'required.';
         this.formErrors['trade'] = 'required.';
       } else {
-        this.tradeError = false;
+        this.tradeError = '';
       }
       if (control.contact.status == 'INVALID') {
-        this.contactError = true;
+        this.contactError = 'required.';
         this.formErrors['contact'] = 'required.';
       } else {
-        this.contactError = false;
+        this.contactError = '';
       }
       if (control.contact_email.status == 'INVALID') {
-        this.contact_emailError = true;
+        this.contact_emailError = control.contact_email.errors.email
+          ? 'not a valid email.'
+          : 'required.';
         this.formErrors['contact_email'] = control.contact_email.errors.email
           ? 'not a valid email.'
           : 'required.';
       } else {
-        this.contact_emailError = false;
+        this.contact_emailError = '';
       }
       if (control.state.status == 'INVALID') {
-        this.stateeError = true;
+        this.stateeError = 'required.';
         this.formErrors['state'] = 'required.';
       } else {
-        this.stateeError = false;
+        this.stateeError = '';
       }
       if (control.lga.status == 'INVALID') {
-        this.lgaaError = true;
+        this.lgaaError = 'required.';
         this.formErrors['lga'] = 'required.';
+      } else {
+        this.lgaaError = '';
       }
     } else {
-      this.lgaaError = false;
-      this.stateeError = false;
-      this.contact_emailError = false;
-      this.contactError = false;
-      this.tradeError = false;
-      this.nationalityError = false;
-      this.placeError = false;
-      this.birthError = false;
-      this.genderError = false;
-      this.surnameError = false;
-      this.firstnameError = false;
+      this.lgaaError = '';
+      this.stateeError = '';
+      this.contact_emailError = '';
+      this.contactError = '';
+      this.tradeError = '';
+      this.nationalityError = '';
+      this.placeError = '';
+      this.birthError = '';
+      this.genderError = '';
+      this.surnameError = '';
+      this.firstnameError = '';
     }
   }
 
-  streetError = false;
-  houseError = false;
-  zipcodeError = false;
-  state_redError = false;
-  lga_redError = false;
+  streetError: any;
+  houseError: any;
+  zipcodeError: any;
+  state_redError: any;
+  lga_redError: any;
 
   onSubmit2() {
     const feed1 = this.feedbackFormDirective2.invalid;
     const control = this.feedbackFormDirective2.form.controls;
     if (feed1) {
       if (control.street.status == 'INVALID') {
-        this.streetError = true;
+        this.streetError = 'required.';
         this.formErrors['street'] = 'required.';
       } else {
-        this.streetError = false;
+        this.streetError = '';
       }
       if (control.house.status == 'INVALID') {
-        this.houseError = true;
+        this.houseError = 'required.';
         this.formErrors['house'] = 'required.';
       } else {
-        this.houseError = false;
+        this.houseError = '';
       }
       if (control.zipcode.status == 'INVALID') {
-        this.zipcodeError = true;
+        this.zipcodeError = 'required.';
         this.formErrors['zipcode'] = 'required.';
       } else {
-        this.zipcodeError = false;
+        this.zipcodeError = '';
       }
       if (control.state_red.status == 'INVALID') {
-        this.state_redError = true;
+        this.state_redError = 'required.';
         this.formErrors['state_red'] = 'required.';
       } else {
-        this.state_redError = false;
+        this.state_redError = '';
       }
       if (control.lga_red.status == 'INVALID') {
-        this.lga_redError = true;
+        this.lga_redError = 'required.';
         this.formErrors['lga_red'] = 'required.';
       } else {
-        this.lga_redError = false;
+        this.lga_redError = '';
       }
     } else {
-      this.streetError = false;
-      this.houseError = false;
-      this.zipcodeError = false;
-      this.state_redError = false;
-      this.lga_redError = false;
+      this.streetError = '';
+      this.houseError = '';
+      this.zipcodeError = '';
+      this.state_redError = '';
+      this.lga_redError = '';
     }
   }
   onSubmit3() {}
@@ -831,20 +829,17 @@ export class Individual2Component implements OnDestroy, OnInit {
       } else {
         this.httpService.state().subscribe(
           (data: any) => {
-            if (data.responsecode == '01') {
-            } else {
-              this.option = data;
-              this.state = data;
-              this.state2 = data;
-              this.state3 = data;
-              this.filteredBanks.next(data);
-              this.filteredBanks3.next(data);
-              this.filteredBanks5.next(data);
-              this.stateLoading = false;
-              this.stateLoading2 = false;
-              this.stateLoading3 = false;
-              this.store.dispatch(new AddStates([{ id: 1, data: data }]));
-            }
+            this.option = data;
+            this.state = data;
+            this.state2 = data;
+            this.state3 = data;
+            this.filteredBanks.next(data);
+            this.filteredBanks3.next(data);
+            this.filteredBanks5.next(data);
+            this.stateLoading = false;
+            this.stateLoading2 = false;
+            this.stateLoading3 = false;
+            this.store.dispatch(new AddStates([{ id: 1, data: data }]));
           },
           (err) => {
             this.stateLoading = false;

@@ -37,29 +37,14 @@ export interface Individual1 {
   contact_email: string;
 }
 
-export interface BusinessIndividual1 {
-  title: string;
-  firstname: string;
-  middlename: string;
-  surname: string;
-  gender: string;
-  birth: string;
-  place: string;
-  state: string;
-  lga: string;
-  nationality: string;
-  trade: string;
-  // employment: string;
-  contact: string;
-  contact_email: string;
-}
-
 export interface Individual2 {
   house: string;
   street: string;
   state_red: string;
   lga_red: string;
   zipcode: string;
+  contact_email: string;
+  contact: string;
 }
 
 export interface Individual3 {
