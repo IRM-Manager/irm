@@ -101,7 +101,7 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
-    } else if (this.router.url == '/dashboard2/taxpayer/non') {
+    } else if (this.router.url == '/dashboard2/taxpayer/ind') {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
