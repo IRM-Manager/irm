@@ -96,8 +96,9 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     opacity: 1;
   }
 
-  //   ::-webkit-calendar-picker-indicator {
-  //   }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('/assets/images/Icon material-date-range.svg');
+  }
 
   .form-control {
     padding: 6px 10px;
@@ -112,6 +113,20 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   .form-line {
     margin-left: 10px;
     margin-right: 10px;
+  }
+
+  .fa-p {
+    margin-left: 10px;
+    margin-top: 30px;
+    border-radius: 50%;
+  }
+
+  .fa-search {
+    color: #565656;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
