@@ -146,6 +146,10 @@ export class HeaderComponent implements OnInit {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Concluded Assessment';
+    }else if (this.router.url == '/dashboard3/taxpayer/payee/business-list') {
+      this.type = 'payee';
+      this.left_text1 = 'Pay-As-You-Earn (PAYE)';
+      this.left_text2 = 'Check all the list of registered member';
     }else if (this.router.url == '/dashboard3/taxpayer/payee/bill') {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
