@@ -134,7 +134,6 @@ export class HeaderComponent implements OnInit {
     // Payee
     else if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
-      this.router.url == '/dashboard3/taxpayer/payee/lists' ||
       this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
       this.router.url == '/dashboard4/taxpayer/payee/access' ||
       this.router.url == '/dashboard4/taxpayer/payee/access/staff-input' ||
@@ -143,6 +142,18 @@ export class HeaderComponent implements OnInit {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = '';
+    }else if (this.router.url == '/dashboard3/taxpayer/payee/lists') {
+      this.type = 'payee';
+      this.left_text1 = 'Pay-As-You-Earn (PAYE)';
+      this.left_text2 = 'Concluded Assessment';
+    }else if (this.router.url == '/dashboard3/taxpayer/payee/bill') {
+      this.type = 'payee';
+      this.left_text1 = 'Pay-As-You-Earn (PAYE)';
+      this.left_text2 = 'Generated Bills';
+    }else if (this.router.url == '/dashboard3/taxpayer/payee/manage') {
+      this.type = 'payee';
+      this.left_text1 = 'Pay-As-You-Earn (PAYE)';
+      this.left_text2 = 'Manage Staffs Employees';
     }else if (this.router.url == '/dashboard3/taxpayer/payee/assessment') {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';

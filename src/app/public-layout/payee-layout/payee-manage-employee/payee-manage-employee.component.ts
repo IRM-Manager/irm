@@ -1,20 +1,15 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer } from '../../models/irm';
+import { ComPayer } from '../../../models/irm';
 import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../actions/irm.action';
+import { AddComPayer } from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,12 +17,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-payee',
-  templateUrl: './payee.component.html',
+  selector: 'app-payee-manage-employee',
+  templateUrl: './payee-manage-employee.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./payee.component.scss'],
+  styleUrls: ['./payee-manage-employee.component.scss'],
 })
-export class PayeeComponent implements OnDestroy, OnInit {
+export class PayeeManageEmployeeComponent implements OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -111,11 +106,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
             if (data.responsecode == '01') {
             } else {
               const company = data.filter((type: any) => {
-                return type.payer_type == 'company'
-              })
-              this.store.dispatch(
-                new AddComPayer([{ id: 1, data: company }])
-              );
+                return type.payer_type == 'company';
+              });
+              this.store.dispatch(new AddComPayer([{ id: 1, data: company }]));
               this.datas = company;
               this.searchData = company;
               this.dtTrigger.next;
@@ -153,9 +146,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
   }
 
   formatMoney(n: any) {
-    const tostring = n.toString()
-   return (Math.round(tostring * 100) / 100).toLocaleString();
- }
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

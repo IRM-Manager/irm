@@ -1,16 +1,31 @@
 <div class="wrapper">
 
     <div class="header">
-        <div class="soft_pattern">Softpattern Pattern Technology</div>
-        <div class="reg_buss">Tax ID: 34546678844</div>
 
-        <div class="header-container">
+        <div>
+            <div class="soft_pattern">Softpattern Pattern Technology</div>
+            <div class="reg_buss">Tax ID: 34546678844</div>
             <div>
-                <span class="assess">Assessment for 2022</span>
+                <span class="assess">Filling for 2022</span>
                 <span class="change">Change Year</span>
             </div>
-            <div class="gross">Gross Annual Pay (4000)</div>
-            <div class="annual">Annual tax Liability (4000)</div>
+        </div>
+
+        <div class="header-container">
+            <button mat-button class="payee_button" [matMenuTriggerFor]="menu">
+                <img src="assets/images/Group814.svg" class="header-img" alt="">
+                <span>Setup Employee <i class="fa fa-chevron-down"></i></span>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
+                    <!-- <mat-icon>upload_file</mat-icon> -->
+                    <span>Upload File</span>
+                </button>
+                <button mat-menu-item class="payee_button_menu">
+                    <!-- <mat-icon>save_as</mat-icon> -->
+                    <span>Manual Input</span>
+                </button>
+            </mat-menu>
         </div>
 
 
@@ -40,13 +55,11 @@
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Months</th>
-                                <th>No. Of employee</th>
+                                <th>TIN</th>
+                                <th>Name of Employee</th>
+                                <th>Gross Annual Pay</th>
+                                <th>Annual tax Liability</th>
                                 <th>Monthly tax Liabilities</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <!-- individual -->
@@ -57,19 +70,11 @@
                                 <td class="align-middle">{{ data.company_payer[0].organisation_name }}</td>
                                 <td class="align-middle">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle">{{ data.company_payer[0].org_phone }}</td>
-                                <td class="align-middle" style="color: #3EA84E; cursor: pointer;">
-                                    View
-                                </td>
-                                <td class="align-middle" style="color: #3EA84E; cursor: pointer;">
-                                    Generate Bill
-                                </td>
-                                <td class="align-middle green" style="color: #3EA84E; cursor: pointer;">Re(Assess)</td>
+                                <td class="align-middle">{{ data.company_payer[0].org_email }}</td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>

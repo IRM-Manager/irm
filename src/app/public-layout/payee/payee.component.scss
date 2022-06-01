@@ -28,6 +28,10 @@ $form-color: #37A85D;
 $active-button: 3px solid #42A847;
 $button-font: normal normal normal 12px/15px Montserrat;
 $red: #BC333E;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
 
 .wrapper {
     background: $wrapper-back;
@@ -37,28 +41,57 @@ $red: #BC333E;
 }
 
 .header {
-    padding: 2rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-right: 2rem;
-    padding-bottom: unset;
-    background: $header-back2;
     opacity: 1;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
-    .button {
-        margin-right: 3%;
-        text-align: left;
-        padding: 1.5rem 1rem .5rem 1rem;
-        font: $button-font;
-        letter-spacing: 0px;
-        color: $label-color;
-        font-weight: 500;
-        opacity: 1;
+    .soft_pattern {
+      padding-top: 2rem;
+      font: $soft-pattern-font;
+      letter-spacing: 0px;
+      color: $soft-pattern-color;
+      font-weight: 500;
+      opacity: 1;
+    }
+  
+    .reg_buss {
+      font: $reg-buss-font;
+      letter-spacing: 0px;
+      color: $tin-color;
+      font-weight: 500;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      opacity: 1;
     }
 
-    .active {
-        border-bottom: $active-button;
-        opacity: 1;
+    .assess {
+      font: normal normal normal 13px/16px Montserrat;
+      letter-spacing: 0px;
+      color: #565656;
+      opacity: 1;
+      font-weight: 550;
+      margin-right: 20px;
+    }
+
+    .change {
+      font: normal normal normal 13px/16px Montserrat;
+      letter-spacing: 0px;
+      color: #5EA55A;
+      font-weight: 500;
+      text-transform: capitalize;
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .gross, .annual {
+      font: normal normal normal 13px/16px Montserrat;
+      letter-spacing: 0px;
+      color: #3C66A3;
+      font-weight: 500;
+      text-transform: capitalize;
+      margin-top: 5px;
+      opacity: 1;
     }
 }
 
@@ -343,8 +376,8 @@ $red: #BC333E;
     }
 
     ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
-      color: $white !important;
-      background: $create-back !important;
+      color: $form-color !important;
+      background: $white !important;
       border-radius: 3px;
       transition: all 0.5s;
       border: 1px solid $form-color;
@@ -353,8 +386,8 @@ $red: #BC333E;
   
   
     ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-      color: $form-color !important;
-      background: $white !important;
+      color: $white !important;
+      background: $create-back !important;
       border: 1px solid $form-color;
       transition: all 0.5s;
     }
@@ -364,7 +397,6 @@ $red: #BC333E;
       background: $create-back !important;
       border: 1px solid $form-color;
     }
-  
 
     ::ng-deep table.dataTable thead .sorting {
         background-image: unset !important;

@@ -97,6 +97,20 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard],
       },
       {
+        path: 'dashboard3/taxpayer/payee/manage',
+        loadChildren: () =>
+          import(
+            './public-layout/payee-layout/payee-manage-employee/payee-manage-employee.module'
+          ).then((m) => m.PayeeManageEmployeeModule),
+      },
+      {
+        path: 'dashboard3/taxpayer/payee/bill',
+        loadChildren: () =>
+          import(
+            './public-layout/payee-layout/payee-generate-bill/payee-generate-bill.module'
+          ).then((m) => m.PayeeGenerateBillModule),
+      },
+      {
         path: 'dashboard3/taxpayer/payee/assessment',
         loadChildren: () =>
           import(

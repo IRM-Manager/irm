@@ -107,6 +107,12 @@ $radio-color: #3c66a3;
     text-transform: capitalize;
   }
 
+  .drop_down {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
   .half {
       width: 150px;
   }
