@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { donutChartOptions, donutChartOptions2 } from '../../../_helpers/donutChartOptions';
+import { donutChartOptions, donutChartOptions2 } from '../../../../_helpers/donutChartOptions';
 import { Options } from 'highcharts';
 
 @Component({

@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -47,6 +48,10 @@ import { AddStates, RemoveIndPayer } from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { Router } from '@angular/router';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-individual2',
@@ -55,6 +60,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./individual2.component.scss'],
 })
 export class Individual2Component implements OnDestroy, OnInit {
+  @ViewChild('card', { static: true })
+  card!: ElementRef<HTMLDivElement>;
+
   @ViewChild('fform1') feedbackFormDirective1: any;
   @ViewChild('fform2') feedbackFormDirective2: any;
   @ViewChild('fform3') feedbackFormDirective3: any;
@@ -960,9 +968,19 @@ export class Individual2Component implements OnDestroy, OnInit {
 
   /////////////////////////////////////////////////////////////////////////////////
 
+  initAnimations(): void {
+    gsap.from(this.card.nativeElement.children, {
+      delay: 0.5,
+      duration: 0.4,
+      y: 40,
+      opacity: 0,
+      stagger: 0.15,
+    });
+  }
+
   ngOnInit(): void {
     this.authService.checkExpired();
-
+    this.initAnimations();
     this.AddState();
     this.UpdateValue();
 

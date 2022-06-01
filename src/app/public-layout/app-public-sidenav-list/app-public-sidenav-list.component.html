@@ -140,7 +140,7 @@
     <div class="button">
 
         <div class="logo_p">
-            <img class="logo" [routerLink]="['/dashboard']" src="assets/images/side_nav_logo.svg" alt="IRM">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM">
 
             <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
                 <mat-icon>menu</mat-icon>
@@ -148,26 +148,28 @@
 
         </div>
 
-        <p class="back" (click)="PayeeBack()" [routerLink]="['/dashboard']">
+        <p class="back" [routerLink]="['/preview']">
             <mat-icon>keyboard_backspace</mat-icon> Back
         </p>
 
-        <p class="pay_as_you_earn">
+        <p class="pay_as_you_earn" [routerLink]="['/dashboard3/taxpayer/payee']">
             Pay as you Earn
         </p>
 
-        <p class="dash-text" (click)="PayeeBusinessBack()" [routerLink]="['/dashboard3/taxpayer/payee']"
-            routerLinkActive="active">
-            All Businesses
+        <p class="dash-text" [routerLink]="['/dashboard3/taxpayer/payee/assessment']" routerLinkActive="active">
+            Create new Assessment
         </p>
-        <p class="dash-text2" [routerLink]="['/dashboard4/taxpayer/payee/access']" routerLinkActive="active">
-            Assessment
-        </p>
-        <p class="dash-text2" [routerLink]="['/dashboard4/taxpayer/payee/bills']" routerLinkActive="active">
-            Bills
+        <p class="dash-text2" [routerLink]="['/dashboard3/taxpayer/payee/lists']" routerLinkActive="active">
+            Concluded Assessment
         </p>
         <p class="dash-text2">
-            TCC Certificate
+            Generated Bills
+        </p>
+        <p class="dash-text2">
+            Process TCC
+        </p>
+        <p class="dash-text2">
+            Manage your Employees
         </p>
     </div>
 
@@ -222,7 +224,6 @@
             <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
                 <mat-icon>menu</mat-icon>
             </button>
-
         </div>
 
         <p class="back" (click)="PayeeBack()" [routerLink]="['/preview']">

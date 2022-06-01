@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { DialogComponent } from '../dialog/dialog.component';
-import { Person3 } from '../shared/form';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { Person3 } from '../../shared/form';
 
 @Component({
   selector: 'app-payee-bills',

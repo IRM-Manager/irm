@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
@@ -8,13 +8,13 @@ import { Profile } from '../../models/irm';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { AddProfile } from '../../actions/irm.action';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-app-public-sidenav-list',
   templateUrl: './app-public-sidenav-list.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./app-public-sidenav-list.component.scss'],
 })
 export class AppPublicSidenavListComponent implements OnInit {
@@ -54,7 +54,9 @@ export class AppPublicSidenavListComponent implements OnInit {
   currentRoute() {
     if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
+      this.router.url == '/dashboard3/taxpayer/payee/lists' ||
       this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
+      this.router.url == '/dashboard3/taxpayer/payee/assessment' ||
       this.router.url == '/dashboard4/taxpayer/payee/access' ||
       this.router.url == '/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard4/taxpayer/payee/bills'

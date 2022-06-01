@@ -1,0 +1,80 @@
+$white: #ffffff;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+
+.payee_wrapper {
+  background: #f5f7fa 0% 0% no-repeat padding-box;
+  min-height: 100vh;
+  padding-left: 1.5rem;
+
+  .soft_pattern {
+    padding-top: 2rem;
+    font: $soft-pattern-font;
+    letter-spacing: 0px;
+    color: $soft-pattern-color;
+    font-weight: 500;
+    opacity: 1;
+  }
+
+  .reg_buss {
+    font: $reg-buss-font;
+    letter-spacing: 0px;
+    color: $tin-color;
+    font-weight: 500;
+    margin-top: 10px;
+    opacity: 1;
+  }
+
+  .container {
+    padding-top: 3rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    padding: 1rem;
+    width: 10rem;
+    height: 4rem;
+    margin-right: 35px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+
+  .card:hover {
+    transform: scale(1.2);
+  }
+
+  .text {
+    margin-left: 10px;
+    font: normal normal normal 15px/19px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #3c66a3;
+    opacity: 1;
+    text-transform: capitalize;
+  }
+
+  .mat-badge-content {
+    background: #dd5f5f;
+    font: normal normal normal 15px/25px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    padding: 0.3rem;
+    align-items: center;
+    opacity: 1;
+  }
+}

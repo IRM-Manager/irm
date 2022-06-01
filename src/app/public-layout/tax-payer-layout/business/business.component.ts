@@ -46,7 +46,6 @@ import { AddStates, RemoveComPayer } from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { Router } from '@angular/router';
-
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -709,11 +708,22 @@ export class BusinessComponent implements OnDestroy, OnInit {
     } // end else
   }
 
+  initAnimations(): void {
+    gsap.from(this.card.nativeElement.children, {
+      delay: 0.5,
+      duration: 0.4,
+      y: 40,
+      opacity: 0,
+      stagger: 0.15,
+    });
+  }
+
   ngOnInit(): void {
     this.authService.checkExpired();
 
     this.AddState();
     this.UpdateValue();
+    this.initAnimations();
 
     // second layer
 

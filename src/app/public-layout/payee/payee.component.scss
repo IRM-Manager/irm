@@ -338,21 +338,33 @@ $red: #BC333E;
       }
 
 
-    // ::ng-deep .dataTables_wrapper .dataTables_filter {
-    //     display: none;
-    // }
+    ::ng-deep .dataTables_wrapper .dataTables_filter {
+        display: none;
+    }
 
+    ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
+      color: $white !important;
+      background: $create-back !important;
+      border-radius: 3px;
+      transition: all 0.5s;
+      border: 1px solid $form-color;
+      margin: 5px;
+    }
+  
+  
     ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        color: $white !important;
-        background: $create-back !important;
-        border: unset;
+      color: $form-color !important;
+      background: $white !important;
+      border: 1px solid $form-color;
+      transition: all 0.5s;
     }
-
+  
     ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        color: $white !important;
-        background: $create-back !important;
-        border: unset;
+      color: $white !important;
+      background: $create-back !important;
+      border: 1px solid $form-color;
     }
+  
 
     ::ng-deep table.dataTable thead .sorting {
         background-image: unset !important;

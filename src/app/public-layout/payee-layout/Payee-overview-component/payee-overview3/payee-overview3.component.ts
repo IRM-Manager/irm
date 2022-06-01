@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { Person2 } from '../../shared/form';
+import { Person2 } from '../../../shared/form';
 
 @Component({
   selector: 'app-payee-overview3',

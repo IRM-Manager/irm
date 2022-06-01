@@ -92,6 +92,7 @@ export class HeaderComponent implements OnInit {
   }
 
   currentRoute() {
+    // Tax Payer
     if (this.router.url == '/dashboard2/taxpayer') {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
@@ -104,12 +105,7 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
-    } 
-    // else if (this.router.url == '/dashboard2/taxpayer/non/individual') {
-    //   this.type = 'tax';
-    //   this.left_text1 = 'Taxpayer';
-    //   this.left_text2 = 'Check all the list of registered member';
-    // } 
+    }
     else if (this.router.url == '/dashboard2/taxpayer/business') {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
@@ -134,8 +130,11 @@ export class HeaderComponent implements OnInit {
       this.type = 'reg_tax';
       this.left_text1 = 'Non - Individual Taxpayer Registration Form';
       this.left_text2 = 'Please fill in the information';
-    } else if (
+    } 
+    // Payee
+    else if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
+      this.router.url == '/dashboard3/taxpayer/payee/lists' ||
       this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
       this.router.url == '/dashboard4/taxpayer/payee/access' ||
       this.router.url == '/dashboard4/taxpayer/payee/access/staff-input' ||
@@ -143,25 +142,33 @@ export class HeaderComponent implements OnInit {
     ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
-      this.left_text2 = 'Please fill in the information';
-    } else if (this.router.url == '/dashboard3/taxpayer/mda') {
+      this.left_text2 = '';
+    }else if (this.router.url == '/dashboard3/taxpayer/payee/assessment') {
+      this.type = 'payee';
+      this.left_text1 = 'Pay-As-You-Earn (PAYE)';
+      this.left_text2 = 'Create New assessment for PAYE';
+    } else if (this.router.url == '/dashboard4/taxpayer/payee/overview') {
+      this.type = 'tax_dashboard2';
+      this.left_text1 = 'Pay-As-You-Earn (PAYE)';
+      this.left_text2 = 'Dashboard';
+    }
+    // MDA
+    else if (this.router.url == '/dashboard3/taxpayer/mda') {
       this.type = 'mda';
       this.left_text1 = 'MDA Collection';
       this.left_text2 = 'Please fill in the information';
-    } else if (this.router.url == '/dashboard') {
+    } 
+    // Dashboard
+    else if (this.router.url == '/dashboard') {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
-    } else if (this.router.url == '/dashboard4/taxpayer/payee/overview') {
-      this.type = 'tax_dashboard2';
+    } 
+    else {
+      this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
     }
-    // else {
-    //   this.type = 'tax';
-    //   this.left_text1 = 'Taxpayer Registration';
-    //   this.left_text2 = 'Check all the list of registered member';
-    // }
   }
 
   getJwtToken(): any {

@@ -1,50 +1,51 @@
 <div class="wrapper">
 
-    <div [ngSwitch]="viewMode">
-        <div *ngSwitchCase="'verify'" class="verify">
+    <div>
+        <div class="verify">
 
-            
             <mat-toolbar class="header2">
                 <div class="indcom">
                     List of Taxable Businesses
                 </div>
                 <div class="spacer"></div>
-                <!-- <div class="search_icon_p">
-                    <form class="search-form" novalidate [formGroup]="SearchForm" #fformsearch="ngForm">
-                        <input matInput formControlName="search" type="text" class="input" >
+                <div class="search_icon_p">
+                    <form class="search-form">
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input">
                     </form>
                     <mat-icon class="search_icon">search</mat-icon>
-                </div> -->
+                </div>
             </mat-toolbar>
-
 
             <div class="table-container">
                 <div class="table-responsive">
-                    <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
                         <thead>
-                        <tr>
-                            <th>S/N</th>
-                            <th>Tax ID</th>
-                            <th>Business name</th>
-                            <th>Date of Establishment</th>
-                            <th>Contact Person</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Tax ID</th>
+                                <th>Business name</th>
+                                <th>Date of Establishment</th>
+                                <th>Contact Person</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.payer.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data.payer.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.org_phone }}</td>
+                                <td class="align-middle">{{ data.tin }}</td>
+                                <td class="align-middle">{{ data.company_payer[0].organisation_name }}</td>
+                                <td class="align-middle">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle">{{ data.company_payer[0].org_phone }}</td>
                                 <td class="align-middle">
-                                    <mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with</mat-icon>
+                                    <mat-icon class="table-icon" (click)="OpenDialog(data, 'payee')">open_with
+                                    </mat-icon>
                                 </td>
                                 <td class="align-middle">
-                                    <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">delete_forever</mat-icon>
+                                    <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">
+                                        delete_forever</mat-icon>
                                 </td>
                             </tr>
                         </tbody>
@@ -83,25 +84,4 @@
     </div>
 
 
-    <!-- <div [ngSwitch]="viewMode">
-        <div *ngSwitchCase="'staff-income'" class="staff-income">
-            <app-staff-income></app-staff-income>
-        </div>
-    </div>
-
-    <div [ngSwitch]="viewMode">
-        <div *ngSwitchCase="'tax-income'" class="tax-income">
-            <app-tax-income></app-tax-income>
-        </div>
-    </div>
-
-    <div [ngSwitch]="viewMode">
-        <div *ngSwitchCase="'bill'" class="bill">
-            <app-payee-bills></app-payee-bills>
-        </div>
-    </div> -->
-    
-    
 </div>
-    
-    

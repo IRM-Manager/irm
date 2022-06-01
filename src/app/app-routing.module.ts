@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
   { path: 'preview', component: PreviewComponent, canLoad: [IsLoggedInGuard] },
   {
+    // dashboard
     path: '',
     component: DefaultLayoutComponent,
     children: [
@@ -24,6 +25,7 @@ const routes: Routes = [
           ),
         canLoad: [IsLoggedInGuard],
       },
+      // tax payer
       {
         path: 'dashboard2/taxpayer/:id',
         loadChildren: () =>
@@ -43,7 +45,8 @@ const routes: Routes = [
       {
         path: 'dashboard22/taxpayer',
         loadChildren: () =>
-          import('./public-layout/tax-payer-layout/tax-payer-create/tax-payer-create.module'
+          import(
+            './public-layout/tax-payer-layout/tax-payer-create/tax-payer-create.module'
           ).then((m) => m.TaxPayerCreateModule),
         canLoad: [IsLoggedInGuard],
       },
@@ -77,8 +80,16 @@ const routes: Routes = [
           ).then((m) => m.BusinessModule),
         canLoad: [IsLoggedInGuard],
       },
+      // payee
       {
         path: 'dashboard3/taxpayer/payee',
+        loadChildren: () =>
+          import(
+            './public-layout/payee-layout/payee-onboard/payee-onboard.module'
+          ).then((m) => m.PayeeOnboardModule),
+      },
+      {
+        path: 'dashboard3/taxpayer/payee/lists',
         loadChildren: () =>
           import('./public-layout/payee/payee.module').then(
             (m) => m.PayeeModule
@@ -86,23 +97,24 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard3/taxpayer/mda',
+        path: 'dashboard3/taxpayer/payee/assessment',
         loadChildren: () =>
-          import('./public-layout/mda/mda.module').then((m) => m.MDAModule),
-        canLoad: [IsLoggedInGuard],
+          import(
+            './public-layout/payee-layout/payee-create-assessment/payee-create-assessment.module'
+          ).then((m) => m.PayeeCreateAssessmentModule),
       },
       {
         path: 'dashboard4/taxpayer/payee/access/:id',
         loadChildren: () =>
           import(
-            './public-layout/payee-assessment/payee-assessment.module'
+            './public-layout/payee-layout/payee-assessment/payee-assessment.module'
           ).then((m) => m.PayeeAssessmentModule),
       },
       {
         path: 'dashboard4/taxpayer/payee/access',
         loadChildren: () =>
           import(
-            './public-layout/payee-assessment/payee-assessment.module'
+            './public-layout/payee-layout/payee-assessment/payee-assessment.module'
           ).then((m) => m.PayeeAssessmentModule),
       },
       {
@@ -115,9 +127,16 @@ const routes: Routes = [
       {
         path: 'dashboard4/taxpayer/payee/overview',
         loadChildren: () =>
-          import('./public-layout/payee-overview/payee-overview.module').then(
-            (m) => m.PayeeOverviewModule
-          ),
+          import(
+            './public-layout/payee-layout/payee-overview/payee-overview.module'
+          ).then((m) => m.PayeeOverviewModule),
+      },
+      // MDA
+      {
+        path: 'dashboard3/taxpayer/mda',
+        loadChildren: () =>
+          import('./public-layout/mda/mda.module').then((m) => m.MDAModule),
+        canLoad: [IsLoggedInGuard],
       },
     ],
   },

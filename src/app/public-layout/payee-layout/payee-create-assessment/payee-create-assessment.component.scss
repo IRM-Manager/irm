@@ -1,0 +1,33 @@
+$white: #ffffff;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+
+.payee_wrapper {
+  background: #f5f7fa 0% 0% no-repeat padding-box;
+  min-height: 100vh;
+  padding-left: 1.5rem;
+
+  .soft_pattern {
+    padding-top: 2rem;
+    font: $soft-pattern-font;
+    letter-spacing: 0px;
+    color: $soft-pattern-color;
+    font-weight: 500;
+    opacity: 1;
+  }
+
+  .reg_buss {
+    font: $reg-buss-font;
+    letter-spacing: 0px;
+    color: $tin-color;
+    font-weight: 500;
+    margin-top: 10px;
+    opacity: 1;
+  }
+
+  .container {
+    padding-top: 2rem;
+  }
+}

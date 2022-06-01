@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ViewEncapsulation,
   ViewChild,
 } from '@angular/core';
@@ -9,20 +8,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
-import { Tin } from '../shared/form';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialog/dialog.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { Year, Payee } from '../../models/irm';
+import { Year, Payee } from '../../../models/irm';
 import {
   AppState,
   selectAllYear,
   selectAllPayee,
 } from 'src/app/reducers/index';
-import { AddPayee, AddYear, RemovePayee } from '../../actions/irm.action';
+import { AddPayee, AddYear, RemovePayee } from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

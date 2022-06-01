@@ -1,5 +1,5 @@
 <div class="wrapper">
-    
+
     <div class="header" *ngIf="!update">
         <div class="nin-text">nin</div>
         <div class="header-text">
@@ -12,7 +12,7 @@
     <div class="session">
         <div class="session-header">Section 1: Personal Details</div>
 
-        <form class="form1" novalidate [formGroup]="feedbackForm1" #fform1="ngForm" (ngSubmit)="onSubmit1()">
+        <form #card class="form1" novalidate [formGroup]="feedbackForm1" #fform1="ngForm" (ngSubmit)="onSubmit1()">
             <p>
                 <!-- title -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -74,7 +74,8 @@
                     <mat-label>State of Origin</mat-label>
                     <mat-select matInput formControlName="state" #singleSelect required>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching" placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
+                            <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching"
+                                placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
                             </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id">
@@ -83,7 +84,8 @@
                     </mat-select>
                     <!-- <mat-error>{{formErrors.state}}</mat-error> -->
                     <mat-hint *ngIf="stateeError" class="hint-error">{{stateeError}}</mat-hint>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;"><button>Reload</button></mat-hint>
+                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;">
+                        <button>Reload</button></mat-hint>
                     <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
                 </mat-form-field>
             </p>
@@ -93,7 +95,8 @@
                     <mat-label>LGA</mat-label>
                     <mat-select matInput formControlName="lga" #singleSelect required id="lga">
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
+                            <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2"
+                                placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
                             </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id">
@@ -104,7 +107,8 @@
                     <!-- <mat-error>{{formErrors.lga}}</mat-error> -->
                     <mat-hint *ngIf="!lga" align="end">Select state to get LGA</mat-hint>
                     <mat-hint *ngIf="lgaaError" class="hint-error">{{lgaaError}}</mat-hint>
-                    <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;"><button>Reload</button></mat-hint>
+                    <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
+                        <button>Reload</button></mat-hint>
                     <mat-hint *ngIf="lgaLoading" align="end">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- nationality -->
@@ -140,7 +144,7 @@
                     <mat-error>{{formErrors.contact_email}}</mat-error>
                     <mat-hint *ngIf="contact_emailError" class="hint-error">{{ contact_emailError }}</mat-hint>
                 </mat-form-field>
-            </p>  
+            </p>
 
         </form>
 
@@ -173,7 +177,8 @@
                     <mat-label>State of Residence</mat-label>
                     <mat-select matInput formControlName="state_red" #singleSelect required>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3" placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
+                            <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3"
+                                placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
                             </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks3 | async" [value]="option.id">
@@ -182,7 +187,8 @@
                     </mat-select>
                     <mat-error>{{formErrors.state_red}}</mat-error>
                     <mat-hint *ngIf="state_redError" class="hint-error">{{state_redError}}</mat-hint>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2" style="color: red;"><button>Reload</button></mat-hint>
+                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2"
+                        style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint *ngIf="stateLoading2">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- lga_red -->
@@ -190,7 +196,8 @@
                     <mat-label>LGA of Residence</mat-label>
                     <mat-select matInput formControlName="lga_red" #singleSelect required>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl4" [searching]="searching4" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
+                            <ngx-mat-select-search [formControl]="bankCtrl4" [searching]="searching4"
+                                placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
                             </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks4 | async" [value]="option.id">
@@ -200,7 +207,8 @@
                     <!-- <mat-error>{{formErrors.lga_red}}</mat-error> -->
                     <mat-hint *ngIf="lga_redError" class="hint-error">{{lga_redError}}</mat-hint>
                     <mat-hint *ngIf="!lga2" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;"><button>Reload</button></mat-hint>
+                    <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2"
+                        style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint *ngIf="lgaLoading2" align="end">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- zipcode -->
@@ -278,14 +286,16 @@
                     <mat-label>State</mat-label>
                     <mat-select matInput formControlName="company_state" #singleSelect>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl5" [searching]="searching5" placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
+                            <ngx-mat-select-search [formControl]="bankCtrl5" [searching]="searching5"
+                                placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
                             </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks5 | async" [value]="option.id">
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError3 && !stateLoading3" style="color: red;"><button>Reload</button></mat-hint>
+                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError3 && !stateLoading3"
+                        style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint *ngIf="stateLoading3">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- com_lga -->
@@ -293,7 +303,8 @@
                     <mat-label>LGA</mat-label>
                     <mat-select matInput formControlName="company_lga" #singleSelect>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl6" [searching]="searching6" placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
+                            <ngx-mat-select-search [formControl]="bankCtrl6" [searching]="searching6"
+                                placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
                             </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks6 | async" [value]="option.id">
@@ -301,7 +312,8 @@
                         </mat-option>
                     </mat-select>
                     <mat-hint *ngIf="!lga2">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="AddLga3(lga3.id)" *ngIf="lgaError3 && !lgaLoading3" style="color: red;"><button>Reload</button></mat-hint>
+                    <mat-hint align="end" (click)="AddLga3(lga3.id)" *ngIf="lgaError3 && !lgaLoading3"
+                        style="color: red;"><button>Reload</button></mat-hint>
                     <mat-hint *ngIf="lgaLoading3" align="end">Loading...</mat-hint>
                 </mat-form-field>
                 <!-- com_zipcode -->
@@ -317,8 +329,7 @@
     <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>
         <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true" -->
-        <button mat-button class="verify"
-            (click)="Submit()">
+        <button mat-button class="verify" (click)="Submit()">
             <span *ngIf="!loading2">Continue</span>
             <div *ngIf="loading2" class="loader">
                 <div class="bubble"></div>
@@ -332,8 +343,7 @@
     <div class="final_submit" *ngIf="update">
         <button mat-button class="verify2" (click)="back()">Back</button>
         <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true" -->
-        <button mat-button class="verify"
-            (click)="SubmitUpdate()">
+        <button mat-button class="verify" (click)="SubmitUpdate()">
             <span *ngIf="!Updateloading">Update</span>
             <div *ngIf="Updateloading" class="loader">
                 <div class="bubble"></div>

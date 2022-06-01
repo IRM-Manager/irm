@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-// import { areaChartOptions } from '../../_helpers/areaChartOptions';
-import { AreaChartOptions } from '../../_helpers/oneLineChart';
-import { Options } from 'highcharts';
+import { AreaChartOptions } from '../../../_helpers/oneLineChart';
 
 @Component({
   selector: 'app-payee-overview',
