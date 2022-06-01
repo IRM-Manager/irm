@@ -26,7 +26,8 @@ $red: #bc333e;
 $select-color: #3ea84e;
 $form-color: #37a85d;
 $label-color: #565656;
-$verify-hover-b: transparent linear-gradient(180deg, #4BE63D 0%, #2AA977 100%) 0% 0% no-repeat padding-box;
+$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
+  0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
 
 .wrapper {
@@ -151,7 +152,7 @@ $verify-hover-box: 0px 3px 6px #00000029;
   }
 
   mat-error {
-      text-transform: capitalize;
+    text-transform: capitalize;
   }
 
   mat-form-field {
@@ -187,7 +188,7 @@ $verify-hover-box: 0px 3px 6px #00000029;
     align-items: center;
     padding: 0.5em 0 0.5em 0;
   }
-  
+
   .bubble {
     animation: expand 0.75s ease-in-out infinite;
     border-radius: 20px;

@@ -76,7 +76,6 @@ $red: #bc333e;
       $border-radius: unset
     );
   }
-
 }
 
 .header2 {
@@ -244,7 +243,6 @@ $red: #bc333e;
     margin: 5px;
   }
 
-
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     color: $green !important;
     background: $white !important;
@@ -297,6 +295,4 @@ $red: #bc333e;
     font-weight: 400;
     letter-spacing: 0.3px;
   }
-
-
 }

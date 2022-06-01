@@ -6,7 +6,55 @@
     </div>
 
     <div class="container">
-        fewfew
+        <div class="title">Create New assessment for PAYE</div>
+
+        <form novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+                <!-- year -->
+                <span class="text">Assessment year</span>
+
+                <mat-form-field class="half" appearance="outline">
+                    <mat-label>Year</mat-label>
+                    <input matInput formControlName="year" [matAutocomplete]="auto" required>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button matSuffix mat-icon-button class="drop_down">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- type -->
+                <span class="text">Tax type<span style="color: #FFFFFF;">dddddd</span></span>
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Tax type</mat-label>
+                    <input matInput formControlName="typee" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- employee no -->
+                <span class="text">No of employee </span>
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>No of employee</mat-label>
+                    <input matInput formControlName="employee_no" type="number" required>
+                </mat-form-field>
+            </p>
+
+            <div>
+                <button type="submit" mat-button class="verify">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+        </form>
     </div>
 
 </div>

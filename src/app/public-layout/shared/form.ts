@@ -100,6 +100,12 @@ export interface individual_create {
   birth: string;
 }
 
+export interface create_assessment {
+    year: string;
+    typee: string;
+    employee_no: number;
+  }
+
 export interface stateLogo {
   id: any;
   name: any;

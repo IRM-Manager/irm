@@ -3,6 +3,17 @@ $soft-pattern-font: normal normal normal 15px/19px Montserrat;
 $soft-pattern-color: #3c66a3;
 $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
+$select-color: #3ea84e;
+$form-color: #37a85d;
+$label-color: #565656;
+$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
+  0% 0% no-repeat padding-box;
+$verify-hover-box: 0px 3px 6px #00000029;
+$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
+  0% no-repeat padding-box;
+$ind-color: #565656;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$radio-color: #3c66a3;
 
 .payee_wrapper {
   background: #f5f7fa 0% 0% no-repeat padding-box;
@@ -28,6 +39,176 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   .container {
-    padding-top: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 3rem;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    width: 90%;
+    opacity: 1;
+  }
+
+  .title {
+    font: normal normal normal 15px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #565656;
+    opacity: 1;
+  }
+
+  .text {
+    color: rgba(86, 86, 86, 0.7);
+    font: normal normal normal 14px/19px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    margin-right: 4rem;
+  }
+
+  form {
+    margin-top: 3rem;
+  }
+
+  @mixin theme($back, $color, $font, $border) {
+    letter-spacing: 0px;
+    font: $font;
+    background: $back;
+    border: $border;
+    border-radius: 10px;
+    color: $color;
+    font-weight: 500;
+    opacity: 1;
+    padding: 1rem;
+  }
+
+  .verify {
+    width: 150px;
+    @include theme(
+      $back: $create-back,
+      $color: $white,
+      $font: $ind-font,
+      $border: unset
+    );
+  }
+
+  .verify:hover {
+    background: $verify-hover-b;
+    box-shadow: $verify-hover-box;
+  }
+
+  input[type="text"] {
+    background: $label-color;
+  }
+
+  ::ng-deep .mat-select-arrow {
+    color: $select-color;
+    opacity: 1;
+  }
+
+  mat-error {
+    text-transform: capitalize;
+  }
+
+  .half {
+      width: 150px;
+  }
+
+  .half-width {
+    width: 300px;
+  }
+
+  mat-form-field {
+    color: 1px solid $form-color;
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected,
+  .mat-step-header .mat-step-icon-state-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    background-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $form-color;
+  }
+
+  ::ng-deep
+    .mat-form-field-appearance-outline.mat-focused
+    .mat-form-field-outline-thick {
+    color: $form-color;
+  }
+
+  ::ng-deep .mat-input-element {
+    caret-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field-underline,
+  ::ng-deep .mat-form-field-ripple {
+    background: $radio-color;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: $radio-color;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $white; /*inner circle color change*/
+  }
+
+  ::ng-deep
+    .mat-radio-button.mat-accent.mat-radio-checked
+    .mat-radio-outer-circle {
+    border-color: $radio-color; /*outer ring color change*/
+    background: $radio-color;
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0 0.5em 0;
+  }
+
+  .bubble {
+    animation: expand 0.75s ease-in-out infinite;
+    border-radius: 20px;
+    display: inline-block;
+    transform-origin: center center;
+    margin: 0 3px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .bubble:nth-child(1) {
+    background: $white;
+  }
+
+  .bubble:nth-child(2) {
+    animation-delay: 180ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(3) {
+    animation-delay: 360ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(4) {
+    animation-delay: 540ms;
+    background: $white;
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.55);
+    }
   }
 }
