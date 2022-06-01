@@ -1,0 +1,10 @@
+<svg id="_3669363_dashboard_ic_icon" data-name="3669363_dashboard_ic_icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3e5fa8"/>
+      <stop offset="1" stop-color="#2aa977"/>
+    </linearGradient>
+  </defs>
+  <path id="Path_620" data-name="Path 620" d="M0,0H48V48H0Z" fill="none"/>
+  <path id="Path_621" data-name="Path 621" d="M6,26H22V6H6ZM6,42H22V30H6Zm20,0H42V22H26ZM26,6V18H42V6Z" fill="url(#linear-gradient)"/>
+</svg>

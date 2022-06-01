@@ -15,7 +15,7 @@
 
                 <mat-form-field class="half" appearance="outline">
                     <mat-label>Year</mat-label>
-                    <input matInput formControlName="year" [matAutocomplete]="auto" required>
+                    <input matInput formControlName="year" [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             {{option}}
@@ -31,7 +31,7 @@
                 <span class="text">Tax type<span style="color: #FFFFFF;">dddddd</span></span>
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Tax type</mat-label>
-                    <input matInput formControlName="typee" required>
+                    <input matInput formControlName="typee">
                 </mat-form-field>
             </p>
             <p>
@@ -39,7 +39,7 @@
                 <span class="text">No of employee </span>
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>No of employee</mat-label>
-                    <input matInput formControlName="employee_no" type="number" required>
+                    <input matInput formControlName="employee_no" type="number">
                 </mat-form-field>
             </p>
 
