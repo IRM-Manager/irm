@@ -1,1 +1,107 @@
-<p>payee-generate-bill works!</p>
+<div class="wrapper">
+
+    <div class="header">
+
+        <div>
+            <div class="soft_pattern">Softpattern Pattern Technology</div>
+            <div class="reg_buss">Tax ID: 34546678844</div>
+        </div>
+
+        <div class="header-container">
+            <div>
+                <label for="exampleFormControlInput1" class="form-label">From</label>
+                <input type="date" class="form-control form-select" id="exampleFormControlInput1">
+            </div>
+
+            <div class="form-line"></div>
+
+            <div>
+                <label for="exampleFormControlInput1" class="form-label">To</label>
+                <input type="date" class="form-control form-select" id="exampleFormControlInput1">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div>
+        <div class="verify">
+
+            <mat-toolbar class="header2">
+                <div class="indcom">
+                    Generated Bills
+                </div>
+                <div class="spacer"></div>
+                <div class="search_icon_p">
+                    <form class="search-form">
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
+                            class="input">
+                    </form>
+                    <mat-icon class="search_icon">search</mat-icon>
+                </div>
+            </mat-toolbar>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Bill Ref</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td class="align-middle">{{i+1}}</td>
+                                <td class="align-middle">{{ data.tin }}</td>
+                                <td class="align-middle">{{ data.company_payer[0].organisation_name }}</td>
+                                <td class="align-middle">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle">
+                                    <button mat-button class="paid">
+                                        paid
+                                    </button>
+                                    <!-- <button mat-button class="pending">
+                                        pending
+                                    </button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                            <span *ngIf="!is_reload">RELOAD</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
