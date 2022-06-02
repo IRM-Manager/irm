@@ -1,0 +1,103 @@
+<div class="wrapper">
+    <div class="header">
+        <div class="header-container">
+            <div class="soft_pattern">Matthew Adeboye</div>
+            <div class="reg_buss">Tax ID: 34546678844</div>
+
+            <div class="button-container">
+                <div *ngIf="!type">
+                    <button class="blue-button" mat-button (click)="changeType(true)">Edit</button>
+                    <button class="blue-button" mat-button>Print</button>
+                </div>
+                <div *ngIf="type">
+                    <button class="blue-button" mat-button>Save</button>
+                    <button class="blue-button" mat-button (click)="changeType(false)">Discard</button>
+                </div>
+                <div>
+                    <button class="red-button" mat-button>Delete</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- table container -->
+
+    <div class="table-container">
+
+        <div class="column1">
+            <div class="employee-salary">Employee(s) Salaries</div>
+            <div class="left_right">
+                <div class="left">
+                    <div class="title">Is consolidated?</div>
+                    <div class="title">Consolidated Gross</div>
+                    <div class="title">Annual Gross Pay</div>
+                    <div class="title">Monthly Gross</div>
+                    <div class="title">Taxable Income</div>
+                    <div class="title">Annual Tax Liability</div>
+                    <div class="title">Monthly Tax Liability</div>
+                </div>
+                <div class="right">
+                    <div class="sub-title">
+                        <form [formGroup]="form">
+                            <mat-radio-group formControlName="floatLabelControl">
+                                <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                            </mat-radio-group>
+                        </form>
+                    </div>
+                    <div class="sub-title">100,000</div>
+                    <div class="sub-title">100,000 (NGN)</div>
+                    <div class="sub-title">8,000 (NGN)</div>
+                    <div class="sub-title">100,000 (NGN)</div>
+                    <div class="sub-title">100,000 (NGN)</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="column2">
+            <div class="deduction">Deductions</div>
+            <div class="left_right">
+                <div class="left2">
+                    <div class="title">Register PENCOM?</div>
+                    <div class="title">Register NHF?</div>
+                    <div class="title">NHIS</div>
+                    <div class="title">Life Assurance</div>
+                    <div class="title">Gratuity</div>
+                    <div class="title">Consolidated relief allowance</div>
+                </div>
+                <div class="right2">
+                    <div class="sub-title">
+                        <form [formGroup]="form2">
+                            <mat-radio-group formControlName="floatLabelControl2">
+                                <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                            </mat-radio-group>
+                            <!-- <span style="margin-left: 4px;">0.00 (NGN)</span>
+                            <span style="margin-left: 10px;">0.00 (NGN)</span> -->
+                        </form>
+                    </div>
+                    <div class="sub-title">
+                        <form [formGroup]="form3">
+                            <mat-radio-group formControlName="floatLabelControl3">
+                                <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                            </mat-radio-group>
+                            <!-- <span style="margin-left: 4px;">0.00 (NGN)</span>
+                            <span style="margin-left: 10px;">0.00 (NGN)</span> -->
+                        </form>
+                    </div>
+                    <div class="sub-title">0.00</div>
+                    <div class="sub-title">0.00</div>
+                    <div class="sub-title">0.00</div>
+                    <div class="sub-title">100,000 (NGN)</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear: both; padding-top: 3rem;"></div>
+
+    </div>
+
+</div>

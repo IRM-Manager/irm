@@ -145,6 +145,10 @@ export class PayeeManageEmployeeComponent implements OnInit {
     });
   }
 
+  goToEdit() {
+    this.router.navigate(['/dashboard3/taxpayer/payee/manage-edit'])
+  }
+
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();

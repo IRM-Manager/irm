@@ -64,7 +64,7 @@
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
-                            <tr *ngFor="let data of datas; let i=index">
+                            <tr *ngFor="let data of datas; let i=index" (click)="goToEdit()">
                                 <td class="align-middle">{{i+1}}</td>
                                 <td class="align-middle">{{ data.tin }}</td>
                                 <td class="align-middle">{{ data.company_payer[0].organisation_name }}</td>

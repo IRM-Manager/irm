@@ -68,6 +68,7 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard3/taxpayer/payee/assessment' ||
       this.router.url == '/dashboard3/taxpayer/payee/bill' ||
       this.router.url == '/dashboard3/taxpayer/payee/manage' ||
+      this.router.url == '/dashboard3/taxpayer/payee/manage-edit' ||
       this.router.url == '/dashboard4/taxpayer/payee/access' ||
       this.router.url == '/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard4/taxpayer/payee/bills'
@@ -99,6 +100,7 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard3/taxpayer/payee/assessment' ||
       this.router.url == '/dashboard3/taxpayer/payee/bill' ||
       this.router.url == '/dashboard3/taxpayer/payee/manage' ||
+      this.router.url == '/dashboard3/taxpayer/payee/manage-edit' ||
       this.router.url == '/dashboard4/taxpayer/payee/access' ||
       this.router.url == '/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard4/taxpayer/payee/bills'

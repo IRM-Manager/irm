@@ -104,6 +104,13 @@ const routes: Routes = [
           ).then((m) => m.PayeeManageEmployeeModule),
       },
       {
+        path: 'dashboard3/taxpayer/payee/manage-edit',
+        loadChildren: () =>
+          import(
+            './public-layout/payee-layout/payee-manage-edit/payee-manage-edit.module'
+          ).then((m) => m.PayeeManageEditModule),
+      },
+      {
         path: 'dashboard3/taxpayer/payee/bill',
         loadChildren: () =>
           import(

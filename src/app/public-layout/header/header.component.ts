@@ -135,6 +135,7 @@ export class HeaderComponent implements OnInit {
     else if (
       this.router.url == '/dashboard3/taxpayer/payee' ||
       this.router.url == '/dashboard3/taxpayer/payee/staff-income' ||
+      this.router.url == '/dashboard3/taxpayer/payee/manage-edit' ||
       this.router.url == '/dashboard4/taxpayer/payee/access' ||
       this.router.url == '/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard4/taxpayer/payee/bills'
