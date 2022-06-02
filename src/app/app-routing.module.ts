@@ -111,6 +111,13 @@ const routes: Routes = [
           ).then((m) => m.PayeeManageEditModule),
       },
       {
+        path: 'dashboard3/taxpayer/payee/lists-view',
+        loadChildren: () =>
+          import(
+            './public-layout/payee-layout/payee-view/payee-view.module'
+          ).then((m) => m.PayeeViewModule),
+      },
+      {
         path: 'dashboard3/taxpayer/payee/bill',
         loadChildren: () =>
           import(

@@ -152,6 +152,14 @@ export class PayeeComponent implements OnDestroy, OnInit {
     });
   }
 
+  reAccess(data: any) {
+    this.router.navigate(['/dashboard3/taxpayer/payee/manage'])
+  }
+
+  view(data: any) {
+    this.router.navigate(['/dashboard3/taxpayer/payee/lists-view'])
+  }
+
   formatMoney(n: any) {
     const tostring = n.toString()
    return (Math.round(tostring * 100) / 100).toLocaleString();
