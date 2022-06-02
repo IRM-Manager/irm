@@ -48,9 +48,10 @@ import { HeaderComponent } from '../public-layout/header/header.component';
 import { AppPublicSidenavListComponent } from '../public-layout/app-public-sidenav-list/app-public-sidenav-list.component';
 import { FooterComponent } from '../public-layout/footer/footer.component';
 import { DialogComponent } from '../public-layout/dialog/dialog.component';
+import { PayeeDialogComponent } from '../public-layout/payee-layout/payee-dialog/payee-dialog.component';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { PaymentDialogComponent } from '../public-layout/payment-dialog/payment-dialog.component';
-// import {IvyCarouselModule} from 'angular-responsive-carousel';
+
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DialogComponent } from '../public-layout/dialog/dialog.component';
     AppPublicSidenavListComponent,
     FooterComponent,
     DialogComponent,
+    PayeeDialogComponent
   ],
   entryComponents: [
     // dialog component here

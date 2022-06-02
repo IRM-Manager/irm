@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
@@ -20,6 +19,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
 
 @Component({
   selector: 'app-payee',
@@ -144,7 +144,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   OpenDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(PayeeDialogComponent, {
       data: {
         type: type,
         data: data,
