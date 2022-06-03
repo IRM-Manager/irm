@@ -9,9 +9,8 @@ export const environment = {
 export const BaseUrl = {
   jwt_token: 'IRM_ACCESS',
   refresh_token: 'IRM_REFRESH',
-  // api: 'https://irmpayer.herokuapp.com/',
-  api2: 'https://irmpaye.herokuapp.com/',
-  api: 'http://127.0.0.1:3000/',
+  api: 'https://irmpaye.herokuapp.com/',
+  // api2: 'http://127.0.0.1:3000/',
 };
 
 /*

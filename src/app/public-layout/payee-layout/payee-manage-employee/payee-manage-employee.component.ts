@@ -101,19 +101,13 @@ export class PayeeManageEmployeeComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.GetPayerList().subscribe(
+        this.httpService.GetPayerList('companypayers').subscribe(
           (data: any) => {
-            if (data.responsecode == '01') {
-            } else {
-              const company = data.filter((type: any) => {
-                return type.payer_type == 'company';
-              });
-              this.store.dispatch(new AddComPayer([{ id: 1, data: company }]));
-              this.datas = company;
-              this.searchData = company;
+              this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
+              this.datas = data.data;
+              this.searchData = data.data;
               this.dtTrigger.next;
               this.isLoading = false;
-            }
           },
           (err) => {
             this.isLoading = false;

@@ -162,15 +162,12 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
           this.dtTrigger.next;
           this.isLoading = false;
         } else {
-          this.httpService.GetPayerList().subscribe(
+          this.httpService.GetPayerList('companypayers').subscribe(
             (data: any) => {
               console.log(data);
-              const company = data.filter((type: any) => {
-                return type.payer_type == 'company';
-              });
-              this.store.dispatch(new AddComPayer([{ id: 1, data: company }]));
-              this.datas = company;
-              this.searchData2 = company;
+              this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
+              this.datas = data.data;
+              this.searchData2 = data.data;
               this.dtTrigger.next;
               this.isLoading = false;
             },
@@ -191,17 +188,14 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
           this.dtTrigger.next;
           this.isLoading = false;
         } else {
-          this.httpService.GetPayerList().subscribe(
+          this.httpService.GetPayerList('individualpayers').subscribe(
             (data: any) => {
               console.log(data);
-              const individual = data.filter((type: any) => {
-                return type.payer_type == 'individual';
-              });
               this.store.dispatch(
-                new AddIndPayer([{ id: 1, data: individual }])
+                new AddIndPayer([{ id: 1, data: data.data }])
               );
-              this.datas = individual;
-              this.searchData = individual;
+              this.datas = data.data;
+              this.searchData = data.data;
               this.dtTrigger.next;
               this.isLoading = false;
             },

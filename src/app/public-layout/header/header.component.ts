@@ -200,12 +200,9 @@ export class HeaderComponent implements OnInit {
       } else {
         this.httpService.getProfile().subscribe(
           (data: any) => {
-            if (data.responsecode == '01') {
-            } else {
-              this.store.dispatch(new AddProfile([{ id: 1, data: data }]));
-              this.profile = data;
+              this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
+              this.profile = data.data;
               console.log('http_profile', data);
-            }
           },
           (err) => {
             this.authService.checkExpired();
@@ -227,19 +224,24 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  AddRegisteredPayer() {
-    this.httpService.GetPayerList().subscribe(
+  addIndividualPayer() {
+    this.httpService.GetPayerList('individualpayers').subscribe(
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
-          const company = data.filter((type: any) => {
-            return type.payer_type == 'company';
-          });
-          const individual = data.filter((type: any) => {
-            return type.payer_type == 'individual';
-          });
-          this.store.dispatch(new AddComPayer([{ id: 1, data: company }]));
-          this.store.dispatch(new AddIndPayer([{ id: 1, data: individual }]));
+          this.store.dispatch(new AddIndPayer([{ id: 1, data: data.data }]));
+        }
+      },
+      (err) => {}
+    );
+  }
+
+  addCompanyPayer() {
+    this.httpService.GetPayerList('companypayers').subscribe(
+      (data: any) => {
+        if (data.responsecode == '01') {
+        } else {
+          this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
         }
       },
       (err) => {}
@@ -301,6 +303,7 @@ export class HeaderComponent implements OnInit {
     this.AddProfile();
     this.AddState();
     this.AddYear();
-    this.AddRegisteredPayer();
+    this.addCompanyPayer();
+    this.addIndividualPayer();
   }
 }

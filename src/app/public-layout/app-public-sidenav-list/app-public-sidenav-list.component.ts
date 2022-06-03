@@ -150,8 +150,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       } else {
         this.httpService.getProfile().subscribe(
           (data: any) => {
-            this.store.dispatch(new AddProfile([{ id: 1, data: data }]));
-            this.profile = data;
+            this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
+            this.profile = data.data;
             console.log('http_profile', data.data);
           },
           (err: any) => {

@@ -20,7 +20,7 @@ export class HttpService {
   state() {
     return this.http
       .get<any>(
-        BaseUrl.api + `user/api/v1/list-state/`
+        BaseUrl.api + `refdata/api/v1/state/`
       )
       .pipe(retry(1));
   }
@@ -29,7 +29,7 @@ export class HttpService {
   lga(state_id: number) {
     return this.http
       .get<any>(
-        BaseUrl.api + `user/api/v1/get-state/${state_id}`
+        BaseUrl.api + `refdata/api/v1/lga/getlgbystate/?stateid=${state_id}`
       )
       .pipe(retry(1));
   }
@@ -37,7 +37,7 @@ export class HttpService {
   // get lists of years
   year() {
     return this.http
-      .get<any>(BaseUrl.api2 + `paye/api/paye/year/`)
+      .get<any>(BaseUrl.api + `paye/api/paye/year/`)
       .pipe(retry(1));
   }
 
@@ -49,7 +49,7 @@ export class HttpService {
       },
     };
     return this.http
-      .get<any[]>(BaseUrl.api + `user/api/v1/profile/`, httpOptions)
+      .get<any[]>(BaseUrl.api + `user/api/v1/userprofile/`, httpOptions)
       .pipe(retry(1));
   }
 
@@ -62,7 +62,7 @@ export class HttpService {
     };
     return this.http
       .post<any[]>(
-        BaseUrl.api + `user/api/v1/register-payer/?payer_group=${type}`,
+        BaseUrl.api + `user/api/v1/payer/?payer_group=${type}`,
         data,
         httpOptions
       )
@@ -70,14 +70,14 @@ export class HttpService {
   }
 
   // get payer data
-  GetPayerList(): Observable<any[]> {
+  GetPayerList(type: string): Observable<any[]> {
     const httpOptions = {
       headers: {
         Authorization: `Bearer ${this.authService.getJwtToken()}`,
       },
     };
     return this.http
-      .get<any[]>(BaseUrl.api + `user/api/v1/list-payer/`, httpOptions)
+      .get<any[]>(BaseUrl.api + `user/api/v1/payer/${type}/`, httpOptions)
       .pipe(retry(1));
   }
 
@@ -105,7 +105,7 @@ export class HttpService {
     };
     return this.http
       .post<any[]>(
-        BaseUrl.api2 +
+        BaseUrl.api +
           `paye/api/v1/paye/upload/?comp_tin=${tin}&yearId=${year_id}`,
         data,
         httpOptions
@@ -126,7 +126,7 @@ export class HttpService {
     };
     return this.http
       .post<any[]>(
-        BaseUrl.api2 +
+        BaseUrl.api +
           `paye/api/v1/paye/confirm_upload/?comp_tin=${tin}&yearId=${year_id}`,
         data,
         httpOptions
@@ -142,7 +142,7 @@ export class HttpService {
       },
     };
     return this.http
-      .post<any[]>(BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
+      .post<any[]>(BaseUrl.api + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
       .pipe(retry(2));
   }
 
@@ -155,7 +155,7 @@ export class HttpService {
     };
     return this.http
       .get<any[]>(
-        BaseUrl.api2 + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`,
+        BaseUrl.api + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`,
         httpOptions
       )
       .pipe(retry(2));
@@ -201,7 +201,7 @@ export class HttpService {
     };
     return this.http
       .delete<any[]>(
-        BaseUrl.api2 + `paye/api/v1/paye/${id}/`,
+        BaseUrl.api + `paye/api/v1/paye/${id}/`,
         httpOptions
       )
       .pipe(retry(1));
@@ -216,7 +216,7 @@ export class HttpService {
     };
     return this.http
       .patch<any[]>(
-        BaseUrl.api2 + `paye/api/v1/paye/117/?comp_tin=${tin}&yearId=${id}`,
+        BaseUrl.api + `paye/api/v1/paye/117/?comp_tin=${tin}&yearId=${id}`,
         data,
         httpOptions
       )
