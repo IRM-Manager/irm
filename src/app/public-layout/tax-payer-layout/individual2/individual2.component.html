@@ -3,8 +3,8 @@
     <div class="header" *ngIf="!update">
         <div class="nin-text">nin</div>
         <div class="header-text">
-            <div class="nin-number">44561244325</div>
-            <button mat-button class="header-change">change</button>
+            <div class="nin-number">{{ payer_data?.nin }}</div>
+            <button mat-button class="header-change" (click)="changePayerData()">change</button>
         </div>
     </div>
 

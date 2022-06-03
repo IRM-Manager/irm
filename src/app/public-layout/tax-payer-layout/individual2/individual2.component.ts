@@ -73,6 +73,7 @@ export class Individual2Component implements OnDestroy, OnInit {
   feedback!: NIN;
   loading = false;
   disabled = false;
+  payer_data: any;
 
   floatLabelControl = new FormControl('employed');
   feedback1!: Individual1;
@@ -242,8 +243,16 @@ export class Individual2Component implements OnDestroy, OnInit {
 
     this.stateStates = store.select(selectAllStates);
     this.stateProfile = store.select(selectAllProfile);
-
     this.editDetails = this.shared.getPayerEditMessage();
+
+    const data = this.shared.getPayerMessage();
+    this.payer_data = data;
+    if (data == '' || data == undefined || data == null) {
+      this.router.navigate(['/dashboard22/taxpayer'])
+    }else{
+      this.payer_data = data;
+    }
+    
   }
 
   createForm1() {
@@ -964,6 +973,20 @@ export class Individual2Component implements OnDestroy, OnInit {
       }
     } else {
     }
+  }
+
+
+
+  changePayerData() {
+    const data = {
+      type: 'change',
+      payer_type: 'individual',
+      nin: this.payer_data?.nin,
+      birth: this.payer_data?.birth,
+      data: this.payer_data
+    };
+    this.shared.setPayerMessage(data);
+    this.router.navigate(['/dashboard22/taxpayer'])
   }
 
   /////////////////////////////////////////////////////////////////////////////////

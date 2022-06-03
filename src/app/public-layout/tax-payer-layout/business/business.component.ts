@@ -72,6 +72,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
   feedback2!: Individual2;
   feedback3!: Business;
+  payer_data: any;
 
   loading2 = false;
   disabled2 = false;
@@ -181,6 +182,15 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.stateProfile = store.select(selectAllProfile);
 
     this.editDetails = this.shared.getPayerEditMessage();
+
+    const data = this.shared.getPayerMessage();
+    this.payer_data = data;
+    if (data == '' || data == undefined || data == null) {
+      this.router.navigate(['/dashboard22/taxpayer'])
+    }else{
+      this.payer_data = data;
+    }
+
   }
 
   createForm2() {
@@ -707,6 +717,21 @@ export class BusinessComponent implements OnDestroy, OnInit {
         );
     } // end else
   }
+
+
+  changePayerData() {
+    const data = {
+      type: 'change',
+      payer_type: 'company',
+      cac: this.payer_data?.cac,
+      data: this.payer_data
+    };
+    this.shared.setPayerMessage(data);
+    this.router.navigate(['/dashboard22/taxpayer'])
+  }
+
+
+  ///////////////////////////////////////////////////////////////
 
   initAnimations(): void {
     gsap.from(this.card.nativeElement.children, {

@@ -7,7 +7,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { DialogComponent } from '../../dialog/dialog.component';
 import { CAC, individual_create } from '../../shared/form';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-tax-payer-create',
@@ -57,6 +59,7 @@ export class TaxPayerCreateComponent implements OnInit {
     private httpService: HttpService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    public shared: ToggleNavService,
     private fb: FormBuilder
   ) {
     this.createForm();
@@ -97,6 +100,23 @@ export class TaxPayerCreateComponent implements OnInit {
       number or email provided.';
       }
     });
+
+    const data = this.shared.getPayerMessage();
+
+    if (data?.type == '' || data?.type == undefined || data?.type == null) {
+      this.shared.setPayerMessage('');
+    } else if(data?.type == 'change') {
+      if(data?.payer_type == 'individual') {
+        this.feedbackForm.patchValue({ nin: data?.nin });
+        this.feedbackForm.patchValue({ birth: data?.birth });
+      }
+      else {
+        this.feedbackForm2.patchValue({ cac: data?.cac });
+      }
+    }else{
+      this.shared.setPayerMessage('');
+    }
+
   }
 
   createForm() {
@@ -201,9 +221,12 @@ export class TaxPayerCreateComponent implements OnInit {
       this.disabled = true;
       this.feedback = this.feedbackForm.value;
       const data = {
-        cac: this.feedback.nin,
+        type: '',
+        payer_type: 'individual',
+        nin: this.feedback.nin,
         birth: this.feedback.birth,
       };
+      this.shared.setPayerMessage(data);
       this.feedbackFormDirective.resetForm();
       console.log(this.feedback);
       this.router.navigate(['dashboard22/taxpayer/ind/individual']);
@@ -237,8 +260,11 @@ export class TaxPayerCreateComponent implements OnInit {
       this.disabled2 = true;
       this.feedback2 = this.feedbackForm2.value;
       const data = {
+        type: '',
+        payer_type: 'company',
         cac: this.feedback2.cac,
       };
+      this.shared.setPayerMessage(data);
       this.feedbackFormDirective2.resetForm();
       console.log(this.feedback2);
       this.router.navigate(['dashboard22/taxpayer/non/business']);
@@ -246,6 +272,16 @@ export class TaxPayerCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  OpenDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
+  }
 
   changeActive(type: string) {
     this.active = type;
