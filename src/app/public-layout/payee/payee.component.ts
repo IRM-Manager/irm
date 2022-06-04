@@ -75,13 +75,13 @@ export class PayeeComponent implements OnDestroy, OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.company_payer[0].organisation_name
+        data.organisation_name
           .toLowerCase()
           .startsWith(search.toLowerCase()) ||
-        data.company_payer[0].org_phone
+        data.phone
           .toLowerCase()
           .startsWith(search.toLowerCase()) ||
-        this.formatDate(data.created_at).startsWith(search.toLowerCase())
+        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
     this.datas = data;

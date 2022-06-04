@@ -17,11 +17,11 @@
                 <span>Setup Employee <i class="fa fa-chevron-down"></i></span>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
+                <button mat-menu-item (click)="OpenDialog('', 'upload_file')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
                     <!-- <mat-icon>upload_file</mat-icon> -->
                     <span>Upload File</span>
                 </button>
-                <button mat-menu-item class="payee_button_menu">
+                <button mat-menu-item class="payee_button_menu" (click)="OpenDialog('', 'manual')">
                     <!-- <mat-icon>save_as</mat-icon> -->
                     <span>Manual Input</span>
                 </button>
@@ -67,10 +67,10 @@
                             <tr *ngFor="let data of datas; let i=index" (click)="goToEdit()">
                                 <td class="align-middle">{{i+1}}</td>
                                 <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.company_payer[0].organisation_name }}</td>
-                                <td class="align-middle">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.company_payer[0].org_phone }}</td>
-                                <td class="align-middle">{{ data.company_payer[0].org_email }}</td>
+                                <td class="align-middle">{{ data.organisation_name }}</td>
+                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle">{{ data.phone }}</td>
+                                <td class="align-middle">{{ data.email }}</td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">

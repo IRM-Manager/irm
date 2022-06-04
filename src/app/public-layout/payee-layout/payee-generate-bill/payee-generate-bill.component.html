@@ -63,8 +63,8 @@
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle">{{i+1}}</td>
                                 <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.company_payer[0].organisation_name }}</td>
-                                <td class="align-middle">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle">{{ data.organisation_name }}</td>
+                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle">
                                     <button mat-button class="paid">
                                         paid

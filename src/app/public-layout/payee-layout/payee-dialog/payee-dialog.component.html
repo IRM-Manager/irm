@@ -89,3 +89,98 @@
 
     </div>
 </div>
+
+
+<!-- upload file layout -->
+
+<div class="upload_file-dialog" *ngIf="data.type =='upload_file'">
+    <div class="upload_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+
+    <div mat-dialog-content>
+        <div class="upload_title">Upload Employee Data</div>
+        <div class="upload_sub_title">Upload Employeee in the accept format that clearly
+            shows the details and emumerations of employees
+        </div>
+        <div class="blue_title">Download file format here</div>
+
+        <div class="upload_choose">Download file format here</div>
+
+        <form [formGroup]="uploadForm" class="upload_form">
+            <p>
+                <mat-radio-group matInput formControlName="con">
+                    <p>
+                        <mat-radio-button value="true" class="radio_button">Consolidated</mat-radio-button>
+                    </p>
+                    <p>
+                        <mat-radio-button value="false" class="radio_button">Non- Consolidated</mat-radio-button>
+                    </p>
+                </mat-radio-group>
+            </p>
+        </form>
+
+        <div class="upload_container">
+            <input type="file" class="upload-file-input" (change)="onFileSelected($event)" #fileUpload accept=".csv" />
+
+            <div class="upload_csv" (click)="fileUpload.click()">
+                <div>
+                    <img src="assets/images/8726296_receipt_alt_icon.svg" alt="">
+                </div>
+                <div style="margin-left: 40px;">
+                    <div *ngIf="!fileName" class="browse_p">
+                        <span class="browse1">DRAG YOUR FILE HERE OR</span> <span class="browse2">BROWSE</span>
+                    </div>
+                    <div *ngIf="!fileName" class="supported">Supported file type: CSV</div>
+                    <div *ngIf="!fileName" class="file_size">The file size can be up to 20MB</div>
+                    <div *ngIf="fileName" class="file_name">{{fileName || "No file uploaded yet."}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="upload_continue_p">
+            <button mat-button class="upload_continue">Continue</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Manual upload layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'manual' ">
+    <div class="upload_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="manual_title">Softpattern Pattern Technology</div>
+    <div class="manual_tin">Tax ID: 34546678844</div>
+
+    <div mat-dialog-content class="manual_container">
+
+        <div>
+            <div class="manual_filling">Manual Employee filing</div>
+            <div class="manual_verify">Kindly verify the employee Tin before you proceed</div>
+
+            <form [formGroup]="manualForm" class="manual_form">
+
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>TIN</mat-label>
+                    <input matInput formControlName="tin">
+                </mat-form-field>
+
+                <button mat-button class="upload_continue">Continue</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>

@@ -8,6 +8,13 @@
         </div>
     </div>
 
+    <div class="header" *ngIf="update">
+        <div class="nin-text">Tin</div>
+        <div class="header-text">
+            <div class="nin-number">{{ editDetails?.data?.tin }}</div>
+        </div>
+    </div>
+
     <!-- session 1 -->
     <div class="session">
         <div class="session-header">Section 1: Personal Details</div>

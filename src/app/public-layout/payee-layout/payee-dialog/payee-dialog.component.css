@@ -23,7 +23,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   overflow: hidden;
-  background-image: url('/assets/images/Group512.svg');
+  background-image: url("/assets/images/Group512.svg");
 }
 
 .generate_left {
@@ -189,4 +189,250 @@
   font-weight: 500;
   color: #565656;
   opacity: 1;
+}
+
+/* Upload file css */
+
+.upload_file-dialog {
+  width: 40rem;
+  padding-left: 5rem;
+  margin-right: 3rem;
+}
+
+.upload_cancel_button {
+  text-align: right;
+  color: #2aa977;
+}
+
+.upload_title {
+  font: normal normal normal 16px/20px Montserrat;
+  font-weight: 550;
+  letter-spacing: 0px;
+  text-transform: capitalize;
+  margin-top: 10px;
+  color: #565656;
+  opacity: 1;
+}
+
+.upload_sub_title {
+  font: normal normal normal 14px/16px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: #565656;
+  margin-top: 5px;
+  opacity: 1;
+}
+
+.blue_title {
+  font: normal normal normal 14px/16px Montserrat;
+  font-weight: 550;
+  letter-spacing: 0px;
+  color: #3c66a3;
+  margin-top: 5px;
+  opacity: 1;
+}
+
+.upload_choose {
+  font: normal normal normal 14px/16px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 550;
+  color: #000000;
+  opacity: 1;
+  margin-top: 15px;
+}
+
+.upload_form {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #3c66a3;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #ffffff; /*inner circle color change*/
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #3c66a3; /*outer ring color change*/
+  background: #3c66a3;
+}
+
+.upload-file-input {
+  display: none;
+}
+
+.upload_csv {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border: 1px solid #707070;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.browse1 {
+  font: normal normal 600 14px/17px Montserrat;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.browse2 {
+  font: normal normal 600 14px/17px Montserrat;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  color: #3c66a3;
+  opacity: 1;
+  margin-left: 10px;
+}
+
+.supported {
+  font: normal normal normal 14px/17px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: #000000;
+  opacity: 1;
+}
+
+.file_size {
+  font: normal normal normal 14px/17px Montserrat;
+  letter-spacing: 0px;
+  color: #000000;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.file_name {
+  font: normal normal normal 18px/25px Montserrat;
+  letter-spacing: 0px;
+  color: #000000;
+  font-weight: 550;
+  opacity: 1;
+}
+
+.upload_continue_p {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.upload_continue {
+  background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 0.8rem;
+  width: 8rem;
+  text-align: center;
+  opacity: 1;
+  font: normal normal normal 14px/16px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Manual upload css */
+
+.manual_file-dialog {
+  width: 40rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.manual_title {
+  font: normal normal normal 16px/25px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: #3c66a3;
+  opacity: 1;
+}
+
+.manual_tin {
+  font: normal normal normal 15px/30px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: #565656;
+  opacity: 1;
+}
+
+.manual_container {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  background: #f5f7fa 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  padding: 1rem;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.manual_filling {
+  font: normal normal normal 17px/25px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #565656;
+  text-align: left;
+  opacity: 1;
+}
+
+.manual_verify {
+  font: normal normal normal 13px/19px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: #565656;
+  opacity: 1;
+}
+
+.half-width {
+  margin-right: 15px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #37a85d !important;
+  background-color: #FFFFFF !important;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #37a85d;
+}
+
+::ng-deep .mat-input-element {
+  caret-color: #37a85d;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #565656;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #565656;
+}
+
+::ng-deep .mat-form-field-underline,
+::ng-deep .mat-form-field-ripple {
+  background: #3c66a3;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #3c66a3;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #ffffff; /*inner circle color change*/
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #3c66a3; /*outer ring color change*/
+  background: #3c66a3;
 }

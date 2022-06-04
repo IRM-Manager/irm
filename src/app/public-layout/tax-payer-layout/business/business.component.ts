@@ -282,7 +282,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.feedbackForm3.get('website').reset();
     this.feedbackForm3.get('contact_num').reset();
     this.feedbackForm3.get('email').reset();
-    this.feedbackForm3.get('alt_num').reset();
+    this.feedbackForm3.get('company_type').reset();
   }
 
   streetError: any;
@@ -444,6 +444,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
       this.feedback2 = this.feedbackForm2.value;
       this.feedback3 = this.feedbackForm3.value;
+
       let data = {
         state_id: this.feedback2.state_red,
         lga_id: this.feedback2.lga_red,
@@ -457,6 +458,8 @@ export class BusinessComponent implements OnDestroy, OnInit {
         office_website_url: this.feedback3.website || '',
         phone: this.feedback3.contact_num,
         email: this.feedback3.email,
+        contact_phone: this.feedback2.contact,
+        contact_email: this.feedback2.contact_email,
         company_type: this.feedback3.company_type || '',
         address: this.feedback2.street,
         house_no: this.feedback2.house,

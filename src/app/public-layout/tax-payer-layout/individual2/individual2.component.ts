@@ -221,10 +221,9 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.stateProfile = store.select(selectAllProfile);
     this.stateInd = store.select(selectAllIndPayer);
     this.editDetails = this.shared.getPayerEditMessage();
-
     const data = this.shared.getPayerMessage();
     this.payer_data = data;
-    if (data == '' || data == undefined || data == null) {
+    if ((data == '' || data == undefined || data == null) && (this.editDetails == undefined || this.editDetails == '')) {
       this.router.navigate(['/dashboard22/taxpayer']);
     } else {
       this.payer_data = data;
@@ -581,7 +580,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     const feed1 = this.feedbackFormDirective1.invalid;
     const feed2 = this.feedbackFormDirective2.invalid;
 
-    if (feed1 || feed2) {
+    if (feed1) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',
@@ -595,17 +594,15 @@ export class Individual2Component implements OnDestroy, OnInit {
       this.feedback1 = this.feedbackForm1.value;
       this.feedback2 = this.feedbackForm2.value;
       let data: any = {
-        payer: {
-          address_state: this.feedback2.state_red,
-          address_lga: this.feedback2.lga_red,
-        },
+        state_id: this.feedback2.state_red,
+        lga_id: this.feedback2.lga_red,
         first_name: this.feedback1.firstname,
         middle_name: this.feedback1.middlename || '',
         gender: this.feedback1.gender,
         dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
         pob: this.feedback1.place,
-        state_origin: this.feedback1.state,
-        lga_origin: this.feedback1.lga,
+        state_origin: this.feedback1.state.split('|||')[1],
+        lga: this.feedback1.lga.split('|||')[1],
         nationality: this.feedback1.nationality,
         profession_trade: this.feedback1.trade,
         employment_category: this.floatLabelControl.value,
@@ -617,12 +614,23 @@ export class Individual2Component implements OnDestroy, OnInit {
         zipcode: this.feedback2.zipcode,
         employment_status: this.floatLabelControl.value,
       };
-      Object.assign(
-        data,
-        this.floatLabelControl.value == 'employed' ? this.includedFields : {}
-      );
-      console.log(data);
 
+      let previous_data = this.editDetails;
+      if (data.email == null || data.email == undefined || previous_data.data.email == this.feedback1.contact_email) {
+        // slice email
+        Array.prototype.slice.call(data, 14);
+      }
+      if (data.phone == null || data.phone == undefined || previous_data.data.phone == this.feedback1.contact) {
+        // slice phone
+        Array.prototype.slice.call(data, 12);
+      }
+      // Object.assign(
+      //   data,
+      //   this.feedback1.contact_email == null ? '' : {email: this.feedback1.contact_email}
+      // );
+
+      // dont forget to add the feed2
+      console.log(data);
       this.httpService
         .UpdatePayer('individual', this.editDetails.data.payer.id, data)
         .subscribe(
@@ -787,13 +795,13 @@ export class Individual2Component implements OnDestroy, OnInit {
       if (this.editDetails.type == 'ind') {
         this.update = true;
         const data = this.editDetails;
-        console.log(data);
-        this.feedbackForm1.controls['state'].patchValue(
-          data.data.state_origin.id
-        );
-        this.feedbackForm2.controls['state_red'].patchValue(
-          data.data.payer.address_state.id
-        );
+        console.log('edit details', data);
+        // this.feedbackForm1.controls['state'].patchValue(
+        //   data.data.state_origin.id
+        // );
+        // this.feedbackForm2.controls['state_red'].patchValue(
+        //   data.data.state_id.id
+        // );
         this.feedbackForm1.patchValue({ firstname: data.data.first_name });
         this.feedbackForm1.patchValue({ surname: data.data.surname });
         this.feedbackForm1.patchValue({
@@ -802,7 +810,7 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm1.patchValue({ gender: data.data.gender });
         this.feedbackForm1.patchValue({ birth: data.data.dob });
         this.feedbackForm1.patchValue({ place: data.data.pob });
-        this.feedbackForm1.controls['lga'].patchValue(data.data.lga_origin.id);
+        // this.feedbackForm1.controls['lga'].patchValue(data.data.lga.id);
         this.feedbackForm1.patchValue({ nationality: data.data.nationality });
         this.feedbackForm1.patchValue({ trade: data.data.profession_trade });
         this.feedbackForm1.patchValue({ contact: data.data.phone });
@@ -810,9 +818,9 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm2.patchValue({ street: data.data.address });
         this.feedbackForm2.patchValue({ house: data.data.house_no });
         this.feedbackForm2.patchValue({ zipcode: data.data.zipcode });
-        this.feedbackForm2.controls['lga_red'].patchValue(
-          data.data.payer.address_lga.id
-        );
+        // this.feedbackForm2.controls['lga_red'].patchValue(
+        //   data.data.lga_id.id
+        // );
         this.floatLabelControl = new FormControl(data.data.employment_status);
       }
     } else {

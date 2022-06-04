@@ -233,13 +233,13 @@ export class DialogComponent implements OnInit {
 
   EditPayerDetails(data: any, type: string) {
     if (type == 'ind') {
-      this.dialogRef.close();
       this.shared.setPayerEditMessage({ data: data, type: 'ind' });
-      this.router.navigate(['/dashboard2/taxpayer/ind/individual']);
-    } else {
       this.dialogRef.close();
+      this.router.navigate(['/dashboard22/taxpayer/ind/individual']);
+    } else {
       this.shared.setPayerEditMessage({ data: data, type: 'com' });
-      this.router.navigate(['/dashboard2/taxpayer/non/business']);
+      this.dialogRef.close();
+      this.router.navigate(['/dashboard22/taxpayer/non/business']);
     }
   }
 

@@ -17,6 +17,18 @@ $radio-color: #3c66a3;
     opacity: 1;
     padding: 3rem;
 
+    .back {
+      margin-bottom: 1.5rem;
+      color: $soft-pattern-color;
+      font: $soft-pattern-font;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  
+    .back mat-icon {
+      vertical-align: middle;
+    }
+
     .soft_pattern {
       font: $soft-pattern-font;
       letter-spacing: 0px;

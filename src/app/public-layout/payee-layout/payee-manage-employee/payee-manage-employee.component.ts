@@ -1,20 +1,19 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer } from '../../../models/irm';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import { AddComPayer } from '../../../actions/irm.action';
+import { ComPayer } from '../../../models/irm';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { PayeeDialogComponent } from '../payee-dialog/payee-dialog.component';
 
 @Component({
   selector: 'app-payee-manage-employee',
@@ -74,13 +73,13 @@ export class PayeeManageEmployeeComponent implements OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.company_payer[0].organisation_name
+        data.organisation_name
           .toLowerCase()
           .startsWith(search.toLowerCase()) ||
-        data.company_payer[0].org_phone
+        data.phone
           .toLowerCase()
           .startsWith(search.toLowerCase()) ||
-        this.formatDate(data.created_at).startsWith(search.toLowerCase())
+        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -103,11 +102,11 @@ export class PayeeManageEmployeeComponent implements OnInit {
       } else {
         this.httpService.GetPayerList('companypayers').subscribe(
           (data: any) => {
-              this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-              this.datas = data.data;
-              this.searchData = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
+            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
+            this.datas = data.data;
+            this.searchData = data.data;
+            this.dtTrigger.next;
+            this.isLoading = false;
           },
           (err) => {
             this.isLoading = false;
@@ -131,7 +130,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
 
   OpenDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(PayeeDialogComponent, {
       data: {
         type: type,
         data: data,
@@ -140,7 +139,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
   }
 
   goToEdit() {
-    this.router.navigate(['/dashboard3/taxpayer/payee/manage-edit'])
+    this.router.navigate(['/dashboard3/taxpayer/payee/manage-edit']);
   }
 
   formatMoney(n: any) {
