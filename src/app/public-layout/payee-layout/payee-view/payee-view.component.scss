@@ -110,6 +110,10 @@ $white: #ffffff;
     opacity: 1;
     vertical-align: middle;
     padding: 15px;
+    height: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
   }
 
   .title2 {
@@ -121,6 +125,10 @@ $white: #ffffff;
     vertical-align: middle;
     text-transform: uppercase;
     padding: 15px;
+    height: 2rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
   }
 }
 
