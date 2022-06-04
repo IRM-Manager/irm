@@ -618,6 +618,7 @@ export class Individual2Component implements OnDestroy, OnInit {
       let previous_data = this.editDetails;
       if (data.email == null || data.email == undefined || previous_data.data.email == this.feedback1.contact_email) {
         // slice email
+        console.log("eeeeeeeeeeeeeeeeee")
         Array.prototype.slice.call(data, 14);
       }
       if (data.phone == null || data.phone == undefined || previous_data.data.phone == this.feedback1.contact) {
