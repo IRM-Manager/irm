@@ -11,6 +11,7 @@ $radio-color: #3c66a3;
   background: $wrapper-back;
   overflow: auto;
   min-height: 100vh;
+  padding-left: 20px;
 
   .header {
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -137,6 +138,10 @@ $radio-color: #3c66a3;
     opacity: 1;
     vertical-align: middle;
     padding: 15px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 2rem;
   }
 
   .title:nth-child(even),
@@ -152,6 +157,10 @@ $radio-color: #3c66a3;
     opacity: 1;
     vertical-align: middle;
     padding: 15px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 2rem;
   }
 
   .radio_button {

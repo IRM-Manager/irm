@@ -177,7 +177,8 @@
                     <input matInput formControlName="tin">
                 </mat-form-field>
 
-                <button mat-button class="upload_continue">Continue</button>
+                <button mat-button class="upload_continue" mat-dialog-close
+                    [routerLink]="['/dashboard3/taxpayer/payee/manual-input']">Continue</button>
             </form>
         </div>
 

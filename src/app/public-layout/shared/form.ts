@@ -47,6 +47,16 @@ export interface Individual2 {
   contact: string;
 }
 
+export interface manual {
+  tin: string;
+  name: string;
+  date: string;
+  position: string;
+  company_name: string;
+  year: string;
+}
+
+
 // export interface Individual3 {
 //   company_name: string;
 //   company_house_no: string;

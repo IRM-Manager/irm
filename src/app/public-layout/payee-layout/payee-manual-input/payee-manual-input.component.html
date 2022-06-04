@@ -1,29 +1,66 @@
 <div class="wrapper">
+    <div class="header_p">
+        Employee Basic details
+    </div>
     <div class="header">
-
         <p class="back" [routerLink]="['/dashboard3/taxpayer/payee/manage']">
             <mat-icon>keyboard_backspace</mat-icon> Back
         </p>
 
-        <div class="header-container">
-            <div class="soft_pattern">Matthew Adeboye</div>
-            <div class="reg_buss">Tax ID: 34546678844</div>
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm">
 
-            <div class="button-container">
-                <div *ngIf="!type">
-                    <button class="blue-button" mat-button (click)="changeType(true)">Edit</button>
-                    <button class="blue-button" mat-button>Print</button>
-                </div>
-                <div *ngIf="type">
-                    <button class="blue-button" mat-button>Save</button>
-                    <button class="blue-button" mat-button (click)="changeType(false)">Discard</button>
-                </div>
-                <div>
-                    <button class="red-button" mat-button>Delete</button>
-                </div>
-            </div>
+            <p>
+                <!-- TIN -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>(Tax Payer) of employee</mat-label>
+                    <input matInput formControlName="tin" required type="tel">
+                    <mat-error>{{formErrors.tin}}</mat-error>
+                </mat-form-field>
 
-        </div>
+                <!-- Names of employees -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Names of employees</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error>{{formErrors.name}}</mat-error>
+                </mat-form-field>
+
+                <!-- Year of Employment -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Year of Employment</mat-label>
+                    <input matInput formControlName="date" [matDatepicker]="picker" placeholder="DD/MM/YY" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>{{formErrors.date}}</mat-error>
+                </mat-form-field>
+
+                <!-- Position (optional) -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Position (optional)</mat-label>
+                    <input matInput formControlName="position">
+                </mat-form-field>
+
+            </p>
+
+            <!-- Current employer -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Current employer</mat-label>
+                <input matInput formControlName="company_name" required>
+                <mat-error>{{formErrors.company_name}}</mat-error>
+            </mat-form-field>
+
+            <!-- Filing Year -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Filing Year</mat-label>
+                <mat-select matInput formControlName="year">
+                    <mat-option value="2000">2000</mat-option>
+                    <mat-option value="2001">2001</mat-option>
+                </mat-select>
+                <mat-error>{{formErrors.year}}</mat-error>
+            </mat-form-field>
+
+        </form>
+
+
     </div>
 
     <!-- table container -->
@@ -51,7 +88,12 @@
                             </mat-radio-group>
                         </form>
                     </div>
-                    <div class="sub-title">100,000</div>
+                    <div class="sub-title">
+                        <form>
+                            <input [ngModel]="consolidate" (ngModelChange)="modelChange($event)" name="consolidate"
+                                type="text" class="consolidate_input">
+                        </form>
+                    </div>
                     <div class="sub-title">100,000 (NGN)</div>
                     <div class="sub-title">8,000 (NGN)</div>
                     <div class="sub-title">100,000 (NGN)</div>
@@ -80,8 +122,7 @@
                                 <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
                                 <mat-radio-button value="false">No</mat-radio-button>
                             </mat-radio-group>
-                            <!-- <span style="margin-left: 4px;">0.00 (NGN)</span>
-                            <span style="margin-left: 10px;">0.00 (NGN)</span> -->
+                            <span style="margin-left: 10px;">0.00 (NGN)</span>
                         </form>
                     </div>
                     <div class="sub-title">
@@ -90,8 +131,7 @@
                                 <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
                                 <mat-radio-button value="false">No</mat-radio-button>
                             </mat-radio-group>
-                            <!-- <span style="margin-left: 4px;">0.00 (NGN)</span>
-                            <span style="margin-left: 10px;">0.00 (NGN)</span> -->
+                            <span style="margin-left: 10px;">0.00 (NGN)</span>
                         </form>
                     </div>
                     <div class="sub-title">0.00</div>
@@ -103,6 +143,18 @@
         </div>
 
         <div style="clear: both; padding-top: 3rem;"></div>
+
+        <div class="continue_p">
+            <button mat-button class="continue" (click)="onSubmit()">
+                <span *ngIf="!loading">Save</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </div>
 
     </div>
 

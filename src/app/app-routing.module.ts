@@ -110,6 +110,13 @@ const routes: Routes = [
           ).then((m) => m.PayeeManageEditModule),
       },
       {
+        path: 'dashboard3/taxpayer/payee/manual-input',
+        loadChildren: () =>
+          import(
+            './public-layout/payee-layout/payee-manual-input/payee-manual-input.module'
+          ).then((m) => m.PayeeManualInputModule),
+      },
+      {
         path: 'dashboard3/taxpayer/payee/lists-view',
         loadChildren: () =>
           import(

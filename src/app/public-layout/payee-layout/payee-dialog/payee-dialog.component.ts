@@ -64,7 +64,7 @@ export class PayeeDialogComponent implements OnInit {
 
   createUploadForm() {
     this.uploadForm = this.fb.group({
-      con: [true],
+      con: [{ value: 'true', disabled: false }],
     });
   }
 
