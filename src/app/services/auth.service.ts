@@ -1,13 +1,13 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
-import { catchError, mapTo, retry, tap } from 'rxjs/operators';
-import { BaseUrl } from 'src/environments/environment';
-import { Tokens } from 'src/app/public-layout/shared/form';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
-import { ToggleNavService } from '../public-layout/sharedService/toggle-nav.service';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable, of } from 'rxjs';
+import { catchError, mapTo, tap } from 'rxjs/operators';
+import { Tokens } from 'src/app/public-layout/shared/form';
+import { BaseUrl } from 'src/environments/environment';
+import { ToggleNavService } from '../public-layout/sharedService/toggle-nav.service';
 
 @Injectable({
   providedIn: 'root',

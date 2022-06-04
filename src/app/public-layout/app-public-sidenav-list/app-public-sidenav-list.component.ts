@@ -3,19 +3,18 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { Profile } from '../../models/irm';
+import { Observable, Subscription } from 'rxjs';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
-import { AddProfile } from '../../actions/irm.action';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { AddProfile } from '../../actions/irm.action';
+import { Profile } from '../../models/irm';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-app-public-sidenav-list',

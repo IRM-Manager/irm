@@ -1,31 +1,31 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  MatDialogRef,
   MatDialog,
+  MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpService } from 'src/app/services/http.service';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { IndPayer, ComPayer, Year } from '../../models/irm';
+import { Observable } from 'rxjs';
 import {
   AppState,
-  selectAllIndPayer,
   selectAllComPayer,
+  selectAllIndPayer,
   selectAllYear,
 } from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
 import {
-  AddIndPayer,
-  RemoveIndPayer,
   AddComPayer,
-  RemoveComPayer,
+  AddIndPayer,
   AddYear,
+  RemoveComPayer,
+  RemoveIndPayer,
 } from '../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { ComPayer, IndPayer, Year } from '../../models/irm';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-dialog',
@@ -134,9 +134,39 @@ export class DialogComponent implements OnInit {
       (data: any) => {
         this.isdelete = false;
         if (this.data.data?.organisation_name) {
+          let datas: any = [];
+          let indexx;
+          this.stateComPayer.forEach((e) => {
+            if (e.length > 0) {
+              let x = e[0].data;
+              x.filter((data: any, index: any) => {
+                if (data.id == this.data.data.id) {
+                  indexx = index;
+                }
+              });
+              datas.push(x);
+            }
+          });
+          datas[0].splice(indexx, 1);
           this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
+          this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
         } else {
+          let datas: any = [];
+          let indexx;
+          this.stateIndPayer.forEach((e) => {
+            if (e.length > 0) {
+              let x = JSON.parse(JSON.stringify(e[0].data));
+              x.filter((data: any, index: any) => {
+                if (data.id == this.data.data.id) {
+                  indexx = index;
+                }
+              });
+              datas.push(x);
+            }
+          });
+          datas[0].splice(indexx, 1);
           this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
+          this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
         }
         this.snackBar.open('TaxPayer successfully deleted', '', {
           duration: 3000,
@@ -149,7 +179,7 @@ export class DialogComponent implements OnInit {
       (err) => {
         console.log(err);
         this.isdelete = false;
-        this.snackBar.open(err.error.detail || 'Error deleting TaxPayer', '', {
+        this.snackBar.open(err.error.detail || err.error.msg || 'Error deleting TaxPayer', '', {
           duration: 5000,
           panelClass: 'error',
           horizontalPosition: 'center',

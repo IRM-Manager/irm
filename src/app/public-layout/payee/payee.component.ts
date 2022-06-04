@@ -1,25 +1,21 @@
 import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewEncapsulation,
+  Component, OnDestroy, OnInit, ViewEncapsulation
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer } from '../../models/irm';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import { AddComPayer } from '../../actions/irm.action';
+import { ComPayer } from '../../models/irm';
 import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-payee',

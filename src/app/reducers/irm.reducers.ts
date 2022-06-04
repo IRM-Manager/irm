@@ -1,15 +1,11 @@
-import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  Profile,
-  States,
-  Year,
-  IndPayer,
-  ComPayer,
-  Payee,
-} from '../models/irm';
-import * as KonpayActions from '../actions/irm.action';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import * as KonpayActions from '../actions/irm.action';
 import { Actions } from '../actions/irm.action';
+import {
+  ComPayer, IndPayer, Payee, Profile,
+  States,
+  Year
+} from '../models/irm';
 
 interface ProfileState extends EntityState<Profile> {
   total: number;

@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core'
 import { Action } from '@ngrx/store';
-import { Profile, States, Year, IndPayer, ComPayer, Payee } from '../models/irm';
+import { ComPayer, IndPayer, Payee, Profile, States, Year } from '../models/irm';
 
 
 

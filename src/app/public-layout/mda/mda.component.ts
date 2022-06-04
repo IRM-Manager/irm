@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpService } from 'src/app/services/http.service';
 import { Location } from '@angular/common';
-import { Tin, MDA } from '../shared/form';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/services/auth.service';
 import { map, Observable, startWith } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { MDA, Tin } from '../shared/form';
 
 @Component({
   selector: 'app-mda',
@@ -151,8 +151,6 @@ export class MDAComponent implements OnInit {
     }
   }
 
-
-  
 
   onSubmit() {
 

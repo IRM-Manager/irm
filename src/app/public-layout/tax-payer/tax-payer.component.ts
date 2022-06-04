@@ -1,34 +1,24 @@
 import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation,
+  Component, OnDestroy, OnInit, ViewEncapsulation
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { IndPayer, ComPayer } from '../../models/irm';
+import { Observable, Subject } from 'rxjs';
 import {
-  AppState,
-  selectAllIndPayer,
-  selectAllComPayer,
+  AppState, selectAllComPayer, selectAllIndPayer
 } from 'src/app/reducers/index';
-import {
-  AddIndPayer,
-  RemoveIndPayer,
-  AddComPayer,
-  RemoveComPayer,
-} from '../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  AddComPayer, AddIndPayer
+} from '../../actions/irm.action';
+import { ComPayer, IndPayer } from '../../models/irm';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-tax-payer',
@@ -108,13 +98,13 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       const data = this.searchData2?.filter((data: any) => {
         return (
           data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-          data.company_payer[0].organisation_name
+          data.organisation_name
             .toLowerCase()
             .startsWith(search.toLowerCase()) ||
-          data.company_payer[0].org_phone
+          data.phone
             .toLowerCase()
             .startsWith(search.toLowerCase()) ||
-          this.formatDate(data.created_at).startsWith(search.toLowerCase())
+          this.formatDate(data?.created_at).startsWith(search.toLowerCase())
         );
       });
       this.datas = data;
@@ -122,22 +112,22 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       const data = this.searchData?.filter((data: any) => {
         return (
           data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-          data.individual_payer[0].profession_trade
+          data.profession_trade
             .toLowerCase()
             .startsWith(search.toLowerCase()) ||
-          data.individual_payer[0].phone
+          data.phone
             .toLowerCase()
             .startsWith(search.toLowerCase()) ||
-          data.individual_payer[0].first_name.startsWith(
+          data.first_name.startsWith(
             search.toLowerCase()
           ) ||
-          data.individual_payer[0].surname
+          data.surname
             .toLowerCase()
             .startsWith(search.toLowerCase()) ||
-          data.individual_payer[0].middle_name
+          data.middle_name
             .toLowerCase()
             .startsWith(search.toLowerCase()) ||
-          this.formatDate(data.created_at).startsWith(search.toLowerCase())
+          this.formatDate(data?.created_at).startsWith(search.toLowerCase())
         );
       });
       this.datas = data;
@@ -204,6 +194,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       });
     }
   }
+
 
   ngOnInit(): void {
     this.authService.checkExpired();

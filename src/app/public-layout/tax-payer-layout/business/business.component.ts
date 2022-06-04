@@ -1,60 +1,46 @@
+import { DatePipe, Location } from '@angular/common';
 import {
   Component,
   ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
+  FormBuilder, FormControl, FormGroup, Validators
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+// state management
+import { Store } from '@ngrx/store';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  ReplaySubject,
-  Subject,
-  filter,
-  tap,
-  takeUntil,
-  debounceTime,
-  map,
-  delay,
+  debounceTime, delay, filter, map, Observable, ReplaySubject,
+  Subject, takeUntil, tap
 } from 'rxjs';
+import {
+  AppState, selectAllComPayer, selectAllProfile, selectAllStates
+} from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { Location, DatePipe } from '@angular/common';
+import {
+  AddComPayer, AddStates,
+  RemoveComPayer
+} from '../../../actions/irm.action';
+import { ComPayer, Profile, States } from '../../../models/irm';
+import { DialogComponent } from '../../dialog/dialog.component';
 import {
   Business,
   Individual2,
   LGA,
   lgaLogo,
   STATE,
-  stateLogo,
+  stateLogo
 } from '../../shared/form';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/services/auth.service';
-// state management
-import { Store } from '@ngrx/store';
-import { States, Profile, ComPayer } from '../../../models/irm';
-import {
-  AppState,
-  selectAllStates,
-  selectAllProfile,
-  selectAllComPayer,
-} from 'src/app/reducers/index';
-import {
-  AddStates,
-  RemoveComPayer,
-  AddComPayer,
-} from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-import { Router } from '@angular/router';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 

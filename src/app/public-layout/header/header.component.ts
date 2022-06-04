@@ -2,29 +2,24 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpService } from 'src/app/services/http.service';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { Profile, States, Year, IndPayer, ComPayer } from '../../models/irm';
-import {
-  AppState,
-  selectAllProfile,
-  selectAllStates,
-  selectAllYear,
-  selectAllIndPayer,
-  selectAllComPayer,
-} from 'src/app/reducers/index';
-import {
-  AddProfile,
-  AddStates,
-  AddYear,
-  AddIndPayer,
-  AddComPayer,
-} from '../../actions/irm.action';
 import { Observable, Subscription } from 'rxjs';
+import {
+  AppState, selectAllComPayer, selectAllIndPayer, selectAllProfile,
+  selectAllStates,
+  selectAllYear
+} from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import {
+  AddComPayer, AddIndPayer, AddProfile,
+  AddStates,
+  AddYear
+} from '../../actions/irm.action';
+import { ComPayer, IndPayer, Profile, States, Year } from '../../models/irm';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-header',

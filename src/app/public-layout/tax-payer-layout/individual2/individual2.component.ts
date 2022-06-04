@@ -1,17 +1,42 @@
+import { DatePipe, Location } from '@angular/common';
 import {
   Component,
   ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
+  FormBuilder, FormControl, FormGroup, Validators
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+// state management
+import { Store } from '@ngrx/store';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  debounceTime,
+  delay,
+  filter,
+  map, Observable, ReplaySubject,
+  Subject,
+  takeUntil,
+  tap
+} from 'rxjs';
+import {
+  AppState, selectAllIndPayer, selectAllProfile, selectAllStates
+} from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import {
+  AddIndPayer, AddStates,
+  RemoveIndPayer
+} from '../../../actions/irm.action';
+import { IndPayer, Profile, States } from '../../../models/irm';
+import { DialogComponent } from '../../dialog/dialog.component';
 import {
   Individual1,
   Individual2,
@@ -19,43 +44,9 @@ import {
   lgaLogo,
   NIN,
   STATE,
-  stateLogo,
+  stateLogo
 } from '../../shared/form';
-import { Location, DatePipe } from '@angular/common';
-import {
-  debounceTime,
-  delay,
-  filter,
-  map,
-  ReplaySubject,
-  Subject,
-  takeUntil,
-  tap,
-} from 'rxjs';
-import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/services/auth.service';
-// state management
-import { Store } from '@ngrx/store';
-import { States, Profile, IndPayer } from '../../../models/irm';
-import {
-  AppState,
-  selectAllStates,
-  selectAllProfile,
-  selectAllIndPayer,
-} from 'src/app/reducers/index';
-import {
-  AddStates,
-  RemoveIndPayer,
-  AddIndPayer,
-} from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-import { Router } from '@angular/router';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 

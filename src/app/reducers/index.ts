@@ -1,7 +1,7 @@
 import {
   ActionReducerMap,
   createFeatureSelector,
-  createSelector,
+  createSelector
 } from '@ngrx/store';
 import * as fromExample from './irm.reducers';
 

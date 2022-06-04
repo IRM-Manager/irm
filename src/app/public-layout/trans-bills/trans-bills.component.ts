@@ -1,32 +1,32 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Subscription } from 'rxjs';
-import { Person2, Tin } from '../shared/form';
+import {
+  Component,
+  OnInit, ViewChild, ViewEncapsulation
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer } from '../../models/irm';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import { ComPayer } from '../../models/irm';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Person2, Tin } from '../shared/form';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-trans-bills',
   templateUrl: './trans-bills.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./trans-bills.component.scss']
+  styleUrls: ['./trans-bills.component.scss'],
 })
 export class TransBillsComponent implements OnInit {
-
   @ViewChild('fform') feedbackFormDirective: any;
   @ViewChild('fformsearch') searchFormDirective: any;
 
@@ -54,104 +54,112 @@ export class TransBillsComponent implements OnInit {
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
   private helper = new JwtHelperService();
 
-  formErrors: any = {
-  };
+  formErrors: any = {};
 
-  validationMessages: any = {
-  };
+  validationMessages: any = {};
 
-  constructor(private router: Router, private direct: ActivatedRoute, private fb: FormBuilder,
-    private authService: AuthService, private http: HttpClient, private dialog: MatDialog,
-    public shared: ToggleNavService, private httpService: HttpService, private store: Store<AppState>,
-    private snackBar: MatSnackBar) {
+  constructor(
+    private router: Router,
+    private direct: ActivatedRoute,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    public shared: ToggleNavService,
+    private httpService: HttpService,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar
+  ) {
+    this.authService.checkExpired();
+    this.createForm();
+    this.createSearchForm();
+    this.trackSearchField();
 
-      this.authService.checkExpired();
-      this.createForm();
-      this.createSearchForm();
-      this.trackSearchField();
+    this.stateComPayer = store.select(selectAllComPayer);
 
-      this.stateComPayer = store.select(selectAllComPayer);
-
-      this.direct.paramMap.subscribe(params => {
-        if (params.get('id') === '' || params.get('id') === undefined || params.get('id') === null) {
+    this.direct.paramMap.subscribe((params) => {
+      if (
+        params.get('id') === '' ||
+        params.get('id') === undefined ||
+        params.get('id') === null
+      ) {
+      } else {
+        if (params.get('id') == 'staff-income') {
+          this.viewMode = 'staff-income';
+        } else {
         }
-        else {
-          if (params.get('id') == 'staff-income') {
-            this.viewMode = 'staff-income';
-          }
-          else {}
-        }
-      })
-      
-      this.data2 = this.shared.getMessage2();
-      if (this.shared.getMessage2() == undefined || this.shared.getMessage2() == null) {
-        this.router.navigate(['dashboard3/taxpayer/payee'])
-      }else {}
+      }
+    });
 
-      this.clickEventSubscription = this.shared.PayeegetClickEvent().subscribe((data: any) => {
+    this.data2 = this.shared.getMessage2();
+    if (
+      this.shared.getMessage2() == undefined ||
+      this.shared.getMessage2() == null
+    ) {
+      this.router.navigate(['dashboard3/taxpayer/payee']);
+    } else {
+    }
+
+    this.clickEventSubscription = this.shared
+      .PayeegetClickEvent()
+      .subscribe((data: any) => {
         this.viewMode = data.type;
-      })
-
+      });
   }
 
   formatDate(data: any) {
     var d = new Date(data),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
   }
 
-
   keyPress(search: any) {
     const data = this.searchData?.filter((data: any) => {
-      return data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-      data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-      data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||
-      this.formatDate(data.payer.created_at).startsWith(search.toLowerCase())
-    })
-    console.log(data)
+      return (
+        data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||
+        this.formatDate(data.payer.created_at).startsWith(search.toLowerCase())
+      );
+    });
+    console.log(data);
     this.datas = data;
   }
 
-
   createSearchForm() {
     this.SearchForm = this.fb.group({
-        search: ['']
-      },
-    );
+      search: [''],
+    });
   }
 
   trackSearchField(): void {
-    this.SearchForm.get('search')
-      .valueChanges
-      .subscribe((field: string) => {
-        if(field === undefined) {
-        }else {
-          this.keyPress(field)
-        }
-      }); 
+    this.SearchForm.get('search').valueChanges.subscribe((field: string) => {
+      if (field === undefined) {
+      } else {
+        this.keyPress(field);
+      }
+    });
   }
-
 
   createForm() {
     this.feedbackForm = this.fb.group({
-        tin: ['']
-      },
+      tin: [''],
+    });
+    this.feedbackForm.valueChanges.subscribe((data: any) =>
+      this.onValueChanged(data)
     );
-    this.feedbackForm.valueChanges
-      .subscribe((data: any) => this.onValueChanged(data));
     this.onValueChanged(); // (re)set validation messages now
   }
 
-
   onValueChanged(data?: any) {
-    if (!this.feedbackForm) { return; }
+    if (!this.feedbackForm) {
+      return;
+    }
     const form = this.feedbackForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
@@ -170,60 +178,54 @@ export class TransBillsComponent implements OnInit {
     }
   }
 
-
   onSubmit() {
-
-    this.loading = true
-    this.disabled = true
+    this.loading = true;
+    this.disabled = true;
     this.feedback = this.feedbackForm.value;
 
-    this.httpService.GetPayerTin(this.feedback.tin)
-    .subscribe(
+    this.httpService.GetPayerTin(this.feedback.tin).subscribe(
       (data: any) => {
-        this.loading = false
+        this.loading = false;
         this.disabled = false;
-        if (data.data.payer.payer_type == "company") {
-            const datas = {
-              type: 'staff-income',
-              is_type: false,
-            }
-            this.OpenDialog(data.data, 'payee')
-        }
-        else {
-          this.snackBar.open("Not A Registered Business Taxpayer", "", {
+        if (data.data.payer.payer_type == 'company') {
+          const datas = {
+            type: 'staff-income',
+            is_type: false,
+          };
+          this.OpenDialog(data.data, 'payee');
+        } else {
+          this.snackBar.open('Not A Registered Business Taxpayer', '', {
             duration: 5000,
-            panelClass: "error",
-            horizontalPosition: "center",
-            verticalPosition: "top",
+            panelClass: 'error',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
           });
         }
       },
-      err => {
-        this.loading = false
+      (err) => {
+        this.loading = false;
         this.disabled = false;
         this.authService.refreshToken();
-        console.log(err)
+        console.log(err);
         if (err.status === 404) {
-          this.snackBar.open("Tin or Tax ID does not exists", "", {
+          this.snackBar.open('Tin or Tax ID does not exists', '', {
             duration: 5000,
-            panelClass: "error",
-            horizontalPosition: "center",
-            verticalPosition: "top",
+            panelClass: 'error',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
           });
-        }
-        else {
-          this.snackBar.open('Error', "", {
+        } else {
+          this.snackBar.open('Error', '', {
             duration: 5000,
-            panelClass: "error",
-            horizontalPosition: "center",
-            verticalPosition: "top",
+            panelClass: 'error',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
           });
         }
       }
-    )
+    );
     // end of subscribe
   }
-
 
   // renderTable() {
   //   this.dtOptions = {
@@ -259,16 +261,16 @@ export class TransBillsComponent implements OnInit {
   //           }
   //         )
   //       }
-  //     }) 
+  //     })
   // }
 
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
+      pageLength: 10,
     };
     this.datas = Person2;
-    this.dtTrigger.next
+    this.dtTrigger.next;
   }
 
   ngOnInit(): void {
@@ -282,20 +284,18 @@ export class TransBillsComponent implements OnInit {
     this.is_reload = false;
   }
 
-
   OpenDialog(data: any, type: string) {
-      this.snackBar.dismiss()
-      let dialogRef = this.dialog.open(DialogComponent, {
-        data: {
-          type: type,
-          data: data
-        }
-      });
+    this.snackBar.dismiss();
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
   }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
 }
