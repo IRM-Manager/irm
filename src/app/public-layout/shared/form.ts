@@ -47,15 +47,15 @@ export interface Individual2 {
   contact: string;
 }
 
-export interface Individual3 {
-  company_name: string;
-  company_house_no: string;
-  company_estate_street: string;
-  company_country: string;
-  company_state: string;
-  company_lga: string;
-  company_zipcode: string;
-}
+// export interface Individual3 {
+//   company_name: string;
+//   company_house_no: string;
+//   company_estate_street: string;
+//   company_country: string;
+//   company_state: string;
+//   company_lga: string;
+//   company_zipcode: string;
+// }
 
 export interface Business {
   org_name: string;
@@ -64,7 +64,7 @@ export interface Business {
   date_est: string;
   contact_num: string;
   email: string;
-  alt_num: string;
+  company_type: string;
   website: string;
 }
 

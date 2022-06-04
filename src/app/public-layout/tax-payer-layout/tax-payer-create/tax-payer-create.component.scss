@@ -33,8 +33,8 @@ $verify-hover-box: 0px 3px 6px #00000029;
 .wrapper {
   background: $wrapper-back;
   overflow: auto;
-  //   min-height: 100vh;
-  padding-left: 20px;
+    min-height: 100vh;
+  // padding-left: 20px;
 
   .header {
     //   background: $header-back;

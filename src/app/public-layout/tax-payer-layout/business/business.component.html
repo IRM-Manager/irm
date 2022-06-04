@@ -66,8 +66,13 @@
                 </mat-form-field>
                 <!-- alt_num -->
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Alt.contact number</mat-label>
-                    <input matInput formControlName="alt_num" type="tel">
+                    <mat-label>Company Type</mat-label>
+                    <mat-select matInput formControlName="company_type">
+                        <mat-option value="formal">Formal</mat-option>
+                        <mat-option value="informal">Informal</mat-option>
+                        <mat-error>{{formErrors.company_type}}</mat-error>
+                        <mat-hint *ngIf="company_typeError" class="hint-error">{{company_typeError}}</mat-hint>
+                    </mat-select>
                 </mat-form-field>
             </p>
             <p>

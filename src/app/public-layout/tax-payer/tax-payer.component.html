@@ -53,12 +53,12 @@
                     <tr *ngFor="let data of datas; let i=index">
                         <td class="align-middle">{{i+1}}</td>
                         <td class="align-middle">{{ data.tin }}</td>
-                        <td class="align-middle">{{ data?.individual_payer[0]?.surname }} {{
-                            data?.individual_payer[0]?.first_name }}
-                            {{ data?.individual_payer[0]?.middle_name }}
+                        <td class="align-middle">{{ data.surname }} {{
+                            data.first_name }}
+                            {{ data.middle_name }}
                         </td>
-                        <td class="align-middle">{{ data?.individual_payer[0]?.profession_trade }}</td>
-                        <td class="align-middle">{{ data?.individual_payer[0]?.phone }}</td>
+                        <td class="align-middle">{{ data.profession_trade }}</td>
+                        <td class="align-middle">{{ data.phone }}</td>
                         <td class="align-middle">
                             <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
                         </td>
@@ -72,10 +72,10 @@
                     <tr *ngFor="let data of datas; let i=index">
                         <td class="align-middle">{{i+1}}</td>
                         <td class="align-middle">{{ data.tin }}</td>
-                        <td class="align-middle">{{ data?.company_payer[0]?.organisation_name }}
+                        <td class="align-middle">{{ data.organisation_name }}
                         </td>
-                        <td class="align-middle">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
-                        <td class="align-middle">{{ data?.company_payer[0]?.org_phone }}</td>
+                        <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
+                        <td class="align-middle">{{ data.org_phone }}</td>
                         <td class="align-middle">
                             <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
                         </td>

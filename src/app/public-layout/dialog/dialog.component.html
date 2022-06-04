@@ -20,12 +20,11 @@
                 <div>
                     <div class="leftt1 left1">{{data.data.surname}} {{data.data.first_name}} {{data.data.middle_name}}
                     </div>
-                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="right2">Tax ID: {{data.data.tin}}</div>
                     <div class="left2">Individual Tax Payer</div>
                 </div>
                 <div class="payee_cancel_button">
-                    <button mat-icon-button mat-dialog-close>
+                    <button mat-icon-button mat-dialog-close [routerLink]="['/dashboard2/taxpayer']">
                         <mat-icon>close</mat-icon>
                     </button>
                 </div>
@@ -37,7 +36,7 @@
                     <thead>
                         <tr>
                             <th class="title">Registered Date</th>
-                            <th class="sub_title">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
+                            <th class="sub_title">{{data?.data?.created_at | date:'yyyy-MM-dd'}}</th>
                         </tr>
                         <tr>
                             <th class="title">No. Of Dependent</th>
@@ -61,7 +60,8 @@
                         </tr>
                         <tr>
                             <th class="title">Employment Status</th>
-                            <th class="sub_title" style="text-transform: capitalize;">{{data.data.employment_status}}</th>
+                            <th class="sub_title" style="text-transform: capitalize;">{{data.data.employment_status}}
+                            </th>
                         </tr>
                         <tr>
                             <th class="title">House No.</th>
@@ -81,11 +81,11 @@
                         </tr>
                         <tr>
                             <th class="title">State of Origin</th>
-                            <th class="sub_title">{{data.data.state_origin.name}}</th>
+                            <th class="sub_title">{{data.data.state_origin}}</th>
                         </tr>
                         <tr>
                             <th class="title">LGA</th>
-                            <th class="sub_title">{{data.data.lga_origin.name}}</th>
+                            <th class="sub_title">{{data.data.lga}}</th>
                         </tr>
                         <tr>
                             <th class="title">Zipcode</th>
@@ -98,10 +98,11 @@
                     </thead>
                 </table>
 
-                <!-- <div class="button_p">
-                    <button mat-button class="back" mat-dialog-close>Back</button>
-                    <button mat-button class="continue" mat-dialog-close>Continue</button>
-                </div> -->
+                <div class="button_p">
+                    <!-- <button mat-button class="back" mat-dialog-close>Back</button> -->
+                    <button mat-button class="continue" mat-dialog-close
+                        [routerLink]="['/dashboard2/taxpayer']">Continue</button>
+                </div>
 
             </mat-dialog-content>
             <mat-dialog-actions>
@@ -130,11 +131,10 @@
                 <div>
                     <div class="leftt1 left1">{{data.data.organisation_name}}</div>
                     <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
-                    <button mat-icon-button mat-dialog-close>
+                    <button mat-icon-button mat-dialog-close mat-dialog-close [routerLink]="['/dashboard2/taxpayer']">
                         <mat-icon>close</mat-icon>
                     </button>
                 </div>
@@ -145,7 +145,7 @@
                     <thead>
                         <tr>
                             <th class="title">Date Establishment</th>
-                            <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
+                            <th class="sub_title align-middle">{{data.data?.created_at | date:'yyyy-MM-dd'}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Number of staff</th>
@@ -156,84 +156,19 @@
                             <th class="sub_title align-middle">{{data.data.business_nature}}</th>
                         </tr>
                         <tr>
-                            <th class="title align-middle">Director</th>
-                            <th class="sub_title align-middle director dropdown"> 
-                                <span class="dropbtn">
-                                    {{data.data.directors_info.surname}}
-                                    {{data.data.directors_info.first_name}}
-                                    {{data.data.directors_info.middle_name}}
-                                </span>
-
-                                <div class="dropdown-content">
-                                    <table class="table table-borderless">
-                                        <thead>
-                                            <tr>
-                                                <th class="title">Name</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.surname}}
-                                                    {{data.data.directors_info.first_name}}
-                                                    {{data.data.directors_info.lastname}}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">E-mail</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.dir_email}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Phone No.</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.dir_phone}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Date of Birth</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.dob}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Place of Birth</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.pob}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Gender</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.gender}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Occupation</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.profession_trade}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">State of Origin</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.state_origin.name}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">LGA</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.lga_origin.name}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Nigerian</th>
-                                                <th class="sub_title align-middle">Yes</th>
-                                            </tr>
-                                        </thead>
-                                    </table>    
-                                </div>
-                                
-                            </th>
-                        </tr>
-                        <tr>
                             <th class="title align-middle">Office Website URL</th>
                             <th class="sub_title align-middle">
-                                <a href="{{data.data.office_website_url}}" target="_blank">{{data.data.office_website_url}}</a>
+                                <a href="{{data.data.office_website_url}}"
+                                    target="_blank">{{data.data.office_website_url}}</a>
                             </th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Phone Number</th>
-                            <th class="sub_title align-middle">{{data.data.org_phone}}</th>
+                            <th class="sub_title align-middle">{{data.data.phone}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">E-mail Address</th>
-                            <th class="sub_title align-middle">{{data.data.org_email}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Alt. Phone no.</th>
-                            <th class="sub_title align-middle">{{data.data.alt_phone}}</th>
+                            <th class="sub_title align-middle">{{data.data.email}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">House no.</th>
@@ -241,11 +176,11 @@
                         </tr>
                         <tr>
                             <th class="title">State</th>
-                            <th class="sub_title">{{data.data.payer.address_state.name}}</th>
+                            <th class="sub_title">{{data.data.payer.state_id.name}}</th>
                         </tr>
                         <tr>
                             <th class="title">LGA</th>
-                            <th class="sub_title">{{data.data.payer.address_lga.name}}</th>
+                            <th class="sub_title">{{data.data.payer.lga_id.name}}</th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Zipcode</th>
@@ -258,10 +193,11 @@
                     </thead>
                 </table>
 
-                <!-- <div class="button_p">
-                        <button mat-button class="back" mat-dialog-close>Back</button>
-                        <button mat-button class="continue" (click)="StaffIncome2()" mat-dialog-close>Continue</button>
-                    </div> -->
+                <div class="button_p">
+                    <!-- <button mat-button class="back" mat-dialog-close>Back</button> -->
+                    <button mat-button class="continue" mat-dialog-close
+                        [routerLink]="['/dashboard2/taxpayer']">Continue</button>
+                </div>
 
             </mat-dialog-content>
             <mat-dialog-actions>
@@ -319,7 +255,7 @@
                         </tr>
                         <tr>
                             <th class="title align-middle">Director</th>
-                            <th class="sub_title align-middle director dropdown"> 
+                            <th class="sub_title align-middle director dropdown">
                                 <span class="dropbtn">
                                     {{data.data.directors_info.surname}}
                                     {{data.data.directors_info.first_name}}
@@ -339,11 +275,13 @@
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">E-mail</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.dir_email}}</th>
+                                                <th class="sub_title align-middle">
+                                                    {{data.data.directors_info.dir_email}}</th>
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">Phone No.</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.dir_phone}}</th>
+                                                <th class="sub_title align-middle">
+                                                    {{data.data.directors_info.dir_phone}}</th>
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">Date of Birth</th>
@@ -355,34 +293,39 @@
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">Gender</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.gender}}</th>
+                                                <th class="sub_title align-middle">{{data.data.directors_info.gender}}
+                                                </th>
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">Occupation</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.profession_trade}}</th>
+                                                <th class="sub_title align-middle">
+                                                    {{data.data.directors_info.profession_trade}}</th>
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">State of Origin</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.state_origin.name}}</th>
+                                                <th class="sub_title align-middle">
+                                                    {{data.data.directors_info.state_origin.name}}</th>
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">LGA</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.lga_origin.name}}</th>
+                                                <th class="sub_title align-middle">
+                                                    {{data.data.directors_info.lga_origin.name}}</th>
                                             </tr>
                                             <tr>
                                                 <th class="title align-middle">Nigerian</th>
                                                 <th class="sub_title align-middle">Yes</th>
                                             </tr>
                                         </thead>
-                                    </table>    
+                                    </table>
                                 </div>
-                                
+
                             </th>
                         </tr>
                         <tr>
                             <th class="title align-middle">Office Website URL</th>
                             <th class="sub_title align-middle">
-                                <a href="{{data.data.office_website_url}}" target="_blank">{{data.data.office_website_url}}</a>
+                                <a href="{{data.data.office_website_url}}"
+                                    target="_blank">{{data.data.office_website_url}}</a>
                             </th>
                         </tr>
                         <tr>
@@ -636,7 +579,7 @@
 
     <div *ngIf="data.type =='delete-payer'" class="delete-payer">
         <h5 mat-dialog-title class="delete-payer-text">Delete TaxPayer with Tax ID: <span
-                class="delete-payer-tin">{{data.data.payer.tin}}</span></h5>
+                class="delete-payer-tin">{{data.data.tin}}</span></h5>
         <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Payer? This process cannot
             be undone.</div>
         <div mat-dialog-actions>
@@ -660,9 +603,10 @@
     <!-- delete payee -->
 
     <div *ngIf="data.type =='delete-payee'" class="delete-payer">
-        <h5 mat-dialog-title class="delete-payer-text">Delete Employee with Tax ID: <span
-                class="delete-payer-tin">{{data.data.employeeTin}}</span></h5>
-        <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Employee? This process cannot
+        <h5 mat-dialog-title class="delete-payer-text">Delete Employee with Tax ID: <span class="delete-payer-tin">{{
+                data.data.tin }}</span></h5>
+        <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Employee? This process
+            cannot
             be undone.</div>
         <div mat-dialog-actions>
             <div class="align-delete-payer">
@@ -683,161 +627,164 @@
 
 
     <!-- payee file input -->
-<div *ngIf="data.type =='file_upload'">
+    <div *ngIf="data.type =='file_upload'">
 
-    <div class="payee-sidenav2">
+        <div class="payee-sidenav2">
 
-        <div class="header">
-            <div>
-                <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                <div class="left2">Registered Business</div>
+            <div class="header">
+                <div>
+                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="left2">Registered Business</div>
+                </div>
+                <div class="payee_cancel_button">
+                    <button mat-icon-button mat-dialog-close>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
             </div>
-            <div class="payee_cancel_button">
-                <button mat-icon-button mat-dialog-close>
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </div>
-        <mat-dialog-content class="mat-typography ind_com payee_com">
+            <mat-dialog-content class="mat-typography ind_com payee_com">
                 <div class="center_payee_com">
                     <div class="tax_return_year">Choose Tax Return year</div>
                     <form>
-                            <mat-form-field class="half-width" appearance="outline">
-                                <mat-label>Year</mat-label>
-                                <mat-select>
-                                    <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                        <mat-form-field class="half-width" appearance="outline">
+                            <mat-label>Year</mat-label>
+                            <mat-select>
+                                <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </form>
                     <button mat-button class="continue" (click)="StaffIncome3('file')">Continue</button>
                 </div>
-        </mat-dialog-content>
-        <mat-dialog-actions>
-        </mat-dialog-actions>
+            </mat-dialog-content>
+            <mat-dialog-actions>
+            </mat-dialog-actions>
+
+        </div>
 
     </div>
 
-</div>
 
 
+    <!-- payee file manual Input -->
+    <div *ngIf="data.type =='manual_input'">
 
-<!-- payee file manual Input -->
-<div *ngIf="data.type =='manual_input'">
+        <div class="payee-sidenav2">
 
-    <div class="payee-sidenav2">
-
-        <div class="header">
-            <div>
-                <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                <div class="left2">Registered Business</div>
+            <div class="header">
+                <div>
+                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
+                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="left2">Registered Business</div>
+                </div>
+                <div class="payee_cancel_button">
+                    <button mat-icon-button mat-dialog-close>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
             </div>
-            <div class="payee_cancel_button">
-                <button mat-icon-button mat-dialog-close>
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </div>
-        <mat-dialog-content class="mat-typography ind_com payee_com">
+            <mat-dialog-content class="mat-typography ind_com payee_com">
                 <div class="center_payee_com">
                     <div class="tax_return_year">Choose Tax Return year</div>
                     <form>
-                            <mat-form-field class="half-width" appearance="outline">
-                                <mat-label>Year</mat-label>
-                                <mat-select>
-                                    <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                        <mat-form-field class="half-width" appearance="outline">
+                            <mat-label>Year</mat-label>
+                            <mat-select>
+                                <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </form>
                     <button mat-button class="continue" (click)="StaffIncome3('input')">Continue</button>
                 </div>
-        </mat-dialog-content>
-        <mat-dialog-actions>
-        </mat-dialog-actions>
+            </mat-dialog-content>
+            <mat-dialog-actions>
+            </mat-dialog-actions>
+
+        </div>
 
     </div>
 
-</div>
 
 
+    <!-- Extract data information -->
+    <div *ngIf="data.type =='extract'" class="extract">
 
-<!-- Extract data information -->
-<div *ngIf="data.type =='extract'" class="extract">
+        <div class="payee-sidenav2">
 
-    <div class="payee-sidenav2">
-
-        <div class="header">
-            <div>
-                <div class="leftt1 left1">{{data.data2.organisation_name}}</div>
-                <div class="right2">Tax ID: {{data.data2.payer.tin}}</div>
-                <div class="right2">Reg No: {{data.data2.payer.id}}</div>
-                <div class="left2">Registered Business</div>
+            <div class="header">
+                <div>
+                    <div class="leftt1 left1">{{data.data2.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data2.payer.tin}}</div>
+                    <div class="right2">Reg No: {{data.data2.payer.id}}</div>
+                    <div class="left2">Registered Business</div>
+                </div>
+                <div class="payee_cancel_button">
+                    <button mat-icon-button (click)="closeDialog()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
             </div>
-            <div class="payee_cancel_button">
-                <button mat-icon-button (click)="closeDialog()">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </div>
-        <mat-dialog-content class="mat-typography ind_com">
-            <div class="payee_lists">
-                List of added Employee(s) <span style="margin-left: 10px;">(Preview)</span>
-            </div>
-            <table class="payee_lists_table table table-borderless table-striped">
-                <thead>
-                    <tr>
-                        <th class="title align-middle">S/N</th>
-                        <th class="title align-middle">TIN</th>
-                        <!-- <th class="title align-middle">Name of Employee</th> -->
-                        <th class="title align-middle">Basic</th>
-                        <th class="title align-middle">Housing</th>
-                        <th class="title align-middle">Transaportation</th>
-                        <th class="title align-middle">Other allowances</th>
-                        <th class="title align-middle">Position</th>
-                        <th></th>
-                        <!-- <th class="title align-middle">Review</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of payee_data; let i=index">
-                        <td class="align-middle">{{i+1}}</td>
-                        <td class="align-middle">{{data.employeeTin}}</td>
-                        <!-- <td class="align-middle">Oshodu Isaac Aloa</td> -->
-                        <td class="align-middle">{{formatMoney(data.basic)}}</td>
-                        <td class="align-middle">{{formatMoney(data.housing)}}</td>
-                        <td class="align-middle">{{formatMoney(data.tp)}}</td>
-                        <td class="align-middle">{{formatMoney(data.nhis)}}</td>
-                        <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data.employee_position}}</td>
-                        <td class="align-middle">
-                            <button mat-icon-button (click)="DeteleAddedPayee(i)">
-                                <mat-icon class="table-icon-delete">delete_forever</mat-icon>
-                            </button>
-                        </td>
-                        <!-- <td class="align-middle">
+            <mat-dialog-content class="mat-typography ind_com">
+                <div class="payee_lists">
+                    List of added Employee(s) <span style="margin-left: 10px;">(Preview)</span>
+                </div>
+                <table class="payee_lists_table table table-borderless table-striped">
+                    <thead>
+                        <tr>
+                            <th class="title align-middle">S/N</th>
+                            <th class="title align-middle">TIN</th>
+                            <!-- <th class="title align-middle">Name of Employee</th> -->
+                            <th class="title align-middle">Basic</th>
+                            <th class="title align-middle">Housing</th>
+                            <th class="title align-middle">Transaportation</th>
+                            <th class="title align-middle">Other allowances</th>
+                            <th class="title align-middle">Position</th>
+                            <th></th>
+                            <!-- <th class="title align-middle">Review</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of payee_data; let i=index">
+                            <td class="align-middle">{{i+1}}</td>
+                            <td class="align-middle">{{data.employeeTin}}</td>
+                            <!-- <td class="align-middle">Oshodu Isaac Aloa</td> -->
+                            <td class="align-middle">{{formatMoney(data.basic)}}</td>
+                            <td class="align-middle">{{formatMoney(data.housing)}}</td>
+                            <td class="align-middle">{{formatMoney(data.tp)}}</td>
+                            <td class="align-middle">{{formatMoney(data.nhis)}}</td>
+                            <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data.employee_position}}
+                            </td>
+                            <td class="align-middle">
+                                <button mat-icon-button (click)="DeteleAddedPayee(i)">
+                                    <mat-icon class="table-icon-delete">delete_forever</mat-icon>
+                                </button>
+                            </td>
+                            <!-- <td class="align-middle">
                             <span class="extract_data_success">Registered</span>
                         </td> -->
-                    </tr>
-                </tbody>
-            </table>
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">
-            <div class="extract_note">Note: Only {{data.data.data.length}} employee will be added</div>
-            <button mat-button class="extract_continue" (click)="extract_continue()">
-                <span *ngIf="!isExtract">Save and continue</span>
-                <div *ngIf="isExtract" class="loader_delete">
-                    <div class="bubble_delete"></div>
-                    <div class="bubble_delete"></div>
-                    <div class="bubble_delete"></div>
-                    <div class="bubble_delete"></div>
-                </div>
-            </button>
-            <!-- redirected to taxable income page -->
-        </mat-dialog-actions>
-    </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <div class="extract_note">Note: Only {{data.data.data.length}} employee will be added</div>
+                <button mat-button class="extract_continue" (click)="extract_continue()">
+                    <span *ngIf="!isExtract">Save and continue</span>
+                    <div *ngIf="isExtract" class="loader_delete">
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                    </div>
+                </button>
+                <!-- redirected to taxable income page -->
+            </mat-dialog-actions>
+        </div>
 
-</div>
+    </div>
 
 </div>

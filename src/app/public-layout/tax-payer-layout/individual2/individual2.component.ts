@@ -15,7 +15,6 @@ import {
 import {
   Individual1,
   Individual2,
-  Individual3,
   LGA,
   lgaLogo,
   NIN,
@@ -38,18 +37,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 // state management
 import { Store } from '@ngrx/store';
-import { States, Profile } from '../../../models/irm';
+import { States, Profile, IndPayer } from '../../../models/irm';
 import {
   AppState,
   selectAllStates,
   selectAllProfile,
+  selectAllIndPayer,
 } from 'src/app/reducers/index';
-import { AddStates, RemoveIndPayer } from '../../../actions/irm.action';
+import {
+  AddStates,
+  RemoveIndPayer,
+  AddIndPayer,
+} from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { Router } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,11 +71,9 @@ export class Individual2Component implements OnDestroy, OnInit {
 
   @ViewChild('fform1') feedbackFormDirective1: any;
   @ViewChild('fform2') feedbackFormDirective2: any;
-  @ViewChild('fform3') feedbackFormDirective3: any;
 
   feedbackForm1: any = FormGroup;
   feedbackForm2: any = FormGroup;
-  feedbackForm3: any = FormGroup;
   feedback!: NIN;
   loading = false;
   disabled = false;
@@ -78,7 +82,6 @@ export class Individual2Component implements OnDestroy, OnInit {
   floatLabelControl = new FormControl('employed');
   feedback1!: Individual1;
   feedback2!: Individual2;
-  feedback3!: Individual3;
   includedFields: any;
 
   loading2 = false;
@@ -88,59 +91,43 @@ export class Individual2Component implements OnDestroy, OnInit {
   bankCtrl2: FormControl = new FormControl();
   bankCtrl3: FormControl = new FormControl();
   bankCtrl4: FormControl = new FormControl();
-  bankCtrl5: FormControl = new FormControl();
-  bankCtrl6: FormControl = new FormControl();
   filteredBanks: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(1);
   filteredBanks2: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
   filteredBanks3: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(
     1
   );
   filteredBanks4: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
-  filteredBanks5: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(
-    1
-  );
-  filteredBanks6: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
   option = STATE;
   options2 = LGA;
   option2 = STATE;
   options3 = LGA;
-  option3 = STATE;
-  options4 = LGA;
   searching = false;
   searching2 = false;
   searching3 = false;
   searching4 = false;
-  searching5 = false;
-  searching6 = false;
   searchError!: string;
   searchError2!: string;
-  searchErro3!: string;
   protected _onDestroy = new Subject<void>();
   stateError: boolean = false;
   stateError2: boolean = false;
-  stateError3: boolean = false;
   stateLoading = false;
   stateLoading2 = false;
-  stateLoading3 = false;
   lgaError: boolean = false;
   lgaError2: boolean = false;
-  lgaError3: boolean = false;
   lgaLoading = false;
   lgaLoading2 = false;
-  lgaLoading3 = false;
   update = false;
   Updateloading = false;
   state: any;
   state2: any;
-  state3: any;
   lga: any;
   lga2: any;
-  lga3: any;
 
   editDetails: any;
 
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
+  stateInd: Observable<IndPayer[]>;
 
   formErrors: any = {
     firstname: '',
@@ -230,29 +217,27 @@ export class Individual2Component implements OnDestroy, OnInit {
     private router: Router,
     private authService: AuthService,
     private store: Store<AppState>,
-    public shared: ToggleNavService
+    public shared: ToggleNavService,
+    private dialog: MatDialog
   ) {
     this.authService.checkExpired();
     this.createForm1();
     this.createForm2();
-    this.createForm3();
     this.trackCountryField();
     this.trackCountryField2();
-    this.trackCountryField3();
-    this.trackEmptyFields();
 
     this.stateStates = store.select(selectAllStates);
     this.stateProfile = store.select(selectAllProfile);
+    this.stateInd = store.select(selectAllIndPayer);
     this.editDetails = this.shared.getPayerEditMessage();
 
     const data = this.shared.getPayerMessage();
     this.payer_data = data;
     if (data == '' || data == undefined || data == null) {
-      this.router.navigate(['/dashboard22/taxpayer'])
-    }else{
+      this.router.navigate(['/dashboard22/taxpayer']);
+    } else {
       this.payer_data = data;
     }
-    
   }
 
   createForm1() {
@@ -292,23 +277,6 @@ export class Individual2Component implements OnDestroy, OnInit {
       this.onValueChanged2(data)
     );
     this.onValueChanged2(); // (re)set validation messages now
-  }
-
-  createForm3() {
-    this.feedbackForm3 = this.fb.group({
-      company_name: [''],
-      company_house_no: [''],
-      company_estate_street: [''],
-      company_country: [''],
-      company_state: [''],
-      company_lga: [''],
-      company_zipcode: [''],
-    });
-
-    this.feedbackForm3.valueChanges.subscribe((data: any) =>
-      this.onValueChanged3(data)
-    );
-    this.onValueChanged3(); // (re)set validation messages now
   }
 
   onValueChanged1(data?: any) {
@@ -355,28 +323,6 @@ export class Individual2Component implements OnDestroy, OnInit {
     }
   }
 
-  onValueChanged3(data?: any) {
-    if (!this.feedbackForm3) {
-      return;
-    }
-    const form = this.feedbackForm3;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
-        }
-      }
-    }
-  }
-
   RemoveFormData() {
     this.floatLabelControl = new FormControl('employed');
     this.feedbackForm1.get('firstname').reset();
@@ -393,11 +339,6 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.feedbackForm2.get('street').reset();
     this.feedbackForm2.get('house').reset();
     this.feedbackForm2.get('zipcode').reset();
-    this.feedbackForm3.get('company_name').reset();
-    this.feedbackForm3.get('company_house_no').reset();
-    this.feedbackForm3.get('company_estate_street').reset();
-    this.feedbackForm3.get('company_zipcode').reset();
-    this.feedbackForm3.get('company_country').reset();
   }
 
   firstnameError: any;
@@ -557,7 +498,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     const feed1 = this.feedbackFormDirective1.invalid;
     const feed2 = this.feedbackFormDirective2.invalid;
 
-    if (feed1) {
+    if (feed1 || feed2) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',
@@ -571,19 +512,15 @@ export class Individual2Component implements OnDestroy, OnInit {
 
       this.feedback1 = this.feedbackForm1.value;
       this.feedback2 = this.feedbackForm2.value;
-      this.feedback3 = this.feedbackForm3.value;
+      console.log(this.feedbackForm1.value);
       let data: any = {
-        payer: {
-          address_state: this.feedback2.state_red,
-          address_lga: this.feedback2.lga_red,
-        },
         first_name: this.feedback1.firstname,
         middle_name: this.feedback1.middlename,
         gender: this.feedback1.gender,
         dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
         pob: this.feedback1.place,
-        state_origin: this.feedback1.state,
-        lga_origin: this.feedback1.lga,
+        state_origin: this.feedback1.state.split('|||')[1],
+        lga: this.feedback1.lga.split('|||')[1],
         nationality: this.feedback1.nationality,
         profession_trade: this.feedback1.trade,
         employment_category: this.floatLabelControl.value,
@@ -594,72 +531,53 @@ export class Individual2Component implements OnDestroy, OnInit {
         house_no: this.feedback2.house,
         zipcode: this.feedback2.zipcode,
         employment_status: this.floatLabelControl.value,
+        state_id: this.feedback2.state_red,
+        lga_id: this.feedback2.lga_red,
       };
-      Object.assign(
-        data,
-        this.floatLabelControl.value == 'employed' ? this.includedFields : {}
-      );
-      console.log(data);
-
+      // Object.assign(
+      //   data,
+      //   this.floatLabelControl.value == 'employed' ? this.includedFields : {}
+      // );
       this.httpService.AddPayer(data, 'individual').subscribe(
         (data: any) => {
           this.loading2 = false;
           this.disabled2 = false;
-          if (data.responsecode === '00') {
-            this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-            this.snackBar.open('Registration successful', '', {
-              duration: 3000,
-              panelClass: 'success',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-            this.RemoveFormData();
-          } else {
-            this.snackBar.open(data?.message || 'error', '', {
-              duration: 3000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-          }
+          this.RemoveFormData();
+          this.shared.setPayerMessage('');
+          let datas2: any = [];
+          this.stateInd.forEach((e) => {
+            if (e.length > 0) {
+              let datas = Object.assign([], e[0].data);
+              datas.unshift(data.data);
+              datas2 = datas;
+            }
+          });
+          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
+          this.store.dispatch(new AddIndPayer([{ id: 1, data: datas2 }]));
+          this.router.navigate(['/dashboard2/taxpayer']);
+          this.OpenDialog(data.data);
+          // this.snackBar.open('Registration successful', '', {
+          //   duration: 3000,
+          //   panelClass: 'success',
+          //   horizontalPosition: 'center',
+          //   verticalPosition: 'top',
+          // });
         },
         (err: any) => {
           console.log(err);
           this.authService.checkExpired();
           this.loading2 = false;
           this.disabled2 = false;
-          if (err.error?.message == 'required') {
-            if (err.error.data.email) {
-              this.snackBar.open(
-                'Email Address already exists in (Section 1)',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
-                }
-              );
-            } else if (err.error.data.phone) {
-              this.snackBar.open(
-                'Contact number already exists in (Section 1)',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
-                }
-              );
-            }
-          } else {
-            this.snackBar.open(err.error?.message || 'error', '', {
+          this.snackBar.open(
+            err?.error?.msg || err?.error?.detail || 'An Error Occured!',
+            '',
+            {
               duration: 5000,
               panelClass: 'error',
               horizontalPosition: 'center',
               verticalPosition: 'top',
-            });
-          }
+            }
+          );
         }
       );
     } // end if
@@ -685,7 +603,6 @@ export class Individual2Component implements OnDestroy, OnInit {
 
       this.feedback1 = this.feedbackForm1.value;
       this.feedback2 = this.feedbackForm2.value;
-      this.feedback3 = this.feedbackForm3.value;
       let data: any = {
         payer: {
           address_state: this.feedback2.state_red,
@@ -769,12 +686,6 @@ export class Individual2Component implements OnDestroy, OnInit {
     } // end if
   }
 
-  trackEmptyFields(): void {
-    this.feedbackForm3.valueChanges
-      .pipe(map(this.filterEmptyFields))
-      .subscribe((field: any) => (this.includedFields = field));
-  }
-
   filterEmptyFields(data: any): any {
     let fields: any = {};
     Object.keys(data).forEach((key) =>
@@ -792,7 +703,10 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.feedbackForm1.get('state').valueChanges.subscribe((field: string) => {
       if (field === undefined) {
       } else {
-        let coun = this.state.filter((name: any) => name.id === field);
+        const splitt = field.split('|||');
+        let coun = this.state.filter(
+          (name: any) => name.id === Number(splitt[0])
+        );
         this.lga = coun[0];
         this.AddLga(coun[0].id);
       }
@@ -812,59 +726,34 @@ export class Individual2Component implements OnDestroy, OnInit {
       });
   }
 
-  trackCountryField3(): void {
-    this.feedbackForm3
-      .get('company_state')
-      .valueChanges.subscribe((field: string) => {
-        if (field === undefined) {
-        } else {
-          let coun = this.state3.filter((name: any) => name.id === field);
-          if (coun[0]?.id) {
-            this.lga3 = coun[0];
-            this.AddLga3(coun[0].id);
-          }
-        }
-      });
-  }
-
   AddState() {
     this.stateLoading = true;
     this.stateLoading2 = true;
-    this.stateLoading3 = true;
     this.stateStates.forEach((e) => {
       if (e.length > 0) {
         this.option = e[0].data;
         this.state = e[0].data;
         this.state2 = e[0].data;
-        this.state3 = e[0].data;
         this.filteredBanks.next(e[0].data);
         this.filteredBanks3.next(e[0].data);
-        this.filteredBanks5.next(e[0].data);
         this.stateLoading = false;
         this.stateLoading2 = false;
-        this.stateLoading3 = false;
       } else {
         this.httpService.state().subscribe(
           (data: any) => {
             this.option = data;
             this.state = data;
             this.state2 = data;
-            this.state3 = data;
             this.filteredBanks.next(data);
             this.filteredBanks3.next(data);
-            this.filteredBanks5.next(data);
             this.stateLoading = false;
             this.stateLoading2 = false;
-            this.stateLoading3 = false;
             this.store.dispatch(new AddStates([{ id: 1, data: data }]));
           },
           (err) => {
             this.stateLoading = false;
             this.stateLoading2 = false;
-            this.stateLoading3 = false;
             this.stateError = true;
-            this.stateError3 = true;
-            this.stateError3 = true;
           }
         );
       }
@@ -876,8 +765,8 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.lgaLoading = true;
     this.httpService.lga(id).subscribe(
       (data: any) => {
-        this.options2 = data.lga;
-        this.filteredBanks2.next(data.lga);
+        this.options2 = data.data;
+        this.filteredBanks2.next(data.data);
         this.lgaLoading = false;
       },
       (err: any) => {
@@ -891,28 +780,13 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.lgaLoading2 = true;
     this.httpService.lga(id).subscribe(
       (data: any) => {
-        this.options3 = data.lga;
-        this.filteredBanks4.next(data.lga);
+        this.options3 = data.data;
+        this.filteredBanks4.next(data.data);
         this.lgaLoading2 = false;
       },
       (err: any) => {
         this.lgaLoading2 = false;
         this.lgaError2 = true;
-      }
-    );
-  }
-
-  AddLga3(id: number) {
-    this.lgaLoading3 = true;
-    this.httpService.lga(id).subscribe(
-      (data: any) => {
-        this.options4 = data.lga;
-        this.filteredBanks6.next(data.lga);
-        this.lgaLoading3 = false;
-      },
-      (err: any) => {
-        this.lgaLoading3 = false;
-        this.lgaError3 = true;
       }
     );
   }
@@ -928,9 +802,6 @@ export class Individual2Component implements OnDestroy, OnInit {
         );
         this.feedbackForm2.controls['state_red'].patchValue(
           data.data.payer.address_state.id
-        );
-        this.feedbackForm3.controls['company_state'].patchValue(
-          data.data?.company_state?.id || 0
         );
         this.feedbackForm1.patchValue({ firstname: data.data.first_name });
         this.feedbackForm1.patchValue({ surname: data.data.surname });
@@ -951,31 +822,20 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm2.controls['lga_red'].patchValue(
           data.data.payer.address_lga.id
         );
-        this.feedbackForm3.patchValue({
-          company_name: data.data.company_name || '',
-        });
-        this.feedbackForm3.patchValue({
-          company_house_no: data.data.company_house_no || '',
-        });
-        this.feedbackForm3.patchValue({
-          company_estate_street: data.data.company_estate_street || '',
-        });
-        this.feedbackForm3.patchValue({
-          company_zipcode: data.data.company_zipcode || '',
-        });
-        this.feedbackForm3.patchValue({
-          company_country: data.data.company_country || '',
-        });
-        this.feedbackForm3.controls['company_lga'].patchValue(
-          data.data?.company_lga?.id || ''
-        );
         this.floatLabelControl = new FormControl(data.data.employment_status);
       }
     } else {
     }
   }
 
-
+  OpenDialog(data: any) {
+    this.dialog.open(DialogComponent, {
+      data: {
+        type: 'ind',
+        data: data,
+      },
+    });
+  }
 
   changePayerData() {
     const data = {
@@ -983,10 +843,10 @@ export class Individual2Component implements OnDestroy, OnInit {
       payer_type: 'individual',
       nin: this.payer_data?.nin,
       birth: this.payer_data?.birth,
-      data: this.payer_data
+      data: this.payer_data,
     };
     this.shared.setPayerMessage(data);
-    this.router.navigate(['/dashboard22/taxpayer'])
+    this.router.navigate(['/dashboard22/taxpayer']);
   }
 
   /////////////////////////////////////////////////////////////////////////////////
@@ -1135,73 +995,6 @@ export class Individual2Component implements OnDestroy, OnInit {
         (error) => {
           // no errors in our simulated example
           this.searching4 = false;
-          // handle error...
-        }
-      );
-
-    // third layer
-    // 5
-    this.bankCtrl5.valueChanges
-      .pipe(
-        filter((search) => !!search),
-        tap(() => (this.searching5 = true)),
-        takeUntil(this._onDestroy),
-        debounceTime(200),
-        map((searchC) => {
-          const filterValue = searchC.toLowerCase();
-          if (!this.option3) {
-            return [];
-          }
-          // simulate server fetching and filtering data
-          // return this.option.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
-          return this.option3.filter(
-            (bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1
-          );
-        }),
-        delay(100),
-        takeUntil(this._onDestroy)
-      )
-      .subscribe(
-        (filteredBanks) => {
-          this.searching5 = false;
-          this.filteredBanks5.next(filteredBanks);
-        },
-        (error) => {
-          // no errors in our simulated example
-          this.searching5 = false;
-          // handle error...
-        }
-      );
-
-    // 6
-    this.bankCtrl6.valueChanges
-      .pipe(
-        filter((search) => !!search),
-        tap(() => (this.searching6 = true)),
-        takeUntil(this._onDestroy),
-        debounceTime(200),
-        map((searchC) => {
-          const filterValue = searchC.toLowerCase();
-          if (!this.options4) {
-            return [];
-          }
-          // simulate server fetching and filtering data
-          // return this.options2.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
-          return this.options4.filter(
-            (bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1
-          );
-        }),
-        delay(100),
-        takeUntil(this._onDestroy)
-      )
-      .subscribe(
-        (filteredBanks4) => {
-          this.searching6 = false;
-          this.filteredBanks6.next(filteredBanks4);
-        },
-        (error) => {
-          // no errors in our simulated example
-          this.searching6 = false;
           // handle error...
         }
       );

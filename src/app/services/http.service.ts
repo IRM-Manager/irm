@@ -37,7 +37,7 @@ export class HttpService {
   // get lists of years
   year() {
     return this.http
-      .get<any>(BaseUrl.api + `paye/api/paye/year/`)
+      .get<any>(BaseUrl.api + `refdata/api/v1/year/`)
       .pipe(retry(1));
   }
 
@@ -170,7 +170,7 @@ export class HttpService {
     };
     return this.http
       .delete<any[]>(
-        BaseUrl.api + `user/api/v1/register-payer/?payer_id=${id}`,
+        BaseUrl.api + `user/api/v1/payer/${id}/`,
         httpOptions
       )
       .pipe(retry(2));

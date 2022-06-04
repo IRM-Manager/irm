@@ -59,6 +59,8 @@ export class DialogComponent implements OnInit {
     if (this.data.type == 'extract') {
       dialogRef.disableClose = true;
       this.payee_data = this.data.data.data;
+    } else if (this.data.type == 'ind' || this.data.type == 'com') {
+      dialogRef.disableClose = true;
     }
     this.stateIndPayer = store.select(selectAllIndPayer);
     this.stateComPayer = store.select(selectAllComPayer);
@@ -96,8 +98,8 @@ export class DialogComponent implements OnInit {
   }
 
   StaffIncome3(is_file: string) {
-    this.shared.PayeesendClickEvent("");
-    this.shared.PayeesenddataEvent("");
+    this.shared.PayeesendClickEvent('');
+    this.shared.PayeesenddataEvent('');
     if (this.choosen_year == undefined) {
       this.snackBar.open('Choose Year', '', {
         duration: 4000,
@@ -128,13 +130,13 @@ export class DialogComponent implements OnInit {
   //  delete tax payer
   DeletePayer() {
     this.isdelete = true;
-    this.httpService.DeletePayer(this.data.data.payer.id).subscribe(
+    this.httpService.DeletePayer(this.data.data.id).subscribe(
       (data: any) => {
         this.isdelete = false;
-        if (this.data.data.payer.payer_type == 'individual') {
-          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-        } else {
+        if (this.data.data?.organisation_name) {
           this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
+        } else {
+          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
         }
         this.snackBar.open('TaxPayer successfully deleted', '', {
           duration: 3000,
@@ -145,8 +147,9 @@ export class DialogComponent implements OnInit {
         this.dialogRef.close();
       },
       (err) => {
+        console.log(err);
         this.isdelete = false;
-        this.snackBar.open('Error deleting TaxPayer', '', {
+        this.snackBar.open(err.error.detail || 'Error deleting TaxPayer', '', {
           duration: 5000,
           panelClass: 'error',
           horizontalPosition: 'center',
@@ -239,7 +242,7 @@ export class DialogComponent implements OnInit {
     this.selected_year = this.shared.PayeegetdataEvent();
     this.isExtract = true;
     const data = { data: this.payee_data };
-    console.log(this.payee_data)
+    console.log(this.payee_data);
     if (this.payee_data.length !== 0) {
       this.httpService
         .UploadPayeeValidatedFile(
@@ -284,7 +287,9 @@ export class DialogComponent implements OnInit {
               });
             } else {
               this.snackBar.open(
-                err.error?.status || err.error?.detail || 'Error Uploading File',
+                err.error?.status ||
+                  err.error?.detail ||
+                  'Error Uploading File',
                 '',
                 {
                   duration: 5000,
@@ -296,16 +301,14 @@ export class DialogComponent implements OnInit {
             }
           }
         );
-    }else {
+    } else {
       this.isExtract = false;
-      this.snackBar.open('Cannot Add Empty Employee', '',
-        {
-          duration: 5000,
-          panelClass: 'error',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        }
-      );
+      this.snackBar.open('Cannot Add Empty Employee', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     }
   }
 

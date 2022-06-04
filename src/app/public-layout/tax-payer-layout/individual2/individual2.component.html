@@ -78,7 +78,7 @@
                                 placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
                             </ngx-mat-select-search>
                         </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id">
+                        <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id+'|||'+option.name">
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
@@ -99,7 +99,7 @@
                                 placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
                             </ngx-mat-select-search>
                         </mat-option>
-                        <mat-option *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id">
+                        <mat-option *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id+'|||'+lgaOption.name">
                             <!-- <span></span> -->
                             {{lgaOption.name}}
                         </mat-option>
@@ -240,91 +240,15 @@
                         <mat-option value="employed">Employed</mat-option>
                         <mat-option value="unemployed">Unemployed</mat-option>
                         <mat-option value="retired">Retired</mat-option>
-                        <mat-option value="self employed">Self Employed</mat-option>
+                        <!-- <mat-option value="self employed">Self Employed</mat-option>
                         <mat-option value="petty trader">Petty Trader</mat-option>
-                        <mat-option value="civil servant">Civil Servant</mat-option>
+                        <mat-option value="civil servant">Civil Servant</mat-option> -->
                     </mat-select>
                 </mat-form-field>
             </p>
         </form>
     </div>
 
-
-    <!-- session4 -->
-    <div class="session" *ngIf="floatLabelControl.value === 'employed'">
-
-        <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit3()">
-            <p>
-                <!-- com_name -->
-                <mat-form-field class="full" appearance="outline">
-                    <mat-label>Business/Company name</mat-label>
-                    <input matInput formControlName="company_name">
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- com_house -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>House No.</mat-label>
-                    <input matInput formControlName="company_house_no" type="tel">
-                </mat-form-field>
-                <!-- state_red -->
-                <mat-form-field class="full-half" appearance="outline">
-                    <mat-label>Estate/Street address</mat-label>
-                    <input matInput formControlName="company_estate_street">
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- com_country -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Country</mat-label>
-                    <mat-select matInput formControlName="company_country">
-                        <mat-option value="nigeria">Nigeria</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <!-- com_state -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>State</mat-label>
-                    <mat-select matInput formControlName="company_state" #singleSelect>
-                        <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl5" [searching]="searching5"
-                                placeholderLabel="search state..." noEntriesFoundLabel="no matching state found">
-                            </ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks5 | async" [value]="option.id">
-                            <span>{{option.name}}</span>
-                        </mat-option>
-                    </mat-select>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError3 && !stateLoading3"
-                        style="color: red;"><button>Reload</button></mat-hint>
-                    <mat-hint *ngIf="stateLoading3">Loading...</mat-hint>
-                </mat-form-field>
-                <!-- com_lga -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>LGA</mat-label>
-                    <mat-select matInput formControlName="company_lga" #singleSelect>
-                        <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl6" [searching]="searching6"
-                                placeholderLabel="search LGA..." noEntriesFoundLabel="no matching lga found">
-                            </ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks6 | async" [value]="option.id">
-                            <span>{{option.name}}</span>
-                        </mat-option>
-                    </mat-select>
-                    <mat-hint *ngIf="!lga2">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="AddLga3(lga3.id)" *ngIf="lgaError3 && !lgaLoading3"
-                        style="color: red;"><button>Reload</button></mat-hint>
-                    <mat-hint *ngIf="lgaLoading3" align="end">Loading...</mat-hint>
-                </mat-form-field>
-                <!-- com_zipcode -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Zip Code</mat-label>
-                    <input matInput formControlName="company_zipcode" type="number">
-                </mat-form-field>
-            </p>
-        </form>
-
-    </div>
 
     <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>

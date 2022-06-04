@@ -29,7 +29,6 @@ import { HttpService } from 'src/app/services/http.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-tax-payer',
@@ -65,7 +64,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
     private httpService: HttpService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
   ) {
     this.authService.checkExpired();
 
@@ -190,7 +188,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
         } else {
           this.httpService.GetPayerList('individualpayers').subscribe(
             (data: any) => {
-              console.log(data);
               this.store.dispatch(
                 new AddIndPayer([{ id: 1, data: data.data }])
               );

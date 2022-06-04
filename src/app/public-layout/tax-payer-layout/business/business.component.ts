@@ -36,18 +36,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 // state management
 import { Store } from '@ngrx/store';
-import { States, Profile } from '../../../models/irm';
+import { States, Profile, ComPayer } from '../../../models/irm';
 import {
   AppState,
   selectAllStates,
   selectAllProfile,
+  selectAllComPayer,
 } from 'src/app/reducers/index';
-import { AddStates, RemoveComPayer } from '../../../actions/irm.action';
+import {
+  AddStates,
+  RemoveComPayer,
+  AddComPayer,
+} from '../../../actions/irm.action';
 import { Observable } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { Router } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,7 +65,6 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./business.component.scss'],
 })
 export class BusinessComponent implements OnDestroy, OnInit {
-  
   @ViewChild('card', { static: true })
   card!: ElementRef<HTMLDivElement>;
 
@@ -102,6 +108,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
+  stateComPayer: Observable<ComPayer[]>;
 
   formErrors: any = {
     contact: '',
@@ -117,6 +124,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     date_est: '',
     contact_num: '',
     email: '',
+    company_type: '',
   };
 
   validationMessages: any = {
@@ -157,6 +165,9 @@ export class BusinessComponent implements OnDestroy, OnInit {
     contact_num: {
       required: 'required.',
     },
+    company_type: {
+      required: 'required.',
+    },
     email: {
       required: 'required.',
       email: 'Not a valid email.',
@@ -172,25 +183,27 @@ export class BusinessComponent implements OnDestroy, OnInit {
     public shared: ToggleNavService,
     private authService: AuthService,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.authService.checkExpired();
     this.createForm2();
     this.createForm3();
     this.trackCountryField2();
+    // state
     this.stateStates = store.select(selectAllStates);
     this.stateProfile = store.select(selectAllProfile);
+    this.stateComPayer = store.select(selectAllComPayer);
 
     this.editDetails = this.shared.getPayerEditMessage();
 
     const data = this.shared.getPayerMessage();
     this.payer_data = data;
     if (data == '' || data == undefined || data == null) {
-      this.router.navigate(['/dashboard22/taxpayer'])
-    }else{
+      this.router.navigate(['/dashboard22/taxpayer']);
+    } else {
       this.payer_data = data;
     }
-
   }
 
   createForm2() {
@@ -218,7 +231,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
       date_est: ['', [Validators.required]],
       contact_num: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      alt_num: [''],
+      company_type: [''],
       website: [''],
     });
 
@@ -330,11 +343,11 @@ export class BusinessComponent implements OnDestroy, OnInit {
       }
       if (control.contact_email.status == 'INVALID') {
         this.contact_emailError = control.contact_email.errors.email
-        ? 'not a valid email.'
-        : 'required.';
+          ? 'not a valid email.'
+          : 'required.';
         this.formErrors['contact_email'] = control.contact_email.errors.email
-        ? 'not a valid email.'
-        : 'required.';
+          ? 'not a valid email.'
+          : 'required.';
       } else {
         this.contact_emailError = '';
       }
@@ -361,6 +374,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
   date_estError: any;
   contact_numError: any;
   emailError: any;
+  company_typeError: any;
 
   onSubmit3() {
     const feed1 = this.feedbackFormDirective3.invalid;
@@ -391,6 +405,12 @@ export class BusinessComponent implements OnDestroy, OnInit {
       } else {
         this.date_estError = '';
       }
+      if (control.company_type.status == 'INVALID') {
+        this.company_typeError = 'required.';
+        this.formErrors['company_type'] = 'required.';
+      } else {
+        this.company_typeError = '';
+      }
       if (control.contact_num.status == 'INVALID') {
         this.contact_numError = 'required.';
         this.formErrors['contact_num'] = 'required.';
@@ -399,11 +419,11 @@ export class BusinessComponent implements OnDestroy, OnInit {
       }
       if (control.email.status == 'INVALID') {
         this.emailError = control.email.errors.email
-        ? 'not a valid email.'
-        : 'required.';
+          ? 'not a valid email.'
+          : 'required.';
         this.formErrors['email'] = control.email.errors.email
-        ? 'not a valid email.'
-        : 'required.';
+          ? 'not a valid email.'
+          : 'required.';
       } else {
         this.emailError = '';
       }
@@ -414,6 +434,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
       this.num_empError = '';
       this.nature_busError = '';
       this.org_nameError = '';
+      this.company_typeError = '';
     }
   }
 
@@ -438,10 +459,8 @@ export class BusinessComponent implements OnDestroy, OnInit {
       this.feedback2 = this.feedbackForm2.value;
       this.feedback3 = this.feedbackForm3.value;
       let data = {
-        payer: {
-          address_state: this.feedback2.state_red,
-          address_lga: this.feedback2.lga_red,
-        },
+        state_id: this.feedback2.state_red,
+        lga_id: this.feedback2.lga_red,
         organisation_name: this.feedback3.org_name,
         business_nature: this.feedback3.nature_bus,
         number_employee: this.feedback3.num_emp,
@@ -450,9 +469,9 @@ export class BusinessComponent implements OnDestroy, OnInit {
           'yyyy-MM-dd'
         ),
         office_website_url: this.feedback3.website || '',
-        org_phone: this.feedback3.contact_num,
-        org_email: this.feedback3.email,
-        alt_phone: this.feedback3.alt_num || '',
+        phone: this.feedback3.contact_num,
+        email: this.feedback3.email,
+        company_type: this.feedback3.company_type || '',
         address: this.feedback2.street,
         house_no: this.feedback2.house,
         zipcode: this.feedback2.zipcode,
@@ -463,69 +482,40 @@ export class BusinessComponent implements OnDestroy, OnInit {
         (data: any) => {
           this.loading2 = false;
           this.disabled2 = false;
-          if (data.responsecode === '00') {
-            this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-            this.snackBar.open('Registration successful', '', {
-              duration: 3000,
-              panelClass: 'success',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-            this.RemoveFormData();
-          } else {
-            this.snackBar.open(data.message || 'error', '', {
-              duration: 3000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-          }
+          // this.snackBar.open('Registration successful', '', {
+          //   duration: 3000,
+          //   panelClass: 'success',
+          //   horizontalPosition: 'center',
+          //   verticalPosition: 'top',
+          // });
+          this.RemoveFormData();
+          let datas2: any = [];
+          this.stateComPayer.forEach((e) => {
+            if (e.length > 0) {
+              let datas = Object.assign([], e[0].data);
+              datas.unshift(data.data);
+              datas2 = datas;
+            }
+          });
+          this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
+          this.store.dispatch(new AddComPayer([{ id: 1, data: datas2 }]));
+          this.router.navigate(['/dashboard2/taxpayer']);
+          this.OpenDialog(data.data);
         },
         (err: any) => {
           console.log(err);
           this.loading2 = false;
           this.disabled2 = false;
-          if (err.error?.message == 'required') {
-            if (err.error?.data.org_email) {
-              this.snackBar.open(
-                'Email Address already exists in (Section 1)',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
-                }
-              );
-            } else if (err.error.data.org_phone) {
-              this.snackBar.open(
-                'Contact number already exists in (Section 1)',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                }
-              );
-            } else if (err.error.data.office_website_url) {
-              this.snackBar.open(
-                'Invalid Office Website URL in (Section 1)',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
-                }
-              );
-            }
-          } else {
-            this.snackBar.open(err.error?.message || 'error', '', {
+          this.snackBar.open(
+            err?.error?.msg || err?.error?.detail || 'An Error Occured!',
+            '',
+            {
               duration: 5000,
               panelClass: 'error',
               horizontalPosition: 'center',
               verticalPosition: 'top',
-            });
-          }
+            }
+          );
         }
       );
     } // end else
@@ -579,7 +569,8 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.lgaLoading2 = true;
     this.httpService.lga(id).subscribe(
       (data: any) => {
-        this.filteredBanks4.next(data.lga);
+        this.options3 = data.data;
+        this.filteredBanks4.next(data.data);
         this.lgaLoading2 = false;
       },
       (err: any) => {
@@ -659,7 +650,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
         office_website_url: this.feedback3.website || '',
         org_phone: this.feedback3.contact_num,
         org_email: this.feedback3.email,
-        alt_phone: this.feedback3.alt_num || '',
+        company_type: this.feedback3.company_type || '',
         address: this.feedback2.street,
         house_no: this.feedback2.house,
         zipcode: this.feedback2.zipcode,
@@ -718,18 +709,25 @@ export class BusinessComponent implements OnDestroy, OnInit {
     } // end else
   }
 
-
   changePayerData() {
     const data = {
       type: 'change',
       payer_type: 'company',
       cac: this.payer_data?.cac,
-      data: this.payer_data
+      data: this.payer_data,
     };
     this.shared.setPayerMessage(data);
-    this.router.navigate(['/dashboard22/taxpayer'])
+    this.router.navigate(['/dashboard22/taxpayer']);
   }
 
+  OpenDialog(data: any) {
+    this.dialog.open(DialogComponent, {
+      data: {
+        type: 'com',
+        data: data,
+      },
+    });
+  }
 
   ///////////////////////////////////////////////////////////////
 
