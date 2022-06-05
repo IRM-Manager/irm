@@ -177,7 +177,7 @@ export class HttpService {
   }
 
   // update a payer
-  UpdatePayer(type: string, id: number, data: any): Observable<any[]> {
+  UpdatePayer(id: number, data: any): Observable<any[]> {
     const httpOptions = {
       headers: {
         Authorization: `Bearer ${this.authService.getJwtToken()}`,
@@ -185,7 +185,7 @@ export class HttpService {
     };
     return this.http
       .put<any[]>(
-        BaseUrl.api + `user/api/v1/register-payer/?type=${type}&payer_id=${id}`,
+        BaseUrl.api + `user/api/v1/payer/${id}/`,
         data,
         httpOptions
       )

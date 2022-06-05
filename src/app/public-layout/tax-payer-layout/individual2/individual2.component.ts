@@ -5,10 +5,13 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  FormBuilder, FormControl, FormGroup, Validators
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,19 +24,25 @@ import {
   debounceTime,
   delay,
   filter,
-  map, Observable, ReplaySubject,
+  map,
+  Observable,
+  ReplaySubject,
   Subject,
   takeUntil,
-  tap
+  tap,
 } from 'rxjs';
 import {
-  AppState, selectAllIndPayer, selectAllProfile, selectAllStates
+  AppState,
+  selectAllIndPayer,
+  selectAllProfile,
+  selectAllStates,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import {
-  AddIndPayer, AddStates,
-  RemoveIndPayer
+  AddIndPayer,
+  AddStates,
+  RemoveIndPayer,
 } from '../../../actions/irm.action';
 import { IndPayer, Profile, States } from '../../../models/irm';
 import { DialogComponent } from '../../dialog/dialog.component';
@@ -44,7 +53,7 @@ import {
   lgaLogo,
   NIN,
   STATE,
-  stateLogo
+  stateLogo,
 } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
@@ -77,6 +86,7 @@ export class Individual2Component implements OnDestroy, OnInit {
 
   loading2 = false;
   disabled2 = false;
+  isFormDisabled = false;
 
   bankCtrl: FormControl = new FormControl();
   bankCtrl2: FormControl = new FormControl();
@@ -223,7 +233,10 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.editDetails = this.shared.getPayerEditMessage();
     const data = this.shared.getPayerMessage();
     this.payer_data = data;
-    if ((data == '' || data == undefined || data == null) && (this.editDetails == undefined || this.editDetails == '')) {
+    if (
+      (data == '' || data == undefined || data == null) &&
+      (this.editDetails == undefined || this.editDetails == '')
+    ) {
       this.router.navigate(['/dashboard22/taxpayer']);
     } else {
       this.payer_data = data;
@@ -580,7 +593,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     const feed1 = this.feedbackFormDirective1.invalid;
     const feed2 = this.feedbackFormDirective2.invalid;
 
-    if (feed1) {
+    if (feed1 || feed2) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',
@@ -594,95 +607,90 @@ export class Individual2Component implements OnDestroy, OnInit {
       this.feedback1 = this.feedbackForm1.value;
       this.feedback2 = this.feedbackForm2.value;
       let data: any = {
-        state_id: this.feedback2.state_red,
-        lga_id: this.feedback2.lga_red,
-        first_name: this.feedback1.firstname,
-        middle_name: this.feedback1.middlename || '',
-        gender: this.feedback1.gender,
-        dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
-        pob: this.feedback1.place,
-        state_origin: this.feedback1.state.split('|||')[1],
-        lga: this.feedback1.lga.split('|||')[1],
-        nationality: this.feedback1.nationality,
-        profession_trade: this.feedback1.trade,
-        employment_category: this.floatLabelControl.value,
-        phone: this.feedback1.contact,
-        surname: this.feedback1.surname,
-        email: this.feedback1.contact_email,
-        address: this.feedback2.street,
-        house_no: this.feedback2.house,
-        zipcode: this.feedback2.zipcode,
-        employment_status: this.floatLabelControl.value,
+        first_name: this.editDetails.data.first_name,
+        middle_name: this.editDetails.data.middle_name,
+        gender: this.editDetails.data.gender,
+        dob: this.editDetails.data.dob,
+        pob: this.editDetails.data.pob,
+        state_origin: this.editDetails.data.state_origin,
+        lga: this.editDetails.data.lga,
+        nationality: this.editDetails.data.nationality,
+        state_id: this.feedback2.state_red || this.editDetails.data.state_id,
+        lga_id: this.feedback2.lga_red || this.editDetails.data.lga_id,
+        profession_trade:
+          this.feedback1.trade || this.editDetails.data.profession_trade,
+        employment_category:
+          this.floatLabelControl.value ||
+          this.editDetails.data.employment_category,
+        phone: this.feedback1.contact || this.editDetails.data.phone,
+        surname: this.feedback1.surname || this.editDetails.data.surname,
+        email: this.feedback1.contact_email || this.editDetails.data.phone,
+        address: this.feedback2.street || this.editDetails.data.address,
+        house_no: this.feedback2.house || this.editDetails.data.house_no,
+        zipcode: this.feedback2.zipcode || this.editDetails.data.zipcode,
+        employment_status:
+          this.floatLabelControl.value ||
+          this.editDetails.data.employment_status,
       };
-
-      let previous_data = this.editDetails;
-      if (data.email == null || data.email == undefined || previous_data.data.email == this.feedback1.contact_email) {
-        // slice email
-        console.log("eeeeeeeeeeeeeeeeee")
-        Array.prototype.slice.call(data, 14);
-      }
-      if (data.phone == null || data.phone == undefined || previous_data.data.phone == this.feedback1.contact) {
-        // slice phone
-        Array.prototype.slice.call(data, 12);
-      }
-      // Object.assign(
-      //   data,
-      //   this.feedback1.contact_email == null ? '' : {email: this.feedback1.contact_email}
-      // );
-
-      // dont forget to add the feed2
+      // let previous_data = this.editDetails;
+      // if (
+      //   data.email == null ||
+      //   data.email == undefined ||
+      //   previous_data.data.email == this.feedback1.contact_email
+      // ) {
+      //   delete data.email;
+      // }
+      // if (
+      //   data.phone == null ||
+      //   data.phone == undefined ||
+      //   previous_data.data.phone == this.feedback1.contact
+      // ) {
+      //   delete data.phone;
+      // }
       console.log(data);
-      this.httpService
-        .UpdatePayer('individual', this.editDetails.data.payer.id, data)
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-            this.Updateloading = false;
-            if (data.responsecode === '00') {
-              this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-              this.shared.setPayerEditMessage(undefined);
-              this.router.navigate(['/dashboard2/taxpayer/ind']);
-              this.snackBar.open('successfully updated Details', '', {
-                duration: 3000,
-                panelClass: 'success',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              });
-              this.RemoveFormData();
-            } else {
-              this.snackBar.open(data.message || 'error', '', {
-                duration: 5000,
-                panelClass: 'error',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              });
-            }
-          },
-          (err: any) => {
-            console.log(err);
-            this.authService.checkExpired();
-            this.Updateloading = false;
-            if (err.status === 500) {
-              this.snackBar.open(
-                'Email Address or Contact number Already exists in (Section 1)',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
+      this.httpService.UpdatePayer(this.editDetails.data.id, data).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.Updateloading = false;
+          this.shared.setPayerEditMessage(undefined);
+          this.shared.setPayerMessage('');
+          let datas: any = [];
+          let indexx: any;
+          // update state
+          this.stateInd.forEach((e) => {
+            if (e.length > 0) {
+              let x = JSON.parse(JSON.stringify(e[0].data));
+              x.filter((dat: any, index: any) => {
+                if (dat.id == this.editDetails.data.id) {
+                  indexx = index;
                 }
-              );
-            } else {
-              this.snackBar.open(err.error?.message || 'error', '', {
-                duration: 5000,
-                panelClass: 'error',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
               });
+              datas.push(x);
             }
-          }
-        );
+          });
+          datas[0][indexx] = data.data;
+          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
+          this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
+          this.router.navigate(['/dashboard2/taxpayer/ind']);
+          this.dialog.closeAll();
+          this.OpenDialog(data.data);
+        },
+        (err: any) => {
+          console.log(err);
+          this.authService.checkExpired();
+          this.Updateloading = false;
+          this.snackBar.open(
+            err?.error?.message || err?.error?.detail || 'An Error Occured',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
     } // end if
   }
 
@@ -791,18 +799,26 @@ export class Individual2Component implements OnDestroy, OnInit {
     );
   }
 
+  disableForm() {
+    this.feedbackForm1.controls['state'].disable();
+    this.feedbackForm1.controls['firstname'].disable();
+    this.feedbackForm1.controls['surname'].disable();
+    this.feedbackForm1.controls['middlename'].disable();
+    this.feedbackForm1.controls['gender'].disable();
+    this.feedbackForm1.controls['birth'].disable();
+    this.feedbackForm1.controls['place'].disable();
+    this.feedbackForm1.controls['lga'].disable();
+    this.feedbackForm1.controls['nationality'].disable();
+  }
+
   UpdateValue() {
     if (this.editDetails != undefined) {
       if (this.editDetails.type == 'ind') {
         this.update = true;
         const data = this.editDetails;
-        console.log('edit details', data);
-        // this.feedbackForm1.controls['state'].patchValue(
-        //   data.data.state_origin.id
-        // );
-        // this.feedbackForm2.controls['state_red'].patchValue(
-        //   data.data.state_id.id
-        // );
+        this.feedbackForm2.controls['state_red'].patchValue(
+          data.data.state_id.id
+        );
         this.feedbackForm1.patchValue({ firstname: data.data.first_name });
         this.feedbackForm1.patchValue({ surname: data.data.surname });
         this.feedbackForm1.patchValue({
@@ -811,7 +827,6 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm1.patchValue({ gender: data.data.gender });
         this.feedbackForm1.patchValue({ birth: data.data.dob });
         this.feedbackForm1.patchValue({ place: data.data.pob });
-        // this.feedbackForm1.controls['lga'].patchValue(data.data.lga.id);
         this.feedbackForm1.patchValue({ nationality: data.data.nationality });
         this.feedbackForm1.patchValue({ trade: data.data.profession_trade });
         this.feedbackForm1.patchValue({ contact: data.data.phone });
@@ -819,12 +834,14 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm2.patchValue({ street: data.data.address });
         this.feedbackForm2.patchValue({ house: data.data.house_no });
         this.feedbackForm2.patchValue({ zipcode: data.data.zipcode });
-        // this.feedbackForm2.controls['lga_red'].patchValue(
-        //   data.data.lga_id.id
-        // );
+        this.feedbackForm2.controls['lga_red'].patchValue(data.data.lga_id.id);
         this.floatLabelControl = new FormControl(data.data.employment_status);
       }
     } else {
+    }
+    if (this.editDetails == undefined || this.editDetails == '') {
+    } else {
+      this.disableForm();
     }
   }
 
