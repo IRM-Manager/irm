@@ -713,10 +713,10 @@ export class Individual2Component implements OnDestroy, OnInit {
       } else {
         const splitt = field.split('|||');
         let coun = this.state.filter(
-          (name: any) => name.id === Number(splitt[0])
+          (name: any) => name.id == Number(splitt[0]) || name.name == splitt
         );
         this.lga = coun[0];
-        this.AddLga(coun[0].id);
+        this.AddLga(coun[0].id || coun[0]);
       }
     });
   }
@@ -769,7 +769,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     // end of state
   }
 
-  AddLga(id: number) {
+  AddLga(id: any) {
     this.lgaLoading = true;
     this.httpService.lga(id).subscribe(
       (data: any) => {
@@ -816,6 +816,9 @@ export class Individual2Component implements OnDestroy, OnInit {
       if (this.editDetails.type == 'ind') {
         this.update = true;
         const data = this.editDetails;
+        this.feedbackForm1.controls['state'].patchValue(
+          data.data.state_origin
+        );
         this.feedbackForm2.controls['state_red'].patchValue(
           data.data.state_id.id
         );
@@ -835,6 +838,7 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm2.patchValue({ house: data.data.house_no });
         this.feedbackForm2.patchValue({ zipcode: data.data.zipcode });
         this.feedbackForm2.controls['lga_red'].patchValue(data.data.lga_id.id);
+        this.feedbackForm1.controls['lga'].patchValue(data.data.lga);
         this.floatLabelControl = new FormControl(data.data.employment_status);
       }
     } else {
