@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ComPayer, IndPayer, Payee, Profile, States, Year } from '../models/irm';
+import { ComPayer, IndPayer, Payee, Profile, States, Year } from '../dashboard/models/irm';
 
 
 

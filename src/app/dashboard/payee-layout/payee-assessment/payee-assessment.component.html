@@ -1,0 +1,148 @@
+<div class="wrapper">
+    
+    <div class="header" *ngIf="routeviewMode=='staff'">
+        <!-- (click)="viewMode = 'verify'" -->
+        <button mat-button class="button" [class.active]="viewMode == 'staff-income'">
+            Staff setup
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'tax-income'">
+            Assess taxable income
+        </button>
+        <button mat-button class="button" [class.active]="viewMode == 'bill'">
+            Generate payable bills
+        </button>
+    </div>
+
+    <div class="header" *ngIf="routeviewMode=='access'">
+        <span class="access_year">{{currentYear}} Assessment</span>  <span [matMenuTriggerFor]="menu" class="access_change_year">Change Year</span>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let y of year" (click)="changeCurrentYear(y)">
+              <span>{{y.year}}</span>
+            </button>
+          </mat-menu>
+    </div>
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'verify'" class="verify">
+
+            <div class="business_header">
+                <div class="tin">Tax ID: {{payeedata2?.payer.tin}}</div>
+                <div class="soft_pattern"> {{payeedata2?.organisation_name}} <span class="material-icons">close_fullscreen</span></div>
+                <div class="reg_buss">Registered Business</div>
+            </div>
+
+            
+            <mat-toolbar class="header2">
+                <div class="indcom">
+                    List of Added Employee ({{currentYear}})
+                </div>
+                <div class="spacer"></div>
+                <!-- <div class="search_icon_p">
+                    <form class="search-form" novalidate [formGroup]="SearchForm" #fformsearch="ngForm">
+                        <input matInput formControlName="search" type="text" class="input" >
+                    </form>
+                    <mat-icon class="search_icon">search</mat-icon>
+                </div> -->
+            </mat-toolbar>
+
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                        <tr>
+                                <th class="align-middle">S/N</th>
+                                <th class="align-middle">Tax ID</th>
+                                <th class="align-middle">Name of Employee</th>
+                                <th class="align-middle">
+                                    <div>Gross income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th class="align-middle">
+                                    <div>Tax free Income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th class="align-middle">
+                                    <div>Taxable Income (-N-)</div>
+                                    <div>Per Annual</div>
+                                </th>
+                                <th></th>
+                                <th></th>
+                        </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td class="align-middle">{{i+1}}</td>
+                                <td class="align-middle">{{ data.employeeTin }}</td>
+                                <td class="align-middle">{{ data.employee }}</td>
+                                <td class="align-middle">{{ formatMoney(data.gross) }}</td>
+                                <td class="align-middle">{{ formatMoney(data.compute_annualtax) }}</td>
+                                <td class="align-middle">{{ formatMoney(data.compute_taxable) }}</td>
+                                <td class="check align-middle" (click)="OpenDialog(data, 'payee2')">
+                                    check 
+                                    <mat-icon class="table-icon">dashboard_customize</mat-icon>
+                                </td>
+                                <td class="align-middle">
+                                    <mat-icon (click)="OpenDialog(data, 'delete-payee')" class="table-icon-delete">delete_forever</mat-icon>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                            <span *ngIf="!is_reload">RELOAD</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'staff-income'" class="staff-income">
+            <app-staff-income></app-staff-income>
+        </div>
+    </div>
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'tax-income'" class="tax-income">
+            <app-tax-income></app-tax-income>
+        </div>
+    </div>
+
+    <div [ngSwitch]="viewMode">
+        <div *ngSwitchCase="'bill'" class="bill">
+            <app-payee-bills></app-payee-bills>
+        </div>
+    </div>
+    
+    
+</div>
+    
+    

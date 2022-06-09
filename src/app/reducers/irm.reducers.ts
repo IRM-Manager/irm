@@ -5,7 +5,7 @@ import {
   ComPayer, IndPayer, Payee, Profile,
   States,
   Year
-} from '../models/irm';
+} from '../dashboard/models/irm';
 
 interface ProfileState extends EntityState<Profile> {
   total: number;

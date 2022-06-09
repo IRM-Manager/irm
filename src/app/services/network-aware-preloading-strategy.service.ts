@@ -20,7 +20,7 @@ export class NetworkAwarePreloadingStrategyService2Service
       if (conn.saveData) {
         return false; // save data mode is enabled, so dont preload
       }
-      const avoidTheseConnections = ['slow-2g', '2g' /* , '3g', '4g' */];
+      const avoidTheseConnections = ['slow-2g', '2g', '3g' /*'4g' */];
       const effectiveType = conn.effectiveType || '';
 
       if (avoidTheseConnections.includes(effectiveType)) {

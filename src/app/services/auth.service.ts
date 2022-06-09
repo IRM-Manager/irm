@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, of } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
-import { Tokens } from 'src/app/public-layout/shared/form';
+import { Tokens } from 'src/app/dashboard/shared/form';
 import { BaseUrl } from 'src/environments/environment';
-import { ToggleNavService } from '../public-layout/sharedService/toggle-nav.service';
+import { ToggleNavService } from '../dashboard/sharedService/toggle-nav.service';
 
 @Injectable({
   providedIn: 'root',
