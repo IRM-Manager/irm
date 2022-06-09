@@ -18,6 +18,7 @@ import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/ta
 import { TaxPayerComponent } from '../tax-payer/tax-payer.component';
 import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
+import { AdminConsoleComponent } from '../admin-console/admin-console.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,9 @@ const routes: Routes = [
     component: AppPublicSidenavComponent,
     children: [
       { path: '', component: DashboardComponent },
+      // MDA
       { path: 'dashboard3/taxpayer/mda', component: MDAComponent },
+      // PAYEE
       {
         path: 'dashboard3/taxpayer/payee/lists',
         component: PayeeComponent,
@@ -74,6 +77,7 @@ const routes: Routes = [
         path: 'dashboard4/taxpayer/payee/overview',
         component: PayeeOverviewComponent,
       },
+      // TAX PAYER
       {
         path: 'dashboard2/taxpayer/:id',
         component: TaxPayerComponent,
@@ -102,6 +106,11 @@ const routes: Routes = [
       {
         path: 'dashboard4/taxpayer/payee/bills',
         component: TransBillsComponent,
+      },
+      // ADMIN CONSOLE
+      {
+        path: 'dashboard5/admin-console',
+        component: AdminConsoleComponent,
       },
     ],
   },

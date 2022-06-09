@@ -88,6 +88,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard22/taxpayer/non'
     ) {
       this.type = 'tax_payer';
+    } else if (this.router.url == '/dashboard/dashboard5/admin-console') {
+      this.type = 'admin-console';
     } else {
       this.type = 'home';
     }
@@ -95,18 +97,18 @@ export class AppPublicSidenavListComponent implements OnInit {
 
   payeeRoute() {
     if (
-      this.router.url == 'dashboard3/taxpayer/payee' ||
-      this.router.url == 'dashboard3/taxpayer/payee/lists' ||
-      this.router.url == 'dashboard3/taxpayer/payee/staff-income' ||
-      this.router.url == 'dashboard3/taxpayer/payee/assessment' ||
-      this.router.url == 'dashboard3/taxpayer/payee/bill' ||
-      this.router.url == 'dashboard3/taxpayer/payee/manage' ||
-      this.router.url == 'dashboard3/taxpayer/payee/manage-edit' ||
-      this.router.url == 'dashboard3/taxpayer/payee/manual-input' ||
-      this.router.url == 'dashboard3/taxpayer/payee/lists-view' ||
-      this.router.url == 'dashboard4/taxpayer/payee/access' ||
-      this.router.url == 'dashboard4/taxpayer/payee/access/staff-input' ||
-      this.router.url == 'dashboard4/taxpayer/payee/bills'
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/staff-income' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/assessment' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/bill' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage-edit' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
+      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
+      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
+      this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
     ) {
       this.payee_type = 'payee';
     } else {

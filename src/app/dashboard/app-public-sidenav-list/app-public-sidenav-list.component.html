@@ -35,7 +35,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <span class="vertical3"></span>
-            <p class="panel_text" [routerLink]="['/dashboard/dashboard4/taxpayer/payee/overview']" routerLinkActive="active">
+            <p class="panel_text" [routerLink]="['/dashboard/dashboard4/taxpayer/payee/overview']"
+                routerLinkActive="active">
                 Overview</p>
             <p class="panel_text" [routerLink]="['/dashboard/dashboard3/taxpayer/payee']" routerLinkActive="active">
                 Paye Assessment/Bills
@@ -330,6 +331,74 @@
         </p>
         <p class="dash-text2" [routerLink]="['dashboard22/taxpayer']" routerLinkActive="active">
             Create new tax payer
+        </p>
+    </div>
+
+
+    <div class="footer">
+
+        <div class="menu">
+            <div mat-button [matMenuTriggerFor]="menu">
+                <div class="d-h-l">
+                    <div class="category">
+                        <img src="assets/images/emoji.png" class="category-icon2" alt="">
+                        <div>
+                            <div class="right_text1" *ngIf="profile?.is_staff">Welcome, Admin</div>
+                            <div class="right_text1" *ngIf="!profile?.is_staff">Welcome</div>
+                            <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
+                            <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
+                        </div>
+                        <span class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+            </button>
+            <button mat-menu-item disabled>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+            </button>
+        </mat-menu>
+
+    </div>
+
+
+</div>
+
+
+<!-- Admin Console Layout -->
+
+<div class="wrapper2" *ngIf="type=='admin-console'">
+    <div class="button">
+
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM">
+
+            <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+        </div>
+
+        <p class="back" (click)="PayeeBack()" [routerLink]="['/preview']">
+            <mat-icon>keyboard_backspace</mat-icon> Back
+        </p>
+
+        <p class="pay_as_you_earn">
+            Admin Console
+        </p>
+
+        <p class="dash-text">
+            Departments
         </p>
     </div>
 

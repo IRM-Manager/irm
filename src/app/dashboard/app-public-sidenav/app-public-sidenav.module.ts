@@ -34,6 +34,7 @@ import { Individual2Component } from '../tax-payer-layout/individual2/individual
 import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
+import { AdminConsoleComponent } from '../admin-console/admin-console.component';
 // modules
 import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -59,6 +60,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatBadgeModule } from '@angular/material/badge';
+// import {CdkMenuModule} from '@angular/cdk/menu';
 
 
 @NgModule({
@@ -92,7 +94,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     TaxPayerCreateComponent,
     DashboardComponent,
     PayeeBusinessListComponent,
-    
+    AdminConsoleComponent
   ],
   imports: [
     CommonModule,
@@ -123,7 +125,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatSnackBarModule,
     MatRadioModule,
     FlexLayoutModule,
-    MatBadgeModule
+    MatBadgeModule,
+    // CdkMenuModule
   ],
 })
 export class AppPublicSidenavModule {}

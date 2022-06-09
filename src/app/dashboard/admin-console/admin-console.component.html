@@ -1,0 +1,97 @@
+<div class="wrapper">
+
+    <div>
+        <div class="verify">
+
+            <div class="department">Users | Showing users from all Department</div>
+
+            <mat-toolbar class="header3">
+                <button mat-button class="add_user">
+                    Add user
+                </button>
+            </mat-toolbar>
+
+            <mat-toolbar class="header2">
+                <div class="indcom">
+                    All registrated tax payers
+                </div>
+                <div class="spacer"></div>
+                <div class="search_icon_p">
+                    <form class="search-form">
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
+                            class="input">
+                    </form>
+                    <mat-icon class="search_icon">search</mat-icon>
+                </div>
+            </mat-toolbar>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Contact Number</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td class="align-middle">{{i+1}}</td>
+                                <td class="align-middle">{{ data.tin }}</td>
+                                <td class="align-middle">{{ data.organisation_name }}</td>
+                                <td class="align-middle">{{ data.phone }}</td>
+                                <td class="align-middle">
+                                    <button mat-button [matMenuTriggerFor]="menu">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item>Item 1</button>
+                                        <button mat-menu-item>Item 2</button>
+                                      </mat-menu>
+                                </td>
+                                <td class="align-middle">
+                                    <mat-icon class="table-icon-delete" (click)="OpenDialog(data)">delete</mat-icon>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                            <span *ngIf="!is_reload">RELOAD</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

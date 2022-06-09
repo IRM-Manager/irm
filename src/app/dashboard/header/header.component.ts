@@ -177,6 +177,12 @@ export class HeaderComponent implements OnInit {
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
     } 
+    // Admin Console
+    else if (this.router.url == '/dashboard/dashboard5/admin-console') {
+      this.type = 'mda';
+      this.left_text1 = 'Admin Console';
+      this.left_text2 = '';
+    }
     else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';

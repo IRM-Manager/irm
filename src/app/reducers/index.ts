@@ -1,7 +1,7 @@
 import {
   ActionReducerMap,
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import * as fromExample from './irm.reducers';
 
@@ -41,7 +41,10 @@ export const selectPayeeState = createSelector(
   selectExampleModule,
   fromExample.selectPayeeState
 );
-//   export const selectTransactionState = createSelector(selectExampleModule, fromExample.selectTransactionState);
+export const selectUserState = createSelector(
+  selectExampleModule,
+  fromExample.selectUserState
+);
 //   export const selectNotificationState = createSelector(selectExampleModule, fromExample.selectNotificationState);
 //   export const selectTaskState = createSelector(selectExampleModule, fromExample.selectTaskState);
 //   export const selectAdmin_AgentState = createSelector(selectExampleModule, fromExample.selectAdmin_AgentState);
@@ -73,10 +76,16 @@ export const selectAllPayee = createSelector(
   selectPayeeState,
   fromExample.selectAllPayee
 );
-//   export const selectAllNotification = createSelector(selectNotificationState, fromExample.selectAllNotification);
+export const selectAllNotification = createSelector(
+  selectUserState,
+  fromExample.selectAllUser
+);
 //   export const selectAllTransaction = createSelector(selectTransactionState, fromExample.selectAllTransaction);
 //   export const selectAllTask = createSelector(selectTaskState, fromExample.selectAllTask);
 //   export const selectAllAdmin_Agent = createSelector(selectAdmin_AgentState, fromExample.selectAllAdmin_Agent);
-//   export const selectAllUser = createSelector(selectUserState, fromExample.selectAllUser);
+export const selectAllUser = createSelector(
+  selectUserState,
+  fromExample.selectAllUser
+);
 //   export const selectAllCoupon = createSelector(selectCouponState, fromExample.selectAllCoupon);
 //   export const selectAllSpecial_Order = createSelector(selectSpecial_OrderState, fromExample.selectAllSpecial_Order);

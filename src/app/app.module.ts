@@ -59,14 +59,15 @@ import { AppComponent } from './app.component';
 // import { DefaultModuleModule } from './default-module/default-module.module';
 import { HomeComponent } from './home/home.component';
 import { PreviewComponent } from './preview/preview.component';
-import { AppPublicSidenavModule } from './dashboard/app-public-sidenav/app-public-sidenav.module';
+// import { AppPublicSidenavModule } from './dashboard/app-public-sidenav/app-public-sidenav.module';
 import { reducers } from './reducers/index';
 import { HttpService } from './services/http.service';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
 import { ProcessHttpMsgService } from './services/process-http-msg.service';
 // http interceptors
 import { AuthInterceptor } from './_helpers/auth.interceptor';
-import { AppPrivateSidenavModule } from './admin/app-private-sidenav/app-private-sidenav.module';
+// import { AppPrivateSidenavModule } from './admin/app-private-sidenav/app-private-sidenav.module';
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PreviewComponent],

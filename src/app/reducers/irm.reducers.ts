@@ -3,8 +3,7 @@ import * as KonpayActions from '../actions/irm.action';
 import { Actions } from '../actions/irm.action';
 import {
   ComPayer, IndPayer, Payee, Profile,
-  States,
-  Year
+  States, Year, User
 } from '../dashboard/models/irm';
 
 interface ProfileState extends EntityState<Profile> {
@@ -31,6 +30,10 @@ interface PayeeState extends EntityState<Payee> {
   total: number;
 }
 
+interface UserState extends EntityState<User> {
+  total: number;
+}
+
 // interface TransactionState extends EntityState<Transaction> {
 //   total: number;
 // }
@@ -44,10 +47,6 @@ interface PayeeState extends EntityState<Payee> {
 // }
 
 // interface Admin_AgentState extends EntityState<Admin_Agent> {
-//   total: number;
-// }
-
-// interface UserState extends EntityState<User> {
 //   total: number;
 // }
 
@@ -70,7 +69,7 @@ export interface State {
   // notification: NotificationState;
   // task: TaskState;
   // admin_agent: Admin_AgentState;
-  // user: UserState;
+  user: UserState;
   // coupon: CouponState;
   // special_order: Special_OrderState;
 }
@@ -85,7 +84,7 @@ const adapterPayee = createEntityAdapter<Payee>();
 // const adapterNotification = createEntityAdapter<Notification>();
 // const adapterTask = createEntityAdapter<Task>();
 // const adapterAdmin_Agent = createEntityAdapter<Admin_Agent>();
-// const adapterUser = createEntityAdapter<User>();
+const adapterUser = createEntityAdapter<User>();
 // const adapterCoupon = createEntityAdapter<Coupon>();
 // const adapterSpecial_Order = createEntityAdapter<Special_Order>();
 
@@ -109,7 +108,7 @@ const PayeeInitialState: PayeeState = adapterPayee.getInitialState({
 // const NotificationInitialState: NotificationState = adapterNotification.getInitialState({ total: 0 });
 // const TaskInitialState: TaskState = adapterTask.getInitialState({ total: 0 });
 // const Admin_AgentInitialState: Admin_AgentState = adapterAdmin_Agent.getInitialState({ total: 0 });
-// const UserInitialState: UserState = adapterUser.getInitialState({ total: 0 });
+const UserInitialState: UserState = adapterUser.getInitialState({ total: 0 });
 // const CouponInitialState: CouponState = adapterCoupon.getInitialState({ total: 0 });
 // const Special_OrderInitialState: Special_OrderState = adapterSpecial_Order.getInitialState({ total: 0 });
 
@@ -124,7 +123,7 @@ const initialState = {
   // notification: NotificationInitialState,
   // task: TaskInitialState,
   // admin_agent: Admin_AgentInitialState,
-  // user: UserInitialState,
+  user: UserInitialState,
   // coupon: CouponInitialState,
   // special_order: Special_OrderInitialState,
 };
@@ -231,12 +230,12 @@ export function reducer(state: State = initialState, action: Actions): State {
     //  case KonpayActions.ExampleActionTypes2.GetAdmin_Agent:
     //  return { ...state, admin_agent: adapterAdmin_Agent.removeOne(1, state.admin_agent) };
 
-    // //  User
-    //  case KonpayActions.ExampleActionTypes.GetUser:
-    // return { ...state, user: adapterUser.addMany(action.Userpayload, state.user) };
+    //  User
+     case KonpayActions.ExampleActionTypes.GetUser:
+    return { ...state, user: adapterUser.addMany(action.Userpayload, state.user) };
 
-    // case KonpayActions.ExampleActionTypes2.GetUser:
-    //     return { ...state, user: adapterUser.removeOne(1, state.user) };
+    case KonpayActions.ExampleActionTypes2.GetUser:
+        return { ...state, user: adapterUser.removeOne(1, state.user) };
 
     // //  Coupon
     // case KonpayActions.ExampleActionTypes.GetCoupon:
@@ -267,7 +266,7 @@ export const selectPayeeState = (state: State) => state.payee;
 // export const selectNotificationState = (state: State) => state.notification;
 // export const selectTaskState = (state: State) => state.task;
 // export const selectAdmin_AgentState = (state: State) => state.admin_agent;
-// export const selectUserState = (state: State) => state.user;
+export const selectUserState = (state: State) => state.user;
 // export const selectCouponState = (state: State) => state.coupon;
 // export const selectSpecial_OrderState = (state: State) => state.special_order;
 
@@ -281,6 +280,6 @@ export const { selectAll: selectAllPayee } = adapterPayee.getSelectors();
 // export const { selectAll: selectAllTransaction } = adapterTransaction.getSelectors();
 // export const { selectAll: selectAllTask } = adapterTask.getSelectors();
 // export const { selectAll: selectAllAdmin_Agent } = adapterAdmin_Agent.getSelectors();
-// export const { selectAll: selectAllUser } = adapterUser.getSelectors();
+export const { selectAll: selectAllUser } = adapterUser.getSelectors();
 // export const { selectAll: selectAllCoupon } = adapterCoupon.getSelectors();
 // export const { selectAll: selectAllSpecial_Order } = adapterSpecial_Order.getSelectors();

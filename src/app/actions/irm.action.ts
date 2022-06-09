@@ -1,210 +1,180 @@
 import { Action } from '@ngrx/store';
-import { ComPayer, IndPayer, Payee, Profile, States, Year } from '../dashboard/models/irm';
-
-
+import {
+  ComPayer,
+  IndPayer,
+  Payee,
+  Profile,
+  States,
+  Year,
+  User,
+} from '../dashboard/models/irm';
 
 export enum ExampleActionTypes {
-    GetProfile = '[Profile API] Get Profile',
-    GetStates = '[States API] Get States',
-    GetYear = '[Year API] Get Year',
-    GetIndPayer = '[Review API] Get IndPayer',
-    GetComPayer = '[Gallery API] Get ComPayer',
-    GetPayee = '[Payee API] Get Payee',
-    // GetTransaction = '[Transaction API] Get Transaction',
-    // GetNotification = '[Notification API] Get Notification',
-    // GetTask = '[Task API] Get Task',
-    // GetAdmin_Agent = '[Admin_Agent API] Get Admin_Agent',
-    // GetUser = '[User API] Get User',
-    // GetCoupon = '[Coupon API] Get Coupon',
-    // GetSpecial_Order = '[Special_Order API] Get Special_Order',
+  GetProfile = '[Profile API] Get Profile',
+  GetStates = '[States API] Get States',
+  GetYear = '[Year API] Get Year',
+  GetIndPayer = '[Review API] Get IndPayer',
+  GetComPayer = '[Gallery API] Get ComPayer',
+  GetPayee = '[Payee API] Get Payee',
+  GetUser = '[User API] Get User',
+  // GetNotification = '[Notification API] Get Notification',
+  // GetTask = '[Task API] Get Task',
+  // GetAdmin_Agent = '[Admin_Agent API] Get Admin_Agent',
+  // GetUser = '[User API] Get User',
+  // GetCoupon = '[Coupon API] Get Coupon',
+  // GetSpecial_Order = '[Special_Order API] Get Special_Order',
 }
 
-  export enum ExampleActionTypes2 {
-    GetProfile = '[Profile API] Remove Profile',
-    GetStates = '[States API] Remove States',
-    GetYear = '[Year API] Remove Year',
-    GetIndPayer = '[Review API] Remove GetIndPayer',
-    GetComPayer = '[Gallery API] Remove ComPayer',
-    GetPayee = '[Payee API] Remove Payee',
-    // GetTransaction = '[Transaction API] Remove Transaction',
-    // GetNotification = '[Notification API] Remove Notification',
-    // GetTask = '[Task API] Remove Task',
-    // GetAdmin_Agent = '[Admin_Agent API] Remove Admin_Agent',
-    // GetUser = '[User API] Remove User',
-    // GetCoupon = '[Coupon API] Remove Coupon',
-    // GetSpecial_Order = '[Special_Order API] Remove Special_Order',
-  }
-
-
+export enum ExampleActionTypes2 {
+  GetProfile = '[Profile API] Remove Profile',
+  GetStates = '[States API] Remove States',
+  GetYear = '[Year API] Remove Year',
+  GetIndPayer = '[Review API] Remove GetIndPayer',
+  GetComPayer = '[Gallery API] Remove ComPayer',
+  GetPayee = '[Payee API] Remove Payee',
+  GetUser = '[User API] Remove User',
+  // GetNotification = '[Notification API] Remove Notification',
+  // GetTask = '[Task API] Remove Task',
+  // GetAdmin_Agent = '[Admin_Agent API] Remove Admin_Agent',
+  // GetUser = '[User API] Remove User',
+  // GetCoupon = '[Coupon API] Remove Coupon',
+  // GetSpecial_Order = '[Special_Order API] Remove Special_Order',
+}
 
 // Profile
 
-
 // Section 2
-export const ADD_PROFILE  = '[PROFILE] Add'
-export const REMOVE_PROFILE   = '[PROFILE] Remove'
+export const ADD_PROFILE = '[PROFILE] Add';
+export const REMOVE_PROFILE = '[PROFILE] Remove';
 
 // Section 3
 export class AddProfile implements Action {
-    public readonly type = ExampleActionTypes.GetProfile
+  public readonly type = ExampleActionTypes.GetProfile;
 
-    constructor(public Profilepayload: Profile[]) {}
-
+  constructor(public Profilepayload: Profile[]) {}
 }
 
 export class RemoveProfile implements Action {
-    public readonly type = ExampleActionTypes2.GetProfile
+  public readonly type = ExampleActionTypes2.GetProfile;
 
-    constructor(public Profilepayload: any) {}
+  constructor(public Profilepayload: any) {}
 }
-
-
 
 // Order
 
-
 // Section 2
-export const ADD_STATES  = '[STATE] Add'
-export const REMOVE_STATES   = '[STATE] Remove'
+export const ADD_STATES = '[STATE] Add';
+export const REMOVE_STATES = '[STATE] Remove';
 
 // Section 3
 export class AddStates implements Action {
-    public readonly type = ExampleActionTypes.GetStates
+  public readonly type = ExampleActionTypes.GetStates;
 
-    constructor(public Statespayload: States[]) {}
-
+  constructor(public Statespayload: States[]) {}
 }
 
 export class RemoveStates implements Action {
-    public readonly type = ExampleActionTypes2.GetStates
+  public readonly type = ExampleActionTypes2.GetStates;
 
-    constructor(public Statespayload: any) {}
+  constructor(public Statespayload: any) {}
 }
-
-
-
 
 // Year
 
 // Section 2
-export const ADD_YEAR  = '[YEAR] Add'
-export const REMOVE_YEAR   = '[YEAR] Remove'
+export const ADD_YEAR = '[YEAR] Add';
+export const REMOVE_YEAR = '[YEAR] Remove';
 
 // Section 3
 export class AddYear implements Action {
-    public readonly type = ExampleActionTypes.GetYear
+  public readonly type = ExampleActionTypes.GetYear;
 
-    constructor(public Yearpayload: Year[]) {}
-
+  constructor(public Yearpayload: Year[]) {}
 }
 
 export class RemoveYear implements Action {
-    public readonly type = ExampleActionTypes2.GetYear
+  public readonly type = ExampleActionTypes2.GetYear;
 
-    constructor(public Yearpayload: any) {}
+  constructor(public Yearpayload: any) {}
 }
-
-
-
 
 // IndPayer
 
-
 // Section 2
-export const ADD_INDPAYER  = '[INDPAYER] Add'
-export const REMOVE_INDPAYER   = '[INDPAYER] Remove'
+export const ADD_INDPAYER = '[INDPAYER] Add';
+export const REMOVE_INDPAYER = '[INDPAYER] Remove';
 
 // Section 3
 export class AddIndPayer implements Action {
-    public readonly type = ExampleActionTypes.GetIndPayer
+  public readonly type = ExampleActionTypes.GetIndPayer;
 
-    constructor(public IndPayerpayload: IndPayer[]) {}
-
+  constructor(public IndPayerpayload: IndPayer[]) {}
 }
 
 export class RemoveIndPayer implements Action {
-    public readonly type = ExampleActionTypes2.GetIndPayer
+  public readonly type = ExampleActionTypes2.GetIndPayer;
 
-    constructor(public IndPayerpayload: any) {}
+  constructor(public IndPayerpayload: any) {}
 }
-
-
-
 
 // Gallery
 
-
 // Section 2
-export const ADD_COMPAYER  = '[COMPAYER] Add'
-export const REMOVE_COMPAYER  = '[COMPAYER] Remove'
+export const ADD_COMPAYER = '[COMPAYER] Add';
+export const REMOVE_COMPAYER = '[COMPAYER] Remove';
 
 // Section 3
 export class AddComPayer implements Action {
-    public readonly type = ExampleActionTypes.GetComPayer
+  public readonly type = ExampleActionTypes.GetComPayer;
 
-    constructor(public ComPayerpayload: ComPayer[]) {}
-
+  constructor(public ComPayerpayload: ComPayer[]) {}
 }
 
 export class RemoveComPayer implements Action {
-    public readonly type = ExampleActionTypes2.GetComPayer
+  public readonly type = ExampleActionTypes2.GetComPayer;
 
-    constructor(public ComPayerpayload: any) {}
+  constructor(public ComPayerpayload: any) {}
 }
-
-
 
 // Contact
 
-
 // Section 2
-export const ADD_PAYEE  = '[PAYEE] Add'
-export const REMOVE_PAYEE   = '[PAYEE] Remove'
+export const ADD_PAYEE = '[PAYEE] Add';
+export const REMOVE_PAYEE = '[PAYEE] Remove';
 
 // Section 3
 export class AddPayee implements Action {
-    public readonly type = ExampleActionTypes.GetPayee
+  public readonly type = ExampleActionTypes.GetPayee;
 
-    constructor(public Payeepayload: Payee[]) {}
-
+  constructor(public Payeepayload: Payee[]) {}
 }
 
 export class RemovePayee implements Action {
-    public readonly type = ExampleActionTypes2.GetPayee
+  public readonly type = ExampleActionTypes2.GetPayee;
 
-    constructor(public Payeepayload: any) {}
+  constructor(public Payeepayload: any) {}
 }
 
+// Users
 
+// Section 2
+export const ADD_USER = '[USER] Add';
+export const REMOVE_USER = '[USER] Remove';
 
+// Section 3
+export class AddUser implements Action {
+  public readonly type = ExampleActionTypes.GetUser;
 
-// // Transaction
+  constructor(public Userpayload: User[]) {}
+}
 
+export class RemoveUser implements Action {
+  public readonly type = ExampleActionTypes2.GetUser;
 
-// // Section 2
-// export const ADD_TRANSACTION  = '[TRANSACTION] Add'
-// export const REMOVE_TRANSACTION   = '[TRANSACTION] Remove'
-
-// // Section 3
-// export class AddTransaction implements Action {
-//     public readonly type = ExampleActionTypes.GetTransaction
-
-//     constructor(public Transactionpayload: Transaction[]) {}
-
-// }
-
-// export class RemoveTransaction implements Action {
-//     public readonly type = ExampleActionTypes2.GetTransaction
-
-//     constructor(public Transactionpayload: any) {}
-// }
-
-
-
-
+  constructor(public Userpayload: any) {}
+}
 
 // // Notification
-
 
 // // Section 2
 // export const ADD_NOTIFICATION  = '[NOTIFICATION] Add'
@@ -224,12 +194,7 @@ export class RemovePayee implements Action {
 //     constructor(public Notificationpayload: any) {}
 // }
 
-
-
-
-
-// // Task 
-
+// // Task
 
 // // Section 2
 // export const ADD_TASK  = '[TASK] Add'
@@ -248,9 +213,6 @@ export class RemovePayee implements Action {
 
 //     constructor(public Taskpayload: any) {}
 // }
-
-
-
 
 // // Admin_Agent
 
@@ -272,12 +234,7 @@ export class RemovePayee implements Action {
 //     constructor(public Admin_Agentpayload: any) {}
 // }
 
-
-
-
-
 // // User
-
 
 // // Section 2
 // export const ADD_USER  = '[USER] Add'
@@ -297,11 +254,7 @@ export class RemovePayee implements Action {
 //     constructor(public Userpayload: any) {}
 // }
 
-
-
-
 // // Coupon
-
 
 // // Section 2
 // export const ADD_COUPON  = '[COUPON] Add'
@@ -320,14 +273,6 @@ export class RemovePayee implements Action {
 
 //     constructor(public Couponpayload: any) {}
 // }
-
-
-
-
-
-
-
-
 
 // // Special_Order
 
@@ -349,12 +294,23 @@ export class RemovePayee implements Action {
 //     constructor(public Special_Orderpayload: any) {}
 // }
 
-
-
 // action
 
-export type Actions = | AddProfile | RemoveProfile | AddStates | RemoveStates | AddYear | RemoveYear 
-    | AddIndPayer | RemoveIndPayer | AddComPayer | RemoveComPayer | AddPayee | RemovePayee
-// | AddGallery | RemoveGallery | AddContact | RemoveContact | AddTransaction | RemoveTransaction
+export type Actions =
+  | AddProfile
+  | RemoveProfile
+  | AddStates
+  | RemoveStates
+  | AddYear
+  | RemoveYear
+  | AddIndPayer
+  | RemoveIndPayer
+  | AddComPayer
+  | RemoveComPayer
+  | AddPayee
+  | RemovePayee
+  | AddUser
+  | RemoveUser;
+// | AddContact | RemoveContact | AddTransaction | RemoveTransaction
 // | AddNotification | RemoveNotification | AddTask | RemoveTask | AddAdmin_Agent | RemoveAdmin_Agent
 // | AddUser | RemoveUser | AddCoupon | RemoveCoupon | AddSpecial_Order | RemoveSpecial_Order

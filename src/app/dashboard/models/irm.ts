@@ -28,10 +28,10 @@ export interface Payee {
   data: any;
 }
 
-// export interface Transaction {
-//     id: number;
-//     data: any;
-// }
+export interface User {
+    id: number;
+    data: any;
+}
 
 // export interface Notification {
 //     id: number;
