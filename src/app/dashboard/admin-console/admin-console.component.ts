@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { User } from '../models/irm';
 import { AppState, selectAllUser } from 'src/app/reducers/index';
 import { AddUser } from '../../actions/irm.action';
+//
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,35 +21,25 @@ import { BaseUrl } from 'src/environments/environment';
   selector: 'app-admin-console',
   templateUrl: './admin-console.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./admin-console.component.scss']
+  styleUrls: ['./admin-console.component.scss'],
 })
 export class AdminConsoleComponent implements OnInit {
-
   search: string = '';
   loading = false;
   disabled = false;
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   stateComPayer: Observable<User[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
-
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
@@ -75,12 +66,8 @@ export class AdminConsoleComponent implements OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
-        data.phone
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
@@ -102,13 +89,13 @@ export class AdminConsoleComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.GetPayerList('companypayers').subscribe(
+        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
           (data: any) => {
-              this.store.dispatch(new AddUser([{ id: 1, data: data.data }]));
-              this.datas = data.data;
-              this.searchData = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
+            this.store.dispatch(new AddUser([{ id: 1, data: data.data }]));
+            this.datas = data.data;
+            this.searchData = data.data;
+            this.dtTrigger.next;
+            this.isLoading = false;
           },
           (err) => {
             this.isLoading = false;
@@ -141,7 +128,7 @@ export class AdminConsoleComponent implements OnInit {
   }
 
   goToPayee() {
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee'])
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee']);
   }
 
   formatMoney(n: any) {

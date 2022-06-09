@@ -1,5 +1,3 @@
-// import { CodeInputModule } from 'angular-code-input';
-// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -46,37 +44,24 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { BaseUrl } from 'src/environments/environment';
-// state
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import 'hammerjs';
 import { AuthService } from 'src/app/services/auth.service';
-// import {NgxPaginationModule} from 'ngx-pagination';
-// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { DefaultModuleModule } from './default-module/default-module.module';
 import { HomeComponent } from './home/home.component';
 import { PreviewComponent } from './preview/preview.component';
-// import { AppPublicSidenavModule } from './dashboard/app-public-sidenav/app-public-sidenav.module';
 import { reducers } from './reducers/index';
 import { HttpService } from './services/http.service';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
-import { ProcessHttpMsgService } from './services/process-http-msg.service';
-// http interceptors
 import { AuthInterceptor } from './_helpers/auth.interceptor';
-// import { AppPrivateSidenavModule } from './admin/app-private-sidenav/app-private-sidenav.module';
-
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PreviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-    // AppPublicSidenavModule,
-    // AppPrivateSidenavModule,
 
     MatListModule,
     BrowserAnimationsModule,
@@ -114,21 +99,16 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
     MatTableModule,
     MatTabsModule,
     MatTooltipModule,
-    // CodeInputModule,
     FormsModule,
     ReactiveFormsModule,
-    // NgxMatSelectSearchModule,
     ClipboardModule,
     HttpClientModule,
-    // NgxPaginationModule,
-    // Ng2SearchPipeModule,
     StoreModule.forRoot(reducers, {}),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [
     HttpService,
     AuthService,
-    ProcessHttpMsgService,
     MatDatepickerModule,
     MatNativeDateModule,
     NetworkAwarePreloadingStrategyService2Service,

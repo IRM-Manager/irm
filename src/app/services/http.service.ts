@@ -4,225 +4,54 @@ import { Observable, retry } from 'rxjs';
 import { BaseUrl } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
+  private base_url = BaseUrl.server;
+  private httpOptions = {
+    headers: {
+      Authorization: `Bearer ${this.authService.getJwtToken()}`,
+    },
+  };
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-  ) {
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // get list of state
-  state() {
+  postData(endpoint: any, data: any): Observable<any[]> {
     return this.http
-      .get<any>(
-        BaseUrl.api + `refdata/api/v1/state/`
-      )
-      .pipe(retry(1));
-  }
-
-  // get list of lga selected from a state
-  lga(state_id: number) {
-    return this.http
-      .get<any>(
-        BaseUrl.api + `refdata/api/v1/lga/getlgbystate/?stateid=${state_id}`
-      )
-      .pipe(retry(1));
-  }
-
-  // get lists of years
-  year() {
-    return this.http
-      .get<any>(BaseUrl.api + `refdata/api/v1/year/`)
-      .pipe(retry(1));
-  }
-
-  // get user profile
-  getProfile(): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .get<any[]>(BaseUrl.api + `user/api/v1/userprofile/`, httpOptions)
-      .pipe(retry(1));
-  }
-
-  // add individual or company payer
-  AddPayer(data: any, type: string): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .post<any[]>(
-        BaseUrl.api + `user/api/v1/payer/?payer_group=${type}`,
-        data,
-        httpOptions
-      )
+      .post<any[]>(this.base_url + endpoint, data, this.httpOptions)
       .pipe(retry(2));
   }
 
-  // get payer data
-  GetPayerList(type: string): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .get<any[]>(BaseUrl.api + `user/api/v1/payer/${type}/`, httpOptions)
-      .pipe(retry(1));
+  getSingleNoAuth(endpoint: any) {
+    return this.http.get(this.base_url + endpoint).pipe(retry(1));
   }
 
-  // get payer by tin
-  GetPayerTin(tin: string): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
+  getSingleNoAuthID(endpoint: any, id: any) {
+    return this.http.get(this.base_url + endpoint + id).pipe(retry(1));
+  }
+
+  getAuthSingle(endpoint: any): Observable<any[]> {
     return this.http
-      .get<any[]>(
-        BaseUrl.api + `user/api/v1/getpayertin/?tin=${tin}`,
-        httpOptions
-      )
+      .get<any[]>(this.base_url + endpoint, this.httpOptions)
       .pipe(retry(2));
   }
 
-  // upload csv payee file
-  UploadPayeeFile(data: any, tin: string, year_id: number): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
+  getAuthSingleID(endpoint: any, id: any): Observable<any[]> {
     return this.http
-      .post<any[]>(
-        BaseUrl.api +
-          `paye/api/v1/paye/upload/?comp_tin=${tin}&yearId=${year_id}`,
-        data,
-        httpOptions
-      )
+      .get<any[]>(this.base_url + endpoint + id, this.httpOptions)
       .pipe(retry(2));
   }
 
-  // upload validated csv payee file
-  UploadPayeeValidatedFile(
-    data: any,
-    tin: string,
-    year_id: number | string
-  ): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
+  updateData(endpoint: any, data: any, id: any): Observable<any[]> {
     return this.http
-      .post<any[]>(
-        BaseUrl.api +
-          `paye/api/v1/paye/confirm_upload/?comp_tin=${tin}&yearId=${year_id}`,
-        data,
-        httpOptions
-      )
+      .put<any[]>(this.base_url + endpoint + id, data, this.httpOptions)
       .pipe(retry(2));
   }
 
-  // add single payee
-  AddSinglePayee(data: any, tin: string, year_id: string): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
+  deleteData(endpoint: any, id: any): Observable<any[]> {
     return this.http
-      .post<any[]>(BaseUrl.api + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`, data, httpOptions)
+      .delete<any[]>(this.base_url + endpoint + id, this.httpOptions)
       .pipe(retry(2));
   }
-
-  // upload validated csv payee file
-  GetPayee(tin: string, year_id: number | string): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .get<any[]>(
-        BaseUrl.api + `paye/api/v1/paye/?comp_tin=${tin}&yearId=${year_id}`,
-        httpOptions
-      )
-      .pipe(retry(2));
-  }
-
-  // delete a payer
-  DeletePayer(id: number): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .delete<any[]>(
-        BaseUrl.api + `user/api/v1/payer/${id}/`,
-        httpOptions
-      )
-      .pipe(retry(2));
-  }
-
-  // update a payer
-  UpdatePayer(id: number, data: any): Observable<any[]> {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .put<any[]>(
-        BaseUrl.api + `user/api/v1/payer/${id}/`,
-        data,
-        httpOptions
-      )
-      .pipe(retry(2));
-  }
-
-  // Delete payee
-  DeletePayee(id: number) {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .delete<any[]>(
-        BaseUrl.api + `paye/api/v1/paye/${id}/`,
-        httpOptions
-      )
-      .pipe(retry(1));
-  }
-
-  // Update payee
-  UpdatePayee(data: any, tin: string, id: number | string) {
-    const httpOptions = {
-      headers: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    };
-    return this.http
-      .patch<any[]>(
-        BaseUrl.api + `paye/api/v1/paye/117/?comp_tin=${tin}&yearId=${id}`,
-        data,
-        httpOptions
-      )
-      .pipe(retry(2));
-  }
-
-
-
 }

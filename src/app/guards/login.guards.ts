@@ -19,7 +19,7 @@ export class LoginGuard implements CanActivate {
 
   canActivate() {
     if (this.authService.isLoggedIn()) {
-      this.snackBar.open('Already Logged in', '', {
+      this.snackBar.open('Already Logged In', '', {
         duration: 5000,
         panelClass: 'error',
         horizontalPosition: 'center',

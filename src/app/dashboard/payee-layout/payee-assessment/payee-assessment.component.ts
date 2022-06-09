@@ -1,32 +1,24 @@
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-  ViewChild,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { Year, Payee } from '../../models/irm';
+import { Observable, Subject, Subscription } from 'rxjs';
 import {
-  AppState,
-  selectAllYear,
-  selectAllPayee,
+  AppState, selectAllPayee, selectAllYear
 } from 'src/app/reducers/index';
-import { AddPayee, AddYear, RemovePayee } from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
-import { Location } from '@angular/common';
+import { AddPayee, AddYear, RemovePayee } from '../../../actions/irm.action';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { Payee, Year } from '../../models/irm';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-payee-assessment',
@@ -182,9 +174,9 @@ export class PayeeAssessmentComponent implements OnInit {
         this.isLoading = false;
       } else {
         this.httpService
-          .GetPayee(
-            this.payeedata?.payer?.tin,
-            this.currentYearID || year || 23
+          .getAuthSingle(
+            this.payeedata?.payer?.tin
+            // this.currentYearID || year || 23
           )
           .subscribe(
             (data: any) => {
@@ -212,7 +204,7 @@ export class PayeeAssessmentComponent implements OnInit {
       if (e.length > 0) {
         this.year = e[0].data.data;
       } else {
-        this.httpService.year().subscribe(
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             if (data.responsecode == '01') {
             } else {

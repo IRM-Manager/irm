@@ -17,6 +17,7 @@ export class AuthService {
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
   private helper = new JwtHelperService();
+  private base_url = BaseUrl.server;
 
   constructor(
     public shared: ToggleNavService,
@@ -26,7 +27,7 @@ export class AuthService {
   ) {}
 
   login(user: { username: string; password: string }): Observable<boolean> {
-    return this.http.post<any>(BaseUrl.api + 'user/api/v1/token/', user).pipe(
+    return this.http.post<any>(this.base_url + BaseUrl.login, user).pipe(
       tap((tokens: any) => {
         this.storeTokens(tokens);
       }),
@@ -77,18 +78,16 @@ export class AuthService {
     const data = {
       refresh: this.getRefreshToken(),
     };
-    return this.http
-      .post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', data)
-      .subscribe(
-        (tokens: any) => {
-          console.log(tokens);
-          this.storeJwtToken(tokens.access);
-          return true;
-        },
-        (error: any) => {
-          return false;
-        }
-      );
+    return this.http.post<any>(this.base_url + BaseUrl.refresh, data).subscribe(
+      (tokens: any) => {
+        console.log(tokens);
+        this.storeJwtToken(tokens.access);
+        return true;
+      },
+      (error: any) => {
+        return false;
+      }
+    );
   }
 
   getJwtToken(): any {

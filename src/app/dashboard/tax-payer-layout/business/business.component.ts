@@ -5,13 +5,13 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -29,30 +29,31 @@ import {
   ReplaySubject,
   Subject,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs';
 import {
   AppState,
   selectAllComPayer,
   selectAllProfile,
-  selectAllStates,
+  selectAllStates
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import {
   AddComPayer,
   AddStates,
-  RemoveComPayer,
+  RemoveComPayer
 } from '../../../actions/irm.action';
-import { ComPayer, Profile, States } from '../../models/irm';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { ComPayer, Profile, States } from '../../models/irm';
 import {
   Business,
   Individual2,
   LGA,
   lgaLogo,
   STATE,
-  stateLogo,
+  stateLogo
 } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
@@ -482,7 +483,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
       };
       console.log(data);
 
-      this.httpService.AddPayer(data, 'company').subscribe(
+      this.httpService.postData(BaseUrl.add_com_payer, data).subscribe(
         (data: any) => {
           this.loading2 = false;
           this.disabled2 = false;
@@ -552,7 +553,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
         this.filteredBanks3.next(e[0].data);
         this.stateLoading2 = false;
       } else {
-        this.httpService.state().subscribe(
+        this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
           (data: any) => {
             this.option2 = data;
             this.filteredBanks3.next(data);
@@ -571,7 +572,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
   AddLga2(id: number) {
     this.lgaLoading2 = true;
-    this.httpService.lga(id).subscribe(
+    this.httpService.getSingleNoAuthID(BaseUrl.get_list_lga, id).subscribe(
       (data: any) => {
         this.options3 = data.data;
         this.filteredBanks4.next(data.data);
@@ -671,47 +672,52 @@ export class BusinessComponent implements OnDestroy, OnInit {
         house_no: this.feedback2.house || this.editDetails.data.house,
         zipcode: this.feedback2.zipcode || this.editDetails.data.zipcode,
       };
-      console.log(dataa);
-      this.httpService.UpdatePayer(this.editDetails.data.id, dataa).subscribe(
-        (data: any) => {
-          this.Updateloading = false;
-          this.shared.setPayerEditMessage(undefined);
-          this.shared.setPayerMessage('');
-          let datas: any = [];
-          let indexx: any;
-          // update state
-          this.stateComPayer.forEach((e) => {
-            if (e.length > 0) {
-              let x = JSON.parse(JSON.stringify(e[0].data));
-              x.filter((dat: any, index: any) => {
-                if (dat.id == this.editDetails.data.id) {
-                  indexx = index;
-                }
-              });
-              datas.push(x);
-            }
-          });
-          datas[0][indexx] = data.data;
-          this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-          this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
-          this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
-          this.dialog.closeAll();
-          this.OpenDialog(data.data);
-        },
-        (err: any) => {
-          console.log(err);
-          this.snackBar.open(
-            err?.error?.message || err?.error?.detail || 'An Error Occured',
-            '',
-            {
-              duration: 5000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            }
-          );
-        }
-      );
+      this.httpService
+        .updateData(
+          BaseUrl.delete_update_payer,
+          dataa,
+          this.editDetails.data.id + '/'
+        )
+        .subscribe(
+          (data: any) => {
+            this.Updateloading = false;
+            this.shared.setPayerEditMessage(undefined);
+            this.shared.setPayerMessage('');
+            let datas: any = [];
+            let indexx: any;
+            // update state
+            this.stateComPayer.forEach((e) => {
+              if (e.length > 0) {
+                let x = JSON.parse(JSON.stringify(e[0].data));
+                x.filter((dat: any, index: any) => {
+                  if (dat.id == this.editDetails.data.id) {
+                    indexx = index;
+                  }
+                });
+                datas.push(x);
+              }
+            });
+            datas[0][indexx] = data.data;
+            this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
+            this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
+            this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
+            this.dialog.closeAll();
+            this.OpenDialog(data.data);
+          },
+          (err: any) => {
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message || err?.error?.detail || 'An Error Occured',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     } // end if
   }
 

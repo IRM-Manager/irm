@@ -9,14 +9,14 @@ import { Observable, Subject } from 'rxjs';
 import {
   AppState,
   selectAllComPayer,
-  selectAllIndPayer,
+  selectAllIndPayer
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { AddComPayer, AddIndPayer } from '../../actions/irm.action';
-import { ComPayer, IndPayer } from '../models/irm';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ComPayer, IndPayer } from '../models/irm';
 
 @Component({
   selector: 'app-tax-payer',
@@ -138,7 +138,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
           this.dtTrigger.next;
           this.isLoading = false;
         } else {
-          this.httpService.GetPayerList('companypayers').subscribe(
+          this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
             (data: any) => {
               console.log(data);
               this.store.dispatch(
@@ -166,7 +166,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
           this.dtTrigger.next;
           this.isLoading = false;
         } else {
-          this.httpService.GetPayerList('individualpayers').subscribe(
+          this.httpService.getAuthSingle(BaseUrl.list_ind_payer).subscribe(
             (data: any) => {
               this.store.dispatch(
                 new AddIndPayer([{ id: 1, data: data.data }])

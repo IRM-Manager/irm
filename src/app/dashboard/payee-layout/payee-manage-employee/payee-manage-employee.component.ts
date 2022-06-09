@@ -73,12 +73,8 @@ export class PayeeManageEmployeeComponent implements OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
-        data.phone
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
@@ -100,7 +96,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.GetPayerList('companypayers').subscribe(
+        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
           (data: any) => {
             this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
             this.datas = data.data;

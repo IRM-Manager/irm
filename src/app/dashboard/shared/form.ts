@@ -56,7 +56,6 @@ export interface manual {
   year: string;
 }
 
-
 // export interface Individual3 {
 //   company_name: string;
 //   company_house_no: string;
@@ -111,10 +110,10 @@ export interface individual_create {
 }
 
 export interface create_assessment {
-    year: string;
-    typee: string;
-    employee_no: number;
-  }
+  year: string;
+  typee: string;
+  employee_no: number;
+}
 
 export interface stateLogo {
   id: any;

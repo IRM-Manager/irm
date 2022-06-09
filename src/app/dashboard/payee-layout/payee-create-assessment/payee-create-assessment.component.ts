@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -50,13 +50,14 @@ export class PayeeCreateAssessmentComponent implements OnInit {
 
     this.filteredOptions = this.feedbackForm3.get('year').valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filter(value)),
+      map((value: string) => this._filter(value))
     );
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.options.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
-
 }

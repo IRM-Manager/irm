@@ -17,6 +17,7 @@ import {
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import {
   AddComPayer,
   AddIndPayer,
@@ -134,67 +135,69 @@ export class DialogComponent implements OnInit {
   //  delete tax payer
   DeletePayer() {
     this.isdelete = true;
-    this.httpService.DeletePayer(this.data.data.id).subscribe(
-      (data: any) => {
-        this.isdelete = false;
-        if (this.data.data?.organisation_name) {
-          let datas: any = [];
-          let indexx;
-          this.stateComPayer.forEach((e) => {
-            if (e.length > 0) {
-              let x = e[0].data;
-              x.filter((data: any, index: any) => {
-                if (data.id == this.data.data.id) {
-                  indexx = index;
-                }
-              });
-              datas.push(x);
-            }
-          });
-          datas[0].splice(indexx, 1);
-          this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-          this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
-        } else {
-          let datas: any = [];
-          let indexx;
-          this.stateIndPayer.forEach((e) => {
-            if (e.length > 0) {
-              let x = JSON.parse(JSON.stringify(e[0].data));
-              x.filter((data: any, index: any) => {
-                if (data.id == this.data.data.id) {
-                  indexx = index;
-                }
-              });
-              datas.push(x);
-            }
-          });
-          datas[0].splice(indexx, 1);
-          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-          this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
-        }
-        this.snackBar.open('TaxPayer successfully deleted', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        this.dialogRef.close();
-      },
-      (err) => {
-        console.log(err);
-        this.isdelete = false;
-        this.snackBar.open(
-          err.error.detail || err.error.msg || 'Error deleting TaxPayer',
-          '',
-          {
-            duration: 5000,
-            panelClass: 'error',
+    this.httpService
+      .deleteData(BaseUrl.delete_update_payer, this.data.data.id + '/')
+      .subscribe(
+        (data: any) => {
+          this.isdelete = false;
+          if (this.data?.data?.organisation_name) {
+            let datas: any = [];
+            let indexx;
+            this.stateComPayer.forEach((e) => {
+              if (e.length > 0) {
+                let x = JSON.parse(JSON.stringify(e[0].data));
+                x.filter((data: any, index: any) => {
+                  if (data.id == this.data.data.id) {
+                    indexx = index;
+                  }
+                });
+                datas.push(x);
+              }
+            });
+            datas[0].splice(indexx, 1);
+            this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
+            this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
+          } else {
+            let datas: any = [];
+            let indexx;
+            this.stateIndPayer.forEach((e) => {
+              if (e.length > 0) {
+                let x = JSON.parse(JSON.stringify(e[0].data));
+                x.filter((data: any, index: any) => {
+                  if (data.id == this.data.data.id) {
+                    indexx = index;
+                  }
+                });
+                datas.push(x);
+              }
+            });
+            datas[0].splice(indexx, 1);
+            this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
+            this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
+          }
+          this.snackBar.open('TaxPayer successfully deleted', '', {
+            duration: 3000,
+            panelClass: 'success',
             horizontalPosition: 'center',
             verticalPosition: 'top',
-          }
-        );
-      }
-    );
+          });
+          this.dialogRef.close();
+        },
+        (err) => {
+          console.log(err);
+          this.isdelete = false;
+          this.snackBar.open(
+            err.error.detail || err.error.msg || 'Error deleting TaxPayer',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
   //  delete tax payer
@@ -231,7 +234,7 @@ export class DialogComponent implements OnInit {
   OpenDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialogRef.close();
-    let dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       data: {
         type: type,
         data: data,
@@ -261,7 +264,7 @@ export class DialogComponent implements OnInit {
         this.year = e[0].data.data;
         console.log('dialog_redux_year', e[0].data.data);
       } else {
-        this.httpService.year().subscribe(
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             if (data.responsecode == '01') {
             } else {
@@ -283,11 +286,9 @@ export class DialogComponent implements OnInit {
     console.log(this.payee_data);
     if (this.payee_data.length !== 0) {
       this.httpService
-        .UploadPayeeValidatedFile(
-          data,
-          this.data.data2.payer.tin,
-          this.data.data3.id || this.data.data3[0]
-        )
+        .postData(BaseUrl.list_year, data)
+        // this.data.data2.payer.tin,
+        // this.data.data3.id || this.data.data3[0]
         .subscribe(
           (data: any) => {
             this.isExtract = false;

@@ -5,13 +5,13 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -29,23 +29,24 @@ import {
   ReplaySubject,
   Subject,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs';
 import {
   AppState,
   selectAllIndPayer,
   selectAllProfile,
-  selectAllStates,
+  selectAllStates
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import {
   AddIndPayer,
   AddStates,
-  RemoveIndPayer,
+  RemoveIndPayer
 } from '../../../actions/irm.action';
-import { IndPayer, Profile, States } from '../../models/irm';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { IndPayer, Profile, States } from '../../models/irm';
 import {
   Individual1,
   Individual2,
@@ -53,7 +54,7 @@ import {
   lgaLogo,
   NIN,
   STATE,
-  stateLogo,
+  stateLogo
 } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
@@ -541,7 +542,7 @@ export class Individual2Component implements OnDestroy, OnInit {
       //   data,
       //   this.floatLabelControl.value == 'employed' ? this.includedFields : {}
       // );
-      this.httpService.AddPayer(data, 'individual').subscribe(
+      this.httpService.postData(BaseUrl.add_ind_payer, data).subscribe(
         (data: any) => {
           this.loading2 = false;
           this.disabled2 = false;
@@ -648,49 +649,55 @@ export class Individual2Component implements OnDestroy, OnInit {
       //   delete data.phone;
       // }
       console.log(data);
-      this.httpService.UpdatePayer(this.editDetails.data.id, data).subscribe(
-        (data: any) => {
-          console.log(data);
-          this.Updateloading = false;
-          this.shared.setPayerEditMessage(undefined);
-          this.shared.setPayerMessage('');
-          let datas: any = [];
-          let indexx: any;
-          // update state
-          this.stateInd.forEach((e) => {
-            if (e.length > 0) {
-              let x = JSON.parse(JSON.stringify(e[0].data));
-              x.filter((dat: any, index: any) => {
-                if (dat.id == this.editDetails.data.id) {
-                  indexx = index;
-                }
-              });
-              datas.push(x);
-            }
-          });
-          datas[0][indexx] = data.data;
-          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-          this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
-          this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
-          this.dialog.closeAll();
-          this.OpenDialog(data.data);
-        },
-        (err: any) => {
-          console.log(err);
-          this.authService.checkExpired();
-          this.Updateloading = false;
-          this.snackBar.open(
-            err?.error?.message || err?.error?.detail || 'An Error Occured',
-            '',
-            {
-              duration: 5000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            }
-          );
-        }
-      );
+      this.httpService
+        .updateData(
+          BaseUrl.delete_update_payer,
+          data,
+          this.editDetails.data.id + '/'
+        )
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            this.Updateloading = false;
+            this.shared.setPayerEditMessage(undefined);
+            this.shared.setPayerMessage('');
+            let datas: any = [];
+            let indexx: any;
+            // update state
+            this.stateInd.forEach((e) => {
+              if (e.length > 0) {
+                let x = JSON.parse(JSON.stringify(e[0].data));
+                x.filter((dat: any, index: any) => {
+                  if (dat.id == this.editDetails.data.id) {
+                    indexx = index;
+                  }
+                });
+                datas.push(x);
+              }
+            });
+            datas[0][indexx] = data.data;
+            this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
+            this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
+            this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
+            this.dialog.closeAll();
+            this.OpenDialog(data.data);
+          },
+          (err: any) => {
+            console.log(err);
+            this.authService.checkExpired();
+            this.Updateloading = false;
+            this.snackBar.open(
+              err?.error?.message || err?.error?.detail || 'An Error Occured',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     } // end if
   }
 
@@ -747,7 +754,7 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.stateLoading = false;
         this.stateLoading2 = false;
       } else {
-        this.httpService.state().subscribe(
+        this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
           (data: any) => {
             this.option = data;
             this.state = data;
@@ -771,7 +778,7 @@ export class Individual2Component implements OnDestroy, OnInit {
 
   AddLga(id: any) {
     this.lgaLoading = true;
-    this.httpService.lga(id).subscribe(
+    this.httpService.getSingleNoAuthID(BaseUrl.get_list_lga, id).subscribe(
       (data: any) => {
         this.options2 = data.data;
         this.filteredBanks2.next(data.data);
@@ -786,7 +793,7 @@ export class Individual2Component implements OnDestroy, OnInit {
 
   AddLga2(id: number) {
     this.lgaLoading2 = true;
-    this.httpService.lga(id).subscribe(
+    this.httpService.getSingleNoAuthID(BaseUrl.get_list_lga, id).subscribe(
       (data: any) => {
         this.options3 = data.data;
         this.filteredBanks4.next(data.data);
@@ -816,9 +823,7 @@ export class Individual2Component implements OnDestroy, OnInit {
       if (this.editDetails.type == 'ind') {
         this.update = true;
         const data = this.editDetails;
-        this.feedbackForm1.controls['state'].patchValue(
-          data.data.state_origin
-        );
+        this.feedbackForm1.controls['state'].patchValue(data.data.state_origin);
         this.feedbackForm2.controls['state_red'].patchValue(
           data.data.state_id.id
         );

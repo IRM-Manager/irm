@@ -1,4 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
@@ -7,6 +15,7 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private base_url = BaseUrl.server;
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
@@ -16,9 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   handleHttpError = (err: HttpErrorResponse, req: any, next: HttpHandler) => {
-    if (
-      err instanceof HttpErrorResponse && err.status === 401
-    ) {
+    if (err instanceof HttpErrorResponse && err.status === 401) {
       return this.handle401Error(req, next);
     }
     return throwError(err);
@@ -51,11 +58,10 @@ export class AuthInterceptor implements HttpInterceptor {
           refresh: token,
         };
         return this.http
-          .post<any>(BaseUrl.api + 'user/api/v1/token/refresh/', data)
+          .post<any>(this.base_url + BaseUrl.refresh, data)
           .subscribe(
             (tokens: any) => {
               this.isRefreshing = false;
-              console.log('http interceptors', tokens);
               localStorage.setItem(this.JWT_TOKEN, tokens.access);
               return next.handle(
                 this.addTokenHeader(request, token.accessToken)

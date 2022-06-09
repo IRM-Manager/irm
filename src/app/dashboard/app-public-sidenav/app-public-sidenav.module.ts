@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { RouterModule } from '@angular/router';
-// import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { AppPublicSidenavRoutingModule } from './app-public-sidenav-routing.module';
 // components
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
-import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
-import { HeaderComponent } from '../header/header.component';
 import { MDAComponent } from '../mda/mda.component';
 import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
 import { StaffIncomeComponent } from '../staff-income/staff-income.component';
@@ -16,15 +12,10 @@ import { PayeeBillsComponent } from '../payee-layout/payee-bills/payee-bills.com
 import { PayeeCreateAssessmentComponent } from '../payee-layout/payee-create-assessment/payee-create-assessment.component';
 import { PayeeGenerateBillComponent } from '../payee-layout/payee-generate-bill/payee-generate-bill.component';
 import { PayeeManageEditComponent } from '../payee-layout/payee-manage-edit/payee-manage-edit.component';
-import { Dashboard4Component } from '../dashboard4/dashboard4.component';
-import { Dashboard3Component } from '../dashboard3/dashboard3.component';
-import { Dashboard2Component } from '../dashboard2/dashboard2.component';
 import { PayeeManageEmployeeComponent } from '../payee-layout/payee-manage-employee/payee-manage-employee.component';
-import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/payee-manual-input.component'
+import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/payee-manual-input.component';
 import { PayeeOnboardComponent } from '../payee-layout/payee-onboard/payee-onboard.component';
 import { PayeeOverviewComponent } from '../payee-layout/payee-overview/payee-overview.component';
-import { PayeeOverview2Component } from '../payee-layout/Payee-overview-component/payee-overview2/payee-overview2.component';
-import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
 import { PayeeViewComponent } from '../payee-layout/payee-view/payee-view.component';
 import { TaxPayerComponent } from '../tax-payer/tax-payer.component';
 import { TransBillsComponent } from '../trans-bills/trans-bills.component';
@@ -35,6 +26,11 @@ import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/ta
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
 import { AdminConsoleComponent } from '../admin-console/admin-console.component';
+import { Dashboard4Component } from '../dashboard4/dashboard4.component';
+import { Dashboard3Component } from '../dashboard3/dashboard3.component';
+import { Dashboard2Component } from '../dashboard2/dashboard2.component';
+import { PayeeOverview2Component } from '../payee-layout/Payee-overview-component/payee-overview2/payee-overview2.component';
+import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
 // modules
 import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -62,15 +58,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatBadgeModule } from '@angular/material/badge';
 // import {CdkMenuModule} from '@angular/cdk/menu';
 
-
 @NgModule({
   declarations: [
+    // components  // components which has route and chart comes here....while components which do not goes to public-shared-module
     AppPublicSidenavComponent,
-    AppPublicSidenavListComponent,
-    HeaderComponent,
-    Dashboard2Component,
-    Dashboard3Component,
-    Dashboard4Component,
     MDAComponent,
     PayeeAssessmentComponent,
     StaffIncomeComponent,
@@ -83,8 +74,6 @@ import { MatBadgeModule } from '@angular/material/badge';
     PayeeManualInputComponent,
     PayeeOnboardComponent,
     PayeeOverviewComponent,
-    PayeeOverview2Component,
-    PayeeOverview3Component,
     PayeeViewComponent,
     TaxPayerComponent,
     TransBillsComponent,
@@ -94,12 +83,15 @@ import { MatBadgeModule } from '@angular/material/badge';
     TaxPayerCreateComponent,
     DashboardComponent,
     PayeeBusinessListComponent,
-    AdminConsoleComponent
+    AdminConsoleComponent,
+    Dashboard2Component,
+    Dashboard3Component,
+    Dashboard4Component,
+    PayeeOverview2Component,
+    PayeeOverview3Component,
   ],
   imports: [
     CommonModule,
-    // RouterModule,
-    // AppRoutingModule,
     AppPublicSidenavRoutingModule,
     PublicSharedModuleModule,
     MatIconModule,

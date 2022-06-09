@@ -3,7 +3,7 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // state management
@@ -12,6 +12,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { AddProfile } from '../../actions/irm.action';
 import { Profile } from '../models/irm';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
@@ -71,7 +72,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
+      this.router.url ==
+        '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
     ) {
       this.type = 'payee';
@@ -107,7 +109,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
+      this.router.url ==
+        '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
     ) {
       this.payee_type = 'payee';
@@ -151,7 +154,7 @@ export class AppPublicSidenavListComponent implements OnInit {
         this.profile = e[0].data;
         console.log('profile_state', e[0].data);
       } else {
-        this.httpService.getProfile().subscribe(
+        this.httpService.getAuthSingle(BaseUrl.get_profile).subscribe(
           (data: any) => {
             this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
             this.profile = data.data;

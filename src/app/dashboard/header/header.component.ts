@@ -6,19 +6,25 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import {
-  AppState, selectAllComPayer, selectAllIndPayer, selectAllProfile,
+  AppState,
+  selectAllComPayer,
+  selectAllIndPayer,
+  selectAllProfile,
   selectAllStates,
   selectAllYear
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import {
-  AddComPayer, AddIndPayer, AddProfile,
+  AddComPayer,
+  AddIndPayer,
+  AddProfile,
   AddStates,
   AddYear
 } from '../../actions/irm.action';
-import { ComPayer, IndPayer, Profile, States, Year } from '../models/irm';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ComPayer, IndPayer, Profile, States, Year } from '../models/irm';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
@@ -100,8 +106,7 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
-    }
-    else if (this.router.url == '/dashboard/dashboard2/taxpayer/business') {
+    } else if (this.router.url == '/dashboard/dashboard2/taxpayer/business') {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
@@ -117,15 +122,19 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer Registration';
       this.left_text2 = 'Register A Tax Payer';
-    } else if (this.router.url == '/dashboard/dashboard22/taxpayer/ind/individual') {
+    } else if (
+      this.router.url == '/dashboard/dashboard22/taxpayer/ind/individual'
+    ) {
       this.type = 'tax';
       this.left_text1 = 'Individual Taxpayer Registration Form';
       this.left_text2 = 'Please fill in the information';
-    } else if (this.router.url == '/dashboard/dashboard22/taxpayer/non/business') {
+    } else if (
+      this.router.url == '/dashboard/dashboard22/taxpayer/non/business'
+    ) {
       this.type = 'reg_tax';
       this.left_text1 = 'Non - Individual Taxpayer Registration Form';
       this.left_text2 = 'Please fill in the information';
-    } 
+    }
     // Payee
     else if (
       this.router.url == '/dashboard/dashboard3/taxpayer/payee' ||
@@ -134,33 +143,44 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
+      this.router.url ==
+        '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
     ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = '';
-    }else if (this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists') {
+    } else if (
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists'
+    ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Concluded Assessment';
-    }else if (this.router.url == '/dashboard/dashboard3/taxpayer/payee/business-list') {
+    } else if (
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/business-list'
+    ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Check all the list of registered member';
-    }else if (this.router.url == '/dashboard/dashboard3/taxpayer/payee/bill') {
+    } else if (this.router.url == '/dashboard/dashboard3/taxpayer/payee/bill') {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Generated Bills';
-    }else if (this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage') {
+    } else if (
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage'
+    ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Manage Staffs Employees';
-    }else if (this.router.url == '/dashboard/dashboard3/taxpayer/payee/assessment') {
+    } else if (
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/assessment'
+    ) {
       this.type = 'payee';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Create New assessment for PAYE';
-    } else if (this.router.url == '/dashboard/dashboard4/taxpayer/payee/overview') {
+    } else if (
+      this.router.url == '/dashboard/dashboard4/taxpayer/payee/overview'
+    ) {
       this.type = 'tax_dashboard2';
       this.left_text1 = 'Pay-As-You-Earn (PAYE)';
       this.left_text2 = 'Dashboard';
@@ -170,20 +190,19 @@ export class HeaderComponent implements OnInit {
       this.type = 'mda';
       this.left_text1 = 'MDA Collection';
       this.left_text2 = 'Please fill in the information';
-    } 
+    }
     // Dashboard
     else if (this.router.url == '/dashboard/dashboard') {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
-    } 
+    }
     // Admin Console
     else if (this.router.url == '/dashboard/dashboard5/admin-console') {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = '';
-    }
-    else {
+    } else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
@@ -200,11 +219,11 @@ export class HeaderComponent implements OnInit {
         this.profile = e[0].data;
         console.log('profile_state', e[0].data);
       } else {
-        this.httpService.getProfile().subscribe(
+        this.httpService.getAuthSingle(BaseUrl.get_profile).subscribe(
           (data: any) => {
-              this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
-              this.profile = data.data;
-              console.log('http_profile', data);
+            this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
+            this.profile = data.data;
+            console.log('http_profile', data);
           },
           (err) => {
             this.authService.checkExpired();
@@ -215,7 +234,7 @@ export class HeaderComponent implements OnInit {
   }
 
   AddYear() {
-    this.httpService.year().subscribe(
+    this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
@@ -227,7 +246,7 @@ export class HeaderComponent implements OnInit {
   }
 
   addIndividualPayer() {
-    this.httpService.GetPayerList('individualpayers').subscribe(
+    this.httpService.getAuthSingle(BaseUrl.list_ind_payer).subscribe(
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
@@ -239,7 +258,7 @@ export class HeaderComponent implements OnInit {
   }
 
   addCompanyPayer() {
-    this.httpService.GetPayerList('companypayers').subscribe(
+    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
@@ -251,7 +270,7 @@ export class HeaderComponent implements OnInit {
   }
 
   AddState() {
-    this.httpService.state().subscribe(
+    this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
       (data: any) => {
         if (data.responsecode == '01') {
         } else {
@@ -293,7 +312,7 @@ export class HeaderComponent implements OnInit {
 
   OpenDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    let dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       data: {
         type: type,
         data: data,

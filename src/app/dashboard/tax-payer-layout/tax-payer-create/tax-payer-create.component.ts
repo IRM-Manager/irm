@@ -105,18 +105,16 @@ export class TaxPayerCreateComponent implements OnInit {
 
     if (data?.type == '' || data?.type == undefined || data?.type == null) {
       this.shared.setPayerMessage('');
-    } else if(data?.type == 'change') {
-      if(data?.payer_type == 'individual') {
+    } else if (data?.type == 'change') {
+      if (data?.payer_type == 'individual') {
         this.feedbackForm.patchValue({ nin: data?.nin });
         this.feedbackForm.patchValue({ birth: data?.birth });
-      }
-      else {
+      } else {
         this.feedbackForm2.patchValue({ cac: data?.cac });
       }
-    }else{
+    } else {
       this.shared.setPayerMessage('');
     }
-
   }
 
   createForm() {

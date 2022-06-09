@@ -1,29 +1,27 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { ComPayer } from '../../models/irm';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import { AddComPayer } from '../../../actions/irm.action';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { ComPayer } from '../../models/irm';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-payee-business-list',
   templateUrl: './payee-business-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./payee-business-list.component.scss']
+  styleUrls: ['./payee-business-list.component.scss'],
 })
 export class PayeeBusinessListComponent implements OnInit {
-
   search: string = '';
   loading = false;
   disabled = false;
@@ -75,12 +73,8 @@ export class PayeeBusinessListComponent implements OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
-        data.phone
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
@@ -102,13 +96,13 @@ export class PayeeBusinessListComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.GetPayerList('companypayers').subscribe(
+        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
           (data: any) => {
-              this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-              this.datas = data.data;
-              this.searchData = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
+            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
+            this.datas = data.data;
+            this.searchData = data.data;
+            this.dtTrigger.next;
+            this.isLoading = false;
           },
           (err) => {
             this.isLoading = false;
@@ -141,7 +135,7 @@ export class PayeeBusinessListComponent implements OnInit {
   }
 
   goToPayee() {
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee'])
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee']);
   }
 
   formatMoney(n: any) {
@@ -153,5 +147,4 @@ export class PayeeBusinessListComponent implements OnInit {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
 }

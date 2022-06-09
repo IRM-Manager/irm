@@ -20,10 +20,9 @@ import { BaseUrl } from 'src/environments/environment';
   selector: 'app-payee-generate-bill',
   templateUrl: './payee-generate-bill.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./payee-generate-bill.component.scss']
+  styleUrls: ['./payee-generate-bill.component.scss'],
 })
 export class PayeeGenerateBillComponent implements OnInit {
-
   search: string = '';
   loading = false;
   disabled = false;
@@ -75,12 +74,8 @@ export class PayeeGenerateBillComponent implements OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
-        data.phone
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
@@ -102,13 +97,13 @@ export class PayeeGenerateBillComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.GetPayerList('companypayers').subscribe(
+        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
           (data: any) => {
-              this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-              this.datas = data.data;
-              this.searchData = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
+            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
+            this.datas = data.data;
+            this.searchData = data.data;
+            this.dtTrigger.next;
+            this.isLoading = false;
           },
           (err) => {
             this.isLoading = false;

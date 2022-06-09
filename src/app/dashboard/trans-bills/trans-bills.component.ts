@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  OnInit, ViewChild, ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,8 +12,8 @@ import { AppState, selectAllComPayer } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { ComPayer } from '../models/irm';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ComPayer } from '../models/irm';
 import { Person2, Tin } from '../shared/form';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
@@ -183,47 +180,49 @@ export class TransBillsComponent implements OnInit {
     this.disabled = true;
     this.feedback = this.feedbackForm.value;
 
-    this.httpService.GetPayerTin(this.feedback.tin).subscribe(
-      (data: any) => {
-        this.loading = false;
-        this.disabled = false;
-        if (data.data.payer.payer_type == 'company') {
-          const datas = {
-            type: 'staff-income',
-            is_type: false,
-          };
-          this.OpenDialog(data.data, 'payee');
-        } else {
-          this.snackBar.open('Not A Registered Business Taxpayer', '', {
-            duration: 5000,
-            panelClass: 'error',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
+    this.httpService
+      .getAuthSingleID(BaseUrl.get_payer_tin, this.feedback.tin)
+      .subscribe(
+        (data: any) => {
+          this.loading = false;
+          this.disabled = false;
+          if (data.data.payer.payer_type == 'company') {
+            const datas = {
+              type: 'staff-income',
+              is_type: false,
+            };
+            this.OpenDialog(data.data, 'payee');
+          } else {
+            this.snackBar.open('Not A Registered Business Taxpayer', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          }
+        },
+        (err) => {
+          this.loading = false;
+          this.disabled = false;
+          this.authService.refreshToken();
+          console.log(err);
+          if (err.status === 404) {
+            this.snackBar.open('Tin or Tax ID does not exists', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          } else {
+            this.snackBar.open('Error', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          }
         }
-      },
-      (err) => {
-        this.loading = false;
-        this.disabled = false;
-        this.authService.refreshToken();
-        console.log(err);
-        if (err.status === 404) {
-          this.snackBar.open('Tin or Tax ID does not exists', '', {
-            duration: 5000,
-            panelClass: 'error',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-        } else {
-          this.snackBar.open('Error', '', {
-            duration: 5000,
-            panelClass: 'error',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-        }
-      }
-    );
+      );
     // end of subscribe
   }
 

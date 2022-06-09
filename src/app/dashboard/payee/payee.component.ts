@@ -1,10 +1,7 @@
-import {
-  Component, OnDestroy, OnInit, ViewEncapsulation
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -30,20 +27,12 @@ export class PayeeComponent implements OnDestroy, OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   stateComPayer: Observable<ComPayer[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
-
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -75,12 +64,8 @@ export class PayeeComponent implements OnDestroy, OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
-        data.phone
-          .toLowerCase()
-          .startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
@@ -102,15 +87,13 @@ export class PayeeComponent implements OnDestroy, OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.GetPayerList('companypayers').subscribe(
+        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
           (data: any) => {
-              this.store.dispatch(
-                new AddComPayer([{ id: 1, data: data.data }])
-              );
-              this.datas = data.data;
-              this.searchData = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
+            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
+            this.datas = data.data;
+            this.searchData = data.data;
+            this.dtTrigger.next;
+            this.isLoading = false;
           },
           (err) => {
             this.isLoading = false;
@@ -143,17 +126,17 @@ export class PayeeComponent implements OnDestroy, OnInit {
   }
 
   reAccess(data: any) {
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage'])
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage']);
   }
 
   view(data: any) {
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/lists-view'])
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/lists-view']);
   }
 
   formatMoney(n: any) {
-    const tostring = n.toString()
-   return (Math.round(tostring * 100) / 100).toLocaleString();
- }
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
