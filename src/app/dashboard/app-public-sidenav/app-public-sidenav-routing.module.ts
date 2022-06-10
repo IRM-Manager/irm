@@ -21,6 +21,7 @@ import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { AdminConsoleComponent } from '../admin-console/admin-console.component';
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
 import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
+import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
 
 const routes: Routes = [
   {
@@ -121,6 +122,10 @@ const routes: Routes = [
       {
         path: 'dashboard5/edit-user',
         component: EditUserComponent,
+      },
+      {
+        path: 'dashboard5/view-user',
+        component: ViewUserComponent,
       },
     ],
   },

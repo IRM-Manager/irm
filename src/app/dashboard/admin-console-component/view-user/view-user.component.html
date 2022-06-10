@@ -1,0 +1,69 @@
+<div class="view-user-wrapper">
+
+    <p class="back" [routerLink]="['/dashboard/dashboard5/admin-console']">
+        <mat-icon>keyboard_backspace</mat-icon> Back
+    </p>
+
+    <div class="view-user-email">Matthew Adeboye(matthewconsult@irm.com)</div>
+
+    <div class="view-user-container">
+        <div class="view-user-left">
+            <input type="file" class="upload-file-input" (change)="onFileSelected($event)" #fileUpload
+                accept="image/*" />
+            <div (click)="fileUpload.click()">
+                <div class="picture_container">
+                    <div *ngIf="!image">
+                        add picture
+                        <i class="fa fa-mouse-pointer fa-lg" style="margin-left: 10px;" aria-hidden="true"></i>
+                    </div>
+                    <img *ngIf="image" class="view-user-image" [src]="displayImage(image)" alt="{{filename}}">
+                </div>
+            </div>
+            <div class="department">Departments</div>
+            <div class="role_p">
+                <div class="paye">PAYE</div>
+                <div class="edit">Edit</div>
+            </div>
+            <div class="department">Role</div>
+            <div class="role_p">
+                <div class="paye">PAYE</div>
+                <div class="edit">Edit</div>
+            </div>
+        </div>
+        <div class="view-user-right">
+            <div class="role_p">
+                <div class="paye">Personal Information</div>
+                <div class="edit">Edit</div>
+            </div>
+            <div class="personal_info">
+                <span class="text1">First Name</span>
+                <span class="text2">Matthew</span>
+            </div>
+            <div class="personal_info">
+                <span class="text1">Last Name</span>
+                <span class="text2">Adeboye</span>
+            </div>
+            <div class="personal_info">
+                <span class="text1">Gender</span>
+                <span class="text2" style="margin-left: 16.5%;">Male</span>
+            </div>
+
+            <div class="paye" style="margin-top: 1.5rem;">Account information</div>
+
+            <div class="personal_info">
+                <span class="text1">Account Creation Time</span>
+                <span class="text2" style="margin-left: 16%;">03/29/22 11:06:55 AM</span>
+            </div>
+            <div class="personal_info">
+                <span class="text1">Last Password Reset Time</span>
+                <span class="text2">03/29/22 11:06:55 AM</span>
+            </div>
+            <div class="personal_info">
+                <span class="text1">Last Login Time</span>
+                <span class="text2" style="margin-left: 25%;">03/29/22 11:06:55 AM</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>

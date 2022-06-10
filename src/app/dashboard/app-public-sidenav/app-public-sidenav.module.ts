@@ -59,6 +59,7 @@ import { PayeeOverview2Component } from '../payee-layout/Payee-overview-componen
 import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
 import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
+import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { EditUserComponent } from '../admin-console-component/edit-user/edit-use
     PayeeOverview2Component,
     PayeeOverview3Component,
     AddUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    ViewUserComponent
   ],
   imports: [
     CommonModule,
