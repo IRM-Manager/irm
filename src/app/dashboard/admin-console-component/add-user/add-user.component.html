@@ -1,0 +1,91 @@
+<div class="add-user-wrapper">
+    <p class="back" [routerLink]="['/dashboard/dashboard5/admin-console']">
+        <mat-icon>keyboard_backspace</mat-icon> Back
+    </p>
+
+    <div class="title">Add new Users |</div>
+
+    <div class="add-container">
+        <form class="form1" #card novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+                <!-- firstname -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="first_name" required>
+                    <mat-error>{{formErrors.first_name}}</mat-error>
+                </mat-form-field>
+                <!-- middlename -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Middle Name (optional)</mat-label>
+                    <input matInput formControlName="middle_name">
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- lastname -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="last_name" required>
+                    <mat-error>{{formErrors.last_name}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <!-- email -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput type="email" formControlName="email" email required>
+                    <mat-error>{{formErrors.email}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <!-- Choose department -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Choose department</mat-label>
+                    <input matInput formControlName="department" [matAutocomplete]="auto" required>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button type="button" matSuffix mat-icon-button class="drop_down">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <mat-error>{{formErrors.department}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <!-- Choose Group -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Choose Group</mat-label>
+                    <input matInput formControlName="group" [matAutocomplete]="auto" required>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button type="button" matSuffix mat-icon-button class="drop_down">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <mat-error>{{formErrors.group}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="final_submit">
+                <button type="submit" mat-button class="verify" [disabled]="disabled === true">
+                    <span *ngIf="!loading">Save</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+        </form>
+
+
+    </div>
+</div>

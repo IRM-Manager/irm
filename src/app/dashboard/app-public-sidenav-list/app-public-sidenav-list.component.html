@@ -393,11 +393,15 @@
             <mat-icon>keyboard_backspace</mat-icon> Back
         </p>
 
-        <p class="pay_as_you_earn">
+        <p class="pay_as_you_earn" [routerLink]="['/dashboard/dashboard5/admin-console']">
             Admin Console
         </p>
 
-        <p class="dash-text">
+        <p class="dash-text" [routerLink]="['/dashboard/dashboard5/admin-console']" routerLinkActive="active">
+            All user
+        </p>
+
+        <p class="dash-text2">
             Departments
         </p>
     </div>

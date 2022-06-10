@@ -90,7 +90,11 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard22/taxpayer/non'
     ) {
       this.type = 'tax_payer';
-    } else if (this.router.url == '/dashboard/dashboard5/admin-console') {
+    } else if (
+      this.router.url == '/dashboard/dashboard5/admin-console' ||
+      this.router.url == '/dashboard/dashboard5/add-user' ||
+      this.router.url == '/dashboard/dashboard5/edit-user'
+    ) {
       this.type = 'admin-console';
     } else {
       this.type = 'home';

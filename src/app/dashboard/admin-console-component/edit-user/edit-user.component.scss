@@ -1,0 +1,190 @@
+$wrapper-back: #f5f7fa 0% 0% no-repeat padding-box;
+$white: #ffffff;
+$ind-back: #ffffff 0% 0% no-repeat padding-box;
+$ind-border: 1px solid #45a841;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$ind-color: #565656;
+$create-back: #3c66a3 0% 0% no-repeat padding-box;
+$active-back: #387499 0% 0% no-repeat padding-box;
+$select-color: #3ea84e;
+$form-color: #37a85d;
+$label-color: #565656;
+$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
+  0% 0% no-repeat padding-box;
+$verify-hover-box: 0px 3px 6px #00000029;
+$drop-down: #3e538f;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+
+.edit-user-wrapper {
+  background: $wrapper-back;
+  overflow: auto;
+  min-height: 100vh;
+  padding-left: 20px;
+
+  .back {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    color: $soft-pattern-color;
+    font: $soft-pattern-font;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .back mat-icon {
+    vertical-align: middle;
+  }
+
+  .title {
+    font: normal normal normal 20px/24px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #565656;
+    margin-top: 2rem;
+    opacity: 1;
+  }
+
+  .add-container {
+    margin-top: 2rem;
+    width: 80%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    opacity: 1;
+  }
+
+  @mixin theme($back, $color, $font, $border) {
+    letter-spacing: 0px;
+    font: $font;
+    background: $back;
+    border: $border;
+    border-radius: 10px;
+    color: $color;
+    font-weight: 500;
+    opacity: 1;
+    padding: 1rem;
+  }
+
+  .verify {
+    margin-left: 20px;
+    width: 150px;
+    @include theme(
+      $back: $create-back,
+      $color: $white,
+      $font: $ind-font,
+      $border: unset
+    );
+  }
+
+  .final_submit {
+    text-align: left;
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0 0.5em 0;
+  }
+
+  .bubble {
+    animation: expand 0.75s ease-in-out infinite;
+    border-radius: 20px;
+    display: inline-block;
+    transform-origin: center center;
+    margin: 0 3px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .bubble:nth-child(1) {
+    background: $white;
+  }
+
+  .bubble:nth-child(2) {
+    animation-delay: 180ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(3) {
+    animation-delay: 360ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(4) {
+    animation-delay: 540ms;
+    background: $white;
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.55);
+    }
+  }
+
+  input[type="text"] {
+    background: $label-color;
+  }
+
+  ::ng-deep .mat-select-arrow {
+    color: $select-color;
+    opacity: 1;
+  }
+
+  .half-width {
+    width: 240px;
+  }
+
+  .full-width {
+    width: 500px;
+  }
+
+  mat-error {
+    text-transform: capitalize;
+    font: normal normal normal 12px/20px Montserrat;
+    transition: all 0.5s;
+  }
+
+  mat-label {
+    text-transform: capitalize;
+    font-weight: 550;
+    font: normal normal normal 14px/20px Montserrat;
+  }
+
+  .drop_down {
+    color: $drop-down;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
+
+  mat-form-field {
+    color: 1px solid $form-color;
+    margin-right: 20px;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $form-color;
+  }
+
+  ::ng-deep
+    .mat-form-field-appearance-outline.mat-focused
+    .mat-form-field-outline-thick {
+    color: $form-color;
+  }
+
+  ::ng-deep .mat-input-element {
+    caret-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: $label-color;
+  }
+}

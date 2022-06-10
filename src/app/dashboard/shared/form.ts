@@ -115,6 +115,15 @@ export interface create_assessment {
   employee_no: number;
 }
 
+export interface add_user {
+  first_name: string;
+  last_name: string;
+  middle_name: string;
+  email: string;
+  department: string;
+  group: string;
+}
+
 export interface stateLogo {
   id: any;
   name: any;

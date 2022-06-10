@@ -19,6 +19,8 @@ import { TaxPayerComponent } from '../tax-payer/tax-payer.component';
 import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { AdminConsoleComponent } from '../admin-console/admin-console.component';
+import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
+import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
 
 const routes: Routes = [
   {
@@ -111,6 +113,14 @@ const routes: Routes = [
       {
         path: 'dashboard5/admin-console',
         component: AdminConsoleComponent,
+      },
+      {
+        path: 'dashboard5/add-user',
+        component: AddUserComponent,
+      },
+      {
+        path: 'dashboard5/edit-user',
+        component: EditUserComponent,
       },
     ],
   },

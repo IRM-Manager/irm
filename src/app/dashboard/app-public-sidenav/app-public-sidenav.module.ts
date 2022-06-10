@@ -2,6 +2,32 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AppPublicSidenavRoutingModule } from './app-public-sidenav-routing.module';
+// modules
+import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { DataTablesModule } from 'angular-datatables';
+import { ChartModule } from 'angular-highcharts';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatBadgeModule } from '@angular/material/badge';
+// import {CdkMenuModule} from '@angular/cdk/menu';
 // components
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { MDAComponent } from '../mda/mda.component';
@@ -31,32 +57,8 @@ import { Dashboard3Component } from '../dashboard3/dashboard3.component';
 import { Dashboard2Component } from '../dashboard2/dashboard2.component';
 import { PayeeOverview2Component } from '../payee-layout/Payee-overview-component/payee-overview2/payee-overview2.component';
 import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
-// modules
-import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { DataTablesModule } from 'angular-datatables';
-import { ChartModule } from 'angular-highcharts';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatSelectModule } from '@angular/material/select';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatListModule } from '@angular/material/list';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatBadgeModule } from '@angular/material/badge';
-// import {CdkMenuModule} from '@angular/cdk/menu';
+import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
+import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     Dashboard4Component,
     PayeeOverview2Component,
     PayeeOverview3Component,
+    AddUserComponent,
+    EditUserComponent
   ],
   imports: [
     CommonModule,
