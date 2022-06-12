@@ -52,13 +52,13 @@ $nav-color: #45a841 0% 0% no-repeat padding-box;
   }
 
   .card {
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: $white 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
     padding: 1rem;
     width: 10rem;
+    margin-bottom: 30px;
     height: 4rem;
-    margin: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
