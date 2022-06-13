@@ -60,6 +60,7 @@ export class AppPublicSidenavListComponent implements OnInit {
   }
 
   currentRoute() {
+    // payee
     if (
       this.router.url == '/dashboard/dashboard3/taxpayer/payee' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists' ||
@@ -77,9 +78,13 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
     ) {
       this.type = 'payee';
-    } else if (this.router.url == '/dashboard') {
+    } 
+    // dashboard
+    else if (this.router.url == '/dashboard') {
       this.type = 'dashboard';
-    } else if (
+    } 
+    // taxpayer
+    else if (
       this.router.url == '/dashboard/dashboard2/taxpayer' ||
       this.router.url == '/dashboard/dashboard2/taxpayer/non' ||
       this.router.url == '/dashboard/dashboard2/taxpayer/ind' ||
@@ -90,14 +95,26 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard22/taxpayer/non'
     ) {
       this.type = 'tax_payer';
-    } else if (
+    }
+    // admin-console 
+    else if (
       this.router.url == '/dashboard/dashboard5/admin-console' ||
       this.router.url == '/dashboard/dashboard5/add-user' ||
       this.router.url == '/dashboard/dashboard5/edit-user' ||
       this.router.url == '/dashboard/dashboard5/view-user'
     ) {
       this.type = 'admin-console';
-    } else {
+    } 
+    // mda
+    else if (
+      this.router.url == '/dashboard/dashboard3/mda' ||
+      this.router.url == '/dashboard/dashboard3/mda/generate' ||
+      this.router.url == '/dashboard/dashboard3/mda/bill'
+    ) {
+      this.type = 'mda';
+    } 
+    // home
+    else {
       this.type = 'home';
     }
   }

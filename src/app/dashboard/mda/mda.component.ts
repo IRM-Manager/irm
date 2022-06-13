@@ -1,11 +1,9 @@
-import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { BaseUrl } from 'src/environments/environment';
 import { MDA, Tin } from '../shared/form';
 
 @Component({
@@ -15,14 +13,10 @@ import { MDA, Tin } from '../shared/form';
   styleUrls: ['./mda.component.scss'],
 })
 export class MDAComponent implements OnInit {
-  @ViewChild('fform') feedbackFormDirective: any;
   @ViewChild('fform3') feedbackFormDirective3: any;
 
-  feedbackForm: any = FormGroup;
   feedbackForm3: any = FormGroup;
-  feedback!: Tin;
   feedback3!: MDA;
-  loading = false;
   loading2 = false;
   disabled2 = false;
 
@@ -39,8 +33,6 @@ export class MDAComponent implements OnInit {
     contact_email: '',
     mda_name: '',
     service_name: '',
-    amount: '',
-    title: '',
   };
 
   validationMessages: any = {
@@ -53,16 +45,10 @@ export class MDAComponent implements OnInit {
     surname: {
       required: 'required.',
     },
-    title: {
-      required: 'required.',
-    },
     mda_name: {
       required: 'required.',
     },
     service_name: {
-      required: 'required.',
-    },
-    amount: {
       required: 'required.',
     },
     contact: {
@@ -77,44 +63,27 @@ export class MDAComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _location: Location,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
     private authService: AuthService
   ) {
     this.authService.checkExpired();
-    this.createForm();
     this.createForm3();
-  }
-
-  createForm() {
-    this.feedbackForm = this.fb.group({
-      tin: [''],
-    });
-    this.feedbackForm.valueChanges.subscribe((data: any) =>
-      this.onValueChanged(data)
-    );
-    this.onValueChanged(); // (re)set validation messages now
+    this.feedbackForm3.controls['amount'].disable();
   }
 
   createForm3() {
     this.feedbackForm3 = this.fb.group({
-      title: ['', [Validators.required]],
+      title: [''],
       firstname: ['', [Validators.required]],
       middlename: ['', [Validators.required]],
       surname: ['', [Validators.required]],
       contact: ['', [Validators.required]],
-      contact_email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}'),
-        ],
-      ],
+      contact_email: ['', [Validators.required, Validators.email]],
       mda_name: ['', [Validators.required]],
       service_name: ['', [Validators.required]],
-      amount: ['', [Validators.required]],
+      amount: [''],
+      amount2: [''],
       description: [''],
     });
 
@@ -122,28 +91,6 @@ export class MDAComponent implements OnInit {
       this.onValueChanged3(data)
     );
     this.onValueChanged3(); // (re)set validation messages now
-  }
-
-  onValueChanged(data?: any) {
-    if (!this.feedbackForm) {
-      return;
-    }
-    const form = this.feedbackForm;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
-        }
-      }
-    }
   }
 
   onValueChanged3(data?: any) {
@@ -168,89 +115,72 @@ export class MDAComponent implements OnInit {
     }
   }
 
+  // RemoveFormData() {
+  //   this.feedbackForm3.get('firstname').reset();
+  //   this.feedbackForm3.get('middlename').reset();
+  //   this.feedbackForm3.get('surname').reset();
+  //   this.feedbackForm3.get('title').reset();
+  //   this.feedbackForm3.get('mda_name').reset();
+  //   this.feedbackForm3.get('service_name').reset();
+  //   this.feedbackForm3.get('amount').reset();
+  //   this.feedbackForm3.get('description').reset();
+  //   this.feedbackForm3.get('contact').reset();
+  //   this.feedbackForm3.get('contact_email').reset();
+  // }
+
+  checkValidity() {
+    const feed1 = this.feedbackFormDirective3.invalid;
+    const control = this.feedbackFormDirective3.form.controls;
+    if (feed1) {
+      if (control.firstname.status == 'INVALID') {
+        this.formErrors['firstname'] = 'required.';
+      }
+      if (control.middlename.status == 'INVALID') {
+        this.formErrors['middlename'] = 'required.';
+      }
+      if (control.surname.status == 'INVALID') {
+        this.formErrors['surname'] = 'required.';
+      }
+      if (control.mda_name.status == 'INVALID') {
+        this.formErrors['mda_name'] = 'required.';
+      }
+      if (control.service_name.status == 'INVALID') {
+        this.formErrors['service_name'] = 'required.';
+      }
+      if (control.contact.status == 'INVALID') {
+        this.formErrors['contact'] = 'required.';
+      }
+      if (control.contact_email.status == 'INVALID') {
+        this.formErrors['contact_email'] = control.contact_email.errors.email
+          ? 'not a valid email.'
+          : 'required.';
+      }
+    }
+  }
+
   onSubmit() {
-    this.loading = true;
-    this.feedback = this.feedbackForm.value;
+    this.checkValidity();
+    const feed = this.feedbackFormDirective3.invalid;
 
-    this.httpService
-      .getAuthSingleID(BaseUrl.get_payer_tin, this.feedback.tin)
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.loading = false;
-          if (data.data.payer.payer_type == 'individual') {
-            this.feedbackForm3.patchValue({ firstname: data.data.first_name });
-            this.feedbackForm3.patchValue({
-              middlename: data.data.middle_name,
-            });
-            this.feedbackForm3.patchValue({ surname: data.data.surname });
-            this.feedbackForm3.patchValue({ contact: data.data.phone });
-            this.feedbackForm3.patchValue({ contact_email: data.data.email });
-            this.feedbackForm3.controls['title'].setValue(
-              data.data.gender == 'male' ? 'mr' : 'mrs'
-            );
-            this.snackBar.open('Valid', '', {
-              duration: 3000,
-              panelClass: 'success',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-          } else {
-            this.snackBar.open('Not A Registered Individual Taxpayer', '', {
-              duration: 5000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-          }
-        },
-        (err) => {
-          this.loading = false;
-          this.authService.refreshToken();
-          console.log(err);
-          if (err.status === 404) {
-            this.snackBar.open('Tin or Reg.No does not exists', '', {
-              duration: 5000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-          } else {
-            this.snackBar.open('Error', '', {
-              duration: 5000,
-              panelClass: 'error',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-          }
-        }
-      );
-    // end of subscribe
-  }
-
-  RemoveFormData() {
-    this.feedbackForm3.get('firstname').reset();
-    this.feedbackForm3.get('middlename').reset();
-    this.feedbackForm3.get('surname').reset();
-    this.feedbackForm3.get('title').reset();
-    this.feedbackForm3.get('mda_name').reset();
-    this.feedbackForm3.get('service_name').reset();
-    this.feedbackForm3.get('amount').reset();
-    this.feedbackForm3.get('description').reset();
-    this.feedbackForm3.get('contact').reset();
-    this.feedbackForm3.get('contact_email').reset();
-  }
-
-  Submit() {
-    this.loading2 = true;
-    this.disabled2 = true;
-    this.feedback3 = this.feedbackForm3.value;
-    console.log(this.feedback3);
+    if (feed) {
+      this.snackBar.open('Errors in Form fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } // end of if
+    else {
+      this.loading2 = true;
+      this.disabled2 = true;
+      this.feedback3 = this.feedbackForm3.value;
+      // this.feedbackFormDirective3.resetForm();
+      console.log(this.feedback3);
+    }
   }
 
   ngOnInit(): void {
     this.authService.checkExpired();
-
     this.filteredOptions = this.feedbackForm3.get('mda_name').valueChanges.pipe(
       startWith(''),
       map((value: string) => this._filter(value))
@@ -272,10 +202,9 @@ export class MDAComponent implements OnInit {
   }
 
   private _filter2(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
+    const filterValue2 = value.toLowerCase();
     return this.options2.filter((option) =>
-      option.toLowerCase().includes(filterValue)
+      option.toLowerCase().includes(filterValue2)
     );
   }
 }

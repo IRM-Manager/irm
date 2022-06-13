@@ -56,7 +56,7 @@ export class PayeeDialogComponent implements OnInit {
     this.createManualForm2();
     if (this.data.type == 'upload_file' || this.data.type == 'manual') {
       dialogRef.disableClose = true;
-      console.log(this.uploadForm.value)
+      console.log(this.uploadForm.value);
     }
 
     this.authService.checkExpired();

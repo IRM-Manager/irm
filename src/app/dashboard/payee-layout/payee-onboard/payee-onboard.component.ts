@@ -4,13 +4,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   selector: 'app-payee-onboard',
   templateUrl: './payee-onboard.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./payee-onboard.component.scss']
+  styleUrls: ['./payee-onboard.component.scss'],
 })
 export class PayeeOnboardComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

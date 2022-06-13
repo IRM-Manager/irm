@@ -60,6 +60,9 @@ import { PayeeOverview3Component } from '../payee-layout/Payee-overview-componen
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
 import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
 import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
+import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
+import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
+
 
 @NgModule({
   declarations: [
@@ -94,7 +97,9 @@ import { ViewUserComponent } from '../admin-console-component/view-user/view-use
     PayeeOverview3Component,
     AddUserComponent,
     EditUserComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    MdaOnboardComponent,
+    MdaTableComponent,
   ],
   imports: [
     CommonModule,

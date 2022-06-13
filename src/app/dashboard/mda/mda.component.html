@@ -1,30 +1,10 @@
 <div class="wrapper">
-
-    <div class="header">
-        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-            <mat-form-field class="cac-width" appearance="outline">
-                <mat-label>(PayID/TIN)</mat-label>
-                <input matInput formControlName="tin" placeholder="">
-            </mat-form-field>
-            <button mat-button class="verify" type="submit">
-                <span  *ngIf="!loading">Search Information</span>
-                <div *ngIf="loading" class="loader">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                </div>
-            </button>
-        </form>
-    </div>
-
-
     <!-- session1 -->
     <div class="session">
 
-        <div class="session-header">Section 1: Personal Details</div>
+        <div class="session-header">Personal Details</div>
 
-        <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm">
+        <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit()">
             <p>
                 <!-- title -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -66,18 +46,22 @@
                     <input matInput type="email" formControlName="contact_email" email required>
                     <mat-error>{{formErrors.contact_email}}</mat-error>
                 </mat-form-field>
-            </p>  
+            </p>
+
+            <div class="session-header">MDA Collection</div>
+            <p></p>
+
             <p>
                 <!-- mda_name -->
                 <mat-form-field class="full" appearance="outline">
                     <mat-label>Name of MDA</mat-label>
                     <input matInput formControlName="mda_name" [matAutocomplete]="auto" required>
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
-                    </mat-option>
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
                     </mat-autocomplete>
-                    <button matSuffix mat-icon-button class="drop_down">
+                    <button type="button" matSuffix mat-icon-button class="drop_down">
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </button>
                     <mat-error>{{formErrors.mda_name}}</mat-error>
@@ -89,11 +73,11 @@
                     <mat-label>Name of Service/Purpose</mat-label>
                     <input matInput formControlName="service_name" [matAutocomplete]="auto" required>
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
-                        {{option}}
-                    </mat-option>
+                        <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                            {{option}}
+                        </mat-option>
                     </mat-autocomplete>
-                    <button matSuffix mat-icon-button class="drop_down">
+                    <button matSuffix type="button" mat-icon-button class="drop_down">
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </button>
                     <mat-error>{{formErrors.service_name}}</mat-error>
@@ -101,46 +85,45 @@
             </p>
             <p>
                 <!-- amount -->
-                <mat-form-field class="full" appearance="outline">
-                    <mat-label>Amount To Pay (&#8358;)</mat-label>
-                    <input matInput formControlName="amount" type="number" required>
-                    <button matSuffix mat-icon-button class="lock">
+                <mat-form-field class="half" appearance="outline">
+                    <mat-label>Fixed Amount To Pay (&#8358;)</mat-label>
+                    <input matInput formControlName="amount" type="number">
+                    <button type="button" matSuffix mat-icon-button class="lock">
                         <mat-icon>lock</mat-icon>
                     </button>
-                    <mat-error>{{formErrors.amount}}</mat-error>
+                </mat-form-field>
+                <!-- amount2 -->
+                <mat-form-field class="half" appearance="outline">
+                    <mat-label>Type In the amount (&#8358;) (Optional)</mat-label>
+                    <input matInput formControlName="amount2" type="number">
+                    <button type="button" matSuffix mat-icon-button class="lock">
+                        <mat-icon>lock</mat-icon>
+                    </button>
                 </mat-form-field>
             </p>
             <p>
                 <!-- description -->
                 <mat-form-field class="full" appearance="outline">
-                <mat-label>Description(Optional)</mat-label>
-                <textarea matInput formControlName="description"></textarea>
+                    <mat-label>Description(Optional)</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
                 </mat-form-field>
             </p>
+
+            <div class="final_submit">
+                <button type="button" mat-button class="verify2">Generate Bill</button>
+                <button type="submit" mat-button class="verify" [disabled]="disabled2 === true">
+                    <span *ngIf="!loading2">Make Payment</span>
+                    <div *ngIf="loading2" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
         </form>
-
-
-        <div class="final_submit">
-            <button mat-button class="verify2">Generate Bill</button>
-            <button mat-button class="verify"
-                [disabled]="fform3.form.invalid || disabled2 === true"
-                (click)="Submit()"
-            >
-                <span *ngIf="!loading2">Make Payment</span>
-                <div *ngIf="loading2" class="loader">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                </div>
-            </button>
-        </div>
 
     </div>
 
 </div>
-
-
-
-
-

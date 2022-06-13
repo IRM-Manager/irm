@@ -22,15 +22,20 @@ import { AdminConsoleComponent } from '../admin-console/admin-console.component'
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
 import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
 import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
+import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
+import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AppPublicSidenavComponent,
     children: [
+      // DASHBOARD
       { path: '', component: DashboardComponent },
       // MDA
-      { path: 'dashboard3/taxpayer/mda', component: MDAComponent },
+      { path: 'dashboard3/mda/generate', component: MDAComponent },
+      { path: 'dashboard3/mda', component: MdaOnboardComponent },
+      { path: 'dashboard3/mda/bill', component: MdaTableComponent },
       // PAYEE
       {
         path: 'dashboard3/taxpayer/payee/lists',

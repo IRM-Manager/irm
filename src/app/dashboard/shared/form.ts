@@ -101,6 +101,7 @@ export interface MDA {
   mda_name: string;
   service_name: string;
   amount: string;
+  amount2: string;
   description: string;
 }
 

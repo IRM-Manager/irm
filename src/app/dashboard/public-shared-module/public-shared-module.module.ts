@@ -38,6 +38,7 @@ import { FooterComponent } from '../../dashboard/footer/footer.component';
 import { PayeeDialogComponent } from '../../dashboard/payee-layout/payee-dialog/payee-dialog.component';
 import { HeaderComponent } from '../header/header.component';
 import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
+import { MdaDialogComponent } from '../mda-component/mda-dialog/mda-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-pu
     // dialog
     DialogComponent,
     PayeeDialogComponent,
+    MdaDialogComponent,
   ],
   entryComponents: [
     // dialog component here

@@ -186,10 +186,13 @@ export class HeaderComponent implements OnInit {
       this.left_text2 = 'Dashboard';
     }
     // MDA
-    else if (this.router.url == '/dashboard/dashboard3/taxpayer/mda') {
+    else if (
+      this.router.url == '/dashboard/dashboard3/mda' ||
+      this.router.url == '/dashboard/dashboard3/mda/bill' ||
+      this.router.url == '/dashboard/dashboard3/mda/generate'
+      ) {
       this.type = 'mda';
       this.left_text1 = 'MDA Collection';
-      this.left_text2 = 'Please fill in the information';
     }
     // Dashboard
     else if (this.router.url == '/dashboard/dashboard') {
