@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { User } from '../models/irm';
+import { User } from '../../models/irm';
 import { AppState, selectAllUser } from 'src/app/reducers/index';
-import { AddUser } from '../../actions/irm.action';
+import { AddUser } from '../../../actions/irm.action';
 //
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';

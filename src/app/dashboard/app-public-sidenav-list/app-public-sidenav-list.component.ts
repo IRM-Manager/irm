@@ -112,7 +112,17 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/mda/bill'
     ) {
       this.type = 'mda';
-    } 
+    }
+    // direct
+    else if (
+      this.router.url == '/dashboard/dashboard5/direct' ||
+      this.router.url == '/dashboard/dashboard5/direct/self' ||
+      this.router.url == '/dashboard/dashboard5/direct/bill' ||
+      this.router.url == '/dashboard/dashboard5/direct/boj' ||
+      this.router.url == '/dashboard/dashboard5/direct/history'
+    ) {
+      this.type = 'direct';
+    }  
     // home
     else {
       this.type = 'home';

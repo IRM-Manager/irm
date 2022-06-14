@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
@@ -30,6 +30,7 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
@@ -217,7 +218,19 @@ export class HeaderComponent implements OnInit {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = 'User Details';
-    } else {
+    }
+    // Direct accessment
+    else if (
+      this.router.url == '/dashboard/dashboard5/direct' ||
+      this.router.url == '/dashboard/dashboard5/direct/self' ||
+      this.router.url == '/dashboard/dashboard5/direct/bill' ||
+      this.router.url == '/dashboard/dashboard5/direct/boj' ||
+      this.router.url == '/dashboard/dashboard5/direct/history'
+    ) {
+      this.type = 'payee';
+      this.left_text1 = 'Direct Assessment';
+    }   
+    else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';

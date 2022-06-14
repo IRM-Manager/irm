@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { MDAComponent } from '../mda/mda.component';
+import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
+import { MDAComponent } from '../mda-component/mda/mda.component';
 import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
 import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
 import { PayeeCreateAssessmentComponent } from '../payee-layout/payee-create-assessment/payee-create-assessment.component';
@@ -11,19 +11,24 @@ import { PayeeManageEmployeeComponent } from '../payee-layout/payee-manage-emplo
 import { PayeeOnboardComponent } from '../payee-layout/payee-onboard/payee-onboard.component';
 import { PayeeOverviewComponent } from '../payee-layout/payee-overview/payee-overview.component';
 import { PayeeViewComponent } from '../payee-layout/payee-view/payee-view.component';
-import { PayeeComponent } from '../payee/payee.component';
+import { PayeeComponent } from '../payee-layout/payee/payee.component';
 import { BusinessComponent } from '../tax-payer-layout/business/business.component';
 import { Individual2Component } from '../tax-payer-layout/individual2/individual2.component';
 import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
-import { TaxPayerComponent } from '../tax-payer/tax-payer.component';
+import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
 import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
-import { AdminConsoleComponent } from '../admin-console/admin-console.component';
+import { AdminConsoleComponent } from '../admin-console-component/admin-console/admin-console.component';
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
 import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
 import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
 import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
 import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
+import { OnboardComponent } from '../direct-access-component/onboard/onboard.component';
+import { DirectSelfComponent } from '../direct-access-component/direct-self/direct-self.component';
+import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
+import { DirectHistoryComponent } from '../direct-access-component/direct-history/direct-history.component';
+import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
 
 const routes: Routes = [
   {
@@ -131,6 +136,27 @@ const routes: Routes = [
       {
         path: 'dashboard5/view-user',
         component: ViewUserComponent,
+      },
+      // DIRECT ACCESSMENT
+      {
+        path: 'dashboard5/direct',
+        component: OnboardComponent,
+      },
+      {
+        path: 'dashboard5/direct/self',
+        component: DirectSelfComponent,
+      },
+      {
+        path: 'dashboard5/direct/boj',
+        component: DirectBojComponent,
+      },
+      {
+        path: 'dashboard5/direct/history',
+        component: DirectHistoryComponent,
+      },
+      {
+        path: 'dashboard5/direct/bill',
+        component: DirectBillComponent,
       },
     ],
   },

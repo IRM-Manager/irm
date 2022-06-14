@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MDA, Tin } from '../shared/form';
+import { MDA, Tin } from '../../shared/form';
 
 @Component({
   selector: 'app-mda',

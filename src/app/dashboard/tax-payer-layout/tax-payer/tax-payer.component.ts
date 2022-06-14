@@ -14,9 +14,9 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer, AddIndPayer } from '../../actions/irm.action';
-import { DialogComponent } from '../dialog/dialog.component';
-import { ComPayer, IndPayer } from '../models/irm';
+import { AddComPayer, AddIndPayer } from '../../../actions/irm.action';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { ComPayer, IndPayer } from '../../models/irm';
 
 @Component({
   selector: 'app-tax-payer',

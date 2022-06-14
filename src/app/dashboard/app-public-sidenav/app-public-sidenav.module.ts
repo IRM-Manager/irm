@@ -30,7 +30,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 // import {CdkMenuModule} from '@angular/cdk/menu';
 // components
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
-import { MDAComponent } from '../mda/mda.component';
+import { MDAComponent } from '../mda-component/mda/mda.component';
 import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
 import { StaffIncomeComponent } from '../staff-income/staff-income.component';
 import { TaxIncomeComponent } from '../tax-income/tax-income.component';
@@ -43,18 +43,18 @@ import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/pa
 import { PayeeOnboardComponent } from '../payee-layout/payee-onboard/payee-onboard.component';
 import { PayeeOverviewComponent } from '../payee-layout/payee-overview/payee-overview.component';
 import { PayeeViewComponent } from '../payee-layout/payee-view/payee-view.component';
-import { TaxPayerComponent } from '../tax-payer/tax-payer.component';
+import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
 import { TransBillsComponent } from '../trans-bills/trans-bills.component';
-import { PayeeComponent } from '../payee/payee.component';
+import { PayeeComponent } from '../payee-layout/payee/payee.component';
 import { BusinessComponent } from '../tax-payer-layout/business/business.component';
 import { Individual2Component } from '../tax-payer-layout/individual2/individual2.component';
 import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
 import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
-import { AdminConsoleComponent } from '../admin-console/admin-console.component';
-import { Dashboard4Component } from '../dashboard4/dashboard4.component';
-import { Dashboard3Component } from '../dashboard3/dashboard3.component';
-import { Dashboard2Component } from '../dashboard2/dashboard2.component';
+import { AdminConsoleComponent } from '../admin-console-component/admin-console/admin-console.component';
+import { Dashboard4Component } from '../dashboard-component/dashboard4/dashboard4.component';
+import { Dashboard3Component } from '../dashboard-component/dashboard3/dashboard3.component';
+import { Dashboard2Component } from '../dashboard-component/dashboard2/dashboard2.component';
 import { PayeeOverview2Component } from '../payee-layout/Payee-overview-component/payee-overview2/payee-overview2.component';
 import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
@@ -62,7 +62,11 @@ import { EditUserComponent } from '../admin-console-component/edit-user/edit-use
 import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
 import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
 import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
-
+import { OnboardComponent } from '../direct-access-component/onboard/onboard.component';
+import { DirectSelfComponent } from '../direct-access-component/direct-self/direct-self.component';
+import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
+import { DirectHistoryComponent } from '../direct-access-component/direct-history/direct-history.component';
+import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +104,11 @@ import { MdaTableComponent } from '../mda-component/mda-table/mda-table.componen
     ViewUserComponent,
     MdaOnboardComponent,
     MdaTableComponent,
+    OnboardComponent,
+    DirectSelfComponent,
+    DirectBojComponent,
+    DirectHistoryComponent,
+    DirectBillComponent,
   ],
   imports: [
     CommonModule,

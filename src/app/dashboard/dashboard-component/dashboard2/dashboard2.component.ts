@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 // import { areaChartOptions } from '../../_helpers/areaChartOptions';
-import { AreaChartOptions } from '../../_helpers/oneLineChart';
+import { AreaChartOptions } from '../../../_helpers/oneLineChart';
 
 @Component({
   selector: 'app-dashboard2',

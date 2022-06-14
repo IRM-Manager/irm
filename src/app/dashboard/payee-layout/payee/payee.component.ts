@@ -9,10 +9,10 @@ import { AppState, selectAllComPayer } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer } from '../../actions/irm.action';
-import { ComPayer } from '../models/irm';
-import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { AddComPayer } from '../../../actions/irm.action';
+import { ComPayer } from '../../models/irm';
+import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-payee',
@@ -37,7 +37,6 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
