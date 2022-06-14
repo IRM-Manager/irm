@@ -194,7 +194,7 @@
 /* Upload file css */
 
 .upload_file-dialog {
-  width: 40rem;
+  width: 30rem;
   padding-left: 5rem;
   margin-right: 3rem;
 }
@@ -337,7 +337,7 @@
 /* Manual upload css */
 
 .manual_file-dialog {
-  width: 40rem;
+  width: 30rem;
   padding-left: 3rem;
   padding-right: 3rem;
 }
@@ -368,7 +368,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 30vh;
 }
 
 .manual_filling {
@@ -396,7 +396,7 @@
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #37a85d !important;
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
 }
 
 ::ng-deep

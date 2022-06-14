@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -31,6 +31,7 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent implements OnInit {

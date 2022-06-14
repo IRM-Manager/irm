@@ -219,13 +219,14 @@
 }
 
 .manual_file-dialog {
-  width: 40rem;
+  width: 30rem;
   padding-left: 3rem;
   padding-right: 3rem;
 }
 
 .manual_container {
   margin-bottom: 2rem;
+  margin-top: 1rem;
   background: #f5f7fa 0% 0% no-repeat padding-box;
   border-radius: 20px;
   padding: 1rem;
