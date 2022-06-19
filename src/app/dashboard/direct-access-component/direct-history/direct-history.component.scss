@@ -1,0 +1,275 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$header-color: 1px solid #42a845;
+$header-back: rgba(62, 95, 168, 0.05);
+$header-back2: #ffffff 0% 0% no-repeat padding-box;
+$ind-back: #ffffff 0% 0% no-repeat padding-box;
+$white: #ffffff;
+$ind-border: 1px solid #45a841;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$ind-color: #565656;
+$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
+  0% no-repeat padding-box;
+$active-back: #387499 0% 0% no-repeat padding-box;
+$panel-text: normal normal medium 12px/15px Montserrat;
+$panel-color: #3c66a3;
+$icon-color: #45669e;
+$wrapper-back: #f5f7fa;
+$thead: #ffffff 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3c66a3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$animate-form: 0.5px solid #37a85d;
+$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
+  0% 0% no-repeat padding-box;
+$verify-hover-box: 0px 3px 6px #00000029;
+$label-color: #565656;
+$select-color: #3ea84e;
+$form-color: #37a85d;
+$active-button: 3px solid #42a847;
+$button-font: normal normal normal 12px/15px Montserrat;
+$red: #bc333e;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+
+.wrapper {
+  background: $wrapper-back;
+  overflow: auto;
+  min-height: 100vh;
+  padding-left: 20px;
+
+  .header2 {
+    background: $header-back2;
+    padding: 1.5rem 1rem 1.5rem 1rem;
+    margin-top: 3rem;
+    width: 90%;
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .indcom {
+      font: $panel-text;
+      letter-spacing: 0px;
+      color: $panel-color;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .search_icon_p {
+      float: right;
+      display: flex;
+      justify-content: right;
+      align-items: right;
+    }
+
+    .search-form {
+      margin-right: 10px;
+      vertical-align: top;
+    }
+
+    input[type="text"] {
+      background: $white;
+      border: $animate-form;
+      box-sizing: border-box;
+      border-radius: 10px;
+      height: 40px;
+      width: 200px;
+      font: $tbody-back;
+      padding-left: 15px;
+      // -webkit-transition: width 0.4s ease-in-out;
+      // transition: width 0.4s ease-in-out;
+    }
+
+    [type="text"]:focus {
+      outline: none;
+    }
+
+    .search_icon {
+      font-size: 40px;
+      color: $icon-color;
+      cursor: pointer;
+    }
+  }
+
+  .table-container {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: 90%;
+
+    table {
+      border: none;
+      margin-bottom: 1rem;
+    }
+
+    thead {
+      border: none;
+    }
+
+    thead tr {
+      background: $thead;
+      text-align: left;
+      font: $thead-text;
+      letter-spacing: 0px;
+      color: $thead-text-color;
+    }
+
+    tbody tr {
+      font: $tbody-back;
+      letter-spacing: 0px;
+      color: $tbody-color;
+    }
+
+    tr th {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .table-icon {
+      color: $panel-color;
+    }
+
+    .blue-color {
+      color: $panel-color;
+    }
+
+    .loading {
+      margin-top: 1.5rem;
+    }
+
+    .reload {
+      background: $wrapper-back;
+      color: $ind-border;
+      font: $tbody-back;
+      margin-top: 1.5rem;
+      border-radius: 10px;
+      padding: 0.5rem;
+      margin-left: 10px;
+      width: 5rem;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5em 0 0.5em 0;
+    }
+
+    .paid {
+      font: normal normal normal 14px/19px Montserrat;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: #5EA55A;
+      opacity: 1;
+    }
+
+    .pending {
+      font: normal normal normal 14px/19px Montserrat;
+      letter-spacing: 0px;
+      font-weight: 500;
+      color: #EDB909;
+      opacity: 1;
+    }
+
+    .bubble {
+      animation: expand 0.75s ease-in-out infinite;
+      border-radius: 20px;
+      display: inline-block;
+      transform-origin: center center;
+      margin: 0 3px;
+      width: 7px;
+      height: 7px;
+    }
+
+    .bubble:nth-child(1) {
+      background: $panel-color;
+    }
+
+    .bubble:nth-child(2) {
+      animation-delay: 180ms;
+      background: $panel-color;
+    }
+
+    .bubble:nth-child(3) {
+      animation-delay: 360ms;
+      background: $panel-color;
+    }
+
+    .bubble:nth-child(4) {
+      animation-delay: 540ms;
+      background: $panel-color;
+    }
+
+    @keyframes expand {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.55);
+      }
+    }
+
+    .table-icon-delete {
+      color: $red;
+      cursor: pointer;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_filter {
+      display: none;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
+      color: $panel-color !important;
+      background: $white !important;
+      border-radius: 3px;
+      transition: all 0.5s;
+      border: 1px solid $panel-color;
+      margin: 5px;
+    }
+
+    ::ng-deep
+      .dataTables_wrapper
+      .dataTables_paginate
+      .paginate_button.current {
+      color: $white !important;
+      background: $create-back !important;
+      border: 1px solid $panel-color;
+      transition: all 0.5s;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      color: $white !important;
+      background: $create-back !important;
+      border: 1px solid $panel-color;
+    }
+
+    ::ng-deep table.dataTable thead .sorting {
+      background-image: unset !important;
+    }
+
+    ::ng-deep table.dataTable thead .sorting_asc {
+      background-image: unset !important;
+    }
+
+    ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+      background: $header-back;
+    }
+
+    ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+      background: $wrapper-back !important;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_length select {
+      border: $ind-border;
+      font: $tbody-back;
+    }
+
+    ::ng-deep .dataTables_wrapper .dataTables_length label {
+      color: $tbody-color;
+      font: $tbody-back;
+    }
+  }
+}

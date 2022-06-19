@@ -225,7 +225,9 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/direct/self' ||
       this.router.url == '/dashboard/dashboard5/direct/bill' ||
       this.router.url == '/dashboard/dashboard5/direct/boj' ||
-      this.router.url == '/dashboard/dashboard5/direct/history'
+      this.router.url == '/dashboard/dashboard5/direct/history' ||
+      this.router.url == '/dashboard/dashboard5/direct/history/view' ||
+      this.router.url == '/dashboard/dashboard5/direct/history/view-edit'
     ) {
       this.type = 'payee';
       this.left_text1 = 'Direct Assessment';

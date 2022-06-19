@@ -29,6 +29,8 @@ import { DirectSelfComponent } from '../direct-access-component/direct-self/dire
 import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
 import { DirectHistoryComponent } from '../direct-access-component/direct-history/direct-history.component';
 import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
+import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
+import { DirectHistoryViewEditComponent } from '../direct-access-component/direct-history-view-edit/direct-history-view-edit.component';
 
 const routes: Routes = [
   {
@@ -157,6 +159,14 @@ const routes: Routes = [
       {
         path: 'dashboard5/direct/bill',
         component: DirectBillComponent,
+      },
+      {
+        path: 'dashboard5/direct/history/view',
+        component: DirectHistoryEditComponent,
+      },
+      {
+        path: 'dashboard5/direct/history/view-edit',
+        component: DirectHistoryViewEditComponent,
       },
     ],
   },

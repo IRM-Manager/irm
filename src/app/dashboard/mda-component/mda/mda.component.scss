@@ -38,6 +38,7 @@ $drop-down: #3e538f;
   margin-bottom: 2rem;
   opacity: 1;
   width: 50rem;
+  // width: 90%;
   padding-left: 20px;
 
   .session-header {
@@ -262,13 +263,8 @@ $drop-down: #3e538f;
 
 }
 
-@media (max-width: 1170px) {
+@media (max-width: 1400px) {
   .session {
-    width: 95%;
-    overflow-x: hidden;
-  }
-
-  .header {
     width: 95%;
     overflow-x: hidden;
   }

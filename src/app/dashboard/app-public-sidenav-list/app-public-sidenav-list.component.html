@@ -328,7 +328,9 @@
     >
       Paye
     </p>
-    <p class="dash-text2">Direct assessment</p>
+    <p class="dash-text2" [routerLink]="['dashboard5/direct']">
+      Direct assessment
+    </p>
     <p class="dash-text2">Vehicle Licensing</p>
   </div>
 
@@ -689,10 +691,7 @@
     >
       Concluded Assessment
     </p>
-    <p
-      class="dash-text2"
-      [routerLink]="['/dashboard/dashboard5/direct/bill']"
-    >
+    <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/direct/bill']">
       Generated Bills
     </p>
     <p class="dash-text2">Process TCC</p>

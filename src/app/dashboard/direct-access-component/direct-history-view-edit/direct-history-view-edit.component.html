@@ -1,0 +1,45 @@
+<div class="wrapper">
+  <p class="back" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
+    <mat-icon>keyboard_backspace</mat-icon> Back
+  </p>
+
+  <div class="header">
+    <div class="header-container">
+      <div class="reg_buss">Tax ID: 34546678844</div>
+      <div class="soft_pattern">Matthew Olayinka Adeboye</div>
+      <div class="reg_buss">Registered Taxpayer</div>
+    </div>
+  </div>
+
+  <!-- table container -->
+
+  <div class="table-container">
+    <div class="PayE">Best of judgment (BOJ)</div>
+
+    <div class="left_right_container">
+      <!--  -->
+      <div class="column">eret4t43t</div>
+
+      <!--  -->
+      <div class="right_container">
+        <div class="right_action">Summary</div>
+        <div>
+          <button mat-button class="right_edit">Clear</button>
+        </div>
+        <div>
+          <button
+            mat-button
+            class="right_bill"
+            [routerLink]="['/dashboard/dashboard5/direct/history/view-edit']"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div style="clear: both"></div>
+  </div>
+
+  <div style="clear: both; padding-top: 3rem"></div>
+</div>
