@@ -35,6 +35,11 @@ import { DirectHistoryComponent } from '../direct-access-component/direct-histor
 import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
 import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
 import { DirectHistoryViewEditComponent } from '../direct-access-component/direct-history-view-edit/direct-history-view-edit.component';
+import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
+import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
+import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
+import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
+import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
 
 const routes: Routes = [
   {
@@ -171,6 +176,27 @@ const routes: Routes = [
       {
         path: 'dashboard5/direct/history/view-edit',
         component: DirectHistoryViewEditComponent, canLoad: [IsLoggedInGuard],
+      },
+      // Vehicle
+      {
+        path: 'dashboard5/vehicle',
+        component: VehicleOnboardComponent, canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/bills',
+        component: VehicleBillsComponent, canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/renew',
+        component: VehicleRenewViewComponent, canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/renew/edit',
+        component: VehicleRenewEditComponent, canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/reg',
+        component: VehicleRegComponent, canLoad: [IsLoggedInGuard],
       },
     ],
   },

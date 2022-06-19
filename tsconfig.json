@@ -22,13 +22,18 @@
       "es2020",
       "dom",
       "dom.iterable"
-    ]
+    ],
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "noImplicitReturns": false
+    "noImplicitReturns": false,
+    "genDir": "aot",
+    "skipMetadataEmit" : true
   }
 }

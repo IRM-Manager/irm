@@ -59,7 +59,7 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PreviewComponent,],
+  declarations: [AppComponent, HomeComponent, PreviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

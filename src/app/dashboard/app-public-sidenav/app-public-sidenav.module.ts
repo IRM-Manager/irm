@@ -69,6 +69,12 @@ import { DirectHistoryComponent } from '../direct-access-component/direct-histor
 import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
 import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
 import { DirectHistoryViewEditComponent } from '../direct-access-component/direct-history-view-edit/direct-history-view-edit.component';
+import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
+import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
+import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
+import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
+import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
+
 
 @NgModule({
   declarations: [
@@ -113,6 +119,11 @@ import { DirectHistoryViewEditComponent } from '../direct-access-component/direc
     DirectBillComponent,
     DirectHistoryEditComponent,
     DirectHistoryViewEditComponent,
+    VehicleOnboardComponent,
+    VehicleBillsComponent,
+    VehicleRenewViewComponent,
+    VehicleRenewEditComponent,
+    VehicleRegComponent,
   ],
   imports: [
     CommonModule,

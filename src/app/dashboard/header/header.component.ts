@@ -231,7 +231,18 @@ export class HeaderComponent implements OnInit {
     ) {
       this.type = 'payee';
       this.left_text1 = 'Direct Assessment';
-    }   
+    }
+    // vehicle
+    else if (
+      this.router.url == '/dashboard/dashboard5/vehicle' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/renew' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/renew/edit' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/reg'
+    ) {
+      this.type = 'mda';
+      this.left_text1 = 'Vehicle Licensing';
+    }  
     else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';

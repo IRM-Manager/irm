@@ -40,6 +40,10 @@ import { HeaderComponent } from '../header/header.component';
 import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
 import { MdaDialogComponent } from '../mda-component/mda-dialog/mda-dialog.component';
 import { DirectDialogComponent } from '../direct-access-component/direct-dialog/direct-dialog.component';
+import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
+import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
+import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-plate/vehicle-reg-plate.component';
+import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,11 +51,15 @@ import { DirectDialogComponent } from '../direct-access-component/direct-dialog/
     HeaderComponent,
     AppPublicSidenavListComponent,
     FooterComponent,
+    VehicleRegDetailsComponent,
+    VehicleRegPlateComponent,
+    VehicleRegAssessmentComponent,
     // dialog
     DialogComponent,
     PayeeDialogComponent,
     MdaDialogComponent,
     DirectDialogComponent,
+    VehicleDialogComponent,
   ],
   entryComponents: [
     // dialog component here
@@ -94,6 +102,9 @@ import { DirectDialogComponent } from '../direct-access-component/direct-dialog/
     // components
     HeaderComponent,
     AppPublicSidenavListComponent,
+    VehicleRegDetailsComponent,
+    VehicleRegPlateComponent,
+    VehicleRegAssessmentComponent,
     FooterComponent,
     // module
     MatListModule,

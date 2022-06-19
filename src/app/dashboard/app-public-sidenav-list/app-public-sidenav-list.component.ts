@@ -125,6 +125,16 @@ export class AppPublicSidenavListComponent implements OnInit {
     ) {
       this.type = 'direct';
     }  
+    // vehicle
+    else if (
+      this.router.url == '/dashboard/dashboard5/vehicle' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/renew' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/renew/edit' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/reg'
+    ) {
+      this.type = 'vehicle';
+    }  
     // home
     else {
       this.type = 'home';
