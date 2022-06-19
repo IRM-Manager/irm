@@ -26,7 +26,7 @@
                         <!-- Choose source -->
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Source of income</mat-label>
-                            <input matInput="matInput" formControlName="source" [matAutocomplete]="auto" required="required"/>
+                            <input matInput="matInput" formControlName="source" [matAutocomplete]="auto" required/>
                             <mat-autocomplete autoActiveFirstOption="autoActiveFirstOption" #auto="matAutocomplete">
                                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                                     {{ option }}
@@ -42,22 +42,24 @@
                         <!-- Size of business -->
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Size of business</mat-label>
-                            <mat-select matInput="matInput" formControlName="size">
+                            <mat-select matInput="matInput" formControlName="size" required>
                                 <mat-option value="small">Small</mat-option>
                                 <mat-option value="medium">Medium</mat-option>
                                 <mat-option value="large">Large</mat-option>
                             </mat-select>
+                            <mat-error>{{ formErrors.size }}</mat-error>
                         </mat-form-field>
                     </p>
                     <p>
                         <!-- Assessment year -->
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Assessment year</mat-label>
-                            <mat-select matInput="matInput" formControlName="year">
+                            <mat-select matInput="matInput" formControlName="year" required>
                                 <mat-option value="4323">3002</mat-option>
                                 <mat-option value="4353">2332</mat-option>
                                 <mat-option value="2323">43343</mat-option>
                             </mat-select>
+                            <mat-error>{{ formErrors.year }}</mat-error>
                         </mat-form-field>
                     </p>
 

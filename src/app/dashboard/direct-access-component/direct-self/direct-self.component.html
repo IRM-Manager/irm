@@ -1,1 +1,142 @@
-<p>direct-self works!</p>
+<div class="wrapper">
+
+    <div class="header">
+        <div class="header-container">
+            <div class="reg_buss">Tax ID: 34546678844</div>
+            <div class="soft_pattern">Matthew Olayinka Adeboye</div>
+            <div class="reg_buss">Registered Taxpayer</div>
+        </div>
+    </div>
+
+    <!-- table container -->
+
+    <div class="table-container">
+        <div class="PayE">Self Assessment</div>
+
+        <form #card novalidate="novalidate" [formGroup]="feedbackForm" #fform="ngForm">
+            <p>
+                <!-- Assessment year -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Assessment year</mat-label>
+                    <mat-select matInput formControlName="year" required>
+                        <mat-option value="4323">3002</mat-option>
+                        <mat-option value="4353">2332</mat-option>
+                        <mat-option value="2323">43343</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formErrors.year">{{ formErrors.year }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- Choose source -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Source of income</mat-label>
+                    <input matInput formControlName="source" [matAutocomplete]="auto" required/>
+                    <mat-autocomplete autoActiveFirstOption="autoActiveFirstOption" #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button type="button" matSuffix="matSuffix" mat-icon-button="mat-icon-button" class="drop_down">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <mat-error>{{ formErrors.source }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- Specify Income (NGN) -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Specify Income (NGN)</mat-label>
+                    <input matInput formControlName="income" required>
+                    <mat-error>{{ formErrors.income }}</mat-error>
+                </mat-form-field>
+            </p>
+        </form>
+
+        <!--  -->
+
+        <div style="margin-top: 1rem;">
+            <div class="deduction">Deductions</div>
+            <div class="left_right">
+                <div class="left2">
+                    <div class="title">Register PENCOM?</div>
+                    <div class="title">Register NHF?</div>
+                    <div class="title">HMO</div>
+                    <div class="title">Other deductions</div>
+                </div>
+                <div class="right2">
+                    <div class="sub-title">
+                        <form [formGroup]="form2">
+                            <mat-radio-group formControlName="floatLabelControl2">
+                                <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                            </mat-radio-group>
+                            <!-- <span style="margin-left: 4px;">0.00 (NGN)</span>
+                            <span style="margin-left: 10px;">0.00 (NGN)</span> -->
+                        </form>
+                    </div>
+                    <div class="sub-title">
+                        <form [formGroup]="form3">
+                            <mat-radio-group formControlName="floatLabelControl3">
+                                <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                            </mat-radio-group>
+                            <!-- <span style="margin-left: 4px;">0.00 (NGN)</span>
+                            <span style="margin-left: 10px;">0.00 (NGN)</span> -->
+                        </form>
+                    </div>
+                    <div class="sub-title">
+                        <form>
+                            <input type="number" name='hmo' [(ngModel)]="hmo" class="normal-form">
+                        </form>
+                    </div>
+                    <div class="sub-title">
+                        <form>
+                            <input type="number" name='other' [(ngModel)]="other" class="normal-form">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <div class="upload_container">
+
+            <div class="upload_statement">Upload Statement of Account</div>
+            <div class="upload_employee">Upload Employeee in the accept format that clearly shows the details and emumerations of employees</div>
+
+            <input type="file" class="upload-file-input" (change)="onFileSelected($event)" #fileUpload accept=".csv" />
+
+            <div class="upload_csv" (click)="fileUpload.click()">
+                <div>
+                    <img src="assets/images/8726296_receipt_alt_icon.svg" alt="">
+                </div>
+                <div style="margin-left: 40px;">
+                    <div *ngIf="!fileName" class="browse_p">
+                        <span class="browse1">DRAG YOUR FILE HERE OR</span> <span class="browse2">BROWSE</span>
+                    </div>
+                    <div *ngIf="!fileName" class="supported">Supported file type: CSV</div>
+                    <div *ngIf="!fileName" class="file_size">The file size can be up to 20MB</div>
+                    <div *ngIf="fileName" class="file_name">{{fileName || "No file uploaded yet."}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--  -->
+
+        <div style="display: flex; gap: 20px; margin-top: 4rem">
+            <button mat-button class="right_edit">Clear</button>
+            <button mat-button (click)="OpenDialog('', 'check_status')" [disabled]="disabled === true" class="right_bill">
+                <span *ngIf="!loading">Continue</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </div>
+
+    </div>
+</div>

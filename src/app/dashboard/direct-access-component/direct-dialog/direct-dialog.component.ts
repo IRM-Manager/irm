@@ -36,7 +36,7 @@ export class DirectDialogComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.createManualForm2();
-    if (this.data.type == 'manual') {
+    if (this.data.type == 'manual' || this.data.type == 'check_status') {
       dialogRef.disableClose = true;
     }
     this.authService.checkExpired();

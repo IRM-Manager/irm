@@ -100,13 +100,13 @@ export class DirectBojComponent implements OnInit {
     const feed1 = this.feedbackFormDirective.invalid;
     const control = this.feedbackFormDirective.form.controls;
     if (feed1) {
-      if (control.first_name.status == 'INVALID') {
+      if (control.source.status == 'INVALID') {
         this.formErrors['source'] = 'required.';
       }
-      if (control.last_name.status == 'INVALID') {
+      if (control.size.status == 'INVALID') {
         this.formErrors['size'] = 'required.';
       }
-      if (control.department.status == 'INVALID') {
+      if (control.year.status == 'INVALID') {
         this.formErrors['year'] = 'required.';
       }
     }

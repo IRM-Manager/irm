@@ -131,6 +131,12 @@ export interface direct_boj {
   year: string;
 }
 
+export interface direct_boj2 {
+  source: string;
+  income: string;
+  year: string;
+}
+
 export interface stateLogo {
   id: any;
   name: any;

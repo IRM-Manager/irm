@@ -26,7 +26,7 @@
                         <!-- Choose source -->
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Source of income</mat-label>
-                            <input matInput="matInput" formControlName="source" [matAutocomplete]="auto" required="required"/>
+                            <input matInput formControlName="source" [matAutocomplete]="auto" required/>
                             <mat-autocomplete autoActiveFirstOption="autoActiveFirstOption" #auto="matAutocomplete">
                                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                                     {{ option }}
@@ -42,27 +42,29 @@
                         <!-- Size of business -->
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Size of business</mat-label>
-                            <mat-select matInput="matInput" formControlName="size">
+                            <mat-select matInput formControlName="size" required>
                                 <mat-option value="small">Small</mat-option>
                                 <mat-option value="medium">Medium</mat-option>
                                 <mat-option value="large">Large</mat-option>
                             </mat-select>
+                            <mat-error>{{ formErrors.size }}</mat-error>
                         </mat-form-field>
                     </p>
                     <p>
                         <!-- Assessment year -->
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Assessment year</mat-label>
-                            <mat-select matInput="matInput" formControlName="year">
+                            <mat-select matInput formControlName="year" required>
                                 <mat-option value="4323">3002</mat-option>
                                 <mat-option value="4353">2332</mat-option>
                                 <mat-option value="2323">43343</mat-option>
                             </mat-select>
+                            <mat-error>{{ formErrors.year }}</mat-error>
                         </mat-form-field>
                     </p>
 
                     <div class="final_submit">
-                        <button type="submit" mat-button="mat-button" class="add_user" [disabled]="disabled === true">
+                        <button type="submit" mat-button class="add_user" [disabled]="disabled === true">
                             <span *ngIf="!loading">Save</span>
                             <div *ngIf="loading" class="loader">
                                 <div class="bubble"></div>
@@ -101,8 +103,8 @@
                 </div>
 
                 <div style="display: flex; gap: 20px; margin-top: 4rem">
-                    <button mat-button="mat-button" class="right_edit">Clear</button>
-                    <button mat-button="mat-button" class="right_bill" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
+                    <button mat-button class="right_edit">Clear</button>
+                    <button mat-button class="right_bill" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
                         Continue
                     </button>
                 </div>
