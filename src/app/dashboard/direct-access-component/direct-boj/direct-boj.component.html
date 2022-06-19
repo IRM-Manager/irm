@@ -1,1 +1,114 @@
-<p>direct-boj works!</p>
+<div class="wrapper">
+    <p class="back" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
+        <mat-icon>keyboard_backspace</mat-icon>
+        Back
+    </p>
+
+    <div class="header">
+        <div class="header-container">
+            <div class="reg_buss">Tax ID: 34546678844</div>
+            <div class="soft_pattern">Matthew Olayinka Adeboye</div>
+            <div class="reg_buss">Registered Taxpayer</div>
+        </div>
+    </div>
+
+    <!-- table container -->
+
+    <div class="table-container">
+        <div class="PayE">Best of judgment (BOJ)</div>
+
+        <div
+            class="left_right_container">
+            <!--  -->
+            <div class="column">
+                <form #card novalidate="novalidate" [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                    <p>
+                        <!-- Choose source -->
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Source of income</mat-label>
+                            <input matInput="matInput" formControlName="source" [matAutocomplete]="auto" required="required"/>
+                            <mat-autocomplete autoActiveFirstOption="autoActiveFirstOption" #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{ option }}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <button type="button" matSuffix="matSuffix" mat-icon-button="mat-icon-button" class="drop_down">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <mat-error>{{ formErrors.source }}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <!-- Size of business -->
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Size of business</mat-label>
+                            <mat-select matInput="matInput" formControlName="size">
+                                <mat-option value="small">Small</mat-option>
+                                <mat-option value="medium">Medium</mat-option>
+                                <mat-option value="large">Large</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <!-- Assessment year -->
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Assessment year</mat-label>
+                            <mat-select matInput="matInput" formControlName="year">
+                                <mat-option value="4323">3002</mat-option>
+                                <mat-option value="4353">2332</mat-option>
+                                <mat-option value="2323">43343</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+
+                    <div class="final_submit">
+                        <button type="submit" mat-button="mat-button" class="add_user" [disabled]="disabled === true">
+                            <span *ngIf="!loading">Save</span>
+                            <div *ngIf="loading" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!--  -->
+            <div class="right_container">
+                <div class="right_action">Summary</div>
+
+                <div class="right_summary_p">
+                    <div class="right_summary">
+                        <div class="right_summary_left">Source of income -</div>
+                        <div class="right_summary_right">Farming</div>
+                    </div>
+                    <div>
+                        <div
+                            class="right_summary">
+                            <!--  -->
+                            <div class="right_summary_left">Size of business -</div>
+                            <div class="right_summary_right">Medium</div>
+                        </div>
+                        <div
+                            class="right_summary">
+                            <!--  -->
+                            <div class="right_summary_left">Assessment year -</div>
+                            <div class="right_summary_right">2000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 20px; margin-top: 4rem">
+                    <button mat-button="mat-button" class="right_edit">Clear</button>
+                    <button mat-button="mat-button" class="right_bill" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
+                        Continue
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

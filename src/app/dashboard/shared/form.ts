@@ -125,6 +125,12 @@ export interface add_user {
   group: string;
 }
 
+export interface direct_boj {
+  source: string;
+  size: string;
+  year: string;
+}
+
 export interface stateLogo {
   id: any;
   name: any;

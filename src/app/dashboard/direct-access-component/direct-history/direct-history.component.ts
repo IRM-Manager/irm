@@ -135,7 +135,7 @@ export class DirectHistoryComponent implements OnInit {
   }
 
   redirectToView(data: any, type: string) {
-    this.router.navigate(['/dashboard/dashboard5/direct/history/view'])
+    this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
   }
 
   formatMoney(n: any) {

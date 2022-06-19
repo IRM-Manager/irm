@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+// Guard
+import { IsLoggedInGuard } from 'src/app/guards/IsloggedIn.guards';
+// 
+
 import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
 import { MDAComponent } from '../mda-component/mda/mda.component';
 import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
@@ -38,135 +42,135 @@ const routes: Routes = [
     component: AppPublicSidenavComponent,
     children: [
       // DASHBOARD
-      { path: '', component: DashboardComponent },
+      { path: '', component: DashboardComponent, canLoad: [IsLoggedInGuard], },
       // MDA
-      { path: 'dashboard3/mda/generate', component: MDAComponent },
-      { path: 'dashboard3/mda', component: MdaOnboardComponent },
-      { path: 'dashboard3/mda/bill', component: MdaTableComponent },
+      { path: 'dashboard3/mda/generate', component: MDAComponent, canLoad: [IsLoggedInGuard], },
+      { path: 'dashboard3/mda', component: MdaOnboardComponent, canLoad: [IsLoggedInGuard], },
+      { path: 'dashboard3/mda/bill', component: MdaTableComponent, canLoad: [IsLoggedInGuard], },
       // PAYEE
       {
         path: 'dashboard3/taxpayer/payee/lists',
-        component: PayeeComponent,
+        component: PayeeComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard4/taxpayer/payee/access',
-        component: PayeeAssessmentComponent,
+        component: PayeeAssessmentComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard4/taxpayer/payee/access/:id',
-        component: PayeeAssessmentComponent,
+        component: PayeeAssessmentComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/business-list',
-        component: PayeeBusinessListComponent,
+        component: PayeeBusinessListComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/assessment',
-        component: PayeeCreateAssessmentComponent,
+        component: PayeeCreateAssessmentComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/bill',
-        component: PayeeGenerateBillComponent,
+        component: PayeeGenerateBillComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manage-edit',
-        component: PayeeManageEditComponent,
+        component: PayeeManageEditComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manage',
-        component: PayeeManageEmployeeComponent,
+        component: PayeeManageEmployeeComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manual-input',
-        component: PayeeManageEmployeeComponent,
+        component: PayeeManageEmployeeComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee',
-        component: PayeeOnboardComponent,
+        component: PayeeOnboardComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/lists-view',
-        component: PayeeViewComponent,
+        component: PayeeViewComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard4/taxpayer/payee/overview',
-        component: PayeeOverviewComponent,
+        component: PayeeOverviewComponent, canLoad: [IsLoggedInGuard],
       },
       // TAX PAYER
       {
         path: 'dashboard2/taxpayer/:id',
-        component: TaxPayerComponent,
+        component: TaxPayerComponent, canLoad: [IsLoggedInGuard],
       },
       { path: 'dashboard2/taxpayer', component: TaxPayerComponent },
       {
         path: 'dashboard22/taxpayer/non/business',
-        component: BusinessComponent,
+        component: BusinessComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard22/taxpayer/ind/individual',
-        component: Individual2Component,
+        component: Individual2Component, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard22/taxpayer',
-        component: TaxPayerCreateComponent,
+        component: TaxPayerCreateComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard22/taxpayer/non',
-        component: TaxPayerCreateComponent,
+        component: TaxPayerCreateComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard22/taxpayer/ind',
-        component: TaxPayerCreateComponent,
+        component: TaxPayerCreateComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard4/taxpayer/payee/bills',
-        component: TransBillsComponent,
+        component: TransBillsComponent, canLoad: [IsLoggedInGuard],
       },
       // ADMIN CONSOLE
       {
         path: 'dashboard5/admin-console',
-        component: AdminConsoleComponent,
+        component: AdminConsoleComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/add-user',
-        component: AddUserComponent,
+        component: AddUserComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/edit-user',
-        component: EditUserComponent,
+        component: EditUserComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/view-user',
-        component: ViewUserComponent,
+        component: ViewUserComponent, canLoad: [IsLoggedInGuard],
       },
       // DIRECT ACCESSMENT
       {
         path: 'dashboard5/direct',
-        component: OnboardComponent,
+        component: OnboardComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/self',
-        component: DirectSelfComponent,
+        component: DirectSelfComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/boj',
-        component: DirectBojComponent,
+        component: DirectBojComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/history',
-        component: DirectHistoryComponent,
+        component: DirectHistoryComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/bill',
-        component: DirectBillComponent,
+        component: DirectBillComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/history/view',
-        component: DirectHistoryEditComponent,
+        component: DirectHistoryEditComponent, canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/history/view-edit',
-        component: DirectHistoryViewEditComponent,
+        component: DirectHistoryViewEditComponent, canLoad: [IsLoggedInGuard],
       },
     ],
   },

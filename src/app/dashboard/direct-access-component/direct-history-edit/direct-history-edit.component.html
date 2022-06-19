@@ -1,75 +1,77 @@
 <div class="wrapper">
-  <p class="back" [routerLink]="['/dashboard/dashboard5/direct/history']">
-    <mat-icon>keyboard_backspace</mat-icon> Back
-  </p>
+    <p class="back" [routerLink]="['/dashboard/dashboard5/direct/history']">
+        <mat-icon>keyboard_backspace</mat-icon>
+        Back
+    </p>
 
-  <div class="header">
-    <div class="header-container">
-      <div class="reg_buss">Tax ID: 34546678844</div>
-      <div class="soft_pattern">Matthew Olayinka Adeboye</div>
-      <div class="reg_buss">Registered Taxpayer</div>
-    </div>
-  </div>
-
-  <!-- table container -->
-
-  <div class="table-container">
-    <div class="PayE">Direct assessment</div>
-
-    <div class="left_right_container">
-      <!--  -->
-      <div class="column">
-        <div class="column1">
-          <div class="employee-salary">Description</div>
-          <div class="left_right">
-            <div class="left">
-              <div class="title">Assessment Period</div>
-              <div class="title">Tax Type</div>
-              <div class="title">No. Of employee</div>
-              <div class="title">Currency</div>
-              <div class="title">Date of assessment</div>
-              <div class="title">Total monthly Gross</div>
-              <div class="title">Total Taxable Income</div>
-              <div class="title">Consolidated relief allowance</div>
-              <div class="title">Monthly tax Liability</div>
-              <div class="title2">TOTAL PAYE PAYABLE</div>
-            </div>
-          </div>
+    <div class="header">
+        <div class="header-container">
+            <div class="reg_buss">Tax ID: 34546678844</div>
+            <div class="soft_pattern">Matthew Olayinka Adeboye</div>
+            <div class="reg_buss">Registered Taxpayer</div>
         </div>
-
-        <div class="column2">
-          <div class="deduction">Amount</div>
-          <div class="left_right">
-            <div class="left2">
-              <div class="title">January</div>
-              <div class="title">Direct assessment</div>
-              <div class="title">2</div>
-              <div class="title">NGN</div>
-              <div class="title">01/12/2020</div>
-              <div class="title">NGN 10,000</div>
-              <div class="title">NGN 10,000</div>
-              <div class="title">NGN 5,000</div>
-              <div class="title">NGN 5,000</div>
-              <div class="title2">NGN 10,000</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--  -->
-      <div class="right_container">
-        <div class="right_action">Actions</div>
-        <div>
-          <button mat-button class="right_edit" (click)="redirectToEdit('')">Edit</button>
-        </div>
-        <div>
-          <button mat-button class="right_bill" (click)="OpenDialog('', 'generate_bill')">Generate Bill</button>
-        </div>
-      </div>
     </div>
 
-    <div style="clear: both"></div>
-  </div>
+    <!-- table container -->
 
-  <div style="clear: both; padding-top: 3rem"></div>
+    <div class="table-container">
+        <div class="PayE">Direct Assessment (Best of Judgment))</div>
+
+        <div
+            class="left_right_container">
+            <!--  -->
+            <div class="column">
+                <div class="column1">
+                    <div class="employee-salary">Description</div>
+                    <div class="left_right">
+                        <div class="left">
+                            <div class="title">Assessment Period</div>
+                            <div class="title">Tax Type</div>
+                            <div class="title">No. Of employee</div>
+                            <div class="title">Currency</div>
+                            <div class="title">Date of assessment</div>
+                            <div class="title">Total monthly Gross</div>
+                            <div class="title">Total Taxable Income</div>
+                            <div class="title">Consolidated relief allowance</div>
+                            <div class="title">Monthly tax Liability</div>
+                            <div class="title2">TOTAL PAYE PAYABLE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column2">
+                    <div class="deduction">Amount</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title">January</div>
+                            <div class="title">Direct Assessment (Best of Judgment))</div>
+                            <div class="title">2</div>
+                            <div class="title">NGN</div>
+                            <div class="title">01/12/2020</div>
+                            <div class="title">NGN 10,000</div>
+                            <div class="title">NGN 10,000</div>
+                            <div class="title">NGN 5,000</div>
+                            <div class="title">NGN 5,000</div>
+                            <div class="title2">NGN 10,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="right_container">
+                <div class="right_action">Actions</div>
+                <div>
+                    <button mat-button="mat-button" class="right_edit" (click)="redirectToEdit('')">Edit</button>
+                </div>
+                <div>
+                    <button mat-button="mat-button" class="right_bill" (click)="OpenDialog('', 'generate_bill')">Generate Bill</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear: both"></div>
+    </div>
+
+    <div style="clear: both; padding-top: 3rem"></div>
 </div>

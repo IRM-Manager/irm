@@ -14,7 +14,7 @@ export class DirectHistoryEditComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -35,7 +35,7 @@ export class DirectHistoryEditComponent implements OnInit {
   }
 
   redirectToEdit(data: any) {
-    console.log(data)
+    console.log(data);
     this.router.navigate(['/dashboard/dashboard5/direct/history/view-edit']);
   }
 }
