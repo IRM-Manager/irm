@@ -44,6 +44,14 @@ import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-com
 import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-plate/vehicle-reg-plate.component';
 import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
+import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
+import { BottomSidenavMenuComponent } from '../bottom-sidenav-menu/bottom-sidenav-menu.component';
+import { AdminSidenavListComponent } from '../admin-console-component/admin-sidenav-list/admin-sidenav-list.component';
+import { DashboardSidenavListComponent } from '../dashboard-component/dashboard-sidenav-list/dashboard-sidenav-list.component';
+import { DirectSidenavListComponent } from '../direct-access-component/direct-sidenav-list/direct-sidenav-list.component';
+import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-sidenav-list.component';
+import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
+import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +62,14 @@ import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehi
     VehicleRegDetailsComponent,
     VehicleRegPlateComponent,
     VehicleRegAssessmentComponent,
+    SideNavListComponent,
+    BottomSidenavMenuComponent,
+    AdminSidenavListComponent,
+    DashboardSidenavListComponent,
+    DirectSidenavListComponent,
+    MdaSidenavListComponent,
+    TaxpayerSidenavListComponent,
+    PayeeSidenavListComponent,
     // dialog
     DialogComponent,
     PayeeDialogComponent,
@@ -106,6 +122,14 @@ import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehi
     VehicleRegPlateComponent,
     VehicleRegAssessmentComponent,
     FooterComponent,
+    SideNavListComponent,
+    BottomSidenavMenuComponent,
+    AdminSidenavListComponent,
+    DashboardSidenavListComponent,
+    DirectSidenavListComponent,
+    MdaSidenavListComponent,
+    TaxpayerSidenavListComponent,
+    PayeeSidenavListComponent,
     // module
     MatListModule,
     MatCardModule,

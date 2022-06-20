@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
@@ -11,7 +17,7 @@ import {
   selectAllIndPayer,
   selectAllProfile,
   selectAllStates,
-  selectAllYear
+  selectAllYear,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -21,7 +27,7 @@ import {
   AddIndPayer,
   AddProfile,
   AddStates,
-  AddYear
+  AddYear,
 } from '../../actions/irm.action';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ComPayer, IndPayer, Profile, States, Year } from '../models/irm';
@@ -41,7 +47,6 @@ export class HeaderComponent implements OnInit {
   type: any;
   profile: any;
   hide = true;
-  hidePaye = true;
   companyData: any;
 
   clickEventSubscription?: Subscription;
@@ -65,17 +70,6 @@ export class HeaderComponent implements OnInit {
       .getHeaderClickEvent()
       .subscribe((data: any) => {
         this.hide = false;
-      });
-
-    this.clickEventSubscription = this.shared
-      .getPayeeHeaderButtonClickEvent()
-      .subscribe((data: string) => {
-        if (data) {
-          this.hidePaye = false;
-        } else if (!data) {
-          this.hidePaye = true;
-        }
-        this.companyData = this.shared.getMessage2();
       });
 
     this.authService.checkExpired();
@@ -191,7 +185,7 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/mda' ||
       this.router.url == '/dashboard/dashboard3/mda/bill' ||
       this.router.url == '/dashboard/dashboard3/mda/generate'
-      ) {
+    ) {
       this.type = 'mda';
       this.left_text1 = 'MDA Collection';
     }
@@ -206,11 +200,11 @@ export class HeaderComponent implements OnInit {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = '';
-    }else if (this.router.url == '/dashboard/dashboard5/add-user') {
+    } else if (this.router.url == '/dashboard/dashboard5/add-user') {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = 'Add New User';
-    }else if (this.router.url == '/dashboard/dashboard5/edit-user') {
+    } else if (this.router.url == '/dashboard/dashboard5/edit-user') {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = 'Edit User Details';
@@ -242,8 +236,7 @@ export class HeaderComponent implements OnInit {
     ) {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';
-    }  
-    else {
+    } else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
       this.left_text2 = 'Dashboard';
@@ -347,7 +340,7 @@ export class HeaderComponent implements OnInit {
 
   public onPublicHeaderToggleSidenav = () => {
     this.publicsidenavToggle.emit();
-    this.shared.sendHeaderSideClickEvent();
+    // this.shared.sendHeaderSideClickEvent();
     this.hide = true;
   };
 

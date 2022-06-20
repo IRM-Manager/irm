@@ -1,0 +1,32 @@
+<div class="wrapper2">
+    <div class="button">
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
+
+            <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+
+        <p class="back" (click)="PayeeBack()">
+            <mat-icon>keyboard_backspace</mat-icon>
+            Back
+        </p>
+
+        <p class="pay_as_you_earn" [routerLink]="['/dashboard']">Dashboard</p>
+
+        <p class="dash-text" [routerLink]="['/dashboard']" routerLinkActive="active">
+            All
+        </p>
+        <p class="dash-text2" [routerLink]="['dashboard2/taxpayer']">
+            Payer Registration
+        </p>
+        <p class="dash-text2" [routerLink]="['dashboard3/taxpayer/payee/business-list']">
+            Paye
+        </p>
+        <p class="dash-text2" [routerLink]="['dashboard5/direct']">
+            Direct assessment
+        </p>
+        <p class="dash-text2">Vehicle Licensing</p>
+    </div>
+</div>

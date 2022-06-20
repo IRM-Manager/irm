@@ -1,0 +1,36 @@
+<!-- Vehicle layout -->
+<div class="wrapper2">
+    <div class="button">
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
+
+            <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+
+        <p class="back" (click)="PayeeBack()">
+            <mat-icon>keyboard_backspace</mat-icon>
+            Back
+        </p>
+
+        <p class="pay_as_you_earn" [routerLink]="['/dashboard/dashboard5/vehicle']">
+            Vehicle Licensing
+        </p>
+
+        <p class="dash-text" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" routerLinkActive="active">
+            Vehicle Registration
+        </p>
+        <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/renew']" routerLinkActive="active">
+            Renew vehicle Registration
+        </p>
+        <p class="dash-text2">
+            Revalidate Plate Number
+        </p>
+        <p class="dash-text2">Penalties</p>
+        <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/bills']" routerLinkActive="active">
+            Generated Bills
+        </p>
+    </div>
+
+</div>

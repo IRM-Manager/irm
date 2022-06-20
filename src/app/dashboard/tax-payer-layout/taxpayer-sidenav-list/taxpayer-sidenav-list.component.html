@@ -1,0 +1,25 @@
+<div class="wrapper2">
+    <div class="button">
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
+
+            <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+
+        <p class="back" (click)="PayeeBack()">
+            <mat-icon>keyboard_backspace</mat-icon>
+            Back
+        </p>
+
+        <p class="pay_as_you_earn">Tax payer Registration</p>
+
+        <p class="dash-text" [routerLink]="['dashboard2/taxpayer']" routerLinkActive="active">
+            All Tax payer
+        </p>
+        <p class="dash-text2" [routerLink]="['dashboard22/taxpayer']" routerLinkActive="active">
+            Create new tax payer
+        </p>
+    </div>
+</div>

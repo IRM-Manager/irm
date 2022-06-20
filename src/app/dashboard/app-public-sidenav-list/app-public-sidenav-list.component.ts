@@ -6,6 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 // state management
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -27,7 +28,6 @@ export class AppPublicSidenavListComponent implements OnInit {
   @Output() public publicsidenavClose = new EventEmitter();
 
   clickEventSubscription?: Subscription;
-  hide = false;
   panelOpenState = false;
   profile: any;
   type: any;
@@ -40,12 +40,13 @@ export class AppPublicSidenavListComponent implements OnInit {
     private authService: AuthService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    public shared: ToggleNavService
+    public shared: ToggleNavService,
+    private _location: Location
   ) {
     this.clickEventSubscription = this.shared
       .getHeaderSideClickEvent()
       .subscribe((data: any) => {
-        this.hide = false;
+        this.publicsidenavClose.emit();
       });
 
     this.authService.checkExpired();
@@ -54,7 +55,6 @@ export class AppPublicSidenavListComponent implements OnInit {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
         this.currentRoute();
-        this.payeeRoute();
       }
     });
   }
@@ -141,27 +141,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     }
   }
 
-  payeeRoute() {
-    if (
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/staff-income' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/assessment' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/bill' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage-edit' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
-      this.router.url ==
-        '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
-    ) {
-      this.payee_type = 'payee';
-    } else {
-      this.payee_type = 'business';
-    }
-  }
+  
 
   PayeeBack() {
     // this.shared.PayeesendClickEvent('');
@@ -171,7 +151,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     // this.shared.setMessage3(undefined);
     // this.shared.sendPayeeHeaderButtonClickEvent(false);
     // this.router.navigate(['/dashboard']);
-    this.router.navigate(['/preview']);
+    this._location.back();
   }
 
   PayeeBusinessBack() {
@@ -242,6 +222,5 @@ export class AppPublicSidenavListComponent implements OnInit {
   public onPublicHeaderToggleSidenav = () => {
     this.publicsidenavClose.emit();
     this.shared.sendHeaderClickEvent();
-    this.hide = true;
   };
 }

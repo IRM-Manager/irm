@@ -1,0 +1,40 @@
+<div class="wrapper2">
+    <div class="button">
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
+
+            <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+
+        <p class="back" [routerLink]="['/preview']">
+            <mat-icon>keyboard_backspace</mat-icon>
+            Back
+        </p>
+
+        <p class="pay_as_you_earn" [routerLink]="['/dashboard/dashboard3/taxpayer/payee']">
+            Pay as you Earn
+        </p>
+
+        <div *ngIf="payee_type == 'payee'">
+            <p class="dash-text" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/assessment']" routerLinkActive="active">
+                Create new Assessment
+            </p>
+            <p class="dash-text2" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/lists']" routerLinkActive="active">
+                Concluded Assessment
+            </p>
+            <p class="dash-text2" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/bill']" routerLinkActive="active">
+                Generated Bills
+            </p>
+            <p class="dash-text2">Process TCC</p>
+            <p class="dash-text2" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/manage']" routerLinkActive="active">
+                Manage your Employees
+            </p>
+        </div>
+
+        <div *ngIf="payee_type !== 'payee'">
+            <p class="dash-text">All Businesses</p>
+        </div>
+    </div>
+</div>
