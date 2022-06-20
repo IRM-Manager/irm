@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="43" height="43" viewBox="0 0 43 43">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3e5fa8"/>
+      <stop offset="1" stop-color="#2aa977"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_982" data-name="Group 982" transform="translate(-601 -161)">
+    <g id="_9044801_renew_icon" data-name="9044801_renew_icon" transform="translate(601 160.592)">
+      <path id="Path_645" data-name="Path 645" d="M14.908,12.55H7.791a15,15,0,0,1,27.57,8.181h2.727A17.726,17.726,0,0,0,6.727,9.386V4.369H4V15.277H14.908Z" transform="translate(1.454 1.085)" fill="url(#linear-gradient)"/>
+      <path id="Path_646" data-name="Path 646" d="M26.18,24.181H33.3A15,15,0,0,1,5.727,16H3A17.726,17.726,0,0,0,34.361,27.344v5.018h2.727V21.454H26.18Z" transform="translate(1.091 5.816)" fill="url(#linear-gradient)"/>
+      <g id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;">
+        <rect id="Rectangle_4256" data-name="Rectangle 4256" width="43" height="43" transform="translate(0 0.408)" fill="none"/>
+      </g>
+    </g>
+    <g id="Icon_ionic-ios-car" data-name="Icon ionic-ios-car" transform="translate(614.668 176.424)">
+      <g id="Group_981" data-name="Group 981" transform="translate(0 0)">
+        <path id="Path_642" data-name="Path 642" d="M17.592,10.875c-.533-1.19-1.893-3.562-3.863-3.562H9.093c-1.97,0-3.276,2.295-3.863,3.562-.927.889-1.854,1.766-1.854,3.276v2.936a.31.31,0,0,0,.24.3c.576.131,2.4.394,7.8.394s7.221-.263,7.8-.394a.31.31,0,0,0,.24-.3V14.151A4.181,4.181,0,0,0,17.592,10.875ZM8.861,8.24h5.1c1.565,0,2.4,2.318,2.4,2.7H6.466C6.466,10.558,7.509,8.24,8.861,8.24ZM5.848,16.11a1.236,1.236,0,1,1,1.236-1.236A1.235,1.235,0,0,1,5.848,16.11Zm8.345-1.225a.62.62,0,0,1-.618.618H9.247a.62.62,0,0,1-.618-.618h0a.62.62,0,0,1,.618-.618h4.327a.62.62,0,0,1,.618.618Zm2.782,1.236a1.236,1.236,0,1,1,1.236-1.236A1.235,1.235,0,0,1,16.974,16.121Z" transform="translate(-3.375 -7.313)" fill="url(#linear-gradient)"/>
+        <path id="Path_643" data-name="Path 643" d="M8.209,26.842c-1.851,0-3.709-.193-3.709-.193,0,.657-.012,1.12.232,1.12H8.016C8.259,27.769,8.209,27.259,8.209,26.842Z" transform="translate(-3.882 -16.024)" fill="url(#linear-gradient)"/>
+      </g>
+      <path id="Path_644" data-name="Path 644" d="M24.744,26.842c1.854,0,3.709-.193,3.709-.193,0,.618.077,1.12-.193,1.12H24.937C24.678,27.769,24.744,27.247,24.744,26.842Z" transform="translate(-12.999 -16.024)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>

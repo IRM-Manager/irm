@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  MatDialogRef,
+  MatDialog,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,9 +16,10 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 @Component({
   selector: 'app-vehicle-dialog',
   templateUrl: './vehicle-dialog.component.html',
-  styleUrls: ['./vehicle-dialog.component.css']
+  styleUrls: ['./vehicle-dialog.component.css'],
 })
 export class VehicleDialogComponent implements OnInit {
+  manualForm!: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<VehicleDialogComponent>,
@@ -27,11 +32,20 @@ export class VehicleDialogComponent implements OnInit {
     public shared: ToggleNavService,
     private authService: AuthService,
     private fb: FormBuilder
-  ) { 
+  ) {
+    this.createManualForm2();
+    if (this.data.type == 'manual') {
+      dialogRef.disableClose = true;
+    }
     this.authService.checkExpired();
+  }
+  createManualForm2() {
+    this.manualForm = this.fb.group({
+      tin: [''],
+    });
   }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
-
 }

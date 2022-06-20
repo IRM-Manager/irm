@@ -1,1 +1,30 @@
-<p>vehicle-onboard works!</p>
+<div class="payee_wrapper">
+
+    <div class="container" fxLayoutGap="30px">
+        <div class="card" (click)="OpenDialog('', 'manual')">
+            <div class="icon"><img src="assets/images/Icon-ionic-ios-car.svg" alt=""></div>
+            <div class="text">New Vehicle Registration</div>
+        </div>
+        <div class="card" [routerLink]="['renew']">
+            <div class="icon"><img src="assets/images/Group982.svg" alt=""></div>
+            <div class="text">Renew vehicle Registration</div>
+        </div>
+        <div class="card">
+            <div class="icon"><img src="assets/images/Layer_2.svg" alt=""></div>        
+            <div class="text">Change of ownership</div>
+        </div>
+        <div class="card" matBadge="45" matBadgeSize="medium">
+            <div class="icon"><img src="assets/images/8726296_receipt_alt_icon.svg" alt=""></div>
+            <div class="text">Revalidate Plate Number</div>
+        </div>
+        <div class="card">
+            <div class="icon"><img src="assets/images/27-Document-Process.svg" alt=""></div>
+            <div class="text">Penalties</div>
+        </div>
+        <div class="card" [routerLink]="['bills']" matBadge="45" matBadgeSize="medium">
+            <div class="icon"><img src="assets/images/8726296_receipt_alt_icon.svg" alt=""></div>
+            <div class="text">Generated Bills</div>
+        </div>
+    </div>
+
+</div>

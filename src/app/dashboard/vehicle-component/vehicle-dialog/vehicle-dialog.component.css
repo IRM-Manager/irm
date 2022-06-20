@@ -1,0 +1,304 @@
+.payee_cancel_button {
+  text-align: right;
+  color: #3c66a3;
+}
+
+.title-header {
+  text-transform: uppercase;
+  font: normal normal normal 15px/19px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #3c66a3;
+  text-transform: uppercase;
+  opacity: 1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.print-section {
+  background-repeat: no-repeat;
+  background-position: center, top;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  overflow: hidden;
+  background-image: url("/assets/images/Group512.svg");
+}
+
+.generate_left {
+  float: left;
+  width: 12rem;
+}
+
+.generate_right {
+  float: right;
+  width: 30rem;
+}
+
+.left-column {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.status {
+  font: normal normal normal 15px/19px Montserrat;
+  letter-spacing: 0px;
+  color: #3c66a3;
+  font-weight: 500;
+  opacity: 1;
+  margin-right: 8px;
+}
+
+.pending {
+  font: normal normal normal 15px/19px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: #f9d10a;
+  opacity: 1;
+  text-transform: capitalize;
+}
+
+.tin {
+  font: normal normal normal 15px/19px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #565656;
+  opacity: 1;
+}
+
+.com_name {
+  font: normal normal normal 15px/19px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #3c66a3;
+  opacity: 1;
+  margin-top: 5px;
+}
+
+.reg_buss {
+  font: normal normal normal 15px/19px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #565656;
+  opacity: 1;
+  margin-top: 5px;
+}
+
+.column {
+  margin-top: 1rem;
+}
+
+.column1 {
+  float: left;
+  width: 50%;
+}
+
+.column2 {
+  float: right;
+  width: 50%;
+}
+
+.employee-salary,
+.deduction {
+  background: #697692 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 0.6rem 15px;
+  font: normal normal normal 14px/17px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.left_right {
+  display: flex;
+}
+
+.left {
+  float: left;
+  width: 100%;
+}
+
+.left2 {
+  float: left;
+  width: 100%;
+}
+
+.title {
+  font: normal normal normal 13px/16px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #565656;
+  opacity: 1;
+  vertical-align: middle;
+  padding: 15px;
+}
+
+.title2 {
+  font: normal normal normal 13px/16px Montserrat;
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: #565656;
+  opacity: 1;
+  vertical-align: middle;
+  text-transform: uppercase;
+  padding: 15px;
+}
+
+.card-actions {
+  width: 30rem;
+  float: right;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.print_p {
+  margin-left: 78%;
+  margin-bottom: 5px;
+}
+
+.pay-now {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.print,
+.print2 {
+  font: normal normal normal 15px/19px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #4c8b8b;
+  opacity: 1;
+  text-transform: capitalize;
+  padding: 0.4rem;
+}
+
+.print2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+}
+
+.note {
+  margin-right: 20px;
+  font: italic normal normal 12px/15px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: #565656;
+  opacity: 1;
+}
+
+/* Manual upload css */
+
+.upload_file-dialog {
+  width: 40rem;
+  padding-left: 5rem;
+  margin-right: 3rem;
+}
+
+.upload_cancel_button {
+  text-align: right;
+  color: #2aa977;
+}
+
+.upload_continue {
+  background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 0.8rem;
+  width: 8rem;
+  text-align: center;
+  opacity: 1;
+  font: normal normal normal 14px/16px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.manual_file-dialog {
+  width: 30rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.manual_container {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  background: #f5f7fa 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  padding: 1rem;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.manual_filling {
+  font: normal normal normal 17px/25px Montserrat;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #565656;
+  text-align: left;
+  opacity: 1;
+}
+
+.manual_verify {
+  font: normal normal normal 13px/19px Montserrat;
+  letter-spacing: 0px;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: #565656;
+  opacity: 1;
+}
+
+.half-width {
+  margin-right: 15px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #37a85d !important;
+  background-color: #ffffff !important;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #37a85d;
+}
+
+::ng-deep .mat-input-element {
+  caret-color: #37a85d;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #565656;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #565656;
+}
+
+::ng-deep .mat-form-field-underline,
+::ng-deep .mat-form-field-ripple {
+  background: #3c66a3;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #3c66a3;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #ffffff; /*inner circle color change*/
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #3c66a3; /*outer ring color change*/
+  background: #3c66a3;
+}

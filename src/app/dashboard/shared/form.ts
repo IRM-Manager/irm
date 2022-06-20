@@ -56,16 +56,6 @@ export interface manual {
   year: string;
 }
 
-// export interface Individual3 {
-//   company_name: string;
-//   company_house_no: string;
-//   company_estate_street: string;
-//   company_country: string;
-//   company_state: string;
-//   company_lga: string;
-//   company_zipcode: string;
-// }
-
 export interface Business {
   org_name: string;
   nature_bus: string;
@@ -135,6 +125,22 @@ export interface direct_boj2 {
   source: string;
   income: string;
   year: string;
+}
+
+export interface vehicle_details {
+  reg_type: string;
+  category: string;
+  model: string;
+  make: string;
+  sub_type: string;
+  vehicle_type: string;
+  no_carry: string;
+  vin: string;
+  weight: string;
+  color: string;
+  gross_weight: string;
+  engine_capacity: string;
+  fuel: string;
 }
 
 export interface stateLogo {

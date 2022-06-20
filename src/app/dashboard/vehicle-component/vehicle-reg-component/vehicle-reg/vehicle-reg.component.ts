@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-vehicle-reg',
   templateUrl: './vehicle-reg.component.html',
-  styleUrls: ['./vehicle-reg.component.css']
+  encapsulation: ViewEncapsulation.Emulated,
+  styleUrls: ['./vehicle-reg.component.scss'],
 })
 export class VehicleRegComponent implements OnInit {
+  viewMode = 'detail';
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

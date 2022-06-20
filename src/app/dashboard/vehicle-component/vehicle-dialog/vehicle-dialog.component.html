@@ -1,1 +1,120 @@
-<p>vehicle-dialog works!</p>
+<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+    <div class="payee_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div id="print-section" class="print-section">
+        <div class="title-header">DIRECT ASSESSMENT (generate bill)</div>
+
+        <div mat-dialog-content>
+
+            <div class="generate_container">
+                <div class="generate_left">
+                    <div class="left-column">
+                        <span class="status">Bill status</span>
+                        <span class="pending">Pending</span>
+                    </div>
+                    <div class="tin">TIN: IRM1244325</div>
+                    <div class="com_name">Softpattern Pattern Technology</div>
+                    <div class="reg_buss">Registered Business</div>
+                </div>
+                <div class="generate_right">
+
+                    <div class="column">
+                        <div class="column1">
+                            <div class="employee-salary">Description</div>
+                            <div class="left_right">
+                                <div class="left">
+                                    <div class="title">Assessment Period</div>
+                                    <div class="title">Tax Type</div>
+                                    <div class="title">Currency</div>
+                                    <div class="title">Date of assessment</div>
+                                    <div class="title">Yearly income Gross</div>
+                                    <div class="title">Total Taxable Income</div>
+                                    <div class="title">Consolidated relief allowance</div>
+                                    <div class="title">Monthly tax Liability</div>
+                                    <div class="title2">TOTAL PAYABLE</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="column2">
+                            <div class="deduction">Amount</div>
+                            <div class="left_right">
+                                <div class="left2">
+                                    <div class="title">January</div>
+                                    <div class="title">Direct assessment</div>
+                                    <div class="title">NGN</div>
+                                    <div class="title">2</div>
+                                    <div class="title">01/12/2020</div>
+                                    <div class="title">NGN 10,000</div>
+                                    <div class="title">NGN 10,000</div>
+                                    <div class="title">NGN 10,000</div>
+                                    <div class="title2">NGN 10,000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="clear: both;"></div>
+
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div class="card-actions">
+                <div class="print_p">
+                    <button mat-button class="print" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+                        <img src="assets/images/print.svg" alt="">
+                        print
+                    </button>
+                </div>
+                <div class="pay-now">
+                    <div class="note">NOTE : generated assessment will expire in 48 Hours (14/11/2018, 9:30am),
+                        payment can be paid using payment mobile App or use payment Platform.
+                    </div>
+                    <button mat-button class="print2">
+                        <img src="assets/images/Iconmaterial-payment.svg" alt="">
+                        pay now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Manual upload layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'manual' ">
+    <div class="upload_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="manual_container">
+
+        <div>
+            <div class="manual_filling">New vehicle registration</div>
+            <div class="manual_verify">Input Tax ID to continue</div>
+
+            <form [formGroup]="manualForm" class="manual_form">
+
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>TIN</mat-label>
+                    <input matInput formControlName="tin">
+                </mat-form-field>
+
+                <button mat-button class="upload_continue" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
