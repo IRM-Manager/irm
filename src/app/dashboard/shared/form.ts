@@ -32,20 +32,16 @@ export interface Individual1 {
   lga: string;
   nationality: string;
   trade: string;
-  // employment: string;
   contact: string;
   contact_email: string;
-}
-
-export interface Individual2 {
   house: string;
   street: string;
   state_red: string;
   lga_red: string;
   zipcode: string;
-  contact_email: string;
-  contact: string;
+
 }
+
 
 export interface manual {
   tin: string;
@@ -65,6 +61,24 @@ export interface Business {
   email: string;
   company_type: string;
   website: string;
+}
+
+export interface Business2 {
+  org_name: string;
+  nature_bus: string;
+  num_emp: string;
+  date_est: string;
+  contact_num: string;
+  email: string;
+  company_type: string;
+  website: string;
+  house: string;
+  street: string;
+  state_red: string;
+  lga_red: string;
+  zipcode: string;
+  contact_email: string;
+  contact: string;
 }
 
 export interface payee1 {

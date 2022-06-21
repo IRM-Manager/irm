@@ -48,9 +48,7 @@ import {
 import { DialogComponent } from '../../dialog/dialog.component';
 import { ComPayer, Profile, States } from '../../models/irm';
 import {
-  Business,
-  Individual2,
-  LGA,
+  Business2, LGA,
   lgaLogo,
   STATE,
   stateLogo
@@ -69,16 +67,13 @@ export class BusinessComponent implements OnDestroy, OnInit {
   @ViewChild('card', { static: true })
   card!: ElementRef<HTMLDivElement>;
 
-  @ViewChild('fform2') feedbackFormDirective2: any;
   @ViewChild('fform3') feedbackFormDirective3: any;
 
-  feedbackForm2: any = FormGroup;
   feedbackForm3: any = FormGroup;
   loading = false;
   disabled = false;
 
-  feedback2!: Individual2;
-  feedback3!: Business;
+  feedback3!: Business2;
   payer_data: any;
 
   loading2 = false;
@@ -162,6 +157,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     },
     date_est: {
       required: 'required.',
+      matDatepickerParse: 'not a valid date',
     },
     contact_num: {
       required: 'required.',
@@ -188,7 +184,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     private dialog: MatDialog
   ) {
     this.authService.checkExpired();
-    this.createForm2();
+    // this.createForm2();
     this.createForm3();
     this.trackCountryField2();
     // state
@@ -208,8 +204,17 @@ export class BusinessComponent implements OnDestroy, OnInit {
     }
   }
 
-  createForm2() {
-    this.feedbackForm2 = this.fb.group({
+  createForm3() {
+    this.feedbackForm3 = this.fb.group({
+      org_name: ['', [Validators.required]],
+      nature_bus: ['', [Validators.required]],
+      num_emp: ['', [Validators.required]],
+      date_est: ['', [Validators.required]],
+      contact_num: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      company_type: ['', [Validators.required]],
+      website: [''],
+      //
       house: ['', [Validators.required]],
       street: ['', [Validators.required]],
       state_red: ['', [Validators.required]],
@@ -219,50 +224,10 @@ export class BusinessComponent implements OnDestroy, OnInit {
       contact_email: ['', [Validators.required, Validators.email]],
     });
 
-    this.feedbackForm2.valueChanges.subscribe((data: any) =>
-      this.onValueChanged2(data)
-    );
-    this.onValueChanged2(); // (re)set validation messages now
-  }
-
-  createForm3() {
-    this.feedbackForm3 = this.fb.group({
-      org_name: ['', [Validators.required]],
-      nature_bus: ['', [Validators.required]],
-      num_emp: ['', [Validators.required]],
-      date_est: ['', [Validators.required]],
-      contact_num: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      company_type: [''],
-      website: [''],
-    });
-
     this.feedbackForm3.valueChanges.subscribe((data: any) =>
       this.onValueChanged3(data)
     );
     this.onValueChanged3(); // (re)set validation messages now
-  }
-
-  onValueChanged2(data?: any) {
-    if (!this.feedbackForm2) {
-      return;
-    }
-    const form = this.feedbackForm2;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
-        }
-      }
-    }
   }
 
   onValueChanged3(data?: any) {
@@ -275,11 +240,11 @@ export class BusinessComponent implements OnDestroy, OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -288,9 +253,9 @@ export class BusinessComponent implements OnDestroy, OnInit {
   }
 
   RemoveFormData() {
-    this.feedbackForm2.get('street').reset();
-    this.feedbackForm2.get('house').reset();
-    this.feedbackForm2.get('zipcode').reset();
+    this.feedbackForm3.get('street').reset();
+    this.feedbackForm3.get('house').reset();
+    this.feedbackForm3.get('zipcode').reset();
     this.feedbackForm3.get('org_name').reset();
     this.feedbackForm3.get('nature_bus').reset();
     this.feedbackForm3.get('num_emp').reset();
@@ -301,152 +266,11 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.feedbackForm3.get('company_type').reset();
   }
 
-  streetError: any;
-  houseError: any;
-  zipcodeError: any;
-  state_redError: any;
-  lga_redError: any;
-  contactError: any;
-  contact_emailError: any;
-
-  onSubmit2() {
-    const feed1 = this.feedbackFormDirective2.invalid;
-    const control = this.feedbackFormDirective2.form.controls;
-    if (feed1) {
-      if (control.street.status == 'INVALID') {
-        this.streetError = 'required.';
-        this.formErrors['street'] = 'required.';
-      } else {
-        this.streetError = '';
-      }
-      if (control.house.status == 'INVALID') {
-        this.houseError = 'required.';
-        this.formErrors['house'] = 'required.';
-      } else {
-        this.houseError = '';
-      }
-      if (control.zipcode.status == 'INVALID') {
-        this.zipcodeError = 'required.';
-        this.formErrors['zipcode'] = 'required.';
-      } else {
-        this.zipcodeError = '';
-      }
-      if (control.state_red.status == 'INVALID') {
-        this.state_redError = 'required.';
-        this.formErrors['state_red'] = 'required.';
-      } else {
-        this.state_redError = '';
-      }
-      if (control.contact.status == 'INVALID') {
-        this.contactError = 'required.';
-        this.formErrors['contact'] = 'required.';
-      } else {
-        this.contactError = '';
-      }
-      if (control.contact_email.status == 'INVALID') {
-        this.contact_emailError = control.contact_email.errors.email
-          ? 'not a valid email.'
-          : 'required.';
-        this.formErrors['contact_email'] = control.contact_email.errors.email
-          ? 'not a valid email.'
-          : 'required.';
-      } else {
-        this.contact_emailError = '';
-      }
-      if (control.lga_red.status == 'INVALID') {
-        this.lga_redError = 'required.';
-        this.formErrors['lga_red'] = 'required.';
-      } else {
-        this.lga_redError = '';
-      }
-    } else {
-      this.streetError = '';
-      this.houseError = '';
-      this.zipcodeError = '';
-      this.state_redError = '';
-      this.lga_redError = '';
-      this.contact_emailError = '';
-      this.contactError = '';
-    }
-  }
-
-  org_nameError: any;
-  nature_busError: any;
-  num_empError: any;
-  date_estError: any;
-  contact_numError: any;
-  emailError: any;
-  company_typeError: any;
-
-  onSubmit3() {
-    const feed1 = this.feedbackFormDirective3.invalid;
-    const control = this.feedbackFormDirective3.form.controls;
-    console.log(control);
-    if (feed1) {
-      if (control.org_name.status == 'INVALID') {
-        this.org_nameError = 'required.';
-        this.formErrors['org_name'] = 'required.';
-      } else {
-        this.org_nameError = '';
-      }
-      if (control.nature_bus.status == 'INVALID') {
-        this.nature_busError = 'required.';
-        this.formErrors['nature_bus'] = 'required.';
-      } else {
-        this.nature_busError = '';
-      }
-      if (control.num_emp.status == 'INVALID') {
-        this.num_empError = 'required.';
-        this.formErrors['num_emp'] = 'required.';
-      } else {
-        this.num_empError = '';
-      }
-      if (control.date_est.status == 'INVALID') {
-        this.date_estError = 'required.';
-        this.formErrors['date_est'] = 'required.';
-      } else {
-        this.date_estError = '';
-      }
-      if (control.company_type.status == 'INVALID') {
-        this.company_typeError = 'required.';
-        this.formErrors['company_type'] = 'required.';
-      } else {
-        this.company_typeError = '';
-      }
-      if (control.contact_num.status == 'INVALID') {
-        this.contact_numError = 'required.';
-        this.formErrors['contact_num'] = 'required.';
-      } else {
-        this.contact_numError = '';
-      }
-      if (control.email.status == 'INVALID') {
-        this.emailError = control.email.errors.email
-          ? 'not a valid email.'
-          : 'required.';
-        this.formErrors['email'] = control.email.errors.email
-          ? 'not a valid email.'
-          : 'required.';
-      } else {
-        this.emailError = '';
-      }
-    } else {
-      this.emailError = '';
-      this.contact_numError = '';
-      this.date_estError = '';
-      this.num_empError = '';
-      this.nature_busError = '';
-      this.org_nameError = '';
-      this.company_typeError = '';
-    }
-  }
 
   Submit() {
-    this.onSubmit2();
-    this.onSubmit3();
-    const feed2 = this.feedbackFormDirective2.invalid;
+    this.onValueChanged3();
     const feed3 = this.feedbackFormDirective3.invalid;
-
-    if (feed2 || feed3) {
+    if (feed3) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',
@@ -458,12 +282,11 @@ export class BusinessComponent implements OnDestroy, OnInit {
       this.loading2 = true;
       this.disabled2 = true;
 
-      this.feedback2 = this.feedbackForm2.value;
       this.feedback3 = this.feedbackForm3.value;
 
       let data = {
-        state_id: this.feedback2.state_red,
-        lga_id: this.feedback2.lga_red,
+        state_id: this.feedback3.state_red,
+        lga_id: this.feedback3.lga_red,
         organisation_name: this.feedback3.org_name,
         business_nature: this.feedback3.nature_bus,
         number_employee: this.feedback3.num_emp,
@@ -474,12 +297,12 @@ export class BusinessComponent implements OnDestroy, OnInit {
         office_website_url: this.feedback3.website || '',
         phone: this.feedback3.contact_num,
         email: this.feedback3.email,
-        contact_phone: this.feedback2.contact,
-        contact_email: this.feedback2.contact_email,
+        contact_phone: this.feedback3.contact,
+        contact_email: this.feedback3.contact_email,
         company_type: this.feedback3.company_type || '',
-        address: this.feedback2.street,
-        house_no: this.feedback2.house,
-        zipcode: this.feedback2.zipcode,
+        address: this.feedback3.street,
+        house_no: this.feedback3.house,
+        zipcode: this.feedback3.zipcode,
       };
       console.log(data);
 
@@ -532,7 +355,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
   }
 
   trackCountryField2(): void {
-    this.feedbackForm2
+    this.feedbackForm3
       .get('state_red')
       .valueChanges.subscribe((field: string) => {
         if (field === undefined) {
@@ -555,10 +378,10 @@ export class BusinessComponent implements OnDestroy, OnInit {
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
           (data: any) => {
-            this.option2 = data;
-            this.filteredBanks3.next(data);
-            this.state2 = data;
-            this.store.dispatch(new AddStates([{ id: 1, data: data }]));
+            this.option2 = data.results;
+            this.filteredBanks3.next(data.results);
+            this.state2 = data.results;
+            this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
             this.stateLoading2 = false;
           },
           (err) => {
@@ -595,14 +418,14 @@ export class BusinessComponent implements OnDestroy, OnInit {
       if (this.editDetails.type == 'com') {
         this.update = true;
         const data = this.editDetails;
-        this.feedbackForm2.controls['state_red'].patchValue(
+        this.feedbackForm3.controls['state_red'].patchValue(
           data.data.state_id.id
         );
-        this.feedbackForm2.patchValue({ street: data.data.address });
-        this.feedbackForm2.patchValue({ house: data.data.house_no });
-        this.feedbackForm2.patchValue({ zipcode: data.data.zipcode });
-        this.feedbackForm2.controls['lga_red'].patchValue(data.data.lga_id.id);
-        this.feedbackForm2.patchValue({ zipcode: data.data.zipcode });
+        this.feedbackForm3.patchValue({ street: data.data.address });
+        this.feedbackForm3.patchValue({ house: data.data.house_no });
+        this.feedbackForm3.patchValue({ zipcode: data.data.zipcode });
+        this.feedbackForm3.controls['lga_red'].patchValue(data.data.lga_id.id);
+        this.feedbackForm3.patchValue({ zipcode: data.data.zipcode });
         this.feedbackForm3.patchValue({
           org_name: data.data.organisation_name,
         });
@@ -618,8 +441,8 @@ export class BusinessComponent implements OnDestroy, OnInit {
         });
         this.feedbackForm3.patchValue({ contact_num: data.data.phone });
         this.feedbackForm3.patchValue({ email: data.data.email });
-        this.feedbackForm2.patchValue({ contact: data.data.contact_phone });
-        this.feedbackForm2.patchValue({
+        this.feedbackForm3.patchValue({ contact: data.data.contact_phone });
+        this.feedbackForm3.patchValue({
           contact_email: data.data.contact_email,
         });
         this.feedbackForm3.patchValue({ company_type: data.data.company_type });
@@ -633,12 +456,9 @@ export class BusinessComponent implements OnDestroy, OnInit {
   }
 
   SubmitUpdate() {
-    this.onSubmit2();
-    this.onSubmit3();
-    const feed2 = this.feedbackFormDirective2.invalid;
+    this.onValueChanged3();
     const feed3 = this.feedbackFormDirective3.invalid;
-
-    if (feed2 || feed3) {
+    if (feed3) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',
@@ -648,11 +468,10 @@ export class BusinessComponent implements OnDestroy, OnInit {
     } // end of if
     else {
       this.Updateloading = true;
-      this.feedback2 = this.feedbackForm2.value;
       this.feedback3 = this.feedbackForm3.value;
       let dataa = {
-        state_id: this.feedback2.state_red || this.editDetails.data.state_id,
-        lga_id: this.feedback2.lga_red || this.editDetails.data.lga_id,
+        state_id: this.feedback3.state_red || this.editDetails.data.state_id,
+        lga_id: this.feedback3.lga_red || this.editDetails.data.lga_id,
         organisation_name: this.editDetails.data.organisation_name,
         business_nature:
           this.feedback3.nature_bus || this.editDetails.data.business_nature,
@@ -663,14 +482,14 @@ export class BusinessComponent implements OnDestroy, OnInit {
           this.feedback3.website || this.editDetails.office_website_url,
         phone: this.feedback3.contact_num || this.editDetails.data.phone,
         email: this.feedback3.email || this.editDetails.data.email,
-        contact_phone: this.feedback2.contact || this.editDetails.contact_phone,
+        contact_phone: this.feedback3.contact || this.editDetails.contact_phone,
         contact_email:
-          this.feedback2.contact_email || this.editDetails.data.contact_email,
+          this.feedback3.contact_email || this.editDetails.data.contact_email,
         company_type:
           this.feedback3.company_type || this.editDetails.data.company_type,
-        address: this.feedback2.street || this.editDetails.data.street,
-        house_no: this.feedback2.house || this.editDetails.data.house,
-        zipcode: this.feedback2.zipcode || this.editDetails.data.zipcode,
+        address: this.feedback3.street || this.editDetails.data.street,
+        house_no: this.feedback3.house || this.editDetails.data.house,
+        zipcode: this.feedback3.zipcode || this.editDetails.data.zipcode,
       };
       this.httpService
         .updateData(

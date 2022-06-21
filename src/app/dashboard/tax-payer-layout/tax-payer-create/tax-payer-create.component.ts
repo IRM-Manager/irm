@@ -45,6 +45,7 @@ export class TaxPayerCreateComponent implements OnInit {
     },
     birth: {
       required: 'required.',
+      matDatepickerParse: 'not a valid date',
     },
     cac: {
       required: 'required.',
@@ -148,11 +149,11 @@ export class TaxPayerCreateComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -170,11 +171,11 @@ export class TaxPayerCreateComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -185,32 +186,8 @@ export class TaxPayerCreateComponent implements OnInit {
   ninError = false;
   birthError = false;
 
-  checkFrom() {
-    const feed1 = this.feedbackFormDirective.invalid;
-    const control = this.feedbackFormDirective.form.controls;
-    if (feed1) {
-      if (control.nin.status == 'INVALID') {
-        this.ninError = true;
-        this.formErrors['nin'] = 'required.';
-      } else {
-        this.ninError = false;
-      }
-      if (control.birth.status == 'INVALID') {
-        this.birthError = true;
-        this.formErrors['birth'] = control.birth.errors.matDatepickerParse
-          ? 'not a valid date.'
-          : 'required.';
-      } else {
-        this.birthError = false;
-      }
-    } else {
-      this.ninError = false;
-      this.birthError = false;
-    }
-  }
-
   onSubmit() {
-    this.checkFrom();
+    this.onValueChanged();
     const feed1 = this.feedbackFormDirective.invalid;
     if (feed1) {
     } // end of if
@@ -231,25 +208,8 @@ export class TaxPayerCreateComponent implements OnInit {
     }
   }
 
-  cacError = false;
-
-  checkFrom2() {
-    const feed1 = this.feedbackFormDirective2.invalid;
-    const control = this.feedbackFormDirective2.form.controls;
-    if (feed1) {
-      if (control.cac.status == 'INVALID') {
-        this.cacError = true;
-        this.formErrors['cac'] = 'required.';
-      } else {
-        this.cacError = false;
-      }
-    } else {
-      this.cacError = false;
-    }
-  }
-
   onSubmit2() {
-    this.checkFrom2();
+    this.onValueChanged2();
     const feed1 = this.feedbackFormDirective2.invalid;
     if (feed1) {
     } // end of if

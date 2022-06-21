@@ -103,11 +103,11 @@ export class MDAComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -128,38 +128,9 @@ export class MDAComponent implements OnInit {
   //   this.feedbackForm3.get('contact_email').reset();
   // }
 
-  checkValidity() {
-    const feed1 = this.feedbackFormDirective3.invalid;
-    const control = this.feedbackFormDirective3.form.controls;
-    if (feed1) {
-      if (control.firstname.status == 'INVALID') {
-        this.formErrors['firstname'] = 'required.';
-      }
-      if (control.middlename.status == 'INVALID') {
-        this.formErrors['middlename'] = 'required.';
-      }
-      if (control.surname.status == 'INVALID') {
-        this.formErrors['surname'] = 'required.';
-      }
-      if (control.mda_name.status == 'INVALID') {
-        this.formErrors['mda_name'] = 'required.';
-      }
-      if (control.service_name.status == 'INVALID') {
-        this.formErrors['service_name'] = 'required.';
-      }
-      if (control.contact.status == 'INVALID') {
-        this.formErrors['contact'] = 'required.';
-      }
-      if (control.contact_email.status == 'INVALID') {
-        this.formErrors['contact_email'] = control.contact_email.errors.email
-          ? 'not a valid email.'
-          : 'required.';
-      }
-    }
-  }
 
   onSubmit() {
-    this.checkValidity();
+    this.onValueChanged3();
     const feed = this.feedbackFormDirective3.invalid;
 
     if (feed) {

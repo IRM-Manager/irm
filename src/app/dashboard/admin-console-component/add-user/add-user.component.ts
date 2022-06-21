@@ -104,11 +104,11 @@ export class AddUserComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -116,32 +116,8 @@ export class AddUserComponent implements OnInit {
     }
   }
 
-  checkValidity() {
-    const feed1 = this.feedbackFormDirective.invalid;
-    const control = this.feedbackFormDirective.form.controls;
-    if (feed1) {
-      if (control.first_name.status == 'INVALID') {
-        this.formErrors['first_name'] = 'required.';
-      }
-      if (control.last_name.status == 'INVALID') {
-        this.formErrors['last_name'] = 'required.';
-      }
-      if (control.department.status == 'INVALID') {
-        this.formErrors['department'] = 'required.';
-      }
-      if (control.group.status == 'INVALID') {
-        this.formErrors['group'] = 'required.';
-      }
-      if (control.email.status == 'INVALID') {
-        this.formErrors['email'] = control.email.errors.email
-          ? 'not a valid email.'
-          : 'required.';
-      }
-    }
-  }
-
   onSubmit() {
-    this.checkValidity();
+    this.onValueChanged();
     const feed = this.feedbackFormDirective.invalid;
 
     if (feed) {

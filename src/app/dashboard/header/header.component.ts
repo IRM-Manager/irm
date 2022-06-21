@@ -235,9 +235,7 @@ export class HeaderComponent implements OnInit {
     ) {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';
-    }else if (
-      this.router.url == '/dashboard/dashboard5/vehicle/reg'
-    ) {
+    } else if (this.router.url == '/dashboard/dashboard5/vehicle/reg') {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';
       this.left_text2 = 'New Vehicle Registration';
@@ -275,10 +273,7 @@ export class HeaderComponent implements OnInit {
   AddYear() {
     this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
       (data: any) => {
-        if (data.responsecode == '01') {
-        } else {
-          this.store.dispatch(new AddYear([{ id: 1, data: data }]));
-        }
+        this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
       },
       (err) => {}
     );
@@ -311,10 +306,7 @@ export class HeaderComponent implements OnInit {
   AddState() {
     this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
       (data: any) => {
-        if (data.responsecode == '01') {
-        } else {
-          this.store.dispatch(new AddStates([{ id: 1, data: data }]));
-        }
+        this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
       },
       (err) => {}
     );

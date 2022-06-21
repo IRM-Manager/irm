@@ -79,7 +79,7 @@ export class VehicleRegDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private snackBar: MatSnackBar
-  ) {    
+  ) {
     this.createForm();
     this.authService.checkExpired();
   }
@@ -117,11 +117,11 @@ export class VehicleRegDetailsComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -129,56 +129,9 @@ export class VehicleRegDetailsComponent implements OnInit {
     }
   }
 
-  checkValidity() {
-    const feed1 = this.feedbackFormDirective.invalid;
-    const control = this.feedbackFormDirective.form.controls;
-    if (feed1) {
-      if (control.reg_type.status == 'INVALID') {
-        this.formErrors['reg_type'] = 'required.';
-        if (control.category.status == 'INVALID') {
-          this.formErrors['category'] = 'required.';
-        }
-        if (control.model.status == 'INVALID') {
-          this.formErrors['model'] = 'required.';
-        }
-        if (control.make.status == 'INVALID') {
-          this.formErrors['make'] = 'required.';
-        }
-        if (control.sub_type.status == 'INVALID') {
-          this.formErrors['sub_type'] = 'required.';
-        }
-        if (control.vehicle_type.status == 'INVALID') {
-          this.formErrors['vehicle_type'] = 'required.';
-        }
-        if (control.no_carry.status == 'INVALID') {
-          this.formErrors['no_carry'] = 'required.';
-        }
-        if (control.vin.status == 'INVALID') {
-          this.formErrors['vin'] = 'required.';
-        }
-        if (control.weight.status == 'INVALID') {
-          this.formErrors['weight'] = 'required.';
-        }
-        if (control.color.status == 'INVALID') {
-          this.formErrors['color'] = 'required.';
-        }
-        if (control.gross_weight.status == 'INVALID') {
-          this.formErrors['gross_weight'] = 'required.';
-        }
-        if (control.engine_capacity.status == 'INVALID') {
-          this.formErrors['engine_capacity'] = 'required.';
-        }
-        if (control.fuel.status == 'INVALID') {
-          this.formErrors['fuel'] = 'required.';
-        }
-      }
-    }
-  }
-
   onSubmit() {
-    this.checkValidity();
+    this.onValueChanged();
     const feed2 = this.feedbackFormDirective.invalid;
-
     if (feed2) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,

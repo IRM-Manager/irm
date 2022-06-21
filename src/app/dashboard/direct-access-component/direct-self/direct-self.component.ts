@@ -96,11 +96,11 @@ export class DirectSelfComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && !control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
+              this.formErrors[field] = messages[key];
             }
           }
         }
@@ -117,24 +117,8 @@ export class DirectSelfComponent implements OnInit {
     });
   }
 
-  checkValidity() {
-    const feed1 = this.feedbackFormDirective.invalid;
-    const control = this.feedbackFormDirective.form.controls;
-    if (feed1) {
-      if (control.source.status == 'INVALID') {
-        this.formErrors['source'] = 'required.';
-      }
-      if (control.income.status == 'INVALID') {
-        this.formErrors['income'] = 'required.';
-      }
-      if (control.year.status == 'INVALID') {
-        this.formErrors['year'] = 'required.';
-      }
-    }
-  }
-
   onSubmit() {
-    this.checkValidity();
+    this.onValueChanged();
     const feed = this.feedbackFormDirective.invalid;
     if (feed) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
