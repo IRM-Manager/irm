@@ -149,7 +149,6 @@ export class EditUserComponent implements OnInit {
       department: ['', [Validators.required]],
       group: ['', [Validators.required]],
       office: ['', [Validators.required]],
-      middle_name: [''],
       email: ['', [Validators.required, Validators.email]],
     });
 
@@ -255,22 +254,22 @@ export class EditUserComponent implements OnInit {
         let correct_data = {
           first_name: this.feedback.first_name,
           last_name: this.feedback.last_name,
-          middle_name: this.feedback.middle_name,
-          departmant: department[0].id,
+          department: department[0].id,
           email: this.feedback.email,
           groups: list_group_id,
           location: form_location[0].id,
           phone: this.datas.data.phone,
           is_staff: this.datas.data.is_staff,
         };
+        console.log(correct_data)
         this.httpService
           .updateData(BaseUrl.edit_user, correct_data, this.datas.data.id)
           .subscribe(
             (data: any) => {
               this.loading = false;
               this.disabled = false;
-              this.feedbackFormDirective.resetForm();
-              this.snackBar.open('Success', '', {
+              // this.feedbackFormDirective.resetForm();
+              this.snackBar.open('Update Successful', '', {
                 duration: 4000,
                 panelClass: 'success',
                 horizontalPosition: 'center',

@@ -338,8 +338,17 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     }
   }
 
+  // ::ng-deep .tooltip-inner {
+  //   background-color: orange !important;
+  // }
+
   .table-icon-delete {
     color: $red;
+    cursor: pointer;
+  }
+
+  .table-icon-success {
+    color: $select-color;
     cursor: pointer;
   }
 
@@ -354,7 +363,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     // transition: all 0.5s;
     // border: 1px solid $panel-color;
     // margin: 5px;
-    display: none;
+    display: none !important;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_length,
@@ -366,7 +375,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   ::ng-deep #DataTables_Table_0_info {
-    display: none;
+    display: none !important;
   }
 
   // ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {

@@ -1,0 +1,35 @@
+<!-- activate and deactivate user -->
+<div
+    class="delete-wrapper" *ngIf="data.type =='delete-user'">
+    <!-- deactivate user -->
+    <div class="delete-payer">
+        <div *ngIf="data.data.is_active" mat-dialog-content class="delete-payer-text">Do you really want to Deactivate these User? <span style="font-weight: 500;">{{ data.data.username }}</span></div>
+        <div *ngIf="!data.data.is_active" mat-dialog-content class="delete-payer-text">Activate User <span style="font-weight: 500;">{{ data.data.username }}</span></div>
+        <div mat-dialog-actions="mat-dialog-actions">
+            <div class="align-delete-payer">
+                <button mat-button mat-dialog-close class="cancel-payer-button">Cancel</button>
+                <!-- if deactivate -->
+                <button *ngIf="data.data.is_active" mat-button class="delete-payer-button" (click)="deactivateActivate()" [disabled]="disabled === true">
+                    <span *ngIf="!loading" class="add_text">Deactivate</span>
+                    <div *ngIf="loading" class="loader_delete">
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                    </div>
+                </button>
+                <!-- if activate -->
+                <button *ngIf="!data.data.is_active" mat-button class="activate-payer-button" (click)="deactivateActivate()" [disabled]="disabled === true">
+                    <span *ngIf="!loading" class="add_text">Activate</span>
+                    <div *ngIf="loading" class="loader_delete">
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                        <div class="bubble_delete"></div>
+                    </div>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

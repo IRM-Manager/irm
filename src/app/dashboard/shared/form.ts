@@ -123,7 +123,6 @@ export interface create_assessment {
 export interface add_user {
   first_name: string;
   last_name: string;
-  middle_name: string;
   email: string;
   department: string;
   group: string;

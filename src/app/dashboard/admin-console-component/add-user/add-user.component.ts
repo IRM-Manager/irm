@@ -89,7 +89,6 @@ export class AddUserComponent implements OnInit {
       department: ['', [Validators.required]],
       group: ['', [Validators.required]],
       office: ['', [Validators.required]],
-      middle_name: [''],
       email: ['', [Validators.required, Validators.email]],
     });
 
@@ -142,7 +141,6 @@ export class AddUserComponent implements OnInit {
       let data = {
         first_name: this.feedback.first_name,
         last_name: this.feedback.last_name,
-        middle_name: this.feedback.middle_name,
         departmant: this.feedback.department,
         email: this.feedback.email,
         groups: this.feedback.group,

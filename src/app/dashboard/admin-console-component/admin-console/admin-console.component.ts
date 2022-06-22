@@ -1,22 +1,21 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
-import { User } from '../../models/irm';
 import { AppState, selectAllUser } from 'src/app/reducers/index';
 import { AddUser } from '../../../actions/irm.action';
+import { User } from '../../models/irm';
 //
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
 import { AdminServiceService } from '../service/admin-service.service';
+import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
 
 @Component({
   selector: 'app-admin-console',
@@ -47,7 +46,7 @@ export class AdminConsoleComponent implements OnInit {
     private httpService: HttpService,
     private store: Store<AppState>,
     private snackBar: MatSnackBar,
-    private service: AdminServiceService,
+    private service: AdminServiceService
   ) {
     this.authService.checkExpired();
     this.stateComPayer = store.select(selectAllUser);
@@ -82,31 +81,20 @@ export class AdminConsoleComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
     };
-
     this.isLoading = true;
-    this.stateComPayer?.forEach((e) => {
-      if (e.length > 0) {
-        this.datas = e[0].data;
-        this.searchData = e[0].data;
-        console.log(e[0].data);
+    this.httpService.getAuthSingle(BaseUrl.list_user + '1').subscribe(
+      (data: any) => {
+        this.store.dispatch(new AddUser([{ id: 1, data: data.results }]));
+        this.datas = data.results;
+        this.searchData = data.results;
         this.dtTrigger.next;
         this.isLoading = false;
-      } else {
-        this.httpService.getAuthSingle(BaseUrl.list_user + "1").subscribe(
-          (data: any) => {
-            this.store.dispatch(new AddUser([{ id: 1, data: data.data }]));
-            this.datas = data.data;
-            this.searchData = data.data;
-            this.dtTrigger.next;
-            this.isLoading = false;
-          },
-          (err) => {
-            this.isLoading = false;
-            this.authService.checkExpired();
-          }
-        );
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
       }
-    });
+    );
   }
 
   ngOnInit(): void {
@@ -123,21 +111,20 @@ export class AdminConsoleComponent implements OnInit {
   redirectData(data: any, type: string) {
     const datas = {
       type: type,
-      data: data
-    }
+      data: data,
+    };
     this.service.setAdminMessage(datas);
-    this.router.navigate([`/dashboard/dashboard5/${type}`])
+    this.router.navigate([`/dashboard/dashboard5/${type}`]);
   }
 
-
-  OpenDialog(data: any) {
-    // this.snackBar.dismiss();
-    // this.dialog.open(DialogComponent, {
-    //   data: {
-    //     type: 'ind',
-    //     data: data,
-    //   },
-    // });
+  OpenDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(AdminConsoleDialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
   }
 
   goToPayee() {

@@ -22,5 +22,6 @@ export const BaseUrl = {
   list_group: 'user/api/v1/allgroup/',
   list_department: 'user/api/v1/department/?page=1',
   list_location: 'user/api/v1/location/',
-  edit_user: 'user/api/v1/profile/edit?id='
+  edit_user: 'user/api/v1/profile/edit?id=',
+  activate_deactivate: 'user/api/v1/changeuser/status/'
 };

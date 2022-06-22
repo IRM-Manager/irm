@@ -52,6 +52,7 @@ import { DirectSidenavListComponent } from '../direct-access-component/direct-si
 import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-sidenav-list.component';
 import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
 import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
+import { AdminConsoleDialogComponent } from '../admin-console-component/admin-console-dialog/admin-console-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/pa
     MdaDialogComponent,
     DirectDialogComponent,
     VehicleDialogComponent,
+    AdminConsoleDialogComponent,
   ],
   entryComponents: [
     // dialog component here

@@ -9,18 +9,11 @@
         <form #card class="form1" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>
                 <!-- firstname -->
-                <mat-form-field class="half-width" appearance="outline">
+                <mat-form-field class="full-width" appearance="outline">
                     <mat-label>First Name</mat-label>
                     <input matInput formControlName="first_name" required>
                     <mat-error>{{formErrors.first_name}}</mat-error>
                 </mat-form-field>
-                <!-- middlename -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Middle Name (optional)</mat-label>
-                    <input matInput formControlName="middle_name">
-                    <mat-error>{{formErrors.middle_name}}</mat-error>
-                </mat-form-field>
-            </p>
             <p>
                 <!-- lastname -->
                 <mat-form-field class="full-width" appearance="outline">
@@ -34,7 +27,7 @@
                 <!-- email -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Email Address</mat-label>
-                    <input matInput type="email" formControlName="email" email required>
+                    <input matInput type="email" formControlName="email" email readonly required>
                     <mat-error>{{formErrors.email}}</mat-error>
                 </mat-form-field>
             </p>
