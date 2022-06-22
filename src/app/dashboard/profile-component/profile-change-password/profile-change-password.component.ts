@@ -168,14 +168,14 @@ export class ProfileChangePasswordComponent implements OnInit {
             this.disabled = false;
             if (err.status === 400) {
               if (err.error?.new_password) {
-                this.snackBar.open(err.error.new_password, '', {
+                this.snackBar.open(err.error?.new_password, '', {
                   duration: 5000,
                   panelClass: 'error',
                   horizontalPosition: 'center',
                   verticalPosition: 'top',
                 });
-              } else if (err.error?.new_password) {
-                this.snackBar.open(err.error.old_password.detail, '', {
+              } else if (err.error?.old_password) {
+                this.snackBar.open(err.error?.old_password?.detail, '', {
                   duration: 5000,
                   panelClass: 'error',
                   horizontalPosition: 'center',
@@ -184,7 +184,7 @@ export class ProfileChangePasswordComponent implements OnInit {
               }
             } else {
               this.snackBar.open(
-                err?.error?.msg || err?.error?.detail || 'An Error Occured!',
+                err.error?.msg || err.error?.detail || 'An Error Occured!',
                 '',
                 {
                   duration: 5000,
