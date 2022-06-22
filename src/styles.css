@@ -16,6 +16,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: lightcoral;
 }
 
+.warning {
+  color: orange;
+}
+
 .cdk-overlay-container .cdk-overlay-backdrop.cdk-overlay-dark-backdrop.cdk-overlay-backdrop-showing {
   background: #000000 0% 0% no-repeat padding-box;
   opacity: 0.6;

@@ -1,23 +1,28 @@
+import { Location } from '@angular/common';
 import {
   Component,
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Location } from '@angular/common';
 // state management
 import { Store } from '@ngrx/store';
-import { AppState, selectAllProfile, selectAllGroup, selectAllDepartment, selectAllLocation } from 'src/app/reducers/index';
-import { AddProfile, AddGroup, AddDepartment, AddLocation } from '../../actions/irm.action';
-import { Profile, Group, Department, Locationn } from '../models/irm';
-// 
+import {
+  AppState, selectAllDepartment, selectAllGroup, selectAllLocation, selectAllProfile
+} from 'src/app/reducers/index';
+import {
+  AddDepartment, AddGroup, AddLocation, AddProfile
+} from '../../actions/irm.action';
+import { Department, Group, Locationn, Profile } from '../models/irm';
+//
 import { Observable, Subscription } from 'rxjs';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { ProfileServiceService } from '../profile-component/service/profile-service.service';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-app-public-sidenav-list',
@@ -45,7 +50,8 @@ export class AppPublicSidenavListComponent implements OnInit {
     private httpService: HttpService,
     private store: Store<AppState>,
     public shared: ToggleNavService,
-    private _location: Location
+    private _location: Location,
+    private adminService: ProfileServiceService
   ) {
     this.clickEventSubscription = this.shared
       .getHeaderSideClickEvent()
@@ -87,11 +93,11 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
     ) {
       this.type = 'payee';
-    } 
+    }
     // dashboard
     else if (this.router.url == '/dashboard') {
       this.type = 'dashboard';
-    } 
+    }
     // taxpayer
     else if (
       this.router.url == '/dashboard/dashboard2/taxpayer' ||
@@ -105,7 +111,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     ) {
       this.type = 'tax_payer';
     }
-    // admin-console 
+    // admin-console
     else if (
       this.router.url == '/dashboard/dashboard5/admin-console' ||
       this.router.url == '/dashboard/dashboard5/add-user' ||
@@ -113,7 +119,7 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/view-user'
     ) {
       this.type = 'admin-console';
-    } 
+    }
     // mda
     else if (
       this.router.url == '/dashboard/dashboard3/mda' ||
@@ -133,7 +139,7 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/direct/history/view-edit'
     ) {
       this.type = 'direct';
-    }  
+    }
     // vehicle
     else if (
       this.router.url == '/dashboard/dashboard5/vehicle' ||
@@ -143,14 +149,20 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/reg'
     ) {
       this.type = 'vehicle';
-    }  
+    }
+    // account
+    else if (
+      this.router.url == '/dashboard/dashboard5/account' ||
+      this.router.url == '/dashboard/dashboard5/account/edit' ||
+      this.router.url == '/dashboard/dashboard5/account/password'
+    ) {
+      this.type = 'account';
+    }
     // home
     else {
       this.type = 'home';
     }
   }
-
-  
 
   PayeeBack() {
     // this.shared.PayeesendClickEvent('');
@@ -189,6 +201,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       } else {
         this.httpService.getAuthSingle(BaseUrl.get_profile).subscribe(
           (data: any) => {
+            this.adminService.setAdminMessage(data.data);
+            this.adminService.sendClickEvent();
             this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
             this.profile = data.data;
             console.log('http_profile', data.data);

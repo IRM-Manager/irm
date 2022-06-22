@@ -157,6 +157,21 @@ export interface vehicle_details {
   fuel: string;
 }
 
+export interface editUser {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+}
+
+
+export interface changePassword {
+  old_password: string;
+  new_password: string;
+  confirmPassword: string;
+}
+
+
 export interface stateLogo {
   id: any;
   name: any;

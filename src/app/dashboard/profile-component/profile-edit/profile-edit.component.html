@@ -1,0 +1,76 @@
+<div class="account-wrapper">
+
+    <div class="profile">Edit profile</div>
+
+    <div class="container">
+
+        <div class="profile-container">
+            <div class="profile-icon_p">
+                <div class="profile-icon">
+                    <div><img src="assets/images/Group1506.svg" alt=""></div>
+                </div>
+                <div>
+                    <div class="text1">{{ datas.first_name }} {{ datas.last_name }}</div>
+                    <div class="text2">{{ datas.email }}</div>
+                    <div class="text2">{{ datas.username }}</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-container">
+            <form class="form1" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <p>
+                    <!-- firstname -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="first_name" required>
+                        <mat-error>{{formErrors.first_name}}</mat-error>
+                    </mat-form-field>
+                <p>
+                    <!-- lastname -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="last_name" required>
+                        <mat-error>{{formErrors.last_name}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <!-- email -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput type="email" formControlName="email" email readonly required>
+                        <mat-error>{{formErrors.email}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <!-- phone -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Contact Number</mat-label>
+                        <input matInput type="phone" formControlName="phone" required>
+                        <mat-error>{{formErrors.phone}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <div class="final_submit">
+                    <button type="submit" mat-button class="edit" [disabled]="disabled === true">
+                        <span *ngIf="!loading">Save</span>
+                        <div *ngIf="loading" class="loader">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </button>
+                    <button type="button" mat-button class="edit2" [routerLink]="['/dashboard/dashboard5/account']">
+                        Cancel
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+
+</div>

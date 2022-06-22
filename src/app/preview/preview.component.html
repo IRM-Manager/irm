@@ -10,13 +10,26 @@
 
         <span class="spacer"></span>
 
-        <button mat-button class="bell-icon" (click)="logout()">
-            <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
-        </button>
-
         <button mat-icon-button class="bell-icon">
             <span class="fa fa-bell"></span>
         </button>
+
+        <button mat-button [matMenuTriggerFor]="menu" class="button-menu">
+            <div class="category">
+                <div>
+                    <div class="right_text1">Welcome, {{ profile?.department.name }}</div>
+                    <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
+                    <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
+                </div>
+                <div><i class="fa fa-chevron-down category-icon identity" aria-hidden="true"></i></div>
+            </div>
+        </button>
+        <mat-menu #menu="matMenu">
+            <div class="mat-menu">
+                <button mat-menu-item="mat-menu-item" style="color: #3C66A3;" class="mat-menu" [routerLink]="['/dashboard/dashboard5/account']">View profile</button>
+                <button mat-menu-item="mat-menu-item" (click)="logout()" style="color: red;" class="mat-menu">Logout</button>
+            </div>
+        </mat-menu>
 
     </mat-toolbar>
 

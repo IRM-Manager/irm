@@ -53,6 +53,7 @@ import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-s
 import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
 import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
 import { AdminConsoleDialogComponent } from '../admin-console-component/admin-console-dialog/admin-console-dialog.component';
+import { ProfileSidenavListComponent } from '../profile-component/profile-sidenav-list/profile-sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AdminConsoleDialogComponent } from '../admin-console-component/admin-co
     MdaSidenavListComponent,
     TaxpayerSidenavListComponent,
     PayeeSidenavListComponent,
+    ProfileSidenavListComponent,
     // dialog
     DialogComponent,
     PayeeDialogComponent,
@@ -132,6 +134,7 @@ import { AdminConsoleDialogComponent } from '../admin-console-component/admin-co
     MdaSidenavListComponent,
     TaxpayerSidenavListComponent,
     PayeeSidenavListComponent,
+    ProfileSidenavListComponent,
     // module
     MatListModule,
     MatCardModule,

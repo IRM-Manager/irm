@@ -31,6 +31,7 @@ import {
 } from '../../actions/irm.action';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ComPayer, IndPayer, Profile, States, Year } from '../models/irm';
+import { ProfileServiceService } from '../profile-component/service/profile-service.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
@@ -64,7 +65,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private httpService: HttpService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private adminService: ProfileServiceService,
   ) {
     this.clickEventSubscription = this.shared
       .getHeaderClickEvent()
@@ -239,6 +241,15 @@ export class HeaderComponent implements OnInit {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';
       this.left_text2 = 'New Vehicle Registration';
+    }
+    // account
+    else if (
+      this.router.url == '/dashboard/dashboard5/account' ||
+      this.router.url == '/dashboard/dashboard5/account/edit' ||
+      this.router.url == '/dashboard/dashboard5/account/password'
+    ) {
+      this.type = 'mda';
+      this.left_text1 = 'Account Setting';
     } else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';
@@ -258,6 +269,8 @@ export class HeaderComponent implements OnInit {
       } else {
         this.httpService.getAuthSingle(BaseUrl.get_profile).subscribe(
           (data: any) => {
+            this.adminService.setAdminMessage(data.data);
+            this.adminService.sendClickEvent();
             this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
             this.profile = data.data;
             console.log('http_profile', data);

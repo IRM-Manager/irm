@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
-import { RemoveProfile } from '../actions/irm.action';
+import { BaseUrl } from 'src/environments/environment';
+import { AddProfile } from '../actions/irm.action';
 import { Profile } from '../dashboard/models/irm';
+import { ProfileServiceService } from '../dashboard/profile-component/service/profile-service.service';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-preview',
@@ -15,23 +18,75 @@ import { Profile } from '../dashboard/models/irm';
 })
 export class PreviewComponent implements OnInit {
   stateProfile: Observable<Profile[]>;
+  profile: any;
+  left_text1!: string;
+  left_text2!: string;
+  loading = false;
+
   constructor(
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private httpService: HttpService,
+    private adminService: ProfileServiceService
   ) {
     this.authService.checkExpired();
+    //
     this.stateProfile = store.select(selectAllProfile);
   }
 
-  ngOnInit(): void {}
+  redirectToDepartment(type: string) {}
+
+  limit(title: any, limit = 11) {
+    if (title === undefined) {
+      return '';
+    } else {
+      const newTitle: any = [];
+      if (title.length > limit) {
+        title.split('').reduce((acc: any, cur: any) => {
+          if (acc + cur.length <= limit) {
+            newTitle.push(cur);
+          }
+          return acc + cur.length;
+        }, 0);
+        return `${newTitle.join('')}...`;
+      }
+      return title;
+    }
+  }
+
+  AddProfile() {
+    this.loading = true;
+    this.stateProfile.forEach((e) => {
+      if (e.length > 0) {
+        this.profile = e[0].data;
+        this.loading = false;
+      } else {
+        this.httpService.getAuthSingle(BaseUrl.get_profile).subscribe(
+          (data: any) => {
+            this.adminService.setAdminMessage(data.data);
+            this.adminService.sendClickEvent();
+            this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
+            this.profile = data.data;
+            this.loading = false;
+          },
+          (err) => {
+            this.authService.checkExpired();
+          }
+        );
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.AddProfile();
+    // let card = <HTMLElement>document.querySelector('.container')
+    // for (let i in card) {
+    //   card.style.opacity = '0.5';
+    // }
+  }
 
   logout() {
-    this.store.dispatch(new RemoveProfile([{ id: 1, data: [] }]));
     this.authService.logout();
-    this.snackBar.open('Logout successful', '', {
-      duration: 5000,
-      panelClass: 'success',
-    });
   }
 }

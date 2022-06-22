@@ -27,7 +27,8 @@ export const BaseUrl = {
   list_department: 'user/api/v1/department/?page=1',
   list_location: 'user/api/v1/location/',
   edit_user: 'user/api/v1/profile/edit?id=',
-  activate_deactivate: 'user/api/v1/changeuser/status/'
+  activate_deactivate: 'user/api/v1/changeuser/status/',
+  change_password: 'user/api/v1/change_password/'
 };
 
 /*

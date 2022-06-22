@@ -61,8 +61,16 @@
                                         </mat-menu>
                                     </td>
                                     <td class="align-middle">
-                                        <mat-icon (click)="OpenDialog(data, 'delete-user')" *ngIf="data.is_active" class="table-icon-success" matTooltipPosition="above" matTooltip=" Deactivate this Account">brightness_1</mat-icon>
-                                        <mat-icon (click)="OpenDialog(data, 'delete-user')" *ngIf="!data.is_active" class="table-icon-delete" matTooltipPosition="above" matTooltip="Activate this Account">brightness_1</mat-icon>
+                                        <mat-icon (click)="OpenDialog(data, 'delete-user')" 
+                                        *ngIf="data.is_active" class="table-icon-success" 
+                                        matTooltipPosition="above"
+                                        matTooltip=" Deactivate this Account">brightness_1</mat-icon>
+                                        <!--  -->
+                                        <mat-icon (click)="OpenDialog(data, 'delete-user')" 
+                                        *ngIf="!data.is_active" 
+                                        class="table-icon-delete" 
+                                        matTooltipPosition="above" 
+                                        matTooltip="Activate this Account">brightness_1</mat-icon>
                                     </td>
                                 </tr>
                             </tbody>

@@ -76,6 +76,9 @@ import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
 import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
 import { DateAgoPipe } from '../pipes/date-ago.pipe';
+import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
+import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
+import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +128,9 @@ import { DateAgoPipe } from '../pipes/date-ago.pipe';
     VehicleRenewViewComponent,
     VehicleRenewEditComponent,
     VehicleRegComponent,
+    ProfileViewComponent, 
+    ProfileEditComponent, 
+    ProfileChangePasswordComponent,
     // Pipe component
     DateAgoPipe,
   ],

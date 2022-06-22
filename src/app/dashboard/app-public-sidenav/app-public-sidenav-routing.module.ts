@@ -40,6 +40,9 @@ import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicl
 import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
 import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
+import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
+import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
+import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
 
 const routes: Routes = [
   {
@@ -198,6 +201,19 @@ const routes: Routes = [
         path: 'dashboard5/vehicle/reg',
         component: VehicleRegComponent, canLoad: [IsLoggedInGuard],
       },
+      // Account
+      {
+        path: 'dashboard5/account',
+        component: ProfileViewComponent, canLoad: [IsLoggedInGuard],
+      }, 
+      {
+        path: 'dashboard5/account/edit',
+        component: ProfileEditComponent, canLoad: [IsLoggedInGuard],
+      }, 
+      {
+        path: 'dashboard5/account/password',
+        component: ProfileChangePasswordComponent, canLoad: [IsLoggedInGuard],
+      }, 
     ],
   },
 ];

@@ -1,17 +1,15 @@
 import { Location } from '@angular/common';
-import {
-  Component, OnInit, ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
-  selector: 'app-admin-sidenav-list',
-  templateUrl: './admin-sidenav-list.component.html',
+  selector: 'app-profile-sidenav-list',
+  templateUrl: './profile-sidenav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./admin-sidenav-list.component.scss'],
+  styleUrls: ['./profile-sidenav-list.component.scss'],
 })
-export class AdminSidenavListComponent implements OnInit {
+export class ProfileSidenavListComponent implements OnInit {
   constructor(
     private router: Router,
     public shared: ToggleNavService,

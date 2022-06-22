@@ -1,0 +1,61 @@
+<div class="account-wrapper">
+
+    <div class="profile">profile</div>
+
+    <div class="container">
+
+        <div class="profile-container">
+            <div class="profile-icon_p">
+                <div class="profile-icon">
+                    <div><img src="assets/images/Group1506.svg" alt=""></div>
+                </div>
+                <div>
+                    <div class="text1">{{ profile?.first_name }} {{ profile?.last_name }}</div>
+                    <div class="text2">{{ profile?.email }}</div>
+                    <div class="text2">{{ profile?.username }}</div>
+                </div>
+            </div>
+            <div>
+                <button mat-button class="edit" (click)="sendMessage()">edit</button>
+            </div>
+        </div>
+
+
+        <div class="details-container_p">
+            <div class="details-container">
+                <div class="details1">
+                    <div class="full-name">First Name</div>
+                    <div class="details-name">{{ profile?.first_name }}</div>
+                </div>
+                <div class="details2">
+                    <div class="full-name">Last Name</div>
+                    <div class="details-name">{{ profile?.last_name }}</div>
+                </div>
+            </div>
+            <!--  -->
+            <div class="details-container">
+                <div class="details1">
+                    <div class="full-name">Email Address</div>
+                    <div class="details-name">{{ profile?.email }}</div>
+                </div>
+                <div class="details2">
+                    <div class="full-name">Contact Number</div>
+                    <div class="details-name">{{ profile?.phone }}</div>
+                </div>
+            </div>
+            <!--  -->
+            <!-- <div class="details-container">
+                <div class="details1">
+                    <div class="full-name">Email Address</div>
+                    <div class="details-name">Musa adamu</div>
+                </div>
+                <div class="details2">
+                    <div class="full-name">Contact Number</div>
+                    <div class="details-name">Musa adamu</div>
+                </div>
+            </div> -->
+        </div>
+
+    </div>
+
+</div>

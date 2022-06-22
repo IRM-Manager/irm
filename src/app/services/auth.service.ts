@@ -8,6 +8,11 @@ import { catchError, mapTo, tap } from 'rxjs/operators';
 import { Tokens } from 'src/app/dashboard/shared/form';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../dashboard/sharedService/toggle-nav.service';
+//
+import { Store } from '@ngrx/store';
+import { AppState, selectAllProfile } from 'src/app/reducers/index';
+import { RemoveProfile } from '../actions/irm.action';
+import { Profile } from '../dashboard/models/irm';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +24,17 @@ export class AuthService {
   private helper = new JwtHelperService();
   private base_url = BaseUrl.server;
 
+  stateProfile: Observable<Profile[]>;
+
   constructor(
     public shared: ToggleNavService,
     private http: HttpClient,
     private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
+    private router: Router,
+    private store: Store<AppState>
+  ) {
+    this.stateProfile = store.select(selectAllProfile);
+  }
 
   login(user: { username: string; password: string }): Observable<boolean> {
     return this.http.post<any>(this.base_url + BaseUrl.login, user).pipe(
@@ -97,6 +107,11 @@ export class AuthService {
   // logout user
   public logout() {
     this.removeTokens();
+    this.store.dispatch(new RemoveProfile([{ id: 1, data: [] }]));
+    this.snackBar.open('Logout successful', '', {
+      duration: 5000,
+      panelClass: 'success',
+    });
     this.router.navigate(['/']);
   }
 
