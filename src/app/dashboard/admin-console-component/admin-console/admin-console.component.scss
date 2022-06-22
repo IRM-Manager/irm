@@ -36,7 +36,7 @@ $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
 
 .wrapper {
-  background: #F5F7FA 0% 0% no-repeat padding-box;;
+  background: #f5f7fa 0% 0% no-repeat padding-box;
   overflow: auto;
   min-height: 100vh;
   padding-left: 20px;
@@ -51,17 +51,17 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   .header3 {
-      background: rgba(60,102,163,0.05);
-      width: 90%;
-      margin-top: 2rem;
+    background: rgba(60, 102, 163, 0.05);
+    width: 90%;
+    margin-top: 2rem;
   }
 
   .add_user {
     font: normal normal normal 12px/15px Montserrat;
     letter-spacing: 0px;
     color: $white;
-    background: #3C66A3 0% 0% no-repeat padding-box;
-    padding: .7rem;
+    background: #3c66a3 0% 0% no-repeat padding-box;
+    padding: 0.7rem;
     width: 7rem;
     font-weight: 500;
     border-radius: 10px;
@@ -348,26 +348,39 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
-    color: $panel-color !important;
-    background: $white !important;
-    border-radius: 3px;
-    transition: all 0.5s;
-    border: 1px solid $panel-color;
-    margin: 5px;
+    // color: $panel-color !important;
+    // background: $white !important;
+    // border-radius: 3px;
+    // transition: all 0.5s;
+    // border: 1px solid $panel-color;
+    // margin: 5px;
+    display: none;
   }
 
-  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    color: $white !important;
-    background: $create-back !important;
-    border: 1px solid $panel-color;
-    transition: all 0.5s;
+  ::ng-deep .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    display: none;
   }
 
-  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: $white !important;
-    background: $create-back !important;
-    border: 1px solid $panel-color;
+  ::ng-deep #DataTables_Table_0_info {
+    display: none;
   }
+
+  // ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  //   color: $white !important;
+  //   background: $create-back !important;
+  //   border: 1px solid $panel-color;
+  //   transition: all 0.5s;
+  // }
+
+  // ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  //   color: $white !important;
+  //   background: $create-back !important;
+  //   border: 1px solid $panel-color;
+  // }
 
   ::ng-deep table.dataTable thead .sorting {
     background-image: unset !important;

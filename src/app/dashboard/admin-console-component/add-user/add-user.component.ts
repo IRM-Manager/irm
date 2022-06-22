@@ -46,6 +46,7 @@ export class AddUserComponent implements OnInit {
     department: '',
     group: '',
     email: '',
+    office: '',
   };
 
   validationMessages: any = {
@@ -59,6 +60,9 @@ export class AddUserComponent implements OnInit {
       required: 'required.',
     },
     group: {
+      required: 'required.',
+    },
+    office: {
       required: 'required.',
     },
     email: {
@@ -84,6 +88,7 @@ export class AddUserComponent implements OnInit {
       last_name: ['', [Validators.required]],
       department: ['', [Validators.required]],
       group: ['', [Validators.required]],
+      office: ['', [Validators.required]],
       middle_name: [''],
       email: ['', [Validators.required, Validators.email]],
     });
@@ -140,7 +145,8 @@ export class AddUserComponent implements OnInit {
         middle_name: this.feedback.middle_name,
         departmant: this.feedback.department,
         email: this.feedback.email,
-        group: this.feedback.group,
+        groups: this.feedback.group,
+        office: this.feedback.office,
       };
       console.log(data);
 

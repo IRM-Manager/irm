@@ -2,8 +2,16 @@ import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import * as KonpayActions from '../actions/irm.action';
 import { Actions } from '../actions/irm.action';
 import {
-  ComPayer, IndPayer, Payee, Profile,
-  States, Year, User
+  ComPayer,
+  IndPayer,
+  Payee,
+  Profile,
+  States,
+  Year,
+  User,
+  Group,
+  Department,
+  Locationn
 } from '../dashboard/models/irm';
 
 interface ProfileState extends EntityState<Profile> {
@@ -34,17 +42,17 @@ interface UserState extends EntityState<User> {
   total: number;
 }
 
-// interface TransactionState extends EntityState<Transaction> {
-//   total: number;
-// }
+interface GroupState extends EntityState<Group> {
+  total: number;
+}
 
-// interface NotificationState extends EntityState<Notification> {
-//   total: number;
-// }
+interface DepartmentState extends EntityState<Department> {
+  total: number;
+}
 
-// interface TaskState extends EntityState<Task> {
-//   total: number;
-// }
+interface LocationState extends EntityState<Locationn> {
+  total: number;
+}
 
 // interface Admin_AgentState extends EntityState<Admin_Agent> {
 //   total: number;
@@ -65,9 +73,9 @@ export interface State {
   indpayer: IndPayerState;
   compayer: ComPayerState;
   payee: PayeeState;
-  // transaction: TransactionState;
-  // notification: NotificationState;
-  // task: TaskState;
+  group: GroupState;
+  department: DepartmentState;
+  location: LocationState;
   // admin_agent: Admin_AgentState;
   user: UserState;
   // coupon: CouponState;
@@ -80,9 +88,9 @@ const adapterYear = createEntityAdapter<Year>();
 const adapterIndPayer = createEntityAdapter<IndPayer>();
 const adapterComPayer = createEntityAdapter<ComPayer>();
 const adapterPayee = createEntityAdapter<Payee>();
-// const adapterTransaction = createEntityAdapter<Transaction>();
-// const adapterNotification = createEntityAdapter<Notification>();
-// const adapterTask = createEntityAdapter<Task>();
+const adapterGroup = createEntityAdapter<Group>();
+const adapterDepartment = createEntityAdapter<Department>();
+const adapterLocation = createEntityAdapter<Locationn>();
 // const adapterAdmin_Agent = createEntityAdapter<Admin_Agent>();
 const adapterUser = createEntityAdapter<User>();
 // const adapterCoupon = createEntityAdapter<Coupon>();
@@ -104,9 +112,11 @@ const ComPayerInitialState: ComPayerState = adapterComPayer.getInitialState({
 const PayeeInitialState: PayeeState = adapterPayee.getInitialState({
   total: 0,
 });
-// const TransactionInitialState: TransactionState = adapterTransaction.getInitialState({ total: 0 });
-// const NotificationInitialState: NotificationState = adapterNotification.getInitialState({ total: 0 });
-// const TaskInitialState: TaskState = adapterTask.getInitialState({ total: 0 });
+const GroupInitialState: GroupState =
+  adapterGroup.getInitialState({ total: 0 });
+const DepartmentInitialState: DepartmentState =
+  adapterDepartment.getInitialState({ total: 0 });
+const LocationInitialState: LocationState = adapterLocation.getInitialState({ total: 0 });
 // const Admin_AgentInitialState: Admin_AgentState = adapterAdmin_Agent.getInitialState({ total: 0 });
 const UserInitialState: UserState = adapterUser.getInitialState({ total: 0 });
 // const CouponInitialState: CouponState = adapterCoupon.getInitialState({ total: 0 });
@@ -119,9 +129,9 @@ const initialState = {
   indpayer: IndPayerInitialState,
   compayer: ComPayerInitialState,
   payee: PayeeInitialState,
-  // transaction: TransactionInitialState,
-  // notification: NotificationInitialState,
-  // task: TaskInitialState,
+  group: GroupInitialState,
+  department: DepartmentInitialState,
+  location: LocationInitialState,
   // admin_agent: Admin_AgentInitialState,
   user: UserInitialState,
   // coupon: CouponInitialState,
@@ -202,26 +212,26 @@ export function reducer(state: State = initialState, action: Actions): State {
     case KonpayActions.ExampleActionTypes2.GetPayee:
       return { ...state, payee: adapterPayee.removeOne(1, state.payee) };
 
-    //  // Transaction
-    //  case KonpayActions.ExampleActionTypes.GetTransaction:
-    //  return { ...state, transaction: adapterTransaction.addMany(action.Transactionpayload, state.transaction) };
+     // Group
+     case KonpayActions.ExampleActionTypes.GetGroup:
+     return { ...state, group: adapterGroup.addMany(action.Grouppayload, state.group) };
 
-    //  case KonpayActions.ExampleActionTypes2.GetTransaction:
-    //  return { ...state, transaction: adapterTransaction.removeOne(1, state.transaction) };
+     case KonpayActions.ExampleActionTypes2.GetGroup:
+     return { ...state, group: adapterGroup.removeOne(1, state.group) };
 
-    //  // Notification
-    //  case KonpayActions.ExampleActionTypes.GetNotification:
-    //  return { ...state, notification: adapterNotification.addMany(action.Notificationpayload, state.notification) };
+     // Department
+     case KonpayActions.ExampleActionTypes.GetDepartment:
+     return { ...state, department: adapterDepartment.addMany(action.Departmentpayload, state.department) };
 
-    //  case KonpayActions.ExampleActionTypes2.GetNotification:
-    //  return { ...state, notification: adapterNotification.removeOne(1, state.notification) };
+     case KonpayActions.ExampleActionTypes2.GetDepartment:
+     return { ...state, department: adapterDepartment.removeOne(1, state.department) };
 
-    //  // Task
-    //  case KonpayActions.ExampleActionTypes.GetTask:
-    //  return { ...state, task: adapterTask.addMany(action.Taskpayload, state.task) };
+     // Location
+     case KonpayActions.ExampleActionTypes.GetLocation:
+     return { ...state, location: adapterLocation.addMany(action.Locationpayload, state.location) };
 
-    //  case KonpayActions.ExampleActionTypes2.GetTask:
-    //  return { ...state, task: adapterTask.removeOne(1, state.task) };
+     case KonpayActions.ExampleActionTypes2.GetLocation:
+     return { ...state, location: adapterLocation.removeOne(1, state.location) };
 
     //  // Admin_Agent
     //  case KonpayActions.ExampleActionTypes.GetAdmin_Agent:
@@ -231,11 +241,14 @@ export function reducer(state: State = initialState, action: Actions): State {
     //  return { ...state, admin_agent: adapterAdmin_Agent.removeOne(1, state.admin_agent) };
 
     //  User
-     case KonpayActions.ExampleActionTypes.GetUser:
-    return { ...state, user: adapterUser.addMany(action.Userpayload, state.user) };
+    case KonpayActions.ExampleActionTypes.GetUser:
+      return {
+        ...state,
+        user: adapterUser.addMany(action.Userpayload, state.user),
+      };
 
     case KonpayActions.ExampleActionTypes2.GetUser:
-        return { ...state, user: adapterUser.removeOne(1, state.user) };
+      return { ...state, user: adapterUser.removeOne(1, state.user) };
 
     // //  Coupon
     // case KonpayActions.ExampleActionTypes.GetCoupon:
@@ -262,9 +275,9 @@ export const selectYearState = (state: State) => state.year;
 export const selectIndPayerState = (state: State) => state.indpayer;
 export const selectComPayerState = (state: State) => state.compayer;
 export const selectPayeeState = (state: State) => state.payee;
-// export const selectTransactionState = (state: State) => state.transaction;
-// export const selectNotificationState = (state: State) => state.notification;
-// export const selectTaskState = (state: State) => state.task;
+export const selectGroupState = (state: State) => state.group;
+export const selectDepartmentState = (state: State) => state.department;
+export const selectLocationState = (state: State) => state.location;
 // export const selectAdmin_AgentState = (state: State) => state.admin_agent;
 export const selectUserState = (state: State) => state.user;
 // export const selectCouponState = (state: State) => state.coupon;
@@ -276,9 +289,9 @@ export const { selectAll: selectAllYear } = adapterYear.getSelectors();
 export const { selectAll: selectAllIndPayer } = adapterIndPayer.getSelectors();
 export const { selectAll: selectAllComPayer } = adapterComPayer.getSelectors();
 export const { selectAll: selectAllPayee } = adapterPayee.getSelectors();
-// export const { selectAll: selectAllNotification } = adapterNotification.getSelectors();
-// export const { selectAll: selectAllTransaction } = adapterTransaction.getSelectors();
-// export const { selectAll: selectAllTask } = adapterTask.getSelectors();
+export const { selectAll: selectAllGroup } = adapterGroup.getSelectors();
+export const { selectAll: selectAllDepartment } = adapterDepartment.getSelectors();
+export const { selectAll: selectAllLocation } = adapterLocation.getSelectors();
 // export const { selectAll: selectAllAdmin_Agent } = adapterAdmin_Agent.getSelectors();
 export const { selectAll: selectAllUser } = adapterUser.getSelectors();
 // export const { selectAll: selectAllCoupon } = adapterCoupon.getSelectors();

@@ -12,6 +12,7 @@ $back-color: #44a843;
 $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%;
 $nin-shadow: 0px 3px 6px #00000029;
 $ind-font: normal normal normal 12px/15px Montserrat;
+$ind-font2: normal normal normal 15px/20px Montserrat;
 
 .wrapper {
   input[type="text"] {
@@ -20,6 +21,12 @@ $ind-font: normal normal normal 12px/15px Montserrat;
 
   mat-error {
     text-transform: capitalize;
+    font: $ind-font;
+  }
+
+  mat-label {
+    font: $ind-font2;
+    font-weight: 500;
   }
 
   mat-form-field {
@@ -32,7 +39,7 @@ $ind-font: normal normal normal 12px/15px Montserrat;
   }
 
   .half-width {
-    @include form($width: 20%);
+    @include form($width: 20rem);
   }
 
   .radio_button {
@@ -112,5 +119,13 @@ $ind-font: normal normal normal 12px/15px Montserrat;
     .mat-radio-outer-circle {
     border-color: $radio-color; /*outer ring color change*/
     background: $radio-color;
+  }
+}
+
+@media (max-width: 1300px) {
+  .wrapper {
+    .half-width {
+      width: 48%;
+    }
   }
 }

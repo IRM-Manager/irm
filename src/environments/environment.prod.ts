@@ -17,6 +17,10 @@ export const BaseUrl = {
   add_com_payer: 'user/api/v1/payer/?payer_group=company',
   list_com_payer: 'user/api/v1/payer/companypayers/',
   get_payer_tin: 'user/api/v1/getpayertin/?tin=',
-  delete_update_payer: 'user/api/v1/payer/',
-  // not when deleting payer add / after the id
+  delete_update_payer: 'user/api/v1/payer/', // not when deleting payer add / after the id
+  list_user: 'user/api/v1/allusers/?page=',
+  list_group: 'user/api/v1/allgroup/',
+  list_department: 'user/api/v1/department/?page=1',
+  list_location: 'user/api/v1/location/',
+  edit_user: 'user/api/v1/profile/edit?id='
 };

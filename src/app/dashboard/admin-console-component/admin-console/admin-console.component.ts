@@ -16,6 +16,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseUrl } from 'src/environments/environment';
+import { AdminServiceService } from '../service/admin-service.service';
 
 @Component({
   selector: 'app-admin-console',
@@ -45,7 +46,8 @@ export class AdminConsoleComponent implements OnInit {
     public shared: ToggleNavService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private service: AdminServiceService,
   ) {
     this.authService.checkExpired();
     this.stateComPayer = store.select(selectAllUser);
@@ -65,10 +67,11 @@ export class AdminConsoleComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.username.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.first_name.toLowerCase().startsWith(search.toLowerCase()) ||
         data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.last_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.email.toLowerCase().startsWith(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -89,7 +92,7 @@ export class AdminConsoleComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+        this.httpService.getAuthSingle(BaseUrl.list_user + "1").subscribe(
           (data: any) => {
             this.store.dispatch(new AddUser([{ id: 1, data: data.data }]));
             this.datas = data.data;
@@ -116,6 +119,16 @@ export class AdminConsoleComponent implements OnInit {
     this.renderTable();
     this.is_reload = false;
   }
+
+  redirectData(data: any, type: string) {
+    const datas = {
+      type: type,
+      data: data
+    }
+    this.service.setAdminMessage(datas);
+    this.router.navigate([`/dashboard/dashboard5/${type}`])
+  }
+
 
   OpenDialog(data: any) {
     // this.snackBar.dismiss();

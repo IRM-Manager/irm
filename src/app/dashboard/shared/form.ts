@@ -127,6 +127,7 @@ export interface add_user {
   email: string;
   department: string;
   group: string;
+  office: string;
 }
 
 export interface direct_boj {

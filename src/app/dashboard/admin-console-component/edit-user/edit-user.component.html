@@ -11,19 +11,22 @@
                 <!-- firstname -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>First Name</mat-label>
-                    <input matInput formControlName="first_name">
+                    <input matInput formControlName="first_name" required>
+                    <mat-error>{{formErrors.first_name}}</mat-error>
                 </mat-form-field>
                 <!-- middlename -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Middle Name (optional)</mat-label>
                     <input matInput formControlName="middle_name">
+                    <mat-error>{{formErrors.middle_name}}</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <!-- lastname -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="last_name">
+                    <input matInput formControlName="last_name" required>
+                    <mat-error>{{formErrors.last_name}}</mat-error>
                 </mat-form-field>
             </p>
 
@@ -31,7 +34,7 @@
                 <!-- email -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Email Address</mat-label>
-                    <input matInput type="email" formControlName="email" email>
+                    <input matInput type="email" formControlName="email" email required>
                     <mat-error>{{formErrors.email}}</mat-error>
                 </mat-form-field>
             </p>
@@ -40,7 +43,7 @@
                 <!-- Choose department -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Choose department</mat-label>
-                    <input matInput formControlName="department" [matAutocomplete]="auto">
+                    <input matInput formControlName="department" [matAutocomplete]="auto" required>
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             {{option}}
@@ -49,6 +52,7 @@
                     <button type="button" matSuffix mat-icon-button class="drop_down">
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </button>
+                    <mat-error>{{formErrors.department}}</mat-error>
                 </mat-form-field>
             </p>
 
@@ -56,15 +60,47 @@
                 <!-- Choose Group -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Choose Group</mat-label>
-                    <input matInput formControlName="group" [matAutocomplete]="auto">
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                            {{option}}
+                    <mat-chip-list #chipList aria-label="group selection" required>
+                      <mat-chip
+                        *ngFor="let group of groups"
+                        (removed)="remove(group)">
+                        {{ group }}
+                        <button class="chip_remove" matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                      <input
+                        #groupInput
+                        matInput
+                        formControlName="group"
+                        [matAutocomplete]="auto2"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let group of filteredGroup | async" [value]="group">
+                        {{ group }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error>{{formErrors.group}}</mat-error>
+                  </mat-form-field>
+
+            </p>
+
+            <p>
+                <!-- Choose Office -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Choose Location</mat-label>
+                    <input matInput formControlName="office" [matAutocomplete]="auto3" required>
+                    <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                            {{ option }}
                         </mat-option>
                     </mat-autocomplete>
                     <button type="button" matSuffix mat-icon-button class="drop_down">
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </button>
+                    <mat-error>{{formErrors.office}}</mat-error>
                 </mat-form-field>
             </p>
 

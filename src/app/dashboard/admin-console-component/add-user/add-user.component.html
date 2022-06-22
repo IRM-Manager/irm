@@ -61,7 +61,7 @@
                     <mat-label>Choose Group</mat-label>
                     <input matInput formControlName="group" [matAutocomplete]="auto" required>
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
                             {{option}}
                         </mat-option>
                     </mat-autocomplete>
@@ -69,6 +69,23 @@
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </button>
                     <mat-error>{{formErrors.group}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <!-- Choose Office -->
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Choose Location</mat-label>
+                    <input matInput formControlName="office" [matAutocomplete]="auto" required>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button type="button" matSuffix mat-icon-button class="drop_down">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <mat-error>{{formErrors.office}}</mat-error>
                 </mat-form-field>
             </p>
 

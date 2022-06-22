@@ -9,14 +9,15 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
 // state management
 import { Store } from '@ngrx/store';
+import { AppState, selectAllProfile, selectAllGroup, selectAllDepartment, selectAllLocation } from 'src/app/reducers/index';
+import { AddProfile, AddGroup, AddDepartment, AddLocation } from '../../actions/irm.action';
+import { Profile, Group, Department, Locationn } from '../models/irm';
+// 
 import { Observable, Subscription } from 'rxjs';
-import { AppState, selectAllProfile } from 'src/app/reducers/index';
+import { ToggleNavService } from '../sharedService/toggle-nav.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddProfile } from '../../actions/irm.action';
-import { Profile } from '../models/irm';
-import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-app-public-sidenav-list',
@@ -34,6 +35,9 @@ export class AppPublicSidenavListComponent implements OnInit {
   payee_type: any;
 
   stateProfile: Observable<Profile[]>;
+  stateGroup: Observable<Group[]>;
+  stateDepartment: Observable<Department[]>;
+  stateLocation: Observable<Locationn[]>;
 
   constructor(
     private router: Router,
@@ -50,7 +54,12 @@ export class AppPublicSidenavListComponent implements OnInit {
       });
 
     this.authService.checkExpired();
+    // state
     this.stateProfile = store.select(selectAllProfile);
+    this.stateGroup = store.select(selectAllGroup);
+    this.stateDepartment = store.select(selectAllDepartment);
+    this.stateLocation = store.select(selectAllLocation);
+    //
 
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
@@ -215,8 +224,37 @@ export class AppPublicSidenavListComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  AddGroup() {
+    this.httpService.getAuthSingle(BaseUrl.list_group).subscribe(
+      (data: any) => {
+        this.store.dispatch(new AddGroup([{ id: 1, data: data.data }]));
+      },
+      (err) => {}
+    );
+  }
+
+  AddDepartment() {
+    this.httpService.getAuthSingle(BaseUrl.list_department).subscribe(
+      (data: any) => {
+        this.store.dispatch(new AddDepartment([{ id: 1, data: data.results }]));
+      },
+      (err) => {}
+    );
+  }
+
+  AddLocation() {
+    this.httpService.getAuthSingle(BaseUrl.list_location).subscribe(
+      (data: any) => {
+        this.store.dispatch(new AddLocation([{ id: 1, data: data.results }]));
+      },
+      (err) => {}
+    );
+  }
+
   ngOnInit(): void {
     this.AddProfile();
+    this.AddGroup();
+    this.AddDepartment();
   }
 
   public onPublicHeaderToggleSidenav = () => {

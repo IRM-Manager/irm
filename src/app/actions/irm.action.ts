@@ -7,6 +7,9 @@ import {
   States,
   Year,
   User,
+  Group,
+  Department,
+  Locationn
 } from '../dashboard/models/irm';
 
 export enum ExampleActionTypes {
@@ -17,9 +20,9 @@ export enum ExampleActionTypes {
   GetComPayer = '[Gallery API] Get ComPayer',
   GetPayee = '[Payee API] Get Payee',
   GetUser = '[User API] Get User',
-  // GetNotification = '[Notification API] Get Notification',
-  // GetTask = '[Task API] Get Task',
-  // GetAdmin_Agent = '[Admin_Agent API] Get Admin_Agent',
+  GetGroup = '[Group API] Get Group',
+  GetDepartment = '[Department API] Get Department',
+  GetLocation = '[Location API] Get Location',
   // GetUser = '[User API] Get User',
   // GetCoupon = '[Coupon API] Get Coupon',
   // GetSpecial_Order = '[Special_Order API] Get Special_Order',
@@ -33,9 +36,9 @@ export enum ExampleActionTypes2 {
   GetComPayer = '[Gallery API] Remove ComPayer',
   GetPayee = '[Payee API] Remove Payee',
   GetUser = '[User API] Remove User',
-  // GetNotification = '[Notification API] Remove Notification',
-  // GetTask = '[Task API] Remove Task',
-  // GetAdmin_Agent = '[Admin_Agent API] Remove Admin_Agent',
+  GetGroup = '[Group API] Remove Group',
+  GetDepartment = '[Department API] Remove Department',
+  GetLocation = '[Location API] Remove Location',
   // GetUser = '[User API] Remove User',
   // GetCoupon = '[Coupon API] Remove Coupon',
   // GetSpecial_Order = '[Special_Order API] Remove Special_Order',
@@ -174,65 +177,65 @@ export class RemoveUser implements Action {
   constructor(public Userpayload: any) {}
 }
 
-// // Notification
+// Group
 
-// // Section 2
-// export const ADD_NOTIFICATION  = '[NOTIFICATION] Add'
-// export const REMOVE_NOTIFICATION   = '[NOTIFICATION] Remove'
+// Section 2
+export const ADD_GROUP  = '[GROUP] Add'
+export const REMOVE_GROUP   = '[GROUP] Remove'
 
-// // Section 3
-// export class AddNotification implements Action {
-//     public readonly type = ExampleActionTypes.GetNotification
+// Section 3
+export class AddGroup implements Action {
+    public readonly type = ExampleActionTypes.GetGroup
 
-//     constructor(public Notificationpayload: Notification[]) {}
+    constructor(public Grouppayload: Group[]) {}
 
-// }
+}
 
-// export class RemoveNotification implements Action {
-//     public readonly type = ExampleActionTypes2.GetNotification
+export class RemoveGroup implements Action {
+    public readonly type = ExampleActionTypes2.GetGroup
 
-//     constructor(public Notificationpayload: any) {}
-// }
+    constructor(public Grouppayload: any) {}
+}
 
-// // Task
+// Department
 
-// // Section 2
-// export const ADD_TASK  = '[TASK] Add'
-// export const REMOVE_TASK   = '[TASK] Remove'
+// Section 2
+export const ADD_DEPARTMENT  = '[DEPARTMENT] Add'
+export const REMOVE_DEPARTMENT   = '[DEPARTMENT] Remove'
 
-// // Section 3
-// export class AddTask implements Action {
-//     public readonly type = ExampleActionTypes.GetTask
+// Section 3
+export class AddDepartment implements Action {
+    public readonly type = ExampleActionTypes.GetDepartment
 
-//     constructor(public Taskpayload: Task[]) {}
+    constructor(public Departmentpayload: Department[]) {}
 
-// }
+}
 
-// export class RemoveTask implements Action {
-//     public readonly type = ExampleActionTypes2.GetTask
+export class RemoveDepartment implements Action {
+    public readonly type = ExampleActionTypes2.GetDepartment
 
-//     constructor(public Taskpayload: any) {}
-// }
+    constructor(public Departmentpayload: any) {}
+}
 
-// // Admin_Agent
+// Location
 
-// // Section 2
-// export const ADD_ADMIN_AGENT  = '[ADMIN_AGENT] Add'
-// export const REMOVE_ADMIN_AGENT   = '[ADMIN_AGENT] Remove'
+// Section 2
+export const ADD_LOCATION  = '[LOCATION] Add'
+export const REMOVE_LOCATION   = '[LOCATION] Remove'
 
-// // Section 3
-// export class AddAdmin_Agent implements Action {
-//     public readonly type = ExampleActionTypes.GetAdmin_Agent
+// Section 3
+export class AddLocation implements Action {
+    public readonly type = ExampleActionTypes.GetLocation
 
-//     constructor(public Admin_Agentpayload: Admin_Agent[]) {}
+    constructor(public Locationpayload: Locationn[]) {}
 
-// }
+}
 
-// export class RemoveAdmin_Agent implements Action {
-//     public readonly type = ExampleActionTypes2.GetAdmin_Agent
+export class RemoveLocation implements Action {
+    public readonly type = ExampleActionTypes2.GetLocation
 
-//     constructor(public Admin_Agentpayload: any) {}
-// }
+    constructor(public Locationpayload: any) {}
+}
 
 // // User
 
@@ -310,7 +313,10 @@ export type Actions =
   | AddPayee
   | RemovePayee
   | AddUser
-  | RemoveUser;
-// | AddContact | RemoveContact | AddTransaction | RemoveTransaction
-// | AddNotification | RemoveNotification | AddTask | RemoveTask | AddAdmin_Agent | RemoveAdmin_Agent
-// | AddUser | RemoveUser | AddCoupon | RemoveCoupon | AddSpecial_Order | RemoveSpecial_Order
+  | RemoveUser
+  | AddGroup
+  | RemoveGroup
+  | AddDepartment
+  | RemoveDepartment
+  | AddLocation
+  | RemoveLocation

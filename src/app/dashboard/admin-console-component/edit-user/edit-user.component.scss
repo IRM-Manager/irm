@@ -78,6 +78,7 @@ $soft-pattern-color: #3c66a3;
 
   .final_submit {
     text-align: left;
+    margin-top: 1rem;
   }
 
   .loader {
@@ -140,6 +141,10 @@ $soft-pattern-color: #3c66a3;
 
   .full-width {
     width: 500px;
+  }
+
+  .chip_remove {
+    color: $form-color;
   }
 
   mat-error {

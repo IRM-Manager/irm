@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { AdminServiceService } from '../service/admin-service.service';
 
 @Component({
   selector: 'app-view-user',
@@ -11,9 +13,25 @@ export class ViewUserComponent implements OnInit {
   formData = new FormData();
   image: any;
   filename: any;
-  constructor(private sanitizer: DomSanitizer) {}
+  datas: any;
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private service: AdminServiceService,
+    private router: Router
+  ) {
+    this.datas = this.service.getAdminMessage();
+    if (this.datas) {
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/admin-console`]);
+    }
+  }
 
   ngOnInit(): void {}
+
+  edit() {
+    this.router.navigate([`/dashboard/dashboard5/edit-user`]);
+  }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];

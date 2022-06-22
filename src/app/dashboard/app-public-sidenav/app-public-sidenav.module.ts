@@ -27,6 +27,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatChipsModule } from '@angular/material/chips';
 // import {CdkMenuModule} from '@angular/cdk/menu';
 // components
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
@@ -74,7 +75,7 @@ import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/ve
 import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
 import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
-
+import { DateAgoPipe } from '../pipes/date-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,8 @@ import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-vi
     VehicleRenewViewComponent,
     VehicleRenewEditComponent,
     VehicleRegComponent,
+    // Pipe component
+    DateAgoPipe,
   ],
   imports: [
     CommonModule,
@@ -153,6 +156,7 @@ import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-vi
     MatRadioModule,
     FlexLayoutModule,
     MatBadgeModule,
+    MatChipsModule,
     // CdkMenuModule
   ],
 })

@@ -33,20 +33,20 @@ export interface User {
     data: any;
 }
 
-// export interface Notification {
-//     id: number;
-//     data: any;
-// }
+export interface Group {
+    id: number;
+    data: any;
+}
 
-// export interface Task {
-//     id: number;
-//     data: any;
-// }
+export interface Department {
+    id: number;
+    data: any;
+}
 
-// export interface Admin_Agent {
-//     id: number;
-//     data: any;
-// }
+export interface Locationn {
+    id: number;
+    data: any;
+}
 
 // export interface User {
 //     id: number;

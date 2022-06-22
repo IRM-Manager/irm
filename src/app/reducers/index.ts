@@ -45,9 +45,18 @@ export const selectUserState = createSelector(
   selectExampleModule,
   fromExample.selectUserState
 );
-//   export const selectNotificationState = createSelector(selectExampleModule, fromExample.selectNotificationState);
-//   export const selectTaskState = createSelector(selectExampleModule, fromExample.selectTaskState);
-//   export const selectAdmin_AgentState = createSelector(selectExampleModule, fromExample.selectAdmin_AgentState);
+export const selectGroupState = createSelector(
+  selectExampleModule,
+  fromExample.selectGroupState
+);
+export const selectDepartmentState = createSelector(
+  selectExampleModule,
+  fromExample.selectDepartmentState
+);
+export const selectLocationState = createSelector(
+  selectExampleModule,
+  fromExample.selectLocationState
+);
 //   export const selectCouponState = createSelector(selectExampleModule, fromExample.selectCouponState);
 //   export const selectSpecial_OrderState = createSelector(selectExampleModule, fromExample.selectSpecial_OrderState);
 //   export const selectUserState = createSelector(selectExampleModule, fromExample.selectUserState);
@@ -80,12 +89,21 @@ export const selectAllNotification = createSelector(
   selectUserState,
   fromExample.selectAllUser
 );
-//   export const selectAllTransaction = createSelector(selectTransactionState, fromExample.selectAllTransaction);
-//   export const selectAllTask = createSelector(selectTaskState, fromExample.selectAllTask);
+export const selectAllGroup = createSelector(
+  selectGroupState,
+  fromExample.selectAllGroup
+);
+export const selectAllDepartment = createSelector(
+  selectDepartmentState,
+  fromExample.selectAllDepartment
+);
 //   export const selectAllAdmin_Agent = createSelector(selectAdmin_AgentState, fromExample.selectAllAdmin_Agent);
 export const selectAllUser = createSelector(
   selectUserState,
   fromExample.selectAllUser
 );
-//   export const selectAllCoupon = createSelector(selectCouponState, fromExample.selectAllCoupon);
+export const selectAllLocation = createSelector(
+  selectLocationState,
+  fromExample.selectAllLocation
+);
 //   export const selectAllSpecial_Order = createSelector(selectSpecial_OrderState, fromExample.selectAllSpecial_Order);

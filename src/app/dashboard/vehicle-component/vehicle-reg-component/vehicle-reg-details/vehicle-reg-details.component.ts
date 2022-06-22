@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { data } from 'jquery';
+import { Subscription } from 'rxjs';
 import { vehicle_details } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
 
 @Component({
   selector: 'app-vehicle-reg-details',
@@ -75,10 +77,13 @@ export class VehicleRegDetailsComponent implements OnInit {
     },
   };
 
+  clickEventSubscription?: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private service: VehicleServiceService
   ) {
     this.createForm();
     this.authService.checkExpired();
@@ -142,7 +147,13 @@ export class VehicleRegDetailsComponent implements OnInit {
     } // end of if
     else {
       this.feedback = this.feedbackForm.value;
-      console.log(data);
+      const data = {
+        type: 'plate',
+        data: this.feedback,
+      };
+      this.service.setRegMessage(data);
+      this.service.sendClickEvent();
+      console.log(this.feedback);
     } // end else
   }
 

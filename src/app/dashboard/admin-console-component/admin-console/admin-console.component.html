@@ -5,11 +5,11 @@
 
             <div class="department">Users | Showing users from all Department</div>
 
-            <mat-toolbar class="header3">
+            <!-- <mat-toolbar class="header3">
                 <button mat-button class="add_user" [routerLink]="['/dashboard/dashboard5/add-user']">
                     Add user
                 </button>
-            </mat-toolbar>
+            </mat-toolbar> -->
 
             <mat-toolbar class="header2">
                 <div class="indcom">
@@ -32,7 +32,9 @@
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Full Name</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Contact Number</th>
                                 <th></th>
@@ -43,27 +45,33 @@
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
+                                <td class="align-middle">
+                                    {{ data.username }}
+                                </td>
+                                <td class="align-middle">{{ data.first_name }}</td>
+                                <td class="align-middle">{{ data.last_name }}</td>
+                                <td class="align-middle">{{ data.email }}</td>
                                 <td class="align-middle">{{ data.phone }}</td>
                                 <td class="align-middle">
                                     <button mat-button [matMenuTriggerFor]="menu">
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item style="color: #5EA55A;" class="mat-menu" [routerLink]="['/dashboard/dashboard5/view-user']">View profile</button>
+                                        <button mat-menu-item style="color: #5EA55A;" class="mat-menu" (click)="redirectData(data, 'view-user')">View profile</button>
                                         <button mat-menu-item style="color: #5EA55A;"class="mat-menu">Add to group</button>
                                         <button mat-menu-item style="color: #5EA55A;" class="mat-menu">Change Password</button>
-                                        <button mat-menu-item style="color: #5EA55A;" class="mat-menu" [routerLink]="['/dashboard/dashboard5/edit-user']">Edit profile</button>
+                                        <button mat-menu-item style="color: #5EA55A;" class="mat-menu" (click)="redirectData(data, 'edit-user')">Edit profile</button>
                                     </mat-menu>
                                 </td>
                                 <td class="align-middle">
-                                    <mat-icon class="table-icon-delete" (click)="OpenDialog(data)">delete</mat-icon>
+                                    <mat-icon class="table-icon-delete" (click)="OpenDialog(data)">remove_moderator</mat-icon>
                                 </td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
