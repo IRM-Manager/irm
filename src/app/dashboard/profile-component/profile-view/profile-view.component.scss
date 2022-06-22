@@ -28,6 +28,8 @@ $white: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .profile-icon_p {
@@ -66,14 +68,16 @@ $white: #ffffff;
     color: $white;
   }
 
-  .details-container {
+  .details-container_p {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    align-items: center;
+    gap: 20%;
     margin-top: 2rem;
   }
 
+  .details1 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
 
   .full-name {
     color: rgba(86, 86, 86, 0.7);

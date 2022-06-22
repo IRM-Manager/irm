@@ -246,10 +246,10 @@ export class HeaderComponent implements OnInit {
     else if (
       this.router.url == '/dashboard/dashboard5/account' ||
       this.router.url == '/dashboard/dashboard5/account/edit' ||
-      this.router.url == '/dashboard/dashboard5/account/password'
+      this.router.url == '/dashboard/dashboard5/account-password'
     ) {
       this.type = 'mda';
-      this.left_text1 = 'Account Setting';
+      this.left_text1 = 'Account Settings';
     } else {
       this.type = 'tax_dashboard';
       this.left_text1 = 'Dashboard';

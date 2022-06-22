@@ -211,7 +211,7 @@ const routes: Routes = [
         component: ProfileEditComponent, canLoad: [IsLoggedInGuard],
       }, 
       {
-        path: 'dashboard5/account/password',
+        path: 'dashboard5/account-password',
         component: ProfileChangePasswordComponent, canLoad: [IsLoggedInGuard],
       }, 
     ],
