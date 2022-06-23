@@ -31,6 +31,7 @@
                                     <th>S/N</th>
                                     <th>Location</th>
                                     <th>Code</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <!-- individual -->
@@ -39,10 +40,19 @@
                                     <td class="align-middle">{{i+1}}</td>
                                     <td class="align-middle">{{ data.name }}</td>
                                     <td class="align-middle">{{ data.code }}</td>
+                                    <td class="align-middle">
+                                        <button mat-button [matMenuTriggerFor]="menu">
+                                            <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="OpenDialog(data, 'edit-location')">Edit</button>
+                                        </mat-menu>
+                                    </td>
                                 </tr>
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>

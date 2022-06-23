@@ -16,7 +16,7 @@
         <div class="category">
             <div>
                 <div class="right_text1">Welcome, {{ profile?.department?.name }}</div>
-                <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
+                <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
             <mat-icon class="category-icon identity">perm_identity</mat-icon>
@@ -43,7 +43,7 @@
         <div class="category">
             <div>
                 <div class="right_text1">Welcome, {{ profile?.department?.name }}</div>
-                <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
+                <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
             <mat-icon class="category-icon identity">perm_identity</mat-icon>
@@ -86,7 +86,7 @@
         <div class="category">
             <div>
                 <div class="right_text1">Welcome, {{ profile?.department?.name }}</div>
-                <div class="right_text2" *ngIf="profile">{{limit(profile.username)}}</div>
+                <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
             <mat-icon class="category-icon identity">perm_identity</mat-icon>

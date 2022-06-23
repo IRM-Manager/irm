@@ -116,3 +116,46 @@
 
     </form>
 </div>
+
+
+<!-- update department or location -->
+
+<div class="department" *ngIf="data.type == 'edit-department' || data.type == 'edit-location'">
+    <div class="create-department" *ngIf="data.type =='edit-department'">Edit department => ({{ data.data.name }})</div>
+    <div class="create-department" *ngIf="data.type =='edit-location'">Edit Location => ({{ data.data.name }})</div>
+    <form class="department-form" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onUpdate()">
+        <p>
+            <!-- name -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error>{{formErrors.name}}</mat-error>
+            </mat-form-field>
+        </p>
+        <!--  -->
+        <p>
+            <!-- code -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Code</mat-label>
+                <input matInput formControlName="code" required>
+                <mat-error>{{formErrors.code}}</mat-error>
+            </mat-form-field>
+        </p>
+
+        <div class="final_submit">
+            <button type="submit" mat-button class="edit" [disabled]="disabled === true">
+                <span *ngIf="!loading">Update</span>
+                <div *ngIf="loading" class="loader_delete">
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                    <div class="bubble_delete"></div>
+                </div>
+            </button>
+            <button type="button" mat-button class="edit2" mat-dialog-close>
+                Cancel
+            </button>
+        </div>
+
+    </form>
+</div>

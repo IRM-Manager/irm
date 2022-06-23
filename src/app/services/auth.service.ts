@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { RemoveProfile } from '../actions/irm.action';
 import { Profile } from '../dashboard/models/irm';
+import { ProfileServiceService } from '../dashboard/profile-component/service/profile-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,8 @@ export class AuthService {
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private adminService: ProfileServiceService
   ) {
     this.stateProfile = store.select(selectAllProfile);
   }
@@ -107,6 +109,8 @@ export class AuthService {
   // logout user
   public logout() {
     this.removeTokens();
+    this.adminService.setAdminMessage(undefined);
+    this.adminService.sendClickEvent();
     this.store.dispatch(new RemoveProfile([{ id: 1, data: [] }]));
     this.snackBar.open('Logout successful', '', {
       duration: 5000,

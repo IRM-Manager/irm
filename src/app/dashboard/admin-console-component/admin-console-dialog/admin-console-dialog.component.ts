@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,13 +16,13 @@ import { Observable } from 'rxjs';
 import {
   AppState,
   selectAllDepartment,
-  selectAllLocation
+  selectAllLocation,
 } from 'src/app/reducers/index';
 import {
   AddDepartment,
   AddLocation,
   RemoveDepartment,
-  RemoveLocation
+  RemoveLocation,
 } from '../../../actions/irm.action';
 import { Department, Locationn } from '../../models/irm';
 //
@@ -109,6 +109,7 @@ export class AdminConsoleDialogComponent implements OnInit {
     }
   }
 
+  // add location or department
   onSubmit() {
     this.onValueChanged();
     const feed = this.feedbackFormDirective.invalid;
@@ -154,7 +155,7 @@ export class AdminConsoleDialogComponent implements OnInit {
               this.store.dispatch(new RemoveDepartment([{ id: 1, data: [] }]));
               this.store.dispatch(new AddDepartment([{ id: 1, data: datas2 }]));
             }
-            // if not department save as location 
+            // if not department save as location
             else {
               this.stateLocation.forEach((e) => {
                 if (e.length > 0) {
@@ -166,7 +167,7 @@ export class AdminConsoleDialogComponent implements OnInit {
               this.store.dispatch(new RemoveLocation([{ id: 1, data: [] }]));
               this.store.dispatch(new AddLocation([{ id: 1, data: datas2 }]));
             }
-            // 
+            //
             this.snackBar.open('success', '', {
               duration: 3000,
               panelClass: 'success',
@@ -193,6 +194,110 @@ export class AdminConsoleDialogComponent implements OnInit {
         );
     }
   }
+
+  // update location or department
+  onUpdate() {
+    this.onValueChanged();
+    const feed = this.feedbackFormDirective.invalid;
+    if (feed) {
+      this.snackBar.open('Errors in Form fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } // end of if
+    else {
+      this.dialogRef.disableClose = true;
+      this.loading = true;
+      this.disabled = true;
+      this.feedback = this.feedbackForm.value;
+      const data = {
+        name: this.feedback.name,
+        code: this.feedback.code,
+      };
+      this.httpService
+        .updateData(
+          this.data.type == 'edit-department'
+            ? BaseUrl.list_department
+            : BaseUrl.list_location,
+          data,
+          this.data.data.id + '/'
+        )
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            this.disabled = false;
+            this.feedbackFormDirective.resetForm();
+            // check if adding department
+            let datas: any = [];
+            let indexx: any;
+            if (this.data.type == 'edit-department') {
+              this.stateDepartment.forEach((e) => {
+                if (e.length > 0) {
+                  let x = JSON.parse(JSON.stringify(e[0].data));
+                  x.filter((dat: any, index: any) => {
+                    if (dat.id == this.data.data.id) {
+                      indexx = index;
+                    }
+                  });
+                  datas.push(x);
+                }
+              });
+              datas[0][indexx] = data;
+              this.store.dispatch(new RemoveDepartment([{ id: 1, data: [] }]));
+              this.store.dispatch(
+                new AddDepartment([{ id: 1, data: datas[0] }])
+              );
+            }
+            // if not department save as location
+            else {
+              let datas: any = [];
+              let indexx: any;
+              this.stateLocation.forEach((e) => {
+                if (e.length > 0) {
+                  let x = JSON.parse(JSON.stringify(e[0].data));
+                  x.filter((dat: any, index: any) => {
+                    if (dat.id == this.data.data.id) {
+                      indexx = index;
+                    }
+                  });
+                  datas.push(x);
+                }
+              });
+              datas[0][indexx] = data;
+              this.store.dispatch(new RemoveLocation([{ id: 1, data: [] }]));
+              this.store.dispatch(new AddLocation([{ id: 1, data: datas[0] }]));
+            }
+            //
+            this.snackBar.open('Update Successful', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            this.dialogRef.close();
+          },
+          (err: any) => {
+            console.log(err);
+            this.loading = false;
+            this.disabled = false;
+            this.snackBar.open(
+              err?.error?.msg || err?.error?.detail || 'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
+    }
+  }
+
+  //
 
   //  deactivate activate user
   deactivateActivate() {
@@ -229,5 +334,18 @@ export class AdminConsoleDialogComponent implements OnInit {
       );
   }
 
-  ngOnInit(): void {}
+  updateValue() {
+    if (
+      this.data.type == 'edit-department' ||
+      this.data.type == 'edit-location'
+    ) {
+      // Update form field
+      this.feedbackForm.patchValue({ name: this.data.data.name });
+      this.feedbackForm.patchValue({ code: this.data.data.code });
+    }
+  }
+
+  ngOnInit(): void {
+    this.updateValue();
+  }
 }
