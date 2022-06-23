@@ -21,6 +21,7 @@ import { Profile } from '../models/irm';
 export class BottomSidenavMenuComponent implements OnInit {
   profile: any;
   stateProfile: Observable<Profile[]>;
+  loading = false;
 
   constructor(
     private router: Router,
@@ -32,19 +33,23 @@ export class BottomSidenavMenuComponent implements OnInit {
   }
 
   AddProfile() {
+    this.loading = true;
     this.stateProfile.forEach((e) => {
       if (e.length > 0) {
         this.profile = e[0].data;
+        this.loading = false;
         console.log('profile_state', e[0].data);
       } else {
         this.httpService.getAuthSingle(BaseUrl.get_profile).subscribe(
           (data: any) => {
             this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
             this.profile = data.data;
+            this.loading = false;
             console.log('http_profile', data.data);
           },
           (err: any) => {
             this.authService.checkExpired();
+            this.loading = false;
           }
         );
       }

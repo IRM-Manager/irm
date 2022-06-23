@@ -21,7 +21,10 @@
                     <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                     <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
                 </div>
-                <div><i class="fa fa-chevron-down category-icon identity" aria-hidden="true"></i></div>
+                <div>
+                    <i *ngIf="!loading" class="fa fa-chevron-down category-icon identity" aria-hidden="true"></i>
+                    <div *ngIf="loading" class="loader"></div>
+                </div>
             </div>
         </button>
         <mat-menu #menu="matMenu">

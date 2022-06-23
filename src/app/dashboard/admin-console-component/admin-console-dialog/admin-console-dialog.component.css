@@ -33,12 +33,12 @@
 }
 
 .activate-payer-button {
-    background: #47A83E;
-    font: normal normal normal 15px/19px Montserrat;
-    color: white;
-    padding: 0.7rem;
-    border-radius: 10px;
-  }
+  background: #47a83e;
+  font: normal normal normal 15px/19px Montserrat;
+  color: white;
+  padding: 0.7rem;
+  border-radius: 10px;
+}
 
 .loader_delete {
   display: flex;
@@ -84,3 +84,98 @@
     transform: scale(1.55);
   }
 }
+
+
+/* add department */
+
+.department {
+    padding: 2rem 4rem;
+}
+
+.create-department {
+    font: normal normal normal 20px/24px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+::ng-deep .mat-select-arrow {
+  color: #37a85d;
+  opacity: 1;
+}
+
+.full-width {
+  width: 400px;
+}
+
+.final_submit {
+  margin: 2rem;
+  text-align: left;
+}
+
+mat-error {
+  text-transform: capitalize;
+  font: normal normal normal 12px/20px Montserrat;
+  transition: all 0.5s;
+}
+
+mat-label {
+  text-transform: capitalize;
+  font-weight: 550;
+  font: normal normal normal 14px/20px Montserrat;
+}
+
+mat-form-field {
+  color: 1px solid #37a85d !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #37a85d !important;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #37a85d !important;
+}
+
+::ng-deep .mat-input-element {
+  caret-color: #37a85d !important;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #565656 !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #565656 !important;
+}
+
+.edit {
+  background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 0.7rem;
+  width: 7rem;
+  opacity: 1;
+  font: normal normal normal 14px/19px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+
+.edit2 {
+  margin-left: 1rem;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0.7rem;
+  border: 1px solid #3e5fa8;
+  width: 7rem;
+  opacity: 1;
+  font: normal normal normal 14px/19px Montserrat;
+  letter-spacing: 0px;
+  color: #3b6d9f;
+}
+

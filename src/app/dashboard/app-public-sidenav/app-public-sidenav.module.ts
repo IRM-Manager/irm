@@ -79,6 +79,8 @@ import { DateAgoPipe } from '../pipes/date-ago.pipe';
 import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
 import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
 import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
+import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
+import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +108,8 @@ import { ProfileChangePasswordComponent } from '../profile-component/profile-cha
     DashboardComponent,
     PayeeBusinessListComponent,
     AdminConsoleComponent,
+    AdminDepartmentComponent, 
+    AdminLocationComponent,
     Dashboard2Component,
     Dashboard3Component,
     Dashboard4Component,

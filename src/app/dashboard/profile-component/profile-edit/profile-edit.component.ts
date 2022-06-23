@@ -122,6 +122,7 @@ export class ProfileEditComponent implements OnInit {
     } // end of if
     else {
       this.loading = true;
+      this.disabled = true;
       // 
       let get_group_ids: any = [];
       this.datas.groups

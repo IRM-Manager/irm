@@ -43,6 +43,8 @@ import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/
 import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
 import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
 import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
+import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
+import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
 
 const routes: Routes = [
   {
@@ -151,6 +153,14 @@ const routes: Routes = [
         path: 'dashboard5/view-user',
         component: ViewUserComponent, canLoad: [IsLoggedInGuard],
       },
+      {
+        path: 'dashboard5/department',
+        component: AdminDepartmentComponent, canLoad: [IsLoggedInGuard],
+      }, 
+      {
+        path: 'dashboard5/location',
+        component: AdminLocationComponent, canLoad: [IsLoggedInGuard],
+      }, 
       // DIRECT ACCESSMENT
       {
         path: 'dashboard5/direct',

@@ -15,7 +15,8 @@
                             {{ limit("Unknown") }}
                         </div>
                     </div>
-                    <span class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></span>
+                    <span *ngIf="!loading" class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></span>
+                    <div *ngIf="loading" class="loader"></div>
                 </div>
             </div>
         </div>

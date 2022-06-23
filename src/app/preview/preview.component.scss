@@ -104,6 +104,20 @@ $right1-font: normal normal 400 15px/19px Montserrat;
       margin-bottom: auto;
     }
 
+    .loader {
+      border: 5px solid #aac7f4;
+      border-top: 5px solid #3C66A3;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: spin 5s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
   }
 
   .container {

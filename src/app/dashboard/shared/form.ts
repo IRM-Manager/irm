@@ -39,9 +39,7 @@ export interface Individual1 {
   state_red: string;
   lga_red: string;
   zipcode: string;
-
 }
-
 
 export interface manual {
   tin: string;
@@ -164,13 +162,16 @@ export interface editUser {
   phone: string;
 }
 
-
 export interface changePassword {
   old_password: string;
   new_password: string;
   confirmPassword: string;
 }
 
+export interface department {
+  name: string;
+  code: string;
+}
 
 export interface stateLogo {
   id: any;

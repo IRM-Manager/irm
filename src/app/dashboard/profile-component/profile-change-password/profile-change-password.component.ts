@@ -138,6 +138,7 @@ export class ProfileChangePasswordComponent implements OnInit {
     } // end of if
     else {
       this.loading = true;
+      this.disabled = true;
       this.feedback = this.feedbackForm.value;
       let data = {
         old_password: this.feedback.old_password,

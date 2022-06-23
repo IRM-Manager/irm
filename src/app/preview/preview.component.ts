@@ -72,6 +72,7 @@ export class PreviewComponent implements OnInit {
           },
           (err) => {
             this.authService.checkExpired();
+            this.loading = false;
           }
         );
       }
