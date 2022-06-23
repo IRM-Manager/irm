@@ -14,7 +14,6 @@ export class LoginGuard implements CanActivate {
     private snackBar: MatSnackBar,
     private _location: Location
   ) {
-    this.authService.checkExpired();
   }
 
   canActivate() {

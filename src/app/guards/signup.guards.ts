@@ -14,7 +14,7 @@ export class SignupGuard implements CanActivate, CanLoad {
     private snackBar: MatSnackBar,
     private _location: Location
   ) {
-    this.authService.checkExpired();
+    // this.authService.checkExpired();
   }
 
   canActivate() {

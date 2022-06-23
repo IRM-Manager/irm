@@ -1,0 +1,87 @@
+<div class="main">
+
+    <mat-toolbar class="nav">
+        <span class="spacer"></span>
+        <img src="assets/images/Group414.svg" alt="">
+    </mat-toolbar>
+
+    <div>
+
+    <div class="main2">
+        <div class="login-container">
+            <div class="login-imagee">
+                <img src="assets/images/gombelogo.jpeg" alt="">
+            </div>
+            <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <div class="login-text">Register</div>
+
+                <p>
+                    <!-- name -->
+                    <mat-form-field class="full-width">
+                        <mat-label>Full Name</mat-label>
+                        <input matInput formControlName="name" required>
+                        <mat-error>{{formErrors.name}}</mat-error>
+                    </mat-form-field>
+
+                   <!-- username -->
+                   <mat-form-field class="half-width">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username" required>
+                        <mat-error>{{formErrors.username}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <!-- email -->
+                    <mat-form-field class="full-width">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput type="email" formControlName="email" email required>
+                        <mat-error>{{formErrors.email}}</mat-error>
+                    </mat-form-field>
+
+                    <!-- phone -->
+                    <mat-form-field class="half-width">
+                        <mat-label>Contact Number</mat-label>
+                        <input matInput formControlName="phone" type="tel" required>
+                        <mat-error>{{formErrors.phone}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <!-- password -->
+                    <mat-form-field class="full-width">
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
+                        <mat-icon mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="button button-cursor">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error>{{formErrors.password}}</mat-error>
+                    </mat-form-field>
+
+                    <!-- confirmPassword -->
+                    <mat-form-field class="half-width">
+                        <mat-label>Confirm password</mat-label>
+                        <input formControlName="confirmPassword" matInput [type]="hide2 ? 'password' : 'text'" required>
+                        <mat-icon mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" class="button button-cursor">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error>{{formErrors.confirmPassword}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <div class="submit_p">
+                    <button mat-button type="submit" [disabled]="disabled === true"
+                        class="submit">
+                        <span *ngIf="!loading">Sign up</span>
+                        <div *ngIf="loading" class="loader">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="dont" [routerLink]="['/']">Have an account? Login</div>
+                
+            </form>
+        </div>
+    </div>
+
+</div>

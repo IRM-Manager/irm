@@ -44,7 +44,7 @@ export class AuthService {
       mapTo(true),
       catchError((error: any) => {
         if (error.status === 401) {
-          this.snackBar.open('wrong username or password', '', {
+          this.snackBar.open(error.error.detail, '', {
             duration: 5000,
             panelClass: 'error',
           });

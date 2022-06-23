@@ -3,6 +3,15 @@ export interface login {
   password: string;
 }
 
+export interface signup {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  username: string;
+}
+
 export interface Tokens {
   access: string;
   refresh: string;

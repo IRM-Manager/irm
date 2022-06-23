@@ -5,9 +5,18 @@ import { LoginGuard } from './guards/login.guards';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
 import { HomeComponent } from './home/home.component';
 import { PreviewComponent } from './preview/preview.component';
+import { SignupGuard } from './guards/signup.guards';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
+  { path: 'register', component: SignupComponent, canActivate: [SignupGuard] },
+  {
+    path: 'forget-password',
+    component: ForgetPasswordComponent,
+    canActivate: [LoginGuard],
+  },
   { path: 'preview', component: PreviewComponent, canLoad: [IsLoggedInGuard] },
   {
     path: 'dashboard',

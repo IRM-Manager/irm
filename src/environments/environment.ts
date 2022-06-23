@@ -28,7 +28,9 @@ export const BaseUrl = {
   list_location: 'user/api/v1/location/',
   edit_user: 'user/api/v1/profile/edit?id=',
   activate_deactivate: 'user/api/v1/changeuser/status/',
-  change_password: 'user/api/v1/change_password/'
+  change_password: 'user/api/v1/change_password/',
+  register: 'user/api/v1/create/appuser/',
+  reset_password: 'user/api/v1/resetpassword/?email='
 };
 
 /*

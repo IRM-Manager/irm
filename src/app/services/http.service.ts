@@ -23,6 +23,10 @@ export class HttpService {
       .pipe(retry(2));
   }
 
+  postRegisterData(endpoint: any, data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.base_url + endpoint, data).pipe(retry(2));
+  }
+
   getSingleNoAuth(endpoint: any) {
     return this.http.get(this.base_url + endpoint).pipe(retry(1));
   }
