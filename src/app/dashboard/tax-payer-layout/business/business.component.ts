@@ -310,24 +310,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
         (data: any) => {
           this.loading2 = false;
           this.disabled2 = false;
-          // this.snackBar.open('Registration successful', '', {
-          //   duration: 3000,
-          //   panelClass: 'success',
-          //   horizontalPosition: 'center',
-          //   verticalPosition: 'top',
-          // });
-          this.RemoveFormData();
-          let datas2: any = [];
-          this.stateComPayer.forEach((e) => {
-            if (e.length > 0) {
-              let datas = Object.assign([], e[0].data);
-              datas.unshift(data.data);
-              datas2 = datas;
-            }
-          });
-          this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-          this.store.dispatch(new AddComPayer([{ id: 1, data: datas2 }]));
-          this.router.navigate(['/dashboard/dashboard2/taxpayer']);
+          this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
           this.OpenDialog(data.data);
         },
         (err: any) => {
@@ -500,25 +483,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
         .subscribe(
           (data: any) => {
             this.Updateloading = false;
-            this.shared.setPayerEditMessage(undefined);
-            this.shared.setPayerMessage('');
-            let datas: any = [];
-            let indexx: any;
-            // update state
-            this.stateComPayer.forEach((e) => {
-              if (e.length > 0) {
-                let x = JSON.parse(JSON.stringify(e[0].data));
-                x.filter((dat: any, index: any) => {
-                  if (dat.id == this.editDetails.data.id) {
-                    indexx = index;
-                  }
-                });
-                datas.push(x);
-              }
-            });
-            datas[0][indexx] = data.data;
-            this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-            this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
             this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
             this.dialog.closeAll();
             this.OpenDialog(data.data);

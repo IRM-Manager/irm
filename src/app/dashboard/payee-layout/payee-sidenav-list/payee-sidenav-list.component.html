@@ -8,7 +8,7 @@
             </button>
         </div>
 
-        <p class="back" [routerLink]="['/preview']">
+        <p class="back" (click)="payeeBack()">
             <mat-icon>keyboard_backspace</mat-icon>
             Back
         </p>
@@ -30,6 +30,9 @@
             <p class="dash-text2">Process TCC</p>
             <p class="dash-text2" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/manage']" routerLinkActive="active">
                 Manage your Employees
+            </p>
+            <p class="dash-text2" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/business-list']">
+                Re-Choose Taxable Business
             </p>
         </div>
 

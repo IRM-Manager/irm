@@ -74,6 +74,7 @@ $continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
   opacity: 1;
   width: 50rem;
   padding-left: 20px;
+  overflow: hidden;
 
   .session-header {
     font: $session-h2-font;

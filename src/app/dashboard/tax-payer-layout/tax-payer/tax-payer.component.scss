@@ -235,25 +235,19 @@ $red: #bc333e;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
-    color: $white !important;
-    background: $create-back !important;
-    border-radius: 3px;
-    transition: all 0.5s;
-    border: 1px solid $green;
-    margin: 5px;
+    display: none !important;
   }
 
-  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    color: $green !important;
-    background: $white !important;
-    border: 1px solid $green;
-    transition: all 0.5s;
+  ::ng-deep .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    display: none !important;
   }
 
-  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: $white !important;
-    background: $create-back !important;
-    border: 1px solid $green;
+  ::ng-deep #DataTables_Table_0_info {
+    display: none !important;
   }
 
   ::ng-deep table.dataTable thead .sorting {

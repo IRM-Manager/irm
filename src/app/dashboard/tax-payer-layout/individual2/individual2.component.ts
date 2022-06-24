@@ -351,26 +351,8 @@ export class Individual2Component implements OnDestroy, OnInit {
         (data: any) => {
           this.loading2 = false;
           this.disabled2 = false;
-          this.RemoveFormData();
-          this.shared.setPayerMessage('');
-          let datas2: any = [];
-          this.stateInd.forEach((e) => {
-            if (e.length > 0) {
-              let datas = Object.assign([], e[0].data);
-              datas.unshift(data.data);
-              datas2 = datas;
-            }
-          });
-          this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-          this.store.dispatch(new AddIndPayer([{ id: 1, data: datas2 }]));
-          this.router.navigate(['/dashboard/dashboard2/taxpayer']);
+          this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
           this.OpenDialog(data.data);
-          // this.snackBar.open('Registration successful', '', {
-          //   duration: 3000,
-          //   panelClass: 'success',
-          //   horizontalPosition: 'center',
-          //   verticalPosition: 'top',
-          // });
         },
         (err: any) => {
           console.log(err);
@@ -461,25 +443,6 @@ export class Individual2Component implements OnDestroy, OnInit {
           (data: any) => {
             console.log(data);
             this.Updateloading = false;
-            this.shared.setPayerEditMessage(undefined);
-            this.shared.setPayerMessage('');
-            let datas: any = [];
-            let indexx: any;
-            // update state
-            this.stateInd.forEach((e) => {
-              if (e.length > 0) {
-                let x = JSON.parse(JSON.stringify(e[0].data));
-                x.filter((dat: any, index: any) => {
-                  if (dat.id == this.editDetails.data.id) {
-                    indexx = index;
-                  }
-                });
-                datas.push(x);
-              }
-            });
-            datas[0][indexx] = data.data;
-            this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-            this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
             this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
             this.dialog.closeAll();
             this.OpenDialog(data.data);

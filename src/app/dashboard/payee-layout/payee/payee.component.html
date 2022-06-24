@@ -1,8 +1,8 @@
 <div class="wrapper">
 
     <div class="header">
-        <div class="soft_pattern">Softpattern Pattern Technology</div>
-        <div class="reg_buss">Tax ID: 34546678844</div>
+        <div class="soft_pattern">{{ datas2?.organisation_name }}</div>
+        <div class="reg_buss">Tax ID: {{ datas2.tin }}</div>
 
         <div class="header-container">
             <div>
@@ -86,7 +86,7 @@
                             <div class="bubble"></div>
                         </div>
 
-                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                        <button mat-raised-button class="reload" (click)="reload()">
                             <span *ngIf="!is_reload">RELOAD</span>
                             <div *ngIf="is_reload" class="loader">
                                 <div class="bubble"></div>

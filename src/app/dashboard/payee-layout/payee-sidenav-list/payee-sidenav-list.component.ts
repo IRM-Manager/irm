@@ -1,14 +1,14 @@
 import { Location } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+
+// state management
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers/index';
+import { HttpService } from 'src/app/services/http.service';
+import { AddYear } from '../../../actions/irm.action';
 
 @Component({
   selector: 'app-payee-sidenav-list',
@@ -22,7 +22,9 @@ export class PayeeSidenavListComponent implements OnInit {
   constructor(
     private router: Router,
     public shared: ToggleNavService,
-    private _location: Location
+    private _location: Location,
+    private httpService: HttpService,
+    private store: Store<AppState>
   ) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
@@ -53,15 +55,27 @@ export class PayeeSidenavListComponent implements OnInit {
     }
   }
 
-  PayeeBack() {
+  payeeBack() {
     this._location.back();
+  }
+
+  addYear() {
+    this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
+      (data: any) => {
+        console.log(data)
+        this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+      },
+      (err) => {}
+    );
   }
 
   routeRedirect() {
     this.onPublicHeaderToggleSidenav();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addYear();
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

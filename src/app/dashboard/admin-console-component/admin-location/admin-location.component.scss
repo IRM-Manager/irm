@@ -391,7 +391,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   .dataTables_wrapper .dataTables_info,
   .dataTables_wrapper .dataTables_processing,
   .dataTables_wrapper .dataTables_paginate {
-    display: none;
+    display: none !important;
   }
 
   ::ng-deep #DataTables_Table_0_info {

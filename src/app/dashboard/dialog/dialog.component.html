@@ -115,12 +115,17 @@
     <div *ngIf="data.type =='com'">
 
         <div class="payee-sidenav2 col-xl-3 col-lg-3 col-md-3">
-            <div class="payee_edit_panel">
+            <div class="payee_edit_panel" *ngIf="data.type2 !='payee'">
                 <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit
                     Details</button>
                 <button mat-button class="payee_edit_text">View Transaction</button>
                 <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
                     Payer</button>
+            </div>
+            <div class="payee_edit_panel" *ngIf="data.type2 =='payee'">
+                <button mat-button class="payee_edit_text">Edit Details</button>
+                <button mat-button class="payee_edit_text">View Transaction</button>
+                <button mat-button class="payee_delete_text">Delete Tax Payer</button>
             </div>
             <div style="clear: both;"></div>
         </div>
@@ -134,8 +139,7 @@
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
-                    <button mat-icon-button mat-dialog-close mat-dialog-close
-                        [routerLink]="['/dashboard/dashboard2/taxpayer/non']">
+                    <button mat-icon-button mat-dialog-close mat-dialog-close>
                         <mat-icon>close</mat-icon>
                     </button>
                 </div>
@@ -206,10 +210,9 @@
                     </thead>
                 </table>
 
-                <div class="button_p">
-                    <!-- <button mat-button class="back" mat-dialog-close>Back</button> -->
-                    <button mat-button class="continue" mat-dialog-close
-                        [routerLink]="['/dashboard/dashboard2/taxpayer/non']">Continue</button>
+                <div class="button_p" *ngIf="data.type2 =='payee'">
+                    <button mat-button class="back" mat-dialog-close>Close</button>
+                    <button mat-button class="continue" mat-dialog-close (click)="goToPayee()">Continue</button>
                 </div>
 
             </mat-dialog-content>

@@ -160,7 +160,7 @@ export class AdminConsoleComponent implements OnInit {
       let index2: any;
       this.datas.filter((dat: any, index: any) => {
         if (dat.id == result.id) {
-          return (index2 = index);
+          index2 = index;
         }
       });
       this.datas[index2].is_active = result.active ? false : true;

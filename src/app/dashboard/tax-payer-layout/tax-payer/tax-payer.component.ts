@@ -5,18 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
-import {
-  AppState,
-  selectAllComPayer,
-  selectAllIndPayer
-} from 'src/app/reducers/index';
+import { Subject } from 'rxjs';
+import { AppState } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer, AddIndPayer } from '../../../actions/irm.action';
 import { DialogComponent } from '../../dialog/dialog.component';
-import { ComPayer, IndPayer } from '../../models/irm';
 
 @Component({
   selector: 'app-tax-payer',
@@ -36,9 +30,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   searchData: any;
   searchData2: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
-  stateIndPayer: Observable<IndPayer[]>;
-  stateComPayer: Observable<ComPayer[]>;
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
@@ -75,9 +66,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       }
       this.renderTable();
     });
-
-    this.stateIndPayer = store.select(selectAllIndPayer);
-    this.stateComPayer = store.select(selectAllComPayer);
   }
 
   formatDate(data: any) {
@@ -130,58 +118,31 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
 
     if (this.active == 'com') {
       this.isLoading = true;
-      this.stateComPayer?.forEach((e) => {
-        if (e.length > 0) {
-          this.datas = e[0].data;
-          this.searchData2 = e[0].data;
-          console.log(e[0].data);
+      this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData2 = data.results;
           this.dtTrigger.next;
           this.isLoading = false;
-        } else {
-          this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-            (data: any) => {
-              console.log(data);
-              this.store.dispatch(
-                new AddComPayer([{ id: 1, data: data.data }])
-              );
-              this.datas = data.data;
-              this.searchData2 = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
-            },
-            (err) => {
-              this.isLoading = false;
-              this.authService.checkExpired();
-            }
-          );
+        },
+        (err) => {
+          this.isLoading = false;
+          this.authService.checkExpired();
         }
-      });
+      );
     } else {
       this.isLoading = true;
-      this.stateIndPayer?.forEach((e) => {
-        if (e.length > 0) {
-          this.datas = e[0].data;
-          this.searchData = e[0].data;
-          console.log(e[0].data);
+      this.httpService.getAuthSingle(BaseUrl.list_ind_payer).subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
           this.dtTrigger.next;
           this.isLoading = false;
-        } else {
-          this.httpService.getAuthSingle(BaseUrl.list_ind_payer).subscribe(
-            (data: any) => {
-              this.store.dispatch(
-                new AddIndPayer([{ id: 1, data: data.data }])
-              );
-              this.datas = data.data;
-              this.searchData = data.data;
-              this.dtTrigger.next;
-              this.isLoading = false;
-            },
-            (err) => {
-              this.isLoading = false;
-            }
-          );
+        },
+        (err) => {
+          this.isLoading = false;
         }
-      });
+      );
     }
   }
 
@@ -210,11 +171,45 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
 
   OpenDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         type: type,
         data: data,
       },
+    });
+    // after dialog close
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.type == 'com') {
+          // update company search data
+          let indexx: any;
+          this.searchData2.filter((dat: any, index: any) => {
+            if (dat.id == result.id) {
+              indexx = index;
+            }
+          });
+          this.searchData2.splice(indexx, 1);
+        } if (result.type == 'ind') {
+          // update individual search data
+          let indexx2: any;
+          this.searchData.filter((dat: any, index: any) => {
+            if (dat.id == result.id) {
+              indexx2 = index;
+            }
+          });
+          this.searchData.splice(indexx2, 1);
+        }else {}
+        // update table data
+        let index2: any;
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            index2 = index;
+          }
+        });
+        this.datas.splice(index2, 1);
+        this.dtTrigger.next;
+      } else {
+      }
     });
   }
 

@@ -33,7 +33,7 @@
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
-                            <tr *ngFor="let data of datas; let i=index" (click)="goToPayee()">
+                            <tr *ngFor="let data of datas; let i=index" (click)="goToPayee(data)">
                                 <td class="align-middle">{{i+1}}</td>
                                 <td class="align-middle">{{ data.tin }}</td>
                                 <td class="align-middle">{{ data.organisation_name }}</td>
@@ -62,7 +62,7 @@
                             <div class="bubble"></div>
                         </div>
 
-                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
                             <span *ngIf="!is_reload">RELOAD</span>
                             <div *ngIf="is_reload" class="loader">
                                 <div class="bubble"></div>
@@ -71,6 +71,8 @@
                                 <div class="bubble"></div>
                             </div>
                         </button>
+
+
                     </table>
                 </div>
             </div>

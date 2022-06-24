@@ -13,6 +13,7 @@ import { AddComPayer } from '../../../actions/irm.action';
 import { ComPayer } from '../../models/irm';
 import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee',
@@ -29,9 +30,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
   isLoading = false;
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
+  datas2: any;
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-  stateComPayer: Observable<ComPayer[]>;
   formErrors: any = {};
   validationMessages: any = {};
 
@@ -41,11 +42,19 @@ export class PayeeComponent implements OnDestroy, OnInit {
     private dialog: MatDialog,
     public shared: ToggleNavService,
     private httpService: HttpService,
-    private store: Store<AppState>,
+    private payeeService: PayeeServiceService,
     private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
-    this.stateComPayer = store.select(selectAllComPayer);
+    //
+    this.datas2 = this.payeeService.getMessage();
+    if (this.datas2) {
+    } else {
+      this.router.navigate([
+        `/dashboard/dashboard3/taxpayer/payee/business-list`,
+      ]);
+    }
+    //
   }
 
   formatDate(data: any) {
@@ -78,29 +87,19 @@ export class PayeeComponent implements OnDestroy, OnInit {
     };
 
     this.isLoading = true;
-    this.stateComPayer?.forEach((e) => {
-      if (e.length > 0) {
-        this.datas = e[0].data;
-        this.searchData = e[0].data;
-        console.log(e[0].data);
+
+    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+      (data: any) => {
+        this.datas = data.data;
+        this.searchData = data.data;
         this.dtTrigger.next;
         this.isLoading = false;
-      } else {
-        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-          (data: any) => {
-            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-            this.datas = data.data;
-            this.searchData = data.data;
-            this.dtTrigger.next;
-            this.isLoading = false;
-          },
-          (err) => {
-            this.isLoading = false;
-            this.authService.checkExpired();
-          }
-        );
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
       }
-    });
+    );
   }
 
   ngOnInit(): void {
@@ -108,10 +107,26 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.renderTable();
   }
 
-  Reload() {
+  reload() {
     this.is_reload = true;
-    this.renderTable();
-    this.is_reload = false;
+    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.dtTrigger.next;
+        this.is_reload = false;
+        this.snackBar.open('Loaded', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      },
+      (err) => {
+        this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   OpenDialog(data: any, type: string) {

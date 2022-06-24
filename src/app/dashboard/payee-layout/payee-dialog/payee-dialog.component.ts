@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import {
-  MatDialogRef,
   MatDialog,
+  MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,23 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
-import { Store } from '@ngrx/store';
-import { IndPayer, ComPayer, Year } from '../../models/irm';
-import {
-  AppState,
-  selectAllIndPayer,
-  selectAllComPayer,
-  selectAllYear,
-} from 'src/app/reducers/index';
-import {
-  AddIndPayer,
-  RemoveIndPayer,
-  AddComPayer,
-  RemoveComPayer,
-  AddYear,
-} from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers/index';
 
 @Component({
   selector: 'app-payee-dialog',
@@ -46,7 +32,6 @@ export class PayeeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
-    private store: Store<AppState>,
     private router: Router,
     public shared: ToggleNavService,
     private authService: AuthService,

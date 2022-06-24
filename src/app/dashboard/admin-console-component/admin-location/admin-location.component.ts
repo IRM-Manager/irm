@@ -83,7 +83,6 @@ export class AdminLocationComponent implements OnInit {
       if (e.length > 0) {
         this.datas = e[0].data;
         this.searchData = e[0].data;
-        console.log(e[0].data);
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
@@ -109,12 +108,6 @@ export class AdminLocationComponent implements OnInit {
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
-  }
-
-  Reload() {
-    this.is_reload = true;
-    this.renderTable();
-    this.is_reload = false;
   }
 
   reload2() {

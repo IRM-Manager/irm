@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
-import { Store } from '@ngrx/store';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AppState, selectAllComPayer } from 'src/app/reducers/index';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer } from '../../../actions/irm.action';
 import { DialogComponent } from '../../dialog/dialog.component';
-import { ComPayer } from '../../models/irm';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-business-list',
@@ -34,8 +31,6 @@ export class PayeeBusinessListComponent implements OnInit {
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
-  stateComPayer: Observable<ComPayer[]>;
-
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
   private helper = new JwtHelperService();
@@ -46,16 +41,14 @@ export class PayeeBusinessListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
     private httpService: HttpService,
-    private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private payeeService: PayeeServiceService
   ) {
     this.authService.checkExpired();
-    this.stateComPayer = store.select(selectAllComPayer);
   }
 
   formatDate(data: any) {
@@ -84,33 +77,21 @@ export class PayeeBusinessListComponent implements OnInit {
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
     };
-
     this.isLoading = true;
-    this.stateComPayer?.forEach((e) => {
-      if (e.length > 0) {
-        this.datas = e[0].data;
-        this.searchData = e[0].data;
-        console.log(e[0].data);
+    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
         this.dtTrigger.next;
         this.isLoading = false;
-      } else {
-        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-          (data: any) => {
-            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-            this.datas = data.data;
-            this.searchData = data.data;
-            this.dtTrigger.next;
-            this.isLoading = false;
-          },
-          (err) => {
-            this.isLoading = false;
-            this.authService.checkExpired();
-          }
-        );
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
       }
-    });
+    );
   }
 
   ngOnInit(): void {
@@ -118,23 +99,41 @@ export class PayeeBusinessListComponent implements OnInit {
     this.renderTable();
   }
 
-  Reload() {
+  reload2() {
     this.is_reload = true;
-    this.renderTable();
-    this.is_reload = false;
+    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.dtTrigger.next;
+        this.is_reload = false;
+        this.snackBar.open('Loaded', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      },
+      (err) => {
+        this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   OpenDialog(data: any) {
     this.snackBar.dismiss();
     this.dialog.open(DialogComponent, {
       data: {
-        type: 'ind',
+        type: 'com',
         data: data,
+        type2: 'payee',
       },
     });
   }
 
-  goToPayee() {
+  goToPayee(data: any) {
+    this.payeeService.setMessage(data);
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee']);
   }
 

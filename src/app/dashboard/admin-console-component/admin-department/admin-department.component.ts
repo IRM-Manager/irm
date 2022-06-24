@@ -111,12 +111,6 @@ export class AdminDepartmentComponent implements OnInit {
     this.renderTable();
   }
 
-  Reload() {
-    this.is_reload = true;
-    this.renderTable();
-    this.is_reload = false;
-  }
-
   reload2() {
     this.is_reload = true;
     this.httpService.getAuthSingle(BaseUrl.list_department).subscribe(

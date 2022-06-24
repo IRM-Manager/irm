@@ -26,6 +26,7 @@ import {
   RemoveIndPayer,
 } from '../../actions/irm.action';
 import { ComPayer, IndPayer, Year } from '../models/irm';
+import { PayeeServiceService } from '../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
@@ -55,15 +56,17 @@ export class DialogComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     public shared: ToggleNavService,
-    private authService: AuthService
+    private authService: AuthService,
+    private payeeService: PayeeServiceService,
   ) {
     this.authService.checkExpired();
     if (this.data.type == 'extract') {
       dialogRef.disableClose = true;
       this.payee_data = this.data.data.data;
-    } else if (this.data.type == 'ind' || this.data.type == 'com') {
-      dialogRef.disableClose = true;
-    }
+    } 
+    // else if (this.data.type == 'ind' || this.data.type == 'com') {
+    //   dialogRef.disableClose = true;
+    // }
     this.stateIndPayer = store.select(selectAllIndPayer);
     this.stateComPayer = store.select(selectAllComPayer);
     this.stateYear = store.select(selectAllYear);
@@ -141,48 +144,16 @@ export class DialogComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.isdelete = false;
-          if (this.data?.data?.organisation_name) {
-            let datas: any = [];
-            let indexx;
-            this.stateComPayer.forEach((e) => {
-              if (e.length > 0) {
-                let x = JSON.parse(JSON.stringify(e[0].data));
-                x.filter((data: any, index: any) => {
-                  if (data.id == this.data.data.id) {
-                    indexx = index;
-                  }
-                });
-                datas.push(x);
-              }
-            });
-            datas[0].splice(indexx, 1);
-            this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-            this.store.dispatch(new AddComPayer([{ id: 1, data: datas[0] }]));
-          } else {
-            let datas: any = [];
-            let indexx;
-            this.stateIndPayer.forEach((e) => {
-              if (e.length > 0) {
-                let x = JSON.parse(JSON.stringify(e[0].data));
-                x.filter((data: any, index: any) => {
-                  if (data.id == this.data.data.id) {
-                    indexx = index;
-                  }
-                });
-                datas.push(x);
-              }
-            });
-            datas[0].splice(indexx, 1);
-            this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-            this.store.dispatch(new AddIndPayer([{ id: 1, data: datas[0] }]));
-          }
           this.snackBar.open('TaxPayer successfully deleted', '', {
             duration: 3000,
             panelClass: 'success',
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          this.dialogRef.close();
+          this.dialogRef.close({
+            type: this.data.data?.organisation_name ? 'com' : 'ind',
+            id: this.data.data.id,
+          });
         },
         (err) => {
           console.log(err);
@@ -365,4 +336,10 @@ export class DialogComponent implements OnInit {
   DeteleAddedPayee(index: number) {
     this.payee_data.splice(index, 1);
   }
+
+  goToPayee() {
+    this.payeeService.setMessage(this.data.data);
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee']);
+  }
+
 }
