@@ -52,7 +52,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
 
   .header3 {
     background: rgba(60, 102, 163, 0.05);
-    width: 90%;
+    width: 95%;
     margin-top: 2rem;
   }
 
@@ -191,7 +191,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   background: $header-back2;
   padding: 1.5rem 1rem 1.5rem 1rem;
   margin-top: 1rem;
-  width: 90%;
+  width: 95%;
 
   .spacer {
     flex: 1 1 auto;
@@ -226,8 +226,6 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     width: 200px;
     font: $tbody-back;
     padding-left: 15px;
-    // -webkit-transition: width 0.4s ease-in-out;
-    // transition: width 0.4s ease-in-out;
   }
 
   [type="text"]:focus {
@@ -244,7 +242,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
 .table-container {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 90%;
+  width: 95%;
 
   table {
     border: none;

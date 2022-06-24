@@ -50,6 +50,19 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     opacity: 1;
   }
 
+  .back {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    color: $soft-pattern-color;
+    font: $soft-pattern-font;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .back mat-icon {
+    vertical-align: middle;
+  }
+
   .header3 {
     background: rgba(60, 102, 163, 0.05);
     width: 90%;
@@ -291,30 +304,6 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     padding: 0.5rem;
     margin-left: 10px;
     width: 5rem;
-  }
-
-  .view {
-    color: #3c66a3;
-  }
-
-  .loader-spin {
-    border: 5px solid #aac7f4;
-    border-top: 5px solid #3c66a3;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    animation: spin 5s linear infinite;
-    margin: auto;
-    vertical-align: middle;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
   }
 
   .loader {

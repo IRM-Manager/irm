@@ -309,13 +309,22 @@ export class AdminConsoleDialogComponent implements OnInit {
         (data: any) => {
           this.loading = false;
           this.disabled = false;
-          this.snackBar.open('Success', '', {
-            duration: 3000,
-            panelClass: 'success',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
+          this.snackBar.open(
+            this.data.data.is_active
+              ? 'User Deactivated Successfully'
+              : 'User Activated Successfully',
+            '',
+            {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+          this.dialogRef.close({
+            active: this.data.data.is_active,
+            id: this.data.data.id,
           });
-          this.dialogRef.close();
         },
         (err) => {
           this.loading = false;

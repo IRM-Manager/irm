@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
     private snackBar: MatSnackBar,
     private httpService: HttpService,
     private store: Store<AppState>,
-    private adminService: ProfileServiceService,
+    private adminService: ProfileServiceService
   ) {
     this.clickEventSubscription = this.shared
       .getHeaderClickEvent()
@@ -198,7 +198,10 @@ export class HeaderComponent implements OnInit {
       this.left_text2 = 'Dashboard';
     }
     // Admin Console
-    else if (this.router.url == '/dashboard/dashboard5/admin-console') {
+    else if (
+      this.router.url == '/dashboard/dashboard5/admin-console' ||
+      this.router.url == '/dashboard/dashboard5/dep-loc'
+    ) {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = '';
@@ -214,13 +217,11 @@ export class HeaderComponent implements OnInit {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = 'User Details';
-    }
-    else if (this.router.url == '/dashboard/dashboard5/department') {
+    } else if (this.router.url == '/dashboard/dashboard5/department') {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = 'Departments';
-    }
-    else if (this.router.url == '/dashboard/dashboard5/location') {
+    } else if (this.router.url == '/dashboard/dashboard5/location') {
       this.type = 'mda';
       this.left_text1 = 'Admin Console';
       this.left_text2 = 'Offices';

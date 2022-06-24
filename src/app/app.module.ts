@@ -61,7 +61,13 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PreviewComponent, SignupComponent, ForgetPasswordComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    PreviewComponent,
+    SignupComponent,
+    ForgetPasswordComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

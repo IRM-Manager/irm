@@ -26,5 +26,7 @@ export const BaseUrl = {
   activate_deactivate: 'user/api/v1/changeuser/status/',
   change_password: 'user/api/v1/change_password/',
   register: 'user/api/v1/create/appuser/',
-  reset_password: 'user/api/v1/resetpassword/?email='
+  reset_password: 'user/api/v1/resetpassword/?email=',
+  get_user_department: 'user/api/v1/userbydepartment/?id=',
+  get_user_location: 'user/api/v1/userbydepartment/?id='
 };

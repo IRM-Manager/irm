@@ -3,37 +3,30 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { add_user } from '../../shared/form';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { map, Observable, startWith } from 'rxjs';
 // chips
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
 // state management
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
-  AppState,
-  selectAllGroup,
-  selectAllDepartment,
-  selectAllLocation,
+  AppState, selectAllDepartment, selectAllGroup, selectAllLocation
 } from 'src/app/reducers/index';
 import {
-  AddGroup,
-  AddDepartment,
-  AddLocation,
+  AddDepartment, AddGroup, AddLocation
 } from '../../../actions/irm.action';
-import { Group, Department, Locationn } from '../../models/irm';
-import { Router } from '@angular/router';
+import { Department, Group, Locationn } from '../../models/irm';
 import { AdminServiceService } from '../service/admin-service.service';
 //
 

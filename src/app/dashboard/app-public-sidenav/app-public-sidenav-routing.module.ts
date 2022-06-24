@@ -45,6 +45,7 @@ import { ProfileEditComponent } from '../profile-component/profile-edit/profile-
 import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
 import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
 import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
+import { ListUserDepLocComponent } from '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component';
 
 const routes: Routes = [
   {
@@ -160,6 +161,10 @@ const routes: Routes = [
       {
         path: 'dashboard5/location',
         component: AdminLocationComponent, canLoad: [IsLoggedInGuard],
+      }, 
+      {
+        path: 'dashboard5/dep-loc',
+        component: ListUserDepLocComponent, canLoad: [IsLoggedInGuard],
       }, 
       // DIRECT ACCESSMENT
       {

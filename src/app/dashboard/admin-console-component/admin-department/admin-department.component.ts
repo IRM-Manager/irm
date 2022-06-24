@@ -28,6 +28,7 @@ export class AdminDepartmentComponent implements OnInit {
   loading = false;
   disabled = false;
   is_reload = false;
+  getLoding = 0;
   clickEventSubscription?: Subscription;
   isLoading = false;
   dtOptions: DataTables.Settings = {};
@@ -134,6 +135,26 @@ export class AdminDepartmentComponent implements OnInit {
       },
       (err) => {
         this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
+  }
+
+  getAssignUsers(data_type: any, id: number) {
+    this.getLoding = id;
+    this.httpService.getAuthSingleID(BaseUrl.get_user_department, id).subscribe(
+      (data: any) => {
+        const datas = {
+          department: data_type,
+          data: data.results,
+          location: undefined,
+        }
+        this.service.setDepLocMessage(datas);
+        this.router.navigate(['/dashboard/dashboard5/dep-loc']);
+        this.getLoding = 0;
+      },
+      (err) => {
+        this.getLoding = 0;
         this.authService.checkExpired();
       }
     );

@@ -1,27 +1,28 @@
 <div class="wrapper">
 
+    <p class="back" (click)="back()">
+        <mat-icon>keyboard_backspace</mat-icon> Back
+    </p>
+
     <div>
         <div class="verify">
 
-            <div class="department">Location | Showing Lists of all Locations (Offices)</div>
-
-            <mat-toolbar class="header3">
-                <button mat-button class="add_user" (click)="OpenDialog('', 'add-location')">
-                    Add location
-                </button>
-            </mat-toolbar>
+            <div class="department" *ngIf="datas2?.department">{{ datas2?.department?.name }} Department | Showing all users from {{ datas2?.department?.name }} Department</div>
+            <div class="department" *ngIf="datas2?.location">{{ datas2?.location?.name }} Location (Office) | Showing all users from {{ datas2?.location?.name }} Location (Office)</div>
 
             <mat-toolbar class="header2">
                 <div class="indcom">
-                    Location
+                    <span *ngIf="datas2?.department">{{ datas2?.department?.name }} Department</span>
+                    <span *ngIf="datas2?.location">{{ datas2?.location?.name }} Location (Office)</span>
                 </div>
                 <div class="spacer"></div>
                 <div class="search_icon_p">
                     <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input"></form>
-                        <mat-icon class="search_icon">search</mat-icon>
-                    </div>
-                </mat-toolbar>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input">
+                    </form>
+                    <mat-icon class="search_icon">search</mat-icon>
+                </div>
+            </mat-toolbar>
 
                 <div class="table-container">
                     <div class="table-responsive">
@@ -29,9 +30,11 @@
                             <thead>
                                 <tr>
                                     <th>S/N</th>
-                                    <th>Location</th>
-                                    <th>Code</th>
-                                    <th>No. Of members</th>
+                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -40,25 +43,41 @@
                             <tbody *ngIf="datas?.length != 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle">{{i+1}}</td>
-                                    <td class="align-middle">{{ data.name }}</td>
-                                    <td class="align-middle">{{ data.code }}</td>
-                                    <td class="align-middle">{{ data.usercount }}</td>
                                     <td class="align-middle">
-                                        <button mat-button class="view" *ngIf="getLoding != data.id" (click)="getAssignUsers(data, data.id)">View</button>
-                                        <div *ngIf="getLoding == data.id" class="loader-spin"></div>
+                                        {{ data.username }}
                                     </td>
+                                    <td class="align-middle">{{ data.first_name }}</td>
+                                    <td class="align-middle">{{ data.last_name }}</td>
+                                    <td class="align-middle">{{ data.email }}</td>
+                                    <td class="align-middle">{{ data.phone }}</td>
                                     <td class="align-middle">
                                         <button mat-button [matMenuTriggerFor]="menu">
                                             <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="OpenDialog(data, 'edit-location')">Edit</button>
+                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="redirectData(data, 'view-user')">View profile</button>
+                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu">Reset Password</button>
+                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="redirectData(data, 'edit-user')">Edit profile</button>
                                         </mat-menu>
+                                    </td>
+                                    <td class="align-middle">
+                                        <mat-icon (click)="OpenDialog(data, 'delete-user')" 
+                                        *ngIf="data.is_active" class="table-icon-success" 
+                                        matTooltipPosition="above"
+                                        matTooltip=" Deactivate this Account">brightness_1</mat-icon>
+                                        <!--  -->
+                                        <mat-icon (click)="OpenDialog(data, 'delete-user')" 
+                                        *ngIf="!data.is_active" 
+                                        class="table-icon-delete" 
+                                        matTooltipPosition="above" 
+                                        matTooltip="Activate this Account">brightness_1</mat-icon>
                                     </td>
                                 </tr>
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td class="no-data-available">No data!</td>
+                                    <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
@@ -84,17 +103,6 @@
                                     <div class="bubble"></div>
                                 </div>
                             </button>
-
-                            <button *ngIf="datas?.length != 0" mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
-                                <span *ngIf="!is_reload">RELOAD</span>
-                                <div *ngIf="is_reload" class="loader">
-                                    <div class="bubble"></div>
-                                    <div class="bubble"></div>
-                                    <div class="bubble"></div>
-                                    <div class="bubble"></div>
-                                </div>
-                            </button>
-
                         </table>
                     </div>
                 </div>

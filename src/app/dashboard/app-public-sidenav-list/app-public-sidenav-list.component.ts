@@ -118,7 +118,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/edit-user' ||
       this.router.url == '/dashboard/dashboard5/view-user' ||
       this.router.url == '/dashboard/dashboard5/department' ||
-      this.router.url == '/dashboard/dashboard5/location'
+      this.router.url == '/dashboard/dashboard5/location' ||
+      this.router.url == '/dashboard/dashboard5/dep-loc'
     ) {
       this.type = 'admin-console';
     }

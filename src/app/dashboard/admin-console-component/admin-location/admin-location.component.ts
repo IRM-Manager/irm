@@ -26,6 +26,7 @@ import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-conso
 export class AdminLocationComponent implements OnInit {
   search: string = '';
   loading = false;
+  getLoding = 0;
   disabled = false;
   is_reload = false;
   clickEventSubscription?: Subscription;
@@ -134,6 +135,26 @@ export class AdminLocationComponent implements OnInit {
       },
       (err) => {
         this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
+  }
+
+  getAssignUsers(data_type: any, id: number) {
+    this.getLoding = id;
+    this.httpService.getAuthSingleID(BaseUrl.get_user_department, id).subscribe(
+      (data: any) => {
+        const datas = {
+          location: data_type,
+          department: undefined,
+          data: data.results
+        }
+        this.service.setDepLocMessage(datas);
+        this.router.navigate(['/dashboard/dashboard5/dep-loc']);
+        this.getLoding = 0;
+      },
+      (err) => {
+        this.getLoding = 0;
         this.authService.checkExpired();
       }
     );

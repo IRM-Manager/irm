@@ -31,6 +31,8 @@
                                     <th>S/N</th>
                                     <th>Department</th>
                                     <th>Code</th>
+                                    <th>No. Of members</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -40,6 +42,11 @@
                                     <td class="align-middle">{{i+1}}</td>
                                     <td class="align-middle">{{ data.name }}</td>
                                     <td class="align-middle">{{ data.code }}</td>
+                                    <td class="align-middle">{{ data.usercount }}</td>
+                                    <td class="align-middle">
+                                        <button mat-button class="view" *ngIf="getLoding != data.id" (click)="getAssignUsers(data, data.id)">View</button>
+                                        <div *ngIf="getLoding == data.id" class="loader-spin"></div>
+                                    </td>
                                     <td class="align-middle">
                                         <button mat-button [matMenuTriggerFor]="menu">
                                             <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
@@ -52,6 +59,8 @@
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
+                                    <td class="no-data-available">No data!</td>
+                                    <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
