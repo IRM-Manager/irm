@@ -6,14 +6,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { AppState, selectAllComPayer } from 'src/app/reducers/index';
+import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer } from '../../../actions/irm.action';
-import { ComPayer } from '../../models/irm';
+import { AddYear } from '../../../actions/irm.action';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { Year } from '../../models/irm';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-import { PayeeDialogComponent } from '../payee-dialog/payee-dialog.component';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-manage-employee',
@@ -31,10 +32,12 @@ export class PayeeManageEmployeeComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
+  datas2: any;
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
-  stateComPayer: Observable<ComPayer[]>;
+  years: any;
+  selectedYear: any;
+  stateYear: Observable<Year[]>;
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
@@ -52,10 +55,20 @@ export class PayeeManageEmployeeComponent implements OnInit {
     public shared: ToggleNavService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private payeeService: PayeeServiceService
   ) {
     this.authService.checkExpired();
-    this.stateComPayer = store.select(selectAllComPayer);
+    this.stateYear = store.select(selectAllYear);
+    //
+    this.datas2 = this.payeeService.getMessage();
+    if (this.datas2) {
+    } else {
+      this.router.navigate([
+        `/dashboard/dashboard3/taxpayer/payee/business-list`,
+      ]);
+    }
+    //
   }
 
   formatDate(data: any) {
@@ -84,25 +97,50 @@ export class PayeeManageEmployeeComponent implements OnInit {
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
     };
-
     this.isLoading = true;
-    this.stateComPayer?.forEach((e) => {
-      if (e.length > 0) {
-        this.datas = e[0].data;
-        this.searchData = e[0].data;
-        console.log(e[0].data);
-        this.dtTrigger.next;
+    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+      (data: any) => {
+        this.datas = data.results;
         this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
+      }
+    );
+  }
+
+  Reload() {
+    this.is_reload = true;
+    this.renderTable();
+    this.is_reload = false;
+  }
+
+  OpenDialog(type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: this.datas2,
+      },
+    });
+  }
+
+  goToEdit() {
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage-edit']);
+  }
+
+  listYear() {
+    this.stateYear?.forEach((e) => {
+      if (e.length > 0) {
+        this.years = e[0].data;
       } else {
-        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
-            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-            this.datas = data.data;
-            this.searchData = data.data;
-            this.dtTrigger.next;
-            this.isLoading = false;
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+            this.years = data.results;
           },
           (err) => {
             this.isLoading = false;
@@ -113,34 +151,15 @@ export class PayeeManageEmployeeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.authService.checkExpired();
-    this.renderTable();
-  }
-
-  Reload() {
-    this.is_reload = true;
-    this.renderTable();
-    this.is_reload = false;
-  }
-
-  OpenDialog(data: any, type: string) {
-    this.snackBar.dismiss();
-    this.dialog.open(PayeeDialogComponent, {
-      data: {
-        type: type,
-        data: data,
-      },
-    });
-  }
-
-  goToEdit() {
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage-edit']);
-  }
-
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  ngOnInit(): void {
+    this.authService.checkExpired();
+    this.renderTable();
+    this.listYear();
   }
 
   ngOnDestroy(): void {

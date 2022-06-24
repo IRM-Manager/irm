@@ -115,9 +115,11 @@
                 <mat-radio-group matInput formControlName="con">
                     <p>
                         <mat-radio-button value="true" class="radio_button">Consolidated</mat-radio-button>
+                        <button mat-button style="margin-left: 20px;" (click)="download('con')">Download format</button>
                     </p>
                     <p>
                         <mat-radio-button value="false" class="radio_button">Non- Consolidated</mat-radio-button>
+                        <button mat-button style="margin-left: 20px;" (click)="download('non')">Download format</button>
                     </p>
                 </mat-radio-group>
             </p>
@@ -143,7 +145,7 @@
         </div>
 
         <div class="upload_continue_p">
-            <button mat-button class="upload_continue">Continue</button>
+            <button mat-button class="upload_continue" (click)="continue()">Continue</button>
         </div>
 
     </div>

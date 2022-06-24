@@ -58,12 +58,13 @@
   opacity: 1;
 }
 
-.payee_cancel_button {
+.payee_cancel_button button {
   position: absolute;
   top: 0;
   right: 0;
   color: #5ea55a;
   opacity: 1;
+  border-radius: 50%;
 }
 
 .title {
@@ -527,6 +528,17 @@
 .payee_com {
   width: 40rem;
   height: 20rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payee_com3 {
+  width: 25rem;
+  height: 15rem;
   margin-right: 2rem;
   margin-left: 2rem;
   position: relative;

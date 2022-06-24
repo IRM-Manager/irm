@@ -13,6 +13,7 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers/index';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-dialog',
@@ -35,6 +36,7 @@ export class PayeeDialogComponent implements OnInit {
     private router: Router,
     public shared: ToggleNavService,
     private authService: AuthService,
+    private payeeService: PayeeServiceService,
     private fb: FormBuilder
   ) {
     this.createUploadForm();
@@ -67,6 +69,33 @@ export class PayeeDialogComponent implements OnInit {
       formData.append('file', file);
       this.formData = formData;
     }
+  }
+
+  continue() {
+    if (!this.fileName) {
+      this.snackBar.open('No CSV file selected!', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      console.log(this.data.data)
+    }
+  }
+
+
+  jsonData =  [
+    {
+      age: 33,
+      average: 98,
+      approved: true,
+      description: "I am active blogger and Author."
+    }
+  ];
+
+  download(type: string){
+    this.payeeService.downloadFile(this.jsonData, 'jsontocsv', type);
   }
 
   ngOnInit(): void {

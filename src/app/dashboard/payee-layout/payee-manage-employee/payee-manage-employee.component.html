@@ -7,104 +7,111 @@
             <div class="reg_buss">Tax ID: 34546678844</div>
             <div>
                 <span class="assess">Filling for 2022</span>
-                <span class="change">Change Year</span>
+                <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
+                    <span class="change">Change Year</span>
+                </button>
+                <mat-menu #menu2>
+                    <button mat-menu-item="mat-menu-item" *ngFor="let year of years" style="color: #5EA55A;" class="mat-menu">{{ year.year }}</button>
+                </mat-menu>
             </div>
         </div>
 
         <div class="header-container">
-            <button mat-button class="payee_button" [matMenuTriggerFor]="menu">
+            <button mat-button="mat-button" class="payee_button" [matMenuTriggerFor]="menu">
                 <img src="assets/images/Group814.svg" class="header-img" alt="">
-                <span>Setup Employee <i class="fa fa-chevron-down"></i></span>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="OpenDialog('', 'upload_file')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
-                    <!-- <mat-icon>upload_file</mat-icon> -->
-                    <span>Upload File</span>
+                    <span>Setup Employee
+                        <i class="fa fa-chevron-down"></i>
+                    </span>
                 </button>
-                <button mat-menu-item class="payee_button_menu" (click)="OpenDialog('', 'manual')">
-                    <!-- <mat-icon>save_as</mat-icon> -->
-                    <span>Manual Input</span>
-                </button>
-            </mat-menu>
+                <mat-menu #menu>
+                    <button
+                        mat-menu-item="mat-menu-item" (click)="OpenDialog('file_upload')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
+                        <!-- <mat-icon>upload_file</mat-icon> -->
+                        <span>Upload File</span>
+                    </button>
+                    <!-- upload_file -->
+                    <button
+                        mat-menu-item="mat-menu-item" class="payee_button_menu" (click)="OpenDialog('manual')">
+                        <!-- <mat-icon>save_as</mat-icon> -->
+                        <span>Manual Input</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+
         </div>
 
+        <div>
+            <div class="verify">
 
-    </div>
-
-    <div>
-        <div class="verify">
-
-            <mat-toolbar class="header2">
-                <div class="indcom">
-                    Employee(s)
-                </div>
-                <div class="spacer"></div>
-                <div class="search_icon_p">
-                    <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
-                            class="input">
-                    </form>
-                    <mat-icon class="search_icon">search</mat-icon>
-                </div>
-            </mat-toolbar>
-
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtOptions"
-                        class="row-border table table-striped table-hover table-borderless">
-                        <thead>
-                            <tr>
-                                <th>S/N</th>
-                                <th>TIN</th>
-                                <th>Name of Employee</th>
-                                <th>Gross Annual Pay</th>
-                                <th>Annual tax Liability</th>
-                                <th>Monthly tax Liabilities</th>
-                            </tr>
-                        </thead>
-                        <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
-                            <tr *ngFor="let data of datas; let i=index" (click)="goToEdit()">
-                                <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.phone }}</td>
-                                <td class="align-middle">{{ data.email }}</td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="datas?.length == 0">
-                            <tr>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                            </tr>
-                        </tbody>
-
-                        <div *ngIf="isLoading" class="loader loading">
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
+                <mat-toolbar class="header2">
+                    <div class="indcom">
+                        Employee(s)
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="search_icon_p">
+                        <form class="search-form">
+                            <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input"></form>
+                            <mat-icon class="search_icon">search</mat-icon>
                         </div>
+                    </mat-toolbar>
 
-                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
-                            <span *ngIf="!is_reload">RELOAD</span>
-                            <div *ngIf="is_reload" class="loader">
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                            </div>
-                        </button>
-                    </table>
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table datatable="datatable" [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>TIN</th>
+                                        <th>Name of Employee</th>
+                                        <th>Gross Annual Pay</th>
+                                        <th>Annual tax Liability</th>
+                                        <th>Monthly tax Liabilities</th>
+                                    </tr>
+                                </thead>
+                                <!-- individual -->
+                                <tbody *ngIf="datas?.length != 0">
+                                    <tr *ngFor="let data of datas; let i=index" (click)="goToEdit()">
+                                        <td class="align-middle">{{i+1}}</td>
+                                        <td class="align-middle">{{ data.tin }}</td>
+                                        <td class="align-middle">{{ data.organisation_name }}</td>
+                                        <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
+                                        <td class="align-middle">{{ data.phone }}</td>
+                                        <td class="align-middle">{{ data.email }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="datas?.length == 0">
+                                    <tr>
+                                        <td class="no-data-available">No data!</td>
+                                        <td class="no-data-available">No data!</td>
+                                        <td class="no-data-available">No data!</td>
+                                        <td class="no-data-available">No data!</td>
+                                        <td class="no-data-available">No data!</td>
+                                        <td class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+
+                                <div *ngIf="isLoading" class="loader loading">
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                </div>
+
+                                <button mat-raised-button="mat-raised-button" class="reload" (click)="Reload()">
+                                    <span *ngIf="!is_reload">RELOAD</span>
+                                    <div *ngIf="is_reload" class="loader">
+                                        <div class="bubble"></div>
+                                        <div class="bubble"></div>
+                                        <div class="bubble"></div>
+                                        <div class="bubble"></div>
+                                    </div>
+                                </button>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
-    </div>
-
-
-</div>

@@ -26,6 +26,7 @@ import {
   RemoveIndPayer,
 } from '../../actions/irm.action';
 import { ComPayer, IndPayer, Year } from '../models/irm';
+import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
 import { PayeeServiceService } from '../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
@@ -70,7 +71,7 @@ export class DialogComponent implements OnInit {
     this.stateIndPayer = store.select(selectAllIndPayer);
     this.stateComPayer = store.select(selectAllComPayer);
     this.stateYear = store.select(selectAllYear);
-    this.AddYear();
+    this.addYear();
   }
 
   ngOnInit(): void {
@@ -214,6 +215,29 @@ export class DialogComponent implements OnInit {
     });
   }
 
+  payeeDialog(type: string) {
+    if(this.selected_year) {
+      const data2 = {
+        year: this.choosen_year,
+      }
+      this.snackBar.dismiss();
+      this.dialogRef.close();
+      this.dialog.open(PayeeDialogComponent, {
+        data: {
+          type: type,
+          data: data2,
+        },
+      });
+    } else {
+      this.snackBar.open('Please Select Year', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    }
+  }
+
   EditPayerDetails(data: any, type: string) {
     if (type == 'ind') {
       this.shared.setPayerEditMessage({ data: data, type: 'ind' });
@@ -226,24 +250,15 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  ChooseYear(data: any) {
-    this.choosen_year = data;
-  }
-
-  AddYear() {
+  addYear() {
     this.stateYear.forEach((e) => {
       if (e.length > 0) {
-        this.year = e[0].data.data;
-        console.log('dialog_redux_year', e[0].data.data);
+        this.year = e[0].data;
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
-            if (data.responsecode == '01') {
-            } else {
-              this.store.dispatch(new AddYear([{ id: 1, data: data }]));
-              this.year = data.data;
-              console.log('dialog_year', data.data);
-            }
+              this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+              this.year = data.results;
           },
           (err) => {}
         );
@@ -335,6 +350,11 @@ export class DialogComponent implements OnInit {
 
   DeteleAddedPayee(index: number) {
     this.payee_data.splice(index, 1);
+  }
+
+  chooseYear(data: any) {
+    this.choosen_year = data;
+    this.selected_year = data;
   }
 
   goToPayee() {

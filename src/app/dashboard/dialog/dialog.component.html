@@ -223,173 +223,6 @@
 
     </div>
 
-    <!-- if is payee -->
-    <div *ngIf="data.type =='payee'">
-
-        <div class="payee-sidenav2 col-xl-3 col-lg-3 col-md-3">
-            <div class="payee_edit_panel">
-                <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit
-                    Details</button>
-                <button mat-button class="payee_edit_text">View Transaction</button>
-                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
-                    Payer</button>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-
-        <div class="payee-sidenav2 col-xl-9 col-lg-9 col-md-9">
-
-            <div class="header">
-                <div>
-                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
-                    <div class="left2">Registered Business</div>
-                </div>
-                <div class="payee_cancel_button">
-                    <button mat-icon-button mat-dialog-close>
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div style="clear: both;"></div>
-            <mat-dialog-content class="mat-typography ind_com_payee">
-
-                <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th class="title">Date Establishment</th>
-                            <th class="sub_title align-middle">{{data.data.payer.created_at | date:'yyyy-MM-dd'}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Number of staff</th>
-                            <th class="sub_title align-middle">{{data.data.number_employee}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Business Nature</th>
-                            <th class="sub_title align-middle">{{data.data.business_nature}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Director</th>
-                            <th class="sub_title align-middle director dropdown">
-                                <span class="dropbtn">
-                                    {{data.data.directors_info.surname}}
-                                    {{data.data.directors_info.first_name}}
-                                    {{data.data.directors_info.middle_name}}
-                                </span>
-
-                                <div class="dropdown-content">
-                                    <table class="table table-borderless">
-                                        <thead>
-                                            <tr>
-                                                <th class="title">Name</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.surname}}
-                                                    {{data.data.directors_info.first_name}}
-                                                    {{data.data.directors_info.lastname}}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">E-mail</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.dir_email}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Phone No.</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.dir_phone}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Date of Birth</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.dob}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Place of Birth</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.pob}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Gender</th>
-                                                <th class="sub_title align-middle">{{data.data.directors_info.gender}}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Occupation</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.profession_trade}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">State of Origin</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.state_origin.name}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">LGA</th>
-                                                <th class="sub_title align-middle">
-                                                    {{data.data.directors_info.lga_origin.name}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="title align-middle">Nigerian</th>
-                                                <th class="sub_title align-middle">Yes</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Office Website URL</th>
-                            <th class="sub_title align-middle">
-                                <a href="{{data.data.office_website_url}}"
-                                    target="_blank">{{data.data.office_website_url}}</a>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Phone Number</th>
-                            <th class="sub_title align-middle">{{data.data.org_phone}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">E-mail Address</th>
-                            <th class="sub_title align-middle">{{data.data.org_email}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Alt. Phone no.</th>
-                            <th class="sub_title align-middle">{{data.data.alt_phone}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">House no.</th>
-                            <th class="sub_title align-middle">{{data.data.house_no}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title">State</th>
-                            <th class="sub_title">{{data.data.payer.address_state.name}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title">LGA</th>
-                            <th class="sub_title">{{data.data.payer.address_lga.name}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Zipcode</th>
-                            <th class="sub_title align-middle">{{data.data.zipcode}}</th>
-                        </tr>
-                        <tr>
-                            <th class="title align-middle">Address</th>
-                            <th class="sub_title align-middle">{{data.data.address}}</th>
-                        </tr>
-                    </thead>
-                </table>
-
-                <div class="button_p">
-                    <button mat-button class="back" mat-dialog-close>Back</button>
-                    <button mat-button class="continue" (click)="StaffIncome()" mat-dialog-close>Continue</button>
-                </div>
-
-            </mat-dialog-content>
-            <mat-dialog-actions>
-            </mat-dialog-actions>
-        </div>
-    </div>
-
 
     <!--  payee employee -->
 
@@ -649,9 +482,8 @@
 
             <div class="header">
                 <div>
-                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="leftt1 left1">{{ data.data.organisation_name }}</div>
+                    <div class="right2">Tax ID: {{ data.data.tin }}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
@@ -660,19 +492,19 @@
                     </button>
                 </div>
             </div>
-            <mat-dialog-content class="mat-typography ind_com payee_com">
+            <mat-dialog-content class="mat-typography ind_com payee_com3">
                 <div class="center_payee_com">
                     <div class="tax_return_year">Choose Tax Return year</div>
                     <form>
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>Year</mat-label>
                             <mat-select>
-                                <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}
+                                <mat-option *ngFor="let y of year" value="y" (click)="chooseYear(y)">{{y.year}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </form>
-                    <button mat-button class="continue" (click)="StaffIncome3('file')">Continue</button>
+                    <button mat-button class="continue" (click)="payeeDialog('upload_file')">Continue</button>
                 </div>
             </mat-dialog-content>
             <mat-dialog-actions>
@@ -709,7 +541,7 @@
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>Year</mat-label>
                             <mat-select>
-                                <mat-option *ngFor="let y of year" value="y" (click)="ChooseYear(y)">{{y.year}}
+                                <mat-option *ngFor="let y of year" value="y" (click)="chooseYear(y)">{{y.year}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
