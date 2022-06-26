@@ -31,17 +31,23 @@ export class PayeeServiceService {
     let csvData = ''
     if (type == 'con') {
       csvData = this.ConvertToCSV(data, [
-        'age',
-        'average',
-        'approved',
-        'description',
+        'pension',
+        'nhf',
+        'hmo',
+        'other_deductions',
+        'gross',
+        'employee_position',
       ]);
     }else {
       csvData = this.ConvertToCSV(data, [
-        'age2',
-        'average',
-        'approved',
-        'description',
+        'pension',
+        'nhf',
+        'hmo',
+        'other_deductions',
+        'housing',
+        'tp',
+        'basic',
+        'employee_position',
       ]);
     }
     let blob = new Blob(['\ufeff' + csvData], {
@@ -67,7 +73,7 @@ export class PayeeServiceService {
   ConvertToCSV(objArray: any, headerList: any) {
     let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     let str = '';
-    let row = 'name,';
+    let row = 'employeeTin,';
 
     for (let index in headerList) {
       row += headerList[index] + ',';

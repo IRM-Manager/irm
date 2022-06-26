@@ -27,6 +27,7 @@
     "@ngrx/entity": "^13.2.0",
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
+    "@ngx-loading-bar/router": "^6.0.2",
     "@types/jquery": "^3.5.14",
     "angular-datatables": "^13.0.1",
     "angular-highcharts": "^13.0.1",

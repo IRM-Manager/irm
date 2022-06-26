@@ -7,7 +7,7 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
 import { AppState, selectAllDepartment } from 'src/app/reducers/index';
-import { AddDepartment } from '../../../actions/irm.action';
+import { AddDepartment, RemoveDepartment } from '../../../actions/irm.action';
 import { Department } from '../../models/irm';
 //
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -115,6 +115,7 @@ export class AdminDepartmentComponent implements OnInit {
     this.is_reload = true;
     this.httpService.getAuthSingle(BaseUrl.list_department).subscribe(
       (data: any) => {
+        this.store.dispatch(new RemoveDepartment([{ id: 1, data: [] }]));
         this.store.dispatch(new AddDepartment([{ id: 1, data: data.results }]));
         this.datas = data.results;
         this.searchData = data.results;

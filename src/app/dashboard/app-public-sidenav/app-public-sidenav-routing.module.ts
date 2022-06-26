@@ -4,6 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { IsLoggedInGuard } from 'src/app/guards/IsloggedIn.guards';
 // 
 
+// module
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+// 
+
 import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
 import { MDAComponent } from '../mda-component/mda/mda.component';
 import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
@@ -234,7 +238,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), LoadingBarRouterModule],
   exports: [RouterModule],
 })
 export class AppPublicSidenavRoutingModule {}

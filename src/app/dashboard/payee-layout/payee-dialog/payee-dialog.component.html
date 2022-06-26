@@ -108,18 +108,20 @@
         </div>
         <div class="blue_title">Download file format here</div>
 
-        <div class="upload_choose">Download file format here</div>
-
         <form [formGroup]="uploadForm" class="upload_form">
             <p>
                 <mat-radio-group matInput formControlName="con">
                     <p>
                         <mat-radio-button value="true" class="radio_button">Consolidated</mat-radio-button>
-                        <button mat-button style="margin-left: 20px;" (click)="download('con')">Download format</button>
+                        <button mat-button style="margin-left: 20px; font: normal normal normal 14px/16px Montserrat; color: #3c66a3;" (click)="download('con')">
+                            Download Format
+                        </button>
                     </p>
                     <p>
                         <mat-radio-button value="false" class="radio_button">Non- Consolidated</mat-radio-button>
-                        <button mat-button style="margin-left: 20px;" (click)="download('non')">Download format</button>
+                        <button mat-button style="margin-left: 20px; font: normal normal normal 14px/16px Montserrat; color: #3c66a3;" (click)="download('non')">
+                            Download Format
+                        </button>
                     </p>
                 </mat-radio-group>
             </p>

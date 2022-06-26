@@ -7,7 +7,7 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
 import { AppState, selectAllLocation } from 'src/app/reducers/index';
-import { AddLocation } from '../../../actions/irm.action';
+import { AddLocation, RemoveLocation } from '../../../actions/irm.action';
 import { Locationn } from '../../models/irm';
 //
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -114,6 +114,7 @@ export class AdminLocationComponent implements OnInit {
     this.is_reload = true;
     this.httpService.getAuthSingle(BaseUrl.list_location).subscribe(
       (data: any) => {
+        this.store.dispatch(new RemoveLocation([{ id: 1, data: [] }]));
         this.store.dispatch(new AddLocation([{ id: 1, data: data.results }]));
         this.datas = data.results;
         this.searchData = data.results;

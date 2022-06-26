@@ -80,22 +80,40 @@ export class PayeeDialogComponent implements OnInit {
         verticalPosition: 'top',
       });
     } else {
-      console.log(this.data.data)
+      console.log(this.data.data);
     }
   }
 
-
-  jsonData =  [
+  jsonData = [
     {
-      age: 33,
-      average: 98,
-      approved: true,
-      description: "I am active blogger and Author."
-    }
+      pension: 'TRUE',
+      nhf: 'TRUE',
+      hmo: '384',
+      other_deductions: '384',
+      gross: '500000',
+      employee_position: 'MANAGER',
+    },
   ];
 
-  download(type: string){
-    this.payeeService.downloadFile(this.jsonData, 'jsontocsv', type);
+  jsonData2 = [
+    {
+      pension: 'TRUE',
+      nhf: 'TRUE',
+      hmo: '384',
+      other_deductions: '384',
+      housing: '2994',
+      tp: '10000',
+      basic: '500000',
+      employee_position: 'MANAGER',
+    },
+  ];
+
+  download(type: string) {
+    this.payeeService.downloadFile(
+      type == 'con' ? this.jsonData : this.jsonData2,
+      type == 'con' ? 'Consolidated' : 'NonConsolidated',
+      type
+    );
   }
 
   ngOnInit(): void {

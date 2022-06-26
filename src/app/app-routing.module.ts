@@ -8,6 +8,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { SignupGuard } from './guards/signup.guards';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SignupComponent } from './signup/signup.component';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -42,6 +43,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       preloadingStrategy: NetworkAwarePreloadingStrategyService2Service,
     }),
+    LoadingBarRouterModule
   ],
   exports: [RouterModule],
 })
