@@ -20,7 +20,7 @@ export const BaseUrl = {
   list_ind_payer: 'user/api/v1/payer/individualpayers/',
   add_com_payer: 'user/api/v1/payer/?payer_group=company',
   list_com_payer: 'user/api/v1/payer/companypayers/',
-  get_payer_tin: 'user/api/v1/getpayertin/?tin=',
+  get_payer_tin: 'user/api/v1/payer/payerbytin/?tin=',
   delete_update_payer: 'user/api/v1/payer/', // not when deleting payer add / after the id
   list_user: 'user/api/v1/allusers/?page=',
   list_group: 'user/api/v1/allgroup/',
@@ -32,7 +32,12 @@ export const BaseUrl = {
   register: 'user/api/v1/create/appuser/',
   reset_password: 'user/api/v1/resetpassword/?email=',
   get_user_department: 'user/api/v1/userbydepartment/?id=',
-  get_user_location: 'user/api/v1/userbydepartment/?id='
+  get_user_location: 'user/api/v1/userbydepartment/?id=',
+  upload_payee: 'paye/api/v1/paye/upload/?',
+  confirm_upload: 'paye/api/v1/paye/confirm_upload/?',
+  list_registered_employees: 'paye/api/v1/paye/?',
+  register_single_paye: 'paye/api/v1/paye/?',
+  update_single_paye: 'paye/api/v1/paye/',
 };
 
 /*

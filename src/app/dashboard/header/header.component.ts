@@ -140,6 +140,7 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual/add' ||
       this.router.url ==
         '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
       this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'

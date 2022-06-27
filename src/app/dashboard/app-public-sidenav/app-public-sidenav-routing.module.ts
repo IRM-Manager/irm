@@ -50,6 +50,7 @@ import { ProfileChangePasswordComponent } from '../profile-component/profile-cha
 import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
 import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
 import { ListUserDepLocComponent } from '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component';
+import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/payee-manual-input.component';
 
 const routes: Routes = [
   {
@@ -110,6 +111,10 @@ const routes: Routes = [
       {
         path: 'dashboard4/taxpayer/payee/overview',
         component: PayeeOverviewComponent, canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/taxpayer/payee/manual/add',
+        component: PayeeManualInputComponent, canLoad: [IsLoggedInGuard],
       },
       // TAX PAYER
       {

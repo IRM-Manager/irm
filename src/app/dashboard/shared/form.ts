@@ -53,7 +53,6 @@ export interface Individual1 {
 export interface manual {
   tin: string;
   name: string;
-  date: string;
   position: string;
   company_name: string;
   year: string;

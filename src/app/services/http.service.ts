@@ -47,9 +47,15 @@ export class HttpService {
       .pipe(retry(2));
   }
 
-  updateData(endpoint: any, data: any, id: any): Observable<any[]> {
+  updateData(endpoint: any, data: any, id: any, year?: any): Observable<any[]> {
     return this.http
-      .put<any[]>(this.base_url + endpoint + id, data, this.httpOptions)
+      .put<any[]>(
+        !year
+          ? this.base_url + endpoint + id
+          : this.base_url + endpoint + id + `/?yearId=${year}`,
+        data,
+        this.httpOptions
+      )
       .pipe(retry(2));
   }
 

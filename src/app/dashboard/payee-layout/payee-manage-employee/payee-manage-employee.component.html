@@ -3,15 +3,15 @@
     <div class="header">
 
         <div>
-            <div class="soft_pattern">Softpattern Pattern Technology</div>
-            <div class="reg_buss">Tax ID: 34546678844</div>
+            <div class="soft_pattern">{{ datas2.organisation_name }}</div>
+            <div class="reg_buss">Tax ID: {{ datas2.tin }}</div>
             <div>
-                <span class="assess">Filling for 2022</span>
+                <span class="assess">Filling for {{ htmlYear }}</span>
                 <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
                     <span class="change">Change Year</span>
                 </button>
                 <mat-menu #menu2>
-                    <button mat-menu-item="mat-menu-item" *ngFor="let year of years" style="color: #5EA55A;" class="mat-menu">{{ year.year }}</button>
+                    <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" style="color: #5EA55A;" class="mat-menu">{{ year.year }}</button>
                 </mat-menu>
             </div>
         </div>
@@ -25,13 +25,13 @@
                 </button>
                 <mat-menu #menu>
                     <button
-                        mat-menu-item="mat-menu-item" (click)="OpenDialog('file_upload')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
+                        mat-menu-item="mat-menu-item" (click)="openDialog('file_upload')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
                         <!-- <mat-icon>upload_file</mat-icon> -->
                         <span>Upload File</span>
                     </button>
                     <!-- upload_file -->
                     <button
-                        mat-menu-item="mat-menu-item" class="payee_button_menu" (click)="OpenDialog('manual')">
+                        mat-menu-item="mat-menu-item" class="payee_button_menu" (click)="openDialog('manual')">
                         <!-- <mat-icon>save_as</mat-icon> -->
                         <span>Manual Input</span>
                     </button>
@@ -64,24 +64,30 @@
                                         <th>S/N</th>
                                         <th>TIN</th>
                                         <th>Name of Employee</th>
-                                        <th>Gross Annual Pay</th>
+                                        <th>Gross Annual Income</th>
                                         <th>Annual tax Liability</th>
                                         <th>Monthly tax Liabilities</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <!-- individual -->
                                 <tbody *ngIf="datas?.length != 0">
                                     <tr *ngFor="let data of datas; let i=index" (click)="goToEdit()">
                                         <td class="align-middle">{{i+1}}</td>
-                                        <td class="align-middle">{{ data.tin }}</td>
-                                        <td class="align-middle">{{ data.organisation_name }}</td>
-                                        <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                                        <td class="align-middle">{{ data.phone }}</td>
-                                        <td class="align-middle">{{ data.email }}</td>
+                                        <td class="align-middle">{{ data.employeeTin }}</td>
+                                        <td class="align-middle">{{ data.employee }}</td>
+                                        <td class="align-middle">{{ formatMoney(data.gross_income) }}</td>
+                                        <td class="align-middle">{{ formatMoney(data.compute_annualtax) }}</td>
+                                        <td class="align-middle">{{ formatMoney(data.compute_montax) }}</td>
+                                        <td class="align-middle">
+                                            <div class="table-status-red" *ngIf="!data.status">Inactive</div>
+                                            <div class="table-status-green" *ngIf="data.status">Active</div>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="datas?.length == 0">
                                     <tr>
+                                        <td class="no-data-available">No data!</td>
                                         <td class="no-data-available">No data!</td>
                                         <td class="no-data-available">No data!</td>
                                         <td class="no-data-available">No data!</td>
@@ -98,7 +104,7 @@
                                     <div class="bubble"></div>
                                 </div>
 
-                                <button mat-raised-button="mat-raised-button" class="reload" (click)="Reload()">
+                                <button mat-raised-button="mat-raised-button" class="reload" (click)="reload(selectedYear)">
                                     <span *ngIf="!is_reload">RELOAD</span>
                                     <div *ngIf="is_reload" class="loader">
                                         <div class="bubble"></div>
@@ -109,6 +115,26 @@
                                 </button>
                             </table>
                         </div>
+
+                        <div *ngIf="!is_reload && datas?.length == 0">
+                            <div class="upload-payee-container">
+                                <div class="no-employee">No employee is setup for PAYE on for this Organisation</div>
+
+                                <div class="setup-employee-container_p">
+                                    <div class="setup-employee-container">
+                                        <img src="assets/images/Group814.svg" class="header-img" alt="">
+                                        <span>Setup Employee
+                                            <i class="fa fa-chevron-down"></i>
+                                        </span>
+                                    </div>
+                                    <div class="upload-file_text" (click)="openDialog('file_upload')">upload file</div>
+                                    <div class="manual-input_text" (click)="openDialog('manual')">manual input</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

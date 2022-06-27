@@ -27,6 +27,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
+  datas2: any[] = [];
   searchData: any;
   searchData2: any;
   dtTrigger: Subject<any> = new Subject<any>();
@@ -120,7 +121,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       this.isLoading = true;
       this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
         (data: any) => {
-          this.datas = data.results;
+          this.datas2 = data.results;
           this.searchData2 = data.results;
           this.dtTrigger.next;
           this.isLoading = false;

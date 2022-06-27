@@ -270,8 +270,8 @@
   justify-content: left;
   align-items: center;
   border: 1px solid #707070;
-  padding: 2rem;
-  margin-top: 3rem;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .browse1 {
@@ -287,7 +287,6 @@
   text-transform: uppercase;
   color: #3c66a3;
   opacity: 1;
-  margin-left: 10px;
 }
 
 .supported {
@@ -331,6 +330,18 @@
   font: normal normal normal 14px/16px Montserrat;
   letter-spacing: 0px;
   color: #ffffff;
+  font-weight: 500;
+}
+
+.error-response {
+  color: #E9322C;
+  padding: .6rem;
+  border: 1px solid #E9322C;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font: normal normal normal 15px/19px Montserrat;
+  letter-spacing: 0px;
   font-weight: 500;
 }
 
@@ -435,4 +446,50 @@
   .mat-radio-outer-circle {
   border-color: #3c66a3; /*outer ring color change*/
   background: #3c66a3;
+}
+
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 0 0.5em 0;
+}
+
+.bubble {
+  animation: expand 0.75s ease-in-out infinite;
+  border-radius: 20px;
+  display: inline-block;
+  transform-origin: center center;
+  margin: 0 3px;
+  width: 7px;
+  height: 7px;
+}
+
+.bubble:nth-child(1) {
+  background: #ffffff;
+}
+
+.bubble:nth-child(2) {
+  animation-delay: 180ms;
+  background: #ffffff;
+}
+
+.bubble:nth-child(3) {
+  animation-delay: 360ms;
+  background: #ffffff;
+}
+
+.bubble:nth-child(4) {
+  animation-delay: 540ms;
+  background: #ffffff;
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.55);
+  }
 }

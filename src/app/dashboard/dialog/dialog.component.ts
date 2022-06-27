@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -9,23 +15,12 @@ import { Router } from '@angular/router';
 // state management
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  AppState,
-  selectAllComPayer,
-  selectAllIndPayer,
-  selectAllYear,
-} from 'src/app/reducers/index';
+import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import {
-  AddComPayer,
-  AddIndPayer,
-  AddYear,
-  RemoveComPayer,
-  RemoveIndPayer,
-} from '../../actions/irm.action';
-import { ComPayer, IndPayer, Year } from '../models/irm';
+import { AddYear } from '../../actions/irm.action';
+import { Year } from '../models/irm';
 import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
 import { PayeeServiceService } from '../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
@@ -37,19 +32,21 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent implements OnInit {
+  @ViewChild('manual') manualDirective: any;
+  manualError = '';
+
   isdelete = false;
   year: any;
   choosen_year: number | undefined;
   isExtract = false;
   selected_year: any;
   payee_data: any;
-
-  stateIndPayer: Observable<IndPayer[]>;
-  stateComPayer: Observable<ComPayer[]>;
   stateYear: Observable<Year[]>;
+  confirmUploadErr = '';
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
+    public dialogRefPayee: MatDialogRef<PayeeDialogComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
@@ -58,18 +55,16 @@ export class DialogComponent implements OnInit {
     private router: Router,
     public shared: ToggleNavService,
     private authService: AuthService,
-    private payeeService: PayeeServiceService,
+    private payeeService: PayeeServiceService
   ) {
     this.authService.checkExpired();
     if (this.data.type == 'extract') {
       dialogRef.disableClose = true;
-      this.payee_data = this.data.data.data;
-    } 
+      this.payee_data = this.data.data.data.data;
+    }
     // else if (this.data.type == 'ind' || this.data.type == 'com') {
     //   dialogRef.disableClose = true;
     // }
-    this.stateIndPayer = store.select(selectAllIndPayer);
-    this.stateComPayer = store.select(selectAllComPayer);
     this.stateYear = store.select(selectAllYear);
     this.addYear();
   }
@@ -105,31 +100,67 @@ export class DialogComponent implements OnInit {
     ]);
   }
 
-  StaffIncome3(is_file: string) {
-    this.shared.PayeesendClickEvent('');
-    this.shared.PayeesenddataEvent('');
-    if (this.choosen_year == undefined) {
-      this.snackBar.open('Choose Year', '', {
-        duration: 4000,
-        panelClass: 'error',
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
-    } else {
-      const data = {
-        type: 'staff-income',
-        is_file: is_file,
-        year: this.choosen_year,
-      };
-      this.shared.PayeesendClickEvent(data);
-      this.shared.PayeesenddataEvent(data);
-      this.shared.sendPayeeHeaderButtonClickEvent(true);
-      this.shared.PayeesendClickEvent2();
-      this.router.navigate([
-        '/dashboard/dashboard4/taxpayer/payee/access/staff-input',
-      ]);
-      this.dialogRef.close();
-    }
+  // manual input chaeck tax id http function
+  staffIncome3() {
+    this.isExtract = true;
+    this.httpService
+      .getAuthSingle(BaseUrl.get_payer_tin + this.manualDirective.value.manual)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.isExtract = false;
+          this.snackBar.dismiss();
+          if (data.data?.organisation_name) {
+            this.manualError = 'Invalid Tax ID';
+            this.snackBar.open('Invalid Tax ID', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          } else {
+            const pastData = {
+              type: 'post',
+              data: data.data
+            }
+            this.payeeService.setManualMessage(pastData);
+            this.dialogRef.close();
+            this.snackBar.open('Valid', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            this.router.navigate([
+              'dashboard/dashboard3/taxpayer/payee/manual/add',
+            ]);
+          }
+        },
+        (err) => {
+          this.isExtract = false;
+          console.log(err);
+          this.manualError =
+            err?.error?.message ||
+            err?.error?.msg ||
+            err?.error?.detail ||
+            err?.error?.status ||
+            'An Error Occured!';
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
   formatMoney(n: any) {
@@ -174,7 +205,7 @@ export class DialogComponent implements OnInit {
   }
 
   //  delete tax payer
-  DeletePayee() {
+  deletePayee() {
     this.isdelete = true;
     // this.httpService.DeletePayer(this.data.data.payer.id).subscribe(
     //   (data: any) => {
@@ -204,7 +235,7 @@ export class DialogComponent implements OnInit {
     // );
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialogRef.close();
     this.dialog.open(DialogComponent, {
@@ -216,10 +247,10 @@ export class DialogComponent implements OnInit {
   }
 
   payeeDialog(type: string) {
-    if(this.selected_year) {
+    if (this.selected_year) {
       const data2 = {
         year: this.choosen_year,
-      }
+      };
       this.snackBar.dismiss();
       this.dialogRef.close();
       this.dialog.open(PayeeDialogComponent, {
@@ -257,8 +288,8 @@ export class DialogComponent implements OnInit {
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
-              this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
-              this.year = data.results;
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+            this.year = data.results;
           },
           (err) => {}
         );
@@ -267,26 +298,23 @@ export class DialogComponent implements OnInit {
   }
 
   extract_continue() {
-    this.selected_year = this.shared.PayeegetdataEvent();
     this.isExtract = true;
     const data = { data: this.payee_data };
-    console.log(this.payee_data);
     if (this.payee_data.length !== 0) {
       this.httpService
-        .postData(BaseUrl.list_year, data)
-        // this.data.data2.payer.tin,
-        // this.data.data3.id || this.data.data3[0]
+        .postData(
+          BaseUrl.confirm_upload +
+            `comp_tin=${this.data.data.data2.tin}&yearId=${this.data.data.year.id}&is_consolidated=${this.data.data.is_con2}`,
+          data
+        )
         .subscribe(
           (data: any) => {
             this.isExtract = false;
-            this.shared.setMessage3(data.data);
-            const dataa = {
-              type: 'staff-income',
-            };
-            this.shared.PayeesendClickEvent(dataa);
-            this.shared.PayeesendClickEvent2();
-            this.dialogRef.close();
             this.snackBar.dismiss();
+            this.dialogRef.close({
+              reload: true,
+              year: this.data.data.year.id,
+            });
             this.snackBar.open('Success', '', {
               duration: 3000,
               panelClass: 'success',
@@ -297,38 +325,31 @@ export class DialogComponent implements OnInit {
           (err) => {
             this.isExtract = false;
             console.log(err);
-            if (err.status === 500) {
-              this.snackBar.open('An error occur. Please try Again', '', {
+            this.confirmUploadErr =
+              err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!';
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
                 duration: 5000,
                 panelClass: 'error',
                 horizontalPosition: 'center',
                 verticalPosition: 'top',
-              });
-            } else if (err.status === 0) {
-              this.snackBar.open('Error', '', {
-                duration: 5000,
-                panelClass: 'error',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              });
-            } else {
-              this.snackBar.open(
-                err.error?.status ||
-                  err.error?.detail ||
-                  'Error Uploading File',
-                '',
-                {
-                  duration: 5000,
-                  panelClass: 'error',
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
-                }
-              );
-            }
+              }
+            );
           }
         );
     } else {
       this.isExtract = false;
+      this.confirmUploadErr = 'Cannot Add Empty Employee';
       this.snackBar.open('Cannot Add Empty Employee', '', {
         duration: 5000,
         panelClass: 'error',
@@ -336,20 +357,6 @@ export class DialogComponent implements OnInit {
         verticalPosition: 'top',
       });
     }
-  }
-
-  closeDialog() {
-    this.shared.setMessage3(undefined);
-    const dataa = {
-      type: 'staff-income',
-    };
-    this.shared.PayeesendClickEvent(dataa);
-    this.shared.PayeesendClickEvent2();
-    this.dialogRef.close();
-  }
-
-  DeteleAddedPayee(index: number) {
-    this.payee_data.splice(index, 1);
   }
 
   chooseYear(data: any) {
@@ -361,5 +368,4 @@ export class DialogComponent implements OnInit {
     this.payeeService.setMessage(this.data.data);
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee']);
   }
-
 }

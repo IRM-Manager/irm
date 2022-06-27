@@ -8,7 +8,7 @@
                 <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'ind')">Edit
                     Details</button>
                 <button mat-button class="payee_edit_text">View Transaction</button>
-                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
+                <button mat-button class="payee_delete_text" (click)="openDialog(data.data, 'delete-payer')">Delete Tax
                     Payer</button>
             </div>
             <!-- <div style="clear: both;"></div> -->
@@ -119,7 +119,7 @@
                 <button mat-button class="payee_edit_text" (click)="EditPayerDetails(data.data, 'com')">Edit
                     Details</button>
                 <button mat-button class="payee_edit_text">View Transaction</button>
-                <button mat-button class="payee_delete_text" (click)="OpenDialog(data.data, 'delete-payer')">Delete Tax
+                <button mat-button class="payee_delete_text" (click)="openDialog(data.data, 'delete-payer')">Delete Tax
                     Payer</button>
             </div>
             <div class="payee_edit_panel" *ngIf="data.type2 =='payee'">
@@ -460,7 +460,7 @@
         <div mat-dialog-actions>
             <div class="align-delete-payer">
                 <button mat-button mat-dialog-close class="cancel-payer-button">Cancel</button>
-                <button mat-button class="delete-payer-button" (click)="DeletePayee()">
+                <button mat-button class="delete-payer-button" (click)="deletePayee()">
                     <span *ngIf="!isdelete" class="add_text">Delete</span>
                     <div *ngIf="isdelete" class="loader_delete">
                         <div class="bubble_delete"></div>
@@ -517,15 +517,14 @@
 
 
     <!-- payee file manual Input -->
-    <div *ngIf="data.type =='manual_input'">
+    <div *ngIf="data.type =='manual'">
 
         <div class="payee-sidenav2">
 
             <div class="header">
                 <div>
                     <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                    <div class="right2">Tax ID: {{data.data.payer.tin}}</div>
-                    <div class="right2">Reg No: {{data.data.payer.id}}</div>
+                    <div class="right2">Tax ID: {{data.data.tin}}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
@@ -534,19 +533,29 @@
                     </button>
                 </div>
             </div>
-            <mat-dialog-content class="mat-typography ind_com payee_com">
-                <div class="center_payee_com">
-                    <div class="tax_return_year">Choose Tax Return year</div>
-                    <form>
+            <mat-dialog-content class="mat-typography ind_com payee_com3">
+                <div class="center_payee_com2">
+                    <div class="employee_filling">Manual Employee filing</div>
+                    <div class="employee_filling2">Kindly verify the employee Tin before you proceed</div>                    
+                    <form #manual="ngForm">
                         <mat-form-field class="half-width" appearance="outline">
-                            <mat-label>Year</mat-label>
-                            <mat-select>
-                                <mat-option *ngFor="let y of year" value="y" (click)="chooseYear(y)">{{y.year}}
-                                </mat-option>
-                            </mat-select>
+                            <mat-label>Tax ID</mat-label>
+                            <input matInput name="manual" ngModel>
                         </mat-form-field>
+
+                        <div>
+                            <button mat-button class="continue" (click)="staffIncome3()">
+                                <span *ngIf="!isExtract">Verify</span>
+                                <div *ngIf="isExtract" class="loader_delete">
+                                    <div class="bubble_delete"></div>
+                                    <div class="bubble_delete"></div>
+                                    <div class="bubble_delete"></div>
+                                    <div class="bubble_delete"></div>
+                                </div>
+                            </button>
+                        </div>
                     </form>
-                    <button mat-button class="continue" (click)="StaffIncome3('input')">Continue</button>
+                    <div *ngIf="manualError"  class="payee-error-response">{{ manualError }}</div>
                 </div>
             </mat-dialog-content>
             <mat-dialog-actions>
@@ -565,62 +574,128 @@
 
             <div class="header">
                 <div>
-                    <div class="leftt1 left1">{{data.data2.organisation_name}}</div>
-                    <div class="right2">Tax ID: {{data.data2.payer.tin}}</div>
-                    <div class="right2">Reg No: {{data.data2.payer.id}}</div>
+                    <div class="leftt1 left1">{{data.data.data2.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.data2.tin}}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
-                    <button mat-icon-button (click)="closeDialog()">
+                    <button mat-icon-button mat-dialog-close>
                         <mat-icon>close</mat-icon>
                     </button>
                 </div>
             </div>
-            <mat-dialog-content class="mat-typography ind_com">
+
+            <mat-dialog-content class="mat-typography ind_com extract-payee-container">
+
+                <div class="payee-{{data.data.error}}-response">{{ data.data.data.status }}</div>
+
                 <div class="payee_lists">
                     List of added Employee(s) <span style="margin-left: 10px;">(Preview)</span>
                 </div>
-                <table class="payee_lists_table table table-borderless table-striped">
+
+                <!-- consolidated success -->
+                <table *ngIf="data.data.error == 'error' && (data.data.is_con || !data.data.is_con) " class="payee_lists_table table table-borderless table-striped">
                     <thead>
                         <tr>
                             <th class="title align-middle">S/N</th>
                             <th class="title align-middle">TIN</th>
-                            <!-- <th class="title align-middle">Name of Employee</th> -->
-                            <th class="title align-middle">Basic</th>
-                            <th class="title align-middle">Housing</th>
-                            <th class="title align-middle">Transaportation</th>
-                            <th class="title align-middle">Other allowances</th>
-                            <th class="title align-middle">Position</th>
-                            <th></th>
-                            <!-- <th class="title align-middle">Review</th> -->
+                            <th class="title align-middle">Name of Employee</th>
+                            <th class="title align-middle">Consolidated gross</th>
+                            <th class="title align-middle">HMO</th>
+                            <th class="title align-middle">Other deduction</th>
+                            <th class="title align-middle">NHF</th>
+                            <th class="title align-middle">PENCOM</th>
+                            <th class="title align-middle">Employee Position</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of payee_data; let i=index">
                             <td class="align-middle">{{i+1}}</td>
                             <td class="align-middle">{{data.employeeTin}}</td>
-                            <!-- <td class="align-middle">Oshodu Isaac Aloa</td> -->
-                            <td class="align-middle">{{formatMoney(data.basic)}}</td>
-                            <td class="align-middle">{{formatMoney(data.housing)}}</td>
-                            <td class="align-middle">{{formatMoney(data.tp)}}</td>
-                            <td class="align-middle">{{formatMoney(data.nhis)}}</td>
-                            <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data.employee_position}}
-                            </td>
-                            <td class="align-middle">
-                                <button mat-icon-button (click)="DeteleAddedPayee(i)">
-                                    <mat-icon class="table-icon-delete">delete_forever</mat-icon>
-                                </button>
-                            </td>
-                            <!-- <td class="align-middle">
-                            <span class="extract_data_success">Registered</span>
-                        </td> -->
+                            <td class="align-middle">{{data?.name}}</td>
+                            <td class="align-middle">{{formatMoney(data?.gross || 0)}}</td>
+                            <td class="align-middle">{{formatMoney(data.hmo)}}</td>
+                            <td class="align-middle">{{formatMoney(data.other_deductions)}}</td>
+                            <td class="align-middle">{{data.nhf}}</td>
+                            <td class="align-middle">{{data.pension}}</td>
+                            <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data?.employee_position}}</td>
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- consolidated success -->
+                <table *ngIf="data.data.is_con && data.data.error == 'success'" class="payee_lists_table table table-borderless table-striped">
+                    <thead>
+                        <tr>
+                            <th class="title align-middle">S/N</th>
+                            <th class="title align-middle">TIN</th>
+                            <th class="title align-middle">Name of Employee</th>
+                            <th class="title align-middle">Consolidated gross</th>
+                            <th class="title align-middle">HMO</th>
+                            <th class="title align-middle">Other deductions</th>
+                            <th class="title align-middle">NHF</th>
+                            <th class="title align-middle">PENCOM</th>
+                            <th class="title align-middle">Employee Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of payee_data; let i=index">
+                            <td class="align-middle">{{i+1}}</td>
+                            <td class="align-middle">{{data.employeeTin}}</td>
+                            <td class="align-middle">{{data?.name}}</td>
+                            <td class="align-middle">{{formatMoney(data?.gross || 0)}}</td>
+                            <td class="align-middle">{{formatMoney(data.hmo)}}</td>
+                            <td class="align-middle">{{formatMoney(data.other_deductions)}}</td>
+                            <td class="align-middle">{{data.nhf}}</td>
+                            <td class="align-middle">{{data.pension}}</td>
+                            <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data?.employee_position}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Non consolidated success -->
+
+                <table *ngIf="data.data.error == 'success' && !data.data.is_con" class="payee_lists_table table table-borderless table-striped">
+                    <thead>
+                        <tr>
+                            <th class="title align-middle">S/N</th>
+                            <th class="title align-middle">TIN</th>
+                            <th class="title align-middle">Name of Employee</th>
+                            <th class="title align-middle">Basic</th>
+                            <th class="title align-middle">Housing</th>
+                            <th class="title align-middle">Transportation</th>
+                            <th class="title align-middle">HMO</th>
+                            <th class="title align-middle">NHF</th>
+                            <th class="title align-middle">PENCOM</th>
+                            <th class="title align-middle">Other deductions</th>
+                            <th class="title align-middle">Employee Position</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of payee_data; let i=index">
+                            <td class="align-middle">{{i+1}}</td>
+                            <td class="align-middle">{{data.employeeTin}}</td>
+                            <td class="align-middle">{{data?.name}}</td>
+                            <td class="align-middle">{{formatMoney(data.basic)}}</td>
+                            <td class="align-middle">{{formatMoney(data.housing)}}</td>
+                            <td class="align-middle">{{formatMoney(data.tp)}}</td>
+                            <td class="align-middle">{{formatMoney(data?.other || 0)}}</td>
+                            <td class="align-middle">{{formatMoney(data.hmo)}}</td>
+                            <td class="align-middle">{{data.nhf}}</td>
+                            <td class="align-middle">{{data.pension}}</td>
+                            <td class="align-middle">{{formatMoney(data.other_deductions)}}</td>
+                            <td class="align-middle" style="color: rgba(60,102,163,0.7);">{{data?.employee_position}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="confirmUploadErr"  class="payee-error-response">{{ confirmUploadErr }}</div>
+
             </mat-dialog-content>
             <mat-dialog-actions align="end">
-                <div class="extract_note">Note: Only {{data.data.data.length}} employee will be added</div>
-                <button mat-button class="extract_continue" (click)="extract_continue()">
+                <div *ngIf="data.data.error == 'success'" class="extract_note">Note: Only {{payee_data.length}} employee will be added</div>
+                <button *ngIf="data.data.error == 'success'" mat-button class="extract_continue" (click)="extract_continue()">
                     <span *ngIf="!isExtract">Save and continue</span>
                     <div *ngIf="isExtract" class="loader_delete">
                         <div class="bubble_delete"></div>

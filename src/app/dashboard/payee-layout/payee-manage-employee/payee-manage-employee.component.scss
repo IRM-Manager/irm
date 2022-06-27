@@ -108,13 +108,13 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   .payee_button {
     font: normal normal normal 12px/15px Montserrat;
     letter-spacing: 0px;
-    color: #38729B;
+    color: #38729b;
     opacity: 1;
     font-weight: 500;
     background: $white;
-    padding: .5rem;
+    padding: 0.5rem;
     border-radius: 10px;
-    border: 0.5px solid #5EA55A;
+    border: 0.5px solid #5ea55a;
   }
 
   .header-img {
@@ -335,12 +335,20 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     margin-top: 1.5rem;
   }
 
+  .table-status-green {
+    color: #3ea84e;
+  }
+
+  .table-status-red {
+    color: #bc333e;
+  }
+
   .reload {
     background: $wrapper-back;
     color: $ind-border;
     font: $tbody-back;
     margin-top: 1.5rem;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.5rem;
     margin-left: 10px;
     width: 5rem;
@@ -401,19 +409,23 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
-    color: $form-color !important;
-    background: $white !important;
-    border-radius: 3px;
-    transition: all 0.5s;
-    border: 1px solid $form-color;
-    margin: 5px;
+    display: none !important;
   }
 
-  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    color: $white !important;
-    background: $create-back !important;
-    border: 1px solid $form-color;
-    transition: all 0.5s;
+  ::ng-deep .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    display: none !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting::after {
+    display: none !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting::before {
+    display: none !important;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
@@ -446,5 +458,74 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   ::ng-deep .dataTables_wrapper .dataTables_length label {
     color: $tbody-color;
     font: $tbody-back;
+  }
+
+  .upload-payee-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .no-employee {
+    font: normal normal normal 15px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+    font-weight: 500;
+  }
+
+  .setup-employee-container_p {
+    margin-top: 1rem;
+    background: $white 0% 0% no-repeat padding-box;
+    border: 0.5px solid #5ea55a;
+    opacity: 1;
+    border-radius: 10px;
+  }
+
+  .setup-employee-container {
+    padding: 0.5rem;
+    background: $white 0% 0% no-repeat padding-box;
+    border-bottom: 0.5px solid #5ea55a;
+    opacity: 1;
+    width: 9rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .setup-employee-container span {
+    font: normal normal normal 13px/16px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #38729b;
+    opacity: 1;
+  }
+
+  .upload-file_text {
+    font: normal normal normal 13px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #5ea55a;
+    opacity: 1;
+    text-transform: capitalize;
+    padding: 1rem;
+    border-bottom: 1px solid #38729b;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .manual-input_text {
+    font: normal normal normal 13px/16px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    text-transform: capitalize;
+    cursor: pointer;
+    color: #5ea55a;
+    opacity: 1;
+    padding: 1rem;
+    text-align: center;
   }
 }

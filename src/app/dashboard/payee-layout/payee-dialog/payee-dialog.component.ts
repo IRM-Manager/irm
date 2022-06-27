@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers/index';
 import { PayeeServiceService } from '../service/payee-service.service';
+import { BaseUrl } from 'src/environments/environment';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 @Component({
   selector: 'app-payee-dialog',
@@ -26,6 +28,9 @@ export class PayeeDialogComponent implements OnInit {
   manualForm!: FormGroup;
   formData = new FormData();
   fileName = '';
+  err = '';
+  uploadLoading = false;
+  datas: any;
 
   constructor(
     public dialogRef: MatDialogRef<PayeeDialogComponent>,
@@ -41,11 +46,11 @@ export class PayeeDialogComponent implements OnInit {
   ) {
     this.createUploadForm();
     this.createManualForm2();
-    if (this.data.type == 'upload_file' || this.data.type == 'manual') {
-      dialogRef.disableClose = true;
-      console.log(this.uploadForm.value);
-    }
-
+    this.datas = this.payeeService.getMessage();
+    // if (this.data.type == 'upload_file' || this.data.type == 'manual') {
+    //   dialogRef.disableClose = true;
+    //   console.log(this.uploadForm.value);
+    // }
     this.authService.checkExpired();
   }
 
@@ -72,15 +77,77 @@ export class PayeeDialogComponent implements OnInit {
   }
 
   continue() {
+    this.uploadLoading = true;
+    this.dialogRef.disableClose = true;
     if (!this.fileName) {
+      this.err = 'No CSV file selected!';
       this.snackBar.open('No CSV file selected!', '', {
         duration: 5000,
         panelClass: 'error',
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
+      this.uploadLoading = false;
     } else {
-      console.log(this.data.data);
+      this.httpService
+        .postData(
+          BaseUrl.upload_payee +
+            `comp_tin=${this.datas.tin}&yearId=${this.data.data.year.id}&is_consolidated=${this.uploadForm.value.con == 'true' ? 'yes' : 'no'}`,
+          this.formData
+        )
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            this.uploadLoading = false;
+            this.dialogRef.disableClose = false;
+            this.err = '';
+            const datas = {
+              data: data,
+              error: 'success',
+              data2: this.datas,
+              is_con: this.uploadForm.value.con == 'true' ? true : false,
+              is_con2: this.uploadForm.value.con == 'true' ? 'yes' : 'no',
+              year: this.data.data.year
+            }
+            this.openDialog(datas, 'extract');
+          },
+          (err) => {
+            console.log(err);
+            this.uploadLoading = false; 
+            this.dialogRef.disableClose = false;
+            if(err.status === 403) {
+              const data = {
+                data: err.error,
+                error: 'error',
+                data2: this.datas,
+                is_con: this.uploadForm.value.con == 'true' ? true : false
+              }
+              this.openDialog(data, 'extract');
+            }else {
+              this.err =
+              err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!';
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+            }
+            this.authService.checkExpired();
+          }
+        );
     }
   }
 
@@ -114,6 +181,17 @@ export class PayeeDialogComponent implements OnInit {
       type == 'con' ? 'Consolidated' : 'NonConsolidated',
       type
     );
+  }
+
+  openDialog(data: any, type: string) {
+    this.dialogRef.close();
+    this.snackBar.dismiss();
+    this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
   }
 
   ngOnInit(): void {

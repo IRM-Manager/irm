@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
+import { Year } from '../../models/irm';
+import { AddYear } from '../../../actions/irm.action';
+// 
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddYear } from '../../../actions/irm.action';
 import { DialogComponent } from '../../dialog/dialog.component';
-import { Year } from '../../models/irm';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { PayeeServiceService } from '../service/payee-service.service';
 
@@ -36,8 +37,9 @@ export class PayeeManageEmployeeComponent implements OnInit {
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
   years: any;
-  selectedYear: any;
+  selectedYear!: number;
   stateYear: Observable<Year[]>;
+  htmlYear = new Date().getFullYear();
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
@@ -49,7 +51,6 @@ export class PayeeManageEmployeeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
@@ -69,6 +70,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
       ]);
     }
     //
+    this.listYear();
   }
 
   formatDate(data: any) {
@@ -85,46 +87,68 @@ export class PayeeManageEmployeeComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.employeeTin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.employee.toLowerCase().startsWith(search.toLowerCase())
       );
     });
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(id?: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
     };
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.id == id;
+    });
+    this.htmlYear = getHtmlYear[0]?.year || new Date().getFullYear();
     this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.isLoading = false;
-      },
-      (err) => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_registered_employees +
+          `comp_tin=${this.datas2.tin}&yearId=${id}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.isLoading = false;
+          console.log(data);
+        },
+        (err) => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
-  Reload() {
+  reload(id?: any) {
     this.is_reload = true;
-    this.renderTable();
+    const filterYear = this.years?.filter((name: any) => {
+      return name.year == new Date().getFullYear();
+    });
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.id == id;
+    });
+    this.htmlYear =
+      getHtmlYear[0]?.year || filterYear[0]?.year || new Date().getFullYear();
+    this.renderTable(id || filterYear[0].id);
     this.is_reload = false;
   }
 
-  OpenDialog(type: string) {
+  openDialog(type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
+    let dialogRef = this.dialog.open(DialogComponent, {
       data: {
         type: type,
         data: this.datas2,
       },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.reload) {
+        this.reload(result.year);
+      }
     });
   }
 
@@ -143,7 +167,6 @@ export class PayeeManageEmployeeComponent implements OnInit {
             this.years = data.results;
           },
           (err) => {
-            this.isLoading = false;
             this.authService.checkExpired();
           }
         );
@@ -156,10 +179,16 @@ export class PayeeManageEmployeeComponent implements OnInit {
     return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
+  chooseYear(year: any) {
+    this.reload(year.id);
+  }
+
   ngOnInit(): void {
     this.authService.checkExpired();
-    this.renderTable();
-    this.listYear();
+    const filterYear = this.years?.filter((name: any) => {
+      return name.year == new Date().getFullYear();
+    });
+    this.renderTable(filterYear[0].id);
   }
 
   ngOnDestroy(): void {

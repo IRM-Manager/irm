@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class PayeeServiceService {
   regMessage: string | undefined;
+  manualMessage: string | undefined;
   private subject = new Subject<any>();
   constructor() {}
 
@@ -25,10 +26,20 @@ export class PayeeServiceService {
     return this.subject.asObservable();
   }
 
+  // manual input data
+  setManualMessage(data: any) {
+    this.manualMessage = data;
+  }
+
+  getManualMessage() {
+    return this.manualMessage;
+  }
+  //
+
   // download sample csv format
 
   downloadFile(data: any, filename = 'data', type: string) {
-    let csvData = ''
+    let csvData = '';
     if (type == 'con') {
       csvData = this.ConvertToCSV(data, [
         'pension',
@@ -38,7 +49,7 @@ export class PayeeServiceService {
         'gross',
         'employee_position',
       ]);
-    }else {
+    } else {
       csvData = this.ConvertToCSV(data, [
         'pension',
         'nhf',
