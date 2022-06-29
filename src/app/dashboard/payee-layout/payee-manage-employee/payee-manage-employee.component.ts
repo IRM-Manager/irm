@@ -190,24 +190,26 @@ export class PayeeManageEmployeeComponent implements OnInit {
     });
     // after dialog close
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
       if (result?.id) {
         // update search data
+
         let indexx: any;
         this.searchData.filter((dat: any, index: any) => {
           if (dat.id == result.id) {
-            indexx = index;
+            return indexx = index;
           }
         });
-        this.searchData.splice(indexx, 1);
+        const new_search = this.searchData.splice(indexx, 1);
+
         // update table data
         let index2: any;
         this.datas.filter((dat: any, index: any) => {
           if (dat.id == result.id) {
-            index2 = index;
+            return index2 = index;
           }
         });
-        this.datas.splice(index2, 1);
-        this.dtTrigger.next;
+        const new_data = this.datas.splice(index2, 1);
       }
     });
   }

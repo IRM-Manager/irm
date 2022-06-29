@@ -27,13 +27,13 @@ export class PayeeManualInputComponent implements OnInit {
   form2!: FormGroup;
   form3!: FormGroup;
 
-  consolidate: string = '0';
-  hmo: string = '0';
-  other: string = '0';
+  consolidate: any = 0;
+  hmo: any = 0;
+  other: any = 0;
 
-  basic: string = '0';
-  housing: string = '0';
-  tp: string = '0';
+  basic: any = 0;
+  housing: any = 0;
+  tp: any = 0;
 
   @ViewChild('fform') feedbackFormDirective: any;
 

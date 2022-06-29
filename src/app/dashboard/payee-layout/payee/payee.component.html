@@ -10,7 +10,7 @@
                 <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
                     <span class="change">Change Year</span>
                 </button>
-                <mat-menu #menu2>
+                <mat-menu #menu2 class="choose-year-menu">
                     <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" style="color: #5EA55A;" class="mat-menu">{{ year.year }}</button>
                 </mat-menu>
             </div>

@@ -116,7 +116,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
 
     if (this.active == 'com') {
@@ -188,29 +188,30 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
           let indexx: any;
           this.searchData2.filter((dat: any, index: any) => {
             if (dat.id == result.id) {
-              indexx = index;
+              return indexx = index;
             }
           });
-          this.searchData2.splice(indexx, 1);
-        } if (result.type == 'ind') {
+          const new_con_search = this.searchData2.splice(indexx, 1);
+        }
+        if (result.type == 'ind') {
           // update individual search data
           let indexx2: any;
           this.searchData.filter((dat: any, index: any) => {
             if (dat.id == result.id) {
-              indexx2 = index;
+              return indexx2 = index;
             }
           });
-          this.searchData.splice(indexx2, 1);
-        }else {}
+          const new_ind_search = this.searchData.splice(indexx2, 1);
+        } else {
+        }
         // update table data
         let index2: any;
         this.datas.filter((dat: any, index: any) => {
           if (dat.id == result.id) {
-            index2 = index;
+            return index2 = index;
           }
         });
-        this.datas.splice(index2, 1);
-        this.dtTrigger.next;
+        const new_data = this.datas.splice(index2, 1);
       } else {
       }
     });
