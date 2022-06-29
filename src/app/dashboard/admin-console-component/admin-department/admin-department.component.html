@@ -44,8 +44,8 @@
                                     <td class="align-middle">{{ data.code }}</td>
                                     <td class="align-middle">{{ data.usercount }}</td>
                                     <td class="align-middle">
-                                        <button mat-button class="view" *ngIf="getLoding != data.id" (click)="getAssignUsers(data, data.id)">View</button>
-                                        <div *ngIf="getLoding == data.id" class="loader-spin"></div>
+                                        <span class="view" *ngIf="getLoding != data.id" (click)="getAssignUsers(data, data.id)">View</span>
+                                        <span *ngIf="getLoding == data.id" class="fa fa-cog fa-lg loader-spin" aria-hidden="true"></span>
                                     </td>
                                     <td class="align-middle">
                                         <button mat-button [matMenuTriggerFor]="menu">
