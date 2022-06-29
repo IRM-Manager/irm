@@ -79,10 +79,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.assessment_month.toLowerCase().startsWith(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -92,6 +89,8 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
+      lengthChange: false,
+      info : false
     };
     const get_year = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;

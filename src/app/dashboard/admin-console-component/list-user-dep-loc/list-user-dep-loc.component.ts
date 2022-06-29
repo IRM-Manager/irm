@@ -81,6 +81,8 @@ export class ListUserDepLocComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
+      lengthChange: false,
+      info : false
     };
     this.isLoading = true;
     if (this.datas2?.data) {

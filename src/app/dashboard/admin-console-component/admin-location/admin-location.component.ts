@@ -77,6 +77,8 @@ export class AdminLocationComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
+      lengthChange: false,
+      info : false
     };
     this.isLoading = true;
     this.stateLocation?.forEach((e) => {

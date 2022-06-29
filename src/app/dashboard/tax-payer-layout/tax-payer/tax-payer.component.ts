@@ -114,7 +114,9 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
+      lengthChange: false,
+      info : false
     };
 
     if (this.active == 'com') {

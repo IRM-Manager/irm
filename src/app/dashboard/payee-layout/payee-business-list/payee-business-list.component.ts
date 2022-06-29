@@ -75,9 +75,12 @@ export class PayeeBusinessListComponent implements OnInit {
   }
 
   renderTable() {
+    const that = this;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
+      lengthChange: false,
+      info : false
     };
     this.isLoading = true;
     this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(

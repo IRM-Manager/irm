@@ -80,6 +80,8 @@ export class AdminConsoleComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
+      lengthChange: false,
+      info : false
     };
     this.isLoading = true;
     this.httpService.getAuthSingle(BaseUrl.list_user + '1').subscribe(

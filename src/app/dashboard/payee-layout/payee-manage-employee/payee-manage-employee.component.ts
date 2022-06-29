@@ -100,6 +100,8 @@ export class PayeeManageEmployeeComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
+      lengthChange: false,
+      info : false
     };
     const getHtmlYear = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;

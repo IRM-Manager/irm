@@ -35,7 +35,7 @@ $red: #bc333e;
   background: $header-back;
   padding: 1em;
   margin-top: 1rem;
-  width: 90%;
+  width: 95%;
 
   @mixin theme($back, $color, $font, $border, $border-radius) {
     letter-spacing: 0px;
@@ -82,7 +82,7 @@ $red: #bc333e;
   background: $header-back2;
   padding: 1.5rem 1rem 1.5rem 1rem;
   margin-top: 1rem;
-  width: 90%;
+  width: 95%;
 
   .spacer {
     flex: 1 1 auto;
@@ -135,7 +135,7 @@ $red: #bc333e;
 .table-container {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 90%;
+  width: 95%;
 
   table {
     border: none;
@@ -178,7 +178,7 @@ $red: #bc333e;
     color: $ind-border;
     font: $tbody-back;
     margin-top: 1.5rem;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.5rem;
     margin-left: 10px;
     width: 5rem;
@@ -254,9 +254,17 @@ $red: #bc333e;
     background-image: unset !important;
   }
 
-  // ::ng-deep table.dataTable thead .sorting_asc {
-  //   background-image: unset !important;
-  // }
+  ::ng-deep table.dataTable thead .sorting_asc {
+    background-image: unset !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting::after {
+    display: none !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting::before {
+    display: none !important;
+  }
 
   ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
     background: $header-back;
