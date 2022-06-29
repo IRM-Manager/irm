@@ -484,11 +484,11 @@ export class Individual2Component implements OnDestroy, OnInit {
       if (field === undefined) {
       } else {
         const splitt = field.split('|||');
-        let coun = this.state.filter(
-          (name: any) => name.id == Number(splitt[0]) || name.name == splitt
+        let coun = this.state?.filter(
+          (name: any) => name?.id == Number(splitt[0]) || name?.name == splitt
         );
-        this.lga = coun[0];
-        this.AddLga(coun[0].id || coun[0]);
+        this.lga = coun[0] || '';
+        this.AddLga(coun[0]?.id || coun[0] || 0);
       }
     });
   }
@@ -499,9 +499,9 @@ export class Individual2Component implements OnDestroy, OnInit {
       .valueChanges.subscribe((field: string) => {
         if (field === undefined) {
         } else {
-          let coun = this.state2.filter((name: any) => name.id === field);
-          this.lga2 = coun[0];
-          this.AddLga2(coun[0].id);
+          let coun = this.state2?.filter((name: any) => name?.id === field);
+          this.lga2 = coun[0] || '';
+          this.AddLga2(coun[0]?.id);
         }
       });
   }

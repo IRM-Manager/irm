@@ -185,33 +185,27 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       if (result) {
         if (result.type == 'com') {
           // update company search data
-          let indexx: any;
           this.searchData2.filter((dat: any, index: any) => {
             if (dat.id == result.id) {
-              return indexx = index;
+              this.searchData2.splice(index, 1);
             }
           });
-          const new_con_search = this.searchData2.splice(indexx, 1);
         }
         if (result.type == 'ind') {
           // update individual search data
-          let indexx2: any;
           this.searchData.filter((dat: any, index: any) => {
             if (dat.id == result.id) {
-              return indexx2 = index;
+              this.searchData.splice(index, 1);
             }
           });
-          const new_ind_search = this.searchData.splice(indexx2, 1);
         } else {
         }
         // update table data
-        let index2: any;
         this.datas.filter((dat: any, index: any) => {
           if (dat.id == result.id) {
-            return index2 = index;
+            this.datas.splice(index, 1);
           }
         });
-        const new_data = this.datas.splice(index2, 1);
       } else {
       }
     });

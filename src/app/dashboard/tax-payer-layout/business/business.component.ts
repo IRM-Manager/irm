@@ -343,9 +343,9 @@ export class BusinessComponent implements OnDestroy, OnInit {
       .valueChanges.subscribe((field: string) => {
         if (field === undefined) {
         } else {
-          let coun = this.state2.filter((name: any) => name.id === field);
-          this.lga2 = coun[0];
-          this.AddLga2(coun[0].id);
+          let coun = this.state2?.filter((name: any) => name?.id === field);
+          this.lga2 = coun[0] || '';
+          this.AddLga2(coun[0]?.id);
         }
       });
   }
