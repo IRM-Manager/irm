@@ -98,6 +98,10 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 }
 
+::ng-deep .mat-menu-panel {
+  height: 15rem !important;
+}
+
 .form_header {
   background: $header-back;
   padding: 1em 1em 0 1em;
