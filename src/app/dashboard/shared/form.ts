@@ -123,7 +123,6 @@ export interface individual_create {
 export interface create_assessment {
   year: string;
   typee: string;
-  employee_no: number;
 }
 
 export interface add_user {

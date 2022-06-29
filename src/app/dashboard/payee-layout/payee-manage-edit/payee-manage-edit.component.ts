@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-manage-edit',
@@ -9,18 +15,41 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PayeeManageEditComponent implements OnInit {
   // floatLabelControl = new FormControl('true');
-  type: boolean = false;
   form!: FormGroup;
   form2!: FormGroup;
   form3!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  datas: any;
+  datas2: any;
+  isdelete = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private payeeService: PayeeServiceService,
+    private router: Router,
+    private httpService: HttpService,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+  ) {
     this.createForm();
+    //
+    this.datas2 = this.payeeService.getMessage();
+    if (this.datas2) {
+    } else {
+      this.router.navigate([
+        `/dashboard/dashboard3/taxpayer/payee/business-list`,
+      ]);
+    }
+    //
+    this.datas = this.payeeService.getManualMessage();
+    const changeData: any = this.payeeService.getManualMessage();
+    this.datas = changeData.data;
+    //
   }
 
   createForm() {
     this.form = this.fb.group({
-      floatLabelControl: [{ value: 'true', disabled: true }],
+      floatLabelControl: [{ value: 'yes', disabled: true }],
     });
     this.form2 = this.fb.group({
       floatLabelControl2: [{ value: 'true', disabled: true }],
@@ -35,18 +64,72 @@ export class PayeeManageEditComponent implements OnInit {
     return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
-  changeType(type: boolean) {
-    this.type = type;
-    if (type == true) {
-      this.form.get('floatLabelControl')?.enable();
-      this.form2.get('floatLabelControl2')?.enable();
-      this.form3.get('floatLabelControl3')?.enable();
-    } else {
-      this.form.get('floatLabelControl')?.disable();
-      this.form2.get('floatLabelControl2')?.disable();
-      this.form3.get('floatLabelControl3')?.disable();
-    }
+  changeType() {
+    const pastData = {
+      type: 'update',
+      data: this.datas,
+    };
+    this.payeeService.setManualMessage(pastData);
+    this.router.navigate(['dashboard/dashboard3/taxpayer/payee/manual/add']);
   }
 
-  ngOnInit(): void {}
+  //  delete tax payer
+  deletePayee() {
+    this.isdelete = true;
+    this.httpService
+      .deleteData(BaseUrl.delete_paye, this.datas.id + '/')
+      .subscribe(
+        (data: any) => {
+          this.isdelete = false;
+          this.snackBar.open('Employee successfully deleted', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.router.navigate([
+            `/dashboard/dashboard3/taxpayer/payee/manage`,
+          ]);
+        },
+        (err) => {
+          this.isdelete = false;
+          this.authService.checkExpired();
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
+  updateValue2() {
+    this.form.patchValue({
+      floatLabelControl: this.datas?.is_consolidated ? 'yes' : 'no',
+    });
+    this.form2.patchValue({
+      floatLabelControl2: this.datas?.compute_pension > 0 ? 'true' : 'false',
+    });
+    this.form3.patchValue({
+      floatLabelControl3: this.datas?.compute_nhf > 0 ? 'true' : 'false',
+    });
+  }
+
+  back(){
+    this.payeeService.setAsYearMessage({yearId: this.datas.taxYear});
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage'])
+  }
+
+  ngOnInit(): void {
+    this.updateValue2();
+  }
 }

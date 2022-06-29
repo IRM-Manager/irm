@@ -3,7 +3,7 @@
         Employee Basic details
     </div>
     <div class="header">
-        <p class="back" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/manage']">
+        <p class="back" (click)="back()">
             <mat-icon>keyboard_backspace</mat-icon> Back
         </p>
 
@@ -62,7 +62,10 @@
             <div class="left_right">
                 <div class="left">
                     <div class="title">Is consolidated?</div>
-                    <div class="title">Consolidated Gross</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl == 'true'">Consolidated Gross</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl == 'false'">Basic</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl == 'false'">Housing</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl == 'false'">Transportation</div>
                     <div class="title">Annual Gross Pay</div>
                     <div class="title">Taxable Income</div>
                     <div class="title">Annual Tax Liability</div>
@@ -72,15 +75,37 @@
                     <div class="sub-title">
                         <form [formGroup]="form">
                             <mat-radio-group formControlName="floatLabelControl">
-                                <mat-radio-button value="yes" class="radio_button">Yes</mat-radio-button>
-                                <mat-radio-button value="no">No</mat-radio-button>
+                                <mat-radio-button value="true" class="radio_button">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
                             </mat-radio-group>
                         </form>
                     </div>
-                    <div class="sub-title">
-                        <form #consolidate="ngForm">
+                    <!-- gross -->
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'true' ">
+                        <form>
                             <input name="consolidate"
-                                type="number" class="consolidate_input" ngModel>
+                                type="number" class="consolidate_input" [(ngModel)]="consolidate">
+                        </form>
+                    </div>
+                    <!-- basic -->
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'false' ">
+                        <form>
+                            <input name="basic"
+                                type="number" class="consolidate_input" [(ngModel)]="basic">
+                        </form>
+                    </div>
+                    <!-- housing -->
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'false' ">
+                        <form>
+                            <input name="housing"
+                                type="number" class="consolidate_input" [(ngModel)]="housing">
+                        </form>
+                    </div>
+                    <!-- tp -->
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'false' ">
+                        <form>
+                            <input name="tp"
+                                type="number" class="consolidate_input" [(ngModel)]="tp">
                         </form>
                     </div>
                     <div class="sub-title">{{formatMoney(acceptedData?.gross_income || 0)}} (NGN)</div>
@@ -122,15 +147,15 @@
                         </form>
                     </div>
                     <div class="sub-title">
-                        <form #hmo="ngForm">
+                        <form>
                             <input name="hmo"
-                                type="number" class="consolidate_input" ngModel>
+                                type="number" class="consolidate_input"  [(ngModel)]="hmo">
                         </form>
                     </div>
                     <div class="sub-title">
-                        <form #other="ngForm">
+                        <form>
                             <input name="other"
-                                type="number" class="consolidate_input" ngModel>
+                                type="number" class="consolidate_input" [(ngModel)]="other">
                         </form>
                     </div>
                     <div class="sub-title">{{formatMoney(acceptedData?.compute_cra || 0)}} (NGN)</div>

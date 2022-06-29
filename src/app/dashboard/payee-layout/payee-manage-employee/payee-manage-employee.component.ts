@@ -7,9 +7,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
-import { Year } from '../../models/irm';
 import { AddYear } from '../../../actions/irm.action';
-// 
+import { Year } from '../../models/irm';
+//
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -37,7 +37,6 @@ export class PayeeManageEmployeeComponent implements OnInit {
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
   years: any;
-  selectedYear!: number;
   stateYear: Observable<Year[]>;
   htmlYear = new Date().getFullYear();
 
@@ -70,6 +69,9 @@ export class PayeeManageEmployeeComponent implements OnInit {
       ]);
     }
     //
+    const get_year: any = this.payeeService.getAsYearMessage();
+    this.htmlYear = get_year?.yearId || new Date().getFullYear();
+    //
     this.listYear();
   }
 
@@ -100,14 +102,13 @@ export class PayeeManageEmployeeComponent implements OnInit {
       pageLength: 50,
     };
     const getHtmlYear = this.years?.filter((name: any) => {
-      return name.id == id;
+      return name.year == this.htmlYear;
     });
-    this.htmlYear = getHtmlYear[0]?.year || new Date().getFullYear();
     this.isLoading = true;
     this.httpService
       .getAuthSingle(
         BaseUrl.list_registered_employees +
-          `comp_tin=${this.datas2.tin}&yearId=${id}`
+          `comp_tin=${this.datas2.tin}&yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -124,17 +125,42 @@ export class PayeeManageEmployeeComponent implements OnInit {
   }
 
   reload(id?: any) {
-    this.is_reload = true;
-    const filterYear = this.years?.filter((name: any) => {
-      return name.year == new Date().getFullYear();
-    });
     const getHtmlYear = this.years?.filter((name: any) => {
-      return name.id == id;
+      return name.year == this.htmlYear;
     });
-    this.htmlYear =
-      getHtmlYear[0]?.year || filterYear[0]?.year || new Date().getFullYear();
-    this.renderTable(id || filterYear[0].id);
-    this.is_reload = false;
+    this.is_reload = true;
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_registered_employees +
+          `comp_tin=${this.datas2.tin}&yearId=${id || getHtmlYear[0]?.id}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        (err) => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  edit(data: any) {
+    const pastData = {
+      type: 'update',
+      data: data,
+    };
+    this.payeeService.setManualMessage(pastData);
+    this.router.navigate(['dashboard/dashboard3/taxpayer/payee/manual/add']);
   }
 
   openDialog(type: string) {
@@ -152,7 +178,44 @@ export class PayeeManageEmployeeComponent implements OnInit {
     });
   }
 
-  goToEdit() {
+  openDDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
+    // after dialog close
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.id) {
+        // update search data
+        let indexx: any;
+        this.searchData.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            indexx = index;
+          }
+        });
+        this.searchData.splice(indexx, 1);
+        // update table data
+        let index2: any;
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            index2 = index;
+          }
+        });
+        this.datas.splice(index2, 1);
+        this.dtTrigger.next;
+      }
+    });
+  }
+
+  goToView(data: any) {
+    const pastData = {
+      type: 'update',
+      data: data,
+    };
+    this.payeeService.setManualMessage(pastData);
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage-edit']);
   }
 
@@ -180,15 +243,13 @@ export class PayeeManageEmployeeComponent implements OnInit {
   }
 
   chooseYear(year: any) {
+    this.htmlYear = year.year;
     this.reload(year.id);
   }
 
   ngOnInit(): void {
     this.authService.checkExpired();
-    const filterYear = this.years?.filter((name: any) => {
-      return name.year == new Date().getFullYear();
-    });
-    this.renderTable(filterYear[0].id);
+    this.renderTable();
   }
 
   ngOnDestroy(): void {

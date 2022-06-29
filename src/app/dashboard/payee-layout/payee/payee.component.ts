@@ -1,19 +1,20 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-// state management
-import { Store } from '@ngrx/store';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AppState, selectAllComPayer } from 'src/app/reducers/index';
+import { Router } from '@angular/router';
+import { Subject, Subscription, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer } from '../../../actions/irm.action';
-import { ComPayer } from '../../models/irm';
 import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { PayeeServiceService } from '../service/payee-service.service';
+// state management
+import { Store } from '@ngrx/store';
+import { AppState, selectAllYear } from 'src/app/reducers/index';
+import { AddYear } from '../../../actions/irm.action';
+import { Year } from '../../models/irm';
+//
 
 @Component({
   selector: 'app-payee',
@@ -33,8 +34,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
   datas2: any;
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-  formErrors: any = {};
-  validationMessages: any = {};
+  stateYear: Observable<Year[]>;
+  htmlYear = new Date().getFullYear();
+  years: any;
 
   constructor(
     private router: Router,
@@ -43,9 +45,11 @@ export class PayeeComponent implements OnDestroy, OnInit {
     public shared: ToggleNavService,
     private httpService: HttpService,
     private payeeService: PayeeServiceService,
+    private store: Store<AppState>,
     private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
+    this.stateYear = store.select(selectAllYear);
     //
     this.datas2 = this.payeeService.getMessage();
     if (this.datas2) {
@@ -55,6 +59,10 @@ export class PayeeComponent implements OnDestroy, OnInit {
       ]);
     }
     //
+    const get_year: any = this.payeeService.getAYearMessage();
+    this.htmlYear = get_year?.yearId || new Date().getFullYear();
+    // 
+    this.listYear();
   }
 
   formatDate(data: any) {
@@ -80,56 +88,67 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(id?: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
     };
-
+    const get_year = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
     this.isLoading = true;
-
-    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-      (data: any) => {
-        this.datas = data.data;
-        this.searchData = data.data;
-        this.dtTrigger.next;
-        this.isLoading = false;
-      },
-      (err) => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_payee_ass +
+          `tin=${this.datas2.tin}&yearId=${id || get_year[0]?.id}`
+      )
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.dtTrigger.next;
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
-  ngOnInit(): void {
-    this.authService.checkExpired();
-    this.renderTable();
-  }
-
-  reload() {
+  reload(id?: any) {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.dtTrigger.next;
-        this.is_reload = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      },
-      (err) => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    const get_year_id = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_payee_ass +
+          `tin=${this.datas2.tin}&yearId=${id || get_year_id[0]?.id}`
+      )
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.dtTrigger.next;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        (err) => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(PayeeDialogComponent, {
       data: {
@@ -139,17 +158,46 @@ export class PayeeComponent implements OnDestroy, OnInit {
     });
   }
 
-  reAccess(data: any) {
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage']);
+  edit(data: any) {
+    console.log(data);
   }
 
   view(data: any) {
+    this.payeeService.setAssMessage(data);
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/lists-view']);
   }
 
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  listYear() {
+    this.stateYear?.forEach((e) => {
+      if (e.length > 0) {
+        this.years = e[0].data;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
+          (data: any) => {
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+            this.years = data.results;
+          },
+          (err) => {
+            this.authService.checkExpired();
+          }
+        );
+      }
+    });
+  }
+
+  chooseYear(data: any) {
+    this.htmlYear = data.year;
+    this.reload(data.id);
+  }
+
+  ngOnInit(): void {
+    this.authService.checkExpired();
+    this.renderTable();
   }
 
   ngOnDestroy(): void {

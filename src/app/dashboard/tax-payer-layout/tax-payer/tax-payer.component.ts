@@ -170,7 +170,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
     this.renderTable();
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {

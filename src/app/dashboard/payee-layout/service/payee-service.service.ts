@@ -7,6 +7,9 @@ import { Observable, Subject } from 'rxjs';
 export class PayeeServiceService {
   regMessage: string | undefined;
   manualMessage: string | undefined;
+  assMessage: string | undefined;
+  yearAMessage: string | undefined;
+  yearAsMessage: string | undefined;
   private subject = new Subject<any>();
   constructor() {}
 
@@ -33,6 +36,36 @@ export class PayeeServiceService {
 
   getManualMessage() {
     return this.manualMessage;
+  }
+  //
+
+  // Assessment data
+  setAssMessage(data: any) {
+    this.assMessage = data;
+  }
+
+  getAssMessage() {
+    return this.assMessage;
+  }
+  //
+
+  // Assessment year data
+  setAYearMessage(data: any) {
+    this.yearAMessage = data;
+  }
+
+  getAYearMessage() {
+    return this.yearAMessage;
+  }
+  //
+
+  // Manage employee year data
+  setAsYearMessage(data: any) {
+    this.yearAsMessage = data;
+  }
+
+  getAsYearMessage() {
+    return this.yearAsMessage;
   }
   //
 

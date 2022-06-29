@@ -1,8 +1,8 @@
 <div class="payee_wrapper">
 
     <div class="header">
-        <div class="soft_pattern">Softpattern Pattern Technology</div>
-        <div class="reg_buss">Tax ID: 34546678844</div>
+        <div class="soft_pattern">{{ datas.organisation_name }}</div>
+        <div class="reg_buss">Tax ID: {{ datas.tin }}</div>
     </div>
 
     <div class="container">
@@ -32,14 +32,6 @@
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Tax type</mat-label>
                     <input matInput formControlName="typee">
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- employee no -->
-                <span class="text">No of employee </span>
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>No of employee</mat-label>
-                    <input matInput formControlName="employee_no" type="number">
                 </mat-form-field>
             </p>
 

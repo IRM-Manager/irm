@@ -131,6 +131,18 @@ $white: #ffffff;
     justify-content: left;
     align-items: center;
   }
+
+  .blue {
+    color: $soft-pattern-color;
+  }
+
+  .green {
+    color: #2aa977;
+  }
+
+  .red {
+    color: #e9322c;
+  }
 }
 
 @media (max-width: 1300px) {

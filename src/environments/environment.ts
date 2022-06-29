@@ -38,6 +38,9 @@ export const BaseUrl = {
   list_registered_employees: 'paye/api/v1/paye/?',
   register_single_paye: 'paye/api/v1/paye/?',
   update_single_paye: 'paye/api/v1/paye/',
+  delete_paye: 'paye/api/v1/paye/',
+  create_payee_ass: 'assessment/api/v1/paye/?',
+  list_payee_ass: 'assessment/api/v1/paye/list_payeassessment/?',
 };
 
 /*

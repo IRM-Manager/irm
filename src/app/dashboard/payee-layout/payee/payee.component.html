@@ -6,14 +6,17 @@
 
         <div class="header-container">
             <div>
-                <span class="assess">Assessment for 2022</span>
-                <span class="change">Change Year</span>
+                <span class="assess">Assessment for {{ htmlYear }}</span>
+                <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
+                    <span class="change">Change Year</span>
+                </button>
+                <mat-menu #menu2>
+                    <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" style="color: #5EA55A;" class="mat-menu">{{ year.year }}</button>
+                </mat-menu>
             </div>
-            <div class="gross">Gross Annual Pay (4000)</div>
-            <div class="annual">Annual tax Liability (4000)</div>
+            <!-- <div class="gross">Gross Annual Pay (4000)</div>
+            <div class="annual">Annual tax Liability (4000)</div> -->
         </div>
-
-
     </div>
 
     <div>
@@ -43,9 +46,8 @@
                                 <th>Months</th>
                                 <th>No. Of employee</th>
                                 <th>Monthly tax Liabilities</th>
-                                <th>Status</th>
+                                <th>Remitted</th>
                                 <th>Action</th>
-                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -53,22 +55,23 @@
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.phone }}</td>
+                                <td class="align-middle">{{ data.assessment_month }}</td>
+                                <td class="align-middle">{{ data.employee_total }}</td>
+                                <td class="align-middle">{{ formatMoney(data.assessment_total) }}</td>
+                                <td class="align-middle">
+                                    <span *ngIf="data.remited" class="green">YES</span>
+                                    <span *ngIf="!data.remited" class="red">NO</span>
+                                </td>
                                 <td (click)="view(data)" class="align-middle" style="color: #3EA84E; cursor: pointer;">
                                     View
                                 </td>
-                                <td (click)="OpenDialog(data, 'generate_bill')" class="align-middle" style="color: #3EA84E; cursor: pointer;">
+                                <td (click)="openDialog(data, 'generate_bill')" class="align-middle" style="color: #3EA84E; cursor: pointer;">
                                     Generate Bill
                                 </td>
-                                <td (click)="reAccess(data)" class="align-middle green" style="color: #3EA84E; cursor: pointer;">Re(Assess)</td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
-                                <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>

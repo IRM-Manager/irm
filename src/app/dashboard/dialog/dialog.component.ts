@@ -121,8 +121,8 @@ export class DialogComponent implements OnInit {
           } else {
             const pastData = {
               type: 'post',
-              data: data.data
-            }
+              data: data.data,
+            };
             this.payeeService.setManualMessage(pastData);
             this.dialogRef.close();
             this.snackBar.open('Valid', '', {
@@ -138,6 +138,7 @@ export class DialogComponent implements OnInit {
         },
         (err) => {
           this.isExtract = false;
+          this.authService.checkExpired();
           console.log(err);
           this.manualError =
             err?.error?.message ||
@@ -169,13 +170,14 @@ export class DialogComponent implements OnInit {
   }
 
   //  delete tax payer
-  DeletePayer() {
+  deletePayer() {
     this.isdelete = true;
     this.httpService
       .deleteData(BaseUrl.delete_update_payer, this.data.data.id + '/')
       .subscribe(
         (data: any) => {
           this.isdelete = false;
+          this.confirmUploadErr = '';
           this.snackBar.open('TaxPayer successfully deleted', '', {
             duration: 3000,
             panelClass: 'success',
@@ -189,9 +191,20 @@ export class DialogComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.authService.checkExpired();
           this.isdelete = false;
+          this.confirmUploadErr =
+            err?.error?.message ||
+            err?.error?.msg ||
+            err?.error?.detail ||
+            err?.error?.status ||
+            'An Error Occured!';
           this.snackBar.open(
-            err.error.detail || err.error.msg || 'Error deleting TaxPayer',
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
             '',
             {
               duration: 5000,
@@ -207,32 +220,48 @@ export class DialogComponent implements OnInit {
   //  delete tax payer
   deletePayee() {
     this.isdelete = true;
-    // this.httpService.DeletePayer(this.data.data.payer.id).subscribe(
-    //   (data: any) => {
-    //     this.isdelete = false;
-    //     if (this.data.data.payer.payer_type == 'individual') {
-    //       this.store.dispatch(new RemoveIndPayer([{ id: 1, data: [] }]));
-    //     } else {
-    //       this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-    //     }
-    //     this.snackBar.open('TaxPayer successfully deleted', '', {
-    //       duration: 3000,
-    //       panelClass: 'success',
-    //       horizontalPosition: 'center',
-    //       verticalPosition: 'top',
-    //     });
-    //     this.dialogRef.close();
-    //   },
-    //   (err) => {
-    //     this.isdelete = false;
-    //     this.snackBar.open('Error deleting TaxPayer', '', {
-    //       duration: 5000,
-    //       panelClass: 'error',
-    //       horizontalPosition: 'center',
-    //       verticalPosition: 'top',
-    //     });
-    //   }
-    // );
+    this.httpService
+      .deleteData(BaseUrl.delete_paye, this.data.data.id + '/')
+      .subscribe(
+        (data: any) => {
+          this.isdelete = false;
+          this.confirmUploadErr = '';
+          this.snackBar.open('Employee successfully deleted', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.dialogRef.close({
+            id: this.data.data.id,
+          });
+        },
+        (err) => {
+          this.authService.checkExpired();
+          this.isdelete = false;
+          console.log(err);
+          this.confirmUploadErr =
+            err?.error?.message ||
+            err?.error?.msg ||
+            err?.error?.detail ||
+            err?.error?.status ||
+            'An Error Occured!';
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
   openDialog(data: any, type: string) {
@@ -324,6 +353,7 @@ export class DialogComponent implements OnInit {
           },
           (err) => {
             this.isExtract = false;
+            this.authService.checkExpired();
             console.log(err);
             this.confirmUploadErr =
               err?.error?.message ||

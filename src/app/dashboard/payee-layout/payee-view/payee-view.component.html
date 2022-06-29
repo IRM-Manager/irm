@@ -1,13 +1,13 @@
 <div class="wrapper">
 
-    <p class="back" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/lists']">
+    <p class="back" (click)="back()">
         <mat-icon>keyboard_backspace</mat-icon> Back
     </p>
 
     <div class="header">
         <div class="header-container">
-            <div class="soft_pattern">Softpattern Pattern Technology</div>
-            <div class="reg_buss">Tax ID: 34546678844</div>
+            <div class="soft_pattern">{{ datas?.organisation_name }}</div>
+            <div class="reg_buss">Tax ID: {{ datas?.tin }}</div>
         </div>
     </div>
 
@@ -23,14 +23,14 @@
                 <div class="left_right">
                     <div class="left">
                         <div class="title">Assessment Period</div>
+                        <div class="title">Assessment Code</div>
+                        <div class="title">Assessment Year</div>
                         <div class="title">Tax Type</div>
                         <div class="title">No. Of employee</div>
                         <div class="title">Currency</div>
                         <div class="title">Date of assessment</div>
-                        <div class="title">Total monthly Gross</div>
-                        <div class="title">Total Taxable Income</div>
-                        <div class="title">Consolidated relief allowance</div>
-                        <div class="title">Monthly tax Liability</div>
+                        <div class="title">Remitted</div>
+                        <div class="title">Modified at</div>
                         <div class="title2">TOTAL PAYE PAYABLE</div>
                     </div>
                 </div>
@@ -41,16 +41,19 @@
                 <div class="deduction">Amount</div>
                 <div class="left_right">
                     <div class="left2">
-                        <div class="title">January</div>
+                        <div class="title">{{ datas2.assessment_month }}</div>
+                        <div class="title">{{ datas2.assess_code }}</div>
+                        <div class="title blue">{{ datas2.assessment_year }}</div>
                         <div class="title">PAYE</div>
-                        <div class="title">2</div>
+                        <div class="title">{{ datas2.employee_total }}</div>
                         <div class="title">NGN</div>
-                        <div class="title">01/12/2020</div>
-                        <div class="title">NGN 10,000</div>
-                        <div class="title">NGN 10,000</div>
-                        <div class="title">NGN 5,000</div>
-                        <div class="title">NGN 5,000</div>
-                        <div class="title2">NGN 10,000</div>
+                        <div class="title">{{ datas2.assessment_date | date:"medium" }}</div>
+                        <div class="title">
+                            <span *ngIf="datas2.remited" class="green">YES</span>
+                            <span *ngIf="!datas2.remited" class="red">NO</span>
+                        </div>
+                        <div class="title">{{ datas2.modified_at | dateAgo }}</div>
+                        <div class="title2">NGN {{ formatMoney(datas2.assessment_total) }}</div>
                     </div>
                 </div>
             </div>

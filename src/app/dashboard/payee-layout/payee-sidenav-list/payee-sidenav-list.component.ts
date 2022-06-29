@@ -3,7 +3,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-
 // state management
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers/index';

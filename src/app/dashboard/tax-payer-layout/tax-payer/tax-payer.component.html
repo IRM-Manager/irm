@@ -60,10 +60,10 @@
                         <td class="align-middle">{{ data.profession_trade }}</td>
                         <td class="align-middle">{{ data.phone }}</td>
                         <td class="align-middle">
-                            <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
+                            <mat-icon class="table-icon" (click)="openDialog(data, active)">open_with</mat-icon>
                         </td>
                         <td class="align-middle">
-                            <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">
+                            <mat-icon (click)="openDialog(data, 'delete-payer')" class="table-icon-delete">
                                 delete_forever</mat-icon>
                         </td>
                     </tr>
@@ -77,10 +77,10 @@
                         <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                         <td class="align-middle">{{ data.phone }}</td>
                         <td class="align-middle">
-                            <mat-icon class="table-icon" (click)="OpenDialog(data, active)">open_with</mat-icon>
+                            <mat-icon class="table-icon" (click)="openDialog(data, active)">open_with</mat-icon>
                         </td>
                         <td class="align-middle">
-                            <mat-icon (click)="OpenDialog(data, 'delete-payer')" class="table-icon-delete">
+                            <mat-icon (click)="openDialog(data, 'delete-payer')" class="table-icon-delete">
                                 delete_forever</mat-icon>
                         </td>
                     </tr>
