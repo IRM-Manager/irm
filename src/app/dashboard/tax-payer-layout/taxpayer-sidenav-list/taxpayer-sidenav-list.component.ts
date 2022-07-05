@@ -1,14 +1,9 @@
 import { Location } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
 
 @Component({
   selector: 'app-taxpayer-sidenav-list',
@@ -20,7 +15,8 @@ export class TaxpayerSidenavListComponent implements OnInit {
   constructor(
     private router: Router,
     public shared: ToggleNavService,
-    private _location: Location
+    private _location: Location,
+    public dialog: MatDialog,
   ) {}
 
   PayeeBack() {
@@ -32,6 +28,14 @@ export class TaxpayerSidenavListComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  openDialog() {
+    this.dialog.open(TaxpayerDialogComponent, {
+      data: {
+        type: 'success',
+      },
+    });
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

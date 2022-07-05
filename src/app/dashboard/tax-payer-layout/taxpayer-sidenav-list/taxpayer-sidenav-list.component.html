@@ -1,7 +1,7 @@
 <div class="wrapper2">
     <div class="button">
         <div class="logo_p">
-            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/gombelogo.png" alt="IRM"/>
 
             <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
                 <mat-icon>menu</mat-icon>
@@ -13,13 +13,13 @@
             Back
         </p>
 
-        <p class="pay_as_you_earn">Tax payer Registration</p>
+        <p class="pay_as_you_earn" [routerLink]="['dashboard2/taxpayer']">Enumeration</p>
 
         <p class="dash-text" [routerLink]="['dashboard2/taxpayer']" routerLinkActive="active">
-            All Tax payer
+            Registered Payers
         </p>
-        <p class="dash-text2" [routerLink]="['dashboard22/taxpayer']" routerLinkActive="active">
-            Create new tax payer
+        <p class="dash-text2" (click)="openDialog()">
+            Asset Capturing
         </p>
     </div>
 </div>

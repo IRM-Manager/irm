@@ -1,0 +1,133 @@
+<div class="regis-layout" *ngIf="data.type == 'regis'">
+    <div class="header">
+        <p class="back" mat-dialog-close>
+            <mat-icon>keyboard_backspace</mat-icon>
+        </p>
+    </div>
+
+    <div class="body">
+        <div class="header-text">TAX PAYER REGISTRATION</div>
+        <div class="kindly">Kindly Select the option that applies to the Tax payer</div>
+
+        <div class="card blue" (click)="ninReg()">Tax Payer has register NIN</div>
+        <div class="card yellow" (click)="ninReg2()">Tax Payer Not registered have NIN</div>
+        <div class="card red" (click)="ninReg3()">Tax Payer is a registered Business</div>
+
+    </div>
+</div>
+
+<!-- taxpayer form -->
+<div class="tax-payer-form " *ngIf="data.type == 'nin-regis'">
+    <div class="header">
+        <p class="back" mat-dialog-close>
+            <mat-icon>keyboard_backspace</mat-icon>
+        </p>
+    </div>
+
+    <div class="body">
+        <div class="header-text">Create Taxpayer Account</div>
+
+        <form *ngIf="is_ind" class="nin-regis-form" id="ngForm" novalidate [formGroup]="feedbackForm" #fform="ngForm">
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>Registration Type</mat-label>
+                    <mat-select matInput formControlName="type" required>
+                        <mat-option value="individual" (click)="changeActiveReg(true, 'individual')">Individual</mat-option>
+                        <mat-option value="business" (click)="changeActiveReg(false, 'business')">Business</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.type}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>Linked NIN Phone number </mat-label>
+                    <input matInput formControlName="phone" type="tel" matInput required
+                    placeholder="(Type in the phone number used to register NIN)">
+                    <mat-error>{{formErrors.phone}}</mat-error>
+                </mat-form-field>
+            </p>
+
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput formControlName="birth" [matDatepicker]="picker2" placeholder="DD/MM/YY" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error>{{formErrors.birth}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="final_submit">
+                <button type="submit" form="ngForm" mat-button class="continue" (click)="onSubmit()" [disabled]="disabled === true">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+            <div class="dont">Tax payer don’t have NIN? Click here</div>
+
+        </form>
+
+        <form *ngIf="!is_ind" class="nin-regis-form" id="ngForm2" novalidate [formGroup]="feedbackForm2" #fform2="ngForm">
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>Registration Type</mat-label>
+                    <mat-select matInput formControlName="type" required>
+                        <mat-option value="individual" (click)="changeActiveReg(true, 'individual')">Individual</mat-option>
+                        <mat-option value="business" (click)="changeActiveReg(false, 'business')">Business</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.type}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>CAC (Type your CAC) </mat-label>
+                    <input matInput formControlName="phone" matInput required>
+                    <mat-error>{{formErrors.phone}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="final_submit">
+                <button type="submit" form="ngForm2" mat-button class="continue" (click)="onSubmit2()">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="success-layout" *ngIf="data.type == 'success'">
+    <div class="body">
+        
+        <div class="body-green">
+            <div>TAX PAYER REGISTRATION SUCCESSFULLY</div>
+        </div>
+
+    </div>
+
+    <div class="gombe-text">Gombe State Tax ID: <span style="font-weight: bolder;">{{ data.data.state_tin }}</span> (Note also sent to taxpayer email )</div>
+
+    <div style="text-align: center;">
+        <button mat-button class="go-back" (click)="successBack()">back</button>
+    </div>
+
+</div>

@@ -5,16 +5,17 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 // state management
 import { Store } from '@ngrx/store';
@@ -29,30 +30,28 @@ import {
   ReplaySubject,
   Subject,
   takeUntil,
-  tap
+  tap,
 } from 'rxjs';
 import {
   AppState,
   selectAllIndPayer,
-  selectAllProfile,
-  selectAllStates
+  selectAllLocation,
+  selectAllStates,
+  selectAllOccupation,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import {
-  AddIndPayer,
+  AddLocation,
   AddStates,
-  RemoveIndPayer
+  AddOccupation,
 } from '../../../actions/irm.action';
 import { DialogComponent } from '../../dialog/dialog.component';
-import { IndPayer, Profile, States } from '../../models/irm';
-import {
-  Individual1, LGA,
-  lgaLogo, STATE,
-  stateLogo
-} from '../../shared/form';
+import { IndPayer, Locationn, States, Occupation } from '../../models/irm';
+import { Individual1, LGA, lgaLogo, STATE, stateLogo } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,8 +76,6 @@ export class Individual2Component implements OnDestroy, OnInit {
   feedback1!: Individual1;
   includedFields: any;
 
-  loading2 = false;
-  disabled2 = false;
   isFormDisabled = false;
 
   bankCtrl: FormControl = new FormControl();
@@ -98,7 +95,6 @@ export class Individual2Component implements OnDestroy, OnInit {
   searching = false;
   searching2 = false;
   searching3 = false;
-  searching4 = false;
   searchError!: string;
   searchError2!: string;
   protected _onDestroy = new Subject<void>();
@@ -107,48 +103,42 @@ export class Individual2Component implements OnDestroy, OnInit {
   stateLoading = false;
   stateLoading2 = false;
   lgaError: boolean = false;
-  lgaError2: boolean = false;
   lgaLoading = false;
-  lgaLoading2 = false;
   update = false;
   Updateloading = false;
   state: any;
   state2: any;
   lga: any;
-  lga2: any;
+
+  occLoading = false;
+  occError = false;
+  list_occupation: any;
 
   editDetails: any;
 
   stateStates: Observable<States[]>;
-  stateProfile: Observable<Profile[]>;
   stateInd: Observable<IndPayer[]>;
+  stateLocation: Observable<Locationn[]>;
+  stateOccupation: Observable<Occupation[]>;
 
   formErrors: any = {
-    firstname: '',
-    middlename: '',
-    surname: '',
+    title: '',
     gender: '',
+    firstname: '',
+    surname: '',
     birth: '',
-    place: '',
     state: '',
     lga: '',
-    nationality: '',
-    trade: '',
     contact: '',
     contact_email: '',
-    house: '',
-    street: '',
-    state_red: '',
-    lga_red: '',
-    zipcode: '',
-    // 'employment': '',
+    occupation: '',
+    address: '',
+    office: '',
+    tin: '',
   };
 
   validationMessages: any = {
     firstname: {
-      required: 'required.',
-    },
-    middlename: {
       required: 'required.',
     },
     surname: {
@@ -161,24 +151,15 @@ export class Individual2Component implements OnDestroy, OnInit {
       required: 'required.',
       matDatepickerParse: 'not a valid date',
     },
-    place: {
-      required: 'required.',
-    },
     state: {
       required: 'required.',
     },
     lga: {
       required: 'required.',
     },
-    nationality: {
+    occupation: {
       required: 'required.',
     },
-    trade: {
-      required: 'required.',
-    },
-    // 'employment': {
-    //   'required':      'required.',
-    // },
     contact: {
       required: 'required.',
     },
@@ -186,21 +167,16 @@ export class Individual2Component implements OnDestroy, OnInit {
       required: 'required.',
       email: 'Not a valid email',
     },
-    house: {
+    address: {
       required: 'required.',
     },
-    street: {
+    office: {
       required: 'required.',
     },
-    state_red: {
-      required: 'required.',
-    },
-    lga_red: {
-      required: 'required.',
-    },
-    zipcode: {
-      required: 'required.',
-    },
+    tin: {
+      minlength: 'must be at least 11 characters long.',
+      maxlength: 'cannot be more than 11 characters long.',
+    }
   };
 
   constructor(
@@ -213,16 +189,16 @@ export class Individual2Component implements OnDestroy, OnInit {
     private authService: AuthService,
     private store: Store<AppState>,
     public shared: ToggleNavService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer
   ) {
     this.authService.checkExpired();
     this.createForm1();
-    this.trackCountryField();
-    this.trackCountryField2();
 
     this.stateStates = store.select(selectAllStates);
-    this.stateProfile = store.select(selectAllProfile);
     this.stateInd = store.select(selectAllIndPayer);
+    this.stateLocation = store.select(selectAllLocation);
+    this.stateOccupation = store.select(selectAllOccupation);
     this.editDetails = this.shared.getPayerEditMessage();
     const data = this.shared.getPayerMessage();
     this.payer_data = data;
@@ -230,9 +206,40 @@ export class Individual2Component implements OnDestroy, OnInit {
       (data == '' || data == undefined || data == null) &&
       (this.editDetails == undefined || this.editDetails == '')
     ) {
-      this.router.navigate(['/dashboard/dashboard22/taxpayer']);
+      this.router.navigate(['/dashboard/dashboard2/taxpayer']);
     } else {
       this.payer_data = data;
+      this.updateNewData();
+    }
+  }
+
+  displayImage(image: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      'data:image/png;base64,' + image
+    );
+  }
+
+  updateNewData() {
+    if (this.payer_data?.v_type == 'nin') {
+      const date = this.payer_data.birthdate.split('-');
+      this.feedbackForm1.patchValue({ surname: this.payer_data.surname });
+      this.feedbackForm1.patchValue({
+        birth: new Date(`${date[1]}/${date[0]}/${date[2]}`),
+      });
+      this.floatLabelControl = new FormControl(this.payer_data.emplymentstatus);
+      this.feedbackForm1.patchValue({ firstname: this.payer_data.firstname });
+      this.feedbackForm1.patchValue({ gender: this.payer_data.gender });
+      this.feedbackForm1.patchValue({ occupation: this.payer_data.profession });
+      this.feedbackForm1.patchValue({ contact: this.payer_data.telephoneno });
+      this.feedbackForm1.patchValue({ contact_email: this.payer_data.data });
+      this.feedbackForm1.patchValue({
+        address: `${this.payer_data.residence_state} state, ${this.payer_data.residence_lga} lga, ${this.payer_data.residence_Town}, ${this.payer_data.residence_AdressLine1}`,
+      });
+      this.feedbackForm1.patchValue({ title: this.payer_data.title });
+      this.feedbackForm1.controls['firstname'].disable();
+      this.feedbackForm1.controls['surname'].disable();
+      this.feedbackForm1.controls['gender'].disable();
+      this.feedbackForm1.controls['birth'].disable();
     }
   }
 
@@ -240,23 +247,18 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.feedbackForm1 = this.fb.group({
       title: [''],
       firstname: ['', [Validators.required]],
-      middlename: [''],
+      tin: ['', [Validators.minLength(11),
+        Validators.maxLength(11),]],
       surname: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       birth: ['', [Validators.required]],
-      place: ['', [Validators.required]],
       state: ['', [Validators.required]],
       lga: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
-      trade: ['', [Validators.required]],
+      occupation: ['', [Validators.required]],
       contact: ['', [Validators.required]],
       contact_email: ['', [Validators.required, Validators.email]],
-      //
-      house: ['', [Validators.required]],
-      street: ['', [Validators.required]],
-      state_red: ['', [Validators.required]],
-      lga_red: ['', [Validators.required]],
-      zipcode: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      office: ['', [Validators.required]],
     });
 
     this.feedbackForm1.valueChanges.subscribe((data: any) =>
@@ -287,23 +289,23 @@ export class Individual2Component implements OnDestroy, OnInit {
     }
   }
 
-  RemoveFormData() {
-    this.floatLabelControl = new FormControl('employed');
-    this.feedbackForm1.get('firstname').reset();
-    this.feedbackForm1.get('middlename').reset();
-    this.feedbackForm1.get('surname').reset();
-    this.feedbackForm1.get('gender').reset();
-    this.feedbackForm1.get('birth').reset();
-    this.feedbackForm1.get('place').reset();
-    this.feedbackForm1.get('nationality').reset();
-    this.feedbackForm1.get('trade').reset();
-    this.feedbackForm1.get('contact').reset();
-    this.feedbackForm1.get('contact_email').reset();
-    this.feedbackForm1.get('title').reset();
-    this.feedbackForm1.get('street').reset();
-    this.feedbackForm1.get('house').reset();
-    this.feedbackForm1.get('zipcode').reset();
-  }
+  // RemoveFormData() {
+  //   this.floatLabelControl = new FormControl('employed');
+  //   this.feedbackForm1.get('firstname').reset();
+  //   this.feedbackForm1.get('middlename').reset();
+  //   this.feedbackForm1.get('surname').reset();
+  //   this.feedbackForm1.get('gender').reset();
+  //   this.feedbackForm1.get('birth').reset();
+  //   this.feedbackForm1.get('place').reset();
+  //   this.feedbackForm1.get('nationality').reset();
+  //   this.feedbackForm1.get('trade').reset();
+  //   this.feedbackForm1.get('contact').reset();
+  //   this.feedbackForm1.get('contact_email').reset();
+  //   this.feedbackForm1.get('title').reset();
+  //   this.feedbackForm1.get('street').reset();
+  //   this.feedbackForm1.get('house').reset();
+  //   this.feedbackForm1.get('zipcode').reset();
+  // }
 
   Submit() {
     this.onValueChanged1();
@@ -317,48 +319,50 @@ export class Individual2Component implements OnDestroy, OnInit {
       });
     } // end of if
     else {
-      this.loading2 = true;
-      this.disabled2 = true;
+      this.loading = true;
+      this.disabled = true;
 
       this.feedback1 = this.feedbackForm1.value;
-      console.log(this.feedbackForm1.value);
+      let coun = this.state.filter(
+        (name: any) => name.name.toLowerCase() == 'gombe'
+      );
+
+      const date = this.datepipe.transform(this.feedbackForm1.controls['birth'].value, 'YYYY-MM-dd');
+      console.log(date)
       let data: any = {
-        first_name: this.feedback1.firstname,
-        middle_name: this.feedback1.middlename,
-        gender: this.feedback1.gender,
-        dob: this.datepipe.transform(this.feedback1.birth, 'yyyy-MM-dd'),
-        pob: this.feedback1.place,
+        first_name: this.payer_data.firstname || this.feedback1.firstname,
+        gender: this.payer_data.gender || this.feedback1.gender,
+        dob: date || this.datepipe.transform(this.feedback1.birth, 'YYYY-MM-dd'),
         state_origin: this.feedback1.state.split('|||')[1],
-        lga: this.feedback1.lga.split('|||')[1],
-        nationality: this.feedback1.nationality,
-        profession_trade: this.feedback1.trade,
-        employment_category: this.floatLabelControl.value,
+        lga_id: this.feedback1.lga.split('|||')[0],
+        occupation: this.feedback1.occupation,
         phone: this.feedback1.contact,
-        surname: this.feedback1.surname,
+        jtb_tin: this.feedback1.tin || null,
+        surname: this.payer_data.surname || this.feedback1.surname,
         email: this.feedback1.contact_email,
-        address: this.feedback1.street,
-        house_no: this.feedback1.house,
-        zipcode: this.feedback1.zipcode,
+        address: this.feedback1.address,
         employment_status: this.floatLabelControl.value,
-        state_id: this.feedback1.state_red,
-        lga_id: this.feedback1.lga_red,
+        state_id: coun[0].id,
+        is_verified: this.payer_data.v_type == 'nin' ? true : false,
+        office_id: this.feedback1.office,
       };
       // Object.assign(
       //   data,
       //   this.floatLabelControl.value == 'employed' ? this.includedFields : {}
       // );
+      console.log(data);
       this.httpService.postData(BaseUrl.add_ind_payer, data).subscribe(
         (data: any) => {
-          this.loading2 = false;
-          this.disabled2 = false;
+          this.loading = false;
+          this.disabled = false;
           this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
           this.OpenDialog(data.data);
         },
         (err: any) => {
           console.log(err);
           this.authService.checkExpired();
-          this.loading2 = false;
-          this.disabled2 = false;
+          this.loading = false;
+          this.disabled = false;
           this.snackBar.open(
             err?.error?.msg || err?.error?.detail || 'An Error Occured!',
             '',
@@ -400,19 +404,19 @@ export class Individual2Component implements OnDestroy, OnInit {
         state_origin: this.editDetails.data.state_origin,
         lga: this.editDetails.data.lga,
         nationality: this.editDetails.data.nationality,
-        state_id: this.feedback1.state_red || this.editDetails.data.state_id,
-        lga_id: this.feedback1.lga_red || this.editDetails.data.lga_id,
+        // state_id: this.feedback1.state_red || this.editDetails.data.state_id,
+        // lga_id: this.feedback1.lga_red || this.editDetails.data.lga_id,
         profession_trade:
-          this.feedback1.trade || this.editDetails.data.profession_trade,
-        employment_category:
+          //   this.feedback1.trade || this.editDetails.data.profession_trade,
+          // employment_category:
           this.floatLabelControl.value ||
           this.editDetails.data.employment_category,
         phone: this.feedback1.contact || this.editDetails.data.phone,
         surname: this.feedback1.surname || this.editDetails.data.surname,
         email: this.feedback1.contact_email || this.editDetails.data.phone,
-        address: this.feedback1.street || this.editDetails.data.address,
-        house_no: this.feedback1.house || this.editDetails.data.house_no,
-        zipcode: this.feedback1.zipcode || this.editDetails.data.zipcode,
+        // address: this.feedback1.street || this.editDetails.data.address,
+        // house_no: this.feedback1.house || this.editDetails.data.house_no,
+        // zipcode: this.feedback1.zipcode || this.editDetails.data.zipcode,
         employment_status:
           this.floatLabelControl.value ||
           this.editDetails.data.employment_status,
@@ -479,60 +483,39 @@ export class Individual2Component implements OnDestroy, OnInit {
     this._location.back();
   }
 
-  trackCountryField(): void {
-    this.feedbackForm1.get('state').valueChanges.subscribe((field: string) => {
-      if (field === undefined) {
-      } else {
-        const splitt = field.split('|||');
-        let coun = this.state?.filter(
-          (name: any) => name?.id == Number(splitt[0]) || name?.name == splitt
-        );
-        this.lga = coun[0] || '';
-        this.AddLga(coun[0]?.id || coun[0] || 0);
-      }
-    });
-  }
-
-  trackCountryField2(): void {
-    this.feedbackForm1
-      .get('state_red')
-      .valueChanges.subscribe((field: string) => {
-        if (field === undefined) {
-        } else {
-          let coun = this.state2?.filter((name: any) => name?.id === field);
-          this.lga2 = coun[0] || '';
-          this.AddLga2(coun[0]?.id);
-        }
-      });
-  }
-
-  AddState() {
+  addState() {
     this.stateLoading = true;
-    this.stateLoading2 = true;
     this.stateStates.forEach((e) => {
       if (e.length > 0) {
         this.option = e[0].data;
         this.state = e[0].data;
-        this.state2 = e[0].data;
         this.filteredBanks.next(e[0].data);
-        this.filteredBanks3.next(e[0].data);
+        // update form resident lga
+        let coun = e[0].data?.filter(
+          (name: any) => name.name.toLowerCase() == 'gombe'
+        );
+        this.lga = coun[0] || '';
+        this.addLga(coun[0]?.id || coun[0] || 0);
+        //
         this.stateLoading = false;
-        this.stateLoading2 = false;
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
           (data: any) => {
-            this.option = data;
-            this.state = data;
-            this.state2 = data;
-            this.filteredBanks.next(data);
-            this.filteredBanks3.next(data);
+            this.option = data.results;
+            this.state = data.results;
+            this.filteredBanks.next(data.results);
             this.stateLoading = false;
-            this.stateLoading2 = false;
-            this.store.dispatch(new AddStates([{ id: 1, data: data }]));
+            // update form resident lga
+            let coun = data.results?.filter(
+              (name: any) => name.name.toLowerCase() == 'gombe'
+            );
+            this.lga = coun[0] || '';
+            this.addLga(coun[0]?.id || coun[0] || 0);
+            //
+            this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
           },
           (err) => {
             this.stateLoading = false;
-            this.stateLoading2 = false;
             this.stateError = true;
           }
         );
@@ -541,7 +524,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     // end of state
   }
 
-  AddLga(id: any) {
+  addLga(id: any) {
     this.lgaLoading = true;
     this.httpService.getSingleNoAuthID(BaseUrl.get_list_lga, id).subscribe(
       (data: any) => {
@@ -556,19 +539,59 @@ export class Individual2Component implements OnDestroy, OnInit {
     );
   }
 
-  AddLga2(id: number) {
-    this.lgaLoading2 = true;
-    this.httpService.getSingleNoAuthID(BaseUrl.get_list_lga, id).subscribe(
-      (data: any) => {
-        this.options3 = data.data;
-        this.filteredBanks4.next(data.data);
-        this.lgaLoading2 = false;
-      },
-      (err: any) => {
-        this.lgaLoading2 = false;
-        this.lgaError2 = true;
+  addLocation() {
+    this.stateLoading2 = true;
+    this.stateLocation.forEach((e) => {
+      if (e.length > 0) {
+        this.option2 = e[0].data;
+        this.state2 = e[0].data;
+        this.filteredBanks3.next(e[0].data);
+        this.stateLoading2 = false;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_location).subscribe(
+          (data: any) => {
+            this.option2 = data.results;
+            this.state2 = data.results;
+            this.filteredBanks3.next(data.results);
+            this.stateLoading2 = false;
+            this.store.dispatch(
+              new AddLocation([{ id: 1, data: data.results }])
+            );
+          },
+          (err) => {
+            this.stateLoading2 = false;
+            this.stateError2 = true;
+          }
+        );
       }
-    );
+    });
+    // end of location
+  }
+
+  addOccupation() {
+    this.occLoading = true;
+    this.stateOccupation.forEach((e) => {
+      if (e.length > 0) {
+        this.occLoading = false;
+        this.occError = false;
+        this.list_occupation = e[0].data;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_occupation).subscribe(
+          (data: any) => {
+            this.list_occupation = data.results;
+            this.occLoading = false;
+            this.occError = false;
+            this.store.dispatch(
+              new AddOccupation([{ id: 1, data: data.results }])
+            );
+          },
+          (err) => {
+            this.occLoading = false;
+            this.occError = true;
+          }
+        );
+      }
+    });
   }
 
   disableForm() {
@@ -583,7 +606,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.feedbackForm1.controls['nationality'].disable();
   }
 
-  UpdateValue() {
+  updateValue() {
     if (this.editDetails != undefined) {
       if (this.editDetails.type == 'ind') {
         this.update = true;
@@ -620,27 +643,13 @@ export class Individual2Component implements OnDestroy, OnInit {
   }
 
   OpenDialog(data: any) {
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(TaxpayerDialogComponent, {
       data: {
-        type: 'ind',
+        type: 'success',
         data: data,
       },
     });
   }
-
-  changePayerData() {
-    const data = {
-      type: 'change',
-      payer_type: 'individual',
-      nin: this.payer_data?.nin,
-      birth: this.payer_data?.birth,
-      data: this.payer_data,
-    };
-    this.shared.setPayerMessage(data);
-    this.router.navigate(['/dashboard/dashboard22/taxpayer']);
-  }
-
-  /////////////////////////////////////////////////////////////////////////////////
 
   initAnimations(): void {
     gsap.from(this.card.nativeElement.children, {
@@ -655,8 +664,10 @@ export class Individual2Component implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.authService.checkExpired();
     this.initAnimations();
-    this.AddState();
-    this.UpdateValue();
+    this.addState();
+    this.addLocation();
+    this.addOccupation();
+    this.updateValue();
 
     this.bankCtrl.valueChanges
       .pipe(
@@ -753,39 +764,6 @@ export class Individual2Component implements OnDestroy, OnInit {
         (error) => {
           // no errors in our simulated example
           this.searching3 = false;
-          // handle error...
-        }
-      );
-
-    // 4
-    this.bankCtrl4.valueChanges
-      .pipe(
-        filter((search) => !!search),
-        tap(() => (this.searching4 = true)),
-        takeUntil(this._onDestroy),
-        debounceTime(200),
-        map((searchC) => {
-          const filterValue = searchC.toLowerCase();
-          if (!this.options3) {
-            return [];
-          }
-          // simulate server fetching and filtering data
-          // return this.options2.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
-          return this.options3.filter(
-            (bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1
-          );
-        }),
-        delay(100),
-        takeUntil(this._onDestroy)
-      )
-      .subscribe(
-        (filteredBanks4) => {
-          this.searching4 = false;
-          this.filteredBanks4.next(filteredBanks4);
-        },
-        (error) => {
-          // no errors in our simulated example
-          this.searching4 = false;
           // handle error...
         }
       );

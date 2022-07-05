@@ -2,12 +2,43 @@
 
 
     <div class="header">
-        <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
-            Tax Registration of Individual
-        </button>
-        <button (click)="changeActive('com')" mat-button class="individual2" [class.active]="active == 'com'">
-            Tax Registration of Business
-        </button>
+
+        <div class="dashboard_select-tax">
+            <select class="form-select form-selecta-tax" placeholder="Filters" (change)="changeActive($event)">
+                <option class="option-white" disabled>Filters33333333ewwweffwe</option>
+                <option selected value="all" class="tax-option">All registered tax payer</option>
+                <option value="ind" class="tax-option">Individual</option>
+                <option value="com" class="tax-option">Business</option>
+            </select>
+            <button matSuffix mat-icon-button class="form-dashboard_select">
+                <span class="material-icons-round icon-drop-down">arrow_drop_down</span>
+            </button>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="search_icon_header">
+            <form class="search-form_header">
+                <button matSuffix mat-icon-button class="form-icon_header">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+            </form>
+        </div>
+
+        <div class="dashboard_select">
+            <select class="form-select form-select2" placeholder="Filters">
+                <option class="option-white" disabled>Filters333333331</option>
+                <option selected>Filters</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <button matSuffix mat-icon-button class="form-dashboard_select">
+                <span class="material-icons-outlined">filter_alt</span>
+            </button>
+        </div>
+
     </div>
 
 
@@ -16,12 +47,7 @@
             {{left_text}}
         </div>
         <div class="spacer"></div>
-        <div class="search_icon_p">
-            <form class="search-form">
-                <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input">
-            </form>
-            <mat-icon class="search_icon">search</mat-icon>
-        </div>
+       <button mat-button class="create-new" (click)="openRegisDialog()">create new</button>
     </mat-toolbar>
 
     <div class="table-container">
@@ -29,60 +55,39 @@
             <table datatable [dtOptions]="dtOptions"
                 class="row-border table table-striped table-hover table-borderless">
                 <thead>
-                    <tr *ngIf="active == 'ind'">
+                    <tr>
                         <th class="align-middle">S/N</th>
-                        <th class="align-middle">Tax ID</th>
-                        <th class="align-middle">Full Name</th>
-                        <th class="align-middle">Field of work/Business</th>
+                        <th class="align-middle">GTIN</th>
+                        <th class="align-middle">Taxpayer Name</th>
+                        <th class="align-middle">LGA of residence</th>
                         <th class="align-middle">Contact Number</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr *ngIf="active == 'com'">
-                        <th class="align-middle">S/N</th>
-                        <th class="align-middle">Tax ID</th>
-                        <th class="align-middle">Business name</th>
-                        <th class="align-middle">Date of Establishment</th>
-                        <th class="align-middle">Contact Person</th>
-                        <th></th>
-                        <th></th>
+                        <th class="align-middle">Tax office</th>
+                        <th class="align-middle">Actions</th>
                     </tr>
                 </thead>
                 <!-- individual -->
-                <tbody *ngIf="datas?.length != 0 && active == 'ind' ">
+                <tbody *ngIf="datas?.length != 0">
                     <tr *ngFor="let data of datas; let i=index">
                         <td class="align-middle">{{i+1}}</td>
-                        <td class="align-middle">{{ data.tin }}</td>
-                        <td class="align-middle">{{ data.surname }} {{
-                            data.first_name }}
-                            {{ data.middle_name }}
+                        <td class="align-middle">{{ data.state_tin }}</td>
+                        <td class="align-middle">{{ data.taxpayer_name }}
                         </td>
-                        <td class="align-middle">{{ data.profession_trade }}</td>
+                        <td class="align-middle">{{ data.lga_id.name }}</td>
                         <td class="align-middle">{{ data.phone }}</td>
+                        <td class="align-middle">{{ data.location.name }}</td>
                         <td class="align-middle">
-                            <mat-icon class="table-icon" (click)="openDialog(data, active)">open_with</mat-icon>
+                                <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                    <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item="mat-menu-item" (click)="openDialog(data, active)">View Details</button>
+                                    <button mat-menu-item="mat-menu-item" style="color: #3C66A3;">Edit Details</button>
+                                    <button mat-menu-item="mat-menu-item">View Tax History</button>
+                                    <button mat-menu-item="mat-menu-item">Assets</button>
+                                    <button mat-menu-item="mat-menu-item" style="color: red;" (click)="openDialog(data, 'delete-payer')">Delete</button>
+                                </mat-menu>
                         </td>
-                        <td class="align-middle">
-                            <mat-icon (click)="openDialog(data, 'delete-payer')" class="table-icon-delete">
-                                delete_forever</mat-icon>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody *ngIf="datas?.length != 0 && active == 'com' ">
-                    <tr *ngFor="let data of datas2; let i=index">
-                        <td class="align-middle">{{i+1}}</td>
-                        <td class="align-middle">{{ data.tin }}</td>
-                        <td class="align-middle">{{ data.organisation_name }}
-                        </td>
-                        <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                        <td class="align-middle">{{ data.phone }}</td>
-                        <td class="align-middle">
-                            <mat-icon class="table-icon" (click)="openDialog(data, active)">open_with</mat-icon>
-                        </td>
-                        <td class="align-middle">
-                            <mat-icon (click)="openDialog(data, 'delete-payer')" class="table-icon-delete">
-                                delete_forever</mat-icon>
-                        </td>
+
                     </tr>
                 </tbody>
                 <tbody *ngIf="datas?.length == 0">
@@ -104,7 +109,7 @@
                     <div class="bubble"></div>
                 </div>
 
-                <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="reload()">
                     <span *ngIf="!is_reload">RELOAD</span>
                     <div *ngIf="is_reload" class="loader">
                         <div class="bubble"></div>

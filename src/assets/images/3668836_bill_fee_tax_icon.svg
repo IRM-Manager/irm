@@ -1,9 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.111" height="35.92" viewBox="0 0 28.111 35.92">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#3e5fa8"/>
-      <stop offset="1" stop-color="#2aa977"/>
-    </linearGradient>
-  </defs>
-  <path id="_3668836_bill_fee_tax_icon" data-name="3668836_bill_fee_tax_icon" d="M32.55,3H7.562A1.475,1.475,0,0,0,6,4.562V38.92L10.685,35.8,15.37,38.92,20.056,35.8l4.685,3.123L29.426,35.8l4.685,3.123V4.562A1.475,1.475,0,0,0,32.55,3ZM27.864,29.55H21.617V23.3h6.247Zm0-10.932H12.247V15.494H27.864Zm0-6.247H12.247V9.247H27.864Z" transform="translate(-6 -3)" fill="url(#linear-gradient)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="28.111" height="35.92" viewBox="0 0 28.111 35.92">
+  <path id="_3668836_bill_fee_tax_icon" data-name="3668836_bill_fee_tax_icon" d="M32.55,3H7.562A1.475,1.475,0,0,0,6,4.562V38.92L10.685,35.8,15.37,38.92,20.056,35.8l4.685,3.123L29.426,35.8l4.685,3.123V4.562A1.475,1.475,0,0,0,32.55,3ZM27.864,29.55H21.617V23.3h6.247Zm0-10.932H12.247V15.494H27.864Zm0-6.247H12.247V9.247H27.864Z" transform="translate(-6 -3)" fill="#fff"/>
 </svg>

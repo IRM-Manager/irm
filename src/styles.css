@@ -9,11 +9,13 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .success {
-    color: lightgreen;
+    color: #ffffff;
+    background: #038541;
   }
   
 .error {
-    color: lightcoral;
+    color: #ffffff;
+    background: #B5130E;
 }
 
 .warning {
@@ -26,7 +28,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-dialog-container {
-  border-radius: 20px !important;
+  border-radius: 5px !important;
 }
 
 .cdk-global-overlay-wrapper {

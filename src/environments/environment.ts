@@ -17,9 +17,10 @@ export const BaseUrl = {
   list_year: 'refdata/api/v1/year/',
   get_profile: 'user/api/v1/userprofile/',
   add_ind_payer: 'user/api/v1/payer/?payer_group=individual',
-  list_ind_payer: 'user/api/v1/payer/individualpayers/',
+  list_ind_payer: 'user/api/v1/payer/payers?payer_type=individual',
   add_com_payer: 'user/api/v1/payer/?payer_group=company',
-  list_com_payer: 'user/api/v1/payer/companypayers/',
+  list_com_payer: 'user/api/v1/payer/payers?payer_type=company',
+  list_all_payer: 'user/api/v1/payer/payers?payer_type=all',
   get_payer_tin: 'user/api/v1/payer/payerbytin/?tin=',
   delete_update_payer: 'user/api/v1/payer/', // not when deleting payer add / after the id
   list_user: 'user/api/v1/allusers/?page=',
@@ -41,6 +42,8 @@ export const BaseUrl = {
   delete_paye: 'paye/api/v1/paye/',
   create_payee_ass: 'assessment/api/v1/paye/?',
   list_payee_ass: 'assessment/api/v1/paye/list_payeassessment/?',
+  verify_nin: 'user/api/v1/verify/individual/?',
+  list_occupation: 'refdata/api/v1/occupation',
 };
 
 /*

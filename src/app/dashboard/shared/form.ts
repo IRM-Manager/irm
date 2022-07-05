@@ -31,23 +31,19 @@ export interface Tin {
 
 export interface Individual1 {
   title: string;
-  firstname: string;
-  middlename: string;
-  surname: string;
   gender: string;
+  firstname: string;
+  surname: string;
   birth: string;
-  place: string;
+  tin: string;
   state: string;
   lga: string;
-  nationality: string;
-  trade: string;
   contact: string;
   contact_email: string;
-  house: string;
-  street: string;
-  state_red: string;
-  lga_red: string;
-  zipcode: string;
+  occupation: string;
+  employment_status: string;
+  address: string;
+  office: string
 }
 
 export interface manual {
@@ -190,6 +186,17 @@ export interface lgaLogo {
   id: any;
   name: any;
   code: any;
+}
+
+export interface ind_verify {
+  type: string;
+  phone: string;
+  birth: string;
+}
+
+export interface com_verify {
+  type: string;
+  phone: string;
 }
 
 export let OPTIONS = [

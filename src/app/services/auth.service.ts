@@ -130,6 +130,10 @@ export class AuthService {
   public storeTokens(tokens: Tokens) {
     localStorage.setItem(this.JWT_TOKEN, tokens.access);
     localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
+    // const isExpired = this.helper.decodeToken(this.getJwtToken());
+    // const RisExpired = this.helper.decodeToken(this.getRefreshToken());
+    // console.log(isExpired)
+    // console.log(RisExpired)
   }
 
   private removeTokens() {

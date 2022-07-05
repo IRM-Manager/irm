@@ -9,7 +9,8 @@ import {
   User,
   Group,
   Department,
-  Locationn
+  Locationn,
+  Occupation
 } from '../dashboard/models/irm';
 
 export enum ExampleActionTypes {
@@ -23,7 +24,7 @@ export enum ExampleActionTypes {
   GetGroup = '[Group API] Get Group',
   GetDepartment = '[Department API] Get Department',
   GetLocation = '[Location API] Get Location',
-  // GetUser = '[User API] Get User',
+  GetOccupation = '[Occupation API] Get Occupation',
   // GetCoupon = '[Coupon API] Get Coupon',
   // GetSpecial_Order = '[Special_Order API] Get Special_Order',
 }
@@ -39,7 +40,7 @@ export enum ExampleActionTypes2 {
   GetGroup = '[Group API] Remove Group',
   GetDepartment = '[Department API] Remove Department',
   GetLocation = '[Location API] Remove Location',
-  // GetUser = '[User API] Remove User',
+  GetOccupation = '[Occupation API] Remove Occupation',
   // GetCoupon = '[Coupon API] Remove Coupon',
   // GetSpecial_Order = '[Special_Order API] Remove Special_Order',
 }
@@ -237,25 +238,25 @@ export class RemoveLocation implements Action {
     constructor(public Locationpayload: any) {}
 }
 
-// // User
+// Occupation
 
-// // Section 2
-// export const ADD_USER  = '[USER] Add'
-// export const REMOVE_USER   = '[USER] Remove'
+// Section 2
+export const ADD_OCCUPATION  = '[OCCUPATION] Add'
+export const REMOVE_OCCUPATION   = '[OCCUPATION] Remove'
 
-// // Section 3
-// export class AddUser implements Action {
-//     public readonly type = ExampleActionTypes.GetUser
+// Section 3
+export class AddOccupation implements Action {
+    public readonly type = ExampleActionTypes.GetOccupation
 
-//     constructor(public Userpayload: User[]) {}
+    constructor(public Occupationpayload: Occupation[]) {}
 
-// }
+}
 
-// export class RemoveUser implements Action {
-//     public readonly type = ExampleActionTypes2.GetUser
+export class RemoveOccupation implements Action {
+    public readonly type = ExampleActionTypes2.GetOccupation
 
-//     constructor(public Userpayload: any) {}
-// }
+    constructor(public Occupationpayload: any) {}
+}
 
 // // Coupon
 
@@ -320,3 +321,5 @@ export type Actions =
   | RemoveDepartment
   | AddLocation
   | RemoveLocation
+  | AddOccupation
+  | RemoveOccupation

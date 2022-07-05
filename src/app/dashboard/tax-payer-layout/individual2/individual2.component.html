@@ -1,25 +1,15 @@
 <div class="wrapper">
 
-    <div class="header" *ngIf="!update">
-        <div class="nin-text">nin</div>
-        <div class="header-text">
-            <div class="nin-number">{{ payer_data?.nin }}</div>
-            <button mat-button class="header-change" (click)="changePayerData()">change</button>
-        </div>
-    </div>
-
-    <div class="header" *ngIf="update">
-        <div class="nin-text">Tin</div>
-        <div class="header-text">
-            <div class="nin-number">{{ editDetails?.data?.tin }}</div>
-        </div>
+    <div class="header" *ngIf="!update && payer_data.photo ">
+        <img [src]="displayImage(payer_data?.photo)" alt="">
     </div>
 
     <!-- session 1 -->
     <div class="session">
-        <div class="session-header">Section 1: Personal Details</div>
+        <div class="session-header">Create individual Taxpayer Account</div>
 
-        <form #card class="form1" id="ngForm" novalidate [formGroup]="feedbackForm1" #fform1="ngForm">
+        <form #card class="form1" id="ngForm" novalidate 
+        [formGroup]="feedbackForm1" #fform1="ngForm" fxLayoutGap="15px">
             <p>
                 <!-- title -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -29,17 +19,27 @@
                         <mat-option value="mrs">Mrs.</mat-option>
                     </mat-select>
                 </mat-form-field>
+            </p>
+
+            <p>
+                <!-- tin -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>JTBTIN (Optional)</mat-label>
+                    <input matInput formControlName="tin">
+                    <mat-error>{{formErrors.tin}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
                 <!-- firstname -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>First name</mat-label>
                     <input matInput formControlName="firstname" required>
                     <mat-error>{{formErrors.firstname}}</mat-error>
                 </mat-form-field>
-                <!-- middlename -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Middle name</mat-label>
-                    <input matInput formControlName="middlename">
-                </mat-form-field>
+            </p>
+
+            <p>
                 <!-- surname -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Surname</mat-label>
@@ -47,6 +47,7 @@
                     <mat-error>{{formErrors.surname}}</mat-error>
                 </mat-form-field>
             </p>
+
             <p>
                 <!-- gender -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -57,6 +58,9 @@
                     </mat-select>
                     <mat-error>{{formErrors.gender}}</mat-error>
                 </mat-form-field>
+            </p>
+
+            <p>
                 <!-- birth -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Date of Birth</mat-label>
@@ -65,12 +69,9 @@
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error>{{formErrors.birth}}</mat-error>
                 </mat-form-field>
-                <!-- place birth -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Place of Birth</mat-label>
-                    <input matInput formControlName="place" required>
-                    <mat-error>{{formErrors.place}}</mat-error>
-                </mat-form-field>
+            </p>
+
+            <p>
                 <!-- state -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>State of Origin</mat-label>
@@ -83,16 +84,17 @@
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.state}}</mat-error>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError && !stateLoading" style="color: red;">
+                    <mat-hint align="end" (click)="addState()" *ngIf="stateError && !stateLoading" style="color: red;">
                         <button>Reload</button>
                     </mat-hint>
                     <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
                 </mat-form-field>
             </p>
+
             <p>
                 <!-- lga -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>LGA</mat-label>
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>LGA of residence</mat-label>
                     <mat-select matInput formControlName="lga" #singleSelect required id="lga">
                         <mat-option>
                             <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderlabel="search LGA..." noentriesfoundlabel="no matching lga found"></ngx-mat-select-search>
@@ -104,130 +106,84 @@
                     </mat-select>
                     <mat-error>{{formErrors.lga}}</mat-error>
                     <mat-hint *ngIf="!lga" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="AddLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
+                    <mat-hint align="end" (click)="addLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
                         <button>Reload</button>
                     </mat-hint>
                     <mat-hint *ngIf="lgaLoading" align="end">Loading...</mat-hint>
                 </mat-form-field>
-                <!-- nationality -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>Nationality</mat-label>
-                    <input matInput formControlName="nationality" required>
-                    <mat-error>{{formErrors.nationality}}</mat-error>
-                </mat-form-field>
-                <!-- trade -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>Profession/Trade</mat-label>
-                    <input matInput formControlName="trade" required>
-                    <mat-error>{{formErrors.trade}}</mat-error>
-                </mat-form-field>
             </p>
 
-            <div class="session-header" style="margin-top: 30px;">Contact Information</div>
-
-            <p
-                style="margin-top: 1rem;">
+            <p>
+                <!-- occupation -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Occupation/provisions</mat-label>
+                    <mat-select matInput formControlName="occupation" required>
+                        <mat-option *ngFor="let c of list_occupation" [value]="c.id">{{c.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.occupation}}</mat-error>
+                </mat-form-field>
+            </p>
+            
+            <p>
                 <!-- phone -->
-                <mat-form-field class="half-width2" appearance="outline">
+                <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Contact number</mat-label>
                     <input matInput formControlName="contact" type="tel" required>
                     <mat-error>{{formErrors.contact}}</mat-error>
                 </mat-form-field>
+            </p>
+
+            <p>
                 <!-- email -->
-                <mat-form-field class="half-full" appearance="outline">
+                <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Email Address</mat-label>
                     <input matInput formControlName="contact_email" type="email" email required>
                     <mat-error>{{formErrors.contact_email}}</mat-error>
                 </mat-form-field>
             </p>
 
-
-            <!-- session2 -->
-            <div class="session-header" style="margin-bottom: 30px;">Section 2: Residential Address</div>
-
             <p>
-                <!-- house -->
+                <!-- address -->
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>House No.</mat-label>
-                    <input matInput formControlName="house" type="tel" required>
-                    <mat-error>{{formErrors.house}}</mat-error>
-                </mat-form-field>
-                <!-- street -->
-                <mat-form-field class="full-half" appearance="outline">
-                    <mat-label>Estate/Street</mat-label>
-                    <input matInput formControlName="street" required>
-                    <mat-error>{{formErrors.street}}</mat-error>
+                    <mat-label>Residential Address</mat-label>
+                    <input matInput formControlName="address" required>
+                    <mat-error>{{formErrors.address}}</mat-error>
                 </mat-form-field>
             </p>
+
             <p>
-                <!-- state_red -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>State of Residence</mat-label>
-                    <mat-select matInput formControlName="state_red" #singleSelect required>
+                <!-- office -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Select Tax Office</mat-label>
+                    <mat-select matInput formControlName="office" #singleSelect required>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3" placeholderlabel="search state..." noentriesfoundlabel="no matching state found"></ngx-mat-select-search>
+                            <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3" placeholderlabel="search Offices..." noentriesfoundlabel="no matching office found">
+                            </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks3 | async" [value]="option.id">
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
-                    <mat-error>{{formErrors.state_red}}</mat-error>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2" style="color: red;">
+                    <mat-error>{{formErrors.office}}</mat-error>
+                    <mat-hint align="end" (click)="addLocation()" *ngIf="stateError2 && !stateLoading2" style="color: red;">
                         <button>Reload</button>
                     </mat-hint>
-                    <mat-hint *ngIf="stateLoading2">Loading...</mat-hint>
-                </mat-form-field>
-                <!-- lga_red -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>LGA of Residence</mat-label>
-                    <mat-select matInput formControlName="lga_red" #singleSelect required>
-                        <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl4" [searching]="searching4" placeholderlabel="search LGA..." noentriesfoundlabel="no matching lga found"></ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks4 | async" [value]="option.id">
-                            <span>{{option.name}}</span>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>{{formErrors.lga_red}}</mat-error>
-                    <mat-hint *ngIf="!lga2" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;">
-                        <button>Reload</button>
-                    </mat-hint>
-                    <mat-hint *ngIf="lgaLoading2" align="end">Loading...</mat-hint>
-                </mat-form-field>
-                <!-- zipcode -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>Zip Code</mat-label>
-                    <input matInput formControlName="zipcode" type="number" required>
-                    <mat-error>{{formErrors.zipcode}}</mat-error>
+                    <mat-hint *ngIf="stateLoading2" align="end">Loading...</mat-hint>
                 </mat-form-field>
             </p>
 
-
-            <div style="margin-top: 30px;"></div>
-
-            <!-- session3 -->
-            <div class="session-header" style="margin-bottom: 30px;">Section 3: Employment status</div>
-
-            <p
-                class="radio">
-                <!-- <mat-radio-group [formControl]="floatLabelControl">
-                                    <mat-radio-button value="employed">Employed</mat-radio-button>
-                                    <mat-radio-button value="unemployed" class="radio_button">Unemployed</mat-radio-button>
-                                    <mat-radio-button value="retired" class="radio_button">Retired</mat-radio-button>
-                                </mat-radio-group> -->
-                <mat-form-field class="full" appearance="outline">
-                    <mat-label>Choose Employment status</mat-label>
+            <p>
+                <!-- employment status -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Employment status</mat-label>
                     <mat-select matInput [formControl]="floatLabelControl">
                         <mat-option value="employed">Employed</mat-option>
                         <mat-option value="unemployed">Unemployed</mat-option>
                         <mat-option value="retired">Retired</mat-option>
-                        <!-- <mat-option value="self employed">Self Employed</mat-option>
-                                                <mat-option value="petty trader">Petty Trader</mat-option>
-                                                <mat-option value="civil servant">Civil Servant</mat-option> -->
                     </mat-select>
                 </mat-form-field>
             </p>
+
         </form>
 
     </div>
@@ -235,10 +191,9 @@
 
     <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>
-        <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true" -->
-        <button type="submit" form="ngForm" mat-button class="verify" (click)="Submit()">
-            <span *ngIf="!loading2">Continue</span>
-            <div *ngIf="loading2" class="loader">
+        <button type="submit" form="ngForm" mat-button class="verify" (click)="Submit()" [disabled]="disabled == true">
+            <span *ngIf="!loading">Continue</span>
+            <div *ngIf="loading" class="loader">
                 <div class="bubble"></div>
                 <div class="bubble"></div>
                 <div class="bubble"></div>
@@ -249,8 +204,7 @@
 
     <div class="final_submit" *ngIf="update">
         <button mat-button class="verify2" (click)="back()">Back</button>
-        <!-- [disabled]="fform1.form.invalid || fform2.form.invalid || disabled2 === true" -->
-        <button form="ngForm" mat-button class="verify" (click)="SubmitUpdate()">
+        <button form="ngForm" mat-button class="verify" (click)="SubmitUpdate()" [disabled]="disabled == true">
             <span *ngIf="!Updateloading">Update</span>
             <div *ngIf="Updateloading" class="loader">
                 <div class="bubble"></div>

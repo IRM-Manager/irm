@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
 
 @Component({
   selector: 'app-tax-payer',
@@ -27,9 +28,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
-  datas2: any[] = [];
   searchData: any;
-  searchData2: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
@@ -81,34 +80,17 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   }
 
   modelChange(search: any) {
-    if (this.active == 'com') {
-      const data = this.searchData2?.filter((data: any) => {
-        return (
-          data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-          data.organisation_name
-            .toLowerCase()
-            .startsWith(search.toLowerCase()) ||
-          data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-          this.formatDate(data?.created_at).startsWith(search.toLowerCase())
-        );
-      });
-      this.datas = data;
-    } else {
-      const data = this.searchData?.filter((data: any) => {
-        return (
-          data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-          data.profession_trade
-            .toLowerCase()
-            .startsWith(search.toLowerCase()) ||
-          data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-          data.first_name.startsWith(search.toLowerCase()) ||
-          data.surname.toLowerCase().startsWith(search.toLowerCase()) ||
-          data.middle_name.toLowerCase().startsWith(search.toLowerCase()) ||
-          this.formatDate(data?.created_at).startsWith(search.toLowerCase())
-        );
-      });
-      this.datas = data;
-    }
+    const data = this.searchData?.filter((data: any) => {
+      return (
+        data.state_tin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.lga_id.name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.startsWith(search) ||
+        data.taxpayer_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.location.name.toLowerCase().startsWith(search.toLowerCase())
+        // this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+      );
+    });
+    this.datas = data;
   }
 
   renderTable() {
@@ -119,34 +101,30 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       info: false,
     };
 
+    let url = '';
+
     if (this.active == 'com') {
-      this.isLoading = true;
-      this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-        (data: any) => {
-          this.datas2 = data.results;
-          this.searchData2 = data.results;
-          this.dtTrigger.next;
-          this.isLoading = false;
-        },
-        (err) => {
-          this.isLoading = false;
-          this.authService.checkExpired();
-        }
-      );
+      url = BaseUrl.list_com_payer;
+    } else if (this.active == 'all') {
+      url = BaseUrl.list_all_payer;
     } else {
-      this.isLoading = true;
-      this.httpService.getAuthSingle(BaseUrl.list_ind_payer).subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.dtTrigger.next;
-          this.isLoading = false;
-        },
-        (err) => {
-          this.isLoading = false;
-        }
-      );
+      url = BaseUrl.list_ind_payer;
     }
+
+    this.isLoading = true;
+    this.httpService.getAuthSingle(url).subscribe(
+      (data: any) => {
+        console.log(data.results);
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.dtTrigger.next;
+        this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -154,17 +132,20 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
     this.renderTable();
   }
 
-  Reload() {
+  reload() {
     this.is_reload = true;
     this.renderTable();
     this.is_reload = false;
   }
 
-  changeActive(type: string) {
-    this.active = type;
+  changeActive(type: any) {
+    this.active = type.target[type.target.selectedIndex].value;
     if (type == 'com') {
       this.left_text = 'Tax Registration of Business';
       this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
+    } else if (type == 'all') {
+      this.left_text = 'All Registration of TaxPayer';
+      this.router.navigate(['/dashboard/dashboard2/taxpayer']);
     } else {
       this.left_text = 'Tax Registration of Individuals';
       this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
@@ -183,14 +164,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
     // after dialog close
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if (result.type == 'com') {
-          // update company search data
-          this.searchData2.filter((dat: any, index: any) => {
-            if (dat.id == result.id) {
-              this.searchData2.splice(index, 1);
-            }
-          });
-        }
         if (result.type == 'ind') {
           // update individual search data
           this.searchData.filter((dat: any, index: any) => {
@@ -208,6 +181,14 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
         });
       } else {
       }
+    });
+  }
+
+  openRegisDialog() {
+    this.dialog.open(TaxpayerDialogComponent, {
+      data: {
+        type: 'regis',
+      },
     });
   }
 

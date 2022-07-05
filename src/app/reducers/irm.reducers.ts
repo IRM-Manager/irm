@@ -11,7 +11,8 @@ import {
   User,
   Group,
   Department,
-  Locationn
+  Locationn,
+  Occupation,
 } from '../dashboard/models/irm';
 
 interface ProfileState extends EntityState<Profile> {
@@ -54,9 +55,9 @@ interface LocationState extends EntityState<Locationn> {
   total: number;
 }
 
-// interface Admin_AgentState extends EntityState<Admin_Agent> {
-//   total: number;
-// }
+interface OccupationState extends EntityState<Occupation> {
+  total: number;
+}
 
 // interface CouponState extends EntityState<Coupon> {
 //   total: number;
@@ -76,7 +77,7 @@ export interface State {
   group: GroupState;
   department: DepartmentState;
   location: LocationState;
-  // admin_agent: Admin_AgentState;
+  occupation: OccupationState;
   user: UserState;
   // coupon: CouponState;
   // special_order: Special_OrderState;
@@ -91,7 +92,7 @@ const adapterPayee = createEntityAdapter<Payee>();
 const adapterGroup = createEntityAdapter<Group>();
 const adapterDepartment = createEntityAdapter<Department>();
 const adapterLocation = createEntityAdapter<Locationn>();
-// const adapterAdmin_Agent = createEntityAdapter<Admin_Agent>();
+const adapterOccupation = createEntityAdapter<Occupation>();
 const adapterUser = createEntityAdapter<User>();
 // const adapterCoupon = createEntityAdapter<Coupon>();
 // const adapterSpecial_Order = createEntityAdapter<Special_Order>();
@@ -112,12 +113,16 @@ const ComPayerInitialState: ComPayerState = adapterComPayer.getInitialState({
 const PayeeInitialState: PayeeState = adapterPayee.getInitialState({
   total: 0,
 });
-const GroupInitialState: GroupState =
-  adapterGroup.getInitialState({ total: 0 });
+const GroupInitialState: GroupState = adapterGroup.getInitialState({
+  total: 0,
+});
 const DepartmentInitialState: DepartmentState =
   adapterDepartment.getInitialState({ total: 0 });
-const LocationInitialState: LocationState = adapterLocation.getInitialState({ total: 0 });
-// const Admin_AgentInitialState: Admin_AgentState = adapterAdmin_Agent.getInitialState({ total: 0 });
+const LocationInitialState: LocationState = adapterLocation.getInitialState({
+  total: 0,
+});
+const OccupationInitialState: OccupationState =
+  adapterOccupation.getInitialState({ total: 0 });
 const UserInitialState: UserState = adapterUser.getInitialState({ total: 0 });
 // const CouponInitialState: CouponState = adapterCoupon.getInitialState({ total: 0 });
 // const Special_OrderInitialState: Special_OrderState = adapterSpecial_Order.getInitialState({ total: 0 });
@@ -132,7 +137,7 @@ const initialState = {
   group: GroupInitialState,
   department: DepartmentInitialState,
   location: LocationInitialState,
-  // admin_agent: Admin_AgentInitialState,
+  occupation: OccupationInitialState,
   user: UserInitialState,
   // coupon: CouponInitialState,
   // special_order: Special_OrderInitialState,
@@ -212,33 +217,63 @@ export function reducer(state: State = initialState, action: Actions): State {
     case KonpayActions.ExampleActionTypes2.GetPayee:
       return { ...state, payee: adapterPayee.removeOne(1, state.payee) };
 
-     // Group
-     case KonpayActions.ExampleActionTypes.GetGroup:
-     return { ...state, group: adapterGroup.addMany(action.Grouppayload, state.group) };
+    // Group
+    case KonpayActions.ExampleActionTypes.GetGroup:
+      return {
+        ...state,
+        group: adapterGroup.addMany(action.Grouppayload, state.group),
+      };
 
-     case KonpayActions.ExampleActionTypes2.GetGroup:
-     return { ...state, group: adapterGroup.removeOne(1, state.group) };
+    case KonpayActions.ExampleActionTypes2.GetGroup:
+      return { ...state, group: adapterGroup.removeOne(1, state.group) };
 
-     // Department
-     case KonpayActions.ExampleActionTypes.GetDepartment:
-     return { ...state, department: adapterDepartment.addMany(action.Departmentpayload, state.department) };
+    // Department
+    case KonpayActions.ExampleActionTypes.GetDepartment:
+      return {
+        ...state,
+        department: adapterDepartment.addMany(
+          action.Departmentpayload,
+          state.department
+        ),
+      };
 
-     case KonpayActions.ExampleActionTypes2.GetDepartment:
-     return { ...state, department: adapterDepartment.removeOne(1, state.department) };
+    case KonpayActions.ExampleActionTypes2.GetDepartment:
+      return {
+        ...state,
+        department: adapterDepartment.removeOne(1, state.department),
+      };
 
-     // Location
-     case KonpayActions.ExampleActionTypes.GetLocation:
-     return { ...state, location: adapterLocation.addMany(action.Locationpayload, state.location) };
+    // Location
+    case KonpayActions.ExampleActionTypes.GetLocation:
+      return {
+        ...state,
+        location: adapterLocation.addMany(
+          action.Locationpayload,
+          state.location
+        ),
+      };
 
-     case KonpayActions.ExampleActionTypes2.GetLocation:
-     return { ...state, location: adapterLocation.removeOne(1, state.location) };
+    case KonpayActions.ExampleActionTypes2.GetLocation:
+      return {
+        ...state,
+        location: adapterLocation.removeOne(1, state.location),
+      };
 
-    //  // Admin_Agent
-    //  case KonpayActions.ExampleActionTypes.GetAdmin_Agent:
-    //  return { ...state, admin_agent: adapterAdmin_Agent.addMany(action.Admin_Agentpayload, state.admin_agent) };
+    // Admin_Agent
+    case KonpayActions.ExampleActionTypes.GetOccupation:
+      return {
+        ...state,
+        occupation: adapterOccupation.addMany(
+          action.Occupationpayload,
+          state.occupation
+        ),
+      };
 
-    //  case KonpayActions.ExampleActionTypes2.GetAdmin_Agent:
-    //  return { ...state, admin_agent: adapterAdmin_Agent.removeOne(1, state.admin_agent) };
+    case KonpayActions.ExampleActionTypes2.GetOccupation:
+      return {
+        ...state,
+        occupation: adapterOccupation.removeOne(1, state.occupation),
+      };
 
     //  User
     case KonpayActions.ExampleActionTypes.GetUser:
@@ -278,7 +313,7 @@ export const selectPayeeState = (state: State) => state.payee;
 export const selectGroupState = (state: State) => state.group;
 export const selectDepartmentState = (state: State) => state.department;
 export const selectLocationState = (state: State) => state.location;
-// export const selectAdmin_AgentState = (state: State) => state.admin_agent;
+export const selectOccupationState = (state: State) => state.occupation;
 export const selectUserState = (state: State) => state.user;
 // export const selectCouponState = (state: State) => state.coupon;
 // export const selectSpecial_OrderState = (state: State) => state.special_order;
@@ -290,9 +325,11 @@ export const { selectAll: selectAllIndPayer } = adapterIndPayer.getSelectors();
 export const { selectAll: selectAllComPayer } = adapterComPayer.getSelectors();
 export const { selectAll: selectAllPayee } = adapterPayee.getSelectors();
 export const { selectAll: selectAllGroup } = adapterGroup.getSelectors();
-export const { selectAll: selectAllDepartment } = adapterDepartment.getSelectors();
+export const { selectAll: selectAllDepartment } =
+  adapterDepartment.getSelectors();
 export const { selectAll: selectAllLocation } = adapterLocation.getSelectors();
-// export const { selectAll: selectAllAdmin_Agent } = adapterAdmin_Agent.getSelectors();
+export const { selectAll: selectAllOccupation } =
+  adapterOccupation.getSelectors();
 export const { selectAll: selectAllUser } = adapterUser.getSelectors();
 // export const { selectAll: selectAllCoupon } = adapterCoupon.getSelectors();
 // export const { selectAll: selectAllSpecial_Order } = adapterSpecial_Order.getSelectors();

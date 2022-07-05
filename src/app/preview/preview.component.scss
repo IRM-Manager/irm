@@ -1,6 +1,6 @@
 $white: #ffffff;
 $text1-font: normal normal 18px/20px Montserrat;
-$nav-color: #45a841 0% 0% no-repeat padding-box;
+$nav-color: #038541 0% 0% no-repeat padding-box;
 $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
 $right1-font: normal normal 400 15px/19px Montserrat;
@@ -13,6 +13,10 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     color: $white;
     background: $nav-color;
     height: 90px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
 
     .logo {
       margin-left: 30px;
@@ -20,6 +24,8 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     }
 
     .logo img {
+      position: absolute;
+      top: 50%;
       width: 80px;
     }
 
@@ -38,6 +44,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
       color: $white;
       text-transform: capitalize;
       opacity: 1;
+      margin-left: 3rem;
     }
 
     .bell-icon {
@@ -135,7 +142,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     padding: 1rem;
     width: 10rem;
     margin-bottom: 30px;
-    height: 4rem;
+    height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -148,11 +155,73 @@ $right1-font: normal normal 400 15px/19px Montserrat;
   }
 
   .text {
-    margin-left: 10px;
+    margin-left: 5px;
     font: normal normal normal 15px/19px Montserrat;
     letter-spacing: 0px;
     font-weight: 500;
-    color: #3c66a3;
+    color: #ffffff;
+    text-transform: capitalize;
     opacity: 1;
   }
+
+  @mixin background-theme($theme) {
+    background: $theme;
+  }
+
+  .dashboard-background {
+    @include background-theme($theme: #038541 0% 0% no-repeat padding-box);
+  }
+
+  .enumeration-background {
+    @include background-theme($theme: #C43217 0% 0% no-repeat padding-box);
+  }
+
+  .payee-background {
+    @include background-theme($theme: #3C66A3 0% 0% no-repeat padding-box);
+  }
+
+  .direct-background {
+    @include background-theme($theme: #D56545 0% 0% no-repeat padding-box);
+  }
+
+  .vehicle-background {
+    @include background-theme($theme: #668C89 0% 0% no-repeat padding-box);
+  }
+
+  .mda-background {
+    @include background-theme($theme: #D56545 0% 0% no-repeat padding-box);
+  }
+
+  .with-background {
+    @include background-theme($theme: #C2BB00 0% 0% no-repeat padding-box);
+  }
+
+  .pre-background {
+    @include background-theme($theme: #003547 0% 0% no-repeat padding-box);
+  }
+
+  .wallet-background {
+    @include background-theme($theme: #005E54 0% 0% no-repeat padding-box);
+  }
+
+  .reporting-background {
+    @include background-theme($theme: #413431 0% 0% no-repeat padding-box);
+  }
+
+  .admin-background {
+    @include background-theme($theme: #A1A2A6 0% 0% no-repeat padding-box);
+  }
+
+  .ref-background {
+    @include background-theme($theme: #05AFF2 0% 0% no-repeat padding-box);
+  }
+
+  .enforce-background {
+    @include background-theme($theme: #A6033F 0% 0% no-repeat padding-box);
+  }
+
+  .audit-background {
+    @include background-theme($theme: #400036 0% 0% no-repeat padding-box);
+  }
+
 }

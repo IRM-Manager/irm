@@ -173,14 +173,14 @@ export class PayeeManualInputComponent implements OnInit {
         is_consolidated:
           this.form.value.floatLabelControl == 'true' ? true : false,
         nhf: this.form3.value.floatLabelControl3 == 'true' ? true : false,
-        gross: this.consolidate,
-        employee_position: this.feedback.position,
+        gross: this.consolidate || 0,
+        employee_position: this.feedback.position || '',
         employeeTin: this.datas2.tin,
-        hmo: this.hmo,
-        other_deductions: this.other,
-        basic: this.basic,
-        housing: this.housing,
-        tp: this.tp,
+        hmo: this.hmo || 0,
+        other_deductions: this.other || 0,
+        basic: this.basic || 0,
+        housing: this.housing || 0,
+        tp: this.tp || 0,
       };
       if (this.form.value.floatLabelControl == 'true') {
         delete data.basic;
@@ -268,18 +268,18 @@ export class PayeeManualInputComponent implements OnInit {
       this.loading = true;
 
       const data: any = {
-        other_deductions: this.other,
+        other_deductions: this.other || 0,
         pension: this.form2.value.floatLabelControl2 == 'true' ? true : false,
         nhf: this.form3.value.floatLabelControl3 == 'true' ? true : false,
-        gross: this.consolidate,
+        gross: this.consolidate || 0,
         is_consolidated:
           this.form.value.floatLabelControl == 'true' ? true : false,
-        hmo: this.hmo,
-        employee_position: this.feedback.position,
+        hmo: this.hmo || 0,
+        employee_position: this.feedback.position || '',
         employeeTin: this.datas2.tin || this.datas2.employeeTin,
-        basic: this.basic,
-        housing: this.housing,
-        tp: this.tp,
+        basic: this.basic || 0,
+        housing: this.housing || 0,
+        tp: this.tp || 0,
       };
       if (this.form.value.floatLabelControl == 'true') {
         delete data.basic;
@@ -423,7 +423,7 @@ export class PayeeManualInputComponent implements OnInit {
 
   back() {
     if (this.update) {
-      this.payeeService.setAsYearMessage({yearId: this.acceptedData.taxYear});
+      this.payeeService.setAsYearMessage({ yearId: this.acceptedData.taxYear });
       this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage']);
     } else {
       this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage']);

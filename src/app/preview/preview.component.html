@@ -4,7 +4,7 @@
     <mat-toolbar class="nav_preview">
 
         <div class="logo">
-            <img src="assets/images/side_nav_logo.svg" alt="">
+            <img src="assets/images/gombelogo.png" alt="">
         </div>
 
         <div class="module">all modules</div>
@@ -38,37 +38,61 @@
     </mat-toolbar>
 
     <div class="container" fxLayoutGap="30px">
-        <div class="card" [routerLink]="['/dashboard']">
+        <div class="card dashboard-background" [routerLink]="['/dashboard']">
             <div class="icon"><img src="assets/images/3669363_dashboard_ic_icon.svg" alt=""></div>
             <div class="text">dashboard</div>
         </div>
-        <div class="card" [routerLink]="['/dashboard/dashboard2/taxpayer']">
+        <div class="card enumeration-background" [routerLink]="['/dashboard/dashboard2/taxpayer']">
             <div class="icon"><img src="assets/images/211873_person_stalker_icon.svg" alt=""></div>
-            <div class="text">Tax payer</div>
+            <div class="text">Enumeration</div>
         </div>
-        <div class="card" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/business-list']">
+        <div class="card payee-background" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/business-list']">
             <div class="icon"><img src="assets/images/3668836_bill_fee_tax_icon.svg" alt=""></div>
             <div class="text">Pay as you Earn</div>
         </div>
-        <div class="card" [routerLink]="['/dashboard/dashboard5/vehicle']">
-            <div class="icon"><img src="assets/images/8725588_car_wash_icon.svg" alt=""></div>
-            <div class="text">Vehicle Licensing</div>
-        </div>
-        <div class="card" [routerLink]="['/dashboard/dashboard3/mda']">
-            <div class="icon"><img src="assets/images/Icon awesome-building.svg" alt=""></div>
-            <div class="text">MDA</div>
-        </div>
-        <div class="card" [routerLink]="['/dashboard/dashboard5/direct']">
+        <div class="card direct-background" [routerLink]="['/dashboard/dashboard5/direct']">
             <div class="icon"><img src="assets/images/3668836_bill_fee_tax_icon.svg" alt=""></div>
             <div class="text">Direct Assessment</div>
         </div>
-        <div class="card" [routerLink]="['/dashboard/dashboard5/admin-console']">
+        <div class="card vehicle-background" [routerLink]="['/dashboard/dashboard5/vehicle']">
+            <div class="icon"><img src="assets/images/8725588_car_wash_icon.svg" alt=""></div>
+            <div class="text">Vehicle Licensing</div>
+        </div>
+        <div class="card mda-background" [routerLink]="['/dashboard/dashboard3/mda']">
+            <div class="icon"><img src="assets/images/Icon awesome-building.svg" alt=""></div>
+            <div class="text">MDA</div>
+        </div>
+        <div class="card with-background">
+            <div class="icon"><img src="assets/images/Icon awesome-calculator.svg" alt=""></div>
+            <div class="text">Withholding Tax</div>
+        </div>
+        <div class="card pre-background">
+            <div class="icon"><img src="assets/images/33.Thinking.svg" alt=""></div>
+            <div class="text">presumptive Tax</div>
+        </div>
+        <div class="card wallet-background">
+            <div class="icon"><img src="assets/images/Icon-material-account-balance-wallet.svg" alt=""></div>
+            <div class="text">Wallet System</div>
+        </div>
+        <div class="card reporting-background">
+            <div class="icon"><img src="assets/images/329-DocumentReport.svg" alt=""></div>
+            <div class="text">Reporting</div>
+        </div>
+        <div class="card admin-background" [routerLink]="['/dashboard/dashboard5/admin-console']">
             <div class="icon"><img src="assets/images/3018587_admin_administrator_ajax_options_permission_icon.svg" alt=""></div>
             <div class="text">Admin Console</div>
         </div>
-        <div class="card">
-            <div class="icon"><img src="assets/images/329-Document Report.svg" alt=""></div>
-            <div class="text">Reporting</div>
+        <div class="card ref-background">
+            <div class="icon"><img src="assets/images/data.svg" alt=""></div>
+            <div class="text">Reference Data</div>
+        </div>
+        <div class="card enforce-background">
+            <div class="icon"><img src="assets/images/309038_police_secure_security_icon.svg" alt=""></div>
+            <div class="text">Enforcement Module</div>
+        </div>
+        <div class="card audit-background">
+            <div class="icon"><img src="assets/images/usability_audit.svg" alt=""></div>
+            <div class="text">Audit and Investigation</div>
         </div>
     </div>
 

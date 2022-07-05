@@ -11,9 +11,9 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  width: 320px;
+  width: 300px;
   overflow-x: hidden;
-  background: $background;
+  background: #038541 0% 0% no-repeat padding-box;
   border-right: 30px solid $border-right;
   opacity: 1;
   color: $white;

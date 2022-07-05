@@ -48,10 +48,10 @@ export interface Locationn {
     data: any;
 }
 
-// export interface User {
-//     id: number;
-//     data: any;
-// }
+export interface Occupation {
+    id: number;
+    data: any;
+}
 
 // export interface Coupon {
 //     id: number;

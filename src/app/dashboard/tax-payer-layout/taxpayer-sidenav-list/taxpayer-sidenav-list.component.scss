@@ -1,7 +1,7 @@
 $white: #ffffff;
 $panel-text: normal normal normal 15px/19px Montserrat;
 $panel-text2: normal normal 300 15px/19px Montserrat;
-$panel-text2-active: #ffffff66;
+$panel-text2-active: rgba(255,255,255,0.5);
 $text1-font: normal normal 15px/19px Montserrat;
 $text2-font: normal normal 300 12px/15px Montserrat;
 $right1-font: normal normal 400 15px/19px Montserrat;
@@ -12,6 +12,17 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 .wrapper2 {
   color: $white;
   overflow-y: auto;
+
+  .logo_p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
 
   %shared-dash-text {
     font: $panel-text;
