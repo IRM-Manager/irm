@@ -67,20 +67,15 @@ export interface Business {
 
 export interface Business2 {
   org_name: string;
-  nature_bus: string;
-  num_emp: string;
+  cac: string;
+  tin: string;
   date_est: string;
   contact_num: string;
   email: string;
   company_type: string;
-  website: string;
-  house: string;
-  street: string;
-  state_red: string;
-  lga_red: string;
-  zipcode: string;
-  contact_email: string;
-  contact: string;
+  address: string;
+  office: string;  
+  lga: string;
 }
 
 export interface payee1 {

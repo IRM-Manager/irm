@@ -79,12 +79,12 @@
                         <mat-option>
                             <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching" placeholderlabel="search state..." noentriesfoundlabel="no matching state found"></ngx-mat-select-search>
                         </mat-option>
-                        <mat-option *ngFor="let option of filteredBanks | async" [value]="option.id+'|||'+option.name">
+                        <mat-option *ngFor="let option of filteredBanks | async" [value]="option.name">
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.state}}</mat-error>
-                    <mat-hint align="end" (click)="addState()" *ngIf="stateError && !stateLoading" style="color: red;">
+                    <mat-hint align="end" (click)="addState()" *ngIf="stateError && !stateLoading">
                         <button>Reload</button>
                     </mat-hint>
                     <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
@@ -100,13 +100,13 @@
                             <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderlabel="search LGA..." noentriesfoundlabel="no matching lga found"></ngx-mat-select-search>
                         </mat-option>
                         <mat-option
-                            *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id+'|||'+lgaOption.name">
+                            *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id">
                             {{lgaOption.name}}
                         </mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.lga}}</mat-error>
                     <mat-hint *ngIf="!lga" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="addLga(lga.id)" *ngIf="lgaError && !lgaLoading" style="color: red;">
+                    <mat-hint align="end" (click)="addLga(lga.id)" *ngIf="lgaError && !lgaLoading">
                         <button>Reload</button>
                     </mat-hint>
                     <mat-hint *ngIf="lgaLoading" align="end">Loading...</mat-hint>
@@ -120,6 +120,10 @@
                     <mat-select matInput formControlName="occupation" required>
                         <mat-option *ngFor="let c of list_occupation" [value]="c.id">{{c.name}}</mat-option>
                     </mat-select>
+                    <mat-hint align="end" (click)="addOccupation()" *ngIf="occError && !occLoading">
+                        <button>Reload</button>
+                    </mat-hint>
+                    <mat-hint *ngIf="occLoading" align="end">Loading...</mat-hint>
                     <mat-error>{{formErrors.occupation}}</mat-error>
                 </mat-form-field>
             </p>
@@ -191,7 +195,7 @@
 
     <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>
-        <button type="submit" form="ngForm" mat-button class="verify" (click)="Submit()" [disabled]="disabled == true">
+        <button type="submit" form="ngForm" mat-button class="verify" (click)="submit()" [disabled]="disabled == true">
             <span *ngIf="!loading">Continue</span>
             <div *ngIf="loading" class="loader">
                 <div class="bubble"></div>
@@ -204,7 +208,7 @@
 
     <div class="final_submit" *ngIf="update">
         <button mat-button class="verify2" (click)="back()">Back</button>
-        <button form="ngForm" mat-button class="verify" (click)="SubmitUpdate()" [disabled]="disabled == true">
+        <button form="ngForm" mat-button class="verify" (click)="submitUpdate()" [disabled]="disabled == true">
             <span *ngIf="!Updateloading">Update</span>
             <div *ngIf="Updateloading" class="loader">
                 <div class="bubble"></div>

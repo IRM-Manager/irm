@@ -1,83 +1,39 @@
-$header-color: 1px solid #42a845;
-$header-back: rgba(62, 95, 168, 0.05);
+$header-color: 1px solid #565656;
+$header-back: #ffffff 0% 0% no-repeat padding-box;
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
 $white: #ffffff;
-$ind-border: 1px solid #45a841;
+$ind-border: 1px solid #565656;
 $ind-font: normal normal normal 12px/15px Montserrat;
 $ind-color: #565656;
-$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
+$create-back: #b9a005 0% 0% no-repeat padding-box;
 $active-back: #387499 0% 0% no-repeat padding-box;
-$select-color: #3ea84e;
-$form-color: #37a85d;
+$select-color: #565656;
+$form-color: #565656;
 $label-color: #565656;
 $session-h2-font: normal normal 15px/19px Montserrat;
-$session-h2-color: #8650ae;
-$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
-  0% 0% no-repeat padding-box;
+$session-h2-color: #3c66a3;
+$verify-hover-b: #b9a005 0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
 $radio-color: #3c66a3;
-$back-border: 1px solid #40a84a;
-$back-color: #44a843;
-$continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
-$nin-back: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%) 0% 0%
-  no-repeat padding-box;
+$back-border: 1px solid #b9a005;
+$back-color: #b9a005;
+$continue-back: #b9a005 0% 0% no-repeat padding-box;
+$nin-back: #b9a005 0% 0% no-repeat padding-box;
 $nin-shadow: 0px 3px 6px #00000029;
 
 .wrapper {
   padding-left: 20px;
-}
-
-.header {
-  background: $header-back;
-  padding: 1em 1em 0 1em;
-  margin-top: 1rem;
-  opacity: 1;
-  width: 50rem;
-
-  .nin-text {
-    font: normal normal normal 12px/15px Montserrat;
-    letter-spacing: 0px;
-    text-transform: uppercase;
-    text-align: left;
-    font-weight: 500;
-  }
-
-  .header-text {
-    margin-top: 1rem;
-    padding-bottom: 2rem;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-  }
-
-  .nin-number {
-    font: normal normal normal 20px/24px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    margin-right: 20px;
-    color: rgba(86, 86, 86, 0.7);
-  }
-
-  .header-change {
-    font: normal normal normal 20px/24px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: rgba(51, 169, 101, 0.7);
-    text-transform: capitalize;
-    padding: 0.3rem;
-  }
+  background: rgba(60, 102, 163, 0.03);
+  padding: 2rem;
 }
 
 .session {
   background: $header-back;
-  padding: 1em 1em 0 1em;
-  margin-top: 2rem;
+  border-radius: 10px;
+  padding: 1rem 1em 0 1rem;
   opacity: 1;
   width: 50rem;
   overflow: hidden;
-  // border: 1px solid green;
 
   .session-header {
     font: $session-h2-font;
@@ -98,43 +54,16 @@ $nin-shadow: 0px 3px 6px #00000029;
 
   .form1 {
     margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   mat-form-field {
     color: 1px solid $form-color;
   }
 
-  @mixin form($width) {
-    width: $width;
-    margin-right: 2%;
-  }
-
   .half-width {
-    @include form($width: 20%);
-  }
-
-  .half-width2 {
-    @include form($width: 30%);
-  }
-
-  .half-width3 {
-    @include form($width: 27.3%);
-  }
-
-  .half-full {
-    @include form($width: 54%);
-  }
-
-  .full-half {
-    @include form($width: 64%);
-  }
-
-  .full {
-    @include form($width: 86%);
-  }
-
-  .nin-width {
-    @include form($width: 40%);
+    width: 100%;
   }
 
   .radio_button {
@@ -205,6 +134,12 @@ $nin-shadow: 0px 3px 6px #00000029;
     background-color: $white; /*inner circle color change*/
   }
 
+  ::ng-deep .mat-datepicker-toggle,
+  .mat-datepicker-content .mat-calendar-next-button,
+  .mat-datepicker-content .mat-calendar-previous-button {
+    color: black;
+  }
+
   ::ng-deep
     .mat-radio-button.mat-accent.mat-radio-checked
     .mat-radio-outer-circle {
@@ -221,14 +156,6 @@ $nin-shadow: 0px 3px 6px #00000029;
     font: normal normal normal 13px/20px Montserrat;
     letter-spacing: 0px;
   }
-
-  // ::ng-deep .mat-calendar-body-selected {
-  //     background-color: $back-color;
-  // }
-
-  // ::ng-deep .mat-calendar-body-selected:hover {
-  //     background-color: $header-color;
-  // }
 }
 
 @mixin theme($back, $color, $font, $border) {
@@ -246,6 +173,7 @@ $nin-shadow: 0px 3px 6px #00000029;
 .final_submit {
   margin-top: 1rem;
   margin-bottom: 2rem;
+  right: 0;
 }
 
 .verify {

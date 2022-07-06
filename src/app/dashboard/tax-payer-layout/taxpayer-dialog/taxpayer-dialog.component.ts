@@ -14,6 +14,7 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -40,6 +41,8 @@ export class TaxpayerDialogComponent implements OnInit {
   // company verification
   feedbackForm2: any = FormGroup;
   feedback2!: com_verify;
+
+  clickEventSubscription?: Subscription;
 
   formErrors: any = {
     phone: '',
@@ -72,6 +75,12 @@ export class TaxpayerDialogComponent implements OnInit {
     this.createForm();
     this.createForm2();
     this.authService.checkExpired();
+
+    this.clickEventSubscription = this.shared
+      .getchangeRegTypeClickEvent2()
+      .subscribe((data: any) => {
+        this.changeActiveReg(false, 'business');
+      });
   }
 
   createForm() {
@@ -226,13 +235,13 @@ export class TaxpayerDialogComponent implements OnInit {
       this.feedback2 = this.feedbackForm2.value;
       const data = {
         type: '',
+        v_type: 'cac',
         payer_type: 'company',
         // cac: this.feedback2.cac,
       };
-      // this.shared.setPayerMessage(data);
-      // this.feedbackFormDirective2.resetForm();
-      console.log(this.feedback2);
-      // this.router.navigate(['/dashboard/dashboard22/taxpayer/non/business']);
+      this.shared.setPayerMessage(data);
+      this.router.navigate(['/dashboard/dashboard22/taxpayer/non/business']);
+      this.dialogRef.close();
     }
   }
 
@@ -250,7 +259,6 @@ export class TaxpayerDialogComponent implements OnInit {
     });
   }
 
-
   ninReg2() {
     const accepted_data = {
       type: '',
@@ -259,9 +267,7 @@ export class TaxpayerDialogComponent implements OnInit {
     };
     this.snackBar.dismiss();
     this.shared.setPayerMessage(accepted_data);
-    this.router.navigate([
-      '/dashboard/dashboard22/taxpayer/ind/individual',
-    ]);
+    this.router.navigate(['/dashboard/dashboard22/taxpayer/ind/individual']);
     this.dialogRef.close();
   }
 
@@ -272,13 +278,7 @@ export class TaxpayerDialogComponent implements OnInit {
         type: 'nin-regis',
       },
     });
-    this.is_ind = false;
-    this.feedbackForm2.patchValue({ type: 'business' });
-  }
-
-  successBack() {
-    this.router.navigate(['/dashboard/dashboard2/taxpayer'])
-    this.dialogRef.close();
+    this.shared.sendchangeRegTypeClickEvent();
   }
 
   ngOnInit(): void {}

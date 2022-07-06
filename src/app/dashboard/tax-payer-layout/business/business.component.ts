@@ -34,26 +34,18 @@ import {
 import {
   AppState,
   selectAllComPayer,
+  selectAllLocation,
   selectAllProfile,
   selectAllStates
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import {
-  AddComPayer,
-  AddStates,
-  RemoveComPayer
-} from '../../../actions/irm.action';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { ComPayer, Profile, States } from '../../models/irm';
-import {
-  Business2, LGA,
-  lgaLogo,
-  STATE,
-  stateLogo
-} from '../../shared/form';
+import { AddLocation, AddStates } from '../../../actions/irm.action';
+import { ComPayer, Locationn, Profile, States } from '../../models/irm';
+import { Business2, LGA, lgaLogo, STATE, stateLogo } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,8 +68,6 @@ export class BusinessComponent implements OnDestroy, OnInit {
   feedback3!: Business2;
   payer_data: any;
 
-  loading2 = false;
-  disabled2 = false;
   update = false;
   Updateloading = false;
 
@@ -105,54 +95,29 @@ export class BusinessComponent implements OnDestroy, OnInit {
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
   stateComPayer: Observable<ComPayer[]>;
+  stateLocation: Observable<Locationn[]>;
 
   formErrors: any = {
-    contact: '',
-    contact_email: '',
-    house: '',
-    street: '',
-    state_red: '',
-    lga_red: '',
-    zipcode: '',
     org_name: '',
-    nature_bus: '',
-    num_emp: '',
+    cac: '',
+    tin: '',
     date_est: '',
     contact_num: '',
     email: '',
     company_type: '',
+    address: '',
+    office: '',
+    lga: '',
   };
 
   validationMessages: any = {
-    contact: {
-      required: 'required.',
-    },
-    contact_email: {
-      required: 'required.',
-      email: 'Not a valid email.',
-    },
-    house: {
-      required: 'required.',
-    },
-    street: {
-      required: 'required.',
-    },
-    state_red: {
-      required: 'required.',
-    },
-    lga_red: {
-      required: 'required.',
-    },
-    zipcode: {
+    address: {
       required: 'required.',
     },
     org_name: {
       required: 'required.',
     },
-    nature_bus: {
-      required: 'required.',
-    },
-    num_emp: {
+    cac: {
       required: 'required.',
     },
     date_est: {
@@ -169,6 +134,13 @@ export class BusinessComponent implements OnDestroy, OnInit {
       required: 'required.',
       email: 'Not a valid email.',
     },
+    office: {
+      required: 'required.',
+      email: 'Not a valid email.',
+    },
+    lga: {
+      required: 'required.',
+    },
   };
 
   constructor(
@@ -184,13 +156,12 @@ export class BusinessComponent implements OnDestroy, OnInit {
     private dialog: MatDialog
   ) {
     this.authService.checkExpired();
-    // this.createForm2();
     this.createForm3();
-    this.trackCountryField2();
     // state
     this.stateStates = store.select(selectAllStates);
     this.stateProfile = store.select(selectAllProfile);
     this.stateComPayer = store.select(selectAllComPayer);
+    this.stateLocation = store.select(selectAllLocation);
     this.editDetails = this.shared.getPayerEditMessage();
     const data = this.shared.getPayerMessage();
     this.payer_data = data;
@@ -198,30 +169,32 @@ export class BusinessComponent implements OnDestroy, OnInit {
       (data == '' || data == undefined || data == null) &&
       (this.editDetails == undefined || this.editDetails == '')
     ) {
-      this.router.navigate(['/dashboard/dashboard22/taxpayer']);
+      this.router.navigate(['/dashboard/dashboard2/taxpayer']);
     } else {
       this.payer_data = data;
+      this.updateNewData();
+    }
+  }
+
+  updateNewData() {
+    if (this.payer_data?.v_type == 'cac') {
+      // this.feedbackForm1.patchValue({ surname: this.payer_data.surname });
+      // this.feedbackForm3.controls['tin'].disable();
     }
   }
 
   createForm3() {
     this.feedbackForm3 = this.fb.group({
       org_name: ['', [Validators.required]],
-      nature_bus: ['', [Validators.required]],
-      num_emp: ['', [Validators.required]],
+      cac: ['', [Validators.required]],
+      tin: [''],
       date_est: ['', [Validators.required]],
       contact_num: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       company_type: ['', [Validators.required]],
-      website: [''],
-      //
-      house: ['', [Validators.required]],
-      street: ['', [Validators.required]],
-      state_red: ['', [Validators.required]],
-      lga_red: ['', [Validators.required]],
-      zipcode: ['', [Validators.required]],
-      contact: ['', [Validators.required]],
-      contact_email: ['', [Validators.required, Validators.email]],
+      address: ['', [Validators.required]],
+      office: ['', [Validators.required]],
+      lga: ['', [Validators.required]],
     });
 
     this.feedbackForm3.valueChanges.subscribe((data: any) =>
@@ -252,22 +225,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     }
   }
 
-  RemoveFormData() {
-    this.feedbackForm3.get('street').reset();
-    this.feedbackForm3.get('house').reset();
-    this.feedbackForm3.get('zipcode').reset();
-    this.feedbackForm3.get('org_name').reset();
-    this.feedbackForm3.get('nature_bus').reset();
-    this.feedbackForm3.get('num_emp').reset();
-    this.feedbackForm3.get('date_est').reset();
-    this.feedbackForm3.get('website').reset();
-    this.feedbackForm3.get('contact_num').reset();
-    this.feedbackForm3.get('email').reset();
-    this.feedbackForm3.get('company_type').reset();
-  }
-
-
-  Submit() {
+  submit() {
     this.onValueChanged3();
     const feed3 = this.feedbackFormDirective3.invalid;
     if (feed3) {
@@ -279,44 +237,35 @@ export class BusinessComponent implements OnDestroy, OnInit {
       });
     } // end of if
     else {
-      this.loading2 = true;
-      this.disabled2 = true;
+      this.loading = true;
+      this.disabled = true;
 
       this.feedback3 = this.feedbackForm3.value;
 
       let data = {
-        state_id: this.feedback3.state_red,
-        lga_id: this.feedback3.lga_red,
         organisation_name: this.feedback3.org_name,
-        business_nature: this.feedback3.nature_bus,
-        number_employee: this.feedback3.num_emp,
-        establishment_date: this.datepipe.transform(
-          this.feedback3.date_est,
-          'yyyy-MM-dd'
-        ),
-        office_website_url: this.feedback3.website || '',
+        business_sector: this.feedback3.company_type,
+        dob: this.datepipe.transform(this.feedback3.date_est, 'yyyy-MM-dd'),
         phone: this.feedback3.contact_num,
+        is_verified: this.payer_data.v_type == 'cac' ? true : false,
         email: this.feedback3.email,
-        contact_phone: this.feedback3.contact,
-        contact_email: this.feedback3.contact_email,
-        company_type: this.feedback3.company_type || '',
-        address: this.feedback3.street,
-        house_no: this.feedback3.house,
-        zipcode: this.feedback3.zipcode,
+        address: this.feedback3.address,
+        state_id: 1,
+        lga_id: this.feedback3.lga,
+        office_id: this.feedback3.office,
       };
       console.log(data);
-
       this.httpService.postData(BaseUrl.add_com_payer, data).subscribe(
         (data: any) => {
-          this.loading2 = false;
-          this.disabled2 = false;
+          this.loading = false;
+          this.disabled = false;
           this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
-          this.OpenDialog(data.data);
+          this.openDialog(data.data);
         },
         (err: any) => {
           console.log(err);
-          this.loading2 = false;
-          this.disabled2 = false;
+          this.loading = false;
+          this.disabled = false;
           this.snackBar.open(
             err?.error?.msg || err?.error?.detail || 'An Error Occured!',
             '',
@@ -332,51 +281,61 @@ export class BusinessComponent implements OnDestroy, OnInit {
     } // end else
   }
 
-  back() {
-    this.shared.setPayerEditMessage(undefined);
-    this._location.back();
-  }
-
-  trackCountryField2(): void {
-    this.feedbackForm3
-      .get('state_red')
-      .valueChanges.subscribe((field: string) => {
-        if (field === undefined) {
-        } else {
-          let coun = this.state2?.filter((name: any) => name?.id === field);
-          this.lga2 = coun[0] || '';
-          this.AddLga2(coun[0]?.id);
-        }
-      });
-  }
-
-  AddState() {
-    this.stateLoading2 = true;
+  addState() {
     this.stateStates.forEach((e) => {
       if (e.length > 0) {
-        this.state2 = e[0].data;
-        this.option2 = e[0].data;
-        this.filteredBanks3.next(e[0].data);
-        this.stateLoading2 = false;
-      } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
-          (data: any) => {
-            this.option2 = data.results;
-            this.filteredBanks3.next(data.results);
-            this.state2 = data.results;
-            this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
-            this.stateLoading2 = false;
-          },
-          (err) => {
-            this.stateLoading2 = false;
-          }
+        let coun = e[0].data?.filter(
+          (name: any) => name.name.toLowerCase() == 'gombe'
         );
+        this.lga2 = coun[0] || '';
+        this.addLga2(coun[0]?.id || coun[0] || 0);
+      } else {
+        this.httpService
+          .getSingleNoAuth(BaseUrl.list_state)
+          .subscribe((data: any) => {
+            let coun = data.results?.filter(
+              (name: any) => name.name.toLowerCase() == 'gombe'
+            );
+            this.lga2 = coun[0] || '';
+            this.addLga2(coun[0]?.id || coun[0] || 0);
+            //
+            this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
+          });
       }
     });
     // end of state
   }
 
-  AddLga2(id: number) {
+  addLocation() {
+    this.stateLoading2 = true;
+    this.stateLocation.forEach((e) => {
+      if (e.length > 0) {
+        this.option2 = e[0].data;
+        this.state2 = e[0].data;
+        this.filteredBanks3.next(e[0].data);
+        this.stateLoading2 = false;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_location).subscribe(
+          (data: any) => {
+            this.option2 = data.results;
+            this.state2 = data.results;
+            this.filteredBanks3.next(data.results);
+            this.stateLoading2 = false;
+            this.store.dispatch(
+              new AddLocation([{ id: 1, data: data.results }])
+            );
+          },
+          (err) => {
+            this.stateLoading2 = false;
+            this.stateError2 = true;
+          }
+        );
+      }
+    });
+    // end of location
+  }
+
+  addLga2(id: number) {
     this.lgaLoading2 = true;
     this.httpService.getSingleNoAuthID(BaseUrl.get_list_lga, id).subscribe(
       (data: any) => {
@@ -394,41 +353,30 @@ export class BusinessComponent implements OnDestroy, OnInit {
   disableForm() {
     this.feedbackForm3.controls['org_name'].disable();
     this.feedbackForm3.controls['date_est'].disable();
+    this.feedbackForm3.controls['tin'].disable();
   }
 
-  UpdateValue() {
+  updateValue() {
     if (this.editDetails != undefined) {
       if (this.editDetails.type == 'com') {
         this.update = true;
         const data = this.editDetails;
-        this.feedbackForm3.controls['state_red'].patchValue(
-          data.data.state_id.id
-        );
-        this.feedbackForm3.patchValue({ street: data.data.address });
-        this.feedbackForm3.patchValue({ house: data.data.house_no });
-        this.feedbackForm3.patchValue({ zipcode: data.data.zipcode });
-        this.feedbackForm3.controls['lga_red'].patchValue(data.data.lga_id.id);
-        this.feedbackForm3.patchValue({ zipcode: data.data.zipcode });
         this.feedbackForm3.patchValue({
           org_name: data.data.organisation_name,
         });
+        this.feedbackForm3.patchValue({ cac: data.data.state_tin });
+        this.feedbackForm3.patchValue({ tin: data.data.jtb_tin });
         this.feedbackForm3.patchValue({
-          nature_bus: data.data.business_nature,
-        });
-        this.feedbackForm3.patchValue({ num_emp: data.data.number_employee });
-        this.feedbackForm3.patchValue({
-          date_est: data.data.establishment_date,
-        });
-        this.feedbackForm3.patchValue({
-          website: data.data.office_website_url || '',
+          date_est: data.data.dob,
         });
         this.feedbackForm3.patchValue({ contact_num: data.data.phone });
         this.feedbackForm3.patchValue({ email: data.data.email });
-        this.feedbackForm3.patchValue({ contact: data.data.contact_phone });
         this.feedbackForm3.patchValue({
-          contact_email: data.data.contact_email,
+          company_type: data.data.business_sector,
         });
-        this.feedbackForm3.patchValue({ company_type: data.data.company_type });
+        this.feedbackForm3.patchValue({ address: data.data.address });
+        this.feedbackForm3.controls['office'].patchValue(data.data.location.id);
+        this.feedbackForm3.controls['lga'].patchValue(data.data.lga_id.id);
       }
     } else {
     }
@@ -438,7 +386,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
     }
   }
 
-  SubmitUpdate() {
+  submitUpdate() {
     this.onValueChanged3();
     const feed3 = this.feedbackFormDirective3.invalid;
     if (feed3) {
@@ -453,26 +401,16 @@ export class BusinessComponent implements OnDestroy, OnInit {
       this.Updateloading = true;
       this.feedback3 = this.feedbackForm3.value;
       let dataa = {
-        state_id: this.feedback3.state_red || this.editDetails.data.state_id,
-        lga_id: this.feedback3.lga_red || this.editDetails.data.lga_id,
         organisation_name: this.editDetails.data.organisation_name,
-        business_nature:
-          this.feedback3.nature_bus || this.editDetails.data.business_nature,
-        number_employee:
-          this.feedback3.num_emp || this.editDetails.data.number_employee,
-        establishment_date: this.editDetails.data.establishment_date,
-        office_website_url:
-          this.feedback3.website || this.editDetails.office_website_url,
-        phone: this.feedback3.contact_num || this.editDetails.data.phone,
-        email: this.feedback3.email || this.editDetails.data.email,
-        contact_phone: this.feedback3.contact || this.editDetails.contact_phone,
-        contact_email:
-          this.feedback3.contact_email || this.editDetails.data.contact_email,
-        company_type:
-          this.feedback3.company_type || this.editDetails.data.company_type,
-        address: this.feedback3.street || this.editDetails.data.street,
-        house_no: this.feedback3.house || this.editDetails.data.house,
-        zipcode: this.feedback3.zipcode || this.editDetails.data.zipcode,
+        business_sector: this.editDetails.data.business_sector,
+        dob: this.editDetails.data.dob,
+        phone: this.feedback3.contact_num,
+        is_verified: this.editDetails.data.is_verified,
+        email: this.feedback3.email,
+        address: this.feedback3.address,
+        state_id: this.editDetails.data.state_id.id,
+        lga_id: this.feedback3.lga,
+        office_id: this.feedback3.office,
       };
       this.httpService
         .updateData(
@@ -484,13 +422,21 @@ export class BusinessComponent implements OnDestroy, OnInit {
           (data: any) => {
             this.Updateloading = false;
             this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
-            this.dialog.closeAll();
-            this.OpenDialog(data.data);
+            this.snackBar.open('Update company payer successful', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            });
           },
           (err: any) => {
             console.log(err);
             this.snackBar.open(
-              err?.error?.message || err?.error?.detail || 'An Error Occured',
+              err?.error?.message ||
+                err?.error?.detail ||
+                err.error?.msg?.email ||
+                err.error?.msg?.phone ||
+                'An Error Occured',
               '',
               {
                 duration: 5000,
@@ -515,10 +461,10 @@ export class BusinessComponent implements OnDestroy, OnInit {
     this.router.navigate(['/dashboard/dashboard22/taxpayer']);
   }
 
-  OpenDialog(data: any) {
-    this.dialog.open(DialogComponent, {
+  openDialog(data: any) {
+    this.dialog.open(TaxpayerDialogComponent, {
       data: {
-        type: 'com',
+        type: 'success',
         data: data,
       },
     });
@@ -536,11 +482,17 @@ export class BusinessComponent implements OnDestroy, OnInit {
     });
   }
 
+  back() {
+    this.shared.setPayerEditMessage(undefined);
+    this._location.back();
+  }
+
   ngOnInit(): void {
     this.authService.checkExpired();
 
-    this.AddState();
-    this.UpdateValue();
+    this.addState();
+    this.addLocation();
+    this.updateValue();
     this.initAnimations();
 
     // second layer

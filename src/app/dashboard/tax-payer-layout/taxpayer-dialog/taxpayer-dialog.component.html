@@ -72,7 +72,7 @@
                 </button>
             </div>
 
-            <div class="dont">Tax payer don’t have NIN? Click here</div>
+            <div class="dont" (click)="ninReg2()">Tax payer don’t have NIN? Click here</div>
 
         </form>
 
@@ -127,7 +127,7 @@
     <div class="gombe-text">Gombe State Tax ID: <span style="font-weight: bolder;">{{ data.data.state_tin }}</span> (Note also sent to taxpayer email )</div>
 
     <div style="text-align: center;">
-        <button mat-button class="go-back" (click)="successBack()">back</button>
+        <button mat-button class="go-back" mat-dialog-close>back</button>
     </div>
 
 </div>

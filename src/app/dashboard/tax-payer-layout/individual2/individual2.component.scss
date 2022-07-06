@@ -149,27 +149,6 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
     text-transform: capitalize;
   }
 
-  // ::ng-deep .mat-form-field-invalid .mat-input-element,
-  // .mat-warn .mat-input-element {
-  //     caret-color: #f44336 !important;
-  // }
-
-  // ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
-  //     color: #f44336 !important;
-  //     opacity: 0.8 !important;
-  // }
-
-  // ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label{
-  //     color: #f44336 !important;
-  // }
-
-  // ::ng-deep .mat-calendar-body-selected {
-  //     background-color: $back-color;
-  // }
-
-  // ::ng-deep .mat-calendar-body-selected:hover {
-  //     background-color: $header-color;
-  // }
 }
 
 @mixin theme($back, $color, $font, $border) {

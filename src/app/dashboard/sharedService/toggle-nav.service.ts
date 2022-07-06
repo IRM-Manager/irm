@@ -14,6 +14,7 @@ export class ToggleNavService {
   payerMessage: any;
 
   private subject = new Subject<any>();
+  private regType = new Subject<any>();
   private subject3 = new Subject<any>();
   private subject4 = new Subject<any>();
   private subject5 = new Subject<any>();
@@ -67,15 +68,22 @@ export class ToggleNavService {
     return this.payerEditMessage;
   }
 
+  //
 
+  // using
+  // Tax payer dialog change reg type
 
+  sendchangeRegTypeClickEvent() {
+    this.regType.next(null);
+  }
 
+  getchangeRegTypeClickEvent2(): Observable<any> {
+    return this.regType.asObservable();
+  }
 
-
-
-
-   // create payer page message
-   setPayerMessage(data: any) {
+  // using
+  // create payer page message
+  setPayerMessage(data: any) {
     this.payerMessage = data;
   }
 
@@ -84,15 +92,6 @@ export class ToggleNavService {
   }
 
   //
-
-
-
-
-
-
-
-
-
 
   sendClickEvent() {
     this.subject.next(null);
@@ -133,6 +132,8 @@ export class ToggleNavService {
     this.subject3.next(null);
   }
 
+
+  // using
   getHeaderClickEvent(): Observable<any> {
     return this.subject3.asObservable();
   }
@@ -140,6 +141,8 @@ export class ToggleNavService {
   sendHeaderSideClickEvent() {
     this.subject3.next(null);
   }
+
+  // 
 
   getHeaderSideClickEvent(): Observable<any> {
     return this.subject3.asObservable();

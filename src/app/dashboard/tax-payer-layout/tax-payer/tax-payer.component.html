@@ -6,7 +6,8 @@
         <div class="dashboard_select-tax">
             <select class="form-select form-selecta-tax" placeholder="Filters" (change)="changeActive($event)">
                 <option class="option-white" disabled>Filters33333333ewwweffwe</option>
-                <option selected value="all" class="tax-option">All registered tax payer</option>
+                <option selected value="all" class="tax-option">Select taxpayer type</option>
+                <option value="all" class="tax-option">All registered tax payer</option>
                 <option value="ind" class="tax-option">Individual</option>
                 <option value="com" class="tax-option">Business</option>
             </select>
@@ -81,7 +82,7 @@
                                 </button>
                                 <mat-menu #menu="matMenu">
                                     <button mat-menu-item="mat-menu-item" (click)="openDialog(data, active)">View Details</button>
-                                    <button mat-menu-item="mat-menu-item" style="color: #3C66A3;">Edit Details</button>
+                                    <button mat-menu-item="mat-menu-item" style="color: #3C66A3;" (click)="editDetails(data, data.payer_type)">Edit Details</button>
                                     <button mat-menu-item="mat-menu-item">View Tax History</button>
                                     <button mat-menu-item="mat-menu-item">Assets</button>
                                     <button mat-menu-item="mat-menu-item" style="color: red;" (click)="openDialog(data, 'delete-payer')">Delete</button>

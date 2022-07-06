@@ -4,18 +4,27 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // state management
 import { Store } from '@ngrx/store';
 import {
-  AppState, selectAllDepartment, selectAllGroup, selectAllLocation, selectAllProfile
+  AppState,
+  selectAllDepartment,
+  selectAllGroup,
+  selectAllLocation,
+  selectAllProfile,
+  selectAllOccupation,
 } from 'src/app/reducers/index';
 import {
-  AddDepartment, AddGroup, AddLocation, AddProfile
+  AddDepartment,
+  AddGroup,
+  AddLocation,
+  AddProfile,
+  AddOccupation
 } from '../../actions/irm.action';
-import { Department, Group, Locationn, Profile } from '../models/irm';
+import { Department, Group, Locationn, Profile, Occupation } from '../models/irm';
 //
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -43,6 +52,7 @@ export class AppPublicSidenavListComponent implements OnInit {
   stateGroup: Observable<Group[]>;
   stateDepartment: Observable<Department[]>;
   stateLocation: Observable<Locationn[]>;
+  stateOccupation: Observable<Occupation[]>;
 
   constructor(
     private router: Router,
@@ -65,6 +75,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     this.stateGroup = store.select(selectAllGroup);
     this.stateDepartment = store.select(selectAllDepartment);
     this.stateLocation = store.select(selectAllLocation);
+    this.stateOccupation = store.select(selectAllOccupation);
     //
 
     this.router.events.subscribe((ev) => {
@@ -269,10 +280,20 @@ export class AppPublicSidenavListComponent implements OnInit {
     );
   }
 
+  addOccupation() {
+    this.httpService.getSingleNoAuth(BaseUrl.list_occupation).subscribe(
+      (data: any) => {
+        this.store.dispatch(new AddOccupation([{ id: 1, data: data.results }]));
+      },
+      (err) => {}
+    );
+  }
+
   ngOnInit(): void {
     this.AddProfile();
     this.AddGroup();
     this.AddDepartment();
+    this.addOccupation();
   }
 
   public onPublicHeaderToggleSidenav = () => {

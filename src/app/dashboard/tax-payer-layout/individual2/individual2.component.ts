@@ -47,7 +47,6 @@ import {
   AddStates,
   AddOccupation,
 } from '../../../actions/irm.action';
-import { DialogComponent } from '../../dialog/dialog.component';
 import { IndPayer, Locationn, States, Occupation } from '../../models/irm';
 import { Individual1, LGA, lgaLogo, STATE, stateLogo } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
@@ -81,13 +80,11 @@ export class Individual2Component implements OnDestroy, OnInit {
   bankCtrl: FormControl = new FormControl();
   bankCtrl2: FormControl = new FormControl();
   bankCtrl3: FormControl = new FormControl();
-  bankCtrl4: FormControl = new FormControl();
   filteredBanks: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(1);
   filteredBanks2: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
   filteredBanks3: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(
     1
   );
-  filteredBanks4: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
   option = STATE;
   options2 = LGA;
   option2 = STATE;
@@ -229,7 +226,6 @@ export class Individual2Component implements OnDestroy, OnInit {
       this.floatLabelControl = new FormControl(this.payer_data.emplymentstatus);
       this.feedbackForm1.patchValue({ firstname: this.payer_data.firstname });
       this.feedbackForm1.patchValue({ gender: this.payer_data.gender });
-      this.feedbackForm1.patchValue({ occupation: this.payer_data.profession });
       this.feedbackForm1.patchValue({ contact: this.payer_data.telephoneno });
       this.feedbackForm1.patchValue({ contact_email: this.payer_data.data });
       this.feedbackForm1.patchValue({
@@ -289,25 +285,8 @@ export class Individual2Component implements OnDestroy, OnInit {
     }
   }
 
-  // RemoveFormData() {
-  //   this.floatLabelControl = new FormControl('employed');
-  //   this.feedbackForm1.get('firstname').reset();
-  //   this.feedbackForm1.get('middlename').reset();
-  //   this.feedbackForm1.get('surname').reset();
-  //   this.feedbackForm1.get('gender').reset();
-  //   this.feedbackForm1.get('birth').reset();
-  //   this.feedbackForm1.get('place').reset();
-  //   this.feedbackForm1.get('nationality').reset();
-  //   this.feedbackForm1.get('trade').reset();
-  //   this.feedbackForm1.get('contact').reset();
-  //   this.feedbackForm1.get('contact_email').reset();
-  //   this.feedbackForm1.get('title').reset();
-  //   this.feedbackForm1.get('street').reset();
-  //   this.feedbackForm1.get('house').reset();
-  //   this.feedbackForm1.get('zipcode').reset();
-  // }
 
-  Submit() {
+  submit() {
     this.onValueChanged1();
     const feed1 = this.feedbackFormDirective1.invalid;
     if (feed1) {
@@ -333,8 +312,8 @@ export class Individual2Component implements OnDestroy, OnInit {
         first_name: this.payer_data.firstname || this.feedback1.firstname,
         gender: this.payer_data.gender || this.feedback1.gender,
         dob: date || this.datepipe.transform(this.feedback1.birth, 'YYYY-MM-dd'),
-        state_origin: this.feedback1.state.split('|||')[1],
-        lga_id: this.feedback1.lga.split('|||')[0],
+        state_origin: this.feedback1.state,
+        lga_id: this.feedback1.lga,
         occupation: this.feedback1.occupation,
         phone: this.feedback1.contact,
         jtb_tin: this.feedback1.tin || null,
@@ -356,7 +335,7 @@ export class Individual2Component implements OnDestroy, OnInit {
           this.loading = false;
           this.disabled = false;
           this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
-          this.OpenDialog(data.data);
+          this.openDialog(data.data);
         },
         (err: any) => {
           console.log(err);
@@ -364,7 +343,8 @@ export class Individual2Component implements OnDestroy, OnInit {
           this.loading = false;
           this.disabled = false;
           this.snackBar.open(
-            err?.error?.msg || err?.error?.detail || 'An Error Occured!',
+            err?.error?.msg || err?.error?.detail || err.error?.msg?.email || 
+            err.error?.msg?.phone || 'An Error Occured!',
             '',
             {
               duration: 5000,
@@ -379,7 +359,7 @@ export class Individual2Component implements OnDestroy, OnInit {
   }
 
   // update individual function
-  SubmitUpdate() {
+  submitUpdate() {
     this.onValueChanged1();
     const feed1 = this.feedbackFormDirective1.invalid;
 
@@ -394,32 +374,27 @@ export class Individual2Component implements OnDestroy, OnInit {
     else {
       this.Updateloading = true;
 
+      let coun = this.state.filter(
+        (name: any) => name.name.toLowerCase() == 'gombe'
+      );
+
       this.feedback1 = this.feedbackForm1.value;
       let data: any = {
         first_name: this.editDetails.data.first_name,
-        middle_name: this.editDetails.data.middle_name,
         gender: this.editDetails.data.gender,
         dob: this.editDetails.data.dob,
-        pob: this.editDetails.data.pob,
         state_origin: this.editDetails.data.state_origin,
-        lga: this.editDetails.data.lga,
-        nationality: this.editDetails.data.nationality,
-        // state_id: this.feedback1.state_red || this.editDetails.data.state_id,
-        // lga_id: this.feedback1.lga_red || this.editDetails.data.lga_id,
-        profession_trade:
-          //   this.feedback1.trade || this.editDetails.data.profession_trade,
-          // employment_category:
-          this.floatLabelControl.value ||
-          this.editDetails.data.employment_category,
-        phone: this.feedback1.contact || this.editDetails.data.phone,
-        surname: this.feedback1.surname || this.editDetails.data.surname,
-        email: this.feedback1.contact_email || this.editDetails.data.phone,
-        // address: this.feedback1.street || this.editDetails.data.address,
-        // house_no: this.feedback1.house || this.editDetails.data.house_no,
-        // zipcode: this.feedback1.zipcode || this.editDetails.data.zipcode,
-        employment_status:
-          this.floatLabelControl.value ||
-          this.editDetails.data.employment_status,
+        lga_id: this.feedback1.lga,
+        occupation: this.feedback1.occupation,
+        phone: this.feedback1.contact,
+        jtb_tin: this.feedback1.tin || null,
+        surname: this.editDetails.data.surname,
+        email: this.feedback1.contact_email,
+        address: this.feedback1.address,
+        employment_status: this.floatLabelControl.value,
+        state_id: coun[0].id,
+        is_verified: this.editDetails.data.is_verified,
+        office_id: this.feedback1.office,
       };
       // let previous_data = this.editDetails;
       // if (
@@ -449,14 +424,23 @@ export class Individual2Component implements OnDestroy, OnInit {
             this.Updateloading = false;
             this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
             this.dialog.closeAll();
-            this.OpenDialog(data.data);
+            this.snackBar.open("Update individual payer successful",
+              '',
+              {
+                duration: 3000,
+                panelClass: 'success',
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              }
+            );
           },
           (err: any) => {
             console.log(err);
             this.authService.checkExpired();
             this.Updateloading = false;
             this.snackBar.open(
-              err?.error?.message || err?.error?.detail || 'An Error Occured',
+              err?.error?.message || err?.error?.detail || err.error?.msg?.email || 
+              err.error?.msg?.phone || 'An Error Occured',
               '',
               {
                 duration: 5000,
@@ -595,15 +579,11 @@ export class Individual2Component implements OnDestroy, OnInit {
   }
 
   disableForm() {
-    this.feedbackForm1.controls['state'].disable();
     this.feedbackForm1.controls['firstname'].disable();
     this.feedbackForm1.controls['surname'].disable();
-    this.feedbackForm1.controls['middlename'].disable();
     this.feedbackForm1.controls['gender'].disable();
     this.feedbackForm1.controls['birth'].disable();
-    this.feedbackForm1.controls['place'].disable();
-    this.feedbackForm1.controls['lga'].disable();
-    this.feedbackForm1.controls['nationality'].disable();
+    this.feedbackForm1.controls['state'].disable();
   }
 
   updateValue() {
@@ -611,28 +591,19 @@ export class Individual2Component implements OnDestroy, OnInit {
       if (this.editDetails.type == 'ind') {
         this.update = true;
         const data = this.editDetails;
-        this.feedbackForm1.controls['state'].patchValue(data.data.state_origin);
-        this.feedbackForm1.controls['state_red'].patchValue(
-          data.data.state_id.id
-        );
         this.feedbackForm1.patchValue({ firstname: data.data.first_name });
         this.feedbackForm1.patchValue({ surname: data.data.surname });
-        this.feedbackForm1.patchValue({
-          middlename: data.data.middle_name || '',
-        });
+        this.feedbackForm1.patchValue({ tin: data.data.jtb_tin || "" });
         this.feedbackForm1.patchValue({ gender: data.data.gender });
         this.feedbackForm1.patchValue({ birth: data.data.dob });
-        this.feedbackForm1.patchValue({ place: data.data.pob });
-        this.feedbackForm1.patchValue({ nationality: data.data.nationality });
-        this.feedbackForm1.patchValue({ trade: data.data.profession_trade });
+        this.feedbackForm1.controls['state'].patchValue(data.data.state_origin);
+        this.feedbackForm1.controls['lga'].patchValue(data.data.lga_id.id);
+        this.feedbackForm1.controls['occupation'].patchValue(data.data.occupation);
+        this.floatLabelControl = new FormControl(data.data.employment_status);
         this.feedbackForm1.patchValue({ contact: data.data.phone });
         this.feedbackForm1.patchValue({ contact_email: data.data.email });
-        this.feedbackForm1.patchValue({ street: data.data.address });
-        this.feedbackForm1.patchValue({ house: data.data.house_no });
-        this.feedbackForm1.patchValue({ zipcode: data.data.zipcode });
-        this.feedbackForm1.controls['lga_red'].patchValue(data.data.lga_id.id);
-        this.feedbackForm1.controls['lga'].patchValue(data.data.lga);
-        this.floatLabelControl = new FormControl(data.data.employment_status);
+        this.feedbackForm1.patchValue({ address: data.data.address });
+        this.feedbackForm1.controls['office'].patchValue(data.data.location.id);
       }
     } else {
     }
@@ -642,7 +613,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     }
   }
 
-  OpenDialog(data: any) {
+  openDialog(data: any) {
     this.dialog.open(TaxpayerDialogComponent, {
       data: {
         type: 'success',

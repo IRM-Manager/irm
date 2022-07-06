@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
 
 @Component({
@@ -42,6 +43,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     private httpService: HttpService,
     private dialog: MatDialog,
+    public shared: ToggleNavService,
     private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
@@ -52,8 +54,8 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
         params.get('id') === undefined ||
         params.get('id') === null
       ) {
-        this.active = 'ind';
-        this.left_text = 'Tax Registration of Individuals';
+        this.active = 'all';
+        this.left_text = 'All Registration of TaxPayers';
       } else if (params.get('id') == 'non') {
         this.active = 'com';
         this.left_text = 'Tax Registration of Business';
@@ -61,8 +63,8 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
         this.active = 'ind';
         this.left_text = 'Tax Registration of Individuals';
       } else {
-        this.active = 'ind';
-        this.left_text = 'Tax Registration of Individuals';
+        this.active = 'all';
+        this.left_text = 'All Registration of TaxPayers';
       }
       this.renderTable();
     });
@@ -139,16 +141,19 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   }
 
   changeActive(type: any) {
-    this.active = type.target[type.target.selectedIndex].value;
-    if (type == 'com') {
+    const type2 = type.target[type.target.selectedIndex].value;
+    if (type2 == 'com') {
+      this.active = 'com';
       this.left_text = 'Tax Registration of Business';
       this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
-    } else if (type == 'all') {
-      this.left_text = 'All Registration of TaxPayer';
-      this.router.navigate(['/dashboard/dashboard2/taxpayer']);
-    } else {
+    } else if (type2 == 'ind') {
+      this.active = 'ind';
       this.left_text = 'Tax Registration of Individuals';
       this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
+    } else {
+      this.active = 'all';
+      this.left_text = 'All Registration of TaxPayers';
+      this.router.navigate(['/dashboard/dashboard2/taxpayer']);
     }
     this.renderTable();
   }
@@ -190,6 +195,16 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
         type: 'regis',
       },
     });
+  }
+
+  editDetails(data: any, type: string) {
+    if (type == 'individual') {
+      this.shared.setPayerEditMessage({ data: data, type: 'ind' });
+      this.router.navigate(['/dashboard/dashboard22/taxpayer/ind/individual']);
+    } else {
+      this.shared.setPayerEditMessage({ data: data, type: 'com' });
+      this.router.navigate(['/dashboard/dashboard22/taxpayer/non/business']);
+    }
   }
 
   ngOnDestroy(): void {

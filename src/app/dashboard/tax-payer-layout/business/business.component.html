@@ -1,119 +1,112 @@
 <div class="wrapper">
 
-    <div class="header" *ngIf="!update">
-        <div class="nin-text">CAC Registration number</div>
-        <div class="header-text">
-            <div class="nin-number">{{ payer_data?.cac }}</div>
-            <button mat-button class="header-change" (click)="changePayerData()">change</button>
-        </div>
-    </div>
-
     <!-- session1 -->
     <div class="session">
 
-        <div class="session-header">Section 1: Organisation Details</div>
+        <div class="session-header">Create Business Taxpayer Account</div>
 
-        <form #card class="form1" id="ngForm" novalidate [formGroup]="feedbackForm3" #fform3="ngForm">
+        <form #card fxLayoutGap="15px" class="form1" id="ngForm" 
+            novalidate [formGroup]="feedbackForm3" #fform3="ngForm">
             <p>
-                <!-- com_name -->
-                <mat-form-field class="full" appearance="outline">
-                    <mat-label>Name of Organisation</mat-label>
-                    <input matInput formControlName="org_name" required>
-                    <mat-error>{{formErrors.org_name}}</mat-error>
+                <!-- cac -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>CAC registration number</mat-label>
+                    <input matInput formControlName="cac" required>
+                    <mat-error>{{ formErrors.cac }}</mat-error>
                 </mat-form-field>
             </p>
+
             <p>
-                <!-- nature_bus -->
+                <!-- tin -->
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Nature of Business</mat-label>
-                    <input matInput formControlName="nature_bus" required>
-                    <mat-error>{{formErrors.nature_bus}}</mat-error>
+                    <mat-label>JTBTIN (Optional)</mat-label>
+                    <input matInput formControlName="tin">
+                    <mat-error>{{ formErrors.tin }}</mat-error>
                 </mat-form-field>
-                <!-- num_emp -->
+            </p>
+
+            <p>
+                <!-- com_name -->
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Number of Employee</mat-label>
-                    <input matInput formControlName="num_emp" type="number" required>
-                    <mat-error>{{formErrors.num_emp}}</mat-error>
+                    <mat-label>Company name</mat-label>
+                    <input matInput formControlName="org_name" required>
+                    <mat-error>{{ formErrors.org_name }}</mat-error>
                 </mat-form-field>
-                <!-- date_est -->
-                <mat-form-field class="half-width" appearance="outline">
+            </p>
+
+            <p>
+                 <!-- date_est -->
+                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Date of establishment</mat-label>
                     <input matInput formControlName="date_est" [matDatepicker]="picker2" placeholder="DD/MM/YY" required>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
-                    <mat-error>{{formErrors.date_est}}</mat-error>
+                    <mat-error>{{ formErrors.date_est }}</mat-error>
                 </mat-form-field>
+            </p>
+
+            <p>
                 <!-- contact_num -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Contact number</mat-label>
-                    <input matInput formControlName="contact_num" type="tel" required>
-                    <mat-error>{{formErrors.contact_num}}</mat-error>
+                    <input matInput formControlName="contact_num" required>
+                    <mat-error>{{ formErrors.contact_num }}</mat-error>
                 </mat-form-field>
             </p>
+
+            <p>
+                <!-- conpany_type -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Business sector</mat-label>
+                    <input matInput formControlName="company_type" required>
+                    <mat-error>{{ formErrors.company_type }}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <!-- address -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address" required>
+                    <mat-error>{{formErrors.address}}</mat-error>
+                </mat-form-field>
+            </p>
+
             <p>
                 <!-- email -->
-                <mat-form-field class="full-half" appearance="outline">
-                    <mat-label>Email Address</mat-label>
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Email</mat-label>
                     <input matInput formControlName="email" email required>
                     <mat-error>{{formErrors.email}}</mat-error>
                 </mat-form-field>
-                <!-- company_type -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Company Type</mat-label>
-                    <mat-select matInput formControlName="company_type" required>
-                        <mat-option value="Formal">Formal</mat-option>
-                        <mat-option value="Informal">Informal</mat-option>
-                    </mat-select>
-                    <mat-error>{{formErrors.company_type}}</mat-error>
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- website -->
-                <mat-form-field class="full-half" appearance="outline">
-                    <mat-label>Office Website(if any)</mat-label>
-                    <input matInput formControlName="website" type="url">
-                </mat-form-field>
             </p>
 
-            <!-- session2 -->
-            <div class="session-header" style="margin-bottom: 30px;">Section 2: Head office Address</div>
-
             <p>
-                <!-- house -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>House No.</mat-label>
-                    <input matInput formControlName="house" type="tel" required>
-                    <mat-error>{{formErrors.house}}</mat-error>
-                </mat-form-field>
-                <!-- street -->
-                <mat-form-field class="full-half" appearance="outline">
-                    <mat-label>Estate/Street</mat-label>
-                    <input matInput formControlName="street" required>
-                    <mat-error>{{formErrors.street}}</mat-error>
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- state_red -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>State of Residence</mat-label>
-                    <mat-select matInput formControlName="state_red" #singleSelect required>
+                 <!-- office -->
+                 <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Select Tax Office</mat-label>
+                    <mat-select matInput formControlName="office" #singleSelect required>
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3" placeholderlabel="search state..." noentriesfoundlabel="no matching state found"></ngx-mat-select-search>
+                            <ngx-mat-select-search [formControl]="bankCtrl3" [searching]="searching3" placeholderlabel="search office..." noentriesfoundlabel="no matching office found">
+                            </ngx-mat-select-search>
                         </mat-option>
                         <mat-option *ngFor="let option of filteredBanks3 | async" [value]="option.id">
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
-                    <mat-error>{{formErrors.state_red}}</mat-error>
-                    <mat-hint align="end" (click)="AddState()" *ngIf="stateError2 && !stateLoading2" style="color: red;">
+                    <mat-error>{{formErrors.office}}</mat-error>
+                    <mat-hint align="end" (click)="addState()" *ngIf="stateError2 && !stateLoading2">
                         <button>Reload</button>
                     </mat-hint>
                     <mat-hint align="end" *ngIf="stateLoading2">Loading...</mat-hint>
                 </mat-form-field>
-                <!-- lga_red -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>LGA of Residence</mat-label>
-                    <mat-select matInput formControlName="lga_red" #singleSelect required>
+            </p>
+
+            <p>
+                <!-- lga -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>LGA</mat-label>
+                    <mat-select matInput formControlName="lga" #singleSelect required>
                         <mat-option>
                             <ngx-mat-select-search [formControl]="bankCtrl4" [searching]="searching4" placeholderlabel="search LGA..." noentriesfoundlabel="no matching lga found"></ngx-mat-select-search>
                         </mat-option>
@@ -121,69 +114,43 @@
                             <span>{{option.name}}</span>
                         </mat-option>
                     </mat-select>
-                    <mat-error>{{formErrors.lga_red}}</mat-error>
-                    <mat-hint *ngIf="!lga2" align="end">Select state to get LGA</mat-hint>
-                    <mat-hint align="end" (click)="AddLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;">
+                    <mat-error>{{formErrors.lga}}</mat-error>
+                    <mat-hint align="end" (click)="addLga2(lga2.id)" *ngIf="lgaError2 && !lgaLoading2" style="color: red;">
                         <button>Reload</button>
                     </mat-hint>
                     <mat-hint align="end" *ngIf="lgaLoading2">Loading...</mat-hint>
                 </mat-form-field>
-                <!-- zipcode -->
-                <mat-form-field class="half-width3" appearance="outline">
-                    <mat-label>Zip Code</mat-label>
-                    <input matInput formControlName="zipcode" type="number" required>
-                    <mat-error>{{formErrors.zipcode}}</mat-error>
-                </mat-form-field>
             </p>
 
-            <div class="session-header" style="margin-bottom: 30px;">Contact Information</div>
 
-            <p
-                style="margin-top: 1rem;">
-                <!-- phone -->
-                <mat-form-field class="half-width2" appearance="outline">
-                    <mat-label>Contact number</mat-label>
-                    <input matInput formControlName="contact" type="tel" required>
-                    <mat-error>{{formErrors.contact}}</mat-error>
-                </mat-form-field>
-                <!-- email -->
-                <mat-form-field class="half-full" appearance="outline">
-                    <mat-label>Email Address</mat-label>
-                    <input matInput type="email" formControlName="contact_email" email required>
-                    <mat-error>{{formErrors.contact_email}}</mat-error>
-                </mat-form-field>
-            </p>
+            <div class="final_submit" *ngIf="!update">
+                <button type="button" mat-button class="verify2" (click)="back()">Back</button>
+                <button type="submit" form="ngForm" mat-button class="verify" (click)="submit()">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+        
+            <div class="final_submit" *ngIf="update">
+                <button type="button" mat-button class="verify2" (click)="back()">Back</button>
+                <button type="submit" form="ngForm" mat-button class="verify" (click)="submitUpdate()">
+                    <span *ngIf="!Updateloading">Update</span>
+                    <div *ngIf="Updateloading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
 
-            <div style="margin-top: 30px;"></div>
         </form>
 
-    </div>
-
-
-    <div class="final_submit" *ngIf="!update">
-        <button type="button" mat-button class="verify2" (click)="back()">Back</button>
-        <button type="submit" form="ngForm" mat-button class="verify" (click)="Submit()">
-            <span *ngIf="!loading2">Continue</span>
-            <div *ngIf="loading2" class="loader">
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-            </div>
-        </button>
-    </div>
-
-    <div class="final_submit" *ngIf="update">
-        <button type="button" mat-button class="verify2" (click)="back()">Back</button>
-        <button type="submit" form="ngForm" mat-button class="verify" (click)="SubmitUpdate()">
-            <span *ngIf="!Updateloading">Update</span>
-            <div *ngIf="Updateloading" class="loader">
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-            </div>
-        </button>
     </div>
 
 </div>

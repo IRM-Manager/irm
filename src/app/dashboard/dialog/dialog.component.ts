@@ -298,18 +298,6 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  EditPayerDetails(data: any, type: string) {
-    if (type == 'ind') {
-      this.shared.setPayerEditMessage({ data: data, type: 'ind' });
-      this.dialogRef.close();
-      this.router.navigate(['/dashboard/dashboard22/taxpayer/ind/individual']);
-    } else {
-      this.shared.setPayerEditMessage({ data: data, type: 'com' });
-      this.dialogRef.close();
-      this.router.navigate(['/dashboard/dashboard22/taxpayer/non/business']);
-    }
-  }
-
   addYear() {
     this.stateYear.forEach((e) => {
       if (e.length > 0) {
