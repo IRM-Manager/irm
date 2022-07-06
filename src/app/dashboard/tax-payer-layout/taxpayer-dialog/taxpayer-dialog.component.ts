@@ -257,6 +257,7 @@ export class TaxpayerDialogComponent implements OnInit {
         type: 'nin-regis',
       },
     });
+    this.dialogRef.close();
   }
 
   ninReg2() {

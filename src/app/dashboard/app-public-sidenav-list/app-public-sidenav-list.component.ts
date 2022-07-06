@@ -117,9 +117,7 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard2/taxpayer/ind' ||
       this.router.url == '/dashboard/dashboard22/taxpayer' ||
       this.router.url == '/dashboard/dashboard22/taxpayer/ind/individual' ||
-      this.router.url == '/dashboard/dashboard22/taxpayer/non/business' ||
-      this.router.url == '/dashboard/dashboard22/taxpayer/ind' ||
-      this.router.url == '/dashboard/dashboard22/taxpayer/non'
+      this.router.url == '/dashboard/dashboard22/taxpayer/non/business'
     ) {
       this.type = 'tax_payer';
     }

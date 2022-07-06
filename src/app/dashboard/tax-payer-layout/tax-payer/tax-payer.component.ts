@@ -166,6 +166,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
         data: data,
       },
     });
+
     // after dialog close
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -205,6 +206,11 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       this.shared.setPayerEditMessage({ data: data, type: 'com' });
       this.router.navigate(['/dashboard/dashboard22/taxpayer/non/business']);
     }
+  }
+
+  viewPayer(data: any) {
+    this.shared.setMessage4(data);
+    this.router.navigate(['/dashboard/dashboard22/taxpayer']);
   }
 
   ngOnDestroy(): void {

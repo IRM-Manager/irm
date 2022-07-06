@@ -1,71 +1,137 @@
 <div class="wrapper">
+    <div class="session">
+        <div class="header">
+            <div>
+                <div class="name">{{ datas?.taxpayer_name }}</div>
+                <div class="tin">GTin: {{ datas?.state_tin }}</div>
+                <div class="tin">JTBTIN: {{ datas?.jtb_tin }}</div>
+                <div class="payer_type" *ngIf="datas?.payer_type == 'company' ">Business Tax Payer</div>
+                <div class="payer_type" *ngIf="datas?.payer_type == 'individual' ">Individual Tax Payer</div>
+                <button mat-button class="verified-true" *ngIf="datas?.is_verified">Verified</button>
+                <button mat-button class="verified-false" *ngIf="!datas?.is_verified">Not-verified</button>
+            </div>
+            <div>
+                <div class="action">Actions</div>
+                <button mat-button="mat-button" class="choose" [matMenuTriggerFor]="menu2">
+                    <span class="change">Choose Action</span>
+                    <span class="material-icons-round icon-drop-down">arrow_drop_down</span>
+                </button>
+                <mat-menu #menu2 class="choose-year-menu">
+                    <button mat-menu-item="mat-menu-item" style="color: #3C66A3;" class="mat-menu" (click)="editDetails()">Edit Details</button>
+                    <button mat-menu-item="mat-menu-item">Assets</button>
+                </mat-menu>
+                <div style="text-align: center;">
+                    <button mat-button class="delete" (click)="deletePayer()">
+                        <span *ngIf="!isdelete">Delete</span>
+                        <div *ngIf="isdelete" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                    </button>
+                </div>
+            </div>
+        </div>
 
 
-    <div class="header">
-        <button (click)="changeActive('ind')" mat-button class="individual" [class.active]="active == 'ind'">
-            Tax Registration of Individual
-        </button>
-        <button (click)="changeActive('com')" mat-button class="individual2" [class.active]="active == 'com'">
-            Tax Registration of Business
-        </button>
+        <div class="header2" fxLayoutGap="1rem">
+
+            <div class="column">
+                <div class="left-col">
+                   <div class="title">Date Registration</div>
+                   <div class="title">Address</div>
+                   <div class="title">LGA</div>
+                   <div class="title">Email</div>
+                   <div class="title">Phone Number:</div>
+                   <div class="title" *ngIf="datas?.payer_type == 'individual' ">Occupation</div>
+                   <div class="title" *ngIf="datas?.payer_type == 'company' ">Business Sector</div>
+                   <div class="title">Date of establishment:</div>
+                    <div class="title">Selected tax office:</div>
+                    <div class="title" *ngIf="datas?.payer_type == 'individual' ">Employment status:</div>
+                </div>
+                <div class="left-col">
+                    <div class="sub-title">{{ datas?.created_at | dateAgo }}</div>
+                    <div class="sub-title">{{ datas?.address }}</div>
+                    <div class="sub-title">{{ datas?.lga_id.name }}</div>
+                    <div class="sub-title" style="color: #038541;">{{ datas?.email }}</div>
+                    <div class="sub-title">{{ datas?.phone }}</div>
+                    <div class="sub-title">{{ datas?.occupation?.name || datas?.business_sector }}</div>
+                    <div class="sub-title">{{ datas?.dob | date : 'medium' }}</div>
+                     <div class="sub-title">{{ datas?.location?.name }}</div>
+                     <div class="sub-title" *ngIf="datas?.payer_type == 'individual' ">{{ datas?.employment_status }}</div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="payer-container" *ngIf="active == 'ind'">
-        <div class="text">{{ left_text }}</div>
+    <div class="table-container">
 
-        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-            <!-- NIN -->
-            <mat-form-field class="half-width nin" appearance="outline">
-                <mat-label>NIN</mat-label>
-                <input matInput formControlName="nin" type="tel" required>
-                <mat-error>{{formErrors.nin}}</mat-error>
-            </mat-form-field>
-            <!-- birth -->
-            <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Date of Birth</mat-label>
-                <input matInput formControlName="birth" [matDatepicker]="picker" placeholder="DD/MM/YY"
-                    required>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error>{{formErrors.birth}}</mat-error>
-            </mat-form-field>
+        <div class="search_icon_header">
+            <form class="search-form_header">
+                <button matSuffix mat-icon-button class="form-icon_header">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+            </form>
+        </div>
 
-            <button type="submit" mat-button class="verify">
-                <span *ngIf="!loading">verify</span>
-                <div *ngIf="loading" class="loader">
+        
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions"
+                class="row-border table table-striped table-hover table-borderless">
+                <thead>
+                    <tr>
+                        <th class="align-middle">S/N</th>
+                        <th class="align-middle">GTIN</th>
+                        <th class="align-middle">Taxpayer Name</th>
+                        <th class="align-middle">LGA of residence</th>
+                        <th class="align-middle">Contact Number</th>
+                        <th class="align-middle">Tax office</th>
+                    </tr>
+                </thead>
+                <!-- individual -->
+                <tbody *ngIf="datasTable?.length != 0">
+                    <tr *ngFor="let data of datasTable; let i=index">
+                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{ data.state_tin }}</td>
+                        <td class="align-middle">{{ data.taxpayer_name }}</td>
+                        <td class="align-middle">{{ data.lga_id.name }}</td>
+                        <td class="align-middle">{{ data.phone }}</td>
+                        <td class="align-middle">{{ data.location.name }}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="datasTable?.length == 0">
+                    <tr>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                        <td class="no-data-available">No data!</td>
+                    </tr>
+                </tbody>
+
+                <div *ngIf="isLoading" class="loader loading">
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                 </div>
-            </button>
-        </form>
 
-    </div>
-
-    <div class="payer-container2" *ngIf="active == 'com'">
-        <div class="text">{{ left_text }}</div>
-
-        <form novalidate [formGroup]="feedbackForm2" #fform2="ngForm" (ngSubmit)="onSubmit2()">
-            <!-- CAC -->
-            <mat-form-field class="half-width nin" appearance="outline">
-                <mat-label>CAC Registration number</mat-label>
-                <input matInput formControlName="cac" type="tel" required>
-                <mat-error>{{formErrors.cac}}</mat-error>
-            </mat-form-field>
-
-            <button type="submit" mat-button class="verify">
-                <span *ngIf="!loading2">verify</span>
-                <div *ngIf="loading2" class="loader">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                </div>
-            </button>
-        </form>
-
-
+                <button mat-raised-button *ngIf="datasTable?.length == 0" class="reload" (click)="reload()">
+                    <span *ngIf="!is_reload">RELOAD</span>
+                    <div *ngIf="is_reload" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </table>
+        </div>
     </div>
 
 

@@ -110,16 +110,8 @@ export class HeaderComponent implements OnInit {
       this.left_text2 = 'Check all the list of registered member';
     } else if (this.router.url == '/dashboard/dashboard22/taxpayer') {
       this.type = 'tax';
-      this.left_text1 = 'Taxpayer Registration';
-      this.left_text2 = 'Register A Tax Payer';
-    } else if (this.router.url == '/dashboard/dashboard22/taxpayer/non') {
-      this.type = 'tax';
-      this.left_text1 = 'Taxpayer Registration';
-      this.left_text2 = 'Register A Tax Payer';
-    } else if (this.router.url == '/dashboard/dashboard22/taxpayer/ind') {
-      this.type = 'tax';
-      this.left_text1 = 'Taxpayer Registration';
-      this.left_text2 = 'Register A Tax Payer';
+      this.left_text1 = 'Taxpayer';
+      this.left_text2 = 'View Tax Payer Details';
     } else if (
       this.router.url == '/dashboard/dashboard22/taxpayer/ind/individual'
     ) {

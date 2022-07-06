@@ -135,14 +135,6 @@ const routes: Routes = [
         component: TaxPayerCreateComponent, canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard22/taxpayer/non',
-        component: TaxPayerCreateComponent, canLoad: [IsLoggedInGuard],
-      },
-      {
-        path: 'dashboard22/taxpayer/ind',
-        component: TaxPayerCreateComponent, canLoad: [IsLoggedInGuard],
-      },
-      {
         path: 'dashboard4/taxpayer/payee/bills',
         component: TransBillsComponent, canLoad: [IsLoggedInGuard],
       },

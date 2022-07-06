@@ -1,14 +1,11 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { DialogComponent } from '../../dialog/dialog.component';
-import { CAC, individual_create } from '../../shared/form';
+import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
@@ -18,243 +15,134 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
   styleUrls: ['./tax-payer-create.component.scss'],
 })
 export class TaxPayerCreateComponent implements OnInit {
-  active: string = 'ind';
-  left_text!: string;
+  datas: any;
+  isdelete = false;
+  search: string = '';
 
-  @ViewChild('fform') feedbackFormDirective: any;
-  @ViewChild('fform2') feedbackFormDirective2: any;
+  is_reload = false;
+  isLoading = false;
 
-  feedbackForm: any = FormGroup;
-  feedback!: individual_create;
-  loading = false;
-  disabled = false;
-  feedbackForm2: any = FormGroup;
-  feedback2!: CAC;
-  loading2 = false;
-  disabled2 = false;
-
-  formErrors: any = {
-    nin: '',
-    birth: '',
-    cac: '',
-  };
-
-  validationMessages: any = {
-    nin: {
-      required: 'required.',
-    },
-    birth: {
-      required: 'required.',
-      matDatepickerParse: 'not a valid date',
-    },
-    cac: {
-      required: 'required.',
-    },
-  };
+  dtOptions: DataTables.Settings = {};
+  datasTable: any[] = [];
+  searchData: any;
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
-    private store: Store<AppState>,
-    private authService: AuthService,
     private httpService: HttpService,
-    private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private _location: Location,
     public shared: ToggleNavService,
-    private fb: FormBuilder
+    private authService: AuthService
   ) {
-    this.createForm();
-    this.createForm1();
-
-    this.direct.paramMap.subscribe((params) => {
-      if (
-        params.get('id') === '' ||
-        params.get('id') === undefined ||
-        params.get('id') === null
-      ) {
-        this.active = 'ind';
-        this.left_text =
-          'To register Individual Tax Payer ID, provide your Identification number and \
-      to create your corporate Tax Payer ID, provide your CAC number. In order to \
-      enforce authorisation, your new TaxPayer account will be verified using the phone \
-      number or email provided.';
-      } else if (params.get('id') == 'non') {
-        this.active = 'com';
-        this.left_text =
-          'To register Business Tax Payer ID, provide your Identification number and \
-        to create your corporate Tax Payer ID, provide your CAC number. In order to \
-        enforce authorisation, your new TaxPayer account will be verified using the phone \
-        number or email provided.';
-      } else if (params.get('id') == 'ind') {
-        this.active = 'ind';
-        this.left_text =
-          'To register Individual Tax Payer ID, provide your Identification number and \
-      to create your corporate Tax Payer ID, provide your CAC number. In order to \
-      enforce authorisation, your new TaxPayer account will be verified using the phone \
-      number or email provided.';
-      } else {
-        this.active = 'ind';
-        this.left_text =
-          'To register Individual Tax Payer ID, provide your Identification number and \
-      to create your corporate Tax Payer ID, provide your CAC number. In order to \
-      enforce authorisation, your new TaxPayer account will be verified using the phone \
-      number or email provided.';
-      }
-    });
-
-    const data = this.shared.getPayerMessage();
-
-    if (data?.type == '' || data?.type == undefined || data?.type == null) {
-      this.shared.setPayerMessage('');
-    } else if (data?.type == 'change') {
-      if (data?.payer_type == 'individual') {
-        this.feedbackForm.patchValue({ nin: data?.nin });
-        this.feedbackForm.patchValue({ birth: data?.birth });
-      } else {
-        this.feedbackForm2.patchValue({ cac: data?.cac });
-      }
+    this.datas = this.shared.getMessage4();
+    if (this.datas) {
     } else {
-      this.shared.setPayerMessage('');
+      this._location.back();
     }
   }
 
-  createForm() {
-    this.feedbackForm = this.fb.group({
-      nin: ['', [Validators.required]],
-      birth: ['', [Validators.required]],
-    });
-    this.feedbackForm.valueChanges.subscribe((data: any) =>
-      this.onValueChanged(data)
-    );
-    this.onValueChanged(); // (re)set validation messages now
-  }
-
-  createForm1() {
-    this.feedbackForm2 = this.fb.group({
-      cac: ['', [Validators.required]],
-    });
-    this.feedbackForm2.valueChanges.subscribe((data: any) =>
-      this.onValueChanged2(data)
-    );
-    this.onValueChanged2(); // (re)set validation messages now
-  }
-
-  onValueChanged(data?: any) {
-    if (!this.feedbackForm) {
-      return;
-    }
-    const form = this.feedbackForm;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] = messages[key];
-            }
-          }
-        }
-      }
-    }
-  }
-
-  onValueChanged2(data?: any) {
-    if (!this.feedbackForm2) {
-      return;
-    }
-    const form = this.feedbackForm2;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] = messages[key];
-            }
-          }
-        }
-      }
-    }
-  }
-
-  ninError = false;
-  birthError = false;
-
-  onSubmit() {
-    this.onValueChanged();
-    const feed1 = this.feedbackFormDirective.invalid;
-    if (feed1) {
-    } // end of if
-    else {
-      this.loading = true;
-      this.disabled = true;
-      this.feedback = this.feedbackForm.value;
-      const data = {
-        type: '',
-        payer_type: 'individual',
-        nin: this.feedback.nin,
-        birth: this.feedback.birth,
-      };
-      this.shared.setPayerMessage(data);
-      this.feedbackFormDirective.resetForm();
-      console.log(this.feedback);
+  editDetails() {
+    if (this.datas.payer_type == 'individual') {
+      this.shared.setPayerEditMessage({ data: this.datas, type: 'ind' });
       this.router.navigate(['/dashboard/dashboard22/taxpayer/ind/individual']);
-    }
-  }
-
-  onSubmit2() {
-    this.onValueChanged2();
-    const feed1 = this.feedbackFormDirective2.invalid;
-    if (feed1) {
-    } // end of if
-    else {
-      this.loading2 = true;
-      this.disabled2 = true;
-      this.feedback2 = this.feedbackForm2.value;
-      const data = {
-        type: '',
-        payer_type: 'company',
-        cac: this.feedback2.cac,
-      };
-      this.shared.setPayerMessage(data);
-      this.feedbackFormDirective2.resetForm();
-      console.log(this.feedback2);
+    } else {
+      this.shared.setPayerEditMessage({ data: this.datas, type: 'com' });
       this.router.navigate(['/dashboard/dashboard22/taxpayer/non/business']);
     }
   }
 
-  ngOnInit(): void {}
-
-  OpenDialog(data: any, type: string) {
-    this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
-      data: {
-        type: type,
-        data: data,
-      },
-    });
+  //  delete tax payer
+  deletePayer() {
+    this.isdelete = true;
+    this.httpService
+      .deleteData(BaseUrl.delete_update_payer, this.datas.id + '/')
+      .subscribe(
+        (data: any) => {
+          this.isdelete = false;
+          this.snackBar.open('TaxPayer successfully deleted', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          if (this.datas.payer_type == 'individual') {
+            this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
+          } else {
+            this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.authService.checkExpired();
+          this.isdelete = false;
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
-  changeActive(type: string) {
-    this.active = type;
-    if (type == 'com') {
-      this.left_text =
-        'To register Business Tax Payer ID, provide your Identification number and \
-        to create your corporate Tax Payer ID, provide your CAC number. In order to \
-        enforce authorisation, your new TaxPayer account will be verified using the phone \
-        number or email provided.';
-    } else {
-      this.left_text =
-        'To register Individual Tax Payer ID, provide your Identification number and \
-      to create your corporate Tax Payer ID, provide your CAC number. In order to \
-      enforce authorisation, your new TaxPayer account will be verified using the phone \
-      number or email provided.';
-    }
+  modelChange(search: any) {
+    const data = this.searchData?.filter((data: any) => {
+      return (
+        data.state_tin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.lga_id.name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.startsWith(search) ||
+        data.taxpayer_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.location.name.toLowerCase().startsWith(search.toLowerCase())
+      );
+    });
+    this.datasTable = data;
+  }
+
+  renderTable() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 50,
+      lengthChange: false,
+      info: false,
+    };
+
+    this.isLoading = true;
+    this.httpService.getAuthSingle(BaseUrl.list_all_payer).subscribe(
+      (data: any) => {
+        this.datasTable = data.results;
+        this.searchData = data.results;
+        this.dtTrigger.next;
+        this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
+      }
+    );
+  }
+
+  reload() {
+    this.is_reload = true;
+    this.renderTable();
+    this.is_reload = false;
+  }
+
+  ngOnInit(): void {
+    this.authService.checkExpired();
+    this.renderTable();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 }

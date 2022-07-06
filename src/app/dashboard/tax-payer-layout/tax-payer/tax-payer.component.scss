@@ -184,10 +184,6 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     margin-bottom: 1rem;
   }
 
-  // thead {
-    
-  // }
-
   thead tr {
     background: $thead;
     text-align: left;
@@ -221,8 +217,10 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     padding: 0.2rem;
   }
 
-  .table-icon {
-    color: $panel-color;
+  .material-icons-round {
+    vertical-align: middle;
+    color: #038541;
+    font-size: 17px;
   }
 
   .loading {
