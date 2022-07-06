@@ -1,0 +1,64 @@
+<!-- payee register form -->
+<div class="tax-payer-form " *ngIf="data.type == 'payee-regis'">
+    <div class="header">
+        <p class="back" mat-dialog-close>
+            <mat-icon>keyboard_backspace</mat-icon>
+        </p>
+    </div>
+
+    <div class="body">
+        <div class="header-text">Registered for PAYE</div>
+
+        <form class="nin-regis-form" id="ngForm2" novalidate [formGroup]="feedbackForm2" #fform2="ngForm">
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>PAYE Category</mat-label>
+                    <mat-select matInput formControlName="type" required>
+                        <mat-option value="private">Private</mat-option>
+                        <mat-option value="local govt">Local Govt</mat-option>
+                        <mat-option value="federal govt">Federal Govt</mat-option>
+                        <mat-option value="state govt">State Govt</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.type}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="full-width">
+                    <mat-label>GTIN</mat-label>
+                    <input matInput formControlName="phone" matInput required>
+                    <mat-error>{{formErrors.phone}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="success-payee" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+            <div class="final_submit" *ngIf="!errorMsg">
+                <button type="submit" form="ngForm2" mat-button class="continue" (click)="checkTin()">
+                    <span *ngIf="!loading">Validate</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+            <div class="final_submit" *ngIf="errorMsg">
+                <button type="submit" form="ngForm2" mat-button class="continue" (click)="onSubmit()">
+                    <span *ngIf="!loading">Register</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

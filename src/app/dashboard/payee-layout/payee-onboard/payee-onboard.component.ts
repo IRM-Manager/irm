@@ -17,6 +17,7 @@ export class PayeeOnboardComponent implements OnInit {
   ) {
     //
     this.datas = this.payeeService.getMessage();
+    console.log(this.datas)
     if (this.datas) {
     } else {
       this.router.navigate([

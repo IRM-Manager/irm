@@ -8,8 +8,8 @@ import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { DialogComponent } from '../../dialog/dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { Dialog2Component } from '../dialog2/dialog2.component';
 import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
@@ -65,10 +65,12 @@ export class PayeeBusinessListComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.state_tin.includes(search.toLowerCase()) ||
+        data.lga_id.name.toLowerCase().includes(search.toLowerCase()) ||
+        data.phone.includes(search) ||
+        data.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.location.name.toLowerCase().includes(search.toLowerCase())
+        // this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -80,10 +82,10 @@ export class PayeeBusinessListComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
     this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+    this.httpService.getAuthSingle(BaseUrl.list_payee).subscribe(
       (data: any) => {
         this.datas = data.results;
         this.searchData = data.results;
@@ -104,9 +106,9 @@ export class PayeeBusinessListComponent implements OnInit {
 
   reload2() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
+    this.httpService.getAuthSingle(BaseUrl.list_payee).subscribe(
       (data: any) => {
-        this.datas = data.results;
+        this.datas = data.results.reverse();
         this.searchData = data.results;
         this.dtTrigger.next;
         this.is_reload = false;
@@ -124,14 +126,19 @@ export class PayeeBusinessListComponent implements OnInit {
     );
   }
 
-  OpenDialog(data: any) {
+  openDialog() {
     this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
+    let dialogRef = this.dialog.open(Dialog2Component, {
       data: {
-        type: 'com',
-        data: data,
+        type: 'payee-regis',
         type2: 'payee',
       },
+    });
+    // after dialog close
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.reload2();
+      }
     });
   }
 

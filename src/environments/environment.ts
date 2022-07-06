@@ -44,6 +44,8 @@ export const BaseUrl = {
   list_payee_ass: 'assessment/api/v1/paye/list_payeassessment/?',
   verify_nin: 'user/api/v1/verify/individual/?',
   list_occupation: 'refdata/api/v1/occupation',
+  list_payee: 'paye/api/v1/regpaye/',
+  register_paye: 'paye/api/v1/regpaye/?',
 };
 
 /*

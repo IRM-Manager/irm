@@ -1,83 +1,108 @@
 <div class="wrapper">
 
-    <div>
-        <div class="verify">
 
-            <mat-toolbar class="header2">
-                <div class="indcom">
-                    List of Taxable Businesses
-                </div>
-                <div class="spacer"></div>
-                <div class="search_icon_p">
-                    <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
-                            class="input">
-                    </form>
-                    <mat-icon class="search_icon">search</mat-icon>
-                </div>
-            </mat-toolbar>
+    <div class="header">
 
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtOptions"
-                        class="row-border table table-striped table-hover table-borderless">
-                        <thead>
-                            <tr>
-                                <th>S/N</th>
-                                <th>Tax Payer</th>
-                                <th>Business name</th>
-                                <th>Date of Establishment</th>
-                                <th>Contact person</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
-                            <tr *ngFor="let data of datas; let i=index" (click)="goToPayee(data)">
-                                <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.phone }}</td>
-                                <td class="align-middle">
-                                    <mat-icon class="table-icon" (click)="OpenDialog(data)">open_with</mat-icon>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="datas?.length == 0">
-                            <tr>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                            </tr>
-                        </tbody>
+        <div class="header-paye-text">paye</div>
 
-                        <div *ngIf="isLoading" class="loader loading">
+        <div class="spacer"></div>
+
+        <div class="search_icon_header">
+            <form class="search-form_header">
+                <button matSuffix="matSuffix" mat-icon-button="mat-icon-button" class="form-icon_header">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc"></form>
+            </div>
+
+            <div class="dashboard_select">
+                <select class="form-select form-select2" placeholder="Filters">
+                    <option class="option-white" disabled="disabled">Filters333333331</option>
+                    <option selected="selected">Filters</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button matSuffix="matSuffix" mat-icon-button="mat-icon-button" class="form-dashboard_select">
+                    <span class="material-icons-outlined">filter_alt</span>
+                </button>
+            </div>
+        </div>
+
+        <mat-toolbar class="header2">
+            <div class="indcom">
+                All Register Buinesses
+            </div>
+            <div class="spacer"></div>
+            <button mat-button="mat-button" class="create-new" (click)="openDialog()">Register for PAYE</button>
+        </mat-toolbar>
+
+        <div class="table-container">
+            <div class="table-responsive">
+                <table datatable="datatable" [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="align-middle">S/N</th>
+                            <th class="align-middle">GTIN</th>
+                            <th class="align-middle">Taxpayer Name</th>
+                            <th class="align-middle">LGA of residence</th>
+                            <th class="align-middle">Contact Number</th>
+                            <th class="align-middle">Tax office</th>
+                            <!-- <th class="align-middle">Actions</th> -->
+                        </tr>
+                    </thead>
+                    <!-- individual -->
+                    <tbody *ngIf="datas?.length != 0">
+                        <tr *ngFor="let data of datas; let i=index" (click)="goToPayee(data)">
+                            <td class="align-middle" style="text-align: center;">{{i+1}}</td>
+                        <td class="align-middle">{{ data.company.state_tin }}</td>
+                        <td class="align-middle">{{ data.company.taxpayer_name }}
+                            <span class="material-icons-round" *ngIf="data.company.is_verified">verified_user</span>
+                        </td>
+                        <td class="align-middle">{{ data.company.lga_id.name }}</td>
+                        <td class="align-middle">{{ data.company.phone }}</td>
+                        <td class="align-middle">{{ data.company.location.name }}</td>
+                        <!-- <td class="align-middle" style="text-align: center;">
+                            <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item="mat-menu-item">View Tax History</button>
+                                <button mat-menu-item="mat-menu-item">Assets</button>
+                            </mat-menu>
+                        </td> -->
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="datas?.length == 0">
+                        <tr>
+                            <td class="no-data-available">No data!</td>
+                            <td class="no-data-available">No data!</td>
+                            <td class="no-data-available">No data!</td>
+                            <td class="no-data-available">No data!</td>
+                            <td class="no-data-available">No data!</td>
+                            <td class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+
+                    <div *ngIf="isLoading" class="loader loading">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+
+                    <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
+                        <span *ngIf="!is_reload">RELOAD</span>
+                        <div *ngIf="is_reload" class="loader">
                             <div class="bubble"></div>
                             <div class="bubble"></div>
                             <div class="bubble"></div>
                             <div class="bubble"></div>
                         </div>
+                    </button>
 
-                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
-                            <span *ngIf="!is_reload">RELOAD</span>
-                            <div *ngIf="is_reload" class="loader">
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                            </div>
-                        </button>
-
-
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
-    </div>
-
 
 </div>

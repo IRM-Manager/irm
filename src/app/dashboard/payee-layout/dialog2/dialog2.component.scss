@@ -1,0 +1,171 @@
+$white: #ffffff;
+
+
+.tax-payer-form {
+  width: 25rem;
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+
+  .header {
+    display: flex;
+  }
+
+  .back {
+    color: #3c66a3;
+    font-weight: 500;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  .back mat-icon {
+    vertical-align: middle;
+    font-size: 40px;
+  }
+
+  .body {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .header-text {
+    text-transform: capitalize;
+    font: normal normal normal 25px/36px Inter;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #3c66a3;
+    opacity: 1;
+  }
+
+  .nin-regis-form {
+    margin-top: 2rem;
+  }
+
+  .full-width {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  ::ng-deep .mat-datepicker-toggle,
+  .mat-datepicker-content .mat-calendar-next-button,
+  .mat-datepicker-content .mat-calendar-previous-button {
+    color: #b9a005 !important;
+    font-size: 30px;
+  }
+
+  ::ng-deep .mat-input-element {
+    caret-color: rgba(86, 86, 86, 1);
+  }
+
+  ::ng-deep .mat-form-field-underline,
+  ::ng-deep .mat-form-field-ripple {
+    background: rgba(86, 86, 86, 1) !important;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: rgba(86, 86, 86, 1);
+  }
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: rgba(86, 86, 86, 0.4);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="date"] {
+    caret-color: black !important;
+    font: normal normal normal 15px/19px Inter;
+    letter-spacing: 0px;
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0 0.5em 0;
+  }
+
+  mat-error {
+    font: normal normal normal 13px/19px Montserrat;
+    letter-spacing: 0px;
+    text-transform: capitalize;
+  }
+
+  .continue {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.7rem;
+    background: #b9a005 0% 0% no-repeat padding-box;
+    font: normal normal normal 15px/19px Inter;
+    letter-spacing: 0px;
+    text-align: center;
+    color: $white;
+    text-transform: capitalize;
+    opacity: 1;
+    opacity: 1;
+  }
+
+  .success-payee {
+    text-align: center;
+    width: inherit;
+    border: 1px solid #038541;
+    font: normal normal normal 15px/19px Inter;
+    font-weight: 500;
+    background: $white;
+    letter-spacing: 0px;
+    padding: .5rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #038541;
+  }
+
+  .bubble {
+    animation: expand 0.75s ease-in-out infinite;
+    border-radius: 20px;
+    display: inline-block;
+    transform-origin: center center;
+    margin: 0 3px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .bubble:nth-child(1) {
+    background: $white;
+  }
+
+  .bubble:nth-child(2) {
+    animation-delay: 180ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(3) {
+    animation-delay: 360ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(4) {
+    animation-delay: 540ms;
+    background: $white;
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.55);
+    }
+  }
+
+  .dont {
+    font: normal normal normal 15px/19px Inter;
+    margin-top: 1rem;
+    letter-spacing: 0px;
+    color: #3c66a3;
+    cursor: pointer;
+    opacity: 1;
+  }
+}

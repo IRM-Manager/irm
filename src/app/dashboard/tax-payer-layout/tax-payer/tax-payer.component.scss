@@ -31,6 +31,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   overflow: auto;
   min-height: 100vh;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .header {
@@ -38,7 +39,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   padding: unset;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -149,7 +150,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   background: $header-back2;
   padding: 1.5rem 1rem 1.5rem 1rem;
   margin-top: 1rem;
-  width: 95%;
+  width: 100%;
 
   .spacer {
     flex: 1 1 auto;
@@ -177,7 +178,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
 
 .table-container {
   margin-bottom: 2rem;
-  width: 95%;
+  width: 100%;
 
   table {
     border: none;

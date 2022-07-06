@@ -598,7 +598,7 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.feedbackForm1.patchValue({ birth: data.data.dob });
         this.feedbackForm1.controls['state'].patchValue(data.data.state_origin);
         this.feedbackForm1.controls['lga'].patchValue(data.data.lga_id.id);
-        this.feedbackForm1.controls['occupation'].patchValue(data.data.occupation);
+        this.feedbackForm1.controls['occupation'].patchValue(data.data.occupation.id);
         this.floatLabelControl = new FormControl(data.data.employment_status);
         this.feedbackForm1.patchValue({ contact: data.data.phone });
         this.feedbackForm1.patchValue({ contact_email: data.data.email });

@@ -69,7 +69,7 @@
                 <!-- individual -->
                 <tbody *ngIf="datas?.length != 0">
                     <tr *ngFor="let data of datas; let i=index">
-                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle" style="text-align: center;">{{i+1}}</td>
                         <td class="align-middle">{{ data.state_tin }}</td>
                         <td class="align-middle">{{ data.taxpayer_name }}
                             <span class="material-icons-round" *ngIf="data.is_verified">verified_user</span>
@@ -77,19 +77,18 @@
                         <td class="align-middle">{{ data.lga_id.name }}</td>
                         <td class="align-middle">{{ data.phone }}</td>
                         <td class="align-middle">{{ data.location.name }}</td>
-                        <td class="align-middle">
-                                <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
-                                    <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
-                                </button>
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item="mat-menu-item" (click)="viewPayer(data)">View Details</button>
-                                    <button mat-menu-item="mat-menu-item" style="color: #3C66A3;" (click)="editDetails(data, data.payer_type)">Edit Details</button>
-                                    <button mat-menu-item="mat-menu-item">View Tax History</button>
-                                    <button mat-menu-item="mat-menu-item">Assets</button>
-                                    <button mat-menu-item="mat-menu-item" style="color: red;" (click)="openDialog(data, 'delete-payer')">Delete</button>
-                                </mat-menu>
+                        <td class="align-middle" style="text-align: center;">
+                            <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item="mat-menu-item" (click)="viewPayer(data)">View Details</button>
+                                <button mat-menu-item="mat-menu-item" style="color: #3C66A3;" (click)="editDetails(data, data.payer_type)">Edit Details</button>
+                                <button mat-menu-item="mat-menu-item">View Tax History</button>
+                                <button mat-menu-item="mat-menu-item">Assets</button>
+                                <button mat-menu-item="mat-menu-item" style="color: red;" (click)="openDialog(data, 'delete-payer')">Delete</button>
+                            </mat-menu>
                         </td>
-
                     </tr>
                 </tbody>
                 <tbody *ngIf="datas?.length == 0">

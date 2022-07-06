@@ -303,6 +303,12 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   tr th {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
+    border-right: 1.5px solid rgba(112,112,112,0.5);
+    text-align: center;
+  }
+
+  tr th:nth-child(7) {
+    border-right: unset;
   }
 
   .table-icon {

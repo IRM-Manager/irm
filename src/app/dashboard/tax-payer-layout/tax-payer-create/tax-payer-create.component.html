@@ -95,7 +95,7 @@
                 <!-- individual -->
                 <tbody *ngIf="datasTable?.length != 0">
                     <tr *ngFor="let data of datasTable; let i=index">
-                        <td class="align-middle">{{i+1}}</td>
+                        <td class="align-middle" style="text-align: center;">{{i+1}}</td>
                         <td class="align-middle">{{ data.state_tin }}</td>
                         <td class="align-middle">{{ data.taxpayer_name }}</td>
                         <td class="align-middle">{{ data.lga_id.name }}</td>

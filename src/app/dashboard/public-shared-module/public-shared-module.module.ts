@@ -55,6 +55,7 @@ import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/pa
 import { AdminConsoleDialogComponent } from '../admin-console-component/admin-console-dialog/admin-console-dialog.component';
 import { ProfileSidenavListComponent } from '../profile-component/profile-sidenav-list/profile-sidenav-list.component';
 import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/taxpayer-dialog.component';
+import { Dialog2Component } from '../payee-layout/dialog2/dialog2.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/tax
     VehicleDialogComponent,
     AdminConsoleDialogComponent,
     TaxpayerDialogComponent,
+    Dialog2Component
   ],
   entryComponents: [
     // dialog component here

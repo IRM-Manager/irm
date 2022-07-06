@@ -1,8 +1,11 @@
 <div class="payee_wrapper">
 
     <div class="header">
-        <div class="soft_pattern">{{ datas?.organisation_name }}</div>
-        <div class="reg_buss">Tax ID: {{ datas.tin }}</div>
+        <div class="soft_pattern">
+            {{ datas?.company.organisation_name }}
+            <span class="material-icons-round" *ngIf="datas.company.is_verified">verified_user</span>
+        </div>
+        <div class="reg_buss">Tax ID: {{ datas.company.state_tin }}</div>
     </div>
 
     <div class="container" fxLayoutGap="30px">
@@ -12,19 +15,19 @@
         </div>
         <div class="card" [routerLink]="['lists']">
             <div class="icon"><img src="assets/images/Icon material-assessment2.svg" alt=""></div>
-            <div class="text">Concluded Assessment</div>
+            <div class="text">Assessment History</div>
         </div>
         <div class="card" [routerLink]="['bill']" matBadge="45" matBadgeSize="medium">
             <div class="icon"><img src="assets/images/8726296_receipt_alt_icon.svg" alt=""></div>
             <div class="text">Generated Bills</div>
         </div>
+        <div class="card" [routerLink]="['manage']" matBadge="134" matBadgeSize="medium">
+            <div class="icon"><img src="assets/images/6590483_and_education_id_learning_pass_icon.svg" alt=""></div>
+            <div class="text">Employees Annual Schedules</div>
+        </div>
         <div class="card">
             <div class="icon"><img src="assets/images/27-Document-Process.svg" alt=""></div>
             <div class="text">Process TCC</div>
-        </div>
-        <div class="card" [routerLink]="['manage']" matBadge="134" matBadgeSize="medium">
-            <div class="icon"><img src="assets/images/6590483_and_education_id_learning_pass_icon.svg" alt=""></div>
-            <div class="text">Manage your Employees</div>
         </div>
     </div>
 

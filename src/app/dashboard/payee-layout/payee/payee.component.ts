@@ -61,7 +61,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     //
     const get_year: any = this.payeeService.getAYearMessage();
     this.htmlYear = get_year?.yearId || new Date().getFullYear();
-    // 
+    //
     this.listYear();
   }
 
@@ -78,9 +78,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
-      return (
-        data.assessment_month.toLowerCase().startsWith(search.toLowerCase())
-      );
+      return data.assessment_month
+        .toLowerCase()
+        .startsWith(search.toLowerCase());
     });
     this.datas = data;
   }
@@ -90,7 +90,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
     const get_year = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;
@@ -99,7 +99,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.tin}&yearId=${id || get_year[0]?.id}`
+          `tin=${this.datas2.company.tin}&yearId=${id || get_year[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -124,7 +124,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.tin}&yearId=${id || get_year_id[0]?.id}`
+          `tin=${this.datas2.company.tin}&yearId=${id || get_year_id[0]?.id}`
       )
       .subscribe(
         (data: any) => {
