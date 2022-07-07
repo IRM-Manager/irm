@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -27,6 +27,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
   loading = false;
   disabled = false;
   is_reload = false;
+  genLoading = 0;
   clickEventSubscription?: Subscription;
   isLoading = false;
   dtOptions: DataTables.Settings = {};
@@ -124,7 +125,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.company.state_tin}&yearId=${id || get_year_id[0]?.id}`
+          `tin=${this.datas2.company.state_tin}&yearId=${
+            id || get_year_id[0]?.id
+          }`
       )
       .subscribe(
         (data: any) => {
@@ -187,6 +190,41 @@ export class PayeeComponent implements OnDestroy, OnInit {
         );
       }
     });
+  }
+
+  generateBill(id: any) {
+    this.genLoading = id;
+    this.httpService
+      .postData(
+        BaseUrl.payee_gen_bill +
+          `tin=${this.datas2.company.state_tin}&assessId=${id}`,
+        ''
+      )
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.openDialog(data.data, 'generate_bill');
+          this.genLoading = 0;
+        },
+        (err) => {
+          this.genLoading = 0;
+          this.authService.checkExpired();
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
   chooseYear(data: any) {

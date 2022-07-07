@@ -35,27 +35,26 @@ import { NgxPrintModule } from 'ngx-print';
 // components
 import { DialogComponent } from '../../dashboard/dialog/dialog.component';
 import { FooterComponent } from '../../dashboard/footer/footer.component';
-import { PayeeDialogComponent } from '../../dashboard/payee-layout/payee-dialog/payee-dialog.component';
-import { HeaderComponent } from '../header/header.component';
-import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
-import { MdaDialogComponent } from '../mda-component/mda-dialog/mda-dialog.component';
-import { DirectDialogComponent } from '../direct-access-component/direct-dialog/direct-dialog.component';
-import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
-import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
-import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-plate/vehicle-reg-plate.component';
-import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
-import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
-import { BottomSidenavMenuComponent } from '../bottom-sidenav-menu/bottom-sidenav-menu.component';
-import { AdminSidenavListComponent } from '../admin-console-component/admin-sidenav-list/admin-sidenav-list.component';
-import { DashboardSidenavListComponent } from '../dashboard-component/dashboard-sidenav-list/dashboard-sidenav-list.component';
-import { DirectSidenavListComponent } from '../direct-access-component/direct-sidenav-list/direct-sidenav-list.component';
-import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-sidenav-list.component';
-import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
-import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
 import { AdminConsoleDialogComponent } from '../admin-console-component/admin-console-dialog/admin-console-dialog.component';
+import { AdminSidenavListComponent } from '../admin-console-component/admin-sidenav-list/admin-sidenav-list.component';
+import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
+import { BottomSidenavMenuComponent } from '../bottom-sidenav-menu/bottom-sidenav-menu.component';
+import { DashboardSidenavListComponent } from '../dashboard-component/dashboard-sidenav-list/dashboard-sidenav-list.component';
+import { DirectDialogComponent } from '../direct-access-component/direct-dialog/direct-dialog.component';
+import { DirectSidenavListComponent } from '../direct-access-component/direct-sidenav-list/direct-sidenav-list.component';
+import { HeaderComponent } from '../header/header.component';
+import { MdaDialogComponent } from '../mda-component/mda-dialog/mda-dialog.component';
+import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-sidenav-list.component';
+import { Dialog2Component } from '../payee-layout/dialog2/dialog2.component';
+import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
 import { ProfileSidenavListComponent } from '../profile-component/profile-sidenav-list/profile-sidenav-list.component';
 import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/taxpayer-dialog.component';
-import { Dialog2Component } from '../payee-layout/dialog2/dialog2.component';
+import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
+import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
+import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
+import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
+import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
+import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-plate/vehicle-reg-plate.component';
 
 @NgModule({
   declarations: [
@@ -77,13 +76,12 @@ import { Dialog2Component } from '../payee-layout/dialog2/dialog2.component';
     ProfileSidenavListComponent,
     // dialog
     DialogComponent,
-    PayeeDialogComponent,
     MdaDialogComponent,
     DirectDialogComponent,
     VehicleDialogComponent,
     AdminConsoleDialogComponent,
     TaxpayerDialogComponent,
-    Dialog2Component
+    Dialog2Component,
   ],
   entryComponents: [
     // dialog component here

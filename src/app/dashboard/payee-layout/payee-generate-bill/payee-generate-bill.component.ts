@@ -3,18 +3,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { DialogComponent } from '../../dialog/dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState, selectAllComPayer } from 'src/app/reducers/index';
+import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AddComPayer } from '../../../actions/irm.action';
-import { ComPayer } from '../../models/irm';
+import { AddYear } from '../../../actions/irm.action';
+import { Year } from '../../models/irm';
+import { PayeeDialogComponent } from '../payee-dialog/payee-dialog.component';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-generate-bill',
@@ -31,11 +32,15 @@ export class PayeeGenerateBillComponent implements OnInit {
   isLoading = false;
 
   dtOptions: DataTables.Settings = {};
+  datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
-  stateComPayer: Observable<ComPayer[]>;
+  years: any;
+  htmlYear = new Date().getFullYear();
+
+  stateYear: Observable<Year[]>;
 
   private readonly JWT_TOKEN = BaseUrl.jwt_token;
   private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
@@ -53,10 +58,23 @@ export class PayeeGenerateBillComponent implements OnInit {
     public shared: ToggleNavService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private payeeService: PayeeServiceService
   ) {
     this.authService.checkExpired();
-    this.stateComPayer = store.select(selectAllComPayer);
+    this.stateYear = store.select(selectAllYear);
+
+    this.datas2 = this.payeeService.getMessage();
+    if (this.datas2) {
+    } else {
+      this.router.navigate([
+        `/dashboard/dashboard3/taxpayer/payee/business-list`,
+      ]);
+    }
+    //
+    this.htmlYear = new Date().getFullYear();
+    //
+    this.listYear();
   }
 
   formatDate(data: any) {
@@ -82,38 +100,36 @@ export class PayeeGenerateBillComponent implements OnInit {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(id?: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthChange: false,
       info: false,
     };
-
-    this.isLoading = true;
-    this.stateComPayer?.forEach((e) => {
-      if (e.length > 0) {
-        this.datas = e[0].data;
-        this.searchData = e[0].data;
-        console.log(e[0].data);
-        this.dtTrigger.next;
-        this.isLoading = false;
-      } else {
-        this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-          (data: any) => {
-            this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-            this.datas = data.data;
-            this.searchData = data.data;
-            this.dtTrigger.next;
-            this.isLoading = false;
-          },
-          (err) => {
-            this.isLoading = false;
-            this.authService.checkExpired();
-          }
-        );
-      }
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
     });
+    this.isLoading = true;
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.payee_gen_bill +
+          `tin=${this.datas2.company.state_tin}&yearId=${
+            id || getHtmlYear[0]?.id
+          }`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.isLoading = false;
+          console.log(data);
+        },
+        (err) => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   ngOnInit(): void {
@@ -121,15 +137,59 @@ export class PayeeGenerateBillComponent implements OnInit {
     this.renderTable();
   }
 
-  Reload() {
+  reload(id?: any) {
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
     this.is_reload = true;
-    this.renderTable();
-    this.is_reload = false;
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.payee_gen_bill +
+          `tin=${this.datas2.company.state_tin}&yearId=${
+            id || getHtmlYear[0]?.id
+          }`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        (err) => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
-  OpenDialog(data: any, type: string) {
+  listYear() {
+    this.stateYear?.forEach((e) => {
+      if (e.length > 0) {
+        this.years = e[0].data;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
+          (data: any) => {
+            this.years = data.results;
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+          },
+          (err) => {
+            this.authService.checkExpired();
+          }
+        );
+      }
+    });
+  }
+
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(PayeeDialogComponent, {
       data: {
         type: type,
         data: data,

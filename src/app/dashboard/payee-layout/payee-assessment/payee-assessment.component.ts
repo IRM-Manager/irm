@@ -10,7 +10,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
 import {
-  AppState, selectAllPayee, selectAllYear
+  AppState,
+  selectAllPayee,
+  selectAllYear,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -37,6 +39,7 @@ export class PayeeAssessmentComponent implements OnInit {
   routeviewMode = 'access';
   clickEventSubscription?: Subscription;
   isLoading = false;
+  get_loading = false;
   currentYear = new Date().getFullYear();
   currentYearID: any;
   year: any;

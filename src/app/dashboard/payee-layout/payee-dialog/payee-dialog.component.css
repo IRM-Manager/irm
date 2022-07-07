@@ -1,3 +1,19 @@
+.generate-dialog {
+  margin: auto;
+  width: 30rem;
+  padding-left: 2.5rem;
+  padding-right: 2rem;
+}
+
+.gen_logo_p {
+  text-align: center;
+}
+
+.gen_logo_p img {
+  width: 100px;
+  height: 100px;
+}
+
 .payee_cancel_button {
   text-align: right;
   color: #3c66a3;
@@ -15,25 +31,14 @@
   margin-bottom: 20px;
 }
 
-.print-section {
-  background-repeat: no-repeat;
-  background-position: center, top;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  overflow: hidden;
-  background-image: url("/assets/images/Group512.svg");
-}
-
 .generate_left {
   float: left;
-  width: 12rem;
+  width: 33%;
 }
 
-.generate_right {
+.generate_center {
   float: right;
-  width: 30rem;
+  width: 33%;
 }
 
 .left-column {
@@ -41,52 +46,26 @@
   margin-bottom: 1.5rem;
 }
 
-.status {
-  font: normal normal normal 15px/19px Montserrat;
-  letter-spacing: 0px;
-  color: #3c66a3;
-  font-weight: 500;
-  opacity: 1;
-  margin-right: 8px;
-}
-
-.pending {
-  font: normal normal normal 15px/19px Montserrat;
-  letter-spacing: 0px;
-  font-weight: 500;
-  color: #f9d10a;
-  opacity: 1;
-  text-transform: capitalize;
-}
-
 .tin {
   font: normal normal normal 15px/19px Montserrat;
   font-weight: 500;
   letter-spacing: 0px;
+  margin-top: 5px;
   color: #565656;
   opacity: 1;
 }
 
-.com_name {
-  font: normal normal normal 15px/19px Montserrat;
-  font-weight: 500;
-  letter-spacing: 0px;
-  color: #3c66a3;
-  opacity: 1;
-  margin-top: 5px;
+.gen-success {
+  color: #038541;
 }
 
-.reg_buss {
-  font: normal normal normal 15px/19px Montserrat;
-  font-weight: 500;
-  letter-spacing: 0px;
-  color: #565656;
-  opacity: 1;
-  margin-top: 5px;
+.gen-failed {
+  color: #e9322c;
 }
 
 .column {
-  margin-top: 1rem;
+  width: 23rem;
+  margin: auto;
 }
 
 .column1 {
@@ -133,6 +112,7 @@
   opacity: 1;
   vertical-align: middle;
   padding: 15px;
+  height: 1rem;
 }
 
 .title2 {
@@ -143,53 +123,149 @@
   opacity: 1;
   vertical-align: middle;
   text-transform: uppercase;
+  height: 1rem;
   padding: 15px;
 }
 
-.card-actions {
-  width: 30rem;
-  float: right;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
 .print_p {
-  margin-left: 78%;
-  margin-bottom: 5px;
-}
-
-.pay-now {
+  margin-bottom: 2rem;
+  margin-top: 1rem;
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
 }
 
-.print,
-.print2 {
+.print {
   font: normal normal normal 15px/19px Montserrat;
   font-weight: 500;
   letter-spacing: 0px;
-  color: #4c8b8b;
+  color: #b9a005;
   opacity: 1;
   text-transform: capitalize;
   padding: 0.4rem;
 }
 
-.print2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15rem;
-}
-
 .note {
-  margin-right: 20px;
-  font: italic normal normal 12px/15px Montserrat;
+  margin-top: 1rem;
+  font: italic normal normal 13px/15px Montserrat;
   letter-spacing: 0px;
   font-weight: 500;
   color: #565656;
   opacity: 1;
 }
+
+/* generate notice bill */
+
+.notice-generate_bill {
+  width: 35rem;
+  padding: 2rem;
+
+}
+  .notice-gen_logo {
+    text-align: left;
+  }
+
+  .notice-gen_logo img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .notice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .notice-header2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .notice-title {
+    font: normal normal normal 14px/20px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #565656;
+    margin-top: 5px;
+    opacity: 1;
+  }
+
+  .notice-header2-title {
+    font: normal normal normal 17px/21px Montserrat;
+    font-weight: 550;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+  }
+
+  .notice-header2-body {
+    font: normal normal normal 14px/30px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    line-height: 35px;
+    color: #565656;
+    opacity: 1;
+  }
+
+  .notice-header3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .notice-thankyou {
+    font: normal normal normal 14px/20px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+  }
+
+  .notice-header4 {
+    font: normal normal normal 17px/21px Montserrat;
+    font-weight: 550;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+    padding-bottom: .7rem;
+    border-bottom: 2px solid #565656;
+  }
+
+  .notice-column {
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #565656;
+  }
+
+  .titlec {
+    font: normal normal normal 13px/16px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #565656;
+    opacity: 1;
+    vertical-align: middle;
+    padding: 15px;
+    height: 1rem;
+  }
+
+  .notice-print_p {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .notice-print {
+    font: normal normal normal 15px/19px Montserrat;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #b9a005;
+    opacity: 1;
+    text-transform: capitalize;
+    padding: 0.4rem;
+  }
+  
+
+
 
 /* Upload file css */
 
@@ -320,7 +396,7 @@
 }
 
 .upload_continue {
-  background: #B9A005 0% 0% no-repeat padding-box;
+  background: #b9a005 0% 0% no-repeat padding-box;
   border-radius: 10px;
   padding: 0.8rem;
   width: 8rem;
@@ -333,9 +409,9 @@
 }
 
 .error-response {
-  color: #E9322C;
-  padding: .6rem;
-  border: 1px solid #E9322C;
+  color: #e9322c;
+  padding: 0.6rem;
+  border: 1px solid #e9322c;
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -447,7 +523,6 @@
   background: #3c66a3;
 }
 
-
 .loader {
   display: flex;
   justify-content: center;
@@ -490,5 +565,11 @@
   }
   25% {
     transform: scale(1.55);
+  }
+}
+
+@media print {
+  .print_p, .notice-print_p {
+    display: none;
   }
 }

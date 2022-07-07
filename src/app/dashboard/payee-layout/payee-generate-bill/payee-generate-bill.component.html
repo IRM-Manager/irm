@@ -3,46 +3,59 @@
     <div class="header">
 
         <div>
-            <div class="soft_pattern">Softpattern Pattern Technology</div>
-            <div class="reg_buss">Tax ID: 34546678844</div>
-        </div>
-
-        <div class="header-container">
-            <div>
-                <label for="exampleFormControlInput1" class="form-label">From</label>
-                <input type="date" class="form-control form-select" id="exampleFormControlInput1">
+            <div class="soft_pattern">
+                {{ datas2.company.organisation_name }}
+                <span class="material-icons-round" *ngIf="datas2?.company.is_verified">verified_user</span>
             </div>
-
-            <div class="form-line"></div>
-
-            <div>
-                <label for="exampleFormControlInput1" class="form-label">To</label>
-                <input type="date" class="form-control form-select" id="exampleFormControlInput1">
-            </div>
-
-            <button mat-icon-button class="fa-p">
-                <span class="fa fa-search"></span>
-            </button>
+            <div class="reg_buss">GTin: {{ datas2.company.state_tin }}</div>
         </div>
-
+        <!-- <div>
+            <label for="exampleFormControlInput1" class="form-label">From</label>
+            <input type="date" class="form-control form-select" id="exampleFormControlInput1">
+        </div>
+        <div class="form-line"></div>
+        <div>
+            <label for="exampleFormControlInput1" class="form-label">To</label>
+            <input type="date" class="form-control form-select" id="exampleFormControlInput1">
+        </div>
+        <button mat-icon-button class="fa-p">
+            <span class="fa fa-search"></span>
+        </button> -->
     </div>
 
     <div>
         <div class="verify">
 
-            <mat-toolbar class="header2">
+            <div class="header2">
+
                 <div class="indcom">
                     Generated Bills
                 </div>
                 <div class="spacer"></div>
-                <div class="search_icon_p">
-                    <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
-                            class="input">
+
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
                     </form>
-                    <mat-icon class="search_icon">search</mat-icon>
                 </div>
-            </mat-toolbar>
+        
+                <div class="dashboard_select">
+                    <select class="form-select form-select2" placeholder="Filters">
+                        <option class="option-white" disabled>Filters333333331</option>
+                        <option selected>Filters</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button matSuffix mat-icon-button class="form-dashboard_select">
+                        <span class="material-icons-outlined">filter_alt</span>
+                    </button>
+                </div>    
+
+            </div>
 
             <div class="table-container">
                 <div class="table-responsive">
@@ -50,32 +63,45 @@
                         class="row-border table table-striped table-hover table-borderless">
                         <thead>
                             <tr>
-                                <th>S/N</th>
-                                <th>Bill Ref</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th class="align-middle">S/N</th>
+                                <th class="align-middle">Taxpayer Name</th>
+                                <th class="align-middle">Total amount (NGN)</th>
+                                <th class="align-middle">Generated date</th>
+                                <th class="align-middle">Bill code</th>
+                                <th class="align-middle">Payment status</th>
+                                <th class="align-middle">Actions</th>
                             </tr>
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
-                                <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">
-                                    <button mat-button class="paid">
-                                        paid
+                                <td class="align-middle" style="text-align: center;">{{i+1}}</td>
+                                <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
+                                <td class="align-middle" style="text-align: center;">{{ formatMoney(data.bill_total) }}</td>
+                                <td class="align-middle" style="text-align: center;">{{ data.bill_date | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle" style="text-align: center;">{{ data.bill_code }}</td>
+                                <td class="align-middle" style="text-align: center;">
+                                    <button mat-button class="paid" *ngIf="data.bill_status == true">
+                                        Paid
                                     </button>
-                                    <!-- <button mat-button class="pending">
-                                        pending
-                                    </button> -->
+                                    <button mat-button class="pending" *ngIf="data.bill_status == false">
+                                        Not-paid
+                                    </button>
                                 </td>
+                                <th class="align-middle" style="text-align: center;">
+                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Details</button>
+                                    </mat-menu>
+                                </th>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
                                 <td class="no-data-available">No data!</td>
@@ -91,7 +117,7 @@
                             <div class="bubble"></div>
                         </div>
 
-                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
                             <span *ngIf="!is_reload">Reload</span>
                             <div *ngIf="is_reload" class="loader">
                                 <div class="bubble"></div>
@@ -100,6 +126,7 @@
                                 <div class="bubble"></div>
                             </div>
                         </button>
+
                     </table>
                 </div>
             </div>

@@ -84,6 +84,7 @@ import { ProfileChangePasswordComponent } from '../profile-component/profile-cha
 import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
 import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
 import { ListUserDepLocComponent } from '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component';
+import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
 
 @NgModule({
   declarations: [
@@ -147,6 +148,8 @@ import { ListUserDepLocComponent } from '../admin-console-component/list-user-de
     ProfileViewComponent, 
     ProfileEditComponent, 
     ProfileChangePasswordComponent,
+    // 
+    PayeeDialogComponent,
     // Pipe component
     DateAgoPipe,
   ],

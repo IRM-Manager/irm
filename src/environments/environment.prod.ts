@@ -42,4 +42,5 @@ export const BaseUrl = {
   list_occupation: 'refdata/api/v1/occupation',
   list_payee: 'paye/api/v1/regpaye/',
   register_paye: 'paye/api/v1/regpaye/?',
+  payee_gen_bill: 'bill/api/v1/paye/?',
 };

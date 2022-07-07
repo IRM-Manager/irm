@@ -194,6 +194,11 @@ export class PayeeDialogComponent implements OnInit {
     });
   }
 
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
   ngOnInit(): void {
     console.log(this.data);
   }

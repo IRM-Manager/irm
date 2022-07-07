@@ -18,9 +18,9 @@
 
     <div class="table-container">
 
-        <div>
+        <div class="PayE">Company PayE Assessment</div>
 
-            <div class="PayE">Company PayE Assessment</div>
+        <div class="table-container2">
 
             <div class="column">
                 <div class="column1">
@@ -64,24 +64,34 @@
                 </div>
             </div>
 
-            <div style="clear: both;"></div>
-            <div class="generate_bill" fxLayoutGap="15px">
-                <button mat-button class="gen_notice">Generate Notice</button>
-                <button mat-button class="gen_bill">Generate Bill</button>
+            <div>
+                <qr-code value="{{datas2.assess_code}}"
+                    size="180"
+                    errorCorrectionLevel="H"
+                    centerImageSrc="undefined"
+                    centerImageSize="undefined">
+                </qr-code>
             </div>
-        </div>
 
-        <div>
-            <qr-code value="{{datas2.assess_code}}"
-                size=""
-                errorCorrectionLevel="M"
-                centerImageSrc="undefined"
-                centerImageSize="undefined">
-            </qr-code>
-            
         </div>
+        <div style="clear: both;"></div>
 
+        <div class="generate_bill" fxLayoutGap="15px">
+            <button mat-button class="gen_notice" (click)="openDialog(datas2, 'gen-bill')">Generate Notice</button>
+            <button mat-button class="gen_bill" (click)="generateBill()">
+                <span *ngIf="!genLoading">Generate Bill</span>
+                <div *ngIf="genLoading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </div>
+        
     </div>
+
+   
 
     <div style="clear: both; padding-top: 3rem;"></div>
 

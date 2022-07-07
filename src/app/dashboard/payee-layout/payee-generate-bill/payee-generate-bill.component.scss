@@ -1,15 +1,13 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-$header-color: 1px solid #42a845;
+$header-color: 1px solid #038541;
 $header-back: rgba(62, 95, 168, 0.05);
 $header-back2: #ffffff 0% 0% no-repeat padding-box;
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
 $white: #ffffff;
-$ind-border: 1px solid #45a841;
+$ind-border: 1px solid #038541;
 $ind-font: normal normal normal 12px/15px Montserrat;
 $ind-color: #565656;
-$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
 $active-back: #387499 0% 0% no-repeat padding-box;
 $panel-text: normal normal medium 12px/15px Montserrat;
 $panel-color: #3c66a3;
@@ -20,20 +18,20 @@ $thead-text: normal normal normal 12px/15px Montserrat;
 $thead-text-color: #3c66a3;
 $tbody-back: normal normal normal 15px/19px Montserrat;
 $tbody-color: #565656;
-$animate-form: 0.5px solid #37a85d;
-$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
-  0% 0% no-repeat padding-box;
+$animate-form: 0.5px solid #038541;
 $verify-hover-box: 0px 3px 6px #00000029;
 $label-color: #565656;
-$select-color: #3ea84e;
-$form-color: #37a85d;
-$active-button: 3px solid #42a847;
+$select-color: #038541;
+$form-color: #038541;
+$active-button: 3px solid #038541;
 $button-font: normal normal normal 12px/15px Montserrat;
 $red: #bc333e;
 $soft-pattern-font: normal normal normal 15px/19px Montserrat;
 $soft-pattern-color: #3c66a3;
 $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
+$form-icon-color: rgba(27, 87, 63, 0.54);
+$placeholder-font: normal normal normal 15px/24px Montserrat;
 
 .wrapper {
   background: $wrapper-back;
@@ -41,24 +39,30 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
+  padding-top: 2rem;
 }
 
 .header {
-  padding-top: 1rem;
-  opacity: 1;
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
   width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
 
   .soft_pattern {
-    padding-top: 2rem;
     font: $soft-pattern-font;
     letter-spacing: 0px;
     color: $soft-pattern-color;
     font-weight: 500;
     opacity: 1;
+  }
+
+  .material-icons-round {
+    vertical-align: middle;
+    color: #038541;
   }
 
   .reg_buss {
@@ -71,70 +75,67 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     opacity: 1;
   }
 
-  .header-container {
-    margin-left: 10px;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-  }
+  // .form-select {
+  //   width: 9rem;
+  //   border-radius: 10px;
+  //   background: $white;
+  //   border: 1px solid $white;
+  //   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04),
+  //     inset 0px 4px 4px rgba(229, 229, 229, 0.3);
+  // }
 
-  .form-select {
-    width: 9rem;
-    border-radius: 10px;
-    background: $white;
-    border: 1px solid $white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04),
-      inset 0px 4px 4px rgba(229, 229, 229, 0.3);
-  }
+  // .form-label {
+  //   font: normal normal normal 14px/19px Montserrat;
+  //   letter-spacing: 0px;
+  //   color: #565656;
+  //   font-weight: 500;
+  //   text-transform: capitalize;
+  //   opacity: 1;
+  // }
 
-  .form-label {
-    font: normal normal normal 14px/19px Montserrat;
-    letter-spacing: 0px;
-    color: #565656;
-    font-weight: 500;
-    text-transform: capitalize;
-    opacity: 1;
-  }
+  // input[type="date"]::-webkit-calendar-picker-indicator {
+  //   background-image: url("/assets/images/Icon material-date-range.svg");
+  // }
 
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    background-image: url("/assets/images/Icon material-date-range.svg");
-  }
+  // .form-control {
+  //   padding: 6px 10px;
+  //   font: normal normal normal 13px/16px Montserrat;
+  //   letter-spacing: 0px;
+  //   color: #565656;
+  //   opacity: 1;
+  //   font-weight: 500;
+  //   padding: 0.7rem;
+  // }
 
-  .form-control {
-    padding: 6px 10px;
-    font: normal normal normal 13px/16px Montserrat;
-    letter-spacing: 0px;
-    color: #565656;
-    opacity: 1;
-    font-weight: 500;
-    padding: 0.7rem;
-  }
+  // .form-line {
+  //   margin-left: 10px;
+  //   margin-right: 10px;
+  // }
 
-  .form-line {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+  // .fa-p {
+  //   margin-left: 10px;
+  //   margin-top: 30px;
+  //   border-radius: 50%;
+  // }
 
-  .fa-p {
-    margin-left: 10px;
-    margin-top: 30px;
-    border-radius: 50%;
-  }
-
-  .fa-search {
-    color: #565656;
-    font-size: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  // .fa-search {
+  //   color: #565656;
+  //   font-size: 25px;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
 }
 
 .header2 {
-  background: $header-back2;
-  padding: 1.5rem 1rem 1.5rem 1rem;
-  margin-top: 1rem;
+  opacity: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 1rem;
 
   .spacer {
     flex: 1 1 auto;
@@ -148,54 +149,120 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     font-size: 14px;
   }
 
-  .search_icon_p {
+  .search_icon_header {
     float: right;
     display: flex;
     justify-content: right;
     align-items: right;
   }
 
-  .search-form {
-    margin-right: 10px;
+  .search-form_header {
     vertical-align: top;
+    background: $white;
+    border: 1px solid rgba(60, 102, 163, 0.5);
   }
 
   input[type="text"] {
     background: $white;
-    border: $animate-form;
     box-sizing: border-box;
-    border-radius: 10px;
-    height: 40px;
-    width: 200px;
-    font: $tbody-back;
+    border: 1px solid $white;
+    border-radius: 2px;
+    height: 35px;
+    width: 25vw;
+    font: $placeholder-font;
     padding-left: 15px;
-    // -webkit-transition: width 0.4s ease-in-out;
-    // transition: width 0.4s ease-in-out;
   }
 
   [type="text"]:focus {
     outline: none;
   }
 
-  .search_icon {
+  .form-icon_header {
+    color: $form-icon-color;
+    margin-left: 10px;
+    border-radius: 50%;
+  }
+
+  .form-select {
+    height: 40px;
+    font-size: 14px;
+    border-radius: unset;
+    padding-left: 10px;
+    padding-right: unset;
+    padding-bottom: unset;
+    padding-top: unset;
+    border: unset;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04),
+      inset 0px 4px 4px rgba(229, 229, 229, 0.3);
+    background-image: unset;
+  }
+
+  .form-select2 {
+    width: 4rem;
+  }
+
+  .dashboard_select {
+    margin-left: 5px;
+    border: 1px solid rgba(60, 102, 163, 0.5);
+    background: #ffffff 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form-dashboard_select {
+    color: #000000;
+  }
+
+  .option-white {
+    color: $white;
+  }
+
+  .option-white:hover {
+    color: $white;
+  }
+
+  .form-selecta-tax {
+    width: 7.6rem;
+    border-radius: 10px;
+  }
+
+  .dashboard_select-tax {
+    border-radius: 10px;
+    margin-right: 5px;
+    border: 0.5px solid #707070;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .icon-drop-down {
+    color: #3c66a3;
     font-size: 40px;
-    color: $icon-color;
-    cursor: pointer;
+  }
+
+  .tax-option {
+    padding-top: 1rem;
+  }
+
+  .ellipsis {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    opacity: 1;
+    color: #707070;
+    padding: 0.2rem;
   }
 }
 
 .table-container {
-  margin-top: 1rem;
+  margin-top: 10px;
   margin-bottom: 2rem;
   width: 100%;
 
   table {
     border: none;
     margin-bottom: 1rem;
-  }
-
-  thead {
-    border: none;
   }
 
   thead tr {
@@ -215,10 +282,50 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   tr th {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
+    border-right: 1.5px solid rgba(112, 112, 112, 0.5);
+    text-align: center;
   }
 
-  .table-icon {
-    color: $panel-color;
+  tr th:nth-child(7) {
+    border-right: unset;
+  }
+
+  .ellipsis {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    opacity: 1;
+    color: #707070;
+    padding: 0.2rem;
+  }
+
+  .material-icons-round {
+    vertical-align: middle;
+    color: #038541;
+    font-size: 17px;
+  }
+
+  .paid {
+    background: #038541 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    width: 4rem;
+    padding: .3rem;
+    border-radius: 10px;
+  }
+
+  .pending {
+    background: #B9A005 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    width: 4rem;
+    padding: .3rem;
+    border-radius: 10px;
   }
 
   .loading {
@@ -229,9 +336,9 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     background: $wrapper-back;
     color: $ind-border;
     font: $tbody-back;
-    margin-top: 1.5rem;
     font-weight: 500;
-    border-radius: 10px;
+    margin-top: 1.5rem;
+    border-radius: 5px;
     padding: 0.3rem;
     margin-left: 10px;
     width: 5rem;
@@ -242,37 +349,6 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     justify-content: center;
     align-items: center;
     padding: 0.5em 0 0.5em 0;
-  }
-
-  .paid {
-    background: transparent linear-gradient(180deg, #47a83e 0%, #2aa977 100%) 0%
-      0% no-repeat padding-box;
-    opacity: 1;
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    font: normal normal normal 12px/8px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: $white;
-    padding: 0.7em;
-    border-radius: 20px;
-    width: auto;
-    opacity: 1;
-  }
-
-  .pending {
-    background: #ffbd69 0% 0% no-repeat padding-box;
-    border-radius: 10px;
-    opacity: 1;
-    padding: 0.7em;
-    border-radius: 20px;
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    font: normal normal normal 12px/8px Montserrat;
-    letter-spacing: 0px;
-    font-weight: 500;
-    color: $white;
-    opacity: 1;
   }
 
   .bubble {
@@ -313,15 +389,6 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     }
   }
 
-  .table-icon-delete {
-    color: $red;
-    cursor: pointer;
-  }
-
-  ::ng-deep .dataTables_wrapper .dataTables_filter {
-    display: none;
-  }
-
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
     display: none !important;
   }
@@ -331,6 +398,10 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   .dataTables_wrapper .dataTables_info,
   .dataTables_wrapper .dataTables_processing,
   .dataTables_wrapper .dataTables_paginate {
+    display: none !important;
+  }
+
+  ::ng-deep #DataTables_Table_0_info {
     display: none !important;
   }
 
@@ -366,5 +437,19 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   ::ng-deep .dataTables_wrapper .dataTables_length label {
     color: $tbody-color;
     font: $tbody-back;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_filter {
+    display: none;
+  }
+
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    font: $tbody-back;
+    font-weight: 400;
+    letter-spacing: 0.3px;
   }
 }
