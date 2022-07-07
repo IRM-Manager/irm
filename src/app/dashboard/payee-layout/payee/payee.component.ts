@@ -99,7 +99,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.company.tin}&yearId=${id || get_year[0]?.id}`
+          `tin=${this.datas2.company.state_tin}&yearId=${id || get_year[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -124,7 +124,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.company.tin}&yearId=${id || get_year_id[0]?.id}`
+          `tin=${this.datas2.company.state_tin}&yearId=${id || get_year_id[0]?.id}`
       )
       .subscribe(
         (data: any) => {

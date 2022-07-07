@@ -321,22 +321,23 @@ export class DialogComponent implements OnInit {
       this.httpService
         .postData(
           BaseUrl.confirm_upload +
-            `comp_tin=${this.data.data.data2.tin}&yearId=${this.data.data.year.id}&is_consolidated=${this.data.data.is_con2}`,
+            `comp_tin=${this.data.data.data2.company.state_tin}&yearId=${this.data.data.year.id}&is_consolidated=${this.data.data.is_con2}`,
           data
         )
         .subscribe(
           (data: any) => {
             this.isExtract = false;
-            this.snackBar.dismiss();
-            this.dialogRef.close({
-              reload: true,
-              year: this.data.data.year.id,
-            });
             this.snackBar.open('Success', '', {
               duration: 3000,
               panelClass: 'success',
               horizontalPosition: 'center',
               verticalPosition: 'top',
+            });
+            this.payeeService.setAsYearMessage({yearId: this.data.data.year.year});
+            this.payeeService.sendAsClickEvent();
+            this.dialogRef.close({
+              reload: true,
+              year: this.data.data.year.id,
             });
           },
           (err) => {

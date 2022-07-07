@@ -13,7 +13,7 @@ $white: #ffffff;
 
   .back {
     margin-top: 1.5rem;
-    color: $soft-pattern-color;
+    color: #B9A005;
     font: $soft-pattern-font;
     font-weight: 500;
     cursor: pointer;
@@ -25,7 +25,10 @@ $white: #ffffff;
 
   .header {
     margin-top: 2rem;
+    width: 80%;
+    background: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
+    padding: 3rem;
 
     .soft_pattern {
       font: $soft-pattern-font;
@@ -33,6 +36,11 @@ $white: #ffffff;
       color: $soft-pattern-color;
       font-weight: 500;
       opacity: 1;
+    }
+
+    .material-icons-round {
+      vertical-align: middle;
+      color: #038541;
     }
 
     .reg_buss {
@@ -51,6 +59,8 @@ $white: #ffffff;
     padding: 1rem 3rem;
     width: 80%;
     background: $white 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
   }
 
   .PayE {
@@ -137,11 +147,38 @@ $white: #ffffff;
   }
 
   .green {
-    color: #2aa977;
+    color: #038541;
   }
 
   .red {
     color: #e9322c;
+  }
+
+  .generate_bill {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .gen_notice {
+    border: 1px solid #B9A005;
+    border-radius: 10px;
+    font: normal normal normal 15px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #B9A005;
+    padding: .6rem;
+    opacity: 1;
+  }
+
+  .gen_bill {
+    background: #B9A005 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    font: normal normal normal 15px/20px Montserrat;
+    letter-spacing: 0px;
+    padding: .6rem;
+    color: $white;
+    opacity: 1;
   }
 }
 

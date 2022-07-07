@@ -6,11 +6,9 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
 $select-color: #3ea84e;
 $form-color: #37a85d;
 $label-color: #565656;
-$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
-  0% 0% no-repeat padding-box;
+$verify-hover-b: #b9a005 0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
-$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
+$create-back: #b9a005 0% 0% no-repeat padding-box;
 $ind-color: #565656;
 $ind-font: normal normal normal 12px/15px Montserrat;
 $radio-color: #3c66a3;
@@ -19,9 +17,22 @@ $radio-color: #3c66a3;
   background: #f5f7fa 0% 0% no-repeat padding-box;
   min-height: 100vh;
   padding-left: 1.5rem;
+  padding-top: 2rem;
+
+  .header {
+    opacity: 1;
+    width: 80%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 3rem;
+  }
+
+  .material-icons-round {
+    vertical-align: middle;
+    color: #038541;
+  }
 
   .soft_pattern {
-    padding-top: 2rem;
     font: $soft-pattern-font;
     letter-spacing: 0px;
     color: $soft-pattern-color;
@@ -108,13 +119,13 @@ $radio-color: #3c66a3;
   }
 
   .drop_down {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .half {
-      width: 150px;
+    width: 150px;
   }
 
   .half-width {

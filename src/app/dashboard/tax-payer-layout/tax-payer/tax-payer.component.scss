@@ -232,9 +232,10 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     background: $wrapper-back;
     color: $ind-border;
     font: $tbody-back;
+    font-weight: 500;
     margin-top: 1.5rem;
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 0.3rem;
     margin-left: 10px;
     width: 5rem;
   }

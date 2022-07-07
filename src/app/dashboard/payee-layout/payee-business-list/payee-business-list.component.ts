@@ -8,8 +8,10 @@ import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { DialogComponent } from '../../dialog/dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { Dialog2Component } from '../dialog2/dialog2.component';
+import { PayeeDialogComponent } from '../payee-dialog/payee-dialog.component';
 import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
@@ -156,4 +158,14 @@ export class PayeeBusinessListComponent implements OnInit {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+  openDialog22() {
+    this.snackBar.dismiss();
+    this.dialog.open(PayeeDialogComponent, {
+      data: {
+        type: 'generate_bill',
+      },
+    });
+  }
+
 }

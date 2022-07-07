@@ -1,4 +1,13 @@
 <div class="wrapper">
+
+    <div class="header-company">
+        <div class="soft_pattern">
+            {{ datas?.company?.organisation_name }}
+            <span class="material-icons-round" *ngIf="datas?.company?.is_verified">verified_user</span>
+        </div>
+        <div class="reg_buss">GTin: {{ datas?.company?.state_tin }}</div>
+    </div>
+
     <div class="header_p">
         Employee Basic details
     </div>

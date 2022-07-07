@@ -29,6 +29,16 @@ $radio-color: #3c66a3;
       vertical-align: middle;
     }
 
+    .round-success {
+      vertical-align: middle;
+      color: #038541;
+    }
+
+    .round-failed {
+      vertical-align: middle;
+      color: #b52d2d;
+    }
+
     .soft_pattern {
       font: $soft-pattern-font;
       letter-spacing: 0px;
@@ -54,7 +64,7 @@ $radio-color: #3c66a3;
       margin-top: 1rem;
     }
 
-    @mixin theme($back) {
+    @mixin theme($back, $border, $color) {
       background: $back 0% 0% no-repeat padding-box;
       border-radius: 10px;
       opacity: 1;
@@ -62,17 +72,23 @@ $radio-color: #3c66a3;
       width: 7rem;
       font: normal normal normal 14px/17px Montserrat;
       letter-spacing: 0px;
-      color: $white;
+      color: $color;
       font-weight: 500;
+      border: 1px solid $border;
     }
 
     .blue-button {
-      @include theme($back: #3c66a3);
+      @include theme($back: #B9A005, $border: #B9A005, $color: $white);
+      margin-right: 15px;
+    }
+
+    .blue-button2 {
+      @include theme($back: unset, $border: #B9A005, $color: #B9A005);
       margin-right: 15px;
     }
 
     .red-button {
-      @include theme($back: #b52d2d);
+      @include theme($back: #b52d2d, $border: #b52d2d, $color: $white);
     }
   }
 

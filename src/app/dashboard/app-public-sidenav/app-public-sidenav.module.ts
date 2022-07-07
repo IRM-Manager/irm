@@ -29,6 +29,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { QrCodeModule } from 'ng-qrcode';
 // import { CdkMenuModule } from '@angular/cdk/menu';
 // components
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
@@ -178,7 +179,8 @@ import { ListUserDepLocComponent } from '../admin-console-component/list-user-de
     FlexLayoutModule,
     MatBadgeModule,
     MatChipsModule,
-    LoadingBarModule
+    LoadingBarModule,
+    QrCodeModule,
     // CdkMenuModule
   ],
 })

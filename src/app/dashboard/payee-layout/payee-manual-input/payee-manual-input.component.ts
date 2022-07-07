@@ -175,7 +175,7 @@ export class PayeeManualInputComponent implements OnInit {
         nhf: this.form3.value.floatLabelControl3 == 'true' ? true : false,
         gross: this.consolidate || 0,
         employee_position: this.feedback.position || '',
-        employeeTin: this.datas2.tin,
+        employeeTin: this.datas2.state_tin,
         hmo: this.hmo || 0,
         other_deductions: this.other || 0,
         basic: this.basic || 0,
@@ -193,7 +193,7 @@ export class PayeeManualInputComponent implements OnInit {
       this.httpService
         .postData(
           BaseUrl.register_single_paye +
-            `comp_tin=${this.datas.tin}&yearId=${this.feedback.year}`,
+            `comp_tin=${this.datas.company.state_tin}&yearId=${this.feedback.year}`,
           data
         )
         .subscribe(
@@ -276,10 +276,11 @@ export class PayeeManualInputComponent implements OnInit {
           this.form.value.floatLabelControl == 'true' ? true : false,
         hmo: this.hmo || 0,
         employee_position: this.feedback.position || '',
-        employeeTin: this.datas2.tin || this.datas2.employeeTin,
+        employeeTin: this.datas2.employeeTin,
         basic: this.basic || 0,
         housing: this.housing || 0,
         tp: this.tp || 0,
+        employerTin: this.datas2.employerTin
       };
       if (this.form.value.floatLabelControl == 'true') {
         delete data.basic;
@@ -366,17 +367,17 @@ export class PayeeManualInputComponent implements OnInit {
 
   // Update form field
   updateValue() {
-    this.feedbackForm.patchValue({ tin: this.datas2.tin });
-    this.feedbackForm.patchValue({ name: this.datas2.full_name });
+    this.feedbackForm.patchValue({ tin: this.datas2.state_tin });
+    this.feedbackForm.patchValue({ name: this.datas2.taxpayer_name });
     this.feedbackForm.patchValue({
-      company_name: this.datas.organisation_name,
+      company_name: this.datas.company.organisation_name,
     });
-    this.feedbackForm.patchValue({ position: this.datas2.profession_trade });
+    this.feedbackForm.patchValue({ position: this.datas2.occupation.name });
   }
 
   updateValue2() {
     this.feedbackForm.patchValue({
-      company_name: this.datas.organisation_name,
+      company_name: this.datas.company.organisation_name,
     });
     this.feedbackForm.patchValue({ tin: this.datas2.employeeTin });
     this.feedbackForm.patchValue({ name: this.datas2.employee });

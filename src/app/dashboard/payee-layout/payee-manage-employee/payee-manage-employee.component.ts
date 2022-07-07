@@ -60,7 +60,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
-    //
+
     this.datas2 = this.payeeService.getMessage();
     if (this.datas2) {
     } else {
@@ -68,7 +68,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
         `/dashboard/dashboard3/taxpayer/payee/business-list`,
       ]);
     }
-    //
+    // 
     const get_year: any = this.payeeService.getAsYearMessage();
     this.htmlYear = get_year?.yearId || new Date().getFullYear();
     //
@@ -110,7 +110,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_registered_employees +
-          `comp_tin=${this.datas2.tin}&yearId=${id || getHtmlYear[0]?.id}`
+          `comp_tin=${this.datas2.company.state_tin}&yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -134,7 +134,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_registered_employees +
-          `comp_tin=${this.datas2.tin}&yearId=${id || getHtmlYear[0]?.id}`
+          `comp_tin=${this.datas2.company.state_tin}&yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -225,8 +225,8 @@ export class PayeeManageEmployeeComponent implements OnInit {
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
-            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
             this.years = data.results;
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {
             this.authService.checkExpired();
@@ -249,6 +249,15 @@ export class PayeeManageEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
+    //
+    this.clickEventSubscription = this.payeeService
+      .getAsClickEvent()
+      .subscribe((data: any) => {
+        const get_year: any = this.payeeService.getAsYearMessage();
+        this.htmlYear = get_year?.yearId || new Date().getFullYear();
+        this.renderTable();
+    });
+    //
   }
 
   ngOnDestroy(): void {

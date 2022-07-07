@@ -14,7 +14,6 @@
 .ind_com {
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-top: 2rem;
   border-radius: 10px;
   background: #f5f7fa 0% 0% no-repeat padding-box;
   opacity: 1;
@@ -62,7 +61,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  color: #5ea55a;
+  color: #038541;
   opacity: 1;
   border-radius: 50%;
 }
@@ -92,7 +91,7 @@
 }
 
 .director {
-  color: #5ea55a;
+  color: #038541;
   cursor: pointer;
 }
 
@@ -115,7 +114,7 @@
   font: normal normal normal 12px/15px Montserrat;
   letter-spacing: 0px;
   background: #ffffff;
-  color: #44a843;
+  color: #038541;
   width: 150px;
   text-align: center;
   padding: 1rem;
@@ -123,28 +122,16 @@
 }
 
 .continue {
-  background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
-    0% no-repeat padding-box;
-  border-radius: 10px;
+  background: #B9A005 0% 0% no-repeat padding-box;
+  border-radius: 5px;
   text-align: left;
   font: normal normal normal 12px/15px Montserrat;
   letter-spacing: 0px;
   color: #ffffff;
-  padding: 1rem;
+  padding: .9rem;
   width: 150px;
   text-align: center;
   margin: 10px;
-  opacity: 1;
-}
-
-.back:hover,
-.continue:hover {
-  background: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  font: normal normal normal 12px/15px Montserrat;
-  letter-spacing: 0px;
-  color: #ffffff;
   opacity: 1;
 }
 
@@ -167,7 +154,7 @@
 .payee_edit_text {
   font: normal normal normal 12px/15px Montserrat;
   letter-spacing: 0px;
-  color: #5ea55a;
+  color: #038541;
   font-weight: 500;
   margin-top: 10px;
   opacity: 1;
@@ -590,9 +577,9 @@
 }
 
 .payee-success-response {
-  color: #5EA55A;
+  color: #038541;
   padding: .6rem;
-  border: 1px solid #5EA55A;
+  border: 1px solid #038541;
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -676,8 +663,7 @@
 }
 
 .extract_data_success {
-  background: transparent linear-gradient(180deg, #47a83e 0%, #2aa977 100%) 0%
-    0% no-repeat padding-box;
+  background: #B9A005 0% 0% no-repeat padding-box;
 }
 
 .extract_data_warning {
@@ -691,7 +677,7 @@
 
 .extract_continue {
   background: #3c66a3 0% 0% no-repeat padding-box;
-  border: 0.5px solid #5ea55a;
+  border: 0.5px solid #038541;
   opacity: 1;
   padding: 1rem;
   margin-left: 10px;
@@ -715,6 +701,11 @@
   opacity: 1;
 }
 
+.material-icons-round {
+  vertical-align: middle;
+  color: #038541;
+}
+
 .table-icon-delete {
   color: #a33c3c;
   cursor: pointer;
@@ -723,21 +714,22 @@
 ::ng-deep .mat-step-header .mat-step-icon-selected,
 .mat-step-header .mat-step-icon-state-done,
 .mat-step-header .mat-step-icon-state-edit {
-  background-color: #37a85d;
+  background-color: #3C66A3;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #37a85d;
+  color: #3C66A3;
+  border-radius: unset;
 }
 
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
-  color: #37a85d;
+  color: #3C66A3;
 }
 
 ::ng-deep .mat-input-element {
-  caret-color: #37a85d;
+  caret-color: #3C66A3;
 }
 
 ::ng-deep .mat-form-field-label {

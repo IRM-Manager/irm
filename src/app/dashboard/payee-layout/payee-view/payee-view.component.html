@@ -6,8 +6,11 @@
 
     <div class="header">
         <div class="header-container">
-            <div class="soft_pattern">{{ datas?.company.organisation_name }}</div>
-            <div class="reg_buss">Tax ID: {{ datas?.company.state_tin }}</div>
+            <div class="soft_pattern">
+                {{ datas?.company.organisation_name }}
+                <span class="material-icons-round" *ngIf="datas?.company.is_verified">verified_user</span>
+            </div>
+            <div class="reg_buss">GTin: {{ datas?.company.state_tin }}</div>
         </div>
     </div>
 
@@ -15,51 +18,68 @@
 
     <div class="table-container">
 
-        <div class="PayE">Company PayE Assessment</div>
+        <div>
 
-        <div class="column">
-            <div class="column1">
-                <div class="employee-salary">Description</div>
-                <div class="left_right">
-                    <div class="left">
-                        <div class="title">Assessment Period</div>
-                        <div class="title">Assessment Code</div>
-                        <div class="title">Assessment Year</div>
-                        <div class="title">Tax Type</div>
-                        <div class="title">No. Of employee</div>
-                        <div class="title">Currency</div>
-                        <div class="title">Date of assessment</div>
-                        <div class="title">Remitted</div>
-                        <div class="title">Modified at</div>
-                        <div class="title2">TOTAL PAYE PAYABLE</div>
+            <div class="PayE">Company PayE Assessment</div>
+
+            <div class="column">
+                <div class="column1">
+                    <div class="employee-salary">Description</div>
+                    <div class="left_right">
+                        <div class="left">
+                            <div class="title">Assessment Period</div>
+                            <div class="title">Assessment Name</div>
+                            <div class="title">Assessment Year</div>
+                            <div class="title">Tax Type</div>
+                            <div class="title">No. Of employee</div>
+                            <div class="title">Currency</div>
+                            <div class="title">Date of assessment</div>
+                            <div class="title">Remitted</div>
+                            <div class="title">Modified at</div>
+                            <div class="title2">TOTAL PAYE PAYABLE</div>
+                        </div>
                     </div>
+
                 </div>
 
+                <div class="column2">
+                    <div class="deduction">Amount</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title">{{ datas2.assessment_month }}</div>
+                            <div class="title">{{ datas2.assess_name }}</div>
+                            <div class="title blue">{{ datas2.assessment_year }}</div>
+                            <div class="title">PAYE</div>
+                            <div class="title">{{ datas2.employee_total }}</div>
+                            <div class="title">NGN</div>
+                            <div class="title">{{ datas2.assessment_date | date:"medium" }}</div>
+                            <div class="title">
+                                <span *ngIf="datas2.remited" class="green">YES</span>
+                                <span *ngIf="!datas2.remited" class="red">NO</span>
+                            </div>
+                            <div class="title">{{ datas2.modified_at | dateAgo }}</div>
+                            <div class="title2">NGN {{ formatMoney(datas2.assessment_total) }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="column2">
-                <div class="deduction">Amount</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title">{{ datas2.assessment_month }}</div>
-                        <div class="title">{{ datas2.assess_code }}</div>
-                        <div class="title blue">{{ datas2.assessment_year }}</div>
-                        <div class="title">PAYE</div>
-                        <div class="title">{{ datas2.employee_total }}</div>
-                        <div class="title">NGN</div>
-                        <div class="title">{{ datas2.assessment_date | date:"medium" }}</div>
-                        <div class="title">
-                            <span *ngIf="datas2.remited" class="green">YES</span>
-                            <span *ngIf="!datas2.remited" class="red">NO</span>
-                        </div>
-                        <div class="title">{{ datas2.modified_at | dateAgo }}</div>
-                        <div class="title2">NGN {{ formatMoney(datas2.assessment_total) }}</div>
-                    </div>
-                </div>
+            <div style="clear: both;"></div>
+            <div class="generate_bill" fxLayoutGap="15px">
+                <button mat-button class="gen_notice">Generate Notice</button>
+                <button mat-button class="gen_bill">Generate Bill</button>
             </div>
         </div>
 
-        <div style="clear: both;"></div>
+        <div>
+            <qr-code value="{{datas2.assess_code}}"
+                size=""
+                errorCorrectionLevel="M"
+                centerImageSrc="undefined"
+                centerImageSize="undefined">
+            </qr-code>
+            
+        </div>
 
     </div>
 

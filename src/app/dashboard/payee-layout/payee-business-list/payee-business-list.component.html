@@ -92,7 +92,7 @@
                     </div>
 
                     <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
-                        <span *ngIf="!is_reload">RELOAD</span>
+                        <span *ngIf="!is_reload">Reload</span>
                         <div *ngIf="is_reload" class="loader">
                             <div class="bubble"></div>
                             <div class="bubble"></div>
@@ -106,3 +106,5 @@
         </div>
 
 </div>
+
+<button (click)="openDialog22()">Generate Bill</button>

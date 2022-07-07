@@ -260,8 +260,11 @@
 
             <div class="header">
                 <div>
-                    <div class="leftt1 left1">{{ data.data.organisation_name }}</div>
-                    <div class="right2">Tax ID: {{ data.data.tin }}</div>
+                    <div class="leftt1 left1">
+                        {{data.data.company.organisation_name}}
+                        <span class="material-icons-round" *ngIf="data.data.company.is_verified">verified_user</span>
+                    </div>
+                    <div class="right2">GTin: {{ data.data.company.state_tin }}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
@@ -271,8 +274,9 @@
                 </div>
             </div>
             <mat-dialog-content class="mat-typography ind_com payee_com3">
-                <div class="center_payee_com">
-                    <div class="tax_return_year">Choose Tax Return year</div>
+                <div class="center_payee_com2">
+                    <div class="employee_filling">Employee filing</div>
+                    <div class="employee_filling2">Choose Tax Return year</div>
                     <form>
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>Year</mat-label>
@@ -281,8 +285,12 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+
+                        <div>
+                            <button mat-button class="continue" (click)="payeeDialog('upload_file')">Continue</button>
+                        </div>
+
                     </form>
-                    <button mat-button class="continue" (click)="payeeDialog('upload_file')">Continue</button>
                 </div>
             </mat-dialog-content>
             <mat-dialog-actions>
@@ -301,8 +309,11 @@
 
             <div class="header">
                 <div>
-                    <div class="leftt1 left1">{{data.data.organisation_name}}</div>
-                    <div class="right2">Tax ID: {{data.data.tin}}</div>
+                    <div class="leftt1 left1">
+                        {{data.data.company.organisation_name}}
+                        <span class="material-icons-round" *ngIf="data.data.company.is_verified">verified_user</span>
+                    </div>
+                    <div class="right2">GTin: {{data.data.company.state_tin}}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">
@@ -323,7 +334,7 @@
 
                         <div>
                             <button mat-button class="continue" (click)="staffIncome3()">
-                                <span *ngIf="!isExtract">Verify</span>
+                                <span *ngIf="!isExtract">Continue</span>
                                 <div *ngIf="isExtract" class="loader_delete">
                                     <div class="bubble_delete"></div>
                                     <div class="bubble_delete"></div>
@@ -333,7 +344,7 @@
                             </button>
                         </div>
                     </form>
-                    <div *ngIf="manualError"  class="payee-error-response">{{ manualError }}</div>
+                    <div *ngIf="manualError" class="payee-error-response">{{ manualError }}</div>
                 </div>
             </mat-dialog-content>
             <mat-dialog-actions>
@@ -352,8 +363,8 @@
 
             <div class="header">
                 <div>
-                    <div class="leftt1 left1">{{data.data.data2.organisation_name}}</div>
-                    <div class="right2">Tax ID: {{data.data.data2.tin}}</div>
+                    <div class="leftt1 left1">{{data.data.data2.company.organisation_name}}</div>
+                    <div class="right2">Tax ID: {{data.data.data2.company.state_tin}}</div>
                     <div class="left2">Registered Business</div>
                 </div>
                 <div class="payee_cancel_button">

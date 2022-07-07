@@ -1,8 +1,11 @@
 <div class="wrapper">
 
     <div class="header">
-        <div class="soft_pattern">{{ datas2?.company.organisation_name }}</div>
-        <div class="reg_buss">Tax ID: {{ datas2.company.state_tin }}</div>
+        <div class="soft_pattern">
+            {{ datas2?.company.organisation_name }}
+            <span class="material-icons-round" *ngIf="datas2?.company.is_verified">verified_user</span>
+        </div>
+        <div class="reg_buss">GTin: {{ datas2.company.state_tin }}</div>
 
         <div class="header-container">
             <div>
@@ -24,15 +27,16 @@
 
             <mat-toolbar class="header2">
                 <div class="indcom">
-                    Employee(s)
+                    Monthly Business PAYE
                 </div>
                 <div class="spacer"></div>
-                <div class="search_icon_p">
-                    <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
-                            class="input">
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
                     </form>
-                    <mat-icon class="search_icon">search</mat-icon>
                 </div>
             </mat-toolbar>
 
@@ -42,13 +46,13 @@
                         class="row-border table table-striped table-hover table-borderless">
                         <thead>
                             <tr>
-                                <th>S/N</th>
-                                <th>Months</th>
-                                <th>No. Of employee</th>
-                                <th>Monthly tax Liabilities</th>
-                                <th>Remitted</th>
-                                <th>Action</th>
-                                <th></th>
+                                <th class="align-middle">S/N</th>
+                                <th class="align-middle">Months</th>
+                                <th class="align-middle">No. Of employee</th>
+                                <th class="align-middle">Monthly tax Liabilities</th>
+                                <th class="align-middle">Remitted</th>
+                                <th class="align-middle">Action</th>
+                                <th class="align-middle"></th>
                             </tr>
                         </thead>
                         <!-- individual -->
@@ -90,7 +94,7 @@
                         </div>
 
                         <button mat-raised-button class="reload" (click)="reload()">
-                            <span *ngIf="!is_reload">RELOAD</span>
+                            <span *ngIf="!is_reload">Reload</span>
                             <div *ngIf="is_reload" class="loader">
                                 <div class="bubble"></div>
                                 <div class="bubble"></div>

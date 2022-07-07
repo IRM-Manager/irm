@@ -5,7 +5,7 @@ $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
 $white: #ffffff;
 $radio-color: #3c66a3;
-$form-color: #37a85d;
+$form-color: #038541;
 $label-color: #565656;
 
 .wrapper {
@@ -13,6 +13,37 @@ $label-color: #565656;
   overflow: auto;
   min-height: 100vh;
   padding-left: 20px;
+
+  .header-company {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 1rem;
+    margin-top: 2rem;
+
+    .soft_pattern {
+      font: $soft-pattern-font;
+      letter-spacing: 0px;
+      color: $soft-pattern-color;
+      font-weight: 500;
+      opacity: 1;
+      vertical-align: middle;
+    }
+  
+    .material-icons-round {
+      vertical-align: middle;
+      color: #038541;
+    }
+  
+    .reg_buss {
+      font: $reg-buss-font;
+      letter-spacing: 0px;
+      color: $tin-color;
+      font-weight: 500;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      opacity: 1;
+    }
+  }
 
   .header_p {
     margin-top: 1rem;
@@ -221,8 +252,7 @@ $label-color: #565656;
   }
 
   .continue {
-    background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
-      0% no-repeat padding-box;
+    background: #B9A005 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
     font: normal normal normal 14px/17px Montserrat;

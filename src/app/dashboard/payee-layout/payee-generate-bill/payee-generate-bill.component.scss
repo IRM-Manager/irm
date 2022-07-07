@@ -40,6 +40,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   overflow: auto;
   min-height: 100vh;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .header {
@@ -49,7 +50,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
+  width: 100%;
 
   .soft_pattern {
     padding-top: 2rem;
@@ -129,12 +130,11 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 }
 
-
 .header2 {
   background: $header-back2;
   padding: 1.5rem 1rem 1.5rem 1rem;
   margin-top: 1rem;
-  width: 95%;
+  width: 100%;
 
   .spacer {
     flex: 1 1 auto;
@@ -187,7 +187,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
 .table-container {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 95%;
+  width: 100%;
 
   table {
     border: none;
@@ -230,8 +230,9 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     color: $ind-border;
     font: $tbody-back;
     margin-top: 1.5rem;
+    font-weight: 500;
     border-radius: 10px;
-    padding: 0.5rem;
+    padding: 0.3rem;
     margin-left: 10px;
     width: 5rem;
   }

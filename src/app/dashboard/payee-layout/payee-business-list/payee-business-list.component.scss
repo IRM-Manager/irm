@@ -1,6 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-$header-color: 1px solid #42a845;
+$header-color: 1px solid #038541;
 $header-back: rgba(62, 95, 168, 0.05);
 $header-back2: #ffffff 0% 0% no-repeat padding-box;
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
@@ -21,7 +21,7 @@ $thead-text-color: #3c66a3;
 $tbody-back: normal normal normal 15px/19px Montserrat;
 $tbody-color: #565656;
 $animate-form: 0.5px solid #37a85d;
-$green: #37a85d;
+$green: #038541;
 $red: #bc333e;
 $form-icon-color: rgba(27, 87, 63, 0.54);
 $placeholder-font: normal normal normal 15px/24px Montserrat;
@@ -49,7 +49,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     font-weight: 550;
     letter-spacing: 0px;
     text-transform: uppercase;
-    color: #3C66A3;
+    color: #3c66a3;
     opacity: 1;
   }
 
@@ -241,9 +241,10 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     background: $wrapper-back;
     color: $ind-border;
     font: $tbody-back;
+    font-weight: 500;
     margin-top: 1.5rem;
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 0.3rem;
     margin-left: 10px;
     width: 5rem;
   }

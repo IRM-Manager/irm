@@ -2,9 +2,12 @@
 
     <div class="header">
 
-        <div>
-            <div class="soft_pattern">{{ datas2.company.organisation_name }}</div>
-            <div class="reg_buss">Tax ID: {{ datas2.company.state_tin }}</div>
+        <div class="filling-header">
+            <div class="soft_pattern">
+                {{ datas2.company.organisation_name }}
+                <span class="material-icons-round" *ngIf="datas2?.company.is_verified">verified_user</span>
+            </div>
+            <div class="reg_buss">GTin: {{ datas2.company.state_tin }}</div>
             <div>
                 <span class="assess">Filling for {{ htmlYear }}</span>
                 <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
@@ -18,24 +21,30 @@
 
         <div class="header-container">
             <button mat-button="mat-button" class="payee_button" [matMenuTriggerFor]="menu">
-                <img src="assets/images/Group814.svg" class="header-img" alt="">
+                <svg xmlns="http://www.w3.org/2000/svg" class="header-img" width="21.443" height="21.444" viewBox="0 0 21.443 21.444">
+                    <g id="Group_814" data-name="Group 814" transform="translate(-4.501 -4.5)">
+                      <path id="Path_584" data-name="Path 584" d="M22.443,22.482a26.022,26.022,0,0,0-2.909-.558,2.956,2.956,0,0,1-1.346-.62,10.212,10.212,0,0,1-.095-2.636.579.579,0,0,1,.061-.212,8.242,8.242,0,0,0,.575-1.117,12.675,12.675,0,0,0,.424-1.86.435.435,0,0,1,.223-.313,1.016,1.016,0,0,0,.436-.748,7.912,7.912,0,0,0,.413-1.871.79.79,0,0,0-.179-.531.421.421,0,0,1-.112-.413,11.775,11.775,0,0,0,.29-2.546c.05-2.3-1.748-4.557-5-4.557-3.3,0-5.054,2.262-5,4.557a12.282,12.282,0,0,0,.285,2.546.445.445,0,0,1-.112.413.762.762,0,0,0-.179.531,7.912,7.912,0,0,0,.413,1.871,1.029,1.029,0,0,0,.436.748.445.445,0,0,1,.223.313,12.675,12.675,0,0,0,.424,1.86,8.559,8.559,0,0,0,.575,1.117.393.393,0,0,1,.061.212,10.2,10.2,0,0,1-.095,2.636,2.956,2.956,0,0,1-1.346.62A26.022,26.022,0,0,0,8,22.482c-.793.279-3.088,1.145-3.49,2.921a.446.446,0,0,0,.441.542H25.5a.445.445,0,0,0,.436-.542C25.531,23.627,23.236,22.761,22.443,22.482Z" fill="#5ea55a"/>
+                      <path id="Path_585" data-name="Path 585" d="M29.525,20.094H28.017V18.586A.586.586,0,0,0,27.431,18h0a.586.586,0,0,0-.586.586v1.508H25.336a.586.586,0,0,0-.586.586h0a.586.586,0,0,0,.586.586h1.508v1.508a.586.586,0,0,0,.586.586h0a.586.586,0,0,0,.586-.586V21.267h1.508a.586.586,0,0,0,.586-.586h0A.586.586,0,0,0,29.525,20.094Z" transform="translate(-4.167 -2.778)" fill="#5ea55a"/>
+                    </g>
+                </svg>
+                  
                     <span>Setup Employee
                         <i class="fa fa-chevron-down"></i>
                     </span>
+            </button>
+            <mat-menu #menu>
+                <button
+                    mat-menu-item="mat-menu-item" (click)="openDialog('file_upload')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
+                    <!-- <mat-icon>upload_file</mat-icon> -->
+                    <span>Upload File</span>
                 </button>
-                <mat-menu #menu>
-                    <button
-                        mat-menu-item="mat-menu-item" (click)="openDialog('file_upload')" class="payee_button_menu payee_button_menu2" style="border-bottom: 2px solid #38729B;">
-                        <!-- <mat-icon>upload_file</mat-icon> -->
-                        <span>Upload File</span>
-                    </button>
-                    <!-- upload_file -->
-                    <button
-                        mat-menu-item="mat-menu-item" class="payee_button_menu" (click)="openDialog('manual')">
-                        <!-- <mat-icon>save_as</mat-icon> -->
-                        <span>Manual Input</span>
-                    </button>
-                </mat-menu>
+                <!-- upload_file -->
+                <button
+                    mat-menu-item="mat-menu-item" class="payee_button_menu" (click)="openDialog('manual')">
+                    <!-- <mat-icon>save_as</mat-icon> -->
+                    <span>Manual Input</span>
+                </button>
+            </mat-menu>
             </div>
 
         </div>
@@ -48,11 +57,22 @@
                         Employee(s)
                     </div>
                     <div class="spacer"></div>
-                    <div class="search_icon_p">
+
+                    <!-- <div class="search_icon_p">
                         <form class="search-form">
                             <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input"></form>
                             <mat-icon class="search_icon">search</mat-icon>
-                        </div>
+                        </div> -->
+
+                    <div class="search_icon_header">
+                        <form class="search-form_header">
+                            <button matSuffix mat-icon-button class="form-icon_header">
+                                <mat-icon>search</mat-icon>
+                            </button>
+                            <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+                        </form>
+                    </div>
+
                     </mat-toolbar>
 
                     <div class="table-container">
@@ -61,7 +81,7 @@
                                 <thead>
                                     <tr>
                                         <th>S/N</th>
-                                        <th>TIN</th>
+                                        <th>GTIN</th>
                                         <th>Name of Employee</th>
                                         <th>Gross Annual Income</th>
                                         <th>Annual tax Liability</th>
@@ -122,7 +142,7 @@
                                 </div>
 
                                 <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
-                                    <span *ngIf="!is_reload">RELOAD</span>
+                                    <span *ngIf="!is_reload">Reload</span>
                                     <div *ngIf="is_reload" class="loader">
                                         <div class="bubble"></div>
                                         <div class="bubble"></div>
@@ -139,7 +159,12 @@
 
                                 <div class="setup-employee-container_p">
                                     <div class="setup-employee-container">
-                                        <img src="assets/images/Group814.svg" class="header-img" alt="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="header-img" width="21.443" height="21.444" viewBox="0 0 21.443 21.444">
+                                            <g id="Group_814" data-name="Group 814" transform="translate(-4.501 -4.5)">
+                                            <path id="Path_584" data-name="Path 584" d="M22.443,22.482a26.022,26.022,0,0,0-2.909-.558,2.956,2.956,0,0,1-1.346-.62,10.212,10.212,0,0,1-.095-2.636.579.579,0,0,1,.061-.212,8.242,8.242,0,0,0,.575-1.117,12.675,12.675,0,0,0,.424-1.86.435.435,0,0,1,.223-.313,1.016,1.016,0,0,0,.436-.748,7.912,7.912,0,0,0,.413-1.871.79.79,0,0,0-.179-.531.421.421,0,0,1-.112-.413,11.775,11.775,0,0,0,.29-2.546c.05-2.3-1.748-4.557-5-4.557-3.3,0-5.054,2.262-5,4.557a12.282,12.282,0,0,0,.285,2.546.445.445,0,0,1-.112.413.762.762,0,0,0-.179.531,7.912,7.912,0,0,0,.413,1.871,1.029,1.029,0,0,0,.436.748.445.445,0,0,1,.223.313,12.675,12.675,0,0,0,.424,1.86,8.559,8.559,0,0,0,.575,1.117.393.393,0,0,1,.061.212,10.2,10.2,0,0,1-.095,2.636,2.956,2.956,0,0,1-1.346.62A26.022,26.022,0,0,0,8,22.482c-.793.279-3.088,1.145-3.49,2.921a.446.446,0,0,0,.441.542H25.5a.445.445,0,0,0,.436-.542C25.531,23.627,23.236,22.761,22.443,22.482Z" fill="#5ea55a"/>
+                                            <path id="Path_585" data-name="Path 585" d="M29.525,20.094H28.017V18.586A.586.586,0,0,0,27.431,18h0a.586.586,0,0,0-.586.586v1.508H25.336a.586.586,0,0,0-.586.586h0a.586.586,0,0,0,.586.586h1.508v1.508a.586.586,0,0,0,.586.586h0a.586.586,0,0,0,.586-.586V21.267h1.508a.586.586,0,0,0,.586-.586h0A.586.586,0,0,0,29.525,20.094Z" transform="translate(-4.167 -2.778)" fill="#5ea55a"/>
+                                            </g>
+                                        </svg>
                                         <span>Setup Employee
                                             <i class="fa fa-chevron-down"></i>
                                         </span>

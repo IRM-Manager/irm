@@ -6,14 +6,18 @@
         </p>
 
         <div class="header-container">
-            <div class="soft_pattern">{{ datas?.employee }}</div>
-            <div class="reg_buss">Tax ID: {{ datas?.employeeTin }}</div>
+            <div class="soft_pattern">
+                {{ datas?.employee }}
+                <span class="material-icons-round round-success" *ngIf="datas?.status == true">verified_user</span>
+                <span class="material-icons-round round-failed" *ngIf="datas?.status == false ">verified_user</span>
+            </div>
+            <div class="reg_buss">GTin: {{ datas?.employeeTin }}</div>
             <div class="reg_buss">Tax Year: {{ datas.taxYear }}</div>
 
             <div class="button-container">
                 <div>
                     <button class="blue-button" mat-button (click)="changeType()">Edit</button>
-                    <button class="blue-button" mat-button>Print</button>
+                    <button class="blue-button2" mat-button>Print</button>
                 </div>
                 <div>
                     <button class="red-button" mat-button (click)="deletePayee()">

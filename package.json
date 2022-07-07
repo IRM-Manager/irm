@@ -41,6 +41,7 @@
     "highcharts": "^10.0.0",
     "jquery": "^3.6.0",
     "material-icons": "^1.10.7",
+    "ng-qrcode": "^7.0.0",
     "ngx-mat-select-search": "^4.0.2",
     "ngx-print": "^1.2.1",
     "rxjs": "~7.4.0",

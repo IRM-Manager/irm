@@ -37,7 +37,7 @@ export const BaseUrl = {
   update_single_paye: 'paye/api/v1/paye/',
   delete_paye: 'paye/api/v1/paye/',
   create_payee_ass: 'assessment/api/v1/paye/?',
-  list_payee_ass: 'assessment/api/v1/paye/list_payeassessment/?',
+  list_payee_ass: 'assessment/api/v1/paye/?',
   verify_nin: 'user/api/v1/verify/individual/?',
   list_occupation: 'refdata/api/v1/occupation',
   list_payee: 'paye/api/v1/regpaye/',

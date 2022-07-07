@@ -1,20 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { DialogComponent } from '../../dialog/dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
-import { Store } from '@ngrx/store';
-import { ComPayer } from '../../models/irm';
-import { AppState, selectAllComPayer } from 'src/app/reducers/index';
-import { AddComPayer } from '../../../actions/irm.action';
-import { Observable } from 'rxjs';
-import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, selectAllComPayer } from 'src/app/reducers/index';
+import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { AddComPayer } from '../../../actions/irm.action';
+import { ComPayer } from '../../models/irm';
 
 @Component({
   selector: 'app-payee-generate-bill',
@@ -87,7 +87,7 @@ export class PayeeGenerateBillComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthChange: false,
-      info : false
+      info: false,
     };
 
     this.isLoading = true;

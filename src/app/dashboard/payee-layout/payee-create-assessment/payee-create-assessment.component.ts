@@ -77,44 +77,49 @@ export class PayeeCreateAssessmentComponent implements OnInit {
     else {
       this.loading = true;
       const get_year = this.years.filter((name: any) => {
-        return  name.year == this.feedback.year;
+        return name.year == this.feedback.year;
       });
       const data = { item_code: '001', yearId: get_year[0].id };
-      this.httpService.postData(BaseUrl.create_payee_ass + `tin=${this.datas.tin}`, data).subscribe(
-        (data: any) => {
-          this.loading = false;
-          this.payeeService.setAYearMessage({yearId: this.feedback.year});
-          this.snackBar.dismiss();
-          this.snackBar.open('Success', '', {
-            duration: 3000,
-            panelClass: 'success',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-          this.router.navigate([
-            `/dashboard/dashboard3/taxpayer/payee/lists`,
-          ]);
-        },
-        (err) => {
-          this.loading = false;
-          this.authService.checkExpired();
-          console.log(err);
-          this.snackBar.open(
-            err?.error?.message ||
-              err?.error?.msg ||
-              err?.error?.detail ||
-              err?.error?.status ||
-              'An Error Occured!',
-            '',
-            {
-              duration: 5000,
-              panelClass: 'error',
+      this.httpService
+        .postData(
+          BaseUrl.create_payee_ass + `tin=${this.datas.company.state_tin}`,
+          data
+        )
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            this.payeeService.setAYearMessage({ yearId: this.feedback.year });
+            this.snackBar.dismiss();
+            this.snackBar.open('Success', '', {
+              duration: 3000,
+              panelClass: 'success',
               horizontalPosition: 'center',
               verticalPosition: 'top',
-            }
-          );
-        }
-      );
+            });
+            this.router.navigate([
+              `/dashboard/dashboard3/taxpayer/payee/lists`,
+            ]);
+          },
+          (err) => {
+            this.loading = false;
+            this.authService.checkExpired();
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     }
   }
 

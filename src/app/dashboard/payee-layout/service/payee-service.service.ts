@@ -11,6 +11,7 @@ export class PayeeServiceService {
   yearAMessage: string | undefined;
   yearAsMessage: string | undefined;
   private subject = new Subject<any>();
+  private aSsubject = new Subject<any>();
   constructor() {}
 
   setMessage(data: any) {
@@ -66,6 +67,14 @@ export class PayeeServiceService {
 
   getAsYearMessage() {
     return this.yearAsMessage;
+  }
+
+  sendAsClickEvent() {
+    this.aSsubject.next(null);
+  }
+
+  getAsClickEvent(): Observable<any> {
+    return this.aSsubject.asObservable();
   }
   //
 
