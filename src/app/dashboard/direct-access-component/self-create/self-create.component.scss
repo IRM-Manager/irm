@@ -1,0 +1,55 @@
+$wrapper-back: #f5f7fa;
+$white: #ffffff;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+
+.wrapper-create {
+  background: $wrapper-back;
+  overflow: auto;
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 1rem;
+
+  .header {
+    opacity: 1;
+    margin-bottom: 1rem;
+    background: $white 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 1rem;
+
+    .soft_pattern {
+      font: $soft-pattern-font;
+      letter-spacing: 0px;
+      color: $soft-pattern-color;
+      font-weight: 500;
+      opacity: 1;
+      vertical-align: middle;
+    }
+
+    .icons-rounded {
+      vertical-align: middle;
+      color: #038541;
+    }
+
+    .reg_buss {
+      font: $reg-buss-font;
+      letter-spacing: 0px;
+      color: $tin-color;
+      font-weight: 500;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      opacity: 1;
+    }
+  }
+
+  .form-container {
+    opacity: 1;
+    margin-bottom: 3rem;
+    background: $white 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 1rem;
+  }
+}

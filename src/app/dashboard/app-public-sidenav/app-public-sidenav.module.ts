@@ -1,90 +1,90 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { AppPublicSidenavRoutingModule } from './app-public-sidenav-routing.module';
 // modules
-import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { DataTablesModule } from 'angular-datatables';
-import { ChartModule } from 'angular-highcharts';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatSelectModule } from '@angular/material/select';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { DataTablesModule } from 'angular-datatables';
+import { ChartModule } from 'angular-highcharts';
 import { QrCodeModule } from 'ng-qrcode';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
 // import { CdkMenuModule } from '@angular/cdk/menu';
 // components
-import { AppPublicSidenavComponent } from './app-public-sidenav.component';
+import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
+import { AdminConsoleComponent } from '../admin-console-component/admin-console/admin-console.component';
+import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
+import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
+import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
+import { ListUserDepLocComponent } from '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component';
+import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
+import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
+import { Dashboard2Component } from '../dashboard-component/dashboard2/dashboard2.component';
+import { Dashboard3Component } from '../dashboard-component/dashboard3/dashboard3.component';
+import { Dashboard4Component } from '../dashboard-component/dashboard4/dashboard4.component';
+import { BojCreateComponent } from '../direct-access-component/boj-create/boj-create.component';
+import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
+import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
+import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
+import { DirectSelfComponent } from '../direct-access-component/direct-self/direct-self.component';
+import { OnboardComponent } from '../direct-access-component/onboard/onboard.component';
+import { SelfCreateComponent } from '../direct-access-component/self-create/self-create.component';
+import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
+import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
 import { MDAComponent } from '../mda-component/mda/mda.component';
 import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
-import { StaffIncomeComponent } from '../staff-income/staff-income.component';
-import { TaxIncomeComponent } from '../tax-income/tax-income.component';
 import { PayeeBillsComponent } from '../payee-layout/payee-bills/payee-bills.component';
+import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
 import { PayeeCreateAssessmentComponent } from '../payee-layout/payee-create-assessment/payee-create-assessment.component';
+import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
 import { PayeeGenerateBillComponent } from '../payee-layout/payee-generate-bill/payee-generate-bill.component';
 import { PayeeManageEditComponent } from '../payee-layout/payee-manage-edit/payee-manage-edit.component';
 import { PayeeManageEmployeeComponent } from '../payee-layout/payee-manage-employee/payee-manage-employee.component';
 import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/payee-manual-input.component';
 import { PayeeOnboardComponent } from '../payee-layout/payee-onboard/payee-onboard.component';
+import { PayeeOverview2Component } from '../payee-layout/Payee-overview-component/payee-overview2/payee-overview2.component';
+import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
 import { PayeeOverviewComponent } from '../payee-layout/payee-overview/payee-overview.component';
 import { PayeeViewComponent } from '../payee-layout/payee-view/payee-view.component';
-import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
-import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { PayeeComponent } from '../payee-layout/payee/payee.component';
+import { DateAgoPipe } from '../pipes/date-ago.pipe';
+import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
+import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
+import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
+import { StaffIncomeComponent } from '../staff-income/staff-income.component';
+import { TaxIncomeComponent } from '../tax-income/tax-income.component';
 import { BusinessComponent } from '../tax-payer-layout/business/business.component';
 import { Individual2Component } from '../tax-payer-layout/individual2/individual2.component';
 import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
-import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
-import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
-import { AdminConsoleComponent } from '../admin-console-component/admin-console/admin-console.component';
-import { Dashboard4Component } from '../dashboard-component/dashboard4/dashboard4.component';
-import { Dashboard3Component } from '../dashboard-component/dashboard3/dashboard3.component';
-import { Dashboard2Component } from '../dashboard-component/dashboard2/dashboard2.component';
-import { PayeeOverview2Component } from '../payee-layout/Payee-overview-component/payee-overview2/payee-overview2.component';
-import { PayeeOverview3Component } from '../payee-layout/Payee-overview-component/payee-overview3/payee-overview3.component';
-import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
-import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
-import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
-import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
-import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
-import { OnboardComponent } from '../direct-access-component/onboard/onboard.component';
-import { DirectSelfComponent } from '../direct-access-component/direct-self/direct-self.component';
-import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
-import { DirectHistoryComponent } from '../direct-access-component/direct-history/direct-history.component';
-import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
-import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
-import { DirectHistoryViewEditComponent } from '../direct-access-component/direct-history-view-edit/direct-history-view-edit.component';
+import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
+import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
 import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
 import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
 import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
-import { DateAgoPipe } from '../pipes/date-ago.pipe';
-import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
-import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
-import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
-import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
-import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
-import { ListUserDepLocComponent } from '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component';
-import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.component';
+import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +121,7 @@ import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.
     Dashboard4Component,
     // admin console
     AdminConsoleComponent,
-    AdminDepartmentComponent, 
+    AdminDepartmentComponent,
     AdminLocationComponent,
     AddUserComponent,
     EditUserComponent,
@@ -134,10 +134,10 @@ import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.
     OnboardComponent,
     DirectSelfComponent,
     DirectBojComponent,
-    DirectHistoryComponent,
     DirectBillComponent,
     DirectHistoryEditComponent,
-    DirectHistoryViewEditComponent,
+    SelfCreateComponent,
+    BojCreateComponent,
     // vehicle
     VehicleOnboardComponent,
     VehicleBillsComponent,
@@ -145,10 +145,10 @@ import { PayeeDialogComponent } from '../payee-layout/payee-dialog/payee-dialog.
     VehicleRenewEditComponent,
     VehicleRegComponent,
     // profile
-    ProfileViewComponent, 
-    ProfileEditComponent, 
+    ProfileViewComponent,
+    ProfileEditComponent,
     ProfileChangePasswordComponent,
-    // 
+    //
     PayeeDialogComponent,
     // Pipe component
     DateAgoPipe,

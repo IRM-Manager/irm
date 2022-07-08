@@ -12,6 +12,24 @@ export interface signup {
   username: string;
 }
 
+export interface signup {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  username: string;
+}
+
+export interface directAss {
+  year: string;
+  source: string;
+  amount: string;
+  deduction: string;
+  amount2: string;
+  agree: string;
+}
+
 export interface Tokens {
   access: string;
   refresh: string;

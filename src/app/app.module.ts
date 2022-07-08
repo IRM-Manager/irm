@@ -59,9 +59,6 @@ import { NetworkAwarePreloadingStrategyService2Service } from './services/networ
 import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { SignupComponent } from './signup/signup.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-import { SelfCreateComponent } from './dashboard/direct-access-component/self-create/self-create.component';
-import { BojCreateComponent } from './dashboard/direct-access-component/boj-create/boj-create.component';
-import { DirectViewComponent } from './dashboard/direct-access-component/direct-view/direct-view.component';
 
 
 @NgModule({
@@ -71,9 +68,6 @@ import { DirectViewComponent } from './dashboard/direct-access-component/direct-
     PreviewComponent,
     SignupComponent,
     ForgetPasswordComponent,
-    SelfCreateComponent,
-    BojCreateComponent,
-    DirectViewComponent,
   ],
   imports: [
     BrowserModule,
