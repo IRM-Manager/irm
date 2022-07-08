@@ -108,7 +108,7 @@ export class PayeeBusinessListComponent implements OnInit {
     this.is_reload = true;
     this.httpService.getAuthSingle(BaseUrl.list_payee).subscribe(
       (data: any) => {
-        this.datas = data.results.reverse();
+        this.datas = data.results;
         this.searchData = data.results;
         this.dtTrigger.next;
         this.is_reload = false;

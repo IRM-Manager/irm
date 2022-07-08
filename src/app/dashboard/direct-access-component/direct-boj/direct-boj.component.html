@@ -1,116 +1,132 @@
 <div class="wrapper">
-    <p class="back" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
-        <mat-icon>keyboard_backspace</mat-icon>
-        Back
-    </p>
 
     <div class="header">
-        <div class="header-container">
-            <div class="reg_buss">Tax ID: 34546678844</div>
-            <div class="soft_pattern">Matthew Olayinka Adeboye</div>
-            <div class="reg_buss">Registered Taxpayer</div>
+
+        <div>
+            <span class="reg_buss">Best of Judgement for {{ htmlYear }}</span>
+            <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
+                <span class="change" style="color: #5EA55A;">Change Year</span>
+            </button>
+            <mat-menu #menu2 class="choose-year-menu">
+                <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" class="mat-menu">{{ year.year }}</button>
+            </mat-menu>
         </div>
     </div>
 
-    <!-- table container -->
+    <div>
+        <div class="verify">
 
-    <div class="table-container">
-        <div class="PayE">Best of judgment (BOJ)</div>
+            <div class="header2">
 
-        <div
-            class="left_right_container">
-            <!--  -->
-            <div class="column">
-                <form #card novalidate="novalidate" [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-                    <p>
-                        <!-- Choose source -->
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Source of income</mat-label>
-                            <input matInput="matInput" formControlName="source" [matAutocomplete]="auto" required/>
-                            <mat-autocomplete autoActiveFirstOption="autoActiveFirstOption" #auto="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                    {{ option }}
-                                </mat-option>
-                            </mat-autocomplete>
-                            <button type="button" matSuffix="matSuffix" mat-icon-button="mat-icon-button" class="drop_down">
-                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                            </button>
-                            <mat-error>{{ formErrors.source }}</mat-error>
-                        </mat-form-field>
-                    </p>
-                    <p>
-                        <!-- Size of business -->
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Size of business</mat-label>
-                            <mat-select matInput="matInput" formControlName="size" required>
-                                <mat-option value="small">Small</mat-option>
-                                <mat-option value="medium">Medium</mat-option>
-                                <mat-option value="large">Large</mat-option>
-                            </mat-select>
-                            <mat-error>{{ formErrors.size }}</mat-error>
-                        </mat-form-field>
-                    </p>
-                    <p>
-                        <!-- Assessment year -->
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Assessment year</mat-label>
-                            <mat-select matInput="matInput" formControlName="year" required>
-                                <mat-option value="4323">3002</mat-option>
-                                <mat-option value="4353">2332</mat-option>
-                                <mat-option value="2323">43343</mat-option>
-                            </mat-select>
-                            <mat-error>{{ formErrors.year }}</mat-error>
-                        </mat-form-field>
-                    </p>
+                <div class="indcom">
+                    BOJ
+                </div>
 
-                    <div class="final_submit">
-                        <button type="submit" mat-button="mat-button" class="add_user" [disabled]="disabled === true">
-                            <span *ngIf="!loading">Save</span>
-                            <div *ngIf="loading" class="loader">
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+                    </form>
+                </div>
+        
+                <div class="dashboard_select">
+                    <select class="form-select form-select2" placeholder="Filters">
+                        <option class="option-white" disabled>Filters333333331</option>
+                        <option selected>Filters</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button matSuffix mat-icon-button class="form-dashboard_select">
+                        <span class="material-icons-outlined icons-rounded">filter_alt</span>
+                    </button>
+                </div>    
+
+                <div class="spacer"></div>
+
+                <button mat-button class="apply-ass">Apply for BOJ</button>
+
+            </div>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="align-middle text-center">Assessment year</th>
+                                <th class="align-middle text-center">Taxpayer Name</th>
+                                <th class="align-middle text-center">Gross income (NGN)</th>
+                                <th class="align-middle text-center">Total Tax Due (NGN)</th>
+                                <th class="align-middle text-center">Generated date</th>
+                                <th class="align-middle text-center">Receipt Number</th>
+                                <th class="align-middle text-center">Payment status</th>
+                                <th class="align-middle text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td class="align-middle text-center" style="text-align: center;">{{i+1}}</td>
+                                <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
+                                <td class="align-middle" style="text-align: center;">{{ formatMoney(data.bill_total) }}</td>
+                                <td class="align-middle" style="text-align: center;">{{ data.bill_date | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle" style="text-align: center;">{{ data.bill_code }}</td>
+                                <td class="align-middle" style="text-align: center;">
+                                    <button mat-button class="paid" *ngIf="data.bill_status == true">
+                                        Paid
+                                    </button>
+                                    <button mat-button class="pending" *ngIf="data.bill_status == false">
+                                        Not-paid
+                                    </button>
+                                </td>
+                                <th class="align-middle" style="text-align: center;">
+                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Details</button>
+                                    </mat-menu>
+                                </th>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
+                            <span *ngIf="!is_reload">Reload</span>
+                            <div *ngIf="is_reload" class="loader">
                                 <div class="bubble"></div>
                                 <div class="bubble"></div>
                                 <div class="bubble"></div>
                                 <div class="bubble"></div>
                             </div>
                         </button>
-                    </div>
-                </form>
-            </div>
 
-            <!--  -->
-            <div class="right_container">
-                <div class="right_action">Summary</div>
-
-                <div class="right_summary_p">
-                    <div class="right_summary">
-                        <div class="right_summary_left">Source of income -</div>
-                        <div class="right_summary_right">Farming</div>
-                    </div>
-                    <div>
-                        <div
-                            class="right_summary">
-                            <!--  -->
-                            <div class="right_summary_left">Size of business -</div>
-                            <div class="right_summary_right">Medium</div>
-                        </div>
-                        <div
-                            class="right_summary">
-                            <!--  -->
-                            <div class="right_summary_left">Assessment year -</div>
-                            <div class="right_summary_right">2000</div>
-                        </div>
-                    </div>
+                    </table>
                 </div>
-
-                <div style="display: flex; gap: 20px; margin-top: 4rem">
-                    <button mat-button="mat-button" class="right_edit">Clear</button>
-                    <button mat-button="mat-button" class="right_bill" [routerLink]="['/dashboard/dashboard5/direct/history/view']">
-                        Continue
-                    </button>
-                </div>
-
             </div>
-
         </div>
     </div>
+
+
 </div>

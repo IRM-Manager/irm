@@ -1,161 +1,300 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$header-color: 1px solid #038541;
+$header-back: rgba(62, 95, 168, 0.05);
+$header-back2: #ffffff 0% 0% no-repeat padding-box;
+$ind-back: #ffffff 0% 0% no-repeat padding-box;
+$white: #ffffff;
+$ind-border: 1px solid #038541;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$ind-color: #565656;
+$active-back: #387499 0% 0% no-repeat padding-box;
+$panel-text: normal normal medium 12px/15px Montserrat;
+$panel-color: #3c66a3;
+$icon-color: #45669e;
 $wrapper-back: #f5f7fa;
+$thead: #ffffff 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3c66a3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$animate-form: 0.5px solid #038541;
+$verify-hover-box: 0px 3px 6px #00000029;
+$label-color: #565656;
+$select-color: #038541;
+$form-color: #038541;
+$active-button: 3px solid #038541;
+$button-font: normal normal normal 12px/15px Montserrat;
+$red: #bc333e;
 $soft-pattern-font: normal normal normal 15px/19px Montserrat;
 $soft-pattern-color: #3c66a3;
 $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
-$white: #ffffff;
-$create-back: #3c66a3 0% 0% no-repeat padding-box;
-$active-back: #387499 0% 0% no-repeat padding-box;
-$select-color: #3ea84e;
-$form-color: #37a85d;
-$label-color: #565656;
+$form-icon-color: rgba(27, 87, 63, 0.54);
+$placeholder-font: normal normal normal 15px/24px Montserrat;
 
 .wrapper {
   background: $wrapper-back;
   overflow: auto;
   min-height: 100vh;
   padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 2rem;
+}
 
-  .back {
-    margin-top: 1.5rem;
-    color: $soft-pattern-color;
-    font: $soft-pattern-font;
-    font-weight: 500;
-    cursor: pointer;
-  }
+.header {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
 
-  .back mat-icon {
+  .icons-rounded {
     vertical-align: middle;
+    color: #038541;
   }
 
-  .header {
-    margin-top: 2rem;
-    background: rgba(60, 102, 163, 0.05);
-    width: 85%;
-    padding: 1rem;
+  .reg_buss {
+    font: $reg-buss-font;
+    letter-spacing: 0px;
+    color: $tin-color;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 10px;
     opacity: 1;
+  }
+}
 
-    .soft_pattern {
-      font: $soft-pattern-font;
-      letter-spacing: 0px;
-      color: $soft-pattern-color;
-      font-weight: 500;
-      opacity: 1;
-    }
+::ng-deep .choose-year-menu.mat-menu-panel {
+  height: 15rem !important;
+}
 
-    .reg_buss {
-      font: $reg-buss-font;
-      letter-spacing: 0px;
-      color: $tin-color;
-      font-weight: 500;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      opacity: 1;
-    }
+.header2 {
+  opacity: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 1rem;
+  border: 1.5px solid rgba(112, 112, 112, 0.5);
+
+  .spacer {
+    flex: 1 1 auto;
   }
 
-  .left_right_container {
+  .indcom {
+    font: $panel-text;
+    letter-spacing: 0px;
+    color: $panel-color;
+    font-weight: 500;
+    font-size: 14px;
+    margin-right: 20px;
+  }
+
+  .search_icon_header {
+    float: right;
     display: flex;
-    gap: 5%;
+    justify-content: right;
+    align-items: right;
   }
 
-  .table-container {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    padding-left: 1rem;
-    width: 90%;
-    background: $white 0% 0% no-repeat padding-box;
+  .search-form_header {
+    vertical-align: top;
+    background: $white;
+    border: 1px solid rgba(60, 102, 163, 0.5);
   }
 
-  .PayE {
-    font: normal normal normal 14px/16px Montserrat;
-    letter-spacing: 0px;
-    color: #565656;
-    font-weight: 550;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    opacity: 1;
+  input[type="text"] {
+    background: $white;
+    box-sizing: border-box;
+    border: 1px solid $white;
+    border-radius: 2px;
+    height: 35px;
+    width: 25vw;
+    font: $placeholder-font;
+    padding-left: 15px;
   }
 
-  .add_user {
-    font: normal normal normal 12px/15px Montserrat;
-    letter-spacing: 0px;
-    color: $white;
-    background: #3c66a3 0% 0% no-repeat padding-box;
-    padding: 0.7rem;
-    width: 7rem;
-    font-weight: 500;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    opacity: 1;
+  [type="text"]:focus {
+    outline: none;
   }
 
-  .column {
-    width: 55%;
+  .form-icon_header {
+    color: $form-icon-color;
+    margin-left: 10px;
+    border-radius: 50%;
   }
 
-  .right_container {
-    border: 1px solid #707070;
-    text-align: center;
-    width: 45%;
-    padding: 1rem;
-    margin-top: -4.8rem;
+  .form-select {
+    height: 40px;
+    font-size: 14px;
+    border-radius: unset;
+    padding-left: 10px;
+    padding-right: unset;
+    padding-bottom: unset;
+    padding-top: unset;
+    border: unset;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04),
+      inset 0px 4px 4px rgba(229, 229, 229, 0.3);
+    background-image: unset;
   }
 
-  .right_action {
-    font: normal normal normal 15px/20px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: rgba(0, 0, 0, 0.7);
-    margin-bottom: 2.5rem;
+  .form-select2 {
+    width: 3rem;
   }
 
-  .right_edit {
-    padding: 0.7rem;
-    width: 50%;
-    border: 1px solid #40A84A;
-    border-radius: 10px;
-    text-transform: capitalize;
-    font: normal normal normal 13px/20px Montserrat;
-    letter-spacing: 0px;
-    text-align: center;
-    color: #44a843;
-  }
-
-  .right_bill {
-    padding: 0.7rem;
-    width: 50%;
-    background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
-      0% no-repeat padding-box;
-    text-transform: capitalize;
-    border-radius: 10px;
-    color: $white;
-    text-align: center;
-    opacity: 1;
-    font: normal normal normal 13px/20px Montserrat;
-    letter-spacing: 0px;
-  }
-
-  .right_summary {
-    margin-top: 20px;
+  .dashboard_select {
+    margin-left: 5px;
+    border: 1px solid rgba(60, 102, 163, 0.5);
+    background: #ffffff 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
   }
 
-  .right_summary_left {
-    font: normal normal normal 15px/20px Montserrat;
-    letter-spacing: 0px;
+  .form-dashboard_select {
     color: #000000;
-    opacity: 0.7;
   }
 
-  .right_summary_right {
-    font: normal normal normal 15px/20px Montserrat;
-    letter-spacing: 0px;
-    color: #3C66A3;
+  .option-white {
+    color: $white;
+  }
+
+  .option-white:hover {
+    color: $white;
+  }
+
+  .form-selecta-tax {
+    width: 7.6rem;
+    border-radius: 10px;
+  }
+
+  .dashboard_select-tax {
+    border-radius: 10px;
+    margin-right: 5px;
+    border: 0.5px solid #707070;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .icon-drop-down {
+    color: #3c66a3;
+    font-size: 40px;
+  }
+
+  .tax-option {
+    padding-top: 1rem;
+  }
+
+  .ellipsis {
+    border: 1px solid #707070;
+    border-radius: 10px;
     opacity: 1;
+    color: #707070;
+    padding: 0.2rem;
+  }
+
+  .apply-ass {
+    background: #3C66A3 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    font: normal normal normal 13px/17px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    padding: .5rem;
+  }
+}
+
+.table-container {
+  margin-bottom: 2rem;
+  width: 100%;
+
+  table {
+    border: none;
+    margin-bottom: 1rem;
+  }
+
+  thead tr {
+    background: $thead;
+    text-align: left;
+    font: $thead-text;
+    letter-spacing: 0px;
+    color: $thead-text-color;
+  }
+
+  tbody tr {
+    font: $tbody-back;
+    letter-spacing: 0px;
+    color: $tbody-color;
+  }
+
+  tr th {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-right: 1.5px solid rgba(112, 112, 112, 0.5);
+    text-align: center;
+  }
+
+  tr th:nth-child(8) {
+    border-right: unset;
+  }
+
+  .ellipsis {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    opacity: 1;
+    color: #707070;
+    padding: 0.2rem;
+  }
+
+  .icons-rounded {
+    vertical-align: middle;
+    color: #038541;
+    font-size: 17px;
+  }
+
+  .paid {
+    background: #038541 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    width: 4rem;
+    padding: 0.3rem;
+    border-radius: 10px;
+  }
+
+  .pending {
+    background: #b9a005 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    width: 4rem;
+    padding: 0.3rem;
+    border-radius: 10px;
+  }
+
+  .loading {
+    margin-top: 1.5rem;
+  }
+
+  .reload {
+    background: $wrapper-back;
+    color: $ind-border;
+    font: $tbody-back;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    border-radius: 5px;
+    padding: 0.3rem;
+    margin-left: 10px;
+    width: 5rem;
   }
 
   .loader {
@@ -176,22 +315,22 @@ $label-color: #565656;
   }
 
   .bubble:nth-child(1) {
-    background: $white;
+    background: $panel-color;
   }
 
   .bubble:nth-child(2) {
     animation-delay: 180ms;
-    background: $white;
+    background: $panel-color;
   }
 
   .bubble:nth-child(3) {
     animation-delay: 360ms;
-    background: $white;
+    background: $panel-color;
   }
 
   .bubble:nth-child(4) {
     animation-delay: 540ms;
-    background: $white;
+    background: $panel-color;
   }
 
   @keyframes expand {
@@ -203,78 +342,67 @@ $label-color: #565656;
     }
   }
 
-  input[type="text"] {
-    background: $label-color;
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
+    display: none !important;
   }
 
-  ::ng-deep .mat-select-arrow {
-    color: $select-color;
-    opacity: 1;
+  ::ng-deep .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    display: none !important;
   }
 
-  .full-width {
-    width: 90%;
+  ::ng-deep #DataTables_Table_0_info {
+    display: none !important;
   }
 
-  .drop_down {
-    color: $form-color;
-    display: flex;
-    justify-content: center;
-    align-self: center;
+  ::ng-deep table.dataTable thead .sorting {
+    background-image: unset !important;
   }
 
-  mat-error {
-    text-transform: capitalize;
-    font: normal normal normal 12px/20px Montserrat;
-    transition: all 0.5s;
+  ::ng-deep table.dataTable thead .sorting_asc {
+    background-image: unset !important;
   }
 
-  mat-label {
-    text-transform: capitalize;
-    font-weight: 550;
-    font: normal normal normal 14px/20px Montserrat;
+  ::ng-deep table.dataTable thead .sorting::after {
+    display: none !important;
   }
 
-  mat-form-field {
-    color: 1px solid $form-color;
-    margin-right: 20px;
+  ::ng-deep table.dataTable thead .sorting::before {
+    display: none !important;
   }
 
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: $form-color;
+  ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+    background: $header-back;
   }
 
-  ::ng-deep
-    .mat-form-field-appearance-outline.mat-focused
-    .mat-form-field-outline-thick {
-    color: $form-color;
+  ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+    background: $wrapper-back !important;
   }
 
-  ::ng-deep .mat-input-element {
-    caret-color: $form-color;
+  ::ng-deep .dataTables_wrapper .dataTables_length select {
+    border: $ind-border;
+    font: $tbody-back;
   }
 
-  ::ng-deep .mat-form-field-label {
-    color: $label-color;
+  ::ng-deep .dataTables_wrapper .dataTables_length label {
+    color: $tbody-color;
+    font: $tbody-back;
   }
 
-  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: $label-color;
+  ::ng-deep .dataTables_wrapper .dataTables_filter {
+    display: none;
   }
-}
 
-@media (max-width: 1300px) {
-  .wrapper {
-    .column {
-      width: 65%;
-    }
-  }
-}
-
-@media (max-width: 1050px) {
-  .wrapper {
-    .column {
-      width: 95%;
-    }
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    font: $tbody-back;
+    font-weight: 400;
+    letter-spacing: 0.3px;
   }
 }

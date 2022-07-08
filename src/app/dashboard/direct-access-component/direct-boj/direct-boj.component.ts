@@ -1,17 +1,23 @@
 import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
+  Component, OnInit, ViewEncapsulation
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, Observable, startWith } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { direct_boj } from '../../shared/form';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Store } from '@ngrx/store';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { AddYear } from 'src/app/actions/irm.action';
+import { AppState, selectAllYear } from 'src/app/reducers';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
+import { Year } from '../../models/irm';
+import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
+import { PayeeServiceService } from '../../payee-layout/service/payee-service.service';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
@@ -21,187 +27,182 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./direct-boj.component.scss'],
 })
 export class DirectBojComponent implements OnInit {
-  @ViewChild('card', { static: true })
-  card!: ElementRef<HTMLDivElement>;
-
-  @ViewChild('fform') feedbackFormDirective: any;
-
-  feedbackForm: any = FormGroup;
-  feedback!: direct_boj;
+  search: string = '';
   loading = false;
   disabled = false;
+  is_reload = false;
+  clickEventSubscription?: Subscription;
+  isLoading = false;
 
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]> | undefined;
+  dtOptions: DataTables.Settings = {};
+  datas2: any;
+  datas: any[] = [];
+  searchData: any;
+  dtTrigger: Subject<any> = new Subject<any>();
 
-  formErrors: any = {
-    source: '',
-    size: '',
-    year: '',
-  };
+  years: any;
+  htmlYear = new Date().getFullYear();
 
-  validationMessages: any = {
-    source: {
-      required: 'required.',
-    },
-    size: {
-      required: 'required.',
-    },
-    year: {
-      required: 'required.',
-    },
-  };
+  stateYear: Observable<Year[]>;
+
+  private readonly JWT_TOKEN = BaseUrl.jwt_token;
+  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
+  private helper = new JwtHelperService();
+
+  formErrors: any = {};
+
+  validationMessages: any = {};
 
   constructor(
-    private fb: FormBuilder,
+    private router: Router,
+    private direct: ActivatedRoute,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private dialog: MatDialog,
+    public shared: ToggleNavService,
+    private httpService: HttpService,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar,
+    private payeeService: PayeeServiceService
   ) {
     this.authService.checkExpired();
-    this.createForm();
+    this.stateYear = store.select(selectAllYear);
+
+    this.htmlYear = new Date().getFullYear();
+    this.listYear();
   }
 
-  createForm() {
-    this.feedbackForm = this.fb.group({
-      source: ['', [Validators.required]],
-      size: ['', [Validators.required]],
-      year: ['', [Validators.required]],
+  formatDate(data: any) {
+    var d = new Date(data),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }
+
+  modelChange(search: any) {
+    const data = this.searchData?.filter((data: any) => {
+      return (
+        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
+        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+      );
     });
-
-    this.feedbackForm.valueChanges.subscribe((data: any) =>
-      this.onValueChanged(data)
-    );
-    this.onValueChanged(); // (re)set validation messages now
+    this.datas = data;
   }
 
-  onValueChanged(data?: any) {
-    if (!this.feedbackForm) {
-      return;
-    }
-    const form = this.feedbackForm;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
+  renderTable(id?: any) {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      lengthChange: false,
+      info: false,
+    };
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+    this.isLoading = true;
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.payee_gen_bill +
+          `tin=${this.datas2.company.state_tin}&yearId=${
+            id || getHtmlYear[0]?.id
+          }`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.isLoading = false;
+          console.log(data);
+        },
+        (err) => {
+          this.isLoading = false;
+          this.authService.checkExpired();
         }
-      }
-    }
-  }
-
-  checkValidity() {
-    const feed1 = this.feedbackFormDirective.invalid;
-    const control = this.feedbackFormDirective.form.controls;
-    if (feed1) {
-      if (control.source.status == 'INVALID') {
-        this.formErrors['source'] = 'required.';
-      }
-      if (control.size.status == 'INVALID') {
-        this.formErrors['size'] = 'required.';
-      }
-      if (control.year.status == 'INVALID') {
-        this.formErrors['year'] = 'required.';
-      }
-    }
-  }
-
-  onSubmit() {
-    this.checkValidity();
-    const feed = this.feedbackFormDirective.invalid;
-
-    if (feed) {
-      this.snackBar.open('Errors in Form fields please check it out.', '', {
-        duration: 5000,
-        panelClass: 'error',
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
-    } // end of if
-    else {
-      this.loading = true;
-      this.disabled = true;
-
-      this.feedback = this.feedbackForm.value;
-
-      let data = {
-        source: this.feedback.source,
-        size: this.feedback.size,
-        year: this.feedback.year,
-      };
-      console.log(data);
-
-      // this.httpService.postData(BaseUrl.add_com_payer, data).subscribe(
-      //   (data: any) => {
-      //     this.loading = false;
-      //     this.disabled = false;
-      //     // this.snackBar.open('Registration successful', '', {
-      //     //   duration: 3000,
-      //     //   panelClass: 'success',
-      //     //   horizontalPosition: 'center',
-      //     //   verticalPosition: 'top',
-      //     // });\
-      //     this.feedbackFormDirective.resetForm()
-      //     let datas2: any = [];
-      //     this.stateComPayer.forEach((e) => {
-      //       if (e.length > 0) {
-      //         let datas = Object.assign([], e[0].data);
-      //         datas.unshift(data.data);
-      //         datas2 = datas;
-      //       }
-      //     });
-      //     this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-      //     this.store.dispatch(new AddComPayer([{ id: 1, data: datas2 }]));
-      //     this.router.navigate(['/dashboard/dashboard2/taxpayer']);
-      //     this.OpenDialog(data.data);
-      //   },
-      //   (err: any) => {
-      //     console.log(err);
-      //     this.loading2 = false;
-      //     this.disabled2 = false;
-      //     this.snackBar.open(
-      //       err?.error?.msg || err?.error?.detail || 'An Error Occured!',
-      //       '',
-      //       {
-      //         duration: 5000,
-      //         panelClass: 'error',
-      //         horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //       }
-      //     );
-      //   }
-      // );
-    } // end else
-  }
-
-  initAnimations(): void {
-    gsap.from(this.card.nativeElement.children, {
-      delay: 0.5,
-      duration: 0.4,
-      y: 40,
-      opacity: 0,
-      stagger: 0.15,
-    });
+      );
   }
 
   ngOnInit(): void {
-    this.initAnimations();
-    this.filteredOptions = this.feedbackForm.get('source').valueChanges.pipe(
-      startWith(''),
-      map((value: string) => this._filter(value))
-    );
+    this.authService.checkExpired();
+    this.renderTable();
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
+  reload(id?: any) {
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+    this.is_reload = true;
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.payee_gen_bill +
+          `tin=${this.datas2.company.state_tin}&yearId=${
+            id || getHtmlYear[0]?.id
+          }`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        (err) => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  listYear() {
+    this.stateYear?.forEach((e) => {
+      if (e.length > 0) {
+        this.years = e[0].data;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
+          (data: any) => {
+            this.years = data.results;
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+          },
+          (err) => {
+            this.authService.checkExpired();
+          }
+        );
+      }
+    });
+  }
+
+  openDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(PayeeDialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
+  }
+
+  chooseYear(year: any) {
+    this.htmlYear = year.year;
+    this.reload(year.id);
+  }
+
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 }
