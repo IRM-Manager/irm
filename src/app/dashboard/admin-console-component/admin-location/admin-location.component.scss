@@ -34,12 +34,15 @@ $soft-pattern-font: normal normal normal 15px/19px Montserrat;
 $soft-pattern-color: #3c66a3;
 $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
+$placeholder-font: normal normal normal 15px/24px Montserrat;
+$form-icon-color: rgba(27, 87, 63, 0.54);
 
 .wrapper {
   background: #f5f7fa 0% 0% no-repeat padding-box;
   overflow: auto;
   min-height: 100vh;
   padding-left: 20px;
+  padding-right: 20px;
 
   .department {
     font: normal normal normal 20px/24px Montserrat;
@@ -52,7 +55,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
 
   .header3 {
     background: rgba(60, 102, 163, 0.05);
-    width: 90%;
+    width: 100%;
     margin-top: 2rem;
   }
 
@@ -73,7 +76,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   background: $header-back2;
   padding: 1.5rem 1rem 1.5rem 1rem;
   margin-top: 1rem;
-  width: 95%;
+  width: 100%;
 
   .spacer {
     flex: 1 1 auto;
@@ -87,26 +90,28 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     font-size: 14px;
   }
 
-  .search_icon_p {
+  .search_icon_header {
     float: right;
     display: flex;
     justify-content: right;
     align-items: right;
   }
 
-  .search-form {
-    margin-right: 10px;
+  .search-form_header {
     vertical-align: top;
+    background: $white;
+    border: 1px solid rgba(60, 102, 163, 0.5);
+    border-radius: 5px;
   }
 
   input[type="text"] {
     background: $white;
-    border: $animate-form;
     box-sizing: border-box;
-    border-radius: 10px;
-    height: 40px;
-    width: 200px;
-    font: $tbody-back;
+    border: 1px solid $white;
+    border-radius: 2px;
+    height: 35px;
+    width: 25vw;
+    font: $placeholder-font;
     padding-left: 15px;
   }
 
@@ -114,17 +119,17 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     outline: none;
   }
 
-  .search_icon {
-    font-size: 40px;
-    color: $icon-color;
-    cursor: pointer;
+  .form-icon_header {
+    color: $form-icon-color;
+    margin-left: 10px;
+    border-radius: 50%;
   }
 }
 
 .table-container {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 95%;
+  width: 100%;
 
   table {
     border: none;
@@ -152,6 +157,16 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   tr th {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
+    border-right: 1.5px solid rgba(112, 112, 112, 0.5);
+    text-align: center;
+  }
+
+  tr th:nth-child(6) {
+    border-right: unset;
+  }
+
+  .table-icon {
+    color: $panel-color;
   }
 
   .table-icon {
@@ -168,7 +183,8 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     font: $tbody-back;
     margin-top: 1.5rem;
     border-radius: 5px;
-    padding: 0.5rem;
+    font-weight: 500;
+    padding: 0.3rem;
     margin-left: 10px;
     width: 5rem;
   }

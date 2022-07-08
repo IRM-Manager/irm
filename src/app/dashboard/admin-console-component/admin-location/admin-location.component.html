@@ -16,38 +16,43 @@
                     Location
                 </div>
                 <div class="spacer"></div>
-                <div class="search_icon_p">
-                    <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" class="input"></form>
-                        <mat-icon class="search_icon">search</mat-icon>
-                    </div>
-                </mat-toolbar>
+
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+                    </form>
+                </div>
+
+            </mat-toolbar>
 
                 <div class="table-container">
                     <div class="table-responsive">
                         <table datatable="datatable" [dtOptions]="dtOptions" class="row-border table table-striped table-hover table-borderless">
                             <thead>
                                 <tr>
-                                    <th>S/N</th>
-                                    <th>Location</th>
-                                    <th>Code</th>
-                                    <th>No. Of members</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th class="align-middle text-center">S/N</th>
+                                    <th class="align-middle text-center">Location</th>
+                                    <th class="align-middle text-center">Code</th>
+                                    <th class="align-middle text-center">No. Of members</th>
+                                    <th class="align-middle text-center"></th>
+                                    <th class="align-middle text-center"></th>
                                 </tr>
                             </thead>
                             <!-- individual -->
                             <tbody *ngIf="datas?.length != 0">
                                 <tr *ngFor="let data of datas; let i=index">
-                                    <td class="align-middle">{{i+1}}</td>
-                                    <td class="align-middle">{{ data.name }}</td>
-                                    <td class="align-middle">{{ data.code }}</td>
-                                    <td class="align-middle">{{ data.usercount }}</td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">{{i+1}}</td>
+                                    <td class="align-middle text-center">{{ data.name }}</td>
+                                    <td class="align-middle text-center">{{ data.code }}</td>
+                                    <td class="align-middle text-center">{{ data.usercount }}</td>
+                                    <td class="align-middle text-center">
                                         <span class="view" *ngIf="getLoding != data.id" (click)="getAssignUsers(data, data.id)">View</span>
                                         <span *ngIf="getLoding == data.id" class="fa fa-cog fa-lg loader-spin" aria-hidden="true"></span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">
                                         <button mat-button [matMenuTriggerFor]="menu">
                                             <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                         </button>
@@ -59,12 +64,12 @@
                             </tbody>
                             <tbody *ngIf="datas?.length == 0">
                                 <tr>
-                                    <td class="no-data-available">No data!</td>
-                                    <td class="no-data-available">No data!</td>
-                                    <td class="no-data-available">No data!</td>
-                                    <td class="no-data-available">No data!</td>
-                                    <td class="no-data-available">No data!</td>
-                                    <td class="no-data-available">No data!</td>
+                                    <td class="no-data-available text-center">No data!</td>
+                                    <td class="no-data-available text-center">No data!</td>
+                                    <td class="no-data-available text-center">No data!</td>
+                                    <td class="no-data-available text-center">No data!</td>
+                                    <td class="no-data-available text-center">No data!</td>
+                                    <td class="no-data-available text-center">No data!</td>
                                 </tr>
                             </tbody>
 
@@ -76,7 +81,7 @@
                             </div>
 
                             <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
-                                <span *ngIf="!is_reload">RELOAD</span>
+                                <span *ngIf="!is_reload">Reload</span>
                                 <div *ngIf="is_reload" class="loader">
                                     <div class="bubble"></div>
                                     <div class="bubble"></div>

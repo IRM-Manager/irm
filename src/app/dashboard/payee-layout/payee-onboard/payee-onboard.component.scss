@@ -15,11 +15,10 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     opacity: 1;
     padding-left: 1rem;
-    padding-bottom: 2rem;
+    padding: 1rem;
   }
 
   .soft_pattern {
-    padding-top: 2rem;
     font: $soft-pattern-font;
     letter-spacing: 0px;
     color: $soft-pattern-color;
@@ -28,7 +27,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
     vertical-align: middle;
   }
 
-  .material-icons-round {
+  .icons-rounded {
     vertical-align: middle;
     color: #038541;
   }
@@ -43,7 +42,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   .container {
-    padding-top: 3rem;
+    padding-top: 2rem;
     display: flex;
     justify-content: left;
     align-items: center;

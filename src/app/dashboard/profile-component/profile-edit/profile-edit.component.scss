@@ -1,16 +1,15 @@
 $wrapper-back: #f5f7fa 0% 0% no-repeat padding-box;
 $white: #ffffff;
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
-$ind-border: 1px solid #45a841;
+$ind-border: 1px solid #038541;
 $ind-font: normal normal normal 12px/15px Montserrat;
 $ind-color: #565656;
 $create-back: #3c66a3 0% 0% no-repeat padding-box;
 $active-back: #387499 0% 0% no-repeat padding-box;
-$select-color: #3ea84e;
-$form-color: #37a85d;
+$select-color: #038541;
+$form-color: #038541;
 $label-color: #565656;
-$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
-  0% 0% no-repeat padding-box;
+$verify-hover-b: #B9A005 0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
 $drop-down: #3e538f;
 $soft-pattern-font: normal normal normal 15px/19px Montserrat;
@@ -70,8 +69,7 @@ $soft-pattern-color: #3c66a3;
   }
 
   .edit {
-    background: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
-      0% no-repeat padding-box;
+    background: #B9A005 0% 0% no-repeat padding-box;
     border-radius: 10px;
     padding: 0.7rem;
     width: 7rem;

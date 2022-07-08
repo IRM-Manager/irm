@@ -100,7 +100,7 @@ export class ListUserDepLocComponent implements OnInit {
     this.renderTable();
   }
 
-  Reload() {
+  reload() {
     this.is_reload = true;
     this.httpService
       .getAuthSingleID(
@@ -140,7 +140,7 @@ export class ListUserDepLocComponent implements OnInit {
     this.router.navigate([`/dashboard/dashboard5/${type}`]);
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(AdminConsoleDialogComponent, {
       data: {

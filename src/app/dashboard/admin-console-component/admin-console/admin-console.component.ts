@@ -140,7 +140,7 @@ export class AdminConsoleComponent implements OnInit {
     this.router.navigate([`/dashboard/dashboard5/${type}`]);
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     const dialogRef = this.dialog.open(AdminConsoleDialogComponent, {
       data: {
@@ -150,23 +150,25 @@ export class AdminConsoleComponent implements OnInit {
     });
     // after dialog close
     dialogRef.afterClosed().subscribe((result) => {
-      // update search data
-      let indexx: any;
-      this.searchData.filter((dat: any, index: any) => {
-        if (dat.id == result.id) {
-          indexx = index;
+      if(result) {
+        // update search data
+        let indexx: any;
+        this.searchData.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            indexx = index;
+          }
+        });
+        this.searchData[indexx].is_active = result.active ? false : true;
+        // update table data
+        let index2: any;
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            index2 = index;
+          }
+        });
+        this.datas[index2].is_active = result.active ? false : true;
+        this.dtTrigger.next;
         }
-      });
-      this.searchData[indexx].is_active = result.active ? false : true;
-      // update table data
-      let index2: any;
-      this.datas.filter((dat: any, index: any) => {
-        if (dat.id == result.id) {
-          index2 = index;
-        }
-      });
-      this.datas[index2].is_active = result.active ? false : true;
-      this.dtTrigger.next;
     });
   }
 

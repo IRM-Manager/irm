@@ -29,14 +29,6 @@ export class TaxpayerSidenavListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDialog() {
-    this.dialog.open(TaxpayerDialogComponent, {
-      data: {
-        type: 'success',
-      },
-    });
-  }
-
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();
   };

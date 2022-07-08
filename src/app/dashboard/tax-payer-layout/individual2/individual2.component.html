@@ -6,7 +6,8 @@
 
     <!-- session 1 -->
     <div class="session">
-        <div class="session-header">Create individual Taxpayer Account</div>
+        <div class="session-header" *ngIf="!update">Create individual Taxpayer Account</div>
+        <div class="session-header" *ngIf="update">Update individual Taxpayer Account</div>
 
         <form #card class="form1" id="ngForm" novalidate 
         [formGroup]="feedbackForm1" #fform1="ngForm" fxLayoutGap="15px">
