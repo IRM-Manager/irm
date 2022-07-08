@@ -6,7 +6,7 @@
                     <img src="assets/images/emoji.png" class="category-icon2" alt=""/>
                     <div>
                         <div class="right_text1">
-                            Welcome, {{ profile?.department?.name }}
+                            Welcome, {{ limit(profile?.department?.name || '') }}
                         </div>
                         <div class="right_text2" *ngIf="profile">
                             {{ limit(profile.first_name) }}
@@ -15,7 +15,8 @@
                             {{ limit("Unknown") }}
                         </div>
                     </div>
-                    <span *ngIf="!loading" class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></span>
+                    <i *ngIf="!loading" class="fa fa-chevron-up fa-lg category-icon" aria-hidden="true"></i>
+                    <!-- <span class="material-icons category-icon identity">perm_identity</span> -->
                     <div *ngIf="loading" class="loader"></div>
                 </div>
             </div>

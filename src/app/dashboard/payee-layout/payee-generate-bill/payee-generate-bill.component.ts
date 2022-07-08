@@ -197,6 +197,11 @@ export class PayeeGenerateBillComponent implements OnInit {
     });
   }
 
+  chooseYear(year: any) {
+    this.htmlYear = year.year;
+    this.reload(year.id);
+  }
+
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();

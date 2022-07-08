@@ -64,7 +64,7 @@ $nav3-color: #38729b;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 2000;
   padding-bottom: 2.5rem;
   opacity: 1;
 
@@ -104,32 +104,18 @@ $nav3-color: #38729b;
 
   .identity {
     font-size: 50px;
+    margin-left: 3px;
   }
 
   .d-h-l {
-    display: flex;
-    justify-content: left;
-    align-items: center;
     margin-right: 2rem;
   }
 
   .category {
     display: flex;
     flex-direction: row;
-    position: relative;
     justify-content: center;
-    align-items: initial;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-
-  .category-icon {
-    display: flex;
-    justify-content: left;
     align-items: center;
-    margin-right: 10px;
-    margin-top: auto;
-    margin-bottom: auto;
   }
 }
 

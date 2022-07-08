@@ -9,6 +9,16 @@
             </div>
             <div class="reg_buss">GTin: {{ datas2.company.state_tin }}</div>
         </div>
+
+        <div>
+            <span class="reg_buss">Filling for {{ htmlYear }}</span>
+            <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
+                <span class="change" style="color: #5EA55A;">Change Year</span>
+            </button>
+            <mat-menu #menu2 class="choose-year-menu">
+                <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" class="mat-menu">{{ year.year }}</button>
+            </mat-menu>
+        </div>
         <!-- <div>
             <label for="exampleFormControlInput1" class="form-label">From</label>
             <input type="date" class="form-control form-select" id="exampleFormControlInput1">

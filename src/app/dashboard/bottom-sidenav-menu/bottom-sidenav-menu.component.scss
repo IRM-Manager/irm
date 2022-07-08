@@ -17,32 +17,15 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     // z-index: 1000;
   }
 
-  .d-h-l {
+  .category {
     display: flex;
     justify-content: left;
     align-items: center;
-    margin-right: 2rem;
-  }
-
-  .category {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: center;
-    align-items: initial;
-    margin-top: auto;
-    margin-bottom: auto;
   }
 
   .category-icon {
-    display: flex;
-    justify-content: right;
-    align-items: right;
-    margin-left: 3.5rem;
-    text-align: right;
     vertical-align: middle;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-left: 30px;
   }
 
   .category-icon2 {

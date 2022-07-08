@@ -15,11 +15,11 @@
     <div class="d-h-l">
         <div class="category">
             <div>
-                <div class="right_text1">Welcome, {{ profile?.department?.name }}</div>
+                <div class="right_text1">Welcome, {{ limit(profile?.department?.name || '') }}</div>
                 <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
-            <mat-icon class="category-icon identity">perm_identity</mat-icon>
+            <span class="material-icons category-icon identity">perm_identity</span>
         </div>
     </div>
 
@@ -42,11 +42,11 @@
     <div class="d-h-l">
         <div class="category">
             <div>
-                <div class="right_text1">Welcome, {{ profile?.department?.name }}</div>
+                <div class="right_text1">Welcome, {{ limit(profile?.department?.name || '') }}</div>
                 <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
-            <mat-icon class="category-icon identity">perm_identity</mat-icon>
+            <span class="material-icons category-icon identity">perm_identity</span>
         </div>
     </div>
 
@@ -85,11 +85,11 @@
     <div class="d-h-l">
         <div class="category">
             <div>
-                <div class="right_text1">Welcome, {{ profile?.department?.name }}</div>
+                <div class="right_text1">Welcome, {{ limit(profile?.department?.name || '') }}</div>
                 <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
                 <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
             </div>
-            <mat-icon class="category-icon identity">perm_identity</mat-icon>
+            <span class="material-icons category-icon identity">perm_identity</span>
         </div>
     </div>
 
@@ -153,6 +153,5 @@
         </button>
 
     </mat-toolbar>
-
 
 </div>
