@@ -10,6 +10,153 @@
     </div>
 
     <div class="form-container">
+        <div class="boj">Self Assessment</div>
+
+        <form class="nin-regis-form" id="ngForm2" novalidate [formGroup]="feedbackForm2" #fform2="ngForm">
+
+            <p>
+                <!-- year -->
+                <mat-form-field class="full-width">
+                    <mat-label>Year of Assessment</mat-label>
+                    <mat-select matInput formControlName="year" required placeholder="Year of Assessment">
+                        <mat-option value="private">Private</mat-option>
+                        <mat-option value="local govt">Local Govt</mat-option>
+                        <mat-option value="federal govt">Federal Govt</mat-option>
+                        <mat-option value="state govt">State Govt</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.year}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="statement">Statement of income of the Year Ended December 31st</div>
+            <div class="form-header_p" *ngIf="collectedSourceData">
+                <div class="form-header" fxLayoutGap="50px" *ngFor="let data of collectedSourceData; let i=index">
+                    <div>{{i+1}}.</div>
+                    <div>{{ data.source }}</div>
+                    <div>NGN {{ formatMoney(data.amount) }}</div>
+                    <div class="pdf">{{ limit(data.fileName) }}</div>
+                    <div>
+                        <button type="button" mat-icon-button class="delete" (click)="deleteSource(i)">
+                            <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="source-form" fxLayoutGap="30px">
+                <!-- source -->
+                <mat-form-field class="full-width">
+                    <mat-label>Source of income</mat-label>
+                    <mat-select matInput formControlName="source" required>
+                        <mat-option value="private">Private</mat-option>
+                        <mat-option value="local govt">Local Govt</mat-option>
+                        <mat-option value="federal govt">Federal Govt</mat-option>
+                        <mat-option value="state govt">State Govt</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.source}}</mat-error>
+                </mat-form-field>
+                <!-- amount -->
+                <mat-form-field class="full-width">
+                    <mat-label>Amount (NGN)</mat-label>
+                    <input matInput formControlName="amount" type="number" required>
+                    <mat-error>{{formErrors.amount}}</mat-error>
+                </mat-form-field>
+
+                <div>
+                    <input type="file" class="upload-file-input" (change)="onFileSelected($event)" #fileUpload
+                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" />
+                    <div class="support-doc" *ngIf="!filename">Supporting Document</div>
+                    <div class="support-doc" *ngIf="filename">{{ limit(filename) }}</div>
+                    <button mat-button type="button" class="browse-file" (click)="fileUpload.click()">Browse file</button>
+                </div>
+
+                <div>
+                    <button mat-button type="button" class="add-source" (click)="addSource()">
+                        + Add source of income
+                    </button>
+                </div>
+            </div>
+
+        
+            <div class="statement">Deductions</div>
+            <div class="form-header_p" *ngIf="collectedSourceData">
+                <div class="form-header" fxLayoutGap="50px" *ngFor="let data of collectedDeductionData; let i=index">
+                    <div>{{i+1}}.</div>
+                    <div>{{ data.deduction }}</div>
+                    <div>NGN {{ formatMoney(data.amount) }}</div>
+                    <div class="pdf">{{ limit(data.fileName) }}</div>
+                    <div>
+                        <button type="button" mat-icon-button class="delete" (click)="deleteDeduction(i)">
+                            <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="source-form" fxLayoutGap="30px">
+                <!-- deduction -->
+                <mat-form-field class="full-width">
+                    <mat-label>Deductions</mat-label>
+                    <mat-select matInput formControlName="deduction" required>
+                        <mat-option value="private">Private</mat-option>
+                        <mat-option value="local govt">Local Govt</mat-option>
+                        <mat-option value="federal govt">Federal Govt</mat-option>
+                        <mat-option value="state govt">State Govt</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.deduction}}</mat-error>
+                </mat-form-field>
+
+                <!-- amount -->
+                <mat-form-field class="full-width">
+                    <mat-label>Amount (NGN)</mat-label>
+                    <input matInput formControlName="amount2" type="number" matInput required>
+                    <mat-error>{{formErrors.amount2}}</mat-error>
+                </mat-form-field>
+
+                <div>
+                    <input type="file" class="upload-file-input" (change)="onFileSelected2($event)" #fileUpload2
+                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" />
+                    <div class="support-doc" *ngIf="!filename2">Supporting Document</div>
+                    <div class="support-doc" *ngIf="filename2">{{ limit(filename2) }}</div>
+                    <button mat-button type="button" class="browse-file" (click)="fileUpload2.click()">Browse file</button>
+                </div>
+
+                <div>
+                    <button mat-button type="button" class="add-source" (click)="addDeduction()">
+                        + Add deductions
+                    </button>
+                </div>
+
+            </div>
+
+            <div>
+                <div class="total-income">Total Income (NGN)</div>
+                <div class="total-price">{{ formatMoney(totalValue || 0) }}</div>
+            </div>
+
+            <div class="check-box">
+                <mat-checkbox
+                    class="check-box-box" matInput formControlName="agree">
+                    I here by acknowledge that all information and document provided above 
+                    are true and I can be hold accountable and prosecuted for any false information provided
+                </mat-checkbox>
+            </div>
+
+
+            <div class="final_submit">
+                <button type="submit" form="ngForm2" mat-button class="continue" (click)="onSubmit()">
+                    <span *ngIf="!loading">Submit</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+        </form>
 
     </div>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { directAss } from '../../shared/form';
 
@@ -14,7 +15,20 @@ export class SelfCreateComponent implements OnInit {
 
   loading = false;
   disabled = false;
-  data: any;
+  datas: any;
+
+  formData = new FormData();
+  image: any;
+  filename: any;
+
+  // 2
+  formData2 = new FormData();
+  image2: any;
+  filename2: any;
+
+  collectedSourceData: any = [];
+  collectedDeductionData: any = [];
+  totalValue: any;
 
   feedbackForm2: any = FormGroup;
   feedback2!: directAss;
@@ -51,7 +65,7 @@ export class SelfCreateComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar,) {
     this.createForm2();
   }
 
@@ -62,7 +76,7 @@ export class SelfCreateComponent implements OnInit {
       amount: ['', [Validators.required]],
       deduction: ['', [Validators.required]],
       amount2: ['', [Validators.required]],
-      agree: ['', [Validators.required]],
+      agree: [false, [Validators.required]],
     });
     this.feedbackForm2.valueChanges.subscribe((data: any) =>
       this.onValueChanged2(data)
@@ -90,6 +104,102 @@ export class SelfCreateComponent implements OnInit {
         }
       }
     }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      const formData = new FormData();
+      formData.append('file', file);
+      this.formData = formData;
+      this.filename = file.name;
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        this.image = (<FileReader>event.target).result;
+      };
+    }
+  }
+
+  onFileSelected2(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      const formData2 = new FormData();
+      formData2.append('file', file);
+      this.formData = formData2;
+      this.filename2 = file.name;
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        this.image2 = (<FileReader>event.target).result;
+      };
+    }
+  }
+
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+
+  addSource() {
+    this.feedback2 = this.feedbackForm2.value;
+    if (this.feedback2.amount && this.feedback2.source) {
+      const data = {
+        source: this.feedback2.source,
+        amount: this.feedback2.amount,
+        fileName: this.filename,
+        image: this.image
+      }
+      this.collectedSourceData.push(data)
+      this.feedbackForm2.controls['source'].reset();
+      this.feedbackForm2.controls['amount'].reset();
+      this.filename = '';
+      this.image = '';
+    }else {
+      this.snackBar.open("Complete the fields", '', {
+        duration: 3000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    }
+    this.sumValue();
+  }
+ 
+  deleteSource(id: number) {
+    this.collectedSourceData.splice(id, 1);
+    this.sumValue();
+  }
+  // 
+  addDeduction() {
+    this.feedback2 = this.feedbackForm2.value;
+    if (this.feedback2.amount2 && this.feedback2.deduction) {
+      const data = {
+        deduction: this.feedback2.deduction,
+        amount: this.feedback2.amount2,
+        fileName: this.filename2,
+        image: this.image2
+      }
+      this.collectedDeductionData.push(data)
+      this.feedbackForm2.controls['deduction'].reset();
+      this.feedbackForm2.controls['amount2'].reset();
+      this.filename2 = '';
+      this.image2 = '';
+    }else {
+      this.snackBar.open("Complete the fields", '', {
+        duration: 3000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    }
+    this.sumValue();
+  }
+ 
+  deleteDeduction(id: number) {
+    this.collectedDeductionData.splice(id, 1);
+    this.sumValue();
   }
 
   onSubmit() {
@@ -146,6 +256,31 @@ export class SelfCreateComponent implements OnInit {
       //       );
       //     }
       //   );
+    }
+  }
+
+
+  sumValue() {
+    let source: any = this.collectedSourceData.reduce((accumulator:any, current:any) => accumulator + current.amount, 0);
+    let deduction: any = this.collectedDeductionData.reduce((accumulator:any, current:any) => accumulator + current.amount, 0);
+    this.totalValue = source + deduction;
+  }
+
+  limit(title: any, limit = 20) {
+    if (title === undefined) {
+      return '';
+    } else {
+      const newTitle: any = [];
+      if (title.length > limit) {
+        title.split('').reduce((acc: any, cur: any) => {
+          if (acc + cur.length <= limit) {
+            newTitle.push(cur);
+          }
+          return acc + cur.length;
+        }, 0);
+        return `${newTitle.join('')}...`;
+      }
+      return title;
     }
   }
 
