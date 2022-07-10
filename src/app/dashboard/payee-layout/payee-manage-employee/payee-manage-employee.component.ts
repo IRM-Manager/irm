@@ -226,6 +226,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             this.years = data.results;
+            this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {

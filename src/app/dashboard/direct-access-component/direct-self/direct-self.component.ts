@@ -13,9 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { Year } from '../../models/irm';
-import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
-import { PayeeServiceService } from '../../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
+import { DirectServiceService } from '../service/direct-service.service';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
@@ -53,14 +53,13 @@ export class DirectSelfComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
     private httpService: HttpService,
     private store: Store<AppState>,
     private snackBar: MatSnackBar,
-    private payeeService: PayeeServiceService
+    private service: DirectServiceService
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
@@ -95,7 +94,7 @@ export class DirectSelfComponent implements OnInit {
   renderTable(id?: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       lengthChange: false,
       info: false,
     };
@@ -105,10 +104,7 @@ export class DirectSelfComponent implements OnInit {
     this.isLoading = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
-            id || getHtmlYear[0]?.id
-          }`
+        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -124,11 +120,6 @@ export class DirectSelfComponent implements OnInit {
       );
   }
 
-  ngOnInit(): void {
-    this.authService.checkExpired();
-    this.renderTable();
-  }
-
   reload(id?: any) {
     const getHtmlYear = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;
@@ -136,16 +127,14 @@ export class DirectSelfComponent implements OnInit {
     this.is_reload = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
-            id || getHtmlYear[0]?.id
-          }`
+        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
           this.is_reload = false;
+          this.isLoading = false;
           this.snackBar.open('Loaded', '', {
             duration: 3000,
             panelClass: 'success',
@@ -169,6 +158,7 @@ export class DirectSelfComponent implements OnInit {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             this.years = data.results;
+            this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {
@@ -179,9 +169,14 @@ export class DirectSelfComponent implements OnInit {
     });
   }
 
+  viewAss(data: any) {
+    this.service.setviewSelfMessage(data);
+    this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
+  }
+
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(PayeeDialogComponent, {
+    this.dialog.open(DirectDialogComponent, {
       data: {
         type: type,
         data: data,
@@ -197,6 +192,20 @@ export class DirectSelfComponent implements OnInit {
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  edit(data: any) {
+    const setData = {
+      update: true,
+      data: data,
+    };
+    this.service.setMessage(setData);
+    this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+  }
+
+  ngOnInit(): void {
+    this.authService.checkExpired();
+    this.renderTable();
   }
 
   ngOnDestroy(): void {

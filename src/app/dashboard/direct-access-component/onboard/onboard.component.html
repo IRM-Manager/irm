@@ -1,7 +1,7 @@
 <div class="payee_wrapper">
 
     <div class="container" fxLayoutGap="30px">
-        <div class="card" (click)="OpenDialog('', 'manual')">
+        <div class="card" [routerLink]="['self']">
             <div class="icon"><img src="assets/images/Icon material-assessment.svg" alt=""></div>
             <div class="text">Self Assessment</div>
         </div>
@@ -24,5 +24,13 @@
             <div class="text">Process TCC</div>
         </div> -->
     </div>
+
+    
+
+    <div class="card" (click)="openDialog('', 'verify-bill')">
+            <div class="icon"><img src="assets/images/27-Document-Process.svg" alt=""></div>
+            <div class="text">Process TCC</div>
+        </div>
+
 
 </div>

@@ -1,13 +1,6 @@
 import { Location } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
@@ -23,7 +16,7 @@ export class DirectSidenavListComponent implements OnInit {
     private _location: Location
   ) {}
 
-  PayeeBack() {
+  payeeBack() {
     this._location.back();
   }
 

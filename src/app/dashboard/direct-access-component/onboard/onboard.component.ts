@@ -14,7 +14,7 @@ export class OnboardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(DirectDialogComponent, {
       data: {

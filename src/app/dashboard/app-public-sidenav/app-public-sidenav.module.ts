@@ -46,6 +46,7 @@ import { Dashboard4Component } from '../dashboard-component/dashboard4/dashboard
 import { BojCreateComponent } from '../direct-access-component/boj-create/boj-create.component';
 import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
 import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
+import { DirectDialogComponent } from '../direct-access-component/direct-dialog/direct-dialog.component';
 import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
 import { DirectSelfComponent } from '../direct-access-component/direct-self/direct-self.component';
 import { OnboardComponent } from '../direct-access-component/onboard/onboard.component';
@@ -138,6 +139,7 @@ import { AppPublicSidenavComponent } from './app-public-sidenav.component';
     DirectHistoryEditComponent,
     SelfCreateComponent,
     BojCreateComponent,
+    DirectDialogComponent,
     // vehicle
     VehicleOnboardComponent,
     VehicleBillsComponent,

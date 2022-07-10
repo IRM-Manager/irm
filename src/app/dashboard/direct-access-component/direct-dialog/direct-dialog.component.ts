@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,7 +12,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-direct-dialog',
@@ -22,6 +24,8 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 })
 export class DirectDialogComponent implements OnInit {
   manualForm!: FormGroup;
+  loading = false;
+  errorMsg: any;
 
   constructor(
     public dialogRef: MatDialogRef<DirectDialogComponent>,
@@ -33,7 +37,8 @@ export class DirectDialogComponent implements OnInit {
     private router: Router,
     public shared: ToggleNavService,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service: DirectServiceService
   ) {
     this.createManualForm2();
     if (this.data.type == 'manual' || this.data.type == 'check_status') {
@@ -41,10 +46,73 @@ export class DirectDialogComponent implements OnInit {
     }
     this.authService.checkExpired();
   }
+
   createManualForm2() {
     this.manualForm = this.fb.group({
       tin: [''],
     });
+  }
+
+  checkTin() {
+    this.loading = true;
+    console.log(this.manualForm.value);
+    this.httpService
+      .getAuthSingle(BaseUrl.get_payer_tin + `${this.manualForm.value.tin}`)
+      .subscribe(
+        (data: any) => {
+          this.loading = false;
+          this.dialogRef.disableClose = false;
+          console.log(data);
+          if (data.data.payer_type == 'individual') {
+            const setData = {
+              update: false,
+              data: data.data,
+            };
+            this.service.setMessage(setData);
+            this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+            this.dialogRef.close();
+          } else {
+            this.errorMsg = 'Invalid GTin';
+            this.snackBar.open('Invalid GTin', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          }
+        },
+        (err) => {
+          this.authService.checkExpired();
+          this.loading = false;
+          this.dialogRef.disableClose = false;
+          this.errorMsg =
+            err?.error?.message ||
+            err?.error?.msg ||
+            err?.error?.detail ||
+            err?.error?.status ||
+            'An Error Occured!';
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
   ngOnInit(): void {

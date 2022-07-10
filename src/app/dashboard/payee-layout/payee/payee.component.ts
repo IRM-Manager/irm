@@ -181,8 +181,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
-            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
             this.years = data.results;
+            this.renderTable();
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {
             this.authService.checkExpired();

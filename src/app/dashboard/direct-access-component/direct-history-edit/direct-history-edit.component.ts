@@ -1,8 +1,10 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
+import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-direct-history-edit',
@@ -11,11 +13,23 @@ import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component'
   styleUrls: ['./direct-history-edit.component.scss'],
 })
 export class DirectHistoryEditComponent implements OnInit {
+  datas: any;
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router
-  ) {}
+    private router: Router,
+    private _location: Location,
+    private service: DirectServiceService,
+  ) {
+    //
+    this.datas = this.service.getviewSelfMessage();
+    console.log(this.datas);
+    if (this.datas) {
+    } else {
+      this._location.back();
+    }
+    //
+  }
 
   ngOnInit(): void {}
 
@@ -24,7 +38,7 @@ export class DirectHistoryEditComponent implements OnInit {
     return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(DirectDialogComponent, {
       data: {
@@ -32,6 +46,10 @@ export class DirectHistoryEditComponent implements OnInit {
         data: data,
       },
     });
+  }
+
+  back() {
+    this._location.back();
   }
 
   redirectToEdit(data: any) {

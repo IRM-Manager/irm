@@ -40,7 +40,6 @@ import { AdminSidenavListComponent } from '../admin-console-component/admin-side
 import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
 import { BottomSidenavMenuComponent } from '../bottom-sidenav-menu/bottom-sidenav-menu.component';
 import { DashboardSidenavListComponent } from '../dashboard-component/dashboard-sidenav-list/dashboard-sidenav-list.component';
-import { DirectDialogComponent } from '../direct-access-component/direct-dialog/direct-dialog.component';
 import { DirectSidenavListComponent } from '../direct-access-component/direct-sidenav-list/direct-sidenav-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { MdaDialogComponent } from '../mda-component/mda-dialog/mda-dialog.component';
@@ -77,7 +76,6 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-compo
     // dialog
     DialogComponent,
     MdaDialogComponent,
-    DirectDialogComponent,
     VehicleDialogComponent,
     AdminConsoleDialogComponent,
     TaxpayerDialogComponent,

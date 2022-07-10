@@ -73,8 +73,8 @@
                                     <div class="title">{{ data.data.assessment.employee_total }}</div>
                                     <div class="title">NGN</div>
                                     <div class="title">{{ data.data.assessment.created_at | date:"medium" }}</div>
-                                    <div class="title">NGN {{ formatMoney(data.data.assessment.assessment_total) }}</div>
-                                    <div class="title">NGN {{ formatMoney(data.data.bill_total) }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data.assessment.assessment_total || 0) }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data.bill_total || 0) }}</div>
                                 </div>
                             </div>
                         </div>
@@ -277,8 +277,8 @@
                     <div class="titlec">{{ data.data.data.employee_total }}</div>
                     <div class="titlec">NGN</div>
                     <div class="titlec">{{ data.data.data.assessment_date | date:"medium" }}</div>
-                    <div class="titlec">NGN {{ formatMoney(data.data.data.assessment_total) }}</div>
-                    <div class="titlec">NGN {{ formatMoney(data.data.data.assessment_total) }}</div>
+                    <div class="titlec">NGN {{ formatMoney(data.data.data.assessment_total || 0) }}</div>
+                    <div class="titlec">NGN {{ formatMoney(data.data.data.assessment_total || 0) }}</div>
                 </div>
             </div>
         </div>
