@@ -173,10 +173,12 @@ export class PayeeGenerateBillComponent implements OnInit {
     this.stateYear?.forEach((e) => {
       if (e.length > 0) {
         this.years = e[0].data;
+        this.renderTable();
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             this.years = data.results;
+            this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {

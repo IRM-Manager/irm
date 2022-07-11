@@ -64,7 +64,7 @@ export class DirectSelfComponent implements OnInit {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
 
-    // 
+    //
     const get_year: any = this.service.getAYearMessage();
     this.htmlYear = get_year?.yearId || new Date().getFullYear();
     //
@@ -157,6 +157,7 @@ export class DirectSelfComponent implements OnInit {
     this.stateYear?.forEach((e) => {
       if (e.length > 0) {
         this.years = e[0].data;
+        this.renderTable();
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
@@ -174,6 +175,9 @@ export class DirectSelfComponent implements OnInit {
 
   viewAss(data: any) {
     this.service.setviewSelfMessage(data);
+    this.service.setAYearMessage({
+      yearId: data.assessment.assessment_year || this.htmlYear,
+    });
     this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
   }
 
@@ -203,6 +207,9 @@ export class DirectSelfComponent implements OnInit {
       data: data,
     };
     this.service.setMessage(setData);
+    this.service.setAYearMessage({
+      yearId: data.assessment.assessment_year || this.htmlYear,
+    });
     this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
   }
 

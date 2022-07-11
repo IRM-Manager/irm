@@ -53,14 +53,24 @@ export class DirectHistoryEditComponent implements OnInit {
   }
 
   back() {
-    this._location.back();
+    if (this.datas?.da_type == 'boj') {
+      this.service.setBYearMessage({
+        yearId: this.datas.assessment.assessment_year,
+      });
+      this.router.navigate([`/dashboard/dashboard5/direct/boj`]);
+    } else {
+      this.service.setAYearMessage({
+        yearId: this.datas.assessment.assessment_year,
+      });
+      this.router.navigate([`/dashboard/dashboard5/direct/self`]);
+    }
   }
 
   //  delete tax payer
   deleteAss() {
     this.isdelete = true;
     this.httpService
-      .deleteData(BaseUrl.delete_paye, this.datas.id + '/')
+      .deleteData(BaseUrl.list_direct, this.datas.id + '/')
       .subscribe(
         (data: any) => {
           this.isdelete = false;
@@ -70,7 +80,17 @@ export class DirectHistoryEditComponent implements OnInit {
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          this.router.navigate([`/dashboard/dashboard5/direct/self`]);
+          if (this.datas?.da_type == 'boj') {
+            this.service.setBYearMessage({
+              yearId: this.datas.assessment.assessment_year,
+            });
+            this.router.navigate([`/dashboard/dashboard5/direct/boj`]);
+          } else {
+            this.service.setAYearMessage({
+              yearId: this.datas.assessment.assessment_year,
+            });
+            this.router.navigate([`/dashboard/dashboard5/direct/self`]);
+          }
         },
         (err) => {
           this.isdelete = false;
@@ -94,9 +114,4 @@ export class DirectHistoryEditComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  redirectToEdit(data: any) {
-    console.log(data);
-    this.router.navigate(['/dashboard/dashboard5/direct/history/view-edit']);
-  }
 }

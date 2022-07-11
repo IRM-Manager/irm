@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
 import { gsap } from 'gsap';
@@ -13,9 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { Year } from '../../models/irm';
-import { PayeeServiceService } from '../../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
+import { DirectServiceService } from '../service/direct-service.service';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
@@ -53,19 +53,21 @@ export class DirectBojComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
     private httpService: HttpService,
     private store: Store<AppState>,
     private snackBar: MatSnackBar,
-    private payeeService: PayeeServiceService
+    private service: DirectServiceService
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
 
-    this.htmlYear = new Date().getFullYear();
+    //
+    const get_year: any = this.service.getAYearMessage();
+    this.htmlYear = get_year?.yearId || new Date().getFullYear();
+    //
     this.listYear();
   }
 
@@ -165,10 +167,12 @@ export class DirectBojComponent implements OnInit {
     this.stateYear?.forEach((e) => {
       if (e.length > 0) {
         this.years = e[0].data;
+        this.renderTable();
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             this.years = data.results;
+            this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {
@@ -187,6 +191,26 @@ export class DirectBojComponent implements OnInit {
         data: data,
       },
     });
+  }
+
+  viewAss(data: any) {
+    this.service.setviewSelfMessage(data);
+    this.service.setBYearMessage({
+      yearId: data.assessment.assessment_year || this.htmlYear,
+    });
+    this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
+  }
+
+  edit(data: any) {
+    const setData = {
+      update: true,
+      data: data,
+    };
+    this.service.setMessage(setData);
+    this.service.setBYearMessage({
+      yearId: data.assessment.assessment_year || this.htmlYear,
+    });
+    this.router.navigate(['/dashboard/dashboard5/direct/boj/create']);
   }
 
   chooseYear(year: any) {

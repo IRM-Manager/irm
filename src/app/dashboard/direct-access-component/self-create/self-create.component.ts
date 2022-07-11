@@ -191,28 +191,41 @@ export class SelfCreateComponent implements OnInit {
   }
 
   addSource() {
+    this.snackBar.dismiss();
     this.feedback2 = this.feedbackForm2.value;
-    if (this.feedback2.amount && this.feedback2.source) {
-      const data = {
-        sources: this.feedback2.source,
-        income: this.feedback2.amount,
-        fileName: this.filename,
-        doc: this.image,
-      };
-      this.collectedSourceData.push(data);
-      this.feedbackForm2.controls['source'].reset();
-      this.feedbackForm2.controls['amount'].reset();
-      this.filename = '';
-      this.image = '';
-    } else {
-      this.snackBar.open('Complete the fields', '', {
+    const get_source = this.collectedSourceData.filter((name: any) => {
+      return name?.sources?.toLowerCase() == this.feedback2?.source?.toLowerCase();
+    });
+    if (get_source.length !== 0) {
+      this.snackBar.open(`${this.feedback2.source} already exists!`, '', {
         duration: 3000,
         panelClass: 'warning',
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
+    } else {
+      if (this.feedback2.amount && this.feedback2.source) {
+        const data = {
+          sources: this.feedback2.source,
+          income: this.feedback2.amount,
+          fileName: this.filename,
+          doc: this.image || "",
+        };
+        this.collectedSourceData.push(data);
+        this.feedbackForm2.controls['source'].reset();
+        this.feedbackForm2.controls['amount'].reset();
+        this.filename = '';
+        this.image = '';
+      } else {
+        this.snackBar.open('Complete the fields', '', {
+          duration: 3000,
+          panelClass: 'warning',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+      this.sumValue();
     }
-    this.sumValue();
   }
 
   deleteSource(id: number) {
@@ -221,28 +234,41 @@ export class SelfCreateComponent implements OnInit {
   }
   //
   addDeduction() {
-    this.feedback2 = this.feedbackForm2.value;
-    if (this.feedback2.amount2 && this.feedback2.deduction) {
-      const data = {
-        sources: this.feedback2.deduction,
-        amount: this.feedback2.amount2,
-        fileName: this.filename2,
-        doc: this.image2,
-      };
-      this.collectedDeductionData.push(data);
-      this.feedbackForm2.controls['deduction'].reset();
-      this.feedbackForm2.controls['amount2'].reset();
-      this.filename2 = '';
-      this.image2 = '';
-    } else {
-      this.snackBar.open('Complete the fields', '', {
+    this.snackBar.dismiss();
+    const get_source = this.collectedDeductionData.filter((name: any) => {
+      return name?.sources?.toLowerCase() == this.feedback2?.deduction?.toLowerCase();
+    });
+    if (get_source.length !== 0) {
+      this.snackBar.open(`${this.feedback2.source} already exists!`, '', {
         duration: 3000,
         panelClass: 'warning',
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
+    } else {
+      this.feedback2 = this.feedbackForm2.value;
+      if (this.feedback2.amount2 && this.feedback2.deduction) {
+        const data = {
+          sources: this.feedback2.deduction,
+          amount: this.feedback2.amount2,
+          fileName: this.filename2,
+          doc: this.image2 || "",
+        };
+        this.collectedDeductionData.push(data);
+        this.feedbackForm2.controls['deduction'].reset();
+        this.feedbackForm2.controls['amount2'].reset();
+        this.filename2 = '';
+        this.image2 = '';
+      } else {
+        this.snackBar.open('Complete the fields', '', {
+          duration: 3000,
+          panelClass: 'warning',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+      this.sumValue();
     }
-    this.sumValue();
   }
 
   deleteDeduction(id: number) {
@@ -292,10 +318,13 @@ export class SelfCreateComponent implements OnInit {
         .postData(BaseUrl.list_direct + `?item_id=2`, data)
         .subscribe(
           (data: any) => {
-            this.service.setAYearMessage({yearId: data.data.assessment.assessment_year});
+            this.service.setAYearMessage({
+              yearId: data.data.assessment.assessment_year,
+            });
             this.loading = false;
             console.log(data);
             this.openDialog('', 'success');
+            this.service.setviewSelfMessage(data.data);
             this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
           },
           (err) => {
@@ -351,9 +380,15 @@ export class SelfCreateComponent implements OnInit {
       this.disabled = true;
       this.collectedSourceData.filter((name: any) => {
         delete name.fileName;
+        if (!name.doc) {
+          name['doc'] = '';
+        }
       });
       this.collectedDeductionData.filter((name: any) => {
         delete name.fileName;
+        if (!name.doc) {
+          name['doc'] = '';
+        }
       });
       const data = {
         tin: this.datas.data.payer.state_tin,
@@ -366,16 +401,19 @@ export class SelfCreateComponent implements OnInit {
         .updateData(BaseUrl.list_direct, data, `${this.datas.data.id}/`)
         .subscribe(
           (data: any) => {
-            this.service.setAYearMessage({yearId: data.data.assessment.assessment_year});
+            this.service.setAYearMessage({
+              yearId: data.data.assessment.assessment_year,
+            });
             this.loading = false;
             console.log(data);
+            this.service.setviewSelfMessage(data.data);
             this.snackBar.open('Update Successful', '', {
-              duration: 5000,
-              panelClass: 'error',
+              duration: 3000,
+              panelClass: 'success',
               horizontalPosition: 'center',
               verticalPosition: 'top',
             });
-            this.router.navigate(['/dashboard/dashboard5/history/view']);
+            this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
           },
           (err) => {
             this.authService.checkExpired();

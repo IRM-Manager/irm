@@ -222,6 +222,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
     this.stateYear?.forEach((e) => {
       if (e.length > 0) {
         this.years = e[0].data;
+        this.renderTable();
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {

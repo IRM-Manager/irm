@@ -9,9 +9,11 @@ export class DirectServiceService {
   DepLocMessage: string | undefined;
   ViewSelf: string | undefined;
   yearAMessage: string | undefined;
+  yearBMessage: string | undefined;
   private subject = new Subject<any>();
   constructor() {}
 
+  //
   setMessage(data: any) {
     this.regMessage = data;
   }
@@ -20,6 +22,7 @@ export class DirectServiceService {
     return this.regMessage;
   }
 
+  // self view details
   setviewSelfMessage(data: any) {
     this.ViewSelf = data;
   }
@@ -36,11 +39,21 @@ export class DirectServiceService {
     return this.subject.asObservable();
   }
 
+  // Self year
   setAYearMessage(data: any) {
     this.yearAMessage = data;
   }
 
   getAYearMessage() {
     return this.yearAMessage;
+  }
+
+  // BOJ year
+  setBYearMessage(data: any) {
+    this.yearBMessage = data;
+  }
+
+  getBYearMessage() {
+    return this.yearBMessage;
   }
 }
