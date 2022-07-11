@@ -195,7 +195,7 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' ">
+<div class="manual_file-dialog" *ngIf="data.type == 'manual' || data.type == 'manual2' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -205,7 +205,8 @@
     <div mat-dialog-content class="manual_container">
 
         <div>
-            <div class="manual_filling">Self Assessment</div>
+            <div class="manual_filling" *ngIf="data.type == 'manual'">Self Assessment</div>
+            <div class="manual_filling" *ngIf="data.type == 'manual2'">Best of judgment Assessment</div>
             <div class="manual_verify">Kindly verify the employee GTin before you proceed</div>
 
             <form [formGroup]="manualForm" class="manual_form">

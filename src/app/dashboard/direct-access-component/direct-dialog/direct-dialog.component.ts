@@ -69,7 +69,11 @@ export class DirectDialogComponent implements OnInit {
               data: data.data,
             };
             this.service.setMessage(setData);
-            this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+            if(this.data.type == 'manual') {
+              this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+            }else{
+              this.router.navigate(['/dashboard/dashboard5/direct/boj/create']);
+            }
             this.dialogRef.close();
           } else {
             this.errorMsg = 'Invalid GTin';
@@ -109,6 +113,7 @@ export class DirectDialogComponent implements OnInit {
         }
       );
   }
+
 
   formatMoney(n: any) {
     const tostring = n.toString();

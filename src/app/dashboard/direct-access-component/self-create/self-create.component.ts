@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { directAss } from '../../shared/form';
 // state management
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
-import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../models/irm';
-import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { DirectServiceService } from '../service/direct-service.service';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { BaseUrl } from 'src/environments/environment';
+import { Year } from '../../models/irm';
 import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
+import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-self-create',
@@ -99,7 +99,8 @@ export class SelfCreateComponent implements OnInit {
       if (this.datas.update) {
         this.update = true;
         this.updateValue();
-      }else {}
+      } else {
+      }
     } else {
       this.router.navigate([`/dashboard/dashboard5/direct/self`]);
     }
@@ -145,10 +146,13 @@ export class SelfCreateComponent implements OnInit {
   }
 
   updateValue() {
-    // this.feedbackForm1.patchValue({ contact_email: this.payer_data.data });
-    // this.feedbackForm1.patchValue({
-    //   address: `${this.payer_data.residence_state} state, ${this.payer_data.residence_lga} lga, ${this.payer_data.residence_Town}, ${this.payer_data.residence_AdressLine1}`,
-    // });
+    this.feedbackForm2.patchValue({ agree: true });
+    this.feedbackForm2.patchValue({
+      year: this.datas.data.year_id,
+    });
+    this.collectedSourceData = this.datas.data.incomes;
+    this.collectedDeductionData = this.datas.data.deductions;
+    this.sumValue();
   }
 
   onFileSelected(event: any) {
@@ -221,7 +225,7 @@ export class SelfCreateComponent implements OnInit {
     if (this.feedback2.amount2 && this.feedback2.deduction) {
       const data = {
         sources: this.feedback2.deduction,
-        income: this.feedback2.amount2,
+        amount: this.feedback2.amount2,
         fileName: this.filename2,
         doc: this.image2,
       };
@@ -258,8 +262,11 @@ export class SelfCreateComponent implements OnInit {
         verticalPosition: 'top',
       });
     } // end of if
-    else if (!this.feedback2.agree) {
-      this.snackBar.open('You need to agree to the terms and conditions', '', {
+    else if (
+      this.collectedDeductionData.length < 1 ||
+      this.collectedSourceData.length < 1
+    ) {
+      this.snackBar.open('Income or Deduction not added yet', '', {
         duration: 5000,
         panelClass: 'warning',
         horizontalPosition: 'center',
@@ -268,6 +275,12 @@ export class SelfCreateComponent implements OnInit {
     } else {
       this.loading = true;
       this.disabled = true;
+      this.collectedSourceData.filter((name: any) => {
+        delete name.fileName;
+      });
+      this.collectedDeductionData.filter((name: any) => {
+        delete name.fileName;
+      });
       const data = {
         tin: this.datas.data.state_tin,
         incomes: this.collectedSourceData,
@@ -276,15 +289,90 @@ export class SelfCreateComponent implements OnInit {
       };
       console.log(data);
       this.httpService
-        .postData(
-          BaseUrl.list_direct + `?item_id=2`,
-          data
-        )
+        .postData(BaseUrl.list_direct + `?item_id=2`, data)
         .subscribe(
           (data: any) => {
             this.loading = false;
             console.log(data);
             this.openDialog('', 'success');
+            this.router.navigate(['/dashboard/dashboard5/direct/self']);
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            this.disabled = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
+    }
+  }
+
+  // update
+
+  updateData() {
+    this.feedback2 = this.feedbackForm2.value;
+    this.onValueChanged2();
+    const feed1 = this.feedbackFormDirective2.invalid;
+    if (feed1) {
+      this.snackBar.open('Errors in fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } // end of if
+    else if (
+      this.collectedDeductionData.length < 1 ||
+      this.collectedSourceData.length < 1
+    ) {
+      this.snackBar.open('Income or Deduction not added yet', '', {
+        duration: 5000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.loading = true;
+      this.disabled = true;
+      this.collectedSourceData.filter((name: any) => {
+        delete name.fileName;
+      });
+      this.collectedDeductionData.filter((name: any) => {
+        delete name.fileName;
+      });
+      const data = {
+        tin: this.datas.data.payer.state_tin,
+        incomes: this.collectedSourceData,
+        deductions: this.collectedDeductionData,
+        year_id: this.feedback2.year,
+      };
+      console.log(data);
+      this.httpService
+        .updateData(BaseUrl.list_direct, data, `${this.datas.data.id}/`)
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            console.log(data);
+            this.snackBar.open('Update Successful', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
             this.router.navigate(['/dashboard/dashboard5/direct/self']);
           },
           (err) => {
@@ -317,7 +405,7 @@ export class SelfCreateComponent implements OnInit {
       0
     );
     let deduction: any = this.collectedDeductionData.reduce(
-      (accumulator: any, current: any) => accumulator + current.income,
+      (accumulator: any, current: any) => accumulator + current.amount,
       0
     );
     this.totalValue = source + deduction;

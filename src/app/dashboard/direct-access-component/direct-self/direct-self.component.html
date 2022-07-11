@@ -71,11 +71,11 @@
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{ data.assessment.assessment_year }}</td>
                                 <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ formatMoney(data.total_income) }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ formatMoney(data.tax_payable) }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ data.assessment_date }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ data.assessment.assess_code }}</td>
-                                <td class="align-middle" style="text-align: center;">
+                                <td class="align-middle text-center">{{ formatMoney(data.total_income) }}</td>
+                                <td class="align-middle text-center">{{ formatMoney(data.tax_payable) }}</td>
+                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">{{ data.assessment.assess_code }}</td>
+                                <td class="align-middle text-center">
                                     <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
                                         Paid
                                     </button>

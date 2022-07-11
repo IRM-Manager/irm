@@ -8,14 +8,13 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpService } from 'src/app/services/http.service';
-import { BaseUrl } from 'src/environments/environment';
-import { add_user } from '../../shared/form';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { map, Observable, startWith } from 'rxjs';
+import { AppState } from 'src/app/reducers';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { add_user } from '../../shared/form';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({

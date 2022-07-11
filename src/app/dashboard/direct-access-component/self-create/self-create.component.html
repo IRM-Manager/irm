@@ -92,7 +92,7 @@
                 <div class="form-header" fxLayoutGap="50px" *ngFor="let data of collectedDeductionData; let i=index">
                     <div>{{i+1}}.</div>
                     <div>{{ data.sources }}</div>
-                    <div>NGN {{ formatMoney(data.income) }}</div>
+                    <div>NGN {{ formatMoney(data.amount) }}</div>
                     <div class="pdf">{{ limit(data.fileName) }}</div>
                     <div>
                         <button type="button" mat-icon-button class="delete" (click)="deleteDeduction(i)">
@@ -165,7 +165,7 @@
             </div>
 
             <div class="final_submit" *ngIf="datas.update">
-                <button type="submit" form="ngForm2" mat-button class="continue" (click)="onSubmit()" [disabled]="disabled">
+                <button type="submit" form="ngForm2" mat-button class="continue" (click)="updateData()" [disabled]="disabled">
                     <span *ngIf="!loading">Update</span>
                     <div *ngIf="loading" class="loader">
                         <div class="bubble"></div>
