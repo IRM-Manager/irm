@@ -68,7 +68,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
         `/dashboard/dashboard3/taxpayer/payee/business-list`,
       ]);
     }
-    // 
+    //
     const get_year: any = this.payeeService.getAsYearMessage();
     this.htmlYear = get_year?.yearId || new Date().getFullYear();
     //
@@ -101,7 +101,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
     const getHtmlYear = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;
@@ -110,7 +110,9 @@ export class PayeeManageEmployeeComponent implements OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_registered_employees +
-          `comp_tin=${this.datas2.company.state_tin}&yearId=${id || getHtmlYear[0]?.id}`
+          `comp_tin=${this.datas2?.company?.state_tin}&yearId=${
+            id || getHtmlYear[0]?.id
+          }`
       )
       .subscribe(
         (data: any) => {
@@ -134,7 +136,9 @@ export class PayeeManageEmployeeComponent implements OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_registered_employees +
-          `comp_tin=${this.datas2.company.state_tin}&yearId=${id || getHtmlYear[0]?.id}`
+          `comp_tin=${this.datas2?.company?.state_tin}&yearId=${
+            id || getHtmlYear[0]?.id
+          }`
       )
       .subscribe(
         (data: any) => {
@@ -162,6 +166,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
       data: data,
     };
     this.payeeService.setManualMessage(pastData);
+    this.payeeService.setAsYearMessage({yearId: data.taxYear});
     this.router.navigate(['dashboard/dashboard3/taxpayer/payee/manual/add']);
   }
 
@@ -215,6 +220,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
       data: data,
     };
     this.payeeService.setManualMessage(pastData);
+    this.payeeService.setAsYearMessage({yearId: data.taxYear});
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage-edit']);
   }
 
@@ -258,7 +264,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
         const get_year: any = this.payeeService.getAsYearMessage();
         this.htmlYear = get_year?.yearId || new Date().getFullYear();
         this.renderTable();
-    });
+      });
     //
   }
 

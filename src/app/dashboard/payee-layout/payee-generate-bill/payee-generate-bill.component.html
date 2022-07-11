@@ -4,10 +4,10 @@
 
         <div>
             <div class="soft_pattern">
-                {{ datas2.company.organisation_name }}
-                <span class="material-icons-round icons-rounded" *ngIf="datas2?.company.is_verified">verified_user</span>
+                {{ datas2?.company?.organisation_name }}
+                <span class="material-icons-round icons-rounded" *ngIf="datas2?.company?.is_verified">verified_user</span>
             </div>
-            <div class="reg_buss">GTin: {{ datas2.company.state_tin }}</div>
+            <div class="reg_buss">GTin: {{ datas2?.company?.state_tin }}</div>
         </div>
 
         <div>
@@ -91,12 +91,12 @@
                                 <td class="align-middle" style="text-align: center;">{{ data.bill_date | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle" style="text-align: center;">{{ data.bill_code }}</td>
                                 <td class="align-middle" style="text-align: center;">
-                                    <button mat-button class="paid" *ngIf="data.bill_status == true">
+                                    <span class="paid" *ngIf="data.bill_status == true">
                                         Paid
-                                    </button>
-                                    <button mat-button class="pending" *ngIf="data.bill_status == false">
+                                    </span>
+                                    <span class="pending" *ngIf="data.bill_status == false">
                                         Not-paid
-                                    </button>
+                                    </span>
                                 </td>
                                 <th class="align-middle" style="text-align: center;">
                                     <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">

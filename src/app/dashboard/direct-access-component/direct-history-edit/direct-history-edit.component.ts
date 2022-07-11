@@ -17,6 +17,7 @@ import { DirectServiceService } from '../service/direct-service.service';
 })
 export class DirectHistoryEditComponent implements OnInit {
   isdelete = false;
+  genLoading = false;
   datas: any;
   constructor(
     private snackBar: MatSnackBar,
@@ -70,7 +71,10 @@ export class DirectHistoryEditComponent implements OnInit {
   deleteAss() {
     this.isdelete = true;
     this.httpService
-      .deleteData(BaseUrl.list_direct, this.datas.id + '/')
+      .deleteData(
+        this.datas?.da_type == 'boj' ? BaseUrl.list_boj : BaseUrl.list_direct,
+        this.datas.id + '/'
+      )
       .subscribe(
         (data: any) => {
           this.isdelete = false;
@@ -93,7 +97,44 @@ export class DirectHistoryEditComponent implements OnInit {
           }
         },
         (err) => {
+          console.log(err);
           this.isdelete = false;
+          this.authService.checkExpired();
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              err?.error ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
+  generateBill() {
+    this.genLoading = true;
+    this.httpService
+      .postData(
+        BaseUrl.generate_direct_bill +
+          `tin=${this.datas.payer.state_tin}&assessId=${this.datas.assessment.id}`,
+        ''
+      )
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.openDialog(data.data, 'generate_bill');
+          this.genLoading = false;
+        },
+        (err) => {
+          this.genLoading = false;
           this.authService.checkExpired();
           this.snackBar.open(
             err?.error?.message ||

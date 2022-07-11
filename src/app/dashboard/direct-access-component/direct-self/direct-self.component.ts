@@ -63,7 +63,6 @@ export class DirectSelfComponent implements OnInit {
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
-
     //
     const get_year: any = this.service.getAYearMessage();
     this.htmlYear = get_year?.yearId || new Date().getFullYear();

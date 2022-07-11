@@ -94,7 +94,7 @@ export class DirectBillComponent implements OnInit {
   renderTable(id?: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       lengthChange: false,
       info: false,
     };
@@ -104,10 +104,7 @@ export class DirectBillComponent implements OnInit {
     this.isLoading = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
-            id || getHtmlYear[0]?.id
-          }`
+        BaseUrl.generate_direct_bill + `yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -164,10 +161,12 @@ export class DirectBillComponent implements OnInit {
     this.stateYear?.forEach((e) => {
       if (e.length > 0) {
         this.years = e[0].data;
+        this.renderTable();
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
             this.years = data.results;
+            this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
           (err) => {

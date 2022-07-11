@@ -45,4 +45,6 @@ export const BaseUrl = {
   payee_gen_bill: 'bill/api/v1/paye/?',
   // direct
   list_direct: 'directassessment/api/v1/self/',
+  generate_direct_bill: 'bill/api/v1/da/?',
+  list_boj: 'directassessment/api/v1/boj/',
 };

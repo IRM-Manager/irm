@@ -68,7 +68,15 @@
 
         <div class="generate-button">
             <button mat-button (click)="openDialog(datas, 'gen-bill')">Generate Notice</button>
-            <button mat-button>Generate Bill</button>
+            <button mat-button (click)="generateBill()">
+                <span *ngIf="!genLoading">Generate Bill</span>
+                <div *ngIf="genLoading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
         </div>
 
     </div>

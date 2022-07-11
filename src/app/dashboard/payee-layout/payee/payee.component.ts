@@ -100,7 +100,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.company.state_tin}&yearId=${id || get_year[0]?.id}`
+          `tin=${this.datas2?.company?.state_tin}&yearId=${id || get_year[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -125,7 +125,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2.company.state_tin}&yearId=${
+          `tin=${this.datas2.company?.state_tin}&yearId=${
             id || get_year_id[0]?.id
           }`
       )
@@ -166,6 +166,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
 
   view(data: any) {
     this.payeeService.setAssMessage(data);
+    this.payeeService.setAYearMessage({ yearId: data.assessment_year });
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/lists-view']);
   }
 

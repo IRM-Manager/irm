@@ -63,7 +63,6 @@ export class DirectBojComponent implements OnInit {
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
-
     //
     const get_year: any = this.service.getAYearMessage();
     this.htmlYear = get_year?.yearId || new Date().getFullYear();
@@ -97,7 +96,7 @@ export class DirectBojComponent implements OnInit {
   renderTable(id?: any) {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       lengthChange: false,
       info: false,
     };
@@ -107,10 +106,7 @@ export class DirectBojComponent implements OnInit {
     this.isLoading = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
-            id || getHtmlYear[0]?.id
-          }`
+        BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -138,10 +134,7 @@ export class DirectBojComponent implements OnInit {
     this.is_reload = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
-            id || getHtmlYear[0]?.id
-          }`
+        BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {

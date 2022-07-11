@@ -82,14 +82,14 @@
                                         Not-paid
                                     </button>
                                 </td>
-                                <th class="align-middle" style="text-align: center;">
+                                <td class="align-middle" style="text-align: center;">
                                     <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Details</button>
                                     </mat-menu>
-                                </th>
+                                </td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">

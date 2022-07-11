@@ -12,27 +12,27 @@
 
                 <div class="gen-left-container" style="margin-bottom: 1.5rem;">
                     <div class="generate_left">
-                        <div class="tin">GTin: 3444</div>
-                        <div class="tin">Taxpayer Name: 4333443</div>
-                        <div class="tin">Revenue office: 4434343</div>
-                        <div class="tin">Date of assessment 44334</div>
-                        <div class="tin">Assessment period: 434343</div>
+                         <div class="tin">GTin: {{ data.data.payer.state_tin }}</div>
+                        <div class="tin">Taxpayer Name: {{ data.data.payer.taxpayer_name }}</div>
+                        <div class="tin">Revenue office: {{ data.data.payer.location.name }}</div>
+                        <div class="tin">Date of assessment {{ data.data.assessment.created_at | date:"medium" }}</div>
+                        <div class="tin">Assessment period: {{ data.data.assessment.assessment_year}}</div>
                     </div>
 
                     <div class="generate_center">
                         <div class="tin" style="text-transform: uppercase;">
-                            Assessment Type: 34434
+                            Assessment Type: {{ data.data.assessment.assess_type}}
                         </div>
-                        <div class="tin">Assessment No. 4344334</div>
-                        <div class="tin">Bill No.. 43343344</div>
+                        <div class="tin">Assessment No. {{ data.data.assessment.id}}</div>
+                        <div class="tin">Bill No.. {{ data.data.bill_code }}</div>
                         <div class="tin">Bill Staus: 
-                            <span class="gen-success">Paid</span>
-                            <span class="gen-failed">Not-paid</span>
+                            <span *ngIf="data.data.bill_status" class="gen-success">Paid</span>
+                            <span *ngIf="!data.data.bill_status" class="gen-failed">Not-paid</span>
                         </div>
                     </div>
 
                     <div class="generate_center">
-                        <qr-code value="ewewwe"
+                        <qr-code value="{{data.data.bill_code}}"
                             size="150"
                             errorCorrectionLevel="H"
                             centerImageSrc="undefined"
@@ -66,15 +66,15 @@
                             <div class="deduction">Amount</div>
                             <div class="left_right">
                                 <div class="left2">
-                                    <div class="title">ewewwee</div>
+                                    <div class="title">{{ data.data.assessment.assessment_month }}</div>
                                     <div class="title" style="text-transform: uppercase;">
-                                        eweee
+                                        {{ data.data.assessment.assess_type }}
                                     </div>
-                                    <div class="title">ewwewe</div>
+                                    <div class="title">{{ data.data.assessment.employee_total }}</div>
                                     <div class="title">NGN</div>
-                                    <div class="title">wewewew</div>
-                                    <div class="title">NGN ewewew</div>
-                                    <div class="title">NGN eeweew</div>
+                                    <div class="title">{{ data.data.assessment.created_at | date:"medium" }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data.assessment.assessment_total || 0) }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data.bill_total || 0) }}</div>
                                 </div>
                             </div>
                         </div>

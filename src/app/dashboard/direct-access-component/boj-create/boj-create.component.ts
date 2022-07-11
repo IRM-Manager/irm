@@ -319,7 +319,7 @@ export class BojCreateComponent implements OnInit {
       };
       console.log(data);
       this.httpService
-        .postData(BaseUrl.list_direct + `?item_id=2`, data)
+        .postData(BaseUrl.list_boj + `?item_id=2`, data)
         .subscribe(
           (data: any) => {
             this.service.setBYearMessage({
@@ -402,7 +402,7 @@ export class BojCreateComponent implements OnInit {
       };
       console.log(data);
       this.httpService
-        .updateData(BaseUrl.list_direct, data, `${this.datas.data.id}/`)
+        .updateData(BaseUrl.list_boj, data, `${this.datas.data.id}/`)
         .subscribe(
           (data: any) => {
             this.service.setBYearMessage({

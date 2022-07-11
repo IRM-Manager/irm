@@ -4,10 +4,10 @@
 
         <div class="filling-header">
             <div class="soft_pattern">
-                {{ datas2.company.organisation_name }}
-                <span class="material-icons-round icons-rounded" *ngIf="datas2?.company.is_verified">verified_user</span>
+                {{ datas2?.company?.organisation_name }}
+                <span class="material-icons-round icons-rounded" *ngIf="datas2?.company?.is_verified">verified_user</span>
             </div>
-            <div class="reg_buss">GTin: {{ datas2.company.state_tin }}</div>
+            <div class="reg_buss">GTin: {{ datas2?.company?.state_tin }}</div>
             <div>
                 <span class="assess">Filling for {{ htmlYear }}</span>
                 <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
@@ -82,7 +82,7 @@
                                         <th class="align-middle">Monthly tax Liabilities</th>
                                         <th class="align-middle">Status</th>
                                         <th class="align-middle"></th>
-                                        <th class="align-middle"></th>
+                                        <!-- <th class="align-middle"></th> -->
                                     </tr>
                                 </thead>
                                 <!-- individual -->
@@ -107,11 +107,11 @@
                                                 <button mat-menu-item style="color: #3C66A3;" class="mat-menu" (click)="edit(data)">Edit</button>
                                             </mat-menu>
                                         </td>
-                                        <td class="align-middle">
+                                        <!-- <td class="align-middle">
                                             <mat-icon (click)="openDDialog(data, 'delete-payee')" class="table-icon-delete">
                                                 delete_forever
                                             </mat-icon>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="datas?.length == 0">
@@ -124,7 +124,7 @@
                                         <td class="no-data-available" style="text-align: center;">No data!</td>
                                         <td class="no-data-available" style="text-align: center;">No data!</td>
                                         <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
+                                        <!-- <td class="no-data-available" style="text-align: center;">No data!</td> -->
                                     </tr>
                                 </tbody>
 

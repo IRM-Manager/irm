@@ -114,7 +114,7 @@ export class PayeeGenerateBillComponent implements OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
+          `tin=${this.datas2?.company?.state_tin}&yearId=${
             id || getHtmlYear[0]?.id
           }`
       )
@@ -145,7 +145,7 @@ export class PayeeGenerateBillComponent implements OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
+          `tin=${this.datas2?.company?.state_tin}&yearId=${
             id || getHtmlYear[0]?.id
           }`
       )
