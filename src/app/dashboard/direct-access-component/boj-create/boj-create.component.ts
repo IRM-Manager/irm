@@ -1,8 +1,20 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { directAss } from '../../shared/form';
+// state management
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AddYear } from 'src/app/actions/irm.action';
+import { AppState, selectAllYear } from 'src/app/reducers';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
+import { Year } from '../../models/irm';
+import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
+import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-boj-create',
@@ -15,7 +27,9 @@ export class BojCreateComponent implements OnInit {
 
   loading = false;
   disabled = false;
+  update = false;
   datas: any;
+  years: any;
 
   formData = new FormData();
   image: any;
@@ -34,6 +48,7 @@ export class BojCreateComponent implements OnInit {
   feedback2!: directAss;
 
   clickEventSubscription?: Subscription;
+  stateYear: Observable<Year[]>;
 
   formErrors: any = {
     year: '',
@@ -65,17 +80,41 @@ export class BojCreateComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private store: Store<AppState>,
+    private httpService: HttpService,
+    private authService: AuthService,
+    private service: DirectServiceService,
+    private dialog: MatDialog
+  ) {
     this.createForm2();
+    this.stateYear = store.select(selectAllYear);
+    //
+    this.datas = this.service.getMessage();
+    console.log(this.datas);
+    if (this.datas) {
+      if (this.datas.update) {
+        this.update = true;
+        this.updateValue();
+      } else {
+      }
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/direct/boj`]);
+    }
+    //
+    this.listYear();
   }
 
   createForm2() {
     this.feedbackForm2 = this.fb.group({
       year: ['', [Validators.required]],
-      source: ['', [Validators.required]],
-      amount: ['', [Validators.required]],
-      deduction: ['', [Validators.required]],
-      amount2: ['', [Validators.required]],
+      source: [''],
+      amount: [''],
+      deduction: [''],
+      amount2: [''],
       agree: [false, [Validators.required]],
     });
     this.feedbackForm2.valueChanges.subscribe((data: any) =>
@@ -104,6 +143,16 @@ export class BojCreateComponent implements OnInit {
         }
       }
     }
+  }
+
+  updateValue() {
+    this.feedbackForm2.patchValue({ agree: true });
+    this.feedbackForm2.patchValue({
+      year: this.datas.data.year_id,
+    });
+    this.collectedSourceData = this.datas.data.incomes;
+    this.collectedDeductionData = this.datas.data.deductions;
+    this.sumValue();
   }
 
   onFileSelected(event: any) {
@@ -145,10 +194,10 @@ export class BojCreateComponent implements OnInit {
     this.feedback2 = this.feedbackForm2.value;
     if (this.feedback2.amount && this.feedback2.source) {
       const data = {
-        source: this.feedback2.source,
-        amount: this.feedback2.amount,
+        sources: this.feedback2.source,
+        income: this.feedback2.amount,
         fileName: this.filename,
-        image: this.image,
+        doc: this.image,
       };
       this.collectedSourceData.push(data);
       this.feedbackForm2.controls['source'].reset();
@@ -175,10 +224,10 @@ export class BojCreateComponent implements OnInit {
     this.feedback2 = this.feedbackForm2.value;
     if (this.feedback2.amount2 && this.feedback2.deduction) {
       const data = {
-        deduction: this.feedback2.deduction,
+        sources: this.feedback2.deduction,
         amount: this.feedback2.amount2,
         fileName: this.filename2,
-        image: this.image2,
+        doc: this.image2,
       };
       this.collectedDeductionData.push(data);
       this.feedbackForm2.controls['deduction'].reset();
@@ -202,65 +251,159 @@ export class BojCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.feedback2 = this.feedbackForm2.value;
     this.onValueChanged2();
     const feed1 = this.feedbackFormDirective2.invalid;
     if (feed1) {
+      this.snackBar.open('Errors in fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     } // end of if
-    else {
+    else if (
+      this.collectedDeductionData.length < 1 ||
+      this.collectedSourceData.length < 1
+    ) {
+      this.snackBar.open('Income or Deduction not added yet', '', {
+        duration: 5000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
       this.loading = true;
       this.disabled = true;
-      this.feedback2 = this.feedbackForm2.value;
-      console.log(this.feedback2);
-      // const data = {
-      //   company_tin: this.regis_data.state_tin,
-      //   reg_type: this.feedback2.type,
-      // };
-      // this.httpService
-      //   .postData(
-      //     BaseUrl.register_paye + `company_tin=${this.regis_data.state_tin}`,
-      //     data
-      //   )
-      //   .subscribe(
-      //     (data: any) => {
-      //       this.loading = false;
-      //       this.snackBar.open("Registration Successful", '', {
-      //         duration: 3000,
-      //         panelClass: 'success',
-      //         horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //       });
-      //       console.log(data);
-      //       this.dialogRef.close(data.data);
-      //     },
-      //     (err) => {
-      //       this.authService.checkExpired();
-      //       this.loading = false;
-      //       this.disabled = false;
-      //       this.dialogRef.disableClose = false;
-      //       console.log(err);
-      //       this.errorMsg = null;
-      //       this.snackBar.open(
-      //         err?.error?.message ||
-      //           err?.error?.msg ||
-      //           err?.error?.detail ||
-      //           err?.error?.status ||
-      //           'An Error Occured!',
-      //         '',
-      //         {
-      //           duration: 5000,
-      //           panelClass: 'error',
-      //           horizontalPosition: 'center',
-      //           verticalPosition: 'top',
-      //         }
-      //       );
-      //     }
-      //   );
+      this.collectedSourceData.filter((name: any) => {
+        delete name.fileName;
+      });
+      this.collectedDeductionData.filter((name: any) => {
+        delete name.fileName;
+      });
+      const data = {
+        tin: this.datas.data.state_tin,
+        incomes: this.collectedSourceData,
+        deductions: this.collectedDeductionData,
+        year_id: this.feedback2.year,
+      };
+      console.log(data);
+      this.httpService
+        .postData(BaseUrl.list_direct + `?item_id=2`, data)
+        .subscribe(
+          (data: any) => {
+            this.service.setAYearMessage({yearId: data.data.assessment.assessment_year});
+            this.loading = false;
+            console.log(data);
+            this.openDialog('', 'success');
+            this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            this.disabled = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
+    }
+  }
+
+  // update
+
+  updateData() {
+    this.feedback2 = this.feedbackForm2.value;
+    this.onValueChanged2();
+    const feed1 = this.feedbackFormDirective2.invalid;
+    if (feed1) {
+      this.snackBar.open('Errors in fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } // end of if
+    else if (
+      this.collectedDeductionData.length < 1 ||
+      this.collectedSourceData.length < 1
+    ) {
+      this.snackBar.open('Income or Deduction not added yet', '', {
+        duration: 5000,
+        panelClass: 'warning',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.loading = true;
+      this.disabled = true;
+      this.collectedSourceData.filter((name: any) => {
+        delete name.fileName;
+      });
+      this.collectedDeductionData.filter((name: any) => {
+        delete name.fileName;
+      });
+      const data = {
+        tin: this.datas.data.payer.state_tin,
+        incomes: this.collectedSourceData,
+        deductions: this.collectedDeductionData,
+        year_id: this.feedback2.year,
+      };
+      console.log(data);
+      this.httpService
+        .updateData(BaseUrl.list_direct, data, `${this.datas.data.id}/`)
+        .subscribe(
+          (data: any) => {
+            this.service.setAYearMessage({yearId: data.data.assessment.assessment_year});
+            this.loading = false;
+            console.log(data);
+            this.snackBar.open('Update Successful', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            this.router.navigate(['/dashboard/dashboard5/history/view']);
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            this.disabled = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     }
   }
 
   sumValue() {
     let source: any = this.collectedSourceData.reduce(
-      (accumulator: any, current: any) => accumulator + current.amount,
+      (accumulator: any, current: any) => accumulator + current.income,
       0
     );
     let deduction: any = this.collectedDeductionData.reduce(
@@ -286,6 +429,34 @@ export class BojCreateComponent implements OnInit {
       }
       return title;
     }
+  }
+
+  listYear() {
+    this.stateYear?.forEach((e) => {
+      if (e.length > 0) {
+        this.years = e[0].data;
+      } else {
+        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
+          (data: any) => {
+            this.years = data.results;
+            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
+          },
+          (err) => {
+            this.authService.checkExpired();
+          }
+        );
+      }
+    });
+  }
+
+  openDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(DirectDialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
   }
 
   ngOnInit(): void {}

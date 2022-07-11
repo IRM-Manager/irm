@@ -29,6 +29,9 @@ $white: #ffffff;
     background: rgba(60, 102, 163, 0.05);
     padding: 1rem;
     background: #ffffff 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .soft_pattern {
       font: $soft-pattern-font;
@@ -45,6 +48,19 @@ $white: #ffffff;
       font-weight: 500;
       margin-top: 10px;
       margin-bottom: 10px;
+      opacity: 1;
+    }
+
+    .delete {
+      width: 7rem;
+      margin-top: 2rem;
+      padding: 0.7rem;
+      background: #b5130e 0% 0% no-repeat padding-box;
+      font: normal normal normal 15px/19px Inter;
+      letter-spacing: 0px;
+      text-align: center;
+      color: $white;
+      text-transform: capitalize;
       opacity: 1;
     }
   }

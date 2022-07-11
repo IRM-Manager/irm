@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,9 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { Year } from '../../models/irm';
-import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
 import { PayeeServiceService } from '../../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
@@ -183,7 +181,7 @@ export class DirectBojComponent implements OnInit {
 
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(PayeeDialogComponent, {
+    this.dialog.open(DirectDialogComponent, {
       data: {
         type: type,
         data: data,

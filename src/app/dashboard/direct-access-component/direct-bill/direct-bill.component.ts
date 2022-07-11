@@ -13,9 +13,9 @@ import { Year } from '../../models/irm';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
 import { PayeeServiceService } from '../../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
 
 @Component({
   selector: 'app-direct-bill',
@@ -180,7 +180,7 @@ export class DirectBillComponent implements OnInit {
 
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(PayeeDialogComponent, {
+    this.dialog.open(DirectDialogComponent, {
       data: {
         type: type,
         data: data,

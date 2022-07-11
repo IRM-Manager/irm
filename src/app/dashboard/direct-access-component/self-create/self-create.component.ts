@@ -292,10 +292,11 @@ export class SelfCreateComponent implements OnInit {
         .postData(BaseUrl.list_direct + `?item_id=2`, data)
         .subscribe(
           (data: any) => {
+            this.service.setAYearMessage({yearId: data.data.assessment.assessment_year});
             this.loading = false;
             console.log(data);
             this.openDialog('', 'success');
-            this.router.navigate(['/dashboard/dashboard5/direct/self']);
+            this.router.navigate(['/dashboard/dashboard5/direct/history/view']);
           },
           (err) => {
             this.authService.checkExpired();
@@ -365,6 +366,7 @@ export class SelfCreateComponent implements OnInit {
         .updateData(BaseUrl.list_direct, data, `${this.datas.data.id}/`)
         .subscribe(
           (data: any) => {
+            this.service.setAYearMessage({yearId: data.data.assessment.assessment_year});
             this.loading = false;
             console.log(data);
             this.snackBar.open('Update Successful', '', {
@@ -373,7 +375,7 @@ export class SelfCreateComponent implements OnInit {
               horizontalPosition: 'center',
               verticalPosition: 'top',
             });
-            this.router.navigate(['/dashboard/dashboard5/direct/self']);
+            this.router.navigate(['/dashboard/dashboard5/history/view']);
           },
           (err) => {
             this.authService.checkExpired();

@@ -10,6 +10,17 @@
             <div class="soft_pattern">{{ datas?.payer?.taxpayer_name }}</div>
             <div class="reg_buss">Registered Taxpayer</div>
         </div>
+        <div>
+            <button mat-button class="delete" (click)="deleteAss()">
+                <span *ngIf="!isdelete">Delete</span>
+                <div *ngIf="isdelete" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </div>
     </div>
 
     <!-- table container -->
