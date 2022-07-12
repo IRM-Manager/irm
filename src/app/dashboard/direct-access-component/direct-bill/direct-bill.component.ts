@@ -132,10 +132,7 @@ export class DirectBillComponent implements OnInit {
     this.is_reload = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.payee_gen_bill +
-          `tin=${this.datas2.company.state_tin}&yearId=${
-            id || getHtmlYear[0]?.id
-          }`
+        BaseUrl.generate_direct_bill + `yearId=${id || getHtmlYear[0]?.id}`
       )
       .subscribe(
         (data: any) => {
@@ -179,11 +176,29 @@ export class DirectBillComponent implements OnInit {
 
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(DirectDialogComponent, {
+    const dialogRef = this.dialog.open(DirectDialogComponent, {
       data: {
         type: type,
         data: data,
       },
+    });
+    // after dialog close
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // update bill search data
+        this.searchData.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            this.searchData.splice(index, 1);
+          }
+        });
+        // update table data
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            this.datas.splice(index, 1);
+          }
+        });
+      } else {
+      }
     });
   }
 

@@ -191,11 +191,29 @@ export class PayeeGenerateBillComponent implements OnInit {
 
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(PayeeDialogComponent, {
+    const dialogRef = this.dialog.open(PayeeDialogComponent, {
       data: {
         type: type,
         data: data,
       },
+    });
+    // after dialog close
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // update bill search data
+        this.searchData.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            this.searchData.splice(index, 1);
+          }
+        });
+        // update table data
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            this.datas.splice(index, 1);
+          }
+        });
+      } else {
+      }
     });
   }
 

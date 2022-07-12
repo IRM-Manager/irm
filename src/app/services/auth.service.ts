@@ -79,6 +79,7 @@ export class AuthService {
       });
       this.router.navigate(['']);
     } else if (!RisExpired && !isExpired) {
+      this.refreshToken();
     } else {
       this.logout();
       this.router.navigate(['']);

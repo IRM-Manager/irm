@@ -162,9 +162,9 @@
 
 .print_p {
   margin-bottom: 2rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -176,6 +176,25 @@
   opacity: 1;
   text-transform: capitalize;
   padding: 0.4rem;
+}
+
+.print_delete {
+  color: #dd5f5f;
+  vertical-align: middle;
+}
+
+.loader-spin {
+  color: #dd5f5f;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .note {

@@ -100,6 +100,15 @@
                         <img src="assets/images/Iconmaterial-payment.svg" alt="">
                         pay now
                     </button>
+                    <button mat-button class="print" mat-dialog-close>
+                        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                        Close
+                    </button>
+                    <button mat-button class="print_delete" (click)="deleteBill()">
+                        <i *ngIf="!isdelete" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                        <span *ngIf="!isdelete"> Delete</span>
+                        <i *ngIf="isdelete" class="fa fa-circle-o-notch fa-lg loader-spin" aria-hidden="true"></i>
+                    </button>
                 </div>
     
             </div>

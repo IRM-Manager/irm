@@ -1,6 +1,6 @@
 <div class="wrapper-create">
 
-    <div class="header" *ngIf="!datas.update">
+    <div class="header" *ngIf="!datas?.update">
         <div class="soft_pattern">
             {{ datas?.data?.taxpayer_name }}
             <span class="material-icons-round icons-rounded" *ngIf="datas?.data?.is_verified">
@@ -10,7 +10,7 @@
         <div class="reg_buss">GTin: {{ datas?.data?.state_tin }}</div>
     </div>
 
-    <div class="header" *ngIf="datas.update">
+    <div class="header" *ngIf="datas?.update">
         <div class="soft_pattern">
             {{ datas?.data?.payer.taxpayer_name }}
             <span class="material-icons-round icons-rounded" *ngIf="datas?.data?.payer.is_verified">
@@ -21,8 +21,8 @@
     </div>
 
     <div class="form-container">
-        <div class="boj" *ngIf="!datas.update">Create Self Assessment</div>
-        <div class="boj" *ngIf="datas.update">Update Self Assessment</div>
+        <div class="boj" *ngIf="!datas?.update">Create Self Assessment</div>
+        <div class="boj" *ngIf="datas?.update">Update Self Assessment</div>
 
         <form class="nin-regis-form" id="ngForm2" novalidate [formGroup]="feedbackForm2" #fform2="ngForm">
 
@@ -152,7 +152,7 @@
             </div>
 
 
-            <div class="final_submit" *ngIf="!datas.update">
+            <div class="final_submit" *ngIf="!datas?.update">
                 <button type="submit" form="ngForm2" mat-button class="continue" (click)="onSubmit()" [disabled]="disabled">
                     <span *ngIf="!loading">Submit</span>
                     <div *ngIf="loading" class="loader">
@@ -164,7 +164,7 @@
                 </button>
             </div>
 
-            <div class="final_submit" *ngIf="datas.update">
+            <div class="final_submit" *ngIf="datas?.update">
                 <button type="submit" form="ngForm2" mat-button class="continue" (click)="updateData()" [disabled]="disabled">
                     <span *ngIf="!loading">Update</span>
                     <div *ngIf="loading" class="loader">

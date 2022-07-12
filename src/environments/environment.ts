@@ -10,6 +10,7 @@ export const BaseUrl = {
   jwt_token: 'IRM_ACCESS',
   refresh_token: 'IRM_REFRESH',
   server: 'https://irmpaye.herokuapp.com/',
+  server_image: 'https://irmpaye.herokuapp.com',
   login: 'user/api/v1/token/',
   refresh: 'user/api/v1/token/refresh/',
   list_state: 'refdata/api/v1/state/',
@@ -34,6 +35,7 @@ export const BaseUrl = {
   reset_password: 'user/api/v1/resetpassword/?email=',
   get_user_department: 'user/api/v1/userbydepartment/?id=',
   get_user_location: 'user/api/v1/userbydepartment/?id=',
+  // paye
   upload_payee: 'paye/api/v1/paye/upload/?',
   confirm_upload: 'paye/api/v1/paye/confirm_upload/?',
   list_registered_employees: 'paye/api/v1/paye/?',
@@ -47,14 +49,16 @@ export const BaseUrl = {
   list_payee: 'paye/api/v1/regpaye/',
   register_paye: 'paye/api/v1/regpaye/?',
   payee_gen_bill: 'bill/api/v1/paye/?',
+  payee_delete_gen_bill: 'bill/api/v1/paye/',
   // direct
   list_direct: 'directassessment/api/v1/self/',
   generate_direct_bill: 'bill/api/v1/da/?',
   list_boj: 'directassessment/api/v1/boj/',
+  delete_direct_bill: 'bill/api/v1/da/',
 };
 
 /*
- * For easier debugging in development mode, you can import the following file
+ * For easier debugging in development mode, yuu can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *
  * This import should be commented out in production mode because it will have a negative impact

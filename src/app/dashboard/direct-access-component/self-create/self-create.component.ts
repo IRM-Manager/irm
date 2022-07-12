@@ -232,21 +232,22 @@ export class SelfCreateComponent implements OnInit {
     this.collectedSourceData.splice(id, 1);
     this.sumValue();
   }
+
   //
   addDeduction() {
     this.snackBar.dismiss();
+    this.feedback2 = this.feedbackForm2.value;
     const get_source = this.collectedDeductionData.filter((name: any) => {
       return name?.sources?.toLowerCase() == this.feedback2?.deduction?.toLowerCase();
     });
     if (get_source.length !== 0) {
-      this.snackBar.open(`${this.feedback2.source} already exists!`, '', {
+      this.snackBar.open(`${this.feedback2.deduction} already exists!`, '', {
         duration: 3000,
         panelClass: 'warning',
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
     } else {
-      this.feedback2 = this.feedbackForm2.value;
       if (this.feedback2.amount2 && this.feedback2.deduction) {
         const data = {
           sources: this.feedback2.deduction,
@@ -352,7 +353,6 @@ export class SelfCreateComponent implements OnInit {
   }
 
   // update
-
   updateData() {
     this.feedback2 = this.feedbackForm2.value;
     this.onValueChanged2();

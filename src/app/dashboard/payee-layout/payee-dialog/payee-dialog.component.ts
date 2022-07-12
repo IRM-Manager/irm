@@ -30,6 +30,7 @@ export class PayeeDialogComponent implements OnInit {
   fileName = '';
   err = '';
   uploadLoading = false;
+  isdelete = false;
   datas: any;
 
   constructor(
@@ -92,7 +93,11 @@ export class PayeeDialogComponent implements OnInit {
       this.httpService
         .postData(
           BaseUrl.upload_payee +
-            `comp_tin=${this.datas.tin}&yearId=${this.data.data.year.id}&is_consolidated=${this.uploadForm.value.con == 'true' ? 'yes' : 'no'}`,
+            `comp_tin=${this.datas.tin}&yearId=${
+              this.data.data.year.id
+            }&is_consolidated=${
+              this.uploadForm.value.con == 'true' ? 'yes' : 'no'
+            }`,
           this.formData
         )
         .subscribe(
@@ -107,48 +112,87 @@ export class PayeeDialogComponent implements OnInit {
               data2: this.datas,
               is_con: this.uploadForm.value.con == 'true' ? true : false,
               is_con2: this.uploadForm.value.con == 'true' ? 'yes' : 'no',
-              year: this.data.data.year
-            }
+              year: this.data.data.year,
+            };
             this.openDialog(datas, 'extract');
           },
           (err) => {
             console.log(err);
-            this.uploadLoading = false; 
+            this.uploadLoading = false;
             this.dialogRef.disableClose = false;
-            if(err.status === 403) {
+            if (err.status === 403) {
               const data = {
                 data: err.error,
                 error: 'error',
                 data2: this.datas,
-                is_con: this.uploadForm.value.con == 'true' ? true : false
-              }
+                is_con: this.uploadForm.value.con == 'true' ? true : false,
+              };
               this.openDialog(data, 'extract');
-            }else {
+            } else {
               this.err =
-              err?.error?.message ||
-              err?.error?.msg ||
-              err?.error?.detail ||
-              err?.error?.status ||
-              'An Error Occured!';
-            this.snackBar.open(
-              err?.error?.message ||
+                err?.error?.message ||
                 err?.error?.msg ||
                 err?.error?.detail ||
                 err?.error?.status ||
-                'An Error Occured!',
-              '',
-              {
-                duration: 5000,
-                panelClass: 'error',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              }
-            );
+                'An Error Occured!';
+              this.snackBar.open(
+                err?.error?.message ||
+                  err?.error?.msg ||
+                  err?.error?.detail ||
+                  err?.error?.status ||
+                  'An Error Occured!',
+                '',
+                {
+                  duration: 5000,
+                  panelClass: 'error',
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                }
+              );
             }
             this.authService.checkExpired();
           }
         );
     }
+  }
+
+  //  delete generated bill
+  deleteBill() {
+    this.isdelete = true;
+    this.httpService
+      .deleteData(BaseUrl.payee_delete_gen_bill, this.data.data.id + '/')
+      .subscribe(
+        (data: any) => {
+          this.isdelete = false;
+          this.snackBar.open('Assessment Bill successfully deleted', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.dialogRef.close({ id: this.data.data.id });
+        },
+        (err) => {
+          console.log(err);
+          this.isdelete = false;
+          this.authService.checkExpired();
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              err?.error ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
   jsonData = [

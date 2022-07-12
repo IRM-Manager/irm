@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class DirectDialogComponent implements OnInit {
   manualForm!: FormGroup;
   loading = false;
   errorMsg: any;
+  isdelete = false;
 
   constructor(
     public dialogRef: MatDialogRef<DirectDialogComponent>,
@@ -69,9 +70,11 @@ export class DirectDialogComponent implements OnInit {
               data: data.data,
             };
             this.service.setMessage(setData);
-            if(this.data.type == 'manual') {
-              this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
-            }else{
+            if (this.data.type == 'manual') {
+              this.router.navigate([
+                '/dashboard/dashboard5/direct/self/create',
+              ]);
+            } else {
               this.router.navigate(['/dashboard/dashboard5/direct/boj/create']);
             }
             this.dialogRef.close();
@@ -114,6 +117,44 @@ export class DirectDialogComponent implements OnInit {
       );
   }
 
+  //  delete generated bill
+  deleteBill() {
+    this.isdelete = true;
+    this.httpService
+      .deleteData(BaseUrl.delete_direct_bill, this.data.data.id + '/')
+      .subscribe(
+        (data: any) => {
+          this.isdelete = false;
+          this.snackBar.open('Assessment Bill successfully deleted', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.dialogRef.close({ id: this.data.data.id });
+        },
+        (err) => {
+          console.log(err);
+          this.isdelete = false;
+          this.authService.checkExpired();
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              err?.error ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
 
   formatMoney(n: any) {
     const tostring = n.toString();
