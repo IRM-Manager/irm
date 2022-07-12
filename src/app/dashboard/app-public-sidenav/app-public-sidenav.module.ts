@@ -28,8 +28,10 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { DataTablesModule } from 'angular-datatables';
 import { ChartModule } from 'angular-highcharts';
 import { QrCodeModule } from 'ng-qrcode';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
+
 // import { CdkMenuModule } from '@angular/cdk/menu';
 // components
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
@@ -186,6 +188,7 @@ import { AppPublicSidenavComponent } from './app-public-sidenav.component';
     MatChipsModule,
     LoadingBarModule,
     QrCodeModule,
+    NgxDocViewerModule,
     // CdkMenuModule
   ],
 })

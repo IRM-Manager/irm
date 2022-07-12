@@ -11,6 +11,7 @@
             <div class="reg_buss">Registered Taxpayer</div>
         </div>
         <div>
+            <button mat-button class="edit" (click)="edit()">Edit</button>
             <button mat-button class="delete" (click)="deleteAss()">
                 <span *ngIf="!isdelete">Delete</span>
                 <div *ngIf="isdelete" class="loader">
@@ -42,6 +43,7 @@
                             <div class="title">Currency</div>
                             <div class="title">Date of assessment</div>
                             <div class="title">Status</div>
+                            <div class="title">Extra Info</div>
                             <div class="title2">TOTAL Tax Due</div>
                         </div>
                     </div>
@@ -57,6 +59,10 @@
                             <div class="title">{{ datas?.assessment?.created_at | date:'medium' }}</div>
                             <div class="title" *ngIf="datas?.assessment?.remitted == true" style="color: #038541;">Paid</div>
                             <div class="title" *ngIf="datas?.assessment?.remitted == false" style="color: #DD5F5F;">Not-Paid</div>
+                            <div class="title" (click)="openDialog(datas, 'check_status')" 
+                                style="color: #3C66A3; font-weight: 550; cursor: pointer;">
+                                View
+                            </div>
                             <div class="title">NGN {{ formatMoney(datas?.assessment?.assessment_total || 0) }}</div>
                         </div>
                     </div>

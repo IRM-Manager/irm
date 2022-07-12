@@ -251,36 +251,54 @@
 
 <div class="manual_file-dialog" *ngIf="data.type == 'check_status' ">
     <div class="upload_cancel_button">
-        <button mat-icon-button mat-dialog-close [routerLink]="['/dashboard/dashboard5/direct/history']">
+        <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
         </button>
     </div>
 
-    <div class="com_name">Matthew Adeboye</div>
-    <div class="tin" style="margin-top: 5px;">TIN: IRM1244325</div>
+    <div class="com_name">{{ data.data.payer.taxpayer_name }}</div>
+    <div class="tin" style="margin-top: 5px;">TIN: {{ data.data.payer.state_tin }}</div>
     <div class="reg_buss">Registered Taxpayer</div>
 
-    <div mat-dialog-content class="manual_container">
+    <div mat-dialog-content class="deduction_container">
 
-        <div>
-            <div class="manual_filling2">Self Direct Assessment</div>
+        <!-- deductions -->
+        <div class="deduction_header">Deductions</div>
+        <div class="deduction_p" *ngFor="let d of d_document;">
+            <div class="deduction-text">{{d.name}}</div>
+            <div class="deduction-text">{{formatMoney(d.amount || 0)}}</div>
+            <div class="deduction_view" (click)="openDialog(d.doc, 'view_image')">View Doc</div>
+        </div>
 
-            <form [formGroup]="manualForm" class="manual_form">
-
-                <div class="check_status_status">
-                    Your self assessment is Pending Approval
-                </div>
-
-                <div style="text-align: center;">
-                    <button mat-button class="upload_continue" [routerLink]="['/dashboard/dashboard5/direct/history']" mat-dialog-close>Check Status</button>
-                </div>
-
-            </form>
+        <!-- income -->
+        <div class="deduction_header">Income</div>
+        <div class="deduction_p" *ngFor="let d of i_document;">
+            <div class="deduction-text">{{d.name}}</div>
+            <div class="deduction-text">{{formatMoney(d.amount || 0)}}</div>
+            <div class="deduction_view" (click)="openDialog(d.doc, 'view_image')">View Doc</div>
         </div>
 
     </div>
 
 </div>
+
+
+<!-- View image -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'view_image' ">
+    <div class="upload_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <ngx-doc-viewer
+        url="{{displayImage(data.data)}}"
+        viewer="url"
+        class="deduction_image"
+        >
+    </ngx-doc-viewer>
+</div>
+
 
 <!-- success dialog box -->
 

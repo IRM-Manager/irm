@@ -154,5 +154,23 @@ export class DirectHistoryEditComponent implements OnInit {
       );
   }
 
+  edit() {
+    if (this.datas?.da_type == 'boj') {
+      const setData = {
+        update: true,
+        data: this.datas,
+      };
+      this.service.setMessage(setData);
+      this.router.navigate(['/dashboard/dashboard5/direct/boj/create']);
+    } else {
+      const setData = {
+        update: true,
+        data: this.datas,
+      };
+      this.service.setMessage(setData);
+      this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+    }
+  }
+
   ngOnInit(): void {}
 }

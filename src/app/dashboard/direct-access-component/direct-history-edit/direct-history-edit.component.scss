@@ -63,6 +63,20 @@ $white: #ffffff;
       text-transform: capitalize;
       opacity: 1;
     }
+
+    .edit {
+      width: 7rem;
+      margin-top: 2rem;
+      padding: 0.7rem;
+      background: #3c66a3 0% 0% no-repeat padding-box;
+      font: normal normal normal 15px/19px Inter;
+      letter-spacing: 0px;
+      text-align: center;
+      color: $white;
+      text-transform: capitalize;
+      opacity: 1;
+      margin-right: 15px;
+    }
   }
 
   .left_right_container {
@@ -151,7 +165,7 @@ $white: #ffffff;
     vertical-align: middle;
     text-transform: uppercase;
     padding: 15px;
-    height: 2rem;
+    height: 1rem;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -226,7 +240,6 @@ $white: #ffffff;
       transform: scale(1.55);
     }
   }
-
 }
 
 @media (max-width: 1300px) {

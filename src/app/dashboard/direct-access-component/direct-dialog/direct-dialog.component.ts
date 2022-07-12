@@ -6,6 +6,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 // state management
 import { Store } from '@ngrx/store';
@@ -27,6 +28,8 @@ export class DirectDialogComponent implements OnInit {
   loading = false;
   errorMsg: any;
   isdelete = false;
+  d_document: any;
+  i_document: any;
 
   constructor(
     public dialogRef: MatDialogRef<DirectDialogComponent>,
@@ -39,11 +42,19 @@ export class DirectDialogComponent implements OnInit {
     public shared: ToggleNavService,
     private authService: AuthService,
     private fb: FormBuilder,
-    private service: DirectServiceService
+    private service: DirectServiceService,
+    private sanitizer: DomSanitizer
   ) {
     this.createManualForm2();
-    if (this.data.type == 'manual' || this.data.type == 'check_status') {
+    if (this.data.type == 'manual') {
       dialogRef.disableClose = true;
+    } else if (this.data.type == 'check_status') {
+      this.d_document = this.data.data.document.filter((name: any) => {
+        return name.type == 'Deductions';
+      });
+      this.i_document = this.data.data.document.filter((name: any) => {
+        return name.type == 'Income';
+      });
     }
     this.authService.checkExpired();
   }
@@ -156,9 +167,25 @@ export class DirectDialogComponent implements OnInit {
       );
   }
 
+  openDialog(data: any, type: string) {
+    this.dialog.open(DirectDialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
+  }
+
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  displayImage(image: any) {
+    // return this.sanitizer.bypassSecurityTrustResourceUrl(
+    //   BaseUrl.server_image + image
+    // );
+    return BaseUrl.server_image + image;
   }
 
   ngOnInit(): void {
