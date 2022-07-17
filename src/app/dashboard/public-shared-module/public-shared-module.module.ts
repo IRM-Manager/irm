@@ -50,7 +50,6 @@ import { ProfileSidenavListComponent } from '../profile-component/profile-sidena
 import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/taxpayer-dialog.component';
 import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
 import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
-import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
 import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
 import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-plate/vehicle-reg-plate.component';
@@ -76,7 +75,6 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-compo
     // dialog
     DialogComponent,
     MdaDialogComponent,
-    VehicleDialogComponent,
     AdminConsoleDialogComponent,
     TaxpayerDialogComponent,
     Dialog2Component,

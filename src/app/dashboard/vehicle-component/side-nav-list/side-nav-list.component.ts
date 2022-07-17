@@ -21,7 +21,7 @@ export class SideNavListComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  PayeeBack() {
+  payeeBack() {
     this._location.back();
   }
 
@@ -29,7 +29,7 @@ export class SideNavListComponent implements OnInit {
     this.onPublicHeaderToggleSidenav();
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {

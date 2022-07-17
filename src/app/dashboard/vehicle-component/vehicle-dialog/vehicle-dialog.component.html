@@ -1,62 +1,107 @@
 <div class="generate-dialog" *ngIf="data.type =='generate_bill'">
-    <div class="payee_cancel_button">
-        <button mat-icon-button mat-dialog-close>
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
 
-    <div id="print-section" class="print-section">
-        <div class="title-header">DIRECT ASSESSMENT (generate bill)</div>
+    <div mat-dialog-content class="print-section" id="print-section">
 
-        <div mat-dialog-content>
+        <div>
+
+            <div class="gen_logo_p">
+                <img class="logo" src="assets/images/gombelogo.png" alt="IRM"/>
+            </div>
 
             <div class="generate_container">
-                <div class="generate_left">
-                    <div class="left-column">
-                        <span class="status">Bill status</span>
-                        <span class="pending">Pending</span>
-                    </div>
-                    <div class="tin">TIN: IRM1244325</div>
-                    <div class="com_name">Softpattern Pattern Technology</div>
-                    <div class="reg_buss">Registered Business</div>
-                </div>
-                <div class="generate_right">
 
+                <div class="gen-left-container" style="margin-bottom: 1.5rem;">
+                    <div class="generate_left">
+                         <div class="tin">GTin: 4344434</div>
+                        <div class="tin">Vehicle Make:: 43434443</div>
+                        <div class="tin">Chasis Number:: 43434t43t4</div>
+                        <div class="tin">Address: 44t4t4t43}</div>
+                        <div class="tin">Owner: t43t443tt43t</div>
+                    </div>
+
+                    <div class="generate_center">
+                        <div class="tin" style="text-transform: uppercase;">
+                            Assessment Type: t4t43t4
+                        </div>
+                        <div class="tin">Private: t43t43t43</div>
+                        <div class="tin">Vehicle Type: t4t43t43</div>
+                        <div class="tin">Engine Number: t4t43t43</div>
+                        <div class="tin">Gross weight: t4t43t43</div>
+                        <div class="tin">Max carrier: t4t43t43</div>
+                        <div class="tin">Bill Staus: 
+                            <!-- <span *ngIf="data.data.bill_status" class="gen-success">Paid</span> -->
+                            <span class="gen-failed">Not-paid</span>
+                        </div>
+                    </div>
+
+                    <div class="generate_center">
+                        <qr-code value="4343434"
+                            size="150"
+                            errorCorrectionLevel="H"
+                            centerImageSrc="undefined"
+                            centerImageSize="undefined">
+                        </qr-code>
+                    </div>
+
+                    <div style="clear: both;"></div>
+
+                </div>
+
+                <div class="gen_table">
                     <div class="column">
+
+                        <!--  -->
                         <div class="column1">
                             <div class="employee-salary">Description</div>
                             <div class="left_right">
                                 <div class="left">
                                     <div class="title">Assessment Period</div>
                                     <div class="title">Tax Type</div>
+                                    <div class="title">No. Of employee</div>
                                     <div class="title">Currency</div>
                                     <div class="title">Date of assessment</div>
-                                    <div class="title">Yearly income Gross</div>
                                     <div class="title">Total Taxable Income</div>
-                                    <div class="title">Consolidated relief allowance</div>
-                                    <div class="title">Monthly tax Liability</div>
-                                    <div class="title2">TOTAL PAYABLE</div>
+                                    <div class="title2">TOTAL PAYE PAYABLE</div>
                                 </div>
                             </div>
 
                         </div>
 
+                        <!--  -->
                         <div class="column2">
-                            <div class="deduction">Amount</div>
+                            <div class="deduction">Duration</div>
                             <div class="left_right">
                                 <div class="left2">
-                                    <div class="title">January</div>
-                                    <div class="title">Direct assessment</div>
-                                    <div class="title">NGN</div>
-                                    <div class="title">2</div>
-                                    <div class="title">01/12/2020</div>
-                                    <div class="title">NGN 10,000</div>
-                                    <div class="title">NGN 10,000</div>
-                                    <div class="title">NGN 10,000</div>
-                                    <div class="title2">NGN 10,000</div>
+                                    <div class="title">12 month</div>
+                                    <div class="title">12 month</div>
+                                    <div class="title">12 month</div>
+                                    <div class="title"></div>
+                                    <div class="title"></div>
+                                    <div class="title"></div>
+                                    <div class="title"></div>
                                 </div>
                             </div>
                         </div>
+
+                        <!--  -->
+
+                        <div class="column2">
+                            <div class="deduction">Amount (NGN)</div>
+                            <div class="left_right">
+                                <div class="left2">
+                                    <div class="title">343434</div>
+                                    <div class="title" style="text-transform: uppercase;">
+                                        4344343
+                                    </div>
+                                    <div class="title">434433434</div>
+                                    <div class="title">NGN</div>
+                                    <div class="title">44434434</div>
+                                    <div class="title">NGN 44343}</div>
+                                    <div class="title">NGN 4343</div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div style="clear: both;"></div>
@@ -64,27 +109,35 @@
                 </div>
             </div>
 
-        </div>
-        <div>
             <div class="card-actions">
+
+                <div class="note">NOTE : generated assessment will expire in 48 Hours (14/11/2018, 9:30am),
+                    payment can be paid using payment mobile App or use payment Platform.
+                </div>
+    
                 <div class="print_p">
                     <button mat-button class="print" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
-                        <img src="assets/images/print.svg" alt="">
+                        <img src="assets/images/Page-1.svg" alt="">
                         print
                     </button>
-                </div>
-                <div class="pay-now">
-                    <div class="note">NOTE : generated assessment will expire in 48 Hours (14/11/2018, 9:30am),
-                        payment can be paid using payment mobile App or use payment Platform.
-                    </div>
-                    <button mat-button class="print2">
+                    <button mat-button class="print">
                         <img src="assets/images/Iconmaterial-payment.svg" alt="">
                         pay now
                     </button>
+                    <button mat-button class="print" mat-dialog-close>
+                        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                        Close
+                    </button>
+                    <button mat-button class="print_delete" (click)="deleteBill()">
+                        <i *ngIf="!isdelete" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                        <span *ngIf="!isdelete"> Delete</span>
+                        <i *ngIf="isdelete" class="fa fa-circle-o-notch fa-lg loader-spin" aria-hidden="true"></i>
+                    </button>
                 </div>
+    
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
 
@@ -101,20 +154,356 @@
     <div mat-dialog-content class="manual_container">
 
         <div>
-            <div class="manual_filling">New vehicle registration</div>
-            <div class="manual_verify">Input Tax ID to continue</div>
+            <!-- <div class="manual_filling">New vehicle registration</div> -->
+            <div class="manual_verify">Kindly input your GTin to continue</div>
 
             <form [formGroup]="manualForm" class="manual_form">
 
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>TIN</mat-label>
+                    <mat-label>GTin</mat-label>
                     <input matInput formControlName="tin">
                 </mat-form-field>
 
                 <button mat-button class="upload_continue" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
             </form>
+
+            <div class="dont-have">Don’t Have a Tax ID? Register</div>
         </div>
 
     </div>
+
+</div>
+
+
+<!-- Vehicle Registration -->
+<div class="regis-layout" *ngIf="data.type == 'regis'">
+    <div class="regis-layout-header">
+        <p class="regis-layout-header-back" mat-dialog-close>
+            <span class="material-icons">keyboard_backspace</span>
+        </p>
+    </div>
+
+    <div class="body">
+        <div class="header-text">VEHICLE REGISTRATION</div>
+        <div class="kindly">Kindly Select the option that applies to the Tax payer</div>
+
+        <div class="card blue">New vehicle registration</div>
+        <div class="card yellow">Old new Registration</div>
+
+    </div>
+</div>
+
+<!-- Approve request layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'approve' ">
+    <div class="approve_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="approve_container">
+
+        <div>Kindly Note That upon approval</div>
+        <div>Vehicle ownership will be moved to 
+            <span class="approve-blue">Adamu Musa with GTIN 123456</span>
+        </div>
+        <div>
+            <button mat-button class="understand">I Understand</button>
+        </div>
+        <button mat-button mat-dialog-close class="approve-cancel">Cancel</button>
+
+    </div>
+
+</div>
+
+
+<!-- Success layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'success' ">
+    <div class="approve_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="success_container">
+
+        <div><img src="assets/images/Iconfeather-check-circle.svg" alt=""></div>
+
+        <div>Change of ownership</div>
+
+        <div>Approved successfully Vehicle ownership moved</div>
+        
+        <div class="success-blue">
+            Adamu Musa with GTIN 123456
+        </div>
+
+        <button mat-button mat-dialog-close class="understand2">Continue</button>
+
+    </div>
+
+</div>
+
+
+
+<!-- Decline layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'decline' ">
+    <div class="approve_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="decline_container">
+
+        <div class="decline-comment">Comment</div>
+        <div class="decline-comment2">(Comment will be sent to tax payer along notification)</div>
+        
+        <form [formGroup]="manualForm2">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Comment</mat-label>
+                <textarea matInput formControlName="body"></textarea>
+            </mat-form-field>
+            <mat-error *ngIf="formError">{{ formError }}</mat-error>
+        </form>
+
+        <div class="descline-button">
+            <button mat-button mat-dialog-close class="cancel2">Cancel</button>
+            <button mat-button mat-dialog-close class="understand2">Deny and Send</button>
+        </div>
+        
+
+    </div>
+
+</div>
+
+
+<!-- Document Receipt layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'receipt' " id="print-receipt"
+ style="height: 70vh;">
+
+    <div class="receipt-header">
+
+        <div></div>
+
+        <div>
+            <div class="receipt-header-text">Federal Rebublic of Nigeria</div>
+            <div class="receipt-header-text">(Uniform licensing scheme)</div>
+            <div class="receipt-header-text2">Vehicle licensing</div>
+        </div>
+
+        <div class="receipt_cancel_button">
+            <button mat-icon-button mat-dialog-close>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+
+    </div>
+    
+
+    <div mat-dialog-content class="receipt_container">
+
+        <div class="receipt-body" fxLayoutGap="20px">
+            <div>
+                <div>
+                    <span class="blue-receipt-header-text">Registration Number:</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">KUJ124AZ</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">State:</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">Gombe</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Issue Date:</span>
+                    <span class="black-receipt-header-text">2018-11-11</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Chasis Number:</span>
+                    <span class="black-receipt-header-text">JTEDP21A040041522</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Address:</span>
+                    <span class="black-receipt-header-text">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Owner:</span>
+                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Phone Number:</span>
+                    <span class="black-receipt-header-text">07034725207</span>
+                </div>
+            </div>
+            <!--  -->
+            <div>
+                <div>
+                    <img src="assets/images/gombelogo.png" height="75px" width="75px" alt="">
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Purpose:</span>
+                    <span class="black-receipt-header-text">Private</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Vehicle Mak:</span>
+                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Engine Number:</span>
+                    <span class="black-receipt-header-text">07034725207</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Gross weight:</span>
+                    <span class="black-receipt-header-text">07034725207</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Max carrier:</span>
+                    <span class="black-receipt-header-text">07034725207</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="receipt-footer">
+        <div>
+            <qr-code value="4343434"
+                size="150"
+                errorCorrectionLevel="H"
+                centerImageSrc="undefined"
+                centerImageSize="undefined">
+            </qr-code>
+        </div>
+
+        <div style="margin-left: 20px;">
+            <hr class="receipt-line">
+            <div class="black-receipt-header-text">Name and signature of Authorising officer</div>
+        </div>
+
+    </div>
+
+    <div style="text-align: center;">
+        <button mat-button class="print-receipt" [useExistingCss]="true" printSectionId="print-receipt" ngxPrint>
+            <img src="assets/images/Page-1.svg" alt="">
+            print
+        </button>
+    </div>
+
+</div>
+
+
+<!-- Plate Number layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'plate' " id="print-receipt"
+ style="height: 70vh;">
+
+    <div class="receipt-header" style="margin-top: 1rem;">
+
+        <div></div>
+
+        <div>
+            <div class="receipt-header-text">Federal Rebublic of Nigeria</div>
+            <div class="receipt-header-text">(Uniform licensing scheme)</div>
+            <div class="receipt-header-text2">Plate number details</div>
+        </div>
+
+        <div class="receipt_cancel_button">
+            <button mat-icon-button mat-dialog-close>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+
+    </div>
+    
+
+    <div mat-dialog-content class="receipt_container">
+        
+        <div class="plate-details">Plate number details</div>
+
+        <div class="receipt-body" fxLayoutGap="20px">
+
+            <div>
+                <div>
+                    <span class="black-receipt-header-text">Plate number:</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">KUJ124AZ</span>
+                </div>
+                <div>
+                    <span class="black-receipt-header-text">Name of Tax payer:</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">Gombe</span>
+                </div>
+                <div>
+                    <span class="black-receipt-header-text">GTin:</span>
+                    <span class="black-receipt-header-text">2018-11-11</span>
+                </div>
+            </div>
+            <!--  -->
+            <div>
+                <div>
+                    <span class="black-receipt-header-text">Phone Number:</span>
+                    <span class="black-receipt-header-text">Private</span>
+                </div>
+                <div>
+                    <span class="black-receipt-header-text">Issue date:</span>
+                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--  -->
+
+    <div mat-dialog-content class="receipt_container" style="padding-bottom: 1rem;">
+
+        <div class="plate-details">Vehicle details</div>
+
+        <div class="receipt-body" fxLayoutGap="20px">
+            <div>
+                <div>
+                    <span class="blue-receipt-header-text">Purpose:</span>
+                    <span class="black-receipt-header-text">KUJ124AZ</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Chasis Number:</span>
+                    <span class="black-receipt-header-text">Gombe</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Address:</span>
+                    <span class="black-receipt-header-text">2018-11-11</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Owner:</span>
+                    <span class="black-receipt-header-text">JTEDP21A040041522</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Phone Number:</span>
+                    <span class="black-receipt-header-text">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</span>
+                </div>
+            </div>
+            <!--  -->
+            <div>
+                <div>
+                    <span class="blue-receipt-header-text">Vehicle Make:</span>
+                    <span class="black-receipt-header-text">Private</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Engine Number:</span>
+                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Gross weight:</span>
+                    <span class="black-receipt-header-text">07034725207</span>
+                </div>
+                <div>
+                    <span class="blue-receipt-header-text">Max carrier:</span>
+                    <span class="black-receipt-header-text">07034725207</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 
 </div>

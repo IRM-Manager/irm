@@ -2,14 +2,13 @@
 <div class="wrapper2">
     <div class="button">
         <div class="logo_p">
-            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
-
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/gombelogo.png" alt="IRM"/>
             <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
                 <mat-icon>menu</mat-icon>
             </button>
         </div>
 
-        <p class="back" (click)="PayeeBack()">
+        <p class="back" (click)="payeeBack()">
             <mat-icon>keyboard_backspace</mat-icon>
             Back
         </p>
@@ -18,16 +17,17 @@
             Vehicle Licensing
         </p>
 
-        <p class="dash-text" (click)="OpenDialog('', 'manual')">
+        <p class="dash-text2" (click)="openDialog('', 'manual')">
             Vehicle Registration
         </p>
         <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/renew']" routerLinkActive="active">
             Renew vehicle Registration
         </p>
         <p class="dash-text2">
-            Revalidate Plate Number
+            Document Management
         </p>
         <p class="dash-text2">Penalties</p>
+        <p class="dash-text2">Self portal Registration management</p>
         <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/bills']" routerLinkActive="active">
             Generated Bills
         </p>

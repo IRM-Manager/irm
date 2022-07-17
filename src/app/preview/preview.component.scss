@@ -55,7 +55,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     @mixin theme($theme) {
       letter-spacing: 0px;
       font: $theme;
-      color: #3C66A3;
+      color: #3c66a3;
       text-align: left;
       margin-left: 10px;
     }
@@ -81,7 +81,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
     .identity {
       font-size: 20px;
-      color: #3C66A3;
+      color: #3c66a3;
     }
 
     .button-menu {
@@ -91,7 +91,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
       border: 1px solid $white;
       opacity: 1;
       margin-right: 2rem;
-      padding: .5rem;
+      padding: 0.5rem;
       border-radius: unset;
     }
 
@@ -113,18 +113,21 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
     .loader {
       border: 5px solid #aac7f4;
-      border-top: 5px solid #3C66A3;
+      border-top: 5px solid #3c66a3;
       border-radius: 50%;
       width: 10px;
       height: 10px;
       animation: spin 5s linear infinite;
     }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
 
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   }
 
   .container {
@@ -173,27 +176,27 @@ $right1-font: normal normal 400 15px/19px Montserrat;
   }
 
   .enumeration-background {
-    @include background-theme($theme: #C43217 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #c43217 0% 0% no-repeat padding-box);
   }
 
   .payee-background {
-    @include background-theme($theme: #3C66A3 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #3c66a3 0% 0% no-repeat padding-box);
   }
 
   .direct-background {
-    @include background-theme($theme: #D56545 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #d56545 0% 0% no-repeat padding-box);
   }
 
   .vehicle-background {
-    @include background-theme($theme: #668C89 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #668c89 0% 0% no-repeat padding-box);
   }
 
   .mda-background {
-    @include background-theme($theme: #D56545 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #d56545 0% 0% no-repeat padding-box);
   }
 
   .with-background {
-    @include background-theme($theme: #C2BB00 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #c2bb00 0% 0% no-repeat padding-box);
   }
 
   .pre-background {
@@ -201,7 +204,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
   }
 
   .wallet-background {
-    @include background-theme($theme: #005E54 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #005e54 0% 0% no-repeat padding-box);
   }
 
   .reporting-background {
@@ -209,19 +212,26 @@ $right1-font: normal normal 400 15px/19px Montserrat;
   }
 
   .admin-background {
-    @include background-theme($theme: #A1A2A6 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #a1a2a6 0% 0% no-repeat padding-box);
   }
 
   .ref-background {
-    @include background-theme($theme: #05AFF2 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #05aff2 0% 0% no-repeat padding-box);
   }
 
   .enforce-background {
-    @include background-theme($theme: #A6033F 0% 0% no-repeat padding-box);
+    @include background-theme($theme: #a6033f 0% 0% no-repeat padding-box);
   }
 
   .audit-background {
     @include background-theme($theme: #400036 0% 0% no-repeat padding-box);
   }
 
+  .tcc-background {
+    @include background-theme($theme: #b47079 0% 0% no-repeat padding-box);
+  }
+
+  .stamp-background {
+    @include background-theme($theme: #203aa2 0% 0% no-repeat padding-box);
+  }
 }

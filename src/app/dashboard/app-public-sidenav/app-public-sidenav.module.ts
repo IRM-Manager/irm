@@ -83,6 +83,7 @@ import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/ta
 import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
 import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
+import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
 import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
 import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
@@ -148,6 +149,7 @@ import { AppPublicSidenavComponent } from './app-public-sidenav.component';
     VehicleRenewViewComponent,
     VehicleRenewEditComponent,
     VehicleRegComponent,
+    VehicleDialogComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,
