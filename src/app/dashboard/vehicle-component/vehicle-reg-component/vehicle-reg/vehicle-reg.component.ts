@@ -10,7 +10,7 @@ import { VehicleServiceService } from '../../service/vehicle-service.service';
   styleUrls: ['./vehicle-reg.component.scss'],
 })
 export class VehicleRegComponent implements OnInit {
-  viewMode = 'detail';
+  viewMode = 'assessment';
   clickEventSubscription?: Subscription;
 
   constructor(

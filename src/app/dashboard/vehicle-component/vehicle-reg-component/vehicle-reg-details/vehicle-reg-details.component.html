@@ -4,7 +4,7 @@
         <p class="gap">
             <!-- Choose Registration Type -->
             <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Choose Registration Type</mat-label>
+                <mat-label>Choose Vehicle Category</mat-label>
                 <mat-select matInput formControlName="reg_type" required>
                     <mat-option value="Formal">Formal</mat-option>
                     <mat-option value="Informal">Informal</mat-option>
@@ -107,11 +107,20 @@
                 <input matInput formControlName="fuel" required>
                 <mat-error>{{formErrors.fuel}}</mat-error>
             </mat-form-field>
+            <!-- Registered Plate number -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Registered Plate number</mat-label>
+                <input matInput formControlName="plate" required>
+                <mat-error>{{formErrors.plate}}</mat-error>
+                <mat-hint align="end">
+                    <img src="assets/images/Iconfeather-check-circle.svg" class="check-hint" alt="">
+                </mat-hint>
+            </mat-form-field>
         </p>
     
         <div class="final_submit">
             <button type="submit" mat-button class="verify">
-                <span>Continue</span>
+                <span>Save and continue</span>
             </button>
         </div>
     

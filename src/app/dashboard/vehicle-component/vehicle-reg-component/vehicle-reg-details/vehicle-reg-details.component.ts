@@ -18,6 +18,7 @@ export class VehicleRegDetailsComponent implements OnInit {
 
   feedbackForm: any = FormGroup;
   feedback!: vehicle_details;
+  plateMsg: any;
 
   formErrors: any = {
     reg_type: '',
@@ -33,6 +34,7 @@ export class VehicleRegDetailsComponent implements OnInit {
     gross_weight: '',
     engine_capacity: '',
     fuel: '',
+    plate: '',
   };
 
   validationMessages: any = {
@@ -75,6 +77,11 @@ export class VehicleRegDetailsComponent implements OnInit {
     fuel: {
       required: 'required.',
     },
+    plate: {
+      required: 'required.',
+      minlength: 'must be at least 1 characters long.',
+      maxlength: 'cannot be more than 11 characters long.',
+    },
   };
 
   clickEventSubscription?: Subscription;
@@ -104,6 +111,14 @@ export class VehicleRegDetailsComponent implements OnInit {
       gross_weight: ['', [Validators.required]],
       engine_capacity: ['', [Validators.required]],
       fuel: ['', [Validators.required]],
+      plate: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(11),
+        ],
+      ],
     });
 
     this.feedbackForm.valueChanges.subscribe((data: any) =>
@@ -148,7 +163,7 @@ export class VehicleRegDetailsComponent implements OnInit {
     else {
       this.feedback = this.feedbackForm.value;
       const data = {
-        type: 'plate',
+        type: 'assessment',
         data: this.feedback,
       };
       this.service.setRegMessage(data);

@@ -1,42 +1,44 @@
 <div class="payee_wrapper">
 
     <div class="header">
-        <div class="soft_pattern">Matthew Adeboye</div>
-        <div class="reg_buss">Tax ID: 34546678844</div>
+        <div class="soft_pattern">
+            Matthew Adeboye
+            <span class="material-icons-round icons-rounded">verified_user</span>
+        </div>
+        <div class="reg_buss">GTin: 107789</div>
     </div>
 
     <div class="container">
         <button mat-button class="button" (click)="viewMode = 'detail'" [class.active]="viewMode == 'detail'">
             Vehicle Details
         </button>
-        <button mat-button class="button" (click)="viewMode = 'plate'" [class.active]="viewMode == 'plate'">
+        <!-- <button mat-button class="button" (click)="viewMode = 'plate'" [class.active]="viewMode == 'plate'">
             Select Plate No.
-        </button>
+        </button> -->
         <button mat-button class="button" (click)="viewMode = 'assessment'" [class.active]="viewMode == 'assessment'">
             Assessment
         </button>
+    </div>
 
-        <div class="container2">
-            <!--  -->
-            <div [ngSwitch]="viewMode">
-                <div *ngSwitchCase="'detail'" class="verify">
-                    <app-vehicle-reg-details></app-vehicle-reg-details>
-                </div>
-            </div>
-            <!--  -->
-            <div [ngSwitch]="viewMode">
-                <div *ngSwitchCase="'plate'" class="verify">
-                    <app-vehicle-reg-plate></app-vehicle-reg-plate>
-                </div>
-            </div>
-            <!--  -->
-            <div [ngSwitch]="viewMode">
-                <div *ngSwitchCase="'assessment'" class="verify">
-                    <app-vehicle-reg-assessment></app-vehicle-reg-assessment>
-                </div>
+    <div class="container2">
+        <!--  -->
+        <div [ngSwitch]="viewMode">
+            <div *ngSwitchCase="'detail'" class="verify">
+                <app-vehicle-reg-details></app-vehicle-reg-details>
             </div>
         </div>
-
+        <!--  -->
+        <!-- <div [ngSwitch]="viewMode">
+            <div *ngSwitchCase="'plate'" class="verify">
+                <app-vehicle-reg-plate></app-vehicle-reg-plate>
+            </div>
+        </div> -->
+        <!--  -->
+        <div [ngSwitch]="viewMode">
+            <div *ngSwitchCase="'assessment'" class="verify">
+                <app-vehicle-reg-assessment></app-vehicle-reg-assessment>
+            </div>
+        </div>
     </div>
 
 </div>

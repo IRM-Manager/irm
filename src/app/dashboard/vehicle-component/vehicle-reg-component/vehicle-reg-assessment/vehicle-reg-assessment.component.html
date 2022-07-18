@@ -1,1 +1,206 @@
-<p>vehicle-reg-assessment works!</p>
+<div class="assessment-wrapper">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState"
+                             (closed)="!panelOpenState">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                Vehicle Details
+            </mat-panel-title>
+            <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
+          </mat-expansion-panel-header>
+          <div class="panel-container">
+            
+            <table class="panel-table" fxLayoutGap="50px">
+                <!-- 1 -->
+                <tbody>
+                    <tr>
+                        <td class="title">Issue Date:</td>
+                        <td class="sub-title">2018-11-11</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Vehicle Make:</td>
+                        <td class="sub-title">Toyota highlander</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Chasis Number:</td>
+                        <td class="sub-title">JTEDP21A040041522</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Address:</td>
+                        <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Owner</td>
+                        <td class="sub-title">Matthew Adeboye</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Phone Number:</td>
+                        <td class="sub-title">07034725207</td>
+                    </tr>
+                </tbody>
+                <!-- 2 -->
+                <tbody>
+                    <tr>
+                        <td class="title">Private</td>
+                        <td class="sub-title">33e33232323</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Vehicle Type:</td>
+                        <td class="sub-title">SUV</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Engine Number:</td>
+                        <td class="sub-title">Na</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Gross weight:</td>
+                        <td class="sub-title">1472</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Max carrier:</td>
+                        <td class="sub-title">7</td>
+                    </tr>
+                </tbody>
+                <!-- 3 -->
+            </table>
+
+          </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+
+    <div class="header" *ngIf="!hide">Attached Document for Renawal</div>
+
+
+    <div class="gen_table" *ngIf="!hide">
+        <div class="column">
+
+            <!--  -->
+            <div class="column1">
+                <div class="employee-salary">Description</div>
+                <div class="left_right">
+                    <div class="left">
+                        <div class="title2">Vehicle License</div>
+                        <div class="title2">Road worthiness</div>
+                        <div class="title2">Hackney/Stage Carriage Permits</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--  -->
+
+            <div class="column2">
+                <div class="deduction">Amount (NGN)</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2">3,125</div>
+                        <div class="title2">3,125</div>
+                        <div class="title2">3,125</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Selected</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title3">
+                            <div class="check_p" (click)="chooseItem(1)">
+                                <span *ngIf="selectedId1 == 1" class="material-icons-round check">check</span>
+                            </div>
+                        </div>
+                        <div class="title3">
+                            <div class="check_p" (click)="chooseItem(2)">
+                                <span *ngIf="selectedId2 == 1" class="material-icons-round check">check</span>
+                            </div>
+                        </div>
+                        <div class="title3">
+                            <div class="check_p" (click)="chooseItem(3)">
+                                <span *ngIf="selectedId3 == 1" class="material-icons-round check">check</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="clear: both;"></div>
+
+    </div>
+
+    <div class="add" (click)="changeform()" *ngIf="!hide">Add other Items</div>
+
+    <form [formGroup]="manualForm" class="manual_form" *ngIf="form && !hide">
+        <mat-form-field class="half-width" appearance="outline">
+            <mat-label>Vehicle Items</mat-label>
+            <mat-select matInput formControlName="item">
+                <mat-option value="Formal">Formal</mat-option>
+                <mat-option value="Informal">Informal</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+    <div style="text-align: right;">
+        <button mat-button class="generate" (click)="generateAss()" *ngIf="!hide">Generate Assessment</button>
+    </div>
+
+
+    <!-- second table -->
+
+    <div class="gen_table" *ngIf="hide">
+        <div class="column">
+
+            <!--  -->
+            <div class="column1">
+                <div class="employee-salary">Description</div>
+                <div class="left_right">
+                    <div class="left">
+                        <div class="title2">Vehicle License</div>
+                        <div class="title2">Road worthiness</div>
+                        <div class="title2">Hackney/Stage Carriage Permits</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Selected</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2">12 month</div>
+                        <div class="title2">12 month</div>
+                        <div class="title2">12 month</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+
+            <div class="column2">
+                <div class="deduction">Amount (NGN)</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2">3,125</div>
+                        <div class="title2">3,125</div>
+                        <div class="title2">3,125</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="clear: both;"></div>
+
+    </div>
+
+
+    <div *ngIf="hide" style="margin-top: 1rem;">
+        <button mat-button class="generate" (click)="openDialog('', 'generate_bill')" *ngIf="hide">Generate Bill</button>
+    </div>
+
+
+</div>

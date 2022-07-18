@@ -1,17 +1,17 @@
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
 $white: #ffffff;
-$ind-border: 1px solid #45a841;
+$ind-border: 1px solid #038541;
 $ind-color: #565656;
-$select-color: #3ea84e;
-$form-color: #37a85d;
+$select-color: #038541;
+$form-color: #038541;
 $label-color: #565656;
 $verify-hover-box: 0px 3px 6px #00000029;
 $radio-color: #3c66a3;
-$back-border: 1px solid #40a84a;
-$back-color: #44a843;
-$continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%;
+$back-border: 1px solid #038541;
+$back-color: #038541;
+$continue-back: #b9a005 0% 0% no-repeat padding-box;
 $nin-shadow: 0px 3px 6px #00000029;
-$ind-font: normal normal normal 12px/15px Montserrat;
+$ind-font: normal normal normal 13px/15px Montserrat;
 $ind-font2: normal normal normal 15px/20px Montserrat;
 
 .wrapper {
@@ -59,8 +59,10 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     color: $color;
     font-weight: 500;
     opacity: 1;
-    padding: 1rem;
+    padding: 0.8rem;
+    width: 9rem;
     box-shadow: $nin-shadow;
+    text-align: center;
   }
 
   .verify {
@@ -119,6 +121,11 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     .mat-radio-outer-circle {
     border-color: $radio-color; /*outer ring color change*/
     background: $radio-color;
+  }
+
+  .check-hint {
+    height: 15px;
+    width: 15px;
   }
 }
 

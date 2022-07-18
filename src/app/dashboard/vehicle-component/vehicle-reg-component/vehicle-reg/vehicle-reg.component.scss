@@ -3,18 +3,14 @@ $soft-pattern-font: normal normal normal 15px/19px Montserrat;
 $soft-pattern-color: #3c66a3;
 $tin-color: #565656;
 $reg-buss-font: normal normal normal 15px/19px Montserrat;
-$select-color: #3ea84e;
-$form-color: #37a85d;
+$select-color: #038541;
+$form-color: #038541;
 $label-color: #565656;
-$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
-  0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
-$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
 $ind-color: #565656;
 $ind-font: normal normal normal 12px/15px Montserrat;
 $radio-color: #3c66a3;
-$active-button: 3px solid #42A847;
+$active-button: 3px solid #038541;
 
 .payee_wrapper {
   background: #f5f7fa 0% 0% no-repeat padding-box;
@@ -22,14 +18,20 @@ $active-button: 3px solid #42A847;
   padding-left: 1.5rem;
   padding-bottom: 2rem;
 
+  .header {
+    padding: 1rem;
+    margin-top: 2rem;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    width: 90%;
+  }
+
   .active {
     border-bottom: $active-button;
     border-radius: unset;
     opacity: 1;
-}
+  }
 
   .soft_pattern {
-    padding-top: 2rem;
     font: $soft-pattern-font;
     letter-spacing: 0px;
     color: $soft-pattern-color;
@@ -46,8 +48,21 @@ $active-button: 3px solid #42A847;
     opacity: 1;
   }
 
+  .icons-rounded {
+    vertical-align: middle;
+    color: #038541;
+  }
+
   .container {
-    margin-top: 2rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    width: 90%;
+    opacity: 1;
+  }
+
+  .container2 {
+    margin-top: 1rem;
     padding: 1rem;
     background: #ffffff 0% 0% no-repeat padding-box;
     width: 90%;
@@ -56,12 +71,11 @@ $active-button: 3px solid #42A847;
 
   .button {
     margin-right: 20px;
-    padding: .5rem;
+    padding: 0.5rem;
     font: normal normal normal 15px/20px Montserrat;
     font-weight: 500;
     letter-spacing: 0px;
     color: #565656;
     opacity: 1;
-    margin-bottom: 2rem;
   }
 }
