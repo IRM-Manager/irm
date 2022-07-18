@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
   selector: 'app-vehicle-reg-assessment',
   templateUrl: './vehicle-reg-assessment.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-reg-assessment.component.scss'],
 })
 export class VehicleRegAssessmentComponent implements OnInit {
@@ -41,7 +43,8 @@ export class VehicleRegAssessmentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     this.createManualForm2();
   }
@@ -118,6 +121,7 @@ export class VehicleRegAssessmentComponent implements OnInit {
         data: data,
       },
     });
+    this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle']);
   }
 
   ngOnInit(): void {}

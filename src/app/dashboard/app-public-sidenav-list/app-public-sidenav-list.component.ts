@@ -160,7 +160,9 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
       this.router.url == '/dashboard/dashboard5/vehicle/renew' ||
       this.router.url == '/dashboard/dashboard5/vehicle/renew/edit' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/reg'
+      this.router.url == '/dashboard/dashboard5/vehicle/reg' || 
+      this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle/receipt'
     ) {
       this.type = 'vehicle';
     }

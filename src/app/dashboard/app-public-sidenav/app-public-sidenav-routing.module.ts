@@ -49,6 +49,8 @@ import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
 import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
+import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
+import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
 
 const routes: Routes = [
   {
@@ -262,6 +264,18 @@ const routes: Routes = [
       {
         path: 'dashboard5/vehicle/reg',
         component: VehicleRegComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+
+
+      {
+        path: 'dashboard5/vehicle/reg-vehicle',
+        component: RegisteredVehicleComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/reg-vehicle/receipt',
+        component: VehicleDocumentComponent,
         canLoad: [IsLoggedInGuard],
       },
       // Account

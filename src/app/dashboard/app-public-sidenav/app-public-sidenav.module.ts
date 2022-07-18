@@ -89,6 +89,8 @@ import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/
 import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
 import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
+import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
+import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +151,8 @@ import { AppPublicSidenavComponent } from './app-public-sidenav.component';
     VehicleRenewViewComponent,
     VehicleRenewEditComponent,
     VehicleRegComponent,
+    RegisteredVehicleComponent,
+    VehicleDocumentComponent,
     VehicleDialogComponent,
     // profile
     ProfileViewComponent,
