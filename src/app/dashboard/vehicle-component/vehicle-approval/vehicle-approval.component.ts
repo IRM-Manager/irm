@@ -15,12 +15,12 @@ import { VehicleServiceService } from '../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
-  selector: 'app-vehicle-bills',
-  templateUrl: './vehicle-bills.component.html',
+  selector: 'app-vehicle-approval',
+  templateUrl: './vehicle-approval.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./vehicle-bills.component.scss'],
+  styleUrls: ['./vehicle-approval.component.scss'],
 })
-export class VehicleBillsComponent implements OnInit {
+export class VehicleApprovalComponent implements OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -165,6 +165,14 @@ export class VehicleBillsComponent implements OnInit {
         );
       }
     });
+  }
+
+  viewAss(data: any) {
+    // this.service.setviewSelfMessage(data);
+    // this.service.setAYearMessage({
+    //   yearId: data.assessment.assessment_year || this.htmlYear,
+    // });
+    // this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/receipt']);
   }
 
   openDialog(data: any, type: string) {

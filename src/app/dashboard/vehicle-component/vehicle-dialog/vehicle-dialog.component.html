@@ -176,7 +176,7 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' || data.type == 'change-owner'">
+<div class="manual_file-dialog" *ngIf="data.type == 'manual' || data.type == 'change-owner' || data.type == 'penalty'">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -187,7 +187,8 @@
 
         <div>
             <!-- <div class="manual_filling">New vehicle registration</div> -->
-            <div class="manual_verify">Kindly input your GTin to continue</div>
+            <div class="manual_verify" *ngIf="data.type == 'manual' || data.type == 'change-owner'">Kindly input your GTin to continue</div>
+            <div class="manual_verify" *ngIf="data.type == 'penalty'">Traffic Offences And Penalties</div>
 
             <form [formGroup]="manualForm" class="manual_form">
 
@@ -198,9 +199,10 @@
 
                 <button mat-button class="upload_continue" *ngIf="data.type == 'manual'" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner'" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']" mat-dialog-close>Proceed</button>
+                <button mat-button class="upload_continue" *ngIf="data.type == 'penalty'" [routerLink]="['/dashboard/dashboard5/vehicle/offence']" mat-dialog-close>Verify</button>
             </form>
 
-            <div class="dont-have">Don’t Have a Tax ID? Register</div>
+            <div class="dont-have">Don’t Have a GTin? Register</div>
         </div>
 
     </div>
@@ -242,7 +244,7 @@
             <span class="approve-blue">Adamu Musa with GTIN 123456</span>
         </div>
         <div>
-            <button mat-button class="understand">I Understand</button>
+            <button mat-button class="understand" (click)="openDialog('', 'success')">I Understand</button>
         </div>
         <button mat-button mat-dialog-close class="approve-cancel">Cancel</button>
 

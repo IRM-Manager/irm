@@ -171,6 +171,12 @@ export interface vehicle_details {
   fuel: string;
 }
 
+export interface offence {
+  violation: string;
+  fine: string;
+  penalty: string;
+}
+
 export interface editUser {
   first_name: string;
   last_name: string;

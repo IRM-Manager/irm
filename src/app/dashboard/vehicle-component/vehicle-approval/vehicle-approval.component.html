@@ -3,7 +3,7 @@
     <div class="header">
 
         <div>
-            <span class="reg_buss">Generated Bills for {{ htmlYear }}</span>
+            <span class="reg_buss">Document management for {{ htmlYear }}</span>
             <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
                 <span class="change" style="color: #5EA55A;">Change Year</span>
             </button>
@@ -19,7 +19,7 @@
             <div class="header2">
 
                 <div class="indcom">
-                    Generated Bills
+                    Document management
                 </div>
 
                 <div class="search_icon_header">
@@ -46,6 +46,23 @@
 
                 <div class="spacer"></div>
 
+                <button mat-button class="apply-ass">Get vehicle document</button>
+
+            </div>
+
+            <div class="boxes">
+                <div class="box" fxLayoutGap="15px">
+                    <div class="box-number">4</div>
+                    <div class="box-plate">All Appovals</div>
+                </div>
+                <div class="box" fxLayoutGap="15px">
+                    <div class="box-number">3</div>
+                    <div class="box-plate">Approved Request</div>
+                </div>
+                <div class="box" fxLayoutGap="15px">
+                    <div class="box-number">2</div>
+                    <div class="box-plate">Pending Approval</div>
+                </div>
             </div>
 
             <div class="table-container">
@@ -55,27 +72,35 @@
                         <thead>
                             <tr>
                                 <th class="align-middle text-center">S/N</th>
-                                <th class="align-middle text-center">Bill type</th>
-                                <th class="align-middle text-center">Taxpayer Name</th>
-                                <th class="align-middle text-center">Total amount (NGN)</th>
-                                <th class="align-middle text-center">Generated date</th>
-                                <th class="align-middle text-center">Bill Number</th>
-                                <th class="align-middle text-center">Payment status</th>
-                                <th class="align-middle text-center">Actions</th>
+                                <th class="align-middle text-center">Description</th>
+                                <th class="align-middle text-center">Request Status</th>
+                                <th class="align-middle text-center">Approved by</th>
+                                <th class="align-middle text-center">Requested by</th>
+                                <th class="align-middle text-center">Bill payment Status</th>
+                                <th class="align-middle text-center">Acions</th>
                             </tr>
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
-                                <td class="align-middle text-center">{{ data.assessment.assess_code }}</td>
+                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">
+                                    <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
+                                        Approved
+                                    </button>
+                                    <button mat-button class="pending" *ngIf="data.assessment.remitted == false">
+                                        pending
+                                    </button>
+                                </td>
                                 <td class="align-middle">
                                     {{ data.payer.taxpayer_name }}
                                     <span class="material-icons-round icons-rounded">verified_user</span>
                                 </td>
-                                <td class="align-middle">{{ data.assessment_date }}</td>
-                                <td class="align-middle text-center">{{ data.assessment.assess_code }}</td>
-                                <td class="align-middle text-center">{{ data.assessment.assess_code }}</td>
+                                <td class="align-middle">
+                                    {{ data.payer.taxpayer_name }}
+                                    <span class="material-icons-round icons-rounded">verified_user</span>
+                                </td>
                                 <td class="align-middle text-center">
                                     <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
                                         Paid
@@ -89,17 +114,16 @@
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, '')">Review Request</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'approve')">Approve Request</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'decline')">Deny Request</button>
                                         <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Bill</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="edit(data)" style="color: #3C66A3;">
-                                            Pay online
-                                        </button>
                                     </mat-menu>
                                 </td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
-                                <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

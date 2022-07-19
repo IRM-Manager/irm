@@ -1,0 +1,469 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$header-color: 1px solid #038541;
+$header-back: rgba(62, 95, 168, 0.05);
+$header-back2: #ffffff 0% 0% no-repeat padding-box;
+$ind-back: #ffffff 0% 0% no-repeat padding-box;
+$white: #ffffff;
+$ind-border: 1px solid #038541;
+$ind-font: normal normal normal 12px/15px Montserrat;
+$ind-color: #565656;
+$active-back: #387499 0% 0% no-repeat padding-box;
+$panel-text: normal normal medium 12px/15px Montserrat;
+$panel-color: #3c66a3;
+$icon-color: #45669e;
+$wrapper-back: #f5f7fa;
+$thead: #ffffff 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3c66a3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
+$animate-form: 0.5px solid #038541;
+$verify-hover-box: 0px 3px 6px #00000029;
+$label-color: #565656;
+$select-color: #038541;
+$form-color: #038541;
+$active-button: 3px solid #038541;
+$button-font: normal normal normal 12px/15px Montserrat;
+$red: #bc333e;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+$form-icon-color: rgba(27, 87, 63, 0.54);
+$placeholder-font: normal normal normal 15px/24px Montserrat;
+
+.wrapper {
+  background: $wrapper-back;
+  overflow: auto;
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 2rem;
+}
+
+.header {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+
+  .icons-rounded {
+    vertical-align: middle;
+    color: #038541;
+  }
+
+  .reg_buss {
+    font: $reg-buss-font;
+    letter-spacing: 0px;
+    color: $tin-color;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 1;
+  }
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .box:nth-child(1) {
+    background: #3c66a3 0% 0% no-repeat padding-box;
+  }
+
+  .box:nth-child(2) {
+    background: #038541 0% 0% no-repeat padding-box;
+  }
+
+  .box:nth-child(3) {
+    background: #d56545 0% 0% no-repeat padding-box;
+  }
+
+  .box-number {
+    font: normal normal normal 30px/52px Inter;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: $white;
+    opacity: 1;
+  }
+
+  .box-plate {
+    font: normal normal normal 15px/19px Inter;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: $white;
+    opacity: 1;
+  }
+}
+
+::ng-deep .choose-year-menu.mat-menu-panel {
+  height: 15rem !important;
+}
+
+.header2 {
+  opacity: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 1rem;
+  border: 1.5px solid rgba(112, 112, 112, 0.5);
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .indcom {
+    font: $panel-text;
+    letter-spacing: 0px;
+    color: $panel-color;
+    font-weight: 500;
+    font-size: 14px;
+    margin-right: 20px;
+  }
+
+  .search_icon_header {
+    float: right;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+  }
+
+  .search-form_header {
+    vertical-align: top;
+    background: $white;
+    border: 1px solid rgba(60, 102, 163, 0.5);
+  }
+
+  input[type="text"] {
+    background: $white;
+    box-sizing: border-box;
+    border: 1px solid $white;
+    border-radius: 2px;
+    height: 35px;
+    width: 25vw;
+    font: $placeholder-font;
+    padding-left: 1px;
+  }
+
+  [type="text"]:focus {
+    outline: none;
+  }
+
+  .form-icon_header {
+    color: $form-icon-color;
+    margin-left: 10px;
+    padding: unset;
+  }
+
+  .form-select {
+    height: 40px;
+    font-size: 14px;
+    border-radius: unset;
+    padding-left: 10px;
+    padding-right: unset;
+    padding-bottom: unset;
+    padding-top: unset;
+    border: unset;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04),
+      inset 0px 4px 4px rgba(229, 229, 229, 0.3);
+    background-image: unset;
+  }
+
+  .form-select2 {
+    width: 3rem;
+  }
+
+  .dashboard_select {
+    margin-left: 5px;
+    border: 1px solid rgba(60, 102, 163, 0.5);
+    background: #ffffff 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form-dashboard_select {
+    color: #000000;
+  }
+
+  .option-white {
+    color: $white;
+  }
+
+  .option-white:hover {
+    color: $white;
+  }
+
+  .form-selecta-tax {
+    width: 7.6rem;
+    border-radius: 10px;
+  }
+
+  .dashboard_select-tax {
+    border-radius: 10px;
+    margin-right: 5px;
+    border: 0.5px solid #707070;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .icon-drop-down {
+    color: #3c66a3;
+    font-size: 40px;
+  }
+
+  .tax-option {
+    padding-top: 1rem;
+  }
+
+  .ellipsis {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    opacity: 1;
+    color: #707070;
+    padding: 0.2rem;
+  }
+
+  .apply-ass {
+    background: #b9a005 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    font: normal normal normal 13px/17px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    padding: 0.5rem;
+    font-weight: 500;
+  }
+}
+
+.table-container {
+  margin-bottom: 2rem;
+  width: 100%;
+
+  table {
+    border: none;
+    margin-bottom: 1rem;
+  }
+
+  thead tr {
+    background: $thead;
+    text-align: left;
+    font: $thead-text;
+    letter-spacing: 0px;
+    color: $thead-text-color;
+  }
+
+  tbody tr {
+    font: $tbody-back;
+    letter-spacing: 0px;
+    color: $tbody-color;
+  }
+
+  tr th {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-right: 1.5px solid rgba(112, 112, 112, 0.5);
+    text-align: center;
+  }
+
+  tr th:last-child {
+    border-right: unset;
+  }
+
+  .ellipsis {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    opacity: 1;
+    color: #707070;
+    padding: 0.2rem;
+  }
+
+  .icons-rounded {
+    vertical-align: middle;
+    color: #038541;
+    font-size: 17px;
+  }
+
+  .paid {
+    background: #038541 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #ffffff;
+    opacity: 1;
+    width: 4rem;
+    padding: 0.3rem;
+    border-radius: 10px;
+  }
+
+  .danger {
+    background: #d56545 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #ffffff;
+    opacity: 1;
+    width: 4rem;
+    padding: 0.3rem;
+    border-radius: 10px;
+  }
+
+  .pending {
+    background: #B9A005 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #ffffff;
+    opacity: 1;
+    width: 4rem;
+    padding: 0.3rem;
+    border-radius: 10px;
+  }
+
+  .loading {
+    margin-top: 1.5rem;
+  }
+
+  .reload {
+    background: $wrapper-back;
+    color: $ind-border;
+    font: $tbody-back;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    border-radius: 5px;
+    padding: 0.3rem;
+    margin-left: 10px;
+    width: 5rem;
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0 0.5em 0;
+  }
+
+  .bubble {
+    animation: expand 0.75s ease-in-out infinite;
+    border-radius: 20px;
+    display: inline-block;
+    transform-origin: center center;
+    margin: 0 3px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .bubble:nth-child(1) {
+    background: $panel-color;
+  }
+
+  .bubble:nth-child(2) {
+    animation-delay: 180ms;
+    background: $panel-color;
+  }
+
+  .bubble:nth-child(3) {
+    animation-delay: 360ms;
+    background: $panel-color;
+  }
+
+  .bubble:nth-child(4) {
+    animation-delay: 540ms;
+    background: $panel-color;
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.55);
+    }
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
+    display: none !important;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    display: none !important;
+  }
+
+  ::ng-deep #DataTables_Table_0_info {
+    display: none !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting {
+    background-image: unset !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting_asc {
+    background-image: unset !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting::after {
+    display: none !important;
+  }
+
+  ::ng-deep table.dataTable thead .sorting::before {
+    display: none !important;
+  }
+
+  ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
+    background: $header-back;
+  }
+
+  ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
+    background: $wrapper-back !important;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_length select {
+    border: $ind-border;
+    font: $tbody-back;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_length label {
+    color: $tbody-color;
+    font: $tbody-back;
+  }
+
+  ::ng-deep .dataTables_wrapper .dataTables_filter {
+    display: none;
+  }
+
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    font: $tbody-back;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+}

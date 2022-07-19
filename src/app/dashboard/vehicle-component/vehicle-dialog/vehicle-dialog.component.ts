@@ -153,6 +153,7 @@ export class VehicleDialogComponent implements OnInit {
   }
 
   openDialog(data: any, type: string) {
+    this.dialogRef.close();
     this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,

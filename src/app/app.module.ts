@@ -67,7 +67,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     HomeComponent,
     PreviewComponent,
     SignupComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
   ],
   imports: [
     BrowserModule,

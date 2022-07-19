@@ -94,6 +94,8 @@ import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-compo
 import { ChangeOwnerComponent } from '../vehicle-component/change-owner/change-owner.component';
 import { PlateComponent } from '../vehicle-component/plate/plate.component';
 import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
+import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
+import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
 
 @NgModule({
   declarations: [
@@ -159,7 +161,9 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate
     ChangeOwnerComponent,
     PlateComponent,
     VehicleRegPlateComponent,
+    VehicleOffenceComponent,
     VehicleDialogComponent,
+    VehicleApprovalComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,
