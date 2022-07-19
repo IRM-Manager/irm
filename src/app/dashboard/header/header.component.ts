@@ -244,7 +244,8 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/reg-plate' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-plate/create' ||
       this.router.url == '/dashboard/dashboard5/vehicle/offence' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/approval'
+      this.router.url == '/dashboard/dashboard5/vehicle/approval' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/approval/review'
     ) {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';

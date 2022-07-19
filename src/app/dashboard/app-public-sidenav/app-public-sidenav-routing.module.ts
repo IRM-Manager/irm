@@ -56,6 +56,7 @@ import { PlateComponent } from '../vehicle-component/plate/plate.component';
 import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
 import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
 import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
+import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
 
 const routes: Routes = [
   {
@@ -304,6 +305,11 @@ const routes: Routes = [
       {
         path: 'dashboard5/vehicle/approval',
         component: VehicleApprovalComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/approval/review',
+        component: VehicleApprovalReviewComponent,
         canLoad: [IsLoggedInGuard],
       },
       // Account
