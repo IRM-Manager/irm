@@ -20,14 +20,14 @@
         <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/reg-vehicle']" routerLinkActive="active">
             Vehicle Registration
         </p>
-        <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/renew']" routerLinkActive="active">
-            Renew vehicle Registration
+        <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/reg-plate']" routerLinkActive="active">
+            Plate number Management
         </p>
-        <p class="dash-text2">
+        <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/approval']">
             Document Management
         </p>
-        <p class="dash-text2">Penalties</p>
-        <p class="dash-text2">Self portal Registration management</p>
+        <p class="dash-text2" (click)="openDialog('', 'penalty')">Penalties</p>
+        <p class="dash-text2" (click)="openDialog('', 'change-owner')">Change Of Ownership</p>
         <p class="dash-text2" [routerLink]="['/dashboard/dashboard5/vehicle/bills']" routerLinkActive="active">
             Generated Bills
         </p>

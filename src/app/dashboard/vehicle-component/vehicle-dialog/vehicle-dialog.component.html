@@ -176,7 +176,8 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' || data.type == 'change-owner' || data.type == 'penalty'">
+<div class="manual_file-dialog" 
+    *ngIf="data.type == 'manual' || data.type == 'change-owner' || data.type == 'penalty' || data.type == 'change-owner2'">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -187,11 +188,11 @@
 
         <div>
             <!-- <div class="manual_filling">New vehicle registration</div> -->
-            <div class="manual_verify" *ngIf="data.type == 'manual' || data.type == 'change-owner'">Kindly input your GTin to continue</div>
+            <div class="manual_verify" *ngIf="data.type == 'manual'">Kindly input your GTin to continue</div>
             <div class="manual_verify" *ngIf="data.type == 'penalty'">Traffic Offences And Penalties</div>
+            <div class="manual_verify" *ngIf="data.type == 'change-owner2'" >New Owner ID</div>
 
             <form [formGroup]="manualForm" class="manual_form">
-
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>GTin</mat-label>
                     <input matInput formControlName="tin">
@@ -199,6 +200,7 @@
 
                 <button mat-button class="upload_continue" *ngIf="data.type == 'manual'" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner'" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']" mat-dialog-close>Proceed</button>
+                <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner2'" [routerLink]="['/dashboard/dashboard5/vehicle/approval/review']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'penalty'" [routerLink]="['/dashboard/dashboard5/vehicle/offence']" mat-dialog-close>Verify</button>
             </form>
 
@@ -230,7 +232,7 @@
 
 <!-- Approve request layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'approve' ">
+<div class="manual_file-dialog" *ngIf="data.type == 'approve'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -238,7 +240,6 @@
     </div>
 
     <div mat-dialog-content class="approve_container">
-
         <div>Kindly Note That upon approval</div>
         <div>Vehicle ownership will be moved to 
             <span class="approve-blue">Adamu Musa with GTIN 123456</span>
@@ -247,15 +248,34 @@
             <button mat-button class="understand" (click)="openDialog('', 'success')">I Understand</button>
         </div>
         <button mat-button mat-dialog-close class="approve-cancel">Cancel</button>
-
     </div>
 
 </div>
 
 
+<!-- Approve request layout2 -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'delay-approve'">
+    <div class="approve_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="approve_container">
+        <div>Kindly Note That all pending Liabilities</div>
+        <div>will be add to the Bill and must be paid before approval of change of ownership</div>
+        <div>
+            <button mat-button class="understand" (click)="changeOwner()">I Understand</button>
+        </div>
+        <button mat-button mat-dialog-close class="approve-cancel">Cancel</button>
+    </div>
+
+</div>
+
 <!-- Success layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'success' ">
+<div class="manual_file-dialog" *ngIf="data.type == 'success'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -273,9 +293,7 @@
         <div class="success-blue">
             Adamu Musa with GTIN 123456
         </div>
-
         <button mat-button mat-dialog-close class="understand2">Continue</button>
-
     </div>
 
 </div>
@@ -284,7 +302,7 @@
 
 <!-- Decline layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'decline' ">
+<div class="manual_file-dialog" *ngIf="data.type == 'decline'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -308,8 +326,6 @@
             <button mat-button mat-dialog-close class="cancel2">Cancel</button>
             <button mat-button mat-dialog-close class="understand2">Deny and Send</button>
         </div>
-        
-
     </div>
 
 </div>

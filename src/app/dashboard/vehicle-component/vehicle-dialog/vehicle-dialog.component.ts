@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MatDialogRef,
@@ -18,6 +18,7 @@ import { VehicleServiceService } from '../service/vehicle-service.service';
 @Component({
   selector: 'app-vehicle-dialog',
   templateUrl: './vehicle-dialog.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-dialog.component.css'],
 })
 export class VehicleDialogComponent implements OnInit {
@@ -160,6 +161,11 @@ export class VehicleDialogComponent implements OnInit {
         data: data,
       },
     });
+  }
+
+  changeOwner() {
+    this.router.navigate(['/dashboard/dashboard5/vehicle/change-owner']);
+    this.openDialog('', 'generate_bill');
   }
 
   ngOnInit(): void {
