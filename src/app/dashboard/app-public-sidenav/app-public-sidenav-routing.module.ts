@@ -51,6 +51,9 @@ import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-vi
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
 import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
+import { ChangeOwnerComponent } from '../vehicle-component/change-owner/change-owner.component';
+import { PlateComponent } from '../vehicle-component/plate/plate.component';
+import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
 
 const routes: Routes = [
   {
@@ -266,8 +269,6 @@ const routes: Routes = [
         component: VehicleRegComponent,
         canLoad: [IsLoggedInGuard],
       },
-
-
       {
         path: 'dashboard5/vehicle/reg-vehicle',
         component: RegisteredVehicleComponent,
@@ -276,6 +277,21 @@ const routes: Routes = [
       {
         path: 'dashboard5/vehicle/reg-vehicle/receipt',
         component: VehicleDocumentComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/change-owner',
+        component: ChangeOwnerComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/reg-plate',
+        component: PlateComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/reg-plate/create',
+        component: VehicleRegPlateComponent,
         canLoad: [IsLoggedInGuard],
       },
       // Account

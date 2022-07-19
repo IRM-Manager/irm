@@ -176,7 +176,7 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' ">
+<div class="manual_file-dialog" *ngIf="data.type == 'manual' || data.type == 'change-owner'">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -196,7 +196,8 @@
                     <input matInput formControlName="tin">
                 </mat-form-field>
 
-                <button mat-button class="upload_continue" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
+                <button mat-button class="upload_continue" *ngIf="data.type == 'manual'" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
+                <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner'" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']" mat-dialog-close>Proceed</button>
             </form>
 
             <div class="dont-have">Don’t Have a Tax ID? Register</div>

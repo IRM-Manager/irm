@@ -10,17 +10,17 @@ import { AppState, selectAllYear } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../../models/irm';
-import { VehicleServiceService } from '../../service/vehicle-service.service';
-import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
+import { Year } from '../../models/irm';
+import { VehicleServiceService } from '../service/vehicle-service.service';
+import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
-  selector: 'app-registered-vehicle',
-  templateUrl: './registered-vehicle.component.html',
+  selector: 'app-plate',
+  templateUrl: './plate.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./registered-vehicle.component.scss'],
+  styleUrls: ['./plate.component.scss'],
 })
-export class RegisteredVehicleComponent implements OnInit {
+export class PlateComponent implements OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -172,7 +172,7 @@ export class RegisteredVehicleComponent implements OnInit {
     // this.service.setAYearMessage({
     //   yearId: data.assessment.assessment_year || this.htmlYear,
     // });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/receipt']);
+    // this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/receipt']);
   }
 
   openDialog(data: any, type: string) {

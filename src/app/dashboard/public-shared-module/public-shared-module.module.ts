@@ -52,7 +52,7 @@ import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-siden
 import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
 import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
-import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-plate/vehicle-reg-plate.component';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +61,6 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-compo
     AppPublicSidenavListComponent,
     FooterComponent,
     VehicleRegDetailsComponent,
-    VehicleRegPlateComponent,
     VehicleRegAssessmentComponent,
     SideNavListComponent,
     BottomSidenavMenuComponent,
@@ -121,7 +120,6 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-compo
     HeaderComponent,
     AppPublicSidenavListComponent,
     VehicleRegDetailsComponent,
-    VehicleRegPlateComponent,
     VehicleRegAssessmentComponent,
     FooterComponent,
     SideNavListComponent,

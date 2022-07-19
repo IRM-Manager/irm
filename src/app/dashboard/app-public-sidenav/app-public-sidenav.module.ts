@@ -91,6 +91,9 @@ import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-vi
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
 import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
+import { ChangeOwnerComponent } from '../vehicle-component/change-owner/change-owner.component';
+import { PlateComponent } from '../vehicle-component/plate/plate.component';
+import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
 
 @NgModule({
   declarations: [
@@ -153,6 +156,9 @@ import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-compo
     VehicleRegComponent,
     RegisteredVehicleComponent,
     VehicleDocumentComponent,
+    ChangeOwnerComponent,
+    PlateComponent,
+    VehicleRegPlateComponent,
     VehicleDialogComponent,
     // profile
     ProfileViewComponent,

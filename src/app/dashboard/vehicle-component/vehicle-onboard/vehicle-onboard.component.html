@@ -5,11 +5,11 @@
             <div class="icon"><img src="assets/images/Icon-ionic-ios-car.svg" alt=""></div>
             <div class="text">New Vehicle Registration</div>
         </div>
-        <div class="card">
+        <div class="card" (click)="openDialog('', 'change-owner')">
             <div class="icon"><img src="assets/images/Layer_2.svg" alt=""></div>        
             <div class="text">Change of ownership</div>
         </div>
-        <div class="card">
+        <div class="card" [routerLink]="['/dashboard/dashboard5/vehicle/reg-plate']">
             <div class="icon"><img src="assets/images/Layer_2.svg" alt=""></div>        
             <div class="text">Plate number Management</div>
         </div>

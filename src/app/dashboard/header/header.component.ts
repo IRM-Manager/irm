@@ -3,7 +3,7 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +17,7 @@ import {
   selectAllIndPayer,
   selectAllProfile,
   selectAllStates,
-  selectAllYear,
+  selectAllYear
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -27,7 +27,7 @@ import {
   AddIndPayer,
   AddProfile,
   AddStates,
-  AddYear,
+  AddYear
 } from '../../actions/irm.action';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ComPayer, IndPayer, Profile, States, Year } from '../models/irm';
@@ -95,8 +95,7 @@ export class HeaderComponent implements OnInit {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
-    } 
-    else if (this.router.url == '/dashboard/dashboard2/taxpayer/non') {
+    } else if (this.router.url == '/dashboard/dashboard2/taxpayer/non') {
       this.type = 'tax';
       this.left_text1 = 'Taxpayer';
       this.left_text2 = 'Check all the list of registered member';
@@ -240,7 +239,10 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/renew' ||
       this.router.url == '/dashboard/dashboard5/vehicle/renew/edit' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle/receipt'
+      this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle/receipt' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/change-owner' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/reg-plate' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/reg-plate/create'
     ) {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { VehicleServiceService } from '../service/vehicle-service.service';
 
 @Component({
   selector: 'app-vehicle-reg-plate',
