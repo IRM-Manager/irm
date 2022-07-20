@@ -1,1 +1,26 @@
-<p>vehicle-reg-plate works!</p>
+<div class="wrapper">
+
+    <mat-toolbar class="header">
+        <div class="upload">Upload Plate numbers</div>
+    </mat-toolbar>
+
+    <div class="container">
+        <div class="upload2">Upload Plate number</div>
+        <div class="upload3">Upload the available plate number in the specify format excel format available</div>
+        <input type="file" class="upload-file-input" (change)="onFileSelected($event)" #fileUpload accept=".csv"/>
+        <div class="browse" (click)="fileUpload.click()">
+            <div>
+                <span class="material-icons-round icon-round">cloud_upload</span>
+            </div>
+            <div class="drag" *ngIf="!filename">Browse .csv file</div>
+            <div class="drag" *ngIf="filename">{{ filename }}</div>
+        </div>
+
+        <div class="file-type">CSV | up to 20 MB each</div>
+
+        <div>
+            <button mat-button="mat-button" class="generate" (click)="openDialog('', 'generate_bill')">Extract</button>
+        </div>
+    </div>
+
+</div>
