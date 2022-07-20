@@ -1,0 +1,138 @@
+$ind-back: #ffffff 0% 0% no-repeat padding-box;
+$white: #ffffff;
+$ind-border: 1px solid #038541;
+$ind-color: #565656;
+$select-color: #038541;
+$form-color: #038541;
+$label-color: #565656;
+$verify-hover-box: 0px 3px 6px #00000029;
+$radio-color: #3c66a3;
+$back-border: 1px solid #038541;
+$back-color: #038541;
+$continue-back: #b9a005 0% 0% no-repeat padding-box;
+$nin-shadow: 0px 3px 6px #00000029;
+$ind-font: normal normal normal 13px/15px Montserrat;
+$ind-font2: normal normal normal 15px/20px Montserrat;
+
+.wrapper {
+  input[type="text"] {
+    background: $label-color;
+  }
+
+  mat-error {
+    text-transform: capitalize;
+    font: $ind-font;
+  }
+
+  mat-label {
+    font: $ind-font2;
+    font-weight: 500;
+  }
+
+  mat-form-field {
+    color: 1px solid $form-color;
+  }
+
+  @mixin form($width) {
+    width: $width;
+    margin-right: 2%;
+  }
+
+  .half-width {
+    @include form($width: 20rem);
+  }
+
+  .radio_button {
+    margin-left: 30px;
+  }
+
+  .final_submit {
+    margin-top: 2rem;
+  }
+
+  @mixin veryfy($back, $color, $font, $border) {
+    letter-spacing: 0px;
+    font: $font;
+    background: $back;
+    border: $border;
+    border-radius: 10px;
+    color: $color;
+    font-weight: 500;
+    opacity: 1;
+    padding: 0.8rem;
+    width: 9rem;
+    box-shadow: $nin-shadow;
+    text-align: center;
+  }
+
+  .verify {
+    width: 150px;
+    @include veryfy(
+      $back: $continue-back,
+      $color: $white,
+      $font: $ind-font,
+      $border: unset
+    );
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected,
+  .mat-step-header .mat-step-icon-state-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    background-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $form-color;
+  }
+
+  ::ng-deep
+    .mat-form-field-appearance-outline.mat-focused
+    .mat-form-field-outline-thick {
+    color: $form-color;
+  }
+
+  ::ng-deep .mat-input-element {
+    caret-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field-underline,
+  ::ng-deep .mat-form-field-ripple {
+    background: $radio-color;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: $radio-color;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $white; /*inner circle color change*/
+  }
+
+  ::ng-deep
+    .mat-radio-button.mat-accent.mat-radio-checked
+    .mat-radio-outer-circle {
+    border-color: $radio-color; /*outer ring color change*/
+    background: $radio-color;
+  }
+
+  .check-hint {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .wrapper {
+    .half-width {
+      width: 48%;
+    }
+  }
+}

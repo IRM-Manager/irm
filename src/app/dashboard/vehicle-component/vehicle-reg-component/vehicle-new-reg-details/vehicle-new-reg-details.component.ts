@@ -7,12 +7,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 
 @Component({
-  selector: 'app-vehicle-reg-details',
-  templateUrl: './vehicle-reg-details.component.html',
+  selector: 'app-vehicle-new-reg-details',
+  templateUrl: './vehicle-new-reg-details.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./vehicle-reg-details.component.scss'],
+  styleUrls: ['./vehicle-new-reg-details.component.scss'],
 })
-export class VehicleRegDetailsComponent implements OnInit {
+export class VehicleNewRegDetailsComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
 
   feedbackForm: any = FormGroup;
@@ -33,7 +33,6 @@ export class VehicleRegDetailsComponent implements OnInit {
     gross_weight: '',
     engine_capacity: '',
     fuel: '',
-    plate: '',
   };
 
   validationMessages: any = {
@@ -76,11 +75,6 @@ export class VehicleRegDetailsComponent implements OnInit {
     fuel: {
       required: 'required.',
     },
-    plate: {
-      required: 'required.',
-      minlength: 'must be at least 1 characters long.',
-      maxlength: 'cannot be more than 11 characters long.',
-    },
   };
 
   clickEventSubscription?: Subscription;
@@ -110,14 +104,6 @@ export class VehicleRegDetailsComponent implements OnInit {
       gross_weight: ['', [Validators.required]],
       engine_capacity: ['', [Validators.required]],
       fuel: ['', [Validators.required]],
-      plate: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(11),
-        ],
-      ],
     });
 
     this.feedbackForm.valueChanges.subscribe((data: any) =>
@@ -162,11 +148,11 @@ export class VehicleRegDetailsComponent implements OnInit {
     else {
       this.feedback = this.feedbackForm.value;
       const data = {
-        type: 'assessment',
+        type: 'plate',
         data: this.feedback,
       };
-      this.service.setRegMessage(data);
-      this.service.sendClickEvent();
+      this.service.setRegMessage2(data);
+      this.service.sendClickEvent2();
       console.log(this.feedback);
     } // end else
   }

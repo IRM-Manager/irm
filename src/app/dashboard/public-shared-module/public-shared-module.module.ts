@@ -50,9 +50,11 @@ import { ProfileSidenavListComponent } from '../profile-component/profile-sidena
 import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/taxpayer-dialog.component';
 import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
 import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
+import { VehicleNewRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-assessment/vehicle-new-reg-assessment.component';
+import { VehicleNewRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-details/vehicle-new-reg-details.component';
+import { VehicleNewRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-plate/vehicle-new-reg-plate.component';
 import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
-
 
 @NgModule({
   declarations: [
@@ -71,6 +73,9 @@ import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-com
     TaxpayerSidenavListComponent,
     PayeeSidenavListComponent,
     ProfileSidenavListComponent,
+    VehicleNewRegDetailsComponent,
+    VehicleNewRegPlateComponent,
+    VehicleNewRegAssessmentComponent,
     // dialog
     DialogComponent,
     MdaDialogComponent,
@@ -131,6 +136,9 @@ import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-com
     TaxpayerSidenavListComponent,
     PayeeSidenavListComponent,
     ProfileSidenavListComponent,
+    VehicleNewRegDetailsComponent,
+    VehicleNewRegPlateComponent,
+    VehicleNewRegAssessmentComponent,
     // module
     MatListModule,
     MatCardModule,

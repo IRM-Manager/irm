@@ -86,8 +86,6 @@ import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicl
 import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
 import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
 import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
-import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
-import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
 import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
@@ -97,6 +95,7 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate
 import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
 import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
 import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
+import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
 
 @NgModule({
   declarations: [
@@ -154,8 +153,6 @@ import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-app
     // vehicle
     VehicleOnboardComponent,
     VehicleBillsComponent,
-    VehicleRenewViewComponent,
-    VehicleRenewEditComponent,
     VehicleRegComponent,
     RegisteredVehicleComponent,
     VehicleDocumentComponent,
@@ -166,6 +163,8 @@ import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-app
     VehicleDialogComponent,
     VehicleApprovalComponent,
     VehicleApprovalReviewComponent,
+    VehicleNewRegComponent,
+    VehicleNewRegComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,

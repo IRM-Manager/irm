@@ -236,8 +236,6 @@ export class HeaderComponent implements OnInit {
     else if (
       this.router.url == '/dashboard/dashboard5/vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/renew' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/renew/edit' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/document' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner' ||
@@ -245,14 +243,12 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/reg-plate/create' ||
       this.router.url == '/dashboard/dashboard5/vehicle/offence' ||
       this.router.url == '/dashboard/dashboard5/vehicle/approval' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/approval/review'
+      this.router.url == '/dashboard/dashboard5/vehicle/approval/review' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/new-reg' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/reg'
     ) {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';
-    } else if (this.router.url == '/dashboard/dashboard5/vehicle/reg') {
-      this.type = 'mda';
-      this.left_text1 = 'Vehicle Licensing';
-      this.left_text2 = 'New Vehicle Registration';
     }
     // account
     else if (

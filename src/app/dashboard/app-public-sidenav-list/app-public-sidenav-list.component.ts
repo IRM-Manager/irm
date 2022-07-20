@@ -158,8 +158,6 @@ export class AppPublicSidenavListComponent implements OnInit {
     else if (
       this.router.url == '/dashboard/dashboard5/vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/renew' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/renew/edit' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg' || 
       this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/document' ||
@@ -168,7 +166,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/reg-plate/create' ||
       this.router.url == '/dashboard/dashboard5/vehicle/offence' ||
       this.router.url == '/dashboard/dashboard5/vehicle/approval' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/approval/review'
+      this.router.url == '/dashboard/dashboard5/vehicle/approval/review' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/new-reg'
     ) {
       this.type = 'vehicle';
     }

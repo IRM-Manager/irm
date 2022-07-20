@@ -46,8 +46,6 @@ import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
 import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
 import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
-import { VehicleRenewEditComponent } from '../vehicle-component/vehicle-renew-edit/vehicle-renew-edit.component';
-import { VehicleRenewViewComponent } from '../vehicle-component/vehicle-renew-view/vehicle-renew-view.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
 import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
@@ -57,6 +55,7 @@ import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate
 import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
 import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
 import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
+import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
 
 const routes: Routes = [
   {
@@ -258,16 +257,6 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard5/vehicle/renew',
-        component: VehicleRenewViewComponent,
-        canLoad: [IsLoggedInGuard],
-      },
-      {
-        path: 'dashboard5/vehicle/renew/edit',
-        component: VehicleRenewEditComponent,
-        canLoad: [IsLoggedInGuard],
-      },
-      {
         path: 'dashboard5/vehicle/reg',
         component: VehicleRegComponent,
         canLoad: [IsLoggedInGuard],
@@ -310,6 +299,11 @@ const routes: Routes = [
       {
         path: 'dashboard5/vehicle/approval/review',
         component: VehicleApprovalReviewComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/new-reg',
+        component: VehicleNewRegComponent,
         canLoad: [IsLoggedInGuard],
       },
       // Account

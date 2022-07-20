@@ -2,84 +2,44 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { vehicle_details } from 'src/app/dashboard/shared/form';
+import { offence } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
-  selector: 'app-vehicle-reg-details',
-  templateUrl: './vehicle-reg-details.component.html',
+  selector: 'app-vehicle-new-reg-plate',
+  templateUrl: './vehicle-new-reg-plate.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./vehicle-reg-details.component.scss'],
+  styleUrls: ['./vehicle-new-reg-plate.component.scss'],
 })
-export class VehicleRegDetailsComponent implements OnInit {
+export class VehicleNewRegPlateComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
 
   feedbackForm: any = FormGroup;
-  feedback!: vehicle_details;
+  feedback!: offence;
   plateMsg: any;
+  panelOpenState = false;
+  loading = false;
+  custom = false;
 
   formErrors: any = {
-    reg_type: '',
-    category: '',
-    model: '',
-    make: '',
-    sub_type: '',
-    vehicle_type: '',
-    no_carry: '',
-    vin: '',
-    weight: '',
-    color: '',
-    gross_weight: '',
-    engine_capacity: '',
-    fuel: '',
-    plate: '',
+    violation: '',
+    fine: '',
+    penalty: '',
   };
 
   validationMessages: any = {
-    reg_type: {
+    violation: {
       required: 'required.',
     },
-    category: {
+    fine: {
       required: 'required.',
     },
-    model: {
+    penalty: {
       required: 'required.',
-    },
-    make: {
-      required: 'required.',
-    },
-    sub_type: {
-      required: 'required.',
-    },
-    vehicle_type: {
-      required: 'required.',
-    },
-    no_carry: {
-      required: 'required.',
-    },
-    vin: {
-      required: 'required.',
-    },
-    weight: {
-      required: 'required.',
-    },
-    color: {
-      required: 'required.',
-    },
-    gross_weight: {
-      required: 'required.',
-    },
-    engine_capacity: {
-      required: 'required.',
-    },
-    fuel: {
-      required: 'required.',
-    },
-    plate: {
-      required: 'required.',
-      minlength: 'must be at least 1 characters long.',
-      maxlength: 'cannot be more than 11 characters long.',
     },
   };
 
@@ -88,8 +48,10 @@ export class VehicleRegDetailsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private _location: Location,
+    private service: VehicleServiceService,
     private snackBar: MatSnackBar,
-    private service: VehicleServiceService
+    private dialog: MatDialog
   ) {
     this.createForm();
     this.authService.checkExpired();
@@ -97,27 +59,9 @@ export class VehicleRegDetailsComponent implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      reg_type: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      model: ['', [Validators.required]],
-      make: ['', [Validators.required]],
-      sub_type: ['', [Validators.required]],
-      vehicle_type: ['', [Validators.required]],
-      no_carry: ['', [Validators.required]],
-      vin: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
-      color: ['', [Validators.required]],
-      gross_weight: ['', [Validators.required]],
-      engine_capacity: ['', [Validators.required]],
-      fuel: ['', [Validators.required]],
-      plate: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(11),
-        ],
-      ],
+      violation: ['', [Validators.required]],
+      fine: ['', [Validators.required]],
+      penalty: ['', [Validators.required]],
     });
 
     this.feedbackForm.valueChanges.subscribe((data: any) =>
@@ -160,15 +104,39 @@ export class VehicleRegDetailsComponent implements OnInit {
       });
     } // end of if
     else {
+      this.loading = true;
       this.feedback = this.feedbackForm.value;
       const data = {
         type: 'assessment',
         data: this.feedback,
       };
-      this.service.setRegMessage(data);
-      this.service.sendClickEvent();
+      this.service.setRegMessage2(data);
+      this.service.sendClickEvent2();
       console.log(this.feedback);
     } // end else
+  }
+
+  back() {
+    const data = {
+      type: 'detail',
+      data: '',
+    };
+    this.service.setRegMessage2(data);
+    this.service.sendClickEvent2();
+  }
+
+  openDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(VehicleDialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
+  }
+
+  selectCustom(type: boolean) {
+    this.custom = type;
   }
 
   ngOnInit(): void {}

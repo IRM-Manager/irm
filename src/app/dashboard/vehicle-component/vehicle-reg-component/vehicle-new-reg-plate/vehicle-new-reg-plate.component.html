@@ -1,0 +1,139 @@
+<div class="assessment-wrapper">
+
+    <div class="mat-accordion">
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState"
+                                 (closed)="!panelOpenState">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Vehicle Details
+                </mat-panel-title>
+                <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
+              </mat-expansion-panel-header>
+              <div class="panel-container">
+                
+                <table class="panel-table" fxLayoutGap="50px">
+                    <!-- 1 -->
+                    <tbody>
+                        <tr>
+                            <td class="title">Issue Date:</td>
+                            <td class="sub-title">2018-11-11</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Make:</td>
+                            <td class="sub-title">Toyota highlander</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Chasis Number:</td>
+                            <td class="sub-title">JTEDP21A040041522</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Address:</td>
+                            <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Owner</td>
+                            <td class="sub-title">Matthew Adeboye</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Phone Number:</td>
+                            <td class="sub-title">07034725207</td>
+                        </tr>
+                    </tbody>
+                    <!-- 2 -->
+                    <tbody>
+                        <tr>
+                            <td class="title">Private:</td>
+                            <td class="sub-title">33e33232323</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Type:</td>
+                            <td class="sub-title">SUV</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Engine Number:</td>
+                            <td class="sub-title">Na</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Gross weight:</td>
+                            <td class="sub-title">1472</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Max carrier:</td>
+                            <td class="sub-title">7</td>
+                        </tr>
+                    </tbody>
+                    <!-- 3 -->
+                </table>
+    
+              </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="form-container">
+        <div class="form-text">Select Plate Number</div>
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p class="gap">
+                <!-- Plate number Categories -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Plate number Categories</mat-label>
+                    <mat-select matInput formControlName="violation" required>
+                        <mat-option value="Formal">Formal</mat-option>
+                        <mat-option value="Informal">Informal</mat-option>
+                    </mat-select>
+                    <mat-error>{{ formErrors.violation }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p *ngIf="!custom">
+                <!-- Choose from available Plate -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Choose from available Plate</mat-label>
+                    <mat-select matInput formControlName="penalty" required>
+                        <mat-option value="Formal">Formal</mat-option>
+                        <mat-option value="Informal">Informal</mat-option>
+                    </mat-select>
+                    <mat-error>{{ formErrors.penalty }}</mat-error>
+                    <mat-hint align="end">
+                        <span class="custom" (click)="selectCustom(true)">Type a custom plate number</span>
+                    </mat-hint>
+                </mat-form-field>
+            </p>
+            <p *ngIf="custom">
+                <!-- Custom from available Plate -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Type in prefer plate number</mat-label>
+                    <input matInput formControlName="penalty" required type="number">
+                    <mat-error>{{ formErrors.penalty }}</mat-error>
+                    <mat-hint align="end">
+                        <span class="custom" (click)="selectCustom(false)">Choose from available Plate number</span>
+                    </mat-hint>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Amount (NGN)</mat-label>
+                    <input matInput formControlName="fine" required type="number">
+                    <mat-error>{{formErrors.fine}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="final_submit">
+                <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
+                <button type="submit" mat-button class="generate">
+                    <span *ngIf="!loading">Process</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
