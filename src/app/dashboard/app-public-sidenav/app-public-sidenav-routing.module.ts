@@ -278,7 +278,7 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard5/vehicle/reg-vehicle/receipt',
+        path: 'dashboard5/vehicle/document',
         component: VehicleDocumentComponent,
         canLoad: [IsLoggedInGuard],
       },

@@ -173,7 +173,7 @@ export class ChangeOwnerComponent implements OnInit {
     //   yearId: data.assessment.assessment_year || this.htmlYear,
     // });
     this.router.navigate([
-      '/dashboard/dashboard5/vehicle/reg-vehicle/receipt',
+      '/dashboard/dashboard5/vehicle/document',
     ]);
   }
 

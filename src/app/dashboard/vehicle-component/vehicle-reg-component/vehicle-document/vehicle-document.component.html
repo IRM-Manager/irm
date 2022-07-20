@@ -1,1 +1,131 @@
-<p>vehicle-document works!</p>
+<div class="wrapper">
+
+    <div class="header">
+        <div class="soft_pattern">
+            Adamu Aliyu
+            <span class="material-icons-round icons-rounded">verified_user</span>
+        </div>
+        <div class="reg_buss">GTin: 4434434343</div>
+    </div>
+
+    <div>
+        <div class="verify">
+
+            <div class="header2">
+
+                <div class="indcom">
+                    Document and receipts
+                </div>
+
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+                    </form>
+                </div>
+        
+                <div class="dashboard_select">
+                    <select class="form-select form-select2" placeholder="Filters">
+                        <option class="option-white" disabled>Filters333333331</option>
+                        <option selected>Filters</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button matSuffix mat-icon-button class="form-dashboard_select">
+                        <span class="material-icons-outlined icons-rounded">filter_alt</span>
+                    </button>
+                </div>    
+
+                <div class="spacer"></div>
+
+                <button mat-button class="apply-ass">Add</button>
+
+            </div>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="align-middle text-center">S/N</th>
+                                <th class="align-middle text-center">Vehicle details</th>
+                                <th class="align-middle text-center">Document Type</th>
+                                <th class="align-middle text-center">Amount (NGN)</th>
+                                <th class="align-middle text-center">Generated date</th>
+                                <th class="align-middle text-center">Receipt Number</th>
+                                <th class="align-middle text-center">Payment status</th>
+                                <th class="align-middle text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td class="align-middle text-center">{{i+1}}</td>
+                                <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
+                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">
+                                    <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
+                                        Active
+                                    </button>
+                                    <button mat-button class="pending" *ngIf="data.assessment.remitted == false">
+                                        Due
+                                    </button>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'receipt')">View Details</button>
+                                        <button mat-menu-item="mat-menu-item">
+                                            Download
+                                        </button>
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
+                            <span *ngIf="!is_reload">Reload</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

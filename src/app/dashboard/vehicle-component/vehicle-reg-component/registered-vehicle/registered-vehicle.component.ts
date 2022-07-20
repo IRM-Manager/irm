@@ -172,7 +172,7 @@ export class RegisteredVehicleComponent implements OnInit {
     // this.service.setAYearMessage({
     //   yearId: data.assessment.assessment_year || this.htmlYear,
     // });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/receipt']);
+    this.router.navigate(['/dashboard/dashboard5/vehicle/document']);
   }
 
   openDialog(data: any, type: string) {

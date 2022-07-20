@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 
@@ -19,7 +19,36 @@ export class SideNavListComponent implements OnInit {
     private _location: Location,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.vehicleRoute();
+      }
+    });
+  }
+
+  vehicleRoute() {
+    if (this.router.url == '/dashboard/dashboard5/vehicle/change-owner') {
+      let owner = document.querySelector('.owner');
+      owner?.classList.add('active');
+      // penalty
+      let offence = document.querySelector('.offence');
+      offence?.classList.remove('active');
+    } else if (this.router.url == '/dashboard/dashboard5/vehicle/offence') {
+      let offence = document.querySelector('.offence');
+      offence?.classList.add('active');
+      // owner
+      let owner = document.querySelector('.owner');
+      owner?.classList.remove('active');
+    } else {
+      // owner
+      let owner = document.querySelector('.owner');
+      owner?.classList.remove('active');
+      // penalty
+      let offence = document.querySelector('.offence');
+      offence?.classList.remove('active');
+    }
+  }
 
   payeeBack() {
     this._location.back();
