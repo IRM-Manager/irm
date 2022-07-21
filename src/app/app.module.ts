@@ -47,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { DataTablesModule } from 'angular-datatables';
 import 'hammerjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -112,6 +113,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     ClipboardModule,
     HttpClientModule,
     LoadingBarModule,
+    DataTablesModule,
     StoreModule.forRoot(reducers, {}),
     StoreDevtoolsModule.instrument(),
   ],

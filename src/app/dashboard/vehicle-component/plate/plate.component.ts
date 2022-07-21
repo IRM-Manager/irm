@@ -27,6 +27,8 @@ export class PlateComponent implements OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
+  total_count: number = 0;
+  active_page: number = 0;
 
   dtOptions: DataTables.Settings = {};
   datas2: any;
