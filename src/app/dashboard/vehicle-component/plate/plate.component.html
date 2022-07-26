@@ -2,13 +2,7 @@
 
     <div class="header">
         <div>
-            <span class="reg_buss">Plate numbers for {{ htmlYear }}</span>
-            <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
-                <span class="change" style="color: #5EA55A;">Change Year</span>
-            </button>
-            <mat-menu #menu2 class="choose-year-menu">
-                <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" class="mat-menu">{{ year.year }}</button>
-            </mat-menu>
+            <button mat-button class="apply-ass" (click)="openDialog('', 'reg-plate')">Register Plate number</button>
         </div>
     </div>
 

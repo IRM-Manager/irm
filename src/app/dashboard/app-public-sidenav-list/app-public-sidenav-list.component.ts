@@ -167,7 +167,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/offence' ||
       this.router.url == '/dashboard/dashboard5/vehicle/approval' ||
       this.router.url == '/dashboard/dashboard5/vehicle/approval/review' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/new-reg'
+      this.router.url == '/dashboard/dashboard5/vehicle/new-reg' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/new-plate'
     ) {
       this.type = 'vehicle';
     }

@@ -3,7 +3,7 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +17,7 @@ import {
   selectAllIndPayer,
   selectAllProfile,
   selectAllStates,
-  selectAllYear
+  selectAllYear,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -27,7 +27,7 @@ import {
   AddIndPayer,
   AddProfile,
   AddStates,
-  AddYear
+  AddYear,
 } from '../../actions/irm.action';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ComPayer, IndPayer, Profile, States, Year } from '../models/irm';
@@ -245,7 +245,8 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/approval' ||
       this.router.url == '/dashboard/dashboard5/vehicle/approval/review' ||
       this.router.url == '/dashboard/dashboard5/vehicle/new-reg' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/reg'
+      this.router.url == '/dashboard/dashboard5/vehicle/reg' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/new-plate'
     ) {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';

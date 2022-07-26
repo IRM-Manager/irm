@@ -1,0 +1,221 @@
+$ind-back: #ffffff 0% 0% no-repeat padding-box;
+$white: #ffffff;
+$ind-border: 1px solid #038541;
+$ind-color: #565656;
+$select-color: #038541;
+$form-color: #038541;
+$label-color: #565656;
+$verify-hover-box: 0px 3px 6px #00000029;
+$radio-color: #3c66a3;
+$back-border: 1px solid #038541;
+$back-color: #038541;
+$continue-back: #b9a005 0% 0% no-repeat padding-box;
+$nin-shadow: 0px 3px 6px #00000029;
+$ind-font: normal normal normal 13px/15px Montserrat;
+$ind-font2: normal normal normal 15px/20px Montserrat;
+$soft-pattern-font: normal normal normal 15px/19px Montserrat;
+$soft-pattern-color: #3c66a3;
+$tin-color: #565656;
+$reg-buss-font: normal normal normal 15px/19px Montserrat;
+
+.assessment-wrapper {
+  background: #f5f7fa 0% 0% no-repeat padding-box;
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 2rem;
+
+  .header {
+    padding: 1rem;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    margin-bottom: 20px;
+  }
+
+  .soft_pattern {
+    font: $soft-pattern-font;
+    letter-spacing: 0px;
+    color: $soft-pattern-color;
+    font-weight: 500;
+    opacity: 1;
+  }
+
+  .reg_buss {
+    font: $reg-buss-font;
+    letter-spacing: 0px;
+    color: $tin-color;
+    font-weight: 500;
+    margin-top: 10px;
+    opacity: 1;
+  }
+
+  .icons-rounded {
+    vertical-align: middle;
+    color: #038541;
+  }
+
+  .form-text {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font: normal normal normal 19px/25px Montserrat;
+    font-weight: 550;
+    letter-spacing: 0px;
+    color: #565656;
+    text-transform: capitalize;
+    opacity: 1;
+  }
+
+  .generate {
+    background: #b9a005 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    font: normal normal normal 14px/19px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    padding: 0.7rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    width: 150px;
+  }
+
+  .cancel {
+    background: $white 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    font: normal normal normal 14px/19px Montserrat;
+    letter-spacing: 0px;
+    border: 1px solid #3e5fa8;
+    color: #3e5fa8;
+    padding: 0.7rem;
+    font-weight: 500;
+    margin-right: 20px;
+    margin-top: 1rem;
+    width: 150px;
+  }
+
+  .form-container {
+    padding: 2rem;
+    text-align: center;
+    background: $white 0% 0% no-repeat padding-box;
+    opacity: 1;
+    margin-bottom: 2rem;
+  }
+
+  ::ng-deep .mat-expansion-indicator::after {
+    color: $white !important;
+  }
+
+  input[type="text"] {
+    background: $label-color;
+  }
+
+  mat-error {
+    text-transform: capitalize;
+    font: $ind-font;
+  }
+
+  mat-label {
+    font: $ind-font2;
+    font-weight: 500;
+  }
+
+  mat-form-field {
+    color: 1px solid $form-color;
+  }
+
+  .half-width {
+    width: 20rem;
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected,
+  .mat-step-header .mat-step-icon-state-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    background-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $form-color;
+  }
+
+  ::ng-deep
+    .mat-form-field-appearance-outline.mat-focused
+    .mat-form-field-outline-thick {
+    color: $form-color;
+  }
+
+  ::ng-deep .mat-input-element {
+    caret-color: $form-color;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: $label-color;
+  }
+
+  ::ng-deep .mat-form-field-underline,
+  ::ng-deep .mat-form-field-ripple {
+    background: $radio-color;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: $radio-color;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $white; /*inner circle color change*/
+  }
+
+  ::ng-deep
+    .mat-radio-button.mat-accent.mat-radio-checked
+    .mat-radio-outer-circle {
+    border-color: $radio-color; /*outer ring color change*/
+    background: $radio-color;
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0 0.5em 0;
+  }
+
+  .bubble {
+    animation: expand 0.75s ease-in-out infinite;
+    border-radius: 20px;
+    display: inline-block;
+    transform-origin: center center;
+    margin: 0 3px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .bubble:nth-child(1) {
+    background: $white;
+  }
+
+  .bubble:nth-child(2) {
+    animation-delay: 180ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(3) {
+    animation-delay: 360ms;
+    background: $white;
+  }
+
+  .bubble:nth-child(4) {
+    animation-delay: 540ms;
+    background: $white;
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.55);
+    }
+  }
+}

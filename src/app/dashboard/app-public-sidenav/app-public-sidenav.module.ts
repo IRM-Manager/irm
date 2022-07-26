@@ -96,6 +96,7 @@ import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/ve
 import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
 import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
 import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
+import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component';
 
 @NgModule({
   declarations: [
@@ -165,6 +166,7 @@ import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-compone
     VehicleApprovalReviewComponent,
     VehicleNewRegComponent,
     VehicleNewRegComponent,
+    VehicleCustomerPlateComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,

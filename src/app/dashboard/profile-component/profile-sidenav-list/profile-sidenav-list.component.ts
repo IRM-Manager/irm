@@ -16,7 +16,7 @@ export class ProfileSidenavListComponent implements OnInit {
     private _location: Location
   ) {}
 
-  PayeeBack() {
+  payeeBack() {
     this._location.back();
   }
 
