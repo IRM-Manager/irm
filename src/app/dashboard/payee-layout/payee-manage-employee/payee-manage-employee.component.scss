@@ -8,7 +8,7 @@ $white: #ffffff;
 $ind-border: 1px solid #038541;
 $ind-font: normal normal normal 12px/15px Montserrat;
 $ind-color: #565656;
-$create-back: #B9A005 0% 0% no-repeat padding-box;
+$create-back: #b9a005 0% 0% no-repeat padding-box;
 $active-back: #387499 0% 0% no-repeat padding-box;
 $panel-text: normal normal medium 12px/15px Montserrat;
 $panel-color: #3c66a3;
@@ -20,7 +20,7 @@ $thead-text-color: #3c66a3;
 $tbody-back: normal normal normal 15px/19px Montserrat;
 $tbody-color: #565656;
 $animate-form: 0.5px solid #038541;
-$verify-hover-b: #B9A005 0% 0% no-repeat padding-box;
+$verify-hover-b: #b9a005 0% 0% no-repeat padding-box;
 $verify-hover-box: 0px 3px 6px #00000029;
 $label-color: #565656;
 $select-color: #038541;
@@ -36,9 +36,6 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
 $form-icon-color: rgba(27, 87, 63, 0.54);
 
 .wrapper {
-  background: $wrapper-back;
-  overflow: auto;
-  min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
 }

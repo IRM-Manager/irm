@@ -69,14 +69,14 @@
                 <!-- individual -->
                 <tbody *ngIf="datas?.length != 0">
                     <tr *ngFor="let data of datas; let i=index">
-                        <td class="align-middle" style="text-align: center;">{{i+1}}</td>
-                        <td class="align-middle">{{ data.state_tin }}</td>
+                        <td class="align-middle text-center">{{i+1}}</td>
+                        <td class="align-middle text-center">{{ data.state_tin }}</td>
                         <td class="align-middle">{{ data.taxpayer_name }}
                             <span class="material-icons-round icons-rounded" *ngIf="data.is_verified">verified_user</span>
                         </td>
-                        <td class="align-middle">{{ data.lga_id.name }}</td>
-                        <td class="align-middle">{{ data.phone }}</td>
-                        <td class="align-middle">{{ data.location.name }}</td>
+                        <td class="align-middle text-center">{{ data.lga_id.name }}</td>
+                        <td class="align-middle text-center">{{ data.phone }}</td>
+                        <td class="align-middle text-center">{{ data.location.name }}</td>
                         <td class="align-middle" style="text-align: center;">
                             <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
                                 <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
@@ -93,13 +93,13 @@
                 </tbody>
                 <tbody *ngIf="datas?.length == 0">
                     <tr>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                        <td class="no-data-available" style="text-align: center;">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
+                        <td class="no-data-available text-center">No data!</td>
                     </tr>
                 </tbody>
 

@@ -3,7 +3,7 @@
 $card-back: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
 $card-box-shadow: 0px 6px 6px #00000029;
 $header-text: normal normal normal 15px/19px Montserrat;
-$header-color: #3C66A3;
+$header-color: #3c66a3;
 
 .card_p {
   margin-top: 2rem;
@@ -44,17 +44,17 @@ $header-color: #3C66A3;
   }
 
   .chart {
-      display: flex;
-      justify-content: left;
-      align-self: left;
-      word-wrap: break-word;
-      word-break: break-all;
-      overflow-wrap: break-word;
+    display: flex;
+    justify-content: left;
+    align-self: left;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   .chart-catalog {
-      margin-top: auto;
-      margin-bottom: auto;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .chart-catalog div {
@@ -66,62 +66,60 @@ $header-color: #3C66A3;
   }
 
   .catalog-payee {
-      background:#224478;
-      color: #224478;
+    background: #224478;
+    color: #224478;
   }
 
   .catalog-vehicle {
-    background: #BC333E;
-    color: #BC333E;
-}
+    background: #bc333e;
+    color: #bc333e;
+  }
 
-.catalog-direct {
-    background: #286C65;
-    color: #286C65;
-}
+  .catalog-direct {
+    background: #286c65;
+    color: #286c65;
+  }
 
-.catalog-land {
-    background: #4B9934;
-    color: #4B9934;
-}
+  .catalog-land {
+    background: #4b9934;
+    color: #4b9934;
+  }
 
-.catalog-other {
-    background: #C36F38;
-    color: #C36F38;
-}
+  .catalog-other {
+    background: #c36f38;
+    color: #c36f38;
+  }
 
-.catalog-a {
-    background: #4F3F8E;
-    color: #4F3F8E;
-}
+  .catalog-a {
+    background: #4f3f8e;
+    color: #4f3f8e;
+  }
 
-.catalog-b {
-    background: #4D3E00;
-    color: #4D3E00;
-}
+  .catalog-b {
+    background: #4d3e00;
+    color: #4d3e00;
+  }
 
-.catalog-c {
-    background: #CECB4C;
-    color: #CECB4C;
-}
+  .catalog-c {
+    background: #cecb4c;
+    color: #cecb4c;
+  }
 
-.catalog-d {
-    background: #69388A;
-    color: #69388A;
-}
+  .catalog-d {
+    background: #69388a;
+    color: #69388a;
+  }
 
-.catalog-o {
-    background: #2E1301;
-    color: #2E1301;
+  .catalog-o {
+    background: #2e1301;
+    color: #2e1301;
+  }
 }
-
-}
-
 
 @media (max-width: 1300px) {
-    .chart {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+  .chart {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
