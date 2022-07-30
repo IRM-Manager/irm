@@ -2,15 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Store } from '@ngrx/store';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AddYear } from 'src/app/actions/irm.action';
-import { AppState, selectAllYear } from 'src/app/reducers';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../models/irm';
 import { VehicleServiceService } from '../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 
@@ -27,6 +22,7 @@ export class PlateComponent implements OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
+  stat: any;
   total_count: number = 0;
   active_page: number = 0;
 
@@ -35,15 +31,6 @@ export class PlateComponent implements OnInit {
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
-  years: any;
-  htmlYear = new Date().getFullYear();
-
-  stateYear: Observable<Year[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
 
   formErrors: any = {};
 
@@ -54,17 +41,17 @@ export class PlateComponent implements OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private httpService: HttpService,
-    private store: Store<AppState>,
     private snackBar: MatSnackBar,
     private service: VehicleServiceService
   ) {
     this.authService.checkExpired();
-    this.stateYear = store.select(selectAllYear);
     //
-    // const get_year: any = this.service.getAYearMessage();
-    // this.htmlYear = get_year?.yearId || new Date().getFullYear();
+    this.stat = this.service.getPlateStat();
+    if (this.stat) {
+    } else {
+      this.plateStat();
+    }
     //
-    this.listYear();
   }
 
   formatDate(data: any) {
@@ -90,83 +77,49 @@ export class PlateComponent implements OnInit {
     this.datas = data;
   }
 
-  renderTable(id?: any) {
+  renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.isLoading = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.isLoading = false;
-          console.log(data);
-        },
-        (err) => {
-          this.isLoading = false;
-          this.authService.checkExpired();
-        }
-      );
-  }
-
-  reload(id?: any) {
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
-    this.is_reload = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.is_reload = false;
-          this.isLoading = false;
-          this.snackBar.open('Loaded', '', {
-            duration: 3000,
-            panelClass: 'success',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-          console.log(data);
-        },
-        (err) => {
-          this.is_reload = false;
-          this.authService.checkExpired();
-        }
-      );
-  }
-
-  listYear() {
-    this.stateYear?.forEach((e) => {
-      if (e.length > 0) {
-        this.years = e[0].data;
-        this.renderTable();
-      } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
-          (data: any) => {
-            this.years = data.results;
-            this.renderTable();
-            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
-          },
-          (err) => {
-            this.authService.checkExpired();
-          }
-        );
+    this.httpService.getAuthSingle(BaseUrl.vehicle_plateno).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.isLoading = false;
+        console.log(data);
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
       }
-    });
+    );
+  }
+
+  reload() {
+    this.is_reload = true;
+    this.httpService.getAuthSingle(BaseUrl.vehicle_plateno).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.is_reload = false;
+        this.isLoading = false;
+        this.snackBar.open('Loaded', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        console.log(data);
+      },
+      (err) => {
+        this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   viewAss(data: any) {
@@ -187,9 +140,8 @@ export class PlateComponent implements OnInit {
     });
   }
 
-  chooseYear(year: any) {
-    this.htmlYear = year.year;
-    this.reload(year.id);
+  chooseYear() {
+    this.reload();
   }
 
   formatMoney(n: any) {
@@ -207,6 +159,39 @@ export class PlateComponent implements OnInit {
     //   yearId: data.assessment.assessment_year || this.htmlYear,
     // });
     // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+  }
+
+  plateStat() {
+    this.httpService.getAuthSingle(BaseUrl.vehicle_plate_stat).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.stat = data.data;
+        this.service.setPlateStat(data.data);
+      },
+      (err) => {
+        this.authService.checkExpired();
+        console.log(err);
+      }
+    );
+  }
+
+  limit(title2: any, limit = 4) {
+    let title = title2.toString();
+    if (title === undefined) {
+      return '';
+    } else {
+      const newTitle: any = [];
+      if (title.length > limit) {
+        title.split('').reduce((acc: any, cur: any) => {
+          if (acc + cur.length <= limit) {
+            newTitle.push(cur);
+          }
+          return acc + cur.length;
+        }, 0);
+        return `${newTitle.join('')}+`;
+      }
+      return title;
+    }
   }
 
   ngOnInit(): void {

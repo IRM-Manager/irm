@@ -19,7 +19,15 @@
         <div class="file-type">CSV | up to 20 MB each</div>
 
         <div>
-            <button mat-button="mat-button" class="generate" (click)="openDialog('', 'generate_bill')">Extract</button>
+            <button mat-button="mat-button" class="generate" (click)="submit()" [disabled]="disabled">
+                <span *ngIf="!loading">Extract</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
         </div>
     </div>
 

@@ -44,16 +44,16 @@
             </div>
 
             <div class="boxes">
-                <div class="box" fxLayoutGap="15px">
-                    <div class="box-number">4</div>
+                <div class="box" fxLayoutGap="15px" [matTooltip]="stat?.total" matTooltipPosition="above">
+                    <div class="box-number">{{ limit(stat?.total || 0) }}</div>
                     <div class="box-plate">Total plate numbers</div>
                 </div>
-                <div class="box" fxLayoutGap="15px">
-                    <div class="box-number">3</div>
+                <div class="box" fxLayoutGap="15px" [matTooltip]="stat?.inuse" matTooltipPosition="above">
+                    <div class="box-number">{{ limit(stat?.inuse || 0) }}</div>
                     <div class="box-plate">Total plate numbers In use</div>
                 </div>
-                <div class="box" fxLayoutGap="15px">
-                    <div class="box-number">2</div>
+                <div class="box" fxLayoutGap="15px" [matTooltip]="stat?.notinuse" matTooltipPosition="above">
+                    <div class="box-number">{{ limit(stat?.notinuse || 0) }}</div>
                     <div class="box-plate">Total plate numbers Not used</div>
                 </div>
             </div>
@@ -78,19 +78,19 @@
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle text-center">{{ data.name }}</td>
+                                <td class="align-middle text-center">{{ data.type }}</td>
                                 <td class="align-middle">
-                                    {{ data.payer.taxpayer_name }}
-                                    <span class="material-icons-round icons-rounded">verified_user</span>
+                                    {{ data.owner?.taxpayer_name }}
+                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified == true">verified_user</span>
                                 </td>
-                                <td class="align-middle">{{ data.assessment.assess_code }}</td>
-                                <td class="align-middle text-center">{{ data.assessment.assess_code }}</td>
+                                <td class="align-middle text-center">{{ data.owner }}</td>
+                                <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
+                                    <button mat-button class="paid" *ngIf="data.isavailable == false">
                                         In use
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.assessment.remitted == false">
+                                    <button mat-button class="pending" *ngIf="data.isavailable == true">
                                         Not in use
                                     </button>
                                 </td>

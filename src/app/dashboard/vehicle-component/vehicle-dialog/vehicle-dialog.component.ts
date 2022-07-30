@@ -76,20 +76,18 @@ export class VehicleDialogComponent implements OnInit {
             update: false,
             data: data.data,
           };
-          this.service.setRegMessage(setData);
-          this.router.navigate(['/dashboard/dashboard5/vehicle/reg']);
+          // this.service.setRegMessage(setData);
+          // this.router.navigate(['/dashboard/dashboard5/vehicle/reg']);
+          if (this.data.type == 'reg-plate') {
+            this.service.setCustomerPlateRegMessage(data.data);
+            this.router.navigate(['/dashboard/dashboard5/vehicle/new-plate'])
+          }
           this.dialogRef.close();
         },
         (err) => {
           this.authService.checkExpired();
           this.loading = false;
           this.dialogRef.disableClose = false;
-          this.errorMsg =
-            err?.error?.message ||
-            err?.error?.msg ||
-            err?.error?.detail ||
-            err?.error?.status ||
-            'An Error Occured!';
           console.log(err);
           this.snackBar.open(
             err?.error?.message ||

@@ -6,6 +6,8 @@ import { Subject, Observable } from 'rxjs';
 })
 export class VehicleServiceService {
   regMessage: string | undefined;
+  setCustomerPlateReg: string | undefined;
+  setPlateStatM: string | undefined;
   private subject = new Subject<any>();
   regMessage2: string | undefined;
   private subject2 = new Subject<any>();
@@ -43,5 +45,23 @@ export class VehicleServiceService {
 
   getClickEvent2(): Observable<any> {
     return this.subject2.asObservable();
+  }
+
+  // For cusomer reg plate number
+  setCustomerPlateRegMessage(data: any) {
+    this.setCustomerPlateReg = data;
+  }
+
+  getCustomerPlateRegMessage() {
+    return this.setCustomerPlateReg;
+  }
+
+  // For plate number statistics
+  setPlateStat(data: any) {
+    this.setPlateStatM = data;
+  }
+
+  getPlateStat() {
+    return this.setPlateStatM;
   }
 }

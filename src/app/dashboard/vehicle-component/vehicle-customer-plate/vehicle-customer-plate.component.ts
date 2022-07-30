@@ -9,6 +9,8 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 import { Router } from '@angular/router';
+import { BaseUrl } from 'src/environments/environment';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-vehicle-customer-plate',
@@ -21,10 +23,13 @@ export class VehicleCustomerPlateComponent implements OnInit {
 
   feedbackForm: any = FormGroup;
   feedback!: offence;
-  plateMsg: any;
+  datas: any;
   panelOpenState = false;
   loading = false;
+  plateLoading = false;
   custom = false;
+  available_data: any;
+  price = 0;
 
   formErrors: any = {
     violation: '',
@@ -53,10 +58,18 @@ export class VehicleCustomerPlateComponent implements OnInit {
     private service: VehicleServiceService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private httpService: HttpService
   ) {
     this.createForm();
     this.authService.checkExpired();
+    //
+    this.datas = this.service.getCustomerPlateRegMessage();
+    if (this.datas) {
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-plate`]);
+    }
+    //
   }
 
   createForm() {
@@ -108,8 +121,50 @@ export class VehicleCustomerPlateComponent implements OnInit {
     else {
       this.loading = true;
       this.feedback = this.feedbackForm.value;
-      console.log(this.feedback);
-      this.router.navigate(['/dashboard/dashboard5/vehicle/reg-plate']);
+      this.loading = true;
+      const data = {
+        name: this.feedback.penalty,
+        type: this.feedback.violation,
+        price: this.price,
+      };
+      console.log(data);
+      this.httpService
+        .postData(
+          BaseUrl.vehicle_create_plateno + `${this.datas.state_tin}`,
+          data
+        )
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            console.log(data);
+            this.snackBar.open('Success', '', {
+              duration: 5000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            this.router.navigate([`/dashboard/dashboard5/vehicle/reg-plate`]);
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     } // end else
   }
 
@@ -127,8 +182,63 @@ export class VehicleCustomerPlateComponent implements OnInit {
     });
   }
 
-  selectCustom(type: boolean) {
+  checkPlate(type: string) {
+    this.plateLoading = true;
+    this.httpService
+      .getAuthSingle(BaseUrl.vehicle_plate_type + `${type}`)
+      .subscribe(
+        (data: any) => {
+          this.plateLoading = false;
+          this.available_data = data.data;
+          console.log(data);
+        },
+        (err) => {
+          this.authService.checkExpired();
+          this.plateLoading = false;
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
+  selectCustom(type: boolean, type2: string) {
     this.custom = type;
+    if (type2 != 'fancy') {
+      this.feedbackForm.patchValue({ penalty: null });
+      this.feedbackForm.controls['fine'].enable();
+      this.feedbackForm.patchValue({ fine: null });
+      this.price = 0;
+      this.checkPlate(type2);
+    } else {
+      this.available_data = null;
+      this.feedbackForm.patchValue({ fine: 80000 });
+      this.price = 80000 || 0;
+      this.feedbackForm.controls['fine'].disable();
+    }
+  }
+
+  getPrice(data: any) {
+    this.feedbackForm.patchValue({ fine: data?.price });
+    this.price = data?.price || 0;
+    this.feedbackForm.controls['fine'].disable();
+  }
+
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
   ngOnInit(): void {}

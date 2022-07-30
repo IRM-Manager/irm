@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { VehicleServiceService } from '../service/vehicle-service.service';
-import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vehicle-reg-plate',
@@ -16,22 +12,19 @@ import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.compone
   styleUrls: ['./vehicle-reg-plate.component.scss'],
 })
 export class VehicleRegPlateComponent implements OnInit {
-  datas: any;
   formData = new FormData();
   image: any;
   filename: any;
+  loading = false;
+  disabled = false;
 
   constructor(
-    private service: VehicleServiceService,
     private router: Router,
     private authService: AuthService,
-    private dialog: MatDialog,
     private httpService: HttpService,
-    private store: Store<AppState>,
     private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
-    this.datas = service.getRegMessage();
   }
 
   onFileSelected(event: any) {
@@ -45,15 +38,85 @@ export class VehicleRegPlateComponent implements OnInit {
     }
   }
 
-  openDialog(data: any, type: string) {
-    this.snackBar.dismiss();
-    this.dialog.open(VehicleDialogComponent, {
-      data: {
-        type: type,
-        data: data,
-      },
-    });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/reg-plate']);
+  submit() {
+    if (!this.filename) {
+      this.snackBar.open('No CSV file selected!', 'x', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.loading = true;
+      this.disabled = true;
+      this.httpService
+        .postData(BaseUrl.vehicle_upload_late, this.formData)
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            //
+            this.httpService
+              .postData(BaseUrl.vehicle_confirm_upload, data)
+              .subscribe(
+                (data: any) => {
+                  console.log(data);
+                  this.loading = false;
+                  this.disabled = false;
+                  this.snackBar.open('Plate number uploaded successfully', '', {
+                    duration: 5000,
+                    panelClass: 'success',
+                    horizontalPosition: 'center',
+                    verticalPosition: 'top',
+                  });
+                  this.router.navigate([
+                    '/dashboard/dashboard5/vehicle/reg-plate',
+                  ]);
+                },
+                (err) => {
+                  console.log(err);
+                  this.loading = false;
+                  this.disabled = false;
+                  this.snackBar.open(
+                    err?.error?.message ||
+                      err?.error?.msg ||
+                      err?.error?.detail ||
+                      err?.error?.status ||
+                      'An Error Occured!',
+                    'x',
+                    {
+                      duration: 5000,
+                      panelClass: 'error',
+                      horizontalPosition: 'center',
+                      verticalPosition: 'top',
+                    }
+                  );
+                  this.authService.checkExpired();
+                }
+              );
+            //
+          },
+          (err) => {
+            console.log(err);
+            this.loading = false;
+            this.disabled = false;
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              'x',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+            this.authService.checkExpired();
+          }
+        );
+    }
   }
 
   ngOnInit(): void {}

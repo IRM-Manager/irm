@@ -2,10 +2,11 @@
 
     <div class="header">
         <div class="soft_pattern">
-            Matthew Adeboye
-            <span class="material-icons-round icons-rounded">verified_user</span>
+            {{ datas?.taxpayer_name }}
+            <span class="material-icons-round round-success" *ngIf="datas?.is_verified == true">verified_user</span>
+            <span class="material-icons-round round-failed" *ngIf="datas?.is_verified == false">gpp_maybe</span>
         </div>
-        <div class="reg_buss">GTin: 107789</div>
+        <div class="reg_buss">GTin: {{ datas?.state_tin }}</div>
     </div>
 
     <div class="form-container">
@@ -16,32 +17,40 @@
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Plate number Categories</mat-label>
                     <mat-select matInput formControlName="violation" required>
-                        <mat-option value="normal" (click)="selectCustom(false)">Normal plate number</mat-option>
-                        <mat-option value="private" (click)="selectCustom(false)">Private</mat-option>
-                        <mat-option value="commercial" (click)="selectCustom(false)">Commercial</mat-option>
-                        <mat-option value="govt" (click)="selectCustom(false)">Government</mat-option>
-                        <mat-option value="ospn" (click)="selectCustom(false)">Out Of Series Plate Number</mat-option>
-                        <mat-option value="fancy" (click)="selectCustom(true)">Fancy Plate Number</mat-option>
+                        <mat-option value="private" (click)="selectCustom(false, 'private')">Private</mat-option>
+                        <mat-option value="commercial" (click)="selectCustom(false, 'commercial')">Commercial</mat-option>
+                        <mat-option value="government" (click)="selectCustom(false, 'government')">Government</mat-option>
+                        <mat-option value="fancy" (click)="selectCustom(true, 'fancy')">Fancy Plate Number</mat-option>
                     </mat-select>
                     <mat-error>{{ formErrors.violation }}</mat-error>
                 </mat-form-field>
             </p>
-            <p *ngIf="!custom">
+
+            <div *ngIf="plateLoading" class="loader2">
+                <div class="bubble2"></div>
+                <div class="bubble2"></div>
+                <div class="bubble2"></div>
+                <div class="bubble2"></div>
+            </div>
+
+            <p *ngIf="!custom && available_data !plateLoading">
                 <!-- Choose from available Plate -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Choose from available Plate</mat-label>
                     <mat-select matInput formControlName="penalty" required>
-                        <mat-option value="Formal">Formal</mat-option>
-                        <mat-option value="Informal">Informal</mat-option>
+                        <mat-option *ngFor="let data of available_data" value="{{ data.name }}" (click)="getPrice(data)">
+                            {{ data.name }}
+                        </mat-option>
                     </mat-select>
                     <mat-error>{{ formErrors.penalty }}</mat-error>
                 </mat-form-field>
             </p>
-            <p *ngIf="custom">
+            
+            <p *ngIf="custom && !available_data && !plateLoading">
                 <!-- Custom from available Plate -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Type in prefer plate number</mat-label>
-                    <input matInput formControlName="penalty" required type="number">
+                    <input matInput formControlName="penalty" required>
                     <mat-error>{{ formErrors.penalty }}</mat-error>
                 </mat-form-field>
             </p>
@@ -50,6 +59,7 @@
                     <mat-label>Amount (NGN)</mat-label>
                     <input matInput formControlName="fine" required type="number">
                     <mat-error>{{formErrors.fine}}</mat-error>
+                    <mat-hint align="end">{{ formatMoney(price) }}</mat-hint>
                 </mat-form-field>
             </p>
 

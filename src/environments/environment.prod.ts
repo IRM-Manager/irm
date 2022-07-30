@@ -51,4 +51,11 @@ export const BaseUrl = {
   generate_direct_bill: 'bill/api/v1/da/?',
   list_boj: 'directassessment/api/v1/boj/',
   delete_direct_bill: 'bill/api/v1/da/',
+  // vehicle
+  vehicle_upload_late: 'mla/api/v1/plateno/upload/',
+  vehicle_confirm_upload: 'mla/api/v1/plateno/confirmupload/',
+  vehicle_plate_type: 'mla/api/v1/plateno/getplatenobytype?type=',
+  vehicle_plateno: 'mla/api/v1/plateno/',
+  vehicle_create_plateno: '/mla/api/v1/plateno/?tin=',
+  vehicle_plate_stat: '/mla/api/v1/plateno/getplatenostats',
 };

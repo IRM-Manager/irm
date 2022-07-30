@@ -199,12 +199,23 @@
                     <input matInput formControlName="tin">
                 </mat-form-field>
 
-                <button mat-button class="upload_continue" *ngIf="data.type == 'manual'" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
+                <!-- <button mat-button class="upload_continue" *ngIf="data.type == 'manual'" [routerLink]="['/dashboard/dashboard5/vehicle/reg']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'manual2'" [routerLink]="['/dashboard/dashboard5/vehicle/new-reg']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner'" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner2'" [routerLink]="['/dashboard/dashboard5/vehicle/approval/review']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'penalty'" [routerLink]="['/dashboard/dashboard5/vehicle/offence']" mat-dialog-close>Verify</button>
-                <button mat-button class="upload_continue" *ngIf="data.type == 'reg-plate'" [routerLink]="['/dashboard/dashboard5/vehicle/new-plate']" mat-dialog-close>Continue</button>
+                <button mat-button class="upload_continue" *ngIf="data.type == 'reg-plate'" [routerLink]="['/dashboard/dashboard5/vehicle/new-plate']" mat-dialog-close>Continue</button> -->
+
+                <button mat-button class="upload_continue" (click)="checkTin()">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+
             </form>
 
             <div class="dont-have">Don’t Have a GTin? Register</div>
