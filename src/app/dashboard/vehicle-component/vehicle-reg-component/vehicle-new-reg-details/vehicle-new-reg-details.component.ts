@@ -20,35 +20,26 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   plateMsg: any;
 
   formErrors: any = {
-    reg_type: '',
-    category: '',
     model: '',
     make: '',
-    sub_type: '',
     vehicle_type: '',
     no_carry: '',
     vin: '',
-    weight: '',
+    year: '',
     color: '',
-    gross_weight: '',
+    plate: '',
     engine_capacity: '',
     fuel: '',
   };
 
   validationMessages: any = {
-    reg_type: {
-      required: 'required.',
-    },
-    category: {
-      required: 'required.',
-    },
     model: {
       required: 'required.',
     },
     make: {
       required: 'required.',
     },
-    sub_type: {
+    year: {
       required: 'required.',
     },
     vehicle_type: {
@@ -60,13 +51,10 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     vin: {
       required: 'required.',
     },
-    weight: {
+    plate: {
       required: 'required.',
     },
     color: {
-      required: 'required.',
-    },
-    gross_weight: {
       required: 'required.',
     },
     engine_capacity: {
@@ -91,17 +79,14 @@ export class VehicleNewRegDetailsComponent implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      reg_type: ['', [Validators.required]],
-      category: ['', [Validators.required]],
       model: ['', [Validators.required]],
       make: ['', [Validators.required]],
-      sub_type: ['', [Validators.required]],
       vehicle_type: ['', [Validators.required]],
       no_carry: ['', [Validators.required]],
       vin: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
+      year: ['', [Validators.required]],
       color: ['', [Validators.required]],
-      gross_weight: ['', [Validators.required]],
+      plate: ['', [Validators.required]],
       engine_capacity: ['', [Validators.required]],
       fuel: ['', [Validators.required]],
     });

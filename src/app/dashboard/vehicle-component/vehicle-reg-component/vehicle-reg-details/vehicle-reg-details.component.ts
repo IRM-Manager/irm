@@ -20,36 +20,23 @@ export class VehicleRegDetailsComponent implements OnInit {
   plateMsg: any;
 
   formErrors: any = {
-    reg_type: '',
-    category: '',
     model: '',
     make: '',
-    sub_type: '',
     vehicle_type: '',
     no_carry: '',
     vin: '',
-    weight: '',
     color: '',
-    gross_weight: '',
+    year: '',
     engine_capacity: '',
     fuel: '',
     plate: '',
   };
 
   validationMessages: any = {
-    reg_type: {
-      required: 'required.',
-    },
-    category: {
-      required: 'required.',
-    },
     model: {
       required: 'required.',
     },
     make: {
-      required: 'required.',
-    },
-    sub_type: {
       required: 'required.',
     },
     vehicle_type: {
@@ -61,13 +48,10 @@ export class VehicleRegDetailsComponent implements OnInit {
     vin: {
       required: 'required.',
     },
-    weight: {
-      required: 'required.',
-    },
     color: {
       required: 'required.',
     },
-    gross_weight: {
+    year: {
       required: 'required.',
     },
     engine_capacity: {
@@ -78,8 +62,8 @@ export class VehicleRegDetailsComponent implements OnInit {
     },
     plate: {
       required: 'required.',
-      minlength: 'must be at least 1 characters long.',
-      maxlength: 'cannot be more than 11 characters long.',
+      // minlength: 'must be at least 1 characters long.',
+      // maxlength: 'cannot be more than 11 characters long.',
     },
   };
 
@@ -97,25 +81,21 @@ export class VehicleRegDetailsComponent implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      reg_type: ['', [Validators.required]],
-      category: ['', [Validators.required]],
       model: ['', [Validators.required]],
       make: ['', [Validators.required]],
-      sub_type: ['', [Validators.required]],
       vehicle_type: ['', [Validators.required]],
       no_carry: ['', [Validators.required]],
       vin: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
       color: ['', [Validators.required]],
-      gross_weight: ['', [Validators.required]],
+      year: ['', [Validators.required]],
       engine_capacity: ['', [Validators.required]],
       fuel: ['', [Validators.required]],
       plate: [
         '',
         [
           Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(11),
+          // Validators.minLength(1),
+          // Validators.maxLength(11),
         ],
       ],
     });

@@ -1,26 +1,6 @@
 <div class="wrapper">
 
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-        <p class="gap">
-            <!-- Choose Registration Type -->
-            <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Choose Vehicle Category</mat-label>
-                <mat-select matInput formControlName="reg_type" required>
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
-                </mat-select>
-                <mat-error>{{ formErrors.reg_type }}</mat-error>
-            </mat-form-field>
-            <!-- alt_num -->
-            <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Choose Vehicle Sub-Category</mat-label>
-                <mat-select matInput formControlName="category" required>
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
-                </mat-select>
-                <mat-error>{{formErrors.category}}</mat-error>
-            </mat-form-field>
-        </p>
         <p>
             <!-- Vehicle Model -->
             <mat-form-field class="half-width" appearance="outline">
@@ -42,12 +22,6 @@
             </mat-form-field>
         </p>
         <p>
-            <!-- Vehicle Sub Type -->
-            <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Vehicle Sub Type</mat-label>
-                <input matInput formControlName="sub_type" required>
-                <mat-error>{{formErrors.sub_type}}</mat-error>
-            </mat-form-field>
             <!-- Vehicle Type * -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Type</mat-label>
@@ -57,41 +31,33 @@
                 </mat-select>
                 <mat-error>{{formErrors.vehicle_type}}</mat-error>
             </mat-form-field>
-        </p>
-        <p>
             <!-- Number of carry -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Number of carry</mat-label>
                 <input matInput formControlName="no_carry" type="number" required>
                 <mat-error>{{formErrors.no_carry}}</mat-error>
             </mat-form-field>
+        </p>
+        <p>
             <!-- Vehicle Chassis Number / VIN -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Chassis Number / VIN</mat-label>
                 <input matInput formControlName="vin" required>
                 <mat-error>{{formErrors.vin}}</mat-error>
             </mat-form-field>
+            <!-- year -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Vehicle Year</mat-label>
+                <input matInput formControlName="year" type="number" required>
+                <mat-error>{{formErrors.year}}</mat-error>
+            </mat-form-field>
         </p>
         <p>
-            <!-- Net weight -->
-            <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Net weight</mat-label>
-                <input matInput formControlName="weight" required>
-                <mat-error>{{formErrors.weight}}</mat-error>
-            </mat-form-field>
             <!-- Vehicle Colour -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Colour</mat-label>
                 <input matInput formControlName="color" required>
                 <mat-error>{{formErrors.color}}</mat-error>
-            </mat-form-field>
-        </p>
-        <p>
-            <!-- Gross weight (kg) -->
-            <mat-form-field class="half-width" appearance="outline">
-                <mat-label>Gross weight (kg)</mat-label>
-                <input matInput formControlName="gross_weight" required>
-                <mat-error>{{formErrors.gross_weight}}</mat-error>
             </mat-form-field>
             <!-- Engine capacity -->
             <mat-form-field class="half-width" appearance="outline">
@@ -106,6 +72,15 @@
                 <mat-label>Type of Fuel</mat-label>
                 <input matInput formControlName="fuel" required>
                 <mat-error>{{formErrors.fuel}}</mat-error>
+            </mat-form-field>
+            <!-- plate -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Select Plate Number</mat-label>
+                <mat-select matInput formControlName="plate" required>
+                    <mat-option value="Formal">Formal</mat-option>
+                    <mat-option value="Informal">Informal</mat-option>
+                </mat-select>
+                <mat-error>{{formErrors.plate}}</mat-error>
             </mat-form-field>
         </p>
     

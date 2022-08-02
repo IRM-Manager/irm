@@ -62,27 +62,32 @@ export class VehicleDialogComponent implements OnInit {
     });
   }
 
-  checkTin() {
+  checkVehicleTin() {
     this.loading = true;
     console.log(this.manualForm.value);
     this.httpService
-      .getAuthSingle(BaseUrl.get_payer_tin + `${this.manualForm.value.tin}`)
+      .getAuthSingle(
+        BaseUrl.vehicle_plate_by_tin + `${this.manualForm.value.tin}`
+      )
       .subscribe(
         (data: any) => {
           this.loading = false;
-          this.dialogRef.disableClose = false;
           console.log(data);
-          const setData = {
-            update: false,
-            data: data.data,
-          };
-          // this.service.setRegMessage(setData);
-          // this.router.navigate(['/dashboard/dashboard5/vehicle/reg']);
-          if (this.data.type == 'reg-plate') {
-            this.service.setCustomerPlateRegMessage(data.data);
-            this.router.navigate(['/dashboard/dashboard5/vehicle/new-plate'])
+          if (data.data.length < 1) {
+            this.snackBar.open('No available plate number for this payer', '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          } else {
+            this.dialogRef.disableClose = false;
+            if (this.data.type == 'manual2') {
+              this.service.setRegVehicleMessage(data.data);
+              this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
+            }
+            this.dialogRef.close();
           }
-          this.dialogRef.close();
         },
         (err) => {
           this.authService.checkExpired();
@@ -105,6 +110,55 @@ export class VehicleDialogComponent implements OnInit {
           );
         }
       );
+  }
+
+  checkTin() {
+    if (this.data.type == 'manual2') {
+      this.checkVehicleTin();
+    } else {
+      this.loading = true;
+      console.log(this.manualForm.value);
+      this.httpService
+        .getAuthSingle(BaseUrl.get_payer_tin + `${this.manualForm.value.tin}`)
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            this.dialogRef.disableClose = false;
+            console.log(data);
+            const setData = {
+              update: false,
+              data: data.data,
+            };
+            // this.service.setRegMessage(setData);
+            // this.router.navigate(['/dashboard/dashboard5/vehicle/reg']);
+            if (this.data.type == 'reg-plate') {
+              this.service.setCustomerPlateRegMessage(data.data);
+              this.router.navigate(['/dashboard/dashboard5/vehicle/new-plate']);
+            }
+            this.dialogRef.close();
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            this.dialogRef.disableClose = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
+    }
   }
 
   //  delete generated bill

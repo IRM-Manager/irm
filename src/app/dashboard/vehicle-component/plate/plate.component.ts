@@ -78,6 +78,7 @@ export class PlateComponent implements OnInit {
   }
 
   renderTable() {
+    this.plateStat();
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,

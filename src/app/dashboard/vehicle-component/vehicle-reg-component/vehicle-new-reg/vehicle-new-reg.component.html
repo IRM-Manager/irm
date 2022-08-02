@@ -2,10 +2,10 @@
 
     <div class="header">
         <div class="soft_pattern">
-            Matthew Adeboye
-            <span class="material-icons-round icons-rounded">verified_user</span>
+            {{ datas[0]?.owner.taxpayer_name }}
+            <span class="material-icons-round icons-rounded" *ngIf="datas[0]?.owner.is_verified">verified_user</span>
         </div>
-        <div class="reg_buss">GTin: 107789</div>
+        <div class="reg_buss">GTin: {{ datas[0]?.owner.state_tin }}</div>
     </div>
 
     <div class="container">

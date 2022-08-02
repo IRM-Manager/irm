@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
@@ -12,10 +13,12 @@ import { VehicleServiceService } from '../../service/vehicle-service.service';
 export class VehicleNewRegComponent implements OnInit {
   viewMode = 'detail';
   clickEventSubscription?: Subscription;
+  datas: any;
 
   constructor(
     private service: VehicleServiceService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.authService.checkExpired();
 
@@ -25,6 +28,13 @@ export class VehicleNewRegComponent implements OnInit {
         const datas: any = this.service.getRegMessage2();
         this.viewMode = datas.type;
       });
+    //
+    this.datas = this.service.getRegVehicleMessage();
+    if (this.datas) {
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
+    }
+    //
   }
 
   ngOnInit(): void {}

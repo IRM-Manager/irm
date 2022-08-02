@@ -156,17 +156,14 @@ export interface direct_boj2 {
 }
 
 export interface vehicle_details {
-  reg_type: string;
-  category: string;
   model: string;
   make: string;
-  sub_type: string;
   vehicle_type: string;
   no_carry: string;
   vin: string;
-  weight: string;
+  year: string;
   color: string;
-  gross_weight: string;
+  plate: string;
   engine_capacity: string;
   fuel: string;
 }

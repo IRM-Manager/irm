@@ -10,6 +10,7 @@ export class VehicleServiceService {
   setPlateStatM: string | undefined;
   private subject = new Subject<any>();
   regMessage2: string | undefined;
+  RegVehicleMessage: string | undefined;
   private subject2 = new Subject<any>();
   constructor() {}
 
@@ -63,5 +64,14 @@ export class VehicleServiceService {
 
   getPlateStat() {
     return this.setPlateStatM;
+  }
+
+  // For vehicle collect tax details
+  setRegVehicleMessage(data: any) {
+    this.RegVehicleMessage = data;
+  }
+
+  getRegVehicleMessage() {
+    return this.RegVehicleMessage;
   }
 }
