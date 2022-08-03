@@ -1,0 +1,65 @@
+<div class="wrapper">
+    <p class="back" (click)="back()">
+        <mat-icon>keyboard_backspace</mat-icon>
+        Back
+    </p>
+
+    <div class="header">
+        <div class="header-container">
+            <div class="reg_buss">GTin: 3433434</div>
+            <div class="soft_pattern">43434343443434</div>
+        </div>
+    </div>
+
+    <!-- table container -->
+
+    <div class="table-container">
+        <div
+            class="left_right_container">
+            <!--  -->
+            <div class="column">
+                <div class="column1">
+                    <div class="employee-salary">Description</div>
+                    <div class="left_right">
+                        <div class="left">
+                            <div class="title">Date of assessment</div>
+                            <div class="title">Tax Type</div>
+                            <div class="title">Select categories</div>
+                            <div class="title">Tax Liability</div>
+                            <div class="title2">TOTAL PAYE PAYABLE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column2">
+                    <div class="deduction">Amount</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title">01/12/2020</div>
+                            <div class="title" style="text-transform: uppercase;">stamp duties</div>
+                            <div class="title">Dividend</div>
+                            <div class="title">NGN {{ formatMoney(4444) }}</div>
+                            <div class="title">NGN {{ formatMoney(5000) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear: both"></div>
+
+        <div class="generate-button">
+            <button mat-button (click)="generateBill()">
+                <span *ngIf="!genLoading">Generate Bill</span>
+                <div *ngIf="genLoading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </div>
+
+    </div>
+    <div style="clear: both; padding-top: 3rem"></div>
+</div>

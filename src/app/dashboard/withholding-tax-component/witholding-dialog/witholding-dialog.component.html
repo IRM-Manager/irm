@@ -1,0 +1,171 @@
+<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+
+    <div mat-dialog-content class="print-section" id="print-section">
+
+        <div>
+
+            <div class="gen_logo_p">
+                <img class="logo" src="assets/images/gombelogo.png" alt="IRM"/>
+            </div>
+
+            <div class="generate_container">
+
+                <div class="gen-left-container" style="margin-bottom: 1.5rem;">
+                    <div class="generate_left">
+                         <div class="tin">
+                            <span style="color: #3C66A3;">GTin:</span>  
+                            43464565475757
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Taxpayer Name:</span>
+                            Adamu musa
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Revenue office:</span>
+                            Gombe Main office
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Date of assessment:</span>
+                            01/12/2020
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Assessment period:</span>
+                            t43t443tt43t
+                        </div>
+                    </div>
+
+                    <div class="generate_center">
+                        <div class="tin">
+                            <span style="color: #3C66A3; text-transform: uppercase;">Assessment Type:</span>
+                            Withholding Tax
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Assessment No:</span>
+                            #123456
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Bill No:</span>
+                            #123456
+                        </div>
+                        <div class="tin">
+                            <span style="color: #3C66A3;">Bill Staus: </span> 
+                            <!-- <span *ngIf="data.data.bill_status" class="gen-success">Paid</span> -->
+                            <span class="gen-failed">Not-paid</span>
+                        </div>
+                    </div>
+
+                    <div class="generate_center">
+                        <qr-code value="4343434"
+                            size="150"
+                            errorCorrectionLevel="H"
+                            centerImageSrc="undefined"
+                            centerImageSize="undefined">
+                        </qr-code>
+                    </div>
+
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div class="gen_table">
+                    <div class="column">
+                        <!--  -->
+                        <div class="column1">
+                            <div class="employee-salary">Description</div>
+                            <div class="left_right">
+                                <div class="left">
+                                    <div class="title">Assessment Period</div>
+                                    <div class="title">Tax Type</div>
+                                    <div class="title">Select categories</div>
+                                    <div class="title">Tax Liability</div>
+                                    <div class="title2">TOTAL PAYE PAYABLE</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <div class="column2">
+                            <div class="deduction">Amount (NGN)</div>
+                            <div class="left_right">
+                                <div class="left2">
+                                    <div class="title">01/12/2020</div>
+                                    <div class="title" style="text-transform: uppercase;">
+                                        Withholding Tax
+                                    </div>
+                                    <div class="title">Dividend</div>
+                                    <div class="title">NGN 5,000</div>
+                                    <div class="title">NGN 5,000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+
+            <div class="card-actions">
+
+                <div class="note">NOTE : generated assessment will expire in 48 Hours (14/11/2018, 9:30am),
+                    payment can be paid using payment mobile App or use payment Platform.
+                </div>
+    
+                <div class="print_p">
+                    <button mat-button class="print" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+                        <img src="assets/images/Page-1.svg" alt="">
+                        print
+                    </button>
+                    <button mat-button class="print">
+                        <img src="assets/images/Iconmaterial-payment.svg" alt="">
+                        pay now
+                    </button>
+                    <button mat-button class="print" mat-dialog-close>
+                        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                        Close
+                    </button>
+                    <button mat-button class="print_delete" (click)="deleteBill()">
+                        <i *ngIf="!isdelete" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                        <span *ngIf="!isdelete"> Delete</span>
+                        <i *ngIf="isdelete" class="fa fa-circle-o-notch fa-lg loader-spin" aria-hidden="true"></i>
+                    </button>
+                </div>
+    
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Manual upload layout -->
+
+<div class="manual_file-dialog" *ngIf="data.type == 'manual'">
+    <div class="upload_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="manual_container">
+
+        <div>
+            <div class="manual_verify" *ngIf="data.type == 'manual'">Kindly input your GTin to continue</div>
+
+            <form [formGroup]="manualForm" class="manual_form">
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>GTin</mat-label>
+                    <input matInput formControlName="tin">
+                </mat-form-field>
+
+                <button mat-button class="upload_continue" (click)="checkTin()">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </form>
+
+            <div class="dont-have">Don’t Have a GTin? Register</div>
+        </div>
+
+    </div>
+</div>

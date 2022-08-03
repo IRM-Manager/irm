@@ -1,0 +1,126 @@
+<div class="wrapper">
+    <div>
+        <div class="verify">
+
+            <div class="header2">
+
+                <div class="indcom">
+                    Assessment History
+                </div>
+
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+                    </form>
+                </div>
+        
+                <div class="dashboard_select">
+                    <select class="form-select form-select2" placeholder="Filters">
+                        <option class="option-white" disabled>Filters333333331</option>
+                        <option selected>Filters</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button matSuffix mat-icon-button class="form-dashboard_select">
+                        <span class="material-icons-outlined icons-rounded">filter_alt</span>
+                    </button>
+                </div>    
+
+                <div class="spacer"></div>
+
+                <button mat-button class="apply-ass" (click)="openDialog('', 'manual')">Apply new withholding Tax</button>
+
+            </div>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="align-middle text-center">S/N</th>
+                                <th class="align-middle text-center">Tax Categories</th>
+                                <th class="align-middle text-center">Description</th>
+                                <th class="align-middle text-center">Amount (NGN)</th>
+                                <th class="align-middle text-center">Total Tax Due (NGN)</th>
+                                <th class="align-middle text-center">Generated date</th>
+                                <th class="align-middle text-center">Bill Number</th>
+                                <th class="align-middle text-center">status</th>
+                                <th class="align-middle text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas; let i=index">
+                                <td class="align-middle text-center">{{i+1}}</td>
+                                <td class="align-middle text-center">{{ data.name }}</td>
+                                <td class="align-middle text-center">{{ data.type }}</td>
+                                <td class="align-middle">
+                                    {{ data.owner?.taxpayer_name }}
+                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified == true">verified_user</span>
+                                </td>
+                                <td class="align-middle text-center">{{ formatMoney(0) }}</td>
+                                <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle text-center">
+                                    <button mat-button class="paid" *ngIf="data.isavailable == false">
+                                        Paid
+                                    </button>
+                                    <button mat-button class="pending" *ngIf="data.isavailable == true">
+                                        Not-paid
+                                    </button>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data)">View Details</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="edit(data)">
+                                            Re-assessment
+                                        </button>
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
+                            <span *ngIf="!is_reload">Reload</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -151,3 +151,17 @@
     <app-profile-sidenav-list></app-profile-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
+
+<!-- Witholding -->
+
+<div class="wrapper2" *ngIf="type == 'witholding'">
+    <app-witholding-sidenav-list></app-witholding-sidenav-list>
+    <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
+</div>
+
+<!-- stamp duties -->
+
+<div class="wrapper2" *ngIf="type == 'stamp'">
+    <app-stamp-side-nav-list></app-stamp-side-nav-list>
+    <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
+</div>

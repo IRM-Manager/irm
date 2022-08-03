@@ -174,6 +174,13 @@ export interface offence {
   penalty: string;
 }
 
+export interface witholding {
+  category: string;
+  name: string;
+  tin: string;
+  amount: string;
+}
+
 export interface editUser {
   first_name: string;
   last_name: string;

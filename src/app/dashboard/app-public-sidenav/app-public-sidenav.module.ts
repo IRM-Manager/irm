@@ -97,6 +97,16 @@ import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/
 import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
 import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
 import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component';
+import { WitholdingApplyComponent } from '../withholding-tax-component/witholding-apply/witholding-apply.component';
+import { WitholdingGenerateAssessmentComponent } from '../withholding-tax-component/witholding-generate-assessment/witholding-generate-assessment.component';
+import { WitholdingTableComponentComponent } from '../withholding-tax-component/witholding-table-component/witholding-table-component.component';
+import { WitholdingDialogComponent } from '../withholding-tax-component/witholding-dialog/witholding-dialog.component';
+import { WitholdingViewComponent } from '../withholding-tax-component/witholding-view/witholding-view.component';
+import { StampDutiesApplyComponent } from '../stamp-duties-component/stamp-duties-apply/stamp-duties-apply.component';
+import { StampDutiesAssessmentComponent } from '../stamp-duties-component/stamp-duties-assessment/stamp-duties-assessment.component';
+import { StampDutiesDialogComponent } from '../stamp-duties-component/stamp-duties-dialog/stamp-duties-dialog.component';
+import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
+import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
 
 @NgModule({
   declarations: [
@@ -171,8 +181,20 @@ import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-cust
     ProfileViewComponent,
     ProfileEditComponent,
     ProfileChangePasswordComponent,
+    // Witholding Tax
+    WitholdingTableComponentComponent,
+    WitholdingApplyComponent,
+    WitholdingGenerateAssessmentComponent,
+    WitholdingViewComponent,
+    // stamp duties
+    StampDutiesTableComponent,
+    StampDutiesApplyComponent,
+    StampDutiesDialogComponent,
+    StampDutiesAssessmentComponent,
+    StampDutiesViewComponent,
     //
     PayeeDialogComponent,
+    WitholdingDialogComponent,
     // Pipe component
     DateAgoPipe,
   ],

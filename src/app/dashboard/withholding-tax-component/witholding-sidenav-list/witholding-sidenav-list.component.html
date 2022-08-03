@@ -1,0 +1,24 @@
+<!-- witholding layout -->
+<div class="wrapper2">
+    <div class="button">
+        <div class="logo_p">
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/gombelogo.png" alt="IRM"/>
+            <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+
+        <p class="back" (click)="payeeBack()">
+            <mat-icon>keyboard_backspace</mat-icon>
+            Back
+        </p>
+
+        <p class="pay_as_you_earn" [routerLink]="['/dashboard/dashboard3/witholding']">
+            Withholding Tax
+        </p>
+        <!-- <p class="dash-text2" (click)="openDialog('', 'generate_bill')">
+            Dialog
+        </p> -->
+    </div>
+
+</div>

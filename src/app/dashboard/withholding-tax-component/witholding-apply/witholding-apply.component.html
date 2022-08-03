@@ -1,0 +1,72 @@
+<div class="assessment-wrapper">
+
+    <div class="header">
+        <div class="soft_pattern">
+            <!-- {{ datas?.taxpayer_name }} -->
+            fewfwefewfew
+            <!-- <span class="material-icons-round round-success" *ngIf="datas?.is_verified == true">verified_user</span> -->
+            <span class="material-icons-round round-success">verified_user</span>
+        </div>
+        <!-- <div class="reg_buss">GTin: {{ datas?.state_tin }}</div> -->
+        <div class="reg_buss">GTin: 434343443</div>
+    </div>
+
+    <div class="form-container">
+        <div class="form-text">New withholding Tax</div>
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p class="gap">
+            <p>
+                <!-- category -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Categories</mat-label>
+                    <mat-select matInput formControlName="category" required>
+                        <mat-option value="trr">effewfwe</mat-option>
+                    </mat-select>
+                    <mat-error>{{ formErrors.category }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- name -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Name of contracting Party</mat-label>
+                    <mat-select matInput formControlName="name" required>
+                        <mat-option value="trr">effewfwe</mat-option>
+                    </mat-select>
+                    <mat-error>{{ formErrors.name }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- tin -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>TIN of Contracting Party</mat-label>
+                    <input matInput formControlName="tin" required>
+                    <mat-error>{{ formErrors.tin }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- amount -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Contracting Amount (NGN)</mat-label>
+                    <input matInput formControlName="amount" required type="number">
+                    <mat-error>{{formErrors.amount}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="final_submit">
+                <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
+                <button type="submit" mat-button class="generate">
+                    <span *ngIf="!loading">Generate assessment</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>

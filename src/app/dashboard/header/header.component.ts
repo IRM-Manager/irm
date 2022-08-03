@@ -251,6 +251,26 @@ export class HeaderComponent implements OnInit {
       this.type = 'mda';
       this.left_text1 = 'Vehicle Licensing';
     }
+    // Witholding
+    else if (
+      this.router.url == '/dashboard/dashboard3/witholding' ||
+      this.router.url == '/dashboard/dashboard3/witholding/apply' ||
+      this.router.url == '/dashboard/dashboard3/witholding/assessment' ||
+      this.router.url == '/dashboard/dashboard3/witholding/view'
+    ) {
+      this.type = 'mda';
+      this.left_text1 = 'Withholding Tax';
+    }
+    // stamp
+    else if (
+      this.router.url == '/dashboard/dashboard3/stamp' ||
+      this.router.url == '/dashboard/dashboard3/stamp/apply' ||
+      this.router.url == '/dashboard/dashboard3/stamp/assessment' ||
+      this.router.url == '/dashboard/dashboard3/stamp/view'
+    ) {
+      this.type = 'mda';
+      this.left_text1 = 'Stamp Duties';
+    }
     // account
     else if (
       this.router.url == '/dashboard/dashboard5/account' ||

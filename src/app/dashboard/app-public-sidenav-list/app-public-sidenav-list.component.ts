@@ -22,9 +22,15 @@ import {
   AddGroup,
   AddLocation,
   AddProfile,
-  AddOccupation
+  AddOccupation,
 } from '../../actions/irm.action';
-import { Department, Group, Locationn, Profile, Occupation } from '../models/irm';
+import {
+  Department,
+  Group,
+  Locationn,
+  Profile,
+  Occupation,
+} from '../models/irm';
 //
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -150,7 +156,6 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/direct/history/view' ||
       this.router.url == '/dashboard/dashboard5/direct/boj/create' ||
       this.router.url == '/dashboard/dashboard5/direct/self/create'
-
     ) {
       this.type = 'direct';
     }
@@ -158,7 +163,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     else if (
       this.router.url == '/dashboard/dashboard5/vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/reg' || 
+      this.router.url == '/dashboard/dashboard5/vehicle/reg' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/document' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner' ||
@@ -179,6 +184,24 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/account-password'
     ) {
       this.type = 'account';
+    }
+    // Witholding
+    else if (
+      this.router.url == '/dashboard/dashboard3/witholding' ||
+      this.router.url == '/dashboard/dashboard3/witholding/apply' ||
+      this.router.url == '/dashboard/dashboard3/witholding/assessment' ||
+      this.router.url == '/dashboard/dashboard3/witholding/view'
+    ) {
+      this.type = 'witholding';
+    }
+    // stamp duties
+    else if (
+      this.router.url == '/dashboard/dashboard3/stamp' ||
+      this.router.url == '/dashboard/dashboard3/stamp/apply' ||
+      this.router.url == '/dashboard/dashboard3/stamp/assessment' ||
+      this.router.url == '/dashboard/dashboard3/stamp/view'
+    ) {
+      this.type = 'stamp';
     }
     // home
     else {

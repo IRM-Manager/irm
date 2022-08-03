@@ -47,6 +47,7 @@ import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-s
 import { Dialog2Component } from '../payee-layout/dialog2/dialog2.component';
 import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
 import { ProfileSidenavListComponent } from '../profile-component/profile-sidenav-list/profile-sidenav-list.component';
+import { StampSideNavListComponent } from '../stamp-duties-component/stamp-side-nav-list/stamp-side-nav-list.component';
 import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/taxpayer-dialog.component';
 import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
 import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
@@ -55,6 +56,8 @@ import { VehicleNewRegDetailsComponent } from '../vehicle-component/vehicle-reg-
 import { VehicleNewRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-plate/vehicle-new-reg-plate.component';
 import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
+import { WitholdingDialogComponent } from '../withholding-tax-component/witholding-dialog/witholding-dialog.component';
+import { WitholdingSidenavListComponent } from '../withholding-tax-component/witholding-sidenav-list/witholding-sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,8 @@ import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-com
     VehicleNewRegDetailsComponent,
     VehicleNewRegPlateComponent,
     VehicleNewRegAssessmentComponent,
+    WitholdingSidenavListComponent,
+    StampSideNavListComponent,
     // dialog
     DialogComponent,
     MdaDialogComponent,
@@ -139,6 +144,8 @@ import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-com
     VehicleNewRegDetailsComponent,
     VehicleNewRegPlateComponent,
     VehicleNewRegAssessmentComponent,
+    WitholdingSidenavListComponent,
+    StampSideNavListComponent,
     // module
     MatListModule,
     MatCardModule,

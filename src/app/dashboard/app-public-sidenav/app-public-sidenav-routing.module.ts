@@ -57,6 +57,14 @@ import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/
 import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
 import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
 import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component';
+import { WitholdingApplyComponent } from '../withholding-tax-component/witholding-apply/witholding-apply.component';
+import { WitholdingGenerateAssessmentComponent } from '../withholding-tax-component/witholding-generate-assessment/witholding-generate-assessment.component';
+import { WitholdingTableComponentComponent } from '../withholding-tax-component/witholding-table-component/witholding-table-component.component';
+import { WitholdingViewComponent } from '../withholding-tax-component/witholding-view/witholding-view.component';
+import { StampDutiesApplyComponent } from '../stamp-duties-component/stamp-duties-apply/stamp-duties-apply.component';
+import { StampDutiesAssessmentComponent } from '../stamp-duties-component/stamp-duties-assessment/stamp-duties-assessment.component';
+import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
+import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
 
 const routes: Routes = [
   {
@@ -326,6 +334,48 @@ const routes: Routes = [
       {
         path: 'dashboard5/account-password',
         component: ProfileChangePasswordComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      // Witholding Tax
+      {
+        path: 'dashboard3/witholding',
+        component: WitholdingTableComponentComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/witholding/apply',
+        component: WitholdingApplyComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/witholding/assessment',
+        component: WitholdingGenerateAssessmentComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/witholding/view',
+        component: WitholdingViewComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      // stamp duties
+      {
+        path: 'dashboard3/stamp',
+        component: StampDutiesTableComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/stamp/apply',
+        component: StampDutiesApplyComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/stamp/assessment',
+        component: StampDutiesAssessmentComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard3/stamp/view',
+        component: StampDutiesViewComponent,
         canLoad: [IsLoggedInGuard],
       },
     ],

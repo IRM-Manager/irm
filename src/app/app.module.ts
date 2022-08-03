@@ -61,7 +61,6 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { SignupComponent } from './signup/signup.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

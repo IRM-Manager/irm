@@ -1,0 +1,61 @@
+<div class="assessment-wrapper">
+
+    <div class="header">
+        <div class="soft_pattern">
+            <!-- {{ datas?.taxpayer_name }} -->
+            fewfwefewfew
+            <!-- <span class="material-icons-round round-success" *ngIf="datas?.is_verified == true">verified_user</span> -->
+            <span class="material-icons-round round-success">verified_user</span>
+        </div>
+        <!-- <div class="reg_buss">GTin: {{ datas?.state_tin }}</div> -->
+        <div class="reg_buss">GTin: 434343443</div>
+    </div>
+
+    <div class="form-container">
+        <div class="form-text">Stamp Duties</div>
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p class="gap">
+            <p>
+                <!-- violation -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Categories</mat-label>
+                    <mat-select matInput formControlName="violation" required>
+                        <mat-option value="trr">effewfwe</mat-option>
+                    </mat-select>
+                    <mat-error>{{ formErrors.violation }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- penalty -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Select sub- categories</mat-label>
+                    <mat-select matInput formControlName="penalty" required>
+                        <mat-option value="trr">effewfwe</mat-option>
+                    </mat-select>
+                    <mat-error>{{ formErrors.penalty }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <!-- fine -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Amount (NGN)</mat-label>
+                    <input matInput formControlName="fine" required type="number">
+                    <mat-error>{{formErrors.fine}}</mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="final_submit">
+                <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
+                <button type="submit" mat-button class="generate">
+                    <span *ngIf="!loading">Generate assessment</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
