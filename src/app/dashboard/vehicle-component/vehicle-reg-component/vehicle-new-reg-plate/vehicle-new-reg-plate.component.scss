@@ -75,6 +75,10 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     padding-bottom: 20px;
   }
 
+  .gen_table {
+    margin-top: 1.5rem;
+  }
+
   .left-column {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
@@ -138,7 +142,7 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     opacity: 1;
     cursor: pointer;
     margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .arrow_drop_down {
@@ -167,7 +171,7 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     padding: 0.7rem;
     font-weight: 500;
     margin-top: 1rem;
-    width: 150px;
+    width: 200px;
   }
 
   .cancel {

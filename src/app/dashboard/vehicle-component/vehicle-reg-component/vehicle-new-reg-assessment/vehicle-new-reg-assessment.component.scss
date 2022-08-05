@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 $ind-back: #ffffff 0% 0% no-repeat padding-box;
 $white: #ffffff;
 $ind-border: 1px solid #038541;
@@ -13,6 +15,11 @@ $continue-back: #b9a005 0% 0% no-repeat padding-box;
 $nin-shadow: 0px 3px 6px #00000029;
 $ind-font: normal normal normal 13px/15px Montserrat;
 $ind-font2: normal normal normal 15px/20px Montserrat;
+$thead: #ffffff 0% 0% no-repeat padding-box;
+$thead-text: normal normal normal 12px/15px Montserrat;
+$thead-text-color: #3c66a3;
+$tbody-back: normal normal normal 15px/19px Montserrat;
+$tbody-color: #565656;
 
 .wrapper {
   .mat-accordion {
@@ -155,6 +162,7 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     color: #ffffff;
     padding: 0.7rem;
     font-weight: 500;
+    margin-top: 1rem;
   }
 
   ::ng-deep .mat-expansion-indicator::after {
@@ -274,5 +282,50 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     25% {
       transform: scale(1.55);
     }
+  }
+
+  // table css
+
+  .gen_table {
+    table {
+      border: none;
+      margin-bottom: 1rem;
+    }
+
+    thead tr {
+      background: $thead;
+      text-align: left;
+      font: $thead-text;
+      letter-spacing: 0px;
+      color: $thead-text-color;
+    }
+
+    tbody {
+      border-top: unset;
+    }
+
+    tbody tr {
+      font: $tbody-back;
+      letter-spacing: 0px;
+      color: $tbody-color;
+      text-align: center;
+    }
+
+    tr th {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+      border: 1.5px solid rgba(112, 112, 112, 0.5);
+      text-align: center;
+    }
+
+    tr td {
+      border-bottom: 1.5px solid rgba(112, 112, 112, 0.5);
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    // tr th:last-child {
+    //   border-right: unset;
+    // }
   }
 }

@@ -13,6 +13,7 @@ import {
   Department,
   Locationn,
   Occupation,
+  Vehicleitems,
 } from '../dashboard/models/irm';
 
 interface ProfileState extends EntityState<Profile> {
@@ -59,9 +60,9 @@ interface OccupationState extends EntityState<Occupation> {
   total: number;
 }
 
-// interface CouponState extends EntityState<Coupon> {
-//   total: number;
-// }
+interface VehicleitemsState extends EntityState<Vehicleitems> {
+  total: number;
+}
 
 // interface Special_OrderState extends EntityState<Special_Order> {
 //   total: number;
@@ -79,7 +80,7 @@ export interface State {
   location: LocationState;
   occupation: OccupationState;
   user: UserState;
-  // coupon: CouponState;
+  vehicleitems: VehicleitemsState;
   // special_order: Special_OrderState;
 }
 
@@ -94,7 +95,7 @@ const adapterDepartment = createEntityAdapter<Department>();
 const adapterLocation = createEntityAdapter<Locationn>();
 const adapterOccupation = createEntityAdapter<Occupation>();
 const adapterUser = createEntityAdapter<User>();
-// const adapterCoupon = createEntityAdapter<Coupon>();
+const adapterVehicleitems = createEntityAdapter<Vehicleitems>();
 // const adapterSpecial_Order = createEntityAdapter<Special_Order>();
 
 const ProfileInitialState: ProfileState = adapterProfile.getInitialState({
@@ -124,7 +125,10 @@ const LocationInitialState: LocationState = adapterLocation.getInitialState({
 const OccupationInitialState: OccupationState =
   adapterOccupation.getInitialState({ total: 0 });
 const UserInitialState: UserState = adapterUser.getInitialState({ total: 0 });
-// const CouponInitialState: CouponState = adapterCoupon.getInitialState({ total: 0 });
+const VehicleitemsInitialState: VehicleitemsState =
+  adapterVehicleitems.getInitialState({
+    total: 0,
+  });
 // const Special_OrderInitialState: Special_OrderState = adapterSpecial_Order.getInitialState({ total: 0 });
 
 const initialState = {
@@ -139,7 +143,7 @@ const initialState = {
   location: LocationInitialState,
   occupation: OccupationInitialState,
   user: UserInitialState,
-  // coupon: CouponInitialState,
+  vehicleitems: VehicleitemsInitialState,
   // special_order: Special_OrderInitialState,
 };
 
@@ -285,12 +289,21 @@ export function reducer(state: State = initialState, action: Actions): State {
     case KonpayActions.ExampleActionTypes2.GetUser:
       return { ...state, user: adapterUser.removeOne(1, state.user) };
 
-    // //  Coupon
-    // case KonpayActions.ExampleActionTypes.GetCoupon:
-    //     return { ...state, coupon: adapterCoupon.addMany(action.Couponpayload, state.coupon) };
+    //  Vehicleitems
+    case KonpayActions.ExampleActionTypes.GetVehicleitems:
+      return {
+        ...state,
+        vehicleitems: adapterVehicleitems.addMany(
+          action.Vehicleitemspayload,
+          state.vehicleitems
+        ),
+      };
 
-    //     case KonpayActions.ExampleActionTypes2.GetCoupon:
-    //         return { ...state, coupon: adapterCoupon.removeOne(1, state.coupon) };
+    case KonpayActions.ExampleActionTypes2.GetVehicleitems:
+      return {
+        ...state,
+        vehicleitems: adapterVehicleitems.removeOne(1, state.vehicleitems),
+      };
 
     // //  Special_Order
     // case KonpayActions.ExampleActionTypes.GetSpecial_Order:
@@ -315,7 +328,7 @@ export const selectDepartmentState = (state: State) => state.department;
 export const selectLocationState = (state: State) => state.location;
 export const selectOccupationState = (state: State) => state.occupation;
 export const selectUserState = (state: State) => state.user;
-// export const selectCouponState = (state: State) => state.coupon;
+export const selectVehicleitemsState = (state: State) => state.vehicleitems;
 // export const selectSpecial_OrderState = (state: State) => state.special_order;
 
 export const { selectAll: selectAllProfile } = adapterProfile.getSelectors();
@@ -331,5 +344,6 @@ export const { selectAll: selectAllLocation } = adapterLocation.getSelectors();
 export const { selectAll: selectAllOccupation } =
   adapterOccupation.getSelectors();
 export const { selectAll: selectAllUser } = adapterUser.getSelectors();
-// export const { selectAll: selectAllCoupon } = adapterCoupon.getSelectors();
+export const { selectAll: selectAllVehicleitems } =
+  adapterVehicleitems.getSelectors();
 // export const { selectAll: selectAllSpecial_Order } = adapterSpecial_Order.getSelectors();

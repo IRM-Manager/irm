@@ -5,6 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+// state management
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers/index';
+import { HttpService } from 'src/app/services/http.service';
+import { AddVehicleitems } from '../../../actions/irm.action';
+import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-side-nav-list',
@@ -18,13 +24,16 @@ export class SideNavListComponent implements OnInit {
     public shared: ToggleNavService,
     private _location: Location,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private httpService: HttpService,
+    private store: Store<AppState>
   ) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
         this.vehicleRoute();
       }
     });
+    this.vehicleRegtype();
   }
 
   vehicleRoute() {
@@ -66,6 +75,18 @@ export class SideNavListComponent implements OnInit {
         data: data,
       },
     });
+  }
+
+  vehicleRegtype() {
+    this.httpService.getAuthSingle(BaseUrl.vehicle_regtype).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.store.dispatch(
+          new AddVehicleitems([{ id: 1, data: data.results }])
+        );
+      },
+      (err) => {}
+    );
   }
 
   ngOnInit(): void {}

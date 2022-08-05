@@ -72,11 +72,73 @@
         </mat-accordion>
     </div>
 
-    <div class="form-container">
+    <!-- second table -->
+
+    <div class="gen_table">
+        <div class="column">
+
+            <!--  -->
+            <div class="column1">
+                <div class="employee-salary">Description</div>
+                <div class="left_right">
+                    <div class="left">
+                        <div class="title2" *ngFor="let n of datas?.items_ids">{{ n.name }}</div>
+                        <!-- <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div> -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Selected</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2" *ngFor="let n of datas?.items_ids">
+                            <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <!-- <div class="column2">
+                <div class="deduction">Amount (NGN)</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2">3,125</div>
+                        <div class="title2">3,125</div>
+                        <div class="title2" style="font-weight: 550;">4,375</div>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+
+        <div style="clear: both;"></div>
+
+        <div class="add">Add other Items</div>
+
+        <form [formGroup]="manualForm" class="manual_form">
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Vehicle Items</mat-label>
+                <mat-select matInput formControlName="item">
+                    <mat-option value="Formal">Formal</mat-option>
+                    <mat-option value="Informal">Informal</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <div>
+            <button mat-button class="generate" (click)="generateAss()">Generate Assessment</button>
+        </div>
+
+    </div>
+
+    <!-- <div class="form-container">
         <div class="form-text">Select Plate Number</div>
         <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p class="gap">
-                <!-- Plate number Categories -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Plate number Categories</mat-label>
                     <mat-select matInput formControlName="violation" required>
@@ -86,31 +148,6 @@
                     <mat-error>{{ formErrors.violation }}</mat-error>
                 </mat-form-field>
             </p>
-            <p *ngIf="!custom">
-                <!-- Choose from available Plate -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Choose from available Plate</mat-label>
-                    <mat-select matInput formControlName="penalty" required>
-                        <mat-option value="Formal">Formal</mat-option>
-                        <mat-option value="Informal">Informal</mat-option>
-                    </mat-select>
-                    <mat-error>{{ formErrors.penalty }}</mat-error>
-                    <mat-hint align="end">
-                        <span class="custom" (click)="selectCustom(true)">Type a custom plate number</span>
-                    </mat-hint>
-                </mat-form-field>
-            </p>
-            <p *ngIf="custom">
-                <!-- Custom from available Plate -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Type in prefer plate number</mat-label>
-                    <input matInput formControlName="penalty" required type="number">
-                    <mat-error>{{ formErrors.penalty }}</mat-error>
-                    <mat-hint align="end">
-                        <span class="custom" (click)="selectCustom(false)">Choose from available Plate number</span>
-                    </mat-hint>
-                </mat-form-field>
-            </p>
             <p>
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Amount (NGN)</mat-label>
@@ -118,7 +155,6 @@
                     <mat-error>{{formErrors.fine}}</mat-error>
                 </mat-form-field>
             </p>
-
             <div class="final_submit">
                 <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
                 <button type="submit" mat-button class="generate">
@@ -131,9 +167,6 @@
                     </div>
                 </button>
             </div>
-
         </form>
-    </div>
-
-
+    </div> -->
 </div>

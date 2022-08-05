@@ -1,13 +1,21 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { offence } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
+// state management
+import { Store } from '@ngrx/store';
+import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
+import { HttpService } from 'src/app/services/http.service';
+import { AddVehicleitems } from 'src/app/actions/irm.action';
+//
+import { BaseUrl } from 'src/environments/environment';
+import { Vehicleitems } from 'src/app/dashboard/models/irm';
 
 @Component({
   selector: 'app-vehicle-new-reg-plate',
@@ -23,7 +31,11 @@ export class VehicleNewRegPlateComponent implements OnInit {
   plateMsg: any;
   panelOpenState = false;
   loading = false;
-  custom = false;
+  datas: any;
+
+  stateVehicleitems: Observable<Vehicleitems[]>;
+
+  manualForm!: FormGroup;
 
   formErrors: any = {
     violation: '',
@@ -51,10 +63,15 @@ export class VehicleNewRegPlateComponent implements OnInit {
     private _location: Location,
     private service: VehicleServiceService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private httpService: HttpService,
+    private store: Store<AppState>
   ) {
     this.createForm();
+    this.createManualForm2();
+    this.stateVehicleitems = store.select(selectAllVehicleitems);
     this.authService.checkExpired();
+    this.vehicleRegtype();
   }
 
   createForm() {
@@ -68,6 +85,12 @@ export class VehicleNewRegPlateComponent implements OnInit {
       this.onValueChanged(data)
     );
     this.onValueChanged(); // (re)set validation messages now
+  }
+
+  createManualForm2() {
+    this.manualForm = this.fb.group({
+      item: [''],
+    });
   }
 
   onValueChanged(data?: any) {
@@ -116,6 +139,15 @@ export class VehicleNewRegPlateComponent implements OnInit {
     } // end else
   }
 
+  generateAss() {
+    const data = {
+      type: 'assessment',
+      data: this.feedback,
+    };
+    this.service.setRegMessage2(data);
+    this.service.sendClickEvent2();
+  }
+
   back() {
     const data = {
       type: 'detail',
@@ -135,8 +167,30 @@ export class VehicleNewRegPlateComponent implements OnInit {
     });
   }
 
-  selectCustom(type: boolean) {
-    this.custom = type;
+  vehicleRegtype() {
+    this.stateVehicleitems?.forEach((e) => {
+      if (e.length > 0) {
+        const data = e[0].data.filter((name: any) => {
+          return name.name == 'new';
+        });
+        this.datas = data[0];
+      } else {
+        this.httpService.getAuthSingle(BaseUrl.vehicle_regtype).subscribe(
+          (data: any) => {
+            const dataa = data.results.filter((name: any) => {
+              return name.name == 'new';
+            });
+            this.datas = dataa[0];
+            this.store.dispatch(
+              new AddVehicleitems([{ id: 1, data: data.results }])
+            );
+          },
+          (err) => {
+            this.authService.checkExpired();
+          }
+        );
+      }
+    });
   }
 
   ngOnInit(): void {}

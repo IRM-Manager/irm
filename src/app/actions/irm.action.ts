@@ -10,7 +10,8 @@ import {
   Group,
   Department,
   Locationn,
-  Occupation
+  Occupation,
+  Vehicleitems
 } from '../dashboard/models/irm';
 
 export enum ExampleActionTypes {
@@ -25,7 +26,7 @@ export enum ExampleActionTypes {
   GetDepartment = '[Department API] Get Department',
   GetLocation = '[Location API] Get Location',
   GetOccupation = '[Occupation API] Get Occupation',
-  // GetCoupon = '[Coupon API] Get Coupon',
+  GetVehicleitems = '[Vehicleitems API] Get Vehicleitems',
   // GetSpecial_Order = '[Special_Order API] Get Special_Order',
 }
 
@@ -41,7 +42,7 @@ export enum ExampleActionTypes2 {
   GetDepartment = '[Department API] Remove Department',
   GetLocation = '[Location API] Remove Location',
   GetOccupation = '[Occupation API] Remove Occupation',
-  // GetCoupon = '[Coupon API] Remove Coupon',
+  GetVehicleitems = '[Vehicleitems API] Remove Vehicleitems',
   // GetSpecial_Order = '[Special_Order API] Remove Special_Order',
 }
 
@@ -258,25 +259,25 @@ export class RemoveOccupation implements Action {
     constructor(public Occupationpayload: any) {}
 }
 
-// // Coupon
+// Vehicleitems
 
-// // Section 2
-// export const ADD_COUPON  = '[COUPON] Add'
-// export const REMOVE_COUPON  = '[COUPON] Remove'
+// Section 2
+export const ADD_VEHICLEITEMS = '[VEHICLEITEMS] Add'
+export const REMOVE_VEHICLEITEMS  = '[VEHICLEITEMS] Remove'
 
-// // Section 3
-// export class AddCoupon implements Action {
-//     public readonly type = ExampleActionTypes.GetCoupon
+// Section 3
+export class AddVehicleitems implements Action {
+    public readonly type = ExampleActionTypes.GetVehicleitems
 
-//     constructor(public Couponpayload: Coupon[]) {}
+    constructor(public Vehicleitemspayload: Vehicleitems[]) {}
 
-// }
+}
 
-// export class RemoveCoupon implements Action {
-//     public readonly type = ExampleActionTypes2.GetCoupon
+export class RemoveVehicleitems implements Action {
+    public readonly type = ExampleActionTypes2.GetVehicleitems
 
-//     constructor(public Couponpayload: any) {}
-// }
+    constructor(public Vehicleitemspayload: any) {}
+}
 
 // // Special_Order
 
@@ -323,3 +324,5 @@ export type Actions =
   | RemoveLocation
   | AddOccupation
   | RemoveOccupation
+  | AddVehicleitems
+  | RemoveVehicleitems

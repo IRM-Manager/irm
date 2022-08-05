@@ -2,71 +2,71 @@
 
     <div class="mat-accordion">
         <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState"
-                                 (closed)="!panelOpenState">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Vehicle Details
-                </mat-panel-title>
-                <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
-              </mat-expansion-panel-header>
-              <div class="panel-container">
-                
-                <table class="panel-table" fxLayoutGap="50px">
-                    <!-- 1 -->
-                    <tbody>
-                        <tr>
-                            <td class="title">Issue Date:</td>
-                            <td class="sub-title">2018-11-11</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Vehicle Make:</td>
-                            <td class="sub-title">Toyota highlander</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Chasis Number:</td>
-                            <td class="sub-title">JTEDP21A040041522</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Address:</td>
-                            <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Owner</td>
-                            <td class="sub-title">Matthew Adeboye</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Phone Number:</td>
-                            <td class="sub-title">07034725207</td>
-                        </tr>
-                    </tbody>
-                    <!-- 2 -->
-                    <tbody>
-                        <tr>
-                            <td class="title">Private:</td>
-                            <td class="sub-title">33e33232323</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Vehicle Type:</td>
-                            <td class="sub-title">SUV</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Engine Number:</td>
-                            <td class="sub-title">Na</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Gross weight:</td>
-                            <td class="sub-title">1472</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Max carrier:</td>
-                            <td class="sub-title">7</td>
-                        </tr>
-                    </tbody>
-                    <!-- 3 -->
-                </table>
-    
-              </div>
+            <mat-expansion-panel (opened)="panelOpenState" (closed)="!panelOpenState">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Vehicle Details
+                    </mat-panel-title>
+                    <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
+                </mat-expansion-panel-header>
+                <div class="panel-container">
+
+                    <table
+                        class="panel-table" fxLayoutGap="50px">
+                        <!-- 1 -->
+                        <tbody>
+                            <tr>
+                                <td class="title">Issue Date:</td>
+                                <td class="sub-title">2018-11-11</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Vehicle Make:</td>
+                                <td class="sub-title">Toyota highlander</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Chasis Number:</td>
+                                <td class="sub-title">JTEDP21A040041522</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Address:</td>
+                                <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Owner</td>
+                                <td class="sub-title">Matthew Adeboye</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Phone Number:</td>
+                                <td class="sub-title">07034725207</td>
+                            </tr>
+                        </tbody>
+                        <!-- 2 -->
+                        <tbody>
+                            <tr>
+                                <td class="title">Private:</td>
+                                <td class="sub-title">33e33232323</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Vehicle Type:</td>
+                                <td class="sub-title">SUV</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Engine Number:</td>
+                                <td class="sub-title">Na</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Gross weight:</td>
+                                <td class="sub-title">1472</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Max carrier:</td>
+                                <td class="sub-title">7</td>
+                            </tr>
+                        </tbody>
+                        <!-- 3 -->
+                    </table>
+
+                </div>
             </mat-expansion-panel>
         </mat-accordion>
     </div>
@@ -74,59 +74,87 @@
 
     <!-- second table -->
 
-    <div class="gen_table" style="margin-top: 2rem;">
-        <div class="column">
+    <div
+        class="gen_table" style="margin-top: 2rem;">
+        <!-- <div class="column">
+                
+                            <div class="column1">
+                                <div class="employee-salary">Description</div>
+                                <div class="left_right">
+                                    <div class="left">
+                                        <div class="title2">Vehicle License</div>
+                                        <div class="title2">Road Worthiness Certifcate</div>
+                                        <div class="title2">Vehicle registration</div>
+                                        <div class="title2">Vehicle Registration Booklet</div>
+                                        <div class="title2">Proof of ownership</div>
+                                        <div class="title2">Plate number</div>
+                                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <div class="column2">
+                                <div class="deduction">Selected</div>
+                                <div class="left_right">
+                                    <div class="left2">
+                                        <div class="title2">12 month</div>
+                                        <div class="title2">12 month</div>
+                                        <div class="title2">-</div>
+                                        <div class="title2">-</div>
+                                        <div class="title2">-</div>
+                                        <div class="title2">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="column2">
+                                <div class="deduction">Amount (NGN)</div>
+                                <div class="left_right">
+                                    <div class="left2">
+                                        <div class="title2">3,125</div>
+                                        <div class="title2">3,125</div>
+                                        <div class="title2">3,125</div>
+                                        <div class="title2">3,125</div>
+                                        <div class="title2">3,125</div>
+                                        <div class="title2">3,125</div>
+                                        <div class="title2" style="font-weight: 550;">4,375</div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                        </div> -->
 
-            <!--  -->
-            <div class="column1">
-                <div class="employee-salary">Description</div>
-                <div class="left_right">
-                    <div class="left">
-                        <div class="title2">Vehicle License</div>
-                        <div class="title2">Road Worthiness Certifcate</div>
-                        <div class="title2">Vehicle registration</div>
-                        <div class="title2">Vehicle Registration Booklet</div>
-                        <div class="title2">Proof of ownership</div>
-                        <div class="title2">Plate number</div>
-                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--  -->
-            <div class="column2">
-                <div class="deduction">Selected</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title2">12 month</div>
-                        <div class="title2">12 month</div>
-                        <div class="title2">-</div>
-                        <div class="title2">-</div>
-                        <div class="title2">-</div>
-                        <div class="title2">-</div>
-                    </div>
-                </div>
-            </div>
-
-            <!--  -->
-
-            <div class="column2">
-                <div class="deduction">Amount (NGN)</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2" style="font-weight: 550;">4,375</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jacob</td>
+                    <td>tdornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Larry the Bird</td>
+                    <td>Thornton</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
 
         <div style="clear: both;"></div>
 
@@ -134,7 +162,7 @@
 
 
     <div style="margin-top: 1rem;">
-        <button mat-button class="generate" (click)="openDialog('', 'generate_bill')">Generate Bill</button>
+        <button mat-button="mat-button" class="generate" (click)="openDialog('', 'generate_bill')">Generate Bill</button>
     </div>
 
 

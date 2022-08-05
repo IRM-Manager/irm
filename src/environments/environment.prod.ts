@@ -59,4 +59,5 @@ export const BaseUrl = {
   vehicle_create_plateno: '/mla/api/v1/plateno/?tin=',
   vehicle_plate_stat: '/mla/api/v1/plateno/getplatenostats',
   vehicle_plate_by_tin: 'mla/api/v1/plateno/getplatenobytin?tin=',
+  vehicle_regtype: 'mla/api/v1/regtype/',
 };

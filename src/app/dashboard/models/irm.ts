@@ -53,10 +53,10 @@ export interface Occupation {
     data: any;
 }
 
-// export interface Coupon {
-//     id: number;
-//     data: any;
-// }
+export interface Vehicleitems {
+    id: number;
+    data: any;
+}
 
 // export interface Special_Order {
 //     id: number;

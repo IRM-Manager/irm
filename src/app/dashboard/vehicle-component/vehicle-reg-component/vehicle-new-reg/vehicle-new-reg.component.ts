@@ -14,6 +14,7 @@ export class VehicleNewRegComponent implements OnInit {
   viewMode = 'detail';
   clickEventSubscription?: Subscription;
   datas: any;
+  
 
   constructor(
     private service: VehicleServiceService,
@@ -29,11 +30,11 @@ export class VehicleNewRegComponent implements OnInit {
         this.viewMode = datas.type;
       });
     //
-    this.datas = this.service.getRegVehicleMessage();
-    if (this.datas) {
-    } else {
-      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
-    }
+    // this.datas = this.service.getRegVehicleMessage();
+    // if (this.datas) {
+    // } else {
+    //   this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
+    // }
     //
   }
 

@@ -34,7 +34,7 @@ body {
 }
 
 .mat-dialog-container {
-  border-radius: 5px !important;
+  border-radius: 10px !important;
 }
 
 .cdk-global-overlay-wrapper {
