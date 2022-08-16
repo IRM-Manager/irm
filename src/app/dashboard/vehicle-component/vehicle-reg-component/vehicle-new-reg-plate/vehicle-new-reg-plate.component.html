@@ -77,20 +77,16 @@
     <div class="gen_table">
         <div class="column">
 
-            <!--  -->
-            <div class="column1">
+            <!-- <div class="column1">
                 <div class="employee-salary">Description</div>
                 <div class="left_right">
                     <div class="left">
                         <div class="title2" *ngFor="let n of datas?.items_ids">{{ n.name }}</div>
-                        <!-- <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div> -->
                     </div>
                 </div>
+            </div> -->
 
-            </div>
-
-            <!--  -->
-            <div class="column2">
+            <!-- <div class="column2">
                 <div class="deduction">Selected</div>
                 <div class="left_right">
                     <div class="left2">
@@ -99,19 +95,60 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+
+            <!--  -->
+            <div class="column1">
+                <div class="employee-salary">Description</div>
+                <div class="left_right">
+                    <div class="left">
+                        <div class="title2">Vehicle License</div>
+                        <div class="title2">Vehicle License</div>
+                        <div class="title2">Vehicle License</div>
+                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
+                    </div>
+                </div>
+
             </div>
 
             <!--  -->
-            <!-- <div class="column2">
+            <div class="column2">
+                <div class="deduction">Duration</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2">12 Month</div>
+                        <div class="title2">12 Month</div>
+                        <div class="title2">-</div>
+                        <div class="title2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="column2">
                 <div class="deduction">Amount (NGN)</div>
                 <div class="left_right">
                     <div class="left2">
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2" style="font-weight: 550;">4,375</div>
+                        <div class="title2">10,000</div>
+                        <div class="title2">10,000</div>
+                        <div class="title2">10,000</div>
+                        <div class="title2" style="font-weight: 550;">10,000</div>
                     </div>
                 </div>
-            </div> -->
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Action</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2">Remove</div>
+                        <div class="title2">Remove</div>
+                        <div class="title2">Remove</div>
+                        <div class="title2"></div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -130,7 +167,8 @@
         </form>
 
         <div>
-            <button mat-button class="generate" (click)="generateAss()">Generate Assessment</button>
+            <button mat-button class="generate2" (click)="generateAss()">Save Assessment</button>
+            <button mat-button class="generate" (click)="generateAss()">Save & Generate Bill</button>
         </div>
 
     </div>

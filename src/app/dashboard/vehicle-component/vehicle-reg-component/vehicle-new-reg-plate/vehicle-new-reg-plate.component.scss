@@ -85,17 +85,17 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
   }
 
   .column {
-    width: 30rem;
+    width: 100%;
   }
 
   .column1 {
     float: left;
-    width: 40%;
+    width: 25%;
   }
 
   .column2 {
     float: left;
-    width: 30%;
+    width: 25%;
   }
 
   .left2,
@@ -172,6 +172,21 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     font-weight: 500;
     margin-top: 1rem;
     width: 200px;
+  }
+
+  .generate2 {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    border: 1px solid #b9a005;
+    font: normal normal normal 14px/19px Montserrat;
+    letter-spacing: 0px;
+    color: #3c66a3;
+    padding: 0.7rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    width: 200px;
+    margin-right: 20px;
   }
 
   .cancel {
