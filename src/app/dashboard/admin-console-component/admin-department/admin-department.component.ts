@@ -66,8 +66,8 @@ export class AdminDepartmentComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.code.toLowerCase().startsWith(search.toLowerCase())
+        data.name.toLowerCase().includes(search.toLowerCase()) ||
+        data.code.toLowerCase().includes(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -78,7 +78,7 @@ export class AdminDepartmentComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
     this.isLoading = true;
     this.stateDepartment?.forEach((e) => {
@@ -145,7 +145,7 @@ export class AdminDepartmentComponent implements OnInit {
           department: data_type,
           data: data.results,
           location: undefined,
-        }
+        };
         this.service.setDepLocMessage(datas);
         this.router.navigate(['/dashboard/dashboard5/dep-loc']);
         this.getLoding = 0;

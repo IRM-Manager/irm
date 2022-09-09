@@ -129,10 +129,10 @@ export class PayeeAssessmentComponent implements OnInit {
   keyPress(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.payer.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.org_phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data.payer.created_at).startsWith(search.toLowerCase())
+        data.payer.tin.toLowerCase().includes(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.org_phone.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data.payer.created_at).includes(search.toLowerCase())
       );
     });
     console.log(data);

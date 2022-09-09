@@ -89,8 +89,8 @@ export class PayeeManageEmployeeComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.employeeTin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.employee.toLowerCase().startsWith(search.toLowerCase())
+        data.employeeTin.toLowerCase().includes(search.toLowerCase()) ||
+        data.employee.toLowerCase().includes(search.toLowerCase())
       );
     });
     this.datas = data;

@@ -5,17 +5,13 @@ import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
-import { Store } from '@ngrx/store';
-import { AppState, selectAllUser } from 'src/app/reducers/index';
-import { User } from '../../models/irm';
 //
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
 import { AdminServiceService } from '../service/admin-service.service';
-import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-user-dep-loc',
@@ -67,11 +63,11 @@ export class ListUserDepLocComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.username.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.first_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.last_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.email.toLowerCase().startsWith(search.toLowerCase())
+        data.username.toLowerCase().includes(search.toLowerCase()) ||
+        data.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.phone.toLowerCase().includes(search.toLowerCase()) ||
+        data.last_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.email.toLowerCase().includes(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -82,7 +78,7 @@ export class ListUserDepLocComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
     this.isLoading = true;
     if (this.datas2?.data) {

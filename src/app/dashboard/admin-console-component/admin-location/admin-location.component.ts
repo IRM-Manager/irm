@@ -66,8 +66,8 @@ export class AdminLocationComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.code.toLowerCase().startsWith(search.toLowerCase())
+        data.name.toLowerCase().includes(search.toLowerCase()) ||
+        data.code.toLowerCase().includes(search.toLowerCase())
       );
     });
     this.datas = data;

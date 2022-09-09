@@ -84,10 +84,10 @@ export class DirectBojComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.tin.toLowerCase().includes(search.toLowerCase()) ||
+        data.organisation_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.phone.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data?.created_at).includes(search.toLowerCase())
       );
     });
     this.datas = data;
