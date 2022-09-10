@@ -127,44 +127,88 @@ export class VehicleCustomerPlateComponent implements OnInit {
         type: this.feedback.violation,
         price: this.price,
       };
-      console.log(data);
-      this.httpService
-        .postData(
-          BaseUrl.vehicle_create_plateno + `${this.datas.state_tin}`,
-          data
-        )
-        .subscribe(
-          (data: any) => {
-            this.loading = false;
-            console.log(data);
-            this.snackBar.open('Success', '', {
-              duration: 5000,
-              panelClass: 'success',
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            });
-            this.router.navigate([`/dashboard/dashboard5/vehicle/reg-plate`]);
-          },
-          (err) => {
-            this.authService.checkExpired();
-            this.loading = false;
-            console.log(err);
-            this.snackBar.open(
-              err?.error?.message ||
-                err?.error?.msg ||
-                err?.error?.detail ||
-                err?.error?.status ||
-                'An Error Occured!',
-              '',
-              {
+      const get_plate_id = this.available_data?.filter((name: any) => {
+        return name.name == this.feedback.penalty;
+      });
+      if (this.feedback.violation == 'fancy') {
+        this.httpService
+          .postData(
+            BaseUrl.vehicle_create_plateno + `${this.datas.state_tin}`,
+            data
+          )
+          .subscribe(
+            (data: any) => {
+              this.loading = false;
+              console.log(data);
+              this.snackBar.open('Success', '', {
                 duration: 5000,
-                panelClass: 'error',
+                panelClass: 'success',
                 horizontalPosition: 'center',
                 verticalPosition: 'top',
-              }
-            );
-          }
-        );
+              });
+              this.router.navigate([`/dashboard/dashboard5/vehicle/reg-plate`]);
+            },
+            (err) => {
+              this.authService.checkExpired();
+              this.loading = false;
+              console.log(err);
+              this.snackBar.open(
+                err?.error?.message ||
+                  err?.error?.msg ||
+                  err?.error?.detail ||
+                  err?.error?.status ||
+                  'An Error Occured!',
+                '',
+                {
+                  duration: 5000,
+                  panelClass: 'error',
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                }
+              );
+            }
+          );
+      } // end else
+      else {
+        this.httpService
+          .updateData(
+            BaseUrl.vehicle_plateno,
+            { status: 'approved' },
+            `${get_plate_id[0].id}/?tin=${this.datas.state_tin}`
+          )
+          .subscribe(
+            (data: any) => {
+              this.loading = false;
+              console.log(data);
+              this.snackBar.open('Success', '', {
+                duration: 5000,
+                panelClass: 'success',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+              this.router.navigate([`/dashboard/dashboard5/vehicle/reg-plate`]);
+            },
+            (err) => {
+              this.authService.checkExpired();
+              this.loading = false;
+              console.log(err);
+              this.snackBar.open(
+                err?.error?.message ||
+                  err?.error?.msg ||
+                  err?.error?.detail ||
+                  err?.error?.status ||
+                  'An Error Occured!',
+                '',
+                {
+                  duration: 5000,
+                  panelClass: 'error',
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                }
+              );
+            }
+          );
+      }
     } // end else
   }
 
