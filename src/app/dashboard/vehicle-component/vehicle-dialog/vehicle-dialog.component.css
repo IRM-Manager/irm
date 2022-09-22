@@ -377,18 +377,28 @@ mat-error {
   background: #3c66a3 0% 0% no-repeat padding-box;
   border-radius: 5px;
   opacity: 1;
+  color: #ffffff;
 }
 
 .yellow {
   background: #b9a005 0% 0% no-repeat padding-box;
   border-radius: 5px;
+  color: #ffffff;
   opacity: 1;
 }
 
 .red {
   background: #bc333e 0% 0% no-repeat padding-box;
   border-radius: 5px;
+  color: #ffffff;
   opacity: 1;
+}
+
+.white {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  opacity: 1;
+  color: #000000;
 }
 
 .card {
@@ -397,7 +407,6 @@ mat-error {
   font: normal normal normal 15px/20px Inter;
   font-weight: 500;
   letter-spacing: 0px;
-  color: #ffffff;
   opacity: 1;
   cursor: pointer;
 }
@@ -613,7 +622,7 @@ hr.receipt-line {
   font: normal normal normal 15px/19px Inter;
   letter-spacing: 0px;
   font-weight: 500;
-  color: #3C66A3;
+  color: #3c66a3;
   text-align: center;
   margin-top: 1.5rem;
   margin-bottom: -1rem;

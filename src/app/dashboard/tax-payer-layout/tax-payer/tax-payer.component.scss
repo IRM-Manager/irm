@@ -40,6 +40,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   display: flex;
   justify-content: left;
   align-items: center;
+  flex-wrap: wrap;
 
   .spacer {
     flex: 1 1 auto;
@@ -344,5 +345,31 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     font: $tbody-back;
     font-weight: 400;
     letter-spacing: 0.3px;
+  }
+}
+
+@media (max-width: 590px) {
+  .wrapper {
+    .header {
+      flex-direction: column;
+      align-items: unset;
+
+      .search-form_header {
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .dashboard_select {
+        display: none;
+      }
+
+      input[type="text"] {
+        width: 80%;
+      }
+
+      .dashboard_select-tax {
+        width: 10rem;
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  HostListener,
   OnInit,
   Output,
   ViewEncapsulation,
@@ -87,6 +88,16 @@ export class HeaderComponent implements OnInit {
     this.stateYear = store.select(selectAllYear);
     this.stateIndPayer = store.select(selectAllIndPayer);
     this.stateComPayer = store.select(selectAllComPayer);
+  }
+
+  // get width of hearder when resizing
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (event.target.innerWidth < 960) {
+      this.hide = false;
+    } else {
+      this.hide = true;
+    }
   }
 
   currentRoute() {

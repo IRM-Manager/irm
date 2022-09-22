@@ -109,7 +109,6 @@ export class AuthService {
 
   // logout user
   public logout() {
-    this.removeTokens();
     this.adminService.setAdminMessage(undefined);
     this.adminService.sendClickEvent();
     this.store.dispatch(new RemoveProfile([{ id: 1, data: [] }]));
@@ -117,6 +116,7 @@ export class AuthService {
       duration: 5000,
       panelClass: 'success',
     });
+    this.removeTokens();
     this.router.navigate(['/']);
   }
 
