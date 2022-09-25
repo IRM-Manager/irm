@@ -2,15 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Store } from '@ngrx/store';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AddYear } from 'src/app/actions/irm.action';
-import { AppState, selectAllYear } from 'src/app/reducers';
+import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../../models/irm';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
@@ -25,23 +20,13 @@ export class VehicleDocumentComponent implements OnInit {
   loading = false;
   disabled = false;
   is_reload = false;
-  clickEventSubscription?: Subscription;
   isLoading = false;
-
+  today = new Date();
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
-  years: any;
-  htmlYear = new Date().getFullYear();
-
-  stateYear: Observable<Year[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
 
   formErrors: any = {};
 
@@ -52,17 +37,15 @@ export class VehicleDocumentComponent implements OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private httpService: HttpService,
-    private store: Store<AppState>,
     private snackBar: MatSnackBar,
     private service: VehicleServiceService
   ) {
     this.authService.checkExpired();
-    this.stateYear = store.select(selectAllYear);
-    //
-    // const get_year: any = this.service.getAYearMessage();
-    // this.htmlYear = get_year?.yearId || new Date().getFullYear();
-    //
-    this.listYear();
+    this.datas2 = this.service.getDocMessage();
+    if (this.datas2) {
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
+    }
   }
 
   formatDate(data: any) {
@@ -79,34 +62,31 @@ export class VehicleDocumentComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data?.vehicleId?.make.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.vehicleId?.model.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.payment_status.toLowerCase().startsWith(search.toLowerCase()) ||
+        this.formatDate(data?.created_at).startsWith(search.toLowerCase()) ||
+        this.formatDate(data?.expiry_date).startsWith(search.toLowerCase())
       );
     });
     this.datas = data;
   }
 
-  renderTable(id?: any) {
+  renderTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.isLoading = true;
     this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
+      .getAuthSingle(BaseUrl.vehicle_doc + `?vehicleId=${this.datas2?.id}`)
       .subscribe(
         (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
+          this.datas = data.data;
+          this.searchData = data.data;
           this.isLoading = false;
           console.log(data);
         },
@@ -117,19 +97,14 @@ export class VehicleDocumentComponent implements OnInit {
       );
   }
 
-  reload(id?: any) {
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
+  reload() {
     this.is_reload = true;
     this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
+      .getAuthSingle(BaseUrl.vehicle_doc + `?vehicleId=${this.datas2?.id}`)
       .subscribe(
         (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
+          this.datas = data.data;
+          this.searchData = data.data;
           this.is_reload = false;
           this.isLoading = false;
           this.snackBar.open('Loaded', '', {
@@ -145,26 +120,6 @@ export class VehicleDocumentComponent implements OnInit {
           this.authService.checkExpired();
         }
       );
-  }
-
-  listYear() {
-    this.stateYear?.forEach((e) => {
-      if (e.length > 0) {
-        this.years = e[0].data;
-        this.renderTable();
-      } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
-          (data: any) => {
-            this.years = data.results;
-            this.renderTable();
-            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
-          },
-          (err) => {
-            this.authService.checkExpired();
-          }
-        );
-      }
-    });
   }
 
   viewAss(data: any) {
@@ -183,11 +138,6 @@ export class VehicleDocumentComponent implements OnInit {
         data: data,
       },
     });
-  }
-
-  chooseYear(year: any) {
-    this.htmlYear = year.year;
-    this.reload(year.id);
   }
 
   formatMoney(n: any) {

@@ -49,8 +49,8 @@ export class VehicleRegAssessmentComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.assessment.filter((data: any) => {
       return (
-        data.assess_code.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.assessment_date).startsWith(search.toLowerCase())
+        data.assess_code.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data?.assessment_date).includes(search.toLowerCase())
       );
     });
     this.datas = data;

@@ -2,10 +2,10 @@
 
     <div class="header">
         <div class="soft_pattern">
-            Adamu Aliyu
-            <span class="material-icons-round icons-rounded">verified_user</span>
+            {{ datas2?.payer?.taxpayer_name }}
+            <span *ngIf="datas2?.payer?.is_verified" class="material-icons-round icons-rounded">verified_user</span>
         </div>
-        <div class="reg_buss">GTin: 4434434343</div>
+        <div class="reg_buss">GTin: {{ datas2?.payer?.state_tin }}</div>
     </div>
 
     <div>
@@ -56,8 +56,9 @@
                                 <th class="align-middle text-center">Document Type</th>
                                 <th class="align-middle text-center">Amount (NGN)</th>
                                 <th class="align-middle text-center">Generated date</th>
-                                <th class="align-middle text-center">Receipt Number</th>
+                                <th class="align-middle text-center">Expiry date</th>
                                 <th class="align-middle text-center">Payment status</th>
+                                <th class="align-middle text-center">Status</th>
                                 <th class="align-middle text-center">Actions</th>
                             </tr>
                         </thead>
@@ -65,17 +66,25 @@
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
-                                <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle">{{ data?.vehicleId?.make }} {{ data?.vehicleId?.model }}</td>
+                                <td class="align-middle text-center">{{ data?.name }}</td>
+                                <td class="align-middle text-center">{{ formatMoney(data?.amount || '') }}</td>
+                                <td class="align-middle text-center">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle text-center">{{ data?.expiry_date | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
-                                        Active
+                                    <button mat-button class="pending" *ngIf="data?.payment_status == 'not-paid'">
+                                        {{ data?.payment_status }}
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.assessment.remitted == false">
+                                    <button mat-button class="paid" *ngIf="data?.payment_status != 'not-paid'">
+                                        {{ data?.payment_status }}
+                                    </button>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <button mat-button class="pending" *ngIf="formatDate(today) > formatDate(data?.expiry_date)">
                                         Due
+                                    </button>
+                                    <button mat-button class="paid" *ngIf="formatDate(today) < formatDate(data?.expiry_date)">
+                                        Active
                                     </button>
                                 </td>
                                 <td class="align-middle text-center">
@@ -84,15 +93,13 @@
                                     </button>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'receipt')">View Details</button>
-                                        <button mat-menu-item="mat-menu-item">
-                                            Download
-                                        </button>
                                     </mat-menu>
                                 </td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

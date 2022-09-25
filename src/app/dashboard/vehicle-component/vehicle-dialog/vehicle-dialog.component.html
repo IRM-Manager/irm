@@ -341,7 +341,7 @@
             <div>
                 <div>
                     <span class="blue-receipt-header-text">Registration Number:</span>
-                    <span class="black-receipt-header-text" style="font-weight: 600;">KUJ124AZ</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">{{ data?.data?.vehicleId?.model }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">State:</span>
@@ -349,23 +349,23 @@
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Issue Date:</span>
-                    <span class="black-receipt-header-text">2018-11-11</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.created_at | date:'yyyy-MM-dd' }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Chasis Number:</span>
-                    <span class="black-receipt-header-text">JTEDP21A040041522</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.vin }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Address:</span>
-                    <span class="black-receipt-header-text">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.payer?.address }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Owner:</span>
-                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.payer?.taxpayer_name }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Phone Number:</span>
-                    <span class="black-receipt-header-text">07034725207</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.payer?.phone }}</span>
                 </div>
             </div>
             <!--  -->
@@ -375,23 +375,23 @@
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Purpose:</span>
-                    <span class="black-receipt-header-text">Private</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.model }}</span>
                 </div>
                 <div>
-                    <span class="blue-receipt-header-text">Vehicle Mak:</span>
-                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                    <span class="blue-receipt-header-text">Vehicle Make:</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.make }}</span>
                 </div>
                 <div>
-                    <span class="blue-receipt-header-text">Engine Number:</span>
-                    <span class="black-receipt-header-text">07034725207</span>
+                    <span class="blue-receipt-header-text">Engine Capacity:</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.engine_capacity }}</span>
                 </div>
                 <div>
-                    <span class="blue-receipt-header-text">Gross weight:</span>
-                    <span class="black-receipt-header-text">07034725207</span>
+                    <span class="blue-receipt-header-text">Plate Number:</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.plate_no }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Max carrier:</span>
-                    <span class="black-receipt-header-text">07034725207</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicleId?.carrying_capacity }}</span>
                 </div>
             </div>
         </div>
@@ -399,7 +399,7 @@
 
     <div class="receipt-footer">
         <div>
-            <qr-code value="4343434"
+            <qr-code value="{{ data?.data?.id }}"
                 size="150"
                 errorCorrectionLevel="H"
                 centerImageSrc="undefined"

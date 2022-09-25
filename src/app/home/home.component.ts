@@ -94,12 +94,6 @@ export class HomeComponent implements OnInit {
       this.disabled = false;
       if (data) {
         this.router.navigate(['/preview']);
-        this.snackBar.open('success', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
       }
     });
     // end of subscribe
