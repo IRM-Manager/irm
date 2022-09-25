@@ -80,6 +80,9 @@ export class VehicleBillsComponent implements OnInit {
         data.assessment?.assess_code
           .toLowerCase()
           .includes(search.toLowerCase()) ||
+          data.payer?.state_tin
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
         data.payer?.taxpayer_name
           .toLowerCase()
           .includes(search.toLowerCase()) ||

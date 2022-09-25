@@ -455,26 +455,26 @@
             <div>
                 <div>
                     <span class="black-receipt-header-text">Plate number:</span>
-                    <span class="black-receipt-header-text" style="font-weight: 600;">KUJ124AZ</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">{{ data?.data?.name }}</span>
                 </div>
                 <div>
                     <span class="black-receipt-header-text">Name of Tax payer:</span>
-                    <span class="black-receipt-header-text" style="font-weight: 600;">Gombe</span>
+                    <span class="black-receipt-header-text" style="font-weight: 600;">{{ data?.data?.owner?.taxpayer_name }}</span>
                 </div>
                 <div>
                     <span class="black-receipt-header-text">GTin:</span>
-                    <span class="black-receipt-header-text">2018-11-11</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.state_tin }}</span>
                 </div>
             </div>
             <!--  -->
             <div>
                 <div>
                     <span class="black-receipt-header-text">Phone Number:</span>
-                    <span class="black-receipt-header-text">Private</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
                 <div>
                     <span class="black-receipt-header-text">Issue date:</span>
-                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.created_at | date:'yyyy-MM-dd' }}</span>
                 </div>
             </div>
         </div>
@@ -490,42 +490,42 @@
             <div>
                 <div>
                     <span class="blue-receipt-header-text">Purpose:</span>
-                    <span class="black-receipt-header-text">KUJ124AZ</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.type }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Chasis Number:</span>
-                    <span class="black-receipt-header-text">Gombe</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Address:</span>
-                    <span class="black-receipt-header-text">2018-11-11</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.address }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Owner:</span>
-                    <span class="black-receipt-header-text">JTEDP21A040041522</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.taxpayer_name }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Phone Number:</span>
-                    <span class="black-receipt-header-text">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
             </div>
             <!--  -->
             <div>
                 <div>
                     <span class="blue-receipt-header-text">Vehicle Make:</span>
-                    <span class="black-receipt-header-text">Private</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Engine Number:</span>
-                    <span class="black-receipt-header-text">Matthew Adeboye</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Gross weight:</span>
-                    <span class="black-receipt-header-text">07034725207</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Max carrier:</span>
-                    <span class="black-receipt-header-text">07034725207</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
             </div>
         </div>

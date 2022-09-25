@@ -57,6 +57,7 @@
                         <thead>
                             <tr>
                                 <th class="align-middle text-center">S/N</th>
+                                <th class="align-middle text-center">GTin</th>
                                 <th class="align-middle text-center">Owner Details</th>
                                 <th class="align-middle text-center">Vehicle details</th>
                                 <th class="align-middle text-center">Vehicle usage</th>
@@ -69,6 +70,7 @@
                         <tbody *ngIf="datas?.length != 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
+                                <td class="align-middle text-center">{{ data?.payer?.state_tin }}</td>
                                 <td class="align-middle">
                                     {{ data?.payer.taxpayer_name }}
                                     <span *ngIf="data?.payer.is_verified" class="material-icons-round icons-rounded">verified_user</span>
@@ -99,6 +101,7 @@
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

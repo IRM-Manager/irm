@@ -81,6 +81,7 @@ export class RegisteredVehicleComponent implements OnInit {
       return (
         data.payer.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
         data.make.toLowerCase().includes(search.toLowerCase()) ||
+        data?.payer?.state_tin.toLowerCase().includes(search.toLowerCase()) ||
         this.formatDate(data?.created_at).includes(search.toLowerCase())
       );
     });

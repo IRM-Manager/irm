@@ -3,11 +3,11 @@
     <div class="header">
 
         <div>
-            <span class="reg_buss">{{ searchData?.payer?.taxpayer_name }} ({{ searchData?.payer?.state_tin }}) </span>
-            <span *ngIf="searchData?.payer?.is_verified" class="material-icons-round icons-rounded">
+            <span class="reg_buss">{{ datas2?.payer?.taxpayer_name }} ({{ datas2?.payer?.state_tin }}) </span>
+            <span *ngIf="datas2?.payer?.is_verified" class="material-icons-round icons-rounded">
                 verified_user
             </span>
-            <div class="reg_buss">{{ searchData?.make }} {{ searchData?.model }}</div>    
+            <div class="reg_buss">{{ datas2?.make }} {{ datas2?.model }}</div>    
         </div>
     </div>
 
@@ -65,11 +65,11 @@
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length != 0">
-                            <tr *ngFor="let data of datas['assessment']; let i=index">
+                            <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle">
-                                    {{ searchData?.payer?.taxpayer_name }}
-                                    <span *ngIf="searchData?.payer?.is_verified" class="material-icons-round icons-rounded">verified_user</span>
+                                    {{ datas2?.payer?.taxpayer_name }}
+                                    <span *ngIf="datas2?.payer?.is_verified" class="material-icons-round icons-rounded">verified_user</span>
                                 </td>
                                 <td class="align-middle text-center">{{ data?.revitems?.length }}</td>
                                 <td class="align-middle text-center">{{ formatMoney(data?.assessment_total || '') }}</td>
@@ -105,6 +105,23 @@
                                 <td class="no-data-available text-center">No data!</td>
                             </tr>
                         </tbody>
+
+                        <div *ngIf="isLoading" class="loader loading">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
+                            <span *ngIf="!is_reload">Reload</span>
+                            <div *ngIf="is_reload" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
 
                     </table>
                 </div>

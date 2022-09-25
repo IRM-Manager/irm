@@ -123,14 +123,6 @@ export class PlateComponent implements OnInit {
     );
   }
 
-  viewAss(data: any) {
-    // this.service.setviewSelfMessage(data);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    // this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/receipt']);
-  }
-
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {

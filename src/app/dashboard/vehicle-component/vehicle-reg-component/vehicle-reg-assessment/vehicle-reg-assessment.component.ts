@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
@@ -16,20 +18,24 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
 export class VehicleRegAssessmentComponent implements OnInit {
   search: string = '';
   dtOptions: DataTables.Settings = {};
+  datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
+  isLoading = false;
+  is_reload = false;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private httpService: HttpService,
     private service: VehicleServiceService
   ) {
-    this.renderTable();
+    this.datas2 = this.service.getAssMessage();
     this.authService.checkExpired();
-    if (this.datas) {
+    if (this.datas2) {
     } else {
       this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
     }
@@ -47,9 +53,10 @@ export class VehicleRegAssessmentComponent implements OnInit {
   }
 
   modelChange(search: any) {
-    const data = this.searchData?.assessment.filter((data: any) => {
+    const data = this.searchData.filter((data: any) => {
       return (
-        data.assess_code.toLowerCase().includes(search.toLowerCase()) ||
+        data?.assess_code.toLowerCase().includes(search.toLowerCase()) ||
+        data?.revitems?.length == search ||
         this.formatDate(data?.assessment_date).includes(search.toLowerCase())
       );
     });
@@ -63,10 +70,46 @@ export class VehicleRegAssessmentComponent implements OnInit {
       lengthChange: false,
       info: false,
     };
-    const data: any = this.service.getAssMessage();
-    this.datas = data;
-    this.searchData = this.service.getAssMessage();
-    console.log(this.datas);
+    this.isLoading = true;
+    this.httpService
+      .getAuthSingle(BaseUrl.vehicle_gen_ass + `?vehicleId=${this.datas2?.id}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.data;
+          this.searchData = data.data;
+          this.isLoading = false;
+          console.log(data);
+        },
+        (err) => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  reload() {
+    this.is_reload = true;
+    this.httpService
+      .getAuthSingle(BaseUrl.vehicle_gen_ass + `?vehicleId=${this.datas2?.id}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.data;
+          this.searchData = data.data;
+          this.is_reload = false;
+          this.isLoading = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        (err) => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   viewAss(data: any, type: string) {
