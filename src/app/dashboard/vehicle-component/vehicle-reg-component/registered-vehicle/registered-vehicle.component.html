@@ -59,6 +59,7 @@
                                 <th class="align-middle text-center">S/N</th>
                                 <th class="align-middle text-center">Owner Details</th>
                                 <th class="align-middle text-center">Vehicle details</th>
+                                <th class="align-middle text-center">Vehicle usage</th>
                                 <th class="align-middle text-center">Generated date</th>
                                 <th class="align-middle text-center">Payment status</th>
                                 <th class="align-middle text-center">Actions</th>
@@ -72,7 +73,8 @@
                                     {{ data?.payer.taxpayer_name }}
                                     <span *ngIf="data?.payer.is_verified" class="material-icons-round icons-rounded">verified_user</span>
                                 </td>
-                                <td class="align-middle">{{ data?.make }}</td>
+                                <td class="align-middle">{{ data?.make }} {{ data?.model }}</td>
+                                <td class="align-middle text-center">{{ data?.vehicle_usage }}</td>
                                 <td class="align-middle text-center">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
                                     <button mat-button class="paid" *ngIf="data?.assessment[0]?.remitted == true">
@@ -97,6 +99,7 @@
                         </tbody>
                         <tbody *ngIf="datas?.length == 0">
                             <tr>
+                                <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
