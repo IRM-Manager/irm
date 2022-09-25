@@ -1,203 +1,118 @@
-<div class="assessment-wrapper">
-    <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState"
-                             (closed)="!panelOpenState">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-                Vehicle Details
-            </mat-panel-title>
-            <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
-          </mat-expansion-panel-header>
-          <div class="panel-container">
-            
-            <table class="panel-table" fxLayoutGap="50px">
-                <!-- 1 -->
-                <tbody>
-                    <tr>
-                        <td class="title">Issue Date:</td>
-                        <td class="sub-title">2018-11-11</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Vehicle Make:</td>
-                        <td class="sub-title">Toyota highlander</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Chasis Number:</td>
-                        <td class="sub-title">JTEDP21A040041522</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Address:</td>
-                        <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Owner</td>
-                        <td class="sub-title">Matthew Adeboye</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Phone Number:</td>
-                        <td class="sub-title">07034725207</td>
-                    </tr>
-                </tbody>
-                <!-- 2 -->
-                <tbody>
-                    <tr>
-                        <td class="title">Private</td>
-                        <td class="sub-title">33e33232323</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Vehicle Type:</td>
-                        <td class="sub-title">SUV</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Engine Number:</td>
-                        <td class="sub-title">Na</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Gross weight:</td>
-                        <td class="sub-title">1472</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Max carrier:</td>
-                        <td class="sub-title">7</td>
-                    </tr>
-                </tbody>
-                <!-- 3 -->
-            </table>
+<div class="wrapper">
 
-          </div>
-        </mat-expansion-panel>
-    </mat-accordion>
+    <div class="header">
 
-
-    <div class="header" *ngIf="!hide">Attached Document for Renawal</div>
-
-
-    <div class="gen_table" *ngIf="!hide">
-        <div class="column">
-
-            <!--  -->
-            <div class="column1">
-                <div class="employee-salary">Description</div>
-                <div class="left_right">
-                    <div class="left">
-                        <div class="title2">Vehicle License</div>
-                        <div class="title2">Road worthiness</div>
-                        <div class="title2">Hackney/Stage Carriage Permits</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--  -->
-
-            <div class="column2">
-                <div class="deduction">Amount (NGN)</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                    </div>
-                </div>
-            </div>
-
-            <!--  -->
-            <div class="column2">
-                <div class="deduction">Selected</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title3">
-                            <div class="check_p" (click)="chooseItem(1)">
-                                <span *ngIf="selectedId1 == 1" class="material-icons-round check">check</span>
-                            </div>
-                        </div>
-                        <div class="title3">
-                            <div class="check_p" (click)="chooseItem(2)">
-                                <span *ngIf="selectedId2 == 1" class="material-icons-round check">check</span>
-                            </div>
-                        </div>
-                        <div class="title3">
-                            <div class="check_p" (click)="chooseItem(3)">
-                                <span *ngIf="selectedId3 == 1" class="material-icons-round check">check</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div>
+            <span class="reg_buss">{{ searchData?.payer?.taxpayer_name }} ({{ searchData?.payer?.state_tin }}) </span>
+            <span *ngIf="searchData?.payer?.is_verified" class="material-icons-round icons-rounded">
+                verified_user
+            </span>
+            <div class="reg_buss">{{ searchData?.make }} {{ searchData?.model }}</div>    
         </div>
-
-        <div style="clear: both;"></div>
-
     </div>
 
-    <div class="add" (click)="changeform()" *ngIf="!hide">Add other Items</div>
+    <div>
+        <div class="verify">
 
-    <form [formGroup]="manualForm" class="manual_form" *ngIf="form && !hide">
-        <mat-form-field class="half-width" appearance="outline">
-            <mat-label>Vehicle Items</mat-label>
-            <mat-select matInput formControlName="item">
-                <mat-option value="Formal">Formal</mat-option>
-                <mat-option value="Informal">Informal</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </form>
+            <div class="header2">
 
-    <div style="text-align: right;">
-        <button mat-button class="generate" (click)="generateAss()" *ngIf="!hide">Generate Assessment</button>
-    </div>
-
-
-    <!-- second table -->
-
-    <div class="gen_table" *ngIf="hide">
-        <div class="column">
-
-            <!--  -->
-            <div class="column1">
-                <div class="employee-salary">Description</div>
-                <div class="left_right">
-                    <div class="left">
-                        <div class="title2">Vehicle License</div>
-                        <div class="title2">Road worthiness</div>
-                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
-                    </div>
+                <div class="indcom">
+                    Assessments
                 </div>
+
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
+                    </form>
+                </div>
+        
+                <div class="dashboard_select">
+                    <select class="form-select form-select2" placeholder="Filters">
+                        <option class="option-white" disabled>Filters333333331</option>
+                        <option selected>Filters</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button matSuffix mat-icon-button class="form-dashboard_select">
+                        <span class="material-icons-outlined icons-rounded">filter_alt</span>
+                    </button>
+                </div>    
+
+                <div class="spacer"></div>
+
+                <button mat-button class="apply-ass" (click)="openDialog('', 'regis')">Add new</button>
 
             </div>
 
-            <!--  -->
-            <div class="column2">
-                <div class="deduction">Selected</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title2">12 month</div>
-                        <div class="title2">12 month</div>
-                    </div>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions"
+                        class="row-border table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="align-middle text-center">S/N</th>
+                                <th class="align-middle text-center">Tax payer details</th>
+                                <th class="align-middle text-center">No. Of items</th>
+                                <th class="align-middle text-center">Amount (NGN)</th>
+                                <th class="align-middle text-center">Generated date</th>
+                                <th class="align-middle text-center">Assessment No.</th>
+                                <th class="align-middle text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- individual -->
+                        <tbody *ngIf="datas?.length != 0">
+                            <tr *ngFor="let data of datas['assessment']; let i=index">
+                                <td class="align-middle text-center">{{i+1}}</td>
+                                <td class="align-middle">
+                                    {{ searchData?.payer?.taxpayer_name }}
+                                    <span *ngIf="searchData?.payer?.is_verified" class="material-icons-round icons-rounded">verified_user</span>
+                                </td>
+                                <td class="align-middle text-center">{{ data?.revitems?.length }}</td>
+                                <td class="align-middle text-center">{{ formatMoney(data?.assessment_total || '') }}</td>
+                                <td class="align-middle text-center">{{ data?.assessment_date | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle text-center">{{ data?.assess_code }}</td>
+                                <td class="align-middle text-center">
+                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data, 'view_ass')">View Assessment</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data, 'edit_ass')">
+                                            Edit Assessment
+                                        </button>
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data, 'view_bill')">
+                                            View Bill
+                                        </button>
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data, 'gen_bill')">
+                                            Generate Bill
+                                        </button>
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data, 'delete')" style="color: #d56545;">
+                                            Delete
+                                        </button>
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="datas?.length == 0">
+                            <tr>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
                 </div>
             </div>
-
-            <!--  -->
-
-            <div class="column2">
-                <div class="deduction">Amount (NGN)</div>
-                <div class="left_right">
-                    <div class="left2">
-                        <div class="title2">3,125</div>
-                        <div class="title2">3,125</div>
-                        <div class="title2" style="font-weight: 550;">4,375</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
-        <div style="clear: both;"></div>
-    </div>
-
-
-    <div *ngIf="hide" style="margin-top: 1rem;">
-        <button mat-button class="generate" (click)="openDialog('', 'generate_bill')" *ngIf="hide">Generate Bill</button>
     </div>
 
 

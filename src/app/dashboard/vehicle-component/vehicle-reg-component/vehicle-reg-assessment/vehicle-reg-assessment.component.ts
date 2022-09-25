@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
@@ -12,105 +14,67 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
   styleUrls: ['./vehicle-reg-assessment.component.scss'],
 })
 export class VehicleRegAssessmentComponent implements OnInit {
-  manualForm!: FormGroup;
-  panelOpenState = false;
-  form: boolean = false;
-  hide = false;
-
-  items: any[] = [
-    {
-      id: 1,
-      amount: 3000,
-      description: 'rrr',
-    },
-    {
-      id: 2,
-      amount: 4000,
-      description: 'rrr2',
-    },
-    {
-      id: 3,
-      amount: 5000,
-      description: 'rrr3',
-    },
-  ];
-
-  collectedItems: any[] = [];
-  selectedId1 = 0;
-  selectedId2 = 0;
-  selectedId3 = 0;
+  search: string = '';
+  dtOptions: DataTables.Settings = {};
+  datas: any[] = [];
+  searchData: any;
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    private router: Router,
+    private authService: AuthService,
     private dialog: MatDialog,
-    private router: Router
+    private snackBar: MatSnackBar,
+    private service: VehicleServiceService
   ) {
-    this.createManualForm2();
-  }
-
-  createManualForm2() {
-    this.manualForm = this.fb.group({
-      item: [''],
-    });
-  }
-
-  changeform() {
-    this.form = !this.form;
-  }
-
-  chooseItem(id: number) {
-    const data = this.items.filter((name: any) => {
-      return name.id == id;
-    });
-    if (id == 1) {
-      if (this.selectedId1 == 1) {
-        let index: any;
-        this.collectedItems.filter((name: any, ind: number) => {
-          if (name.id == id) {
-            index = ind;
-          }
-        });
-        this.collectedItems.splice(index, 1);
-        this.selectedId1 = 0;
-      } else {
-        this.collectedItems.push(data[0]);
-        this.selectedId1 = 1;
-      }
-    } else if (id == 2) {
-      if (this.selectedId2 == 1) {
-        let index: any;
-        this.collectedItems.filter((name: any, ind: number) => {
-          if (name.id == id) {
-            index = ind;
-          }
-        });
-        this.collectedItems.splice(index, 1);
-        this.selectedId2 = 0;
-      } else {
-        this.collectedItems.push(data[0]);
-        this.selectedId2 = 1;
-      }
+    this.renderTable();
+    this.authService.checkExpired();
+    if (this.datas) {
     } else {
-      if (this.selectedId3 == 1) {
-        let index: any;
-        this.collectedItems.filter((name: any, ind: number) => {
-          if (name.id == id) {
-            index = ind;
-          }
-        });
-        this.collectedItems.splice(index, 1);
-        this.selectedId3 = 0;
-      } else {
-        this.collectedItems.push(data[0]);
-        this.selectedId3 = 1;
-      }
+      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
     }
-    console.log(this.collectedItems);
   }
 
-  generateAss() {
-    this.hide = true;
+  formatDate(data: any) {
+    var d = new Date(data),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }
+
+  modelChange(search: any) {
+    const data = this.searchData?.assessment.filter((data: any) => {
+      return (
+        data.assess_code.toLowerCase().startsWith(search.toLowerCase()) ||
+        this.formatDate(data?.assessment_date).startsWith(search.toLowerCase())
+      );
+    });
+    this.datas = data;
+  }
+
+  renderTable() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5000,
+      lengthChange: false,
+      info: false,
+    };
+    const data: any = this.service.getAssMessage();
+    this.datas = data;
+    this.searchData = this.service.getAssMessage();
+    console.log(this.datas);
+  }
+
+  viewAss(data: any, type: string) {
+    // this.service.setviewSelfMessage(data);
+    // this.service.setAYearMessage({
+    //   yearId: data.assessment.assessment_year || this.htmlYear,
+    // });
+    this.router.navigate(['/dashboard/dashboard5/vehicle/document']);
   }
 
   openDialog(data: any, type: string) {
@@ -121,8 +85,32 @@ export class VehicleRegAssessmentComponent implements OnInit {
         data: data,
       },
     });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle']);
   }
 
-  ngOnInit(): void {}
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  edit(data: any) {
+    const setData = {
+      update: true,
+      data: data,
+    };
+    // this.service.setMessage(setData);
+    // this.service.setAYearMessage({
+    //   yearId: data.assessment.assessment_year || this.htmlYear,
+    // });
+    // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+  }
+
+  ngOnInit(): void {
+    this.authService.checkExpired();
+    this.renderTable();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
 }

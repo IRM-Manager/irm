@@ -13,9 +13,10 @@ import { Store } from '@ngrx/store';
 import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
 import { HttpService } from 'src/app/services/http.service';
 import { AddVehicleitems } from 'src/app/actions/irm.action';
+import { Vehicleitems } from 'src/app/dashboard/models/irm';
 //
 import { BaseUrl } from 'src/environments/environment';
-import { Vehicleitems } from 'src/app/dashboard/models/irm';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-new-reg-plate',
@@ -31,7 +32,12 @@ export class VehicleNewRegPlateComponent implements OnInit {
   plateMsg: any;
   panelOpenState = false;
   loading = false;
+  loading2 = false;
+  reg_loading = false;
   datas: any;
+  vehicleRegType: any;
+  vehicleRegType2: any;
+  vehicleRegType3: any[] = [];
 
   stateVehicleitems: Observable<Vehicleitems[]>;
 
@@ -63,6 +69,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
     private _location: Location,
     private service: VehicleServiceService,
     private snackBar: MatSnackBar,
+    private router: Router,
     private dialog: MatDialog,
     private httpService: HttpService,
     private store: Store<AppState>
@@ -71,7 +78,11 @@ export class VehicleNewRegPlateComponent implements OnInit {
     this.createManualForm2();
     this.stateVehicleitems = store.select(selectAllVehicleitems);
     this.authService.checkExpired();
-    this.vehicleRegtype();
+    this.datas = this.service.getRegMessage2();
+    const vehicleRegType2: any = this.service.getRegMessage2();
+    this.vehicleRegType2 = vehicleRegType2?.data?.data?.reg_type?.items_ids;
+    this.getRegType();
+    console.log(this.datas);
   }
 
   createForm() {
@@ -115,82 +126,158 @@ export class VehicleNewRegPlateComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    this.onValueChanged();
-    const feed2 = this.feedbackFormDirective.invalid;
-    if (feed2) {
-      this.snackBar.open('Errors in Form fields please check it out.', '', {
-        duration: 5000,
-        panelClass: 'error',
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
-    } // end of if
-    else {
+  // generate assessment
+  generateAss(generate_bill: Boolean) {
+    if (generate_bill == true) {
+      this.loading2 = true;
+    } else {
       this.loading = true;
-      this.feedback = this.feedbackForm.value;
-      const data = {
-        type: 'assessment',
-        data: this.feedback,
-      };
-      this.service.setRegMessage2(data);
-      this.service.sendClickEvent2();
-      console.log(this.feedback);
-    } // end else
+    }
+    const data = { items: this.vehicleRegType2.concat(this.vehicleRegType3) };
+    this.httpService
+      .postData(
+        BaseUrl.vehicle_gen_ass + `?vehicleId=${this.datas?.data?.data?.id}`,
+        data
+      )
+      .subscribe(
+        (data: any) => {
+          if (generate_bill == true) {
+            this.generateBill(data?.data);
+          } else {
+            this.loading = false;
+            this.snackBar.open('Assessment generated Successfully', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            this.loading = false;
+            this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/assessment']);
+          }
+        },
+        (err) => {
+          this.authService.checkExpired();
+          this.loading = false;
+          this.loading2 = false;
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
-  generateAss() {
-    const data = {
-      type: 'assessment',
-      data: this.feedback,
-    };
-    this.service.setRegMessage2(data);
-    this.service.sendClickEvent2();
+  // generate bill
+  generateBill(data: any) {
+    this.httpService
+      .postData(
+        BaseUrl.vehicle_gen_bill +
+          `?assessId=${data.id}&tin=${this.datas?.data?.data?.payer?.state_tin}`,
+        {}
+      )
+      .subscribe(
+        (data: any) => {
+          this.loading2 = false;
+          console.log(data.data);
+          this.openDialog(data.data, this.datas?.data?.data, 'generate_bill');
+          this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle']);
+        },
+        (err) => {
+          this.authService.checkExpired();
+          this.loading2 = false;
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
-  back() {
-    const data = {
-      type: 'detail',
-      data: '',
-    };
-    this.service.setRegMessage2(data);
-    this.service.sendClickEvent2();
-  }
-
-  openDialog(data: any, type: string) {
+  openDialog(data: any, data2: any,type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,
         data: data,
+        data2: data2,
       },
     });
   }
 
-  vehicleRegtype() {
-    this.stateVehicleitems?.forEach((e) => {
+  getRegType() {
+    this.reg_loading = true;
+    this.stateVehicleitems.forEach((e: any) => {
       if (e.length > 0) {
         const data = e[0].data.filter((name: any) => {
-          return name.name == 'new';
+          return name?.name.toLowerCase() == 'new registrations';
         });
-        this.datas = data[0];
+        this.vehicleRegType = data[0]?.items_ids;
+        this.reg_loading = false;
+        console.log(this.vehicleRegType);
       } else {
-        this.httpService.getAuthSingle(BaseUrl.vehicle_regtype).subscribe(
-          (data: any) => {
-            const dataa = data.results.filter((name: any) => {
-              return name.name == 'new';
+        this.httpService
+          .getAuthSingle(BaseUrl.vehicle_regtype)
+          .subscribe((data: any) => {
+            const data2 = data.results.filter((name: any) => {
+              return name?.name.toLowerCase() == 'new registrations';
             });
-            this.datas = dataa[0];
+            this.vehicleRegType = data2[0]?.items_ids;
             this.store.dispatch(
               new AddVehicleitems([{ id: 1, data: data.results }])
             );
-          },
-          (err) => {
-            this.authService.checkExpired();
-          }
-        );
+            this.reg_loading = false;
+          }),
+          (error: any) => {
+            this.reg_loading = false;
+            console.log(error);
+          };
       }
     });
+  }
+
+  removeItem(id: number) {
+    this.vehicleRegType3.splice(id, 1);
+  }
+
+  addItem(data: any) {
+    const check = this.vehicleRegType2.filter((e: any) => {
+      return e.id == data.id;
+    });
+    const check2 = this.vehicleRegType3.filter((e: any) => {
+      return e.id == data.id;
+    });
+    if (check.length > 0 || check2.length > 0) {
+      this.snackBar.open('Item already exists.', '', {
+        duration: 3000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.vehicleRegType3.push(data);
+    }
   }
 
   ngOnInit(): void {}

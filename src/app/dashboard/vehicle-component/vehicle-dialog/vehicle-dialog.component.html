@@ -14,60 +14,48 @@
                     <div class="generate_left">
                          <div class="tin">
                             <span style="color: #3C66A3;">GTin:</span>  
-                            4344434
+                            {{ data.data?.payer?.state_tin }}
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Vehicle Make:</span>
-                            43434443
+                            {{ data.data2?.make }}
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Chasis Number:</span>
-                            43434t43t4
-                        </div>
-                        <div class="tin">
-                            <span style="color: #3C66A3;">Address:</span>
-                            44t4t4t43}
+                            {{ data.data2?.vin }}
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Owner:</span>
-                            t43t443tt43t
+                            {{ data.data?.payer?.taxpayer_name }}
                         </div>
                     </div>
 
                     <div class="generate_center">
-                        <div class="tin">
-                            <span style="color: #3C66A3; text-transform: uppercase;">Assessment Type:</span>
-                            t4t43t4
-                        </div>
-                        <div class="tin">
-                            <span style="color: #3C66A3;">Private:</span>
-                            t43t43t43
+                        <div class="tin" style="text-transform: uppercase;">
+                            <span style="color: #3C66A3;">Assessment Type:</span>
+                            {{ data.data?.assessment?.assess_type }}
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Vehicle Type:</span>
-                            t4t43t43
+                            {{ data.data2?.vehicletype?.name }}
                         </div>
                         <div class="tin">
-                            <span style="color: #3C66A3;">Engine Number:</span>
-                            t4t43t43
-                        </div>
-                        <div class="tin">
-                            <span style="color: #3C66A3;">GTin:</span>
-                            Gross weight: t4t43t43
+                            <span style="color: #3C66A3;">Engine Capacity:</span>
+                            {{ data.data2?.engine_capacity }}
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Max carrier:</span>
-                            t4t43t43
+                            {{ data.data2?.carrying_capacity }}
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Bill Staus: </span> 
-                            <!-- <span *ngIf="data.data.bill_status" class="gen-success">Paid</span> -->
-                            <span class="gen-failed">Not-paid</span>
+                            <span *ngIf="data.data?.bill_status == true" class="gen-success">Paid</span>
+                            <span *ngIf="data.data?.bill_status == false" class="gen-failed">Not-paid</span>
                         </div>
                     </div>
 
                     <div class="generate_center">
-                        <qr-code value="4343434"
+                        <qr-code value="{{data.data?.bill_code}}"
                             size="150"
                             errorCorrectionLevel="H"
                             centerImageSrc="undefined"
@@ -98,38 +86,21 @@
                             </div>
 
                         </div>
-
-                        <!--  -->
-                        <div class="column2">
-                            <div class="deduction">Duration</div>
-                            <div class="left_right">
-                                <div class="left2">
-                                    <div class="title">12 month</div>
-                                    <div class="title">12 month</div>
-                                    <div class="title">12 month</div>
-                                    <div class="title"></div>
-                                    <div class="title"></div>
-                                    <div class="title"></div>
-                                    <div class="title"></div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!--  -->
 
                         <div class="column2">
                             <div class="deduction">Amount (NGN)</div>
                             <div class="left_right">
                                 <div class="left2">
-                                    <div class="title">343434</div>
+                                    <div class="title">12 month</div>
                                     <div class="title" style="text-transform: uppercase;">
-                                        4344343
+                                        {{ data.data?.assessment?.assess_type }}
                                     </div>
-                                    <div class="title">434433434</div>
+                                    <div class="title">{{ data.data?.assessment?.employee_total }}</div>
                                     <div class="title">NGN</div>
-                                    <div class="title">44434434</div>
-                                    <div class="title">NGN 44343}</div>
-                                    <div class="title">NGN 4343</div>
+                                    <div class="title">{{ data.data?.assessment?.assessment_date | date:'yyyy-MM-dd' }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data?.assessment?.assessment_total) }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data?.bill_total) }}</div>
                                 </div>
                             </div>
                         </div>

@@ -79,10 +79,9 @@ export class RegisteredVehicleComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.payer.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.make.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data?.created_at).includes(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -95,56 +94,43 @@ export class RegisteredVehicleComponent implements OnInit {
       lengthChange: false,
       info: false,
     };
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.isLoading = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.isLoading = false;
-          console.log(data);
-        },
-        (err) => {
-          this.isLoading = false;
-          this.authService.checkExpired();
-        }
-      );
+    this.httpService.getAuthSingle(BaseUrl.list_vehicle).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.isLoading = false;
+        console.log(data);
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   reload(id?: any) {
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.is_reload = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.is_reload = false;
-          this.isLoading = false;
-          this.snackBar.open('Loaded', '', {
-            duration: 3000,
-            panelClass: 'success',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-          console.log(data);
-        },
-        (err) => {
-          this.is_reload = false;
-          this.authService.checkExpired();
-        }
-      );
+    this.httpService.getAuthSingle(BaseUrl.list_vehicle).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.is_reload = false;
+        this.isLoading = false;
+        this.snackBar.open('Loaded', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        console.log(data);
+      },
+      (err) => {
+        this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   listYear() {
@@ -168,10 +154,14 @@ export class RegisteredVehicleComponent implements OnInit {
   }
 
   viewAss(data: any) {
-    // this.service.setviewSelfMessage(data);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
+    this.service.setAssMessage(data);
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/reg-vehicle/assessment',
+    ]);
+  }
+
+  viewDoc(data: any) {
+    this.service.setDocMessage(data);
     this.router.navigate(['/dashboard/dashboard5/vehicle/document']);
   }
 

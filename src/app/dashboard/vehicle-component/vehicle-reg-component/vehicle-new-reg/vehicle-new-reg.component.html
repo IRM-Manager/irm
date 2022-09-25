@@ -1,22 +1,22 @@
 <div class="payee_wrapper">
 
     <div class="header">
-        <!-- <div class="soft_pattern">
+        <div class="soft_pattern">
             {{ datas[0]?.owner.taxpayer_name }}
             <span class="material-icons-round icons-rounded" *ngIf="datas[0]?.owner.is_verified">verified_user</span>
         </div>
-        <div class="reg_buss">GTin: {{ datas[0]?.owner.state_tin }}</div> -->
+        <div class="reg_buss">GTin: {{ datas[0]?.owner.state_tin }}</div>
     </div>
 
     <div class="container">
-        <button mat-button class="button" (click)="viewMode = 'detail'" [class.active]="viewMode == 'detail'">
+        <button mat-button class="button" [class.active]="viewMode == 'detail'">
             Vehicle Details
         </button>
-        <button mat-button class="button" (click)="viewMode = 'plate'" [class.active]="viewMode == 'plate'">
+        <button mat-button class="button" [class.active]="viewMode == 'plate'">
             Assessment
         </button>
-        <!-- <button mat-button class="button" (click)="viewMode = 'assessment'" [class.active]="viewMode == 'assessment'">
-            Generate Bill
+        <!-- <button mat-button class="button" (click)="viewMode = 'plate'" [class.active]="viewMode == 'plate'">
+            Assessment
         </button> -->
     </div>
 
@@ -31,12 +31,6 @@
         <div [ngSwitch]="viewMode">
             <div *ngSwitchCase="'plate'" class="verify">
                 <app-vehicle-new-reg-plate></app-vehicle-new-reg-plate>
-            </div>
-        </div>
-        <!--  -->
-        <div [ngSwitch]="viewMode">
-            <div *ngSwitchCase="'assessment'" class="verify">
-                <app-vehicle-new-reg-assessment></app-vehicle-new-reg-assessment>
             </div>
         </div>
     </div>

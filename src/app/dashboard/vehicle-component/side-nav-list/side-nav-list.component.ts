@@ -11,6 +11,8 @@ import { AppState } from 'src/app/reducers/index';
 import { HttpService } from 'src/app/services/http.service';
 import { AddVehicleitems } from '../../../actions/irm.action';
 import { BaseUrl } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
+import { VehicleServiceService } from '../service/vehicle-service.service';
 
 @Component({
   selector: 'app-side-nav-list',
@@ -26,7 +28,9 @@ export class SideNavListComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private httpService: HttpService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private authService: AuthService,
+    private service: VehicleServiceService
   ) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
@@ -89,7 +93,33 @@ export class SideNavListComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  plateStat() {
+    this.httpService.getAuthSingle(BaseUrl.vehicle_plate_stat).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.service.setPlateStat(data.data);
+      },
+      (err) => {
+        this.authService.checkExpired();
+      }
+    );
+  }
+
+  vehicleType() {
+    this.httpService.getSingleNoAuth(BaseUrl.vehicle_type).subscribe(
+      (data: any) => {
+        this.service.setVehicleTypeMessage(data.results);
+      },
+      (err) => {
+        this.authService.checkExpired();
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.plateStat();
+    this.vehicleType();
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

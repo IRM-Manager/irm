@@ -54,9 +54,7 @@ import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-na
 import { VehicleNewRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-assessment/vehicle-new-reg-assessment.component';
 import { VehicleNewRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-details/vehicle-new-reg-details.component';
 import { VehicleNewRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-plate/vehicle-new-reg-plate.component';
-import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
-import { WitholdingDialogComponent } from '../withholding-tax-component/witholding-dialog/witholding-dialog.component';
 import { WitholdingSidenavListComponent } from '../withholding-tax-component/witholding-sidenav-list/witholding-sidenav-list.component';
 
 @NgModule({
@@ -66,7 +64,6 @@ import { WitholdingSidenavListComponent } from '../withholding-tax-component/wit
     AppPublicSidenavListComponent,
     FooterComponent,
     VehicleRegDetailsComponent,
-    VehicleRegAssessmentComponent,
     SideNavListComponent,
     BottomSidenavMenuComponent,
     AdminSidenavListComponent,
@@ -130,7 +127,6 @@ import { WitholdingSidenavListComponent } from '../withholding-tax-component/wit
     HeaderComponent,
     AppPublicSidenavListComponent,
     VehicleRegDetailsComponent,
-    VehicleRegAssessmentComponent,
     FooterComponent,
     SideNavListComponent,
     BottomSidenavMenuComponent,

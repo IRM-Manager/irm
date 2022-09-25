@@ -48,13 +48,11 @@ export class VehicleBillsComponent implements OnInit {
   validationMessages: any = {};
 
   constructor(
-    private router: Router,
     private authService: AuthService,
     private dialog: MatDialog,
     private httpService: HttpService,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar,
-    private service: VehicleServiceService
+    private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
@@ -79,10 +77,16 @@ export class VehicleBillsComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data.assessment?.assess_code
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        data.payer?.taxpayer_name
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        data.bill_code.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data?.assessment?.assessment_date).includes(
+          search.toLowerCase()
+        )
       );
     });
     this.datas = data;
@@ -95,56 +99,42 @@ export class VehicleBillsComponent implements OnInit {
       lengthChange: false,
       info: false,
     };
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.isLoading = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.isLoading = false;
-          console.log(data);
-        },
-        (err) => {
-          this.isLoading = false;
-          this.authService.checkExpired();
-        }
-      );
+    this.httpService.getAuthSingle(BaseUrl.vehicle_gen_bill).subscribe(
+      (data: any) => {
+        this.datas = data.data;
+        this.searchData = data.data;
+        this.isLoading = false;
+        console.log(data);
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   reload(id?: any) {
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.is_reload = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.is_reload = false;
-          this.isLoading = false;
-          this.snackBar.open('Loaded', '', {
-            duration: 3000,
-            panelClass: 'success',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-          console.log(data);
-        },
-        (err) => {
-          this.is_reload = false;
-          this.authService.checkExpired();
-        }
-      );
+    this.httpService.getAuthSingle(BaseUrl.vehicle_gen_bill).subscribe(
+      (data: any) => {
+        this.datas = data.data;
+        this.searchData = data.data;
+        this.is_reload = false;
+        this.isLoading = false;
+        this.snackBar.open('Loaded', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        console.log(data);
+      },
+      (err) => {
+        this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   listYear() {
@@ -185,18 +175,6 @@ export class VehicleBillsComponent implements OnInit {
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
-  }
-
-  edit(data: any) {
-    const setData = {
-      update: true,
-      data: data,
-    };
-    // this.service.setMessage(setData);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
   }
 
   ngOnInit(): void {

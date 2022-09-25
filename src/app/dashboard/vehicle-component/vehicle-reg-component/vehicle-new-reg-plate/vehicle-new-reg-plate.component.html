@@ -18,50 +18,50 @@
                     <tbody>
                         <tr>
                             <td class="title">Issue Date:</td>
-                            <td class="sub-title">2018-11-11</td>
+                            <td class="sub-title">{{ datas?.data?.data?.created_at | date:'yyyy-MM-dd' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Model:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.model }}</td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Make:</td>
-                            <td class="sub-title">Toyota highlander</td>
+                            <td class="sub-title">{{ datas?.data?.data?.make }}</td>
                         </tr>
                         <tr>
                             <td class="title">Chasis Number:</td>
-                            <td class="sub-title">JTEDP21A040041522</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Address:</td>
-                            <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vin }}</td>
                         </tr>
                         <tr>
                             <td class="title">Owner</td>
-                            <td class="sub-title">Matthew Adeboye</td>
+                            <td class="sub-title">{{ datas?.data?.data?.payer.taxpayer_name }}</td>
                         </tr>
                         <tr>
                             <td class="title">Phone Number:</td>
-                            <td class="sub-title">07034725207</td>
+                            <td class="sub-title">{{ datas?.data?.data?.payer.phone }}</td>
                         </tr>
                     </tbody>
                     <!-- 2 -->
                     <tbody>
                         <tr>
-                            <td class="title">Private:</td>
-                            <td class="sub-title">33e33232323</td>
+                            <td class="title">Plate Number:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.plate_no }}</td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Type:</td>
-                            <td class="sub-title">SUV</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vehicletype?.name }}</td>
                         </tr>
                         <tr>
-                            <td class="title">Engine Number:</td>
-                            <td class="sub-title">Na</td>
+                            <td class="title">Engine Capacity:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.engine_capacity }}</td>
                         </tr>
                         <tr>
-                            <td class="title">Gross weight:</td>
-                            <td class="sub-title">1472</td>
+                            <td class="title">Vehicle Color:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.color }}</td>
                         </tr>
                         <tr>
                             <td class="title">Max carrier:</td>
-                            <td class="sub-title">7</td>
+                            <td class="sub-title">{{ datas?.data?.data?.carrying_capacity }}</td>
                         </tr>
                     </tbody>
                     <!-- 3 -->
@@ -102,10 +102,13 @@
                 <div class="employee-salary">Description</div>
                 <div class="left_right">
                     <div class="left">
-                        <div class="title2">Vehicle License</div>
-                        <div class="title2">Vehicle License</div>
-                        <div class="title2">Vehicle License</div>
-                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
+                        <div class="title2" *ngFor="let v of vehicleRegType2;">
+                            {{ v?.name }}
+                        </div>
+                        <div class="title2" *ngFor="let v of vehicleRegType3;">
+                            {{ v?.name }}
+                        </div>
+                        <!-- <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div> -->
                     </div>
                 </div>
 
@@ -116,35 +119,40 @@
                 <div class="deduction">Duration</div>
                 <div class="left_right">
                     <div class="left2">
-                        <div class="title2">12 Month</div>
-                        <div class="title2">12 Month</div>
-                        <div class="title2">-</div>
-                        <div class="title2"></div>
+                        <div class="title2" *ngFor="let v of vehicleRegType2;">
+                            12 Month
+                        </div>
+                        <div class="title2" *ngFor="let v of vehicleRegType3;">
+                            12 Month
+                        </div>
+                        <!-- <div class="title2"></div> -->
                     </div>
                 </div>
             </div>
 
             <!--  -->
-            <div class="column2">
+            <!-- <div class="column2">
                 <div class="deduction">Amount (NGN)</div>
                 <div class="left_right">
                     <div class="left2">
-                        <div class="title2">10,000</div>
-                        <div class="title2">10,000</div>
-                        <div class="title2">10,000</div>
+                        <div class="title2" *ngFor="let v of vehicleRegType2;">
+                            {{ v?.amount }}
+                        </div>
                         <div class="title2" style="font-weight: 550;">10,000</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!--  -->
             <div class="column2">
                 <div class="deduction">Action</div>
                 <div class="left_right">
                     <div class="left2">
-                        <div class="title2">Remove</div>
-                        <div class="title2">Remove</div>
-                        <div class="title2">Remove</div>
+                        <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType2;">
+                        </div>
+                        <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType3; let i = index" (click)="removeItem(i)">
+                            Remove
+                        </div>
                         <div class="title2"></div>
                     </div>
                 </div>
@@ -160,51 +168,32 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Items</mat-label>
                 <mat-select matInput formControlName="item">
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
+                    <mat-option *ngFor="let i of vehicleRegType;" (click)="addItem(i)" value="Formal">{{ i?.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </form>
 
         <div>
-            <button mat-button class="generate2" (click)="generateAss()">Save Assessment</button>
-            <button mat-button class="generate" (click)="generateAss()">Save & Generate Bill</button>
+            <button mat-button class="generate2" (click)="generateAss(false)">
+                <span *ngIf="!loading">Save Assessment</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+            <button mat-button class="generate" (click)="generateAss(true)">
+                <span *ngIf="!loading2">Save & Generate Bill</span>
+                <div *ngIf="loading2" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
         </div>
 
     </div>
 
-    <!-- <div class="form-container">
-        <div class="form-text">Select Plate Number</div>
-        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-            <p class="gap">
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Plate number Categories</mat-label>
-                    <mat-select matInput formControlName="violation" required>
-                        <mat-option value="Formal">Formal</mat-option>
-                        <mat-option value="Informal">Informal</mat-option>
-                    </mat-select>
-                    <mat-error>{{ formErrors.violation }}</mat-error>
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Amount (NGN)</mat-label>
-                    <input matInput formControlName="fine" required type="number">
-                    <mat-error>{{formErrors.fine}}</mat-error>
-                </mat-form-field>
-            </p>
-            <div class="final_submit">
-                <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
-                <button type="submit" mat-button class="generate">
-                    <span *ngIf="!loading">Process</span>
-                    <div *ngIf="loading" class="loader">
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                    </div>
-                </button>
-            </div>
-        </form>
-    </div> -->
 </div>

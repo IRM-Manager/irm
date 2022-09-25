@@ -165,7 +165,7 @@ export class VehicleDialogComponent implements OnInit {
   deleteBill() {
     this.isdelete = true;
     this.httpService
-      .deleteData(BaseUrl.delete_direct_bill, this.data.data.id + '/')
+      .deleteData(BaseUrl.vehicle_gen_bill, this.data.data.id + '/')
       .subscribe(
         (data: any) => {
           this.isdelete = false;

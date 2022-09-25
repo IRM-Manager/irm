@@ -5,19 +5,13 @@
             <!-- Vehicle Model -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Model</mat-label>
-                <mat-select matInput formControlName="model" required>
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
-                </mat-select>
+                <input matInput formControlName="model" required>
                 <mat-error>{{ formErrors.model }}</mat-error>
             </mat-form-field>
             <!-- Vehicle Make -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Make</mat-label>
-                <mat-select matInput formControlName="make" required>
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
-                </mat-select>
+                <input matInput formControlName="make" required>
                 <mat-error>{{formErrors.make}}</mat-error>
             </mat-form-field>
         </p>
@@ -26,10 +20,15 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Type</mat-label>
                 <mat-select matInput formControlName="vehicle_type" required>
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
+                    <mat-option *ngFor="let t of vehicleType" [value]="t?.id">{{ t?.name}}</mat-option>
                 </mat-select>
                 <mat-error>{{formErrors.vehicle_type}}</mat-error>
+                <mat-hint *ngIf="vehicle_error && !vehicle_loading" align="end" (click)="getVehicleType()">
+                    <button>Reload</button>
+                </mat-hint>
+                <mat-hint *ngIf="vehicle_loading" align="end">
+                    loading...
+                </mat-hint>
             </mat-form-field>
             <!-- Number of carry -->
             <mat-form-field class="half-width" appearance="outline">
@@ -62,7 +61,12 @@
             <!-- Engine capacity -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Engine capacity</mat-label>
-                <input matInput formControlName="engine_capacity" required>
+                <mat-select matInput formControlName="engine_capacity" required>
+                    <mat-option  value="1.2-1.6">Between 1.2-1.6</mat-option>
+                    <mat-option  value="1.7-2.0">Between 1.7-2.0</mat-option>
+                    <mat-option  value="2.1-3.0">Between 2.1-3.0</mat-option>
+                    <mat-option  value="3.1">Above 3.0</mat-option>
+                </mat-select>
                 <mat-error>{{formErrors.engine_capacity}}</mat-error>
             </mat-form-field>
         </p>
@@ -70,15 +74,18 @@
             <!-- Type of Fuel -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Type of Fuel</mat-label>
-                <input matInput formControlName="fuel" required>
+                <mat-select matInput formControlName="fuel" required>
+                    <mat-option  value="desiel">Desiel</mat-option>
+                    <mat-option  value="petrol">Petrol</mat-option>
+                    <mat-option  value="gas">Gas</mat-option>
+                </mat-select>
                 <mat-error>{{formErrors.fuel}}</mat-error>
             </mat-form-field>
             <!-- plate -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Select Plate Number</mat-label>
                 <mat-select matInput formControlName="plate" required>
-                    <mat-option value="Formal">Formal</mat-option>
-                    <mat-option value="Informal">Informal</mat-option>
+                    <mat-option *ngFor="let p of plateMsg;" [value]="p">{{ p?.name }}</mat-option>
                 </mat-select>
                 <mat-error>{{formErrors.plate}}</mat-error>
             </mat-form-field>
@@ -86,7 +93,13 @@
     
         <div class="final_submit">
             <button type="submit" mat-button class="verify">
-                <span>Save and continue</span>
+                <span *ngIf="!loading">Save and continue</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
             </button>
         </div>
     

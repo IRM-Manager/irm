@@ -68,7 +68,7 @@
                                 <th class="align-middle text-center">Plate Number</th>
                                 <th class="align-middle text-center">Categories</th>
                                 <th class="align-middle text-center">Owner details</th>
-                                <th class="align-middle text-center">Vehicle Details</th>
+                                <!-- <th class="align-middle text-center">Vehicle Details</th> -->
                                 <th class="align-middle text-center">Generated date</th>
                                 <th class="align-middle text-center">status</th>
                                 <th class="align-middle text-center">Actions</th>
@@ -81,10 +81,10 @@
                                 <td class="align-middle text-center">{{ data.name }}</td>
                                 <td class="align-middle text-center">{{ data.type }}</td>
                                 <td class="align-middle">
-                                    {{ data.owner?.taxpayer_name }}
+                                    {{ data?.owner?.taxpayer_name }}
                                     <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified == true">verified_user</span>
                                 </td>
-                                <td class="align-middle text-center">{{ data.owner }}</td>
+                                <!-- <td class="align-middle text-center">{{ data.owner }}</td> -->
                                 <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
                                     <button mat-button class="paid" *ngIf="data.isavailable == false">
@@ -113,7 +113,7 @@
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
-                                <td class="no-data-available text-center">No data!</td>
+                                <!-- <td class="no-data-available text-center">No data!</td> -->
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

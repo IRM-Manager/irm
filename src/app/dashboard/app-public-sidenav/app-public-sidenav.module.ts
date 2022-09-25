@@ -107,6 +107,7 @@ import { StampDutiesAssessmentComponent } from '../stamp-duties-component/stamp-
 import { StampDutiesDialogComponent } from '../stamp-duties-component/stamp-duties-dialog/stamp-duties-dialog.component';
 import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
 import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
+import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 
 @NgModule({
   declarations: [
@@ -177,6 +178,7 @@ import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties
     VehicleNewRegComponent,
     VehicleNewRegComponent,
     VehicleCustomerPlateComponent,
+    VehicleRegAssessmentComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,

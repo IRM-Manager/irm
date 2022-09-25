@@ -65,6 +65,7 @@ import { StampDutiesApplyComponent } from '../stamp-duties-component/stamp-dutie
 import { StampDutiesAssessmentComponent } from '../stamp-duties-component/stamp-duties-assessment/stamp-duties-assessment.component';
 import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
 import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
+import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
 
 const routes: Routes = [
   {
@@ -318,6 +319,11 @@ const routes: Routes = [
       {
         path: 'dashboard5/vehicle/new-plate',
         component: VehicleCustomerPlateComponent,
+        canLoad: [IsLoggedInGuard],
+      },
+      {
+        path: 'dashboard5/vehicle/reg-vehicle/assessment',
+        component: VehicleRegAssessmentComponent,
         canLoad: [IsLoggedInGuard],
       },
       // Account

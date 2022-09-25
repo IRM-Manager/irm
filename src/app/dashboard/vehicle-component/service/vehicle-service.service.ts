@@ -8,6 +8,9 @@ export class VehicleServiceService {
   regMessage: string | undefined;
   setCustomerPlateReg: string | undefined;
   setPlateStatM: string | undefined;
+  setVehicleType: string | undefined;
+  assMessage: string | undefined;
+  docMessage: string | undefined;
   private subject = new Subject<any>();
   regMessage2: string | undefined;
   RegVehicleMessage: string | undefined;
@@ -66,6 +69,15 @@ export class VehicleServiceService {
     return this.setPlateStatM;
   }
 
+  // For plate number statistics
+  setVehicleTypeMessage(data: any) {
+    this.setVehicleType = data;
+  }
+
+  getVehicleTypeMessage() {
+    return this.setVehicleType;
+  }
+
   // For vehicle collect tax details
   setRegVehicleMessage(data: any) {
     this.RegVehicleMessage = data;
@@ -73,5 +85,23 @@ export class VehicleServiceService {
 
   getRegVehicleMessage() {
     return this.RegVehicleMessage;
+  }
+
+  // For vehicle assessment
+  setAssMessage(data: any) {
+    this.assMessage = data;
+  }
+
+  getAssMessage() {
+    return this.assMessage;
+  }
+
+  // For vehicle document
+  setDocMessage(data: any) {
+    this.docMessage = data;
+  }
+
+  getDocMessage() {
+    return this.docMessage;
   }
 }
