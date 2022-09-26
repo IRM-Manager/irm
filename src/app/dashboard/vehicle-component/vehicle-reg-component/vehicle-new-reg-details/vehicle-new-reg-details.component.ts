@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { Location } from '@angular/common';
 // state management
 import { Store } from '@ngrx/store';
 import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
@@ -30,6 +31,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   vehicle_loading = false;
   update = false;
   datas: any;
+  datas2: any;
   vehicleType: any;
   vehicleRegType: any;
 
@@ -86,6 +88,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private _location: Location,
     private snackBar: MatSnackBar,
     private service: VehicleServiceService,
     private store: Store<AppState>,
@@ -103,14 +106,13 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     } catch (err) {}
     this.datas = this.service.getRegVehicleMessage();
     this.vehicleType = this.service.getVehicleTypeMessage();
+    if (this.datas?.update == true) {
+      this.update = true;
+      this.datas2 = this.service.getRegMessage2();
+      this.updateNewData();
+    }
     this.getRegType();
     console.log(this.datas);
-    // const plate_data = {
-    //   type: 'plate',
-    //   data: data,
-    // };
-    // this.service.setRegMessage2(plate_data);
-    // this.service.sendClickEvent2();
   }
 
   createForm() {
@@ -153,6 +155,31 @@ export class VehicleNewRegDetailsComponent implements OnInit {
         }
       }
     }
+  }
+
+  updateNewData() {
+    this.feedbackForm.controls['vehicle_type'].patchValue(
+      this.datas2?.data?.vehicletype?.id
+    );
+    this.feedbackForm.controls['engine_capacity'].patchValue(
+      this.datas2?.data?.engine_capacity
+    );
+    this.feedbackForm.controls['fuel'].patchValue(this.datas2?.data?.fuel_type);
+    this.feedbackForm.patchValue({ make: this.datas2?.data?.make });
+    this.feedbackForm.patchValue({ model: this.datas2?.data?.model });
+    this.feedbackForm.patchValue({
+      no_carry: this.datas2?.data?.carrying_capacity,
+    });
+    this.feedbackForm.patchValue({ vin: this.datas2?.data?.vin });
+    this.feedbackForm.patchValue({ year: this.datas2?.data?.vehicle_year });
+    this.feedbackForm.patchValue({ color: this.datas2?.data?.color });
+    this.feedbackForm.patchValue({ plate: this.datas2?.data?.plate_no });
+    this.feedbackForm.controls['plate'].disable();
+    this.feedbackForm.controls['vehicle_type'].disable();
+    this.feedbackForm.controls['year'].disable();
+    this.feedbackForm.controls['make'].disable();
+    this.feedbackForm.controls['model'].disable();
+    this.feedbackForm.controls['vin'].disable();
   }
 
   getRegType() {
@@ -246,6 +273,76 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     } // end else
   }
 
+  // update
+  updateVeh() {
+    this.onValueChanged();
+    const feed2 = this.feedbackFormDirective.invalid;
+    if (feed2) {
+      this.snackBar.open('Errors in Form fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } // end of if
+    else {
+      this.loading = true;
+      this.feedback = this.feedbackForm.value;
+      const vehicle_data = {
+        vin: this.datas2?.data?.vin,
+        vehicletype: this.datas2?.data?.vehicletype,
+        color: this.feedback.color,
+        make: this.datas2?.data?.make,
+        model: this.datas2?.data?.model,
+        engine_capacity: this.feedback.engine_capacity,
+        fuel_type: this.feedback.fuel,
+        vehicle_year: this.datas2?.data?.vehicle_year,
+        carrying_capacity: this.feedback.no_carry,
+        // platenoId:  ? this.feedback.plate['id'] : 1,
+        vehicle_usage: this.datas2?.data?.vehicle_usage,
+      };
+      console.log(vehicle_data);
+      this.httpService
+        .updateData(
+          BaseUrl.list_vehicle,
+          vehicle_data,
+          this.datas2?.data?.id + '/'
+        )
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            console.log(data);
+            this.snackBar.open('Vehicle successfully updated!', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            this._location.back();
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
+    } // end else
+  }
+
   getVehicleType() {
     this.vehicle_loading = true;
     this.httpService.getSingleNoAuth(BaseUrl.vehicle_type).subscribe(
@@ -261,6 +358,10 @@ export class VehicleNewRegDetailsComponent implements OnInit {
         this.authService.checkExpired();
       }
     );
+  }
+
+  back() {
+    this._location.back();
   }
 
   ngOnInit(): void {

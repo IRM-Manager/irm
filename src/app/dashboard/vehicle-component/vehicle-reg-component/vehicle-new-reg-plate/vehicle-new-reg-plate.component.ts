@@ -84,6 +84,9 @@ export class VehicleNewRegPlateComponent implements OnInit {
     this.vehicleRegType2 =
       vehicleRegType2?.data?.data?.reg_type?.items_ids ||
       vehicleRegType2?.data2?.revitems;
+    if (this.datas?.data?.update == true) {
+      this.update = true;
+    }
     this.getRegType();
     console.log(this.datas);
   }
@@ -291,6 +294,10 @@ export class VehicleNewRegPlateComponent implements OnInit {
     } else {
       this.vehicleRegType3.push(data);
     }
+  }
+
+  back() {
+    this._location.back();
   }
 
   ngOnInit(): void {}

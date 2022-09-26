@@ -92,7 +92,17 @@
         </p>
     
         <div class="final_submit">
-            <button type="submit" mat-button class="verify">
+            <button *ngIf="update" mat-button class="verify" (click)="back()" type="button">Back</button>
+            <button *ngIf="update" type="submit" mat-button type="button" class="verify" (click)="updateVeh()">
+                <span *ngIf="!loading">Update</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+            <button *ngIf="!update" type="submit" mat-button class="verify">
                 <span *ngIf="!loading">Save and continue</span>
                 <div *ngIf="loading" class="loader">
                     <div class="bubble"></div>

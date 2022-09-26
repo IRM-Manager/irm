@@ -187,18 +187,19 @@ export class RegisteredVehicleComponent implements OnInit {
   }
 
   edit(data: any) {
-    const setData = {
-      update: true,
+    let data2 = data;
+    data2.update = true;
+    data2.payer.update = true;
+    const plate_data = {
+      type: 'detail',
       data: data,
     };
-    // this.service.setMessage(setData);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+    this.service.setRegVehicleMessage(data2?.payer);
+    this.service.setRegMessage2(plate_data);
+    this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.authService.checkExpired();
     this.renderTable();
   }

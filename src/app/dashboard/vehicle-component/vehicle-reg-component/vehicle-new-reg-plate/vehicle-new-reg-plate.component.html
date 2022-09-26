@@ -202,6 +202,7 @@
         </form>
 
         <div>
+            <button *ngIf="update == true" type="button" mat-button class="generate2" (click)="back()">Back</button>
             <button mat-button class="generate2" (click)="generateAss(false)">
                 <span *ngIf="!loading">Save Assessment</span>
                 <div *ngIf="loading" class="loader">
