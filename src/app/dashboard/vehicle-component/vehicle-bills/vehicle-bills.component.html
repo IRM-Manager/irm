@@ -91,8 +91,8 @@
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Bill</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')" style="color: #3C66A3;">
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, data?.asset_detail, 'generate_bill')">View Bill</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, data?.asset_detail, 'generate_bill')" style="color: #3C66A3;">
                                             Pay online
                                         </button>
                                     </mat-menu>

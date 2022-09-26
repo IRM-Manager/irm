@@ -28,6 +28,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   loading = false;
   vehicle_error = false;
   vehicle_loading = false;
+  update = false;
   datas: any;
   vehicleType: any;
   vehicleRegType: any;
@@ -93,15 +94,23 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     this.stateVehicleItems = store.select(selectAllVehicleitems);
     this.createForm();
     this.authService.checkExpired();
-    const plateMsg: any = this.service.getRegVehicleMessage();
-    let plateMsg2 = plateMsg?.filter((data: any) => {
-      return data?.isavailable == true;
-    });
-    this.plateMsg = plateMsg2;
+    try {
+      const plateMsg: any = this.service.getRegVehicleMessage();
+      let plateMsg2 = plateMsg?.filter((data: any) => {
+        return data?.isavailable == true;
+      });
+      this.plateMsg = plateMsg2;
+    } catch (err) {}
     this.datas = this.service.getRegVehicleMessage();
     this.vehicleType = this.service.getVehicleTypeMessage();
     this.getRegType();
     console.log(this.datas);
+    // const plate_data = {
+    //   type: 'plate',
+    //   data: data,
+    // };
+    // this.service.setRegMessage2(plate_data);
+    // this.service.sendClickEvent2();
   }
 
   createForm() {
@@ -206,7 +215,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
         .subscribe(
           (data: any) => {
             this.loading = false;
-            console.log(data)
+            console.log(data);
             const plate_data = {
               type: 'plate',
               data: data,

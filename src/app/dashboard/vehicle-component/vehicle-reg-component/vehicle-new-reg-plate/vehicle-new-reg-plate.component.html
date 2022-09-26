@@ -18,54 +18,78 @@
                     <tbody>
                         <tr>
                             <td class="title">Issue Date:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.created_at | date:'yyyy-MM-dd' }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.created_at | date:'yyyy-MM-dd' }}
+                                {{ datas?.data?.created_at | date:'yyyy-MM-dd' }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Model:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.model }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.model ||
+                                datas?.data?.model }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Make:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.make }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.make ||
+                                datas?.data?.make }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Chasis Number:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.vin }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vin ||
+                                datas?.data?.vin }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Owner</td>
-                            <td class="sub-title">{{ datas?.data?.data?.payer.taxpayer_name }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.payer.taxpayer_name ||
+                                datas?.data?.payer.taxpayer_name }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Phone Number:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.payer.phone }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.payer.phone ||
+                                datas?.data?.payer.phone }}
+                            </td>
                         </tr>
                     </tbody>
                     <!-- 2 -->
                     <tbody>
                         <tr>
                             <td class="title">Vehicle Usage:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.vehicle_usage }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vehicle_usage ||
+                                datas?.data?.vehicle_usage }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Plate Number:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.plate_no }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.plate_no ||
+                                datas?.data?.plate_no }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Type:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.vehicletype?.name }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vehicletype?.name ||
+                                datas?.data?.vehicletype?.name }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Engine Capacity:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.engine_capacity }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.engine_capacity ||
+                                datas?.data?.engine_capacity }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Color:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.color }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.color ||
+                                datas?.data?.color }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">Max carrier:</td>
-                            <td class="sub-title">{{ datas?.data?.data?.carrying_capacity }}</td>
+                            <td class="sub-title">{{ datas?.data?.data?.carrying_capacity ||
+                                datas?.data?.carrying_capacity }}
+                            </td>
                         </tr>
                     </tbody>
                     <!-- 3 -->

@@ -469,6 +469,10 @@
             <!--  -->
             <div>
                 <div>
+                    <span class="black-receipt-header-text">Vehicle Usage:</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.type }}</span>
+                </div>
+                <div>
                     <span class="black-receipt-header-text">Phone Number:</span>
                     <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
                 </div>
@@ -494,7 +498,7 @@
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Chasis Number:</span>
-                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.vin }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Address:</span>
@@ -513,19 +517,19 @@
             <div>
                 <div>
                     <span class="blue-receipt-header-text">Vehicle Make:</span>
-                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.make }}</span>
                 </div>
                 <div>
-                    <span class="blue-receipt-header-text">Engine Number:</span>
-                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
+                    <span class="blue-receipt-header-text">Engine Capacity:</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.engine_capacity }}</span>
                 </div>
                 <div>
-                    <span class="blue-receipt-header-text">Gross weight:</span>
-                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
+                    <span class="blue-receipt-header-text">Vehicle Type:</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.vehicletype.name }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Max carrier:</span>
-                    <span class="black-receipt-header-text">{{ data?.data?.owner?.phone }}</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.carrying_capacity }}</span>
                 </div>
             </div>
         </div>

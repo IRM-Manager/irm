@@ -160,12 +160,13 @@ export class VehicleBillsComponent implements OnInit {
     });
   }
 
-  openDialog(data: any, type: string) {
+  openDialog(data: any, data2: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,
         data: data,
+        data2: data2
       },
     });
   }

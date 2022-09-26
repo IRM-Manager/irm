@@ -113,11 +113,20 @@ export class VehicleRegAssessmentComponent implements OnInit {
   }
 
   viewAss(data: any, type: string) {
-    // this.service.setviewSelfMessage(data);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/document']);
+    if (type == 'view_ass') {
+      this.datas2.update = true;
+      this.datas2.vehregtype = 'plate';
+      this.datas2.payer.update = true;
+      this.datas2.payer.vehregtype = 'plate';
+      const plate_data = {
+        type: 'plate',
+        data: this.datas2,
+        data2: data,
+      };
+      this.service.setRegVehicleMessage(this.datas2?.payer);
+      this.service.setRegMessage2(plate_data);
+      this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
+    }
   }
 
   openDialog(data: any, type: string) {

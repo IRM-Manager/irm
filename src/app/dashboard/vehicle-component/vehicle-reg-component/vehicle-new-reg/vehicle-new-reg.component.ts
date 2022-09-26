@@ -39,13 +39,17 @@ export class VehicleNewRegComponent implements OnInit {
         const datas: any = this.service.getRegMessage2();
         this.viewMode = datas.type;
       });
-
-      this.datas = this.service.getRegVehicleMessage();
-      if (this.datas) {
+    this.datas = this.service.getRegVehicleMessage();
+    if (this.datas) {
+      if (this.datas?.vehregtype == 'plate') {
+        this.viewMode = 'plate';
       } else {
-        this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
+        this.viewMode = 'detail';
       }
-      this.getRegType();
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
+    }
+    this.getRegType();
   }
 
   getRegType() {

@@ -34,6 +34,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
   loading = false;
   loading2 = false;
   reg_loading = false;
+  update = false;
   datas: any;
   vehicleRegType: any;
   vehicleRegType2: any;
@@ -80,7 +81,9 @@ export class VehicleNewRegPlateComponent implements OnInit {
     this.authService.checkExpired();
     this.datas = this.service.getRegMessage2();
     const vehicleRegType2: any = this.service.getRegMessage2();
-    this.vehicleRegType2 = vehicleRegType2?.data?.data?.reg_type?.items_ids;
+    this.vehicleRegType2 =
+      vehicleRegType2?.data?.data?.reg_type?.items_ids ||
+      vehicleRegType2?.data2?.revitems;
     this.getRegType();
     console.log(this.datas);
   }
@@ -136,7 +139,8 @@ export class VehicleNewRegPlateComponent implements OnInit {
     const data = { items: this.vehicleRegType2.concat(this.vehicleRegType3) };
     this.httpService
       .postData(
-        BaseUrl.vehicle_gen_ass + `?vehicleId=${this.datas?.data?.data?.id}`,
+        BaseUrl.vehicle_gen_ass +
+          `?vehicleId=${this.datas?.data?.data?.id || this.datas?.data?.id}`,
         data
       )
       .subscribe(
@@ -152,7 +156,9 @@ export class VehicleNewRegPlateComponent implements OnInit {
               verticalPosition: 'top',
             });
             this.loading = false;
-            this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle/assessment']);
+            this.router.navigate([
+              '/dashboard/dashboard5/vehicle/reg-vehicle/assessment',
+            ]);
           }
         },
         (err) => {
@@ -183,14 +189,21 @@ export class VehicleNewRegPlateComponent implements OnInit {
     this.httpService
       .postData(
         BaseUrl.vehicle_gen_bill +
-          `?assessId=${data.id}&tin=${this.datas?.data?.data?.payer?.state_tin}`,
+          `?assessId=${data.id}&tin=${
+            this.datas?.data?.data?.payer?.state_tin ||
+            this.datas?.data?.payer?.state_tin
+          }`,
         {}
       )
       .subscribe(
         (data: any) => {
           this.loading2 = false;
           console.log(data.data);
-          this.openDialog(data.data, this.datas?.data?.data, 'generate_bill');
+          this.openDialog(
+            data.data,
+            this.datas?.data?.data || this.datas?.data,
+            'generate_bill'
+          );
           this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle']);
         },
         (err) => {
@@ -215,7 +228,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
       );
   }
 
-  openDialog(data: any, data2: any,type: string) {
+  openDialog(data: any, data2: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {
