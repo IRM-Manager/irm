@@ -203,7 +203,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
           this.loading2 = false;
           console.log(data.data);
           this.openDialog(
-            data.data,
+            data?.data[0] || data?.data,
             this.datas?.data?.data || this.datas?.data,
             'generate_bill'
           );

@@ -285,6 +285,20 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     margin-top: 1.5rem;
   }
 
+  .rotate {
+    animation: spin 2s linear infinite;
+    color: #45669e;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   .reload {
     background: $wrapper-back;
     color: $ind-border;

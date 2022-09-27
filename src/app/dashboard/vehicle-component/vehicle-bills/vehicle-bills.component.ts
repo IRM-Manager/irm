@@ -27,6 +27,7 @@ export class VehicleBillsComponent implements OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
+  gen_loading: any[] = [];
 
   dtOptions: DataTables.Settings = {};
   datas2: any;
@@ -80,9 +81,7 @@ export class VehicleBillsComponent implements OnInit {
         data.assessment?.assess_code
           .toLowerCase()
           .includes(search.toLowerCase()) ||
-          data.payer?.state_tin
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
+        data.payer?.state_tin.toLowerCase().includes(search.toLowerCase()) ||
         data.payer?.taxpayer_name
           .toLowerCase()
           .includes(search.toLowerCase()) ||
@@ -160,13 +159,61 @@ export class VehicleBillsComponent implements OnInit {
     });
   }
 
+  // delete bill
+  deleteBill(data2: any) {
+    this.gen_loading.push(data2.id);
+    this.httpService
+      .deleteData(BaseUrl.vehicle_gen_bill, data2.id + '/')
+      .subscribe(
+        (data: any) => {
+          const index = this.gen_loading.indexOf(data2.id);
+          if (index > -1) {
+            this.gen_loading.splice(index, 1);
+          }
+          console.log(data);
+          const data_index = this.datas.findIndex((object) => {
+            return object.id === data2.id;
+          });
+          this.datas.splice(data_index, 1);
+          this.snackBar.open('Bill Successfully deleted!', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        (err) => {
+          this.authService.checkExpired();
+          const index = this.gen_loading.indexOf(data2.id);
+          if (index > -1) {
+            this.gen_loading.splice(index, 1);
+          }
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
   openDialog(data: any, data2: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,
         data: data,
-        data2: data2
+        data2: data2,
       },
     });
   }

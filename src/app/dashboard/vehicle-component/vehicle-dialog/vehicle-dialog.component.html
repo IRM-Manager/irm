@@ -103,8 +103,8 @@
                                     <div class="title">{{ data.data?.assessment?.employee_total }}</div>
                                     <div class="title">NGN</div>
                                     <div class="title">{{ data.data?.assessment?.assessment_date | date:'yyyy-MM-dd' }}</div>
-                                    <div class="title">NGN {{ formatMoney(data.data?.assessment?.assessment_total) }}</div>
-                                    <div class="title">NGN {{ formatMoney(data.data?.bill_total) }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data?.assessment?.assessment_total || '0.00') }}</div>
+                                    <div class="title">NGN {{ formatMoney(data.data?.bill_total || '0.00') }}</div>
                                 </div>
                             </div>
                         </div>

@@ -24,6 +24,7 @@ export class VehicleRegAssessmentComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   isLoading = false;
   is_reload = false;
+  gen_loading: any[] = [];
 
   constructor(
     private router: Router,
@@ -126,15 +127,117 @@ export class VehicleRegAssessmentComponent implements OnInit {
       this.service.setRegVehicleMessage(this.datas2?.payer);
       this.service.setRegMessage2(plate_data);
       this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
+    } else if (type == 'gen_bill') {
+      this.generateBill(data);
+    } else if (type == 'delete') {
+      this.deleteAss(data);
+    } else {
     }
   }
 
-  openDialog(data: any, type: string) {
+  // generate bill
+  generateBill(data2: any) {
+    this.gen_loading.push(data2.id);
+    this.httpService
+      .postData(
+        BaseUrl.vehicle_gen_bill +
+          `?assessId=${data2.id}&tin=${this.datas2?.payer?.state_tin}`,
+        {}
+      )
+      .subscribe(
+        (data: any) => {
+          const index = this.gen_loading.indexOf(data2.id);
+          if (index > -1) {
+            this.gen_loading.splice(index, 1);
+          }
+          console.log(data.data);
+          this.openDialog(
+            data?.data[0] || data?.data,
+            this.datas2,
+            'generate_bill'
+          );
+        },
+        (err) => {
+          this.authService.checkExpired();
+          const index = this.gen_loading.indexOf(data2.id);
+          if (index > -1) {
+            this.gen_loading.splice(index, 1);
+          }
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
+  // generate bill
+  deleteAss(data2: any) {
+    this.gen_loading.push(data2.id);
+    this.httpService
+      .deleteData(BaseUrl.vehicle_gen_ass, data2.id + '/')
+      .subscribe(
+        (data: any) => {
+          const index = this.gen_loading.indexOf(data2.id);
+          if (index > -1) {
+            this.gen_loading.splice(index, 1);
+          }
+          console.log(data);
+          const data_index = this.datas.findIndex((object) => {
+            return object.id === data2.id;
+          });
+          this.datas.splice(data_index, 1);
+          this.snackBar.open('Assessment Successfully deleted!', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        (err) => {
+          this.authService.checkExpired();
+          const index = this.gen_loading.indexOf(data2.id);
+          if (index > -1) {
+            this.gen_loading.splice(index, 1);
+          }
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              err?.error ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
+  }
+
+  openDialog(data: any, data2: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,
         data: data,
+        data2: data2,
       },
     });
   }

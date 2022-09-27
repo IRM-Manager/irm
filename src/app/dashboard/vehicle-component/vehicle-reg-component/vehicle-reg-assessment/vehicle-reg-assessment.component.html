@@ -44,7 +44,7 @@
 
                 <div class="spacer"></div>
 
-                <button mat-button class="apply-ass" (click)="openDialog('', 'regis')">Add new</button>
+                <button mat-button class="apply-ass" (click)="openDialog('', '', 'regis')">Add new</button>
 
             </div>
 
@@ -76,8 +76,11 @@
                                 <td class="align-middle text-center">{{ data?.assessment_date | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">{{ data?.assess_code }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
+                                    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!gen_loading.includes(data.id)" class="ellipsis">
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <button mat-button class="ellipsis" *ngIf="gen_loading.includes(data.id)">
+                                        <i class="fa fa-circle-o-notch rotate" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item="mat-menu-item" (click)="viewAss(data, 'view_ass')">View Assessment</button>
