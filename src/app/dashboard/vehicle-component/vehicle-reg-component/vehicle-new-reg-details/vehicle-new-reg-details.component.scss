@@ -76,6 +76,16 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     );
   }
 
+  .verify2 {
+    width: 150px;
+    @include veryfy(
+      $back: unset,
+      $color: #b9a005,
+      $font: $ind-font,
+      $border: 1px solid #b9a005
+    );
+  }
+
   ::ng-deep .mat-step-header .mat-step-icon-selected,
   .mat-step-header .mat-step-icon-state-done,
   .mat-step-header .mat-step-icon-state-edit {

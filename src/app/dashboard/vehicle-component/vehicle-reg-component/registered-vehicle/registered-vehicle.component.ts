@@ -199,7 +199,20 @@ export class RegisteredVehicleComponent implements OnInit {
     this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
   }
 
-  ngOnInit(): void { 
+  renew(data: any) {
+    let data2 = data;
+    data2.renew = true;
+    data2.payer.renew = true;
+    const plate_data = {
+      type: 'detail',
+      data: data,
+    };
+    this.service.setRegVehicleMessage(data2?.payer);
+    this.service.setRegMessage2(plate_data);
+    this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
+  }
+
+  ngOnInit(): void {
     this.authService.checkExpired();
     this.renderTable();
   }

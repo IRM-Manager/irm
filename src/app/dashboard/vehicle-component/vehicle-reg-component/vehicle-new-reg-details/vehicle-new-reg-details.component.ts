@@ -30,6 +30,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   vehicle_error = false;
   vehicle_loading = false;
   update = false;
+  renew = false;
   datas: any;
   datas2: any;
   vehicleType: any;
@@ -110,6 +111,11 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       this.update = true;
       this.datas2 = this.service.getRegMessage2();
       this.updateNewData();
+    } else if (this.datas?.renew == true) {
+      this.renew = true;
+      this.datas2 = this.service.getRegMessage2();
+      this.updateNewData();
+    } else {
     }
     this.getRegType();
     console.log(this.datas);
@@ -179,7 +185,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     this.feedbackForm.controls['year'].disable();
     this.feedbackForm.controls['make'].disable();
     this.feedbackForm.controls['model'].disable();
-    this.feedbackForm.controls['vin'].disable();
+    // this.feedbackForm.controls['vin'].disable();
   }
 
   getRegType() {
@@ -221,22 +227,42 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       this.feedback = this.feedbackForm.value;
       const vehicle_data = {
         vin: this.feedback.vin,
-        vehicletype: this.feedback.vehicle_type,
+        vehicletype:
+          this.renew == false
+            ? this.feedback.vehicle_type
+            : this.datas2?.data?.vehicletype?.id,
         color: this.feedback.color,
-        make: this.feedback.make,
-        model: this.feedback.model,
+        make:
+          this.renew == false ? this.feedback.make : this.datas2?.data?.make,
+        model:
+          this.renew == false ? this.feedback.model : this.datas2?.data?.model,
         engine_capacity: this.feedback.engine_capacity,
         fuel_type: this.feedback.fuel,
-        vehicle_year: this.feedback.year,
+        vehicle_year:
+          this.renew == false
+            ? this.feedback.year
+            : this.datas2?.data?.vehicle_year,
         carrying_capacity: this.feedback.no_carry,
-        platenoId: this.feedback.plate['id'],
-        vehicle_usage: this.feedback.plate['type'],
+        platenoId: this.renew == false ? this.feedback.plate['id'] : 1,
+        vehicle_usage:
+          this.renew == false
+            ? this.feedback.plate['type']
+            : this.datas2?.data?.vehicle_usage,
+        plate_no: this.renew == false ? '' : this.datas2?.data?.plate_no,
       };
+      if (this.renew == true) {
+        delete vehicle_data?.platenoId;
+      } else {
+        delete vehicle_data?.plate_no;
+      }
       console.log(vehicle_data);
       this.httpService
         .postData(
-          BaseUrl.list_vehicle +
-            `?tin=${this.datas[0]?.owner.state_tin}&regtype=${this.vehicleRegType?.id}`,
+          this.renew == false
+            ? BaseUrl.list_vehicle +
+                `?tin=${this.datas[0]?.owner.state_tin}&regtype=${this.vehicleRegType?.id}`
+            : BaseUrl.vehicle_renew +
+                `?tin=${this.datas2?.data?.payer?.state_tin}&regtype=${this.datas2?.data?.reg_type?.id}`,
           vehicle_data
         )
         .subscribe(
@@ -289,7 +315,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       this.loading = true;
       this.feedback = this.feedbackForm.value;
       const vehicle_data = {
-        vin: this.datas2?.data?.vin,
+        vin: this.feedback.vin,
         vehicletype: this.datas2?.data?.vehicletype,
         color: this.feedback.color,
         make: this.datas2?.data?.make,
@@ -298,7 +324,6 @@ export class VehicleNewRegDetailsComponent implements OnInit {
         fuel_type: this.feedback.fuel,
         vehicle_year: this.datas2?.data?.vehicle_year,
         carrying_capacity: this.feedback.no_carry,
-        // platenoId:  ? this.feedback.plate['id'] : 1,
         vehicle_usage: this.datas2?.data?.vehicle_usage,
       };
       console.log(vehicle_data);

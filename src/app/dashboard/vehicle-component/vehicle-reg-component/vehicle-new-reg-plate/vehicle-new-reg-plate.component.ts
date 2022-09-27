@@ -35,6 +35,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
   loading2 = false;
   reg_loading = false;
   update = false;
+  total = 0.0;
   datas: any;
   vehicleRegType: any;
   vehicleRegType2: any;
@@ -87,8 +88,9 @@ export class VehicleNewRegPlateComponent implements OnInit {
     if (this.datas?.data?.update == true) {
       this.update = true;
     }
+    this.sumValue();
     this.getRegType();
-    console.log(this.datas);
+    console.log(this.vehicleRegType2);
   }
 
   createForm() {
@@ -275,6 +277,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
 
   removeItem(id: number) {
     this.vehicleRegType3.splice(id, 1);
+    this.sumValue();
   }
 
   addItem(data: any) {
@@ -294,6 +297,22 @@ export class VehicleNewRegPlateComponent implements OnInit {
     } else {
       this.vehicleRegType3.push(data);
     }
+    this.sumValue();
+  }
+
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  sumValue() {
+    let source = this.vehicleRegType2.concat(this.vehicleRegType3);
+    console.log(source);
+    let total: any = source.reduce(
+      (accumulator: any, current: any) => accumulator + current?.amount,
+      0
+    );
+    this.total = total;
   }
 
   back() {

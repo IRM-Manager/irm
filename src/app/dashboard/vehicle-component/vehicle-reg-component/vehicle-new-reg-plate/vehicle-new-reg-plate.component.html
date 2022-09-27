@@ -136,7 +136,7 @@
                         <div class="title2" *ngFor="let v of vehicleRegType3;">
                             {{ v?.name }}
                         </div>
-                        <!-- <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div> -->
+                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
                     </div>
                 </div>
 
@@ -148,28 +148,28 @@
                 <div class="left_right">
                     <div class="left2">
                         <div class="title2" *ngFor="let v of vehicleRegType2;">
-                            12 Month
+                            {{ v?.duration || '12' }} Month
                         </div>
                         <div class="title2" *ngFor="let v of vehicleRegType3;">
-                            12 Month
+                            {{ v?.duration || '12' }} Month
                         </div>
-                        <!-- <div class="title2"></div> -->
+                        <div class="title2"></div>
                     </div>
                 </div>
             </div>
 
             <!--  -->
-            <!-- <div class="column2">
+            <div class="column2">
                 <div class="deduction">Amount (NGN)</div>
                 <div class="left_right">
                     <div class="left2">
                         <div class="title2" *ngFor="let v of vehicleRegType2;">
                             {{ v?.amount }}
                         </div>
-                        <div class="title2" style="font-weight: 550;">10,000</div>
+                        <div class="title2" style="font-weight: 550;">{{ formatMoney(total || '0.00') }}</div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!--  -->
             <div class="column2">
