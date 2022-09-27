@@ -185,7 +185,8 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     this.feedbackForm.controls['year'].disable();
     this.feedbackForm.controls['make'].disable();
     this.feedbackForm.controls['model'].disable();
-    // this.feedbackForm.controls['vin'].disable();
+    this.feedbackForm.controls['vin'].disable();
+    this.feedbackForm.controls['color'].disable();
   }
 
   getRegType() {
@@ -226,7 +227,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       this.loading = true;
       this.feedback = this.feedbackForm.value;
       const vehicle_data = {
-        vin: this.feedback.vin,
+        vin: this.renew == false ? this.feedback.vin : this.datas2?.data?.vin,
         vehicletype:
           this.renew == false
             ? this.feedback.vehicle_type
@@ -315,16 +316,16 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       this.loading = true;
       this.feedback = this.feedbackForm.value;
       const vehicle_data = {
-        vin: this.feedback.vin,
-        vehicletype: this.datas2?.data?.vehicletype,
-        color: this.feedback.color,
+        vin: this.datas2?.data?.vin,
         make: this.datas2?.data?.make,
         model: this.datas2?.data?.model,
+        vehicle_usage: this.datas2?.data?.vehicle_usage,
+        vehicle_year: this.datas2?.data?.vehicle_year,
+        color: this.datas2?.data?.color,
+        vehicletype: this.datas2?.data?.vehicletype?.id,
         engine_capacity: this.feedback.engine_capacity,
         fuel_type: this.feedback.fuel,
-        vehicle_year: this.datas2?.data?.vehicle_year,
         carrying_capacity: this.feedback.no_carry,
-        vehicle_usage: this.datas2?.data?.vehicle_usage,
       };
       console.log(vehicle_data);
       this.httpService
