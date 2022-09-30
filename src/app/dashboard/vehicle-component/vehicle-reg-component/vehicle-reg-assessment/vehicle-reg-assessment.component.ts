@@ -73,7 +73,7 @@ export class VehicleRegAssessmentComponent implements OnInit {
     };
     this.isLoading = true;
     this.httpService
-      .getAuthSingle(BaseUrl.vehicle_gen_ass + `?vehicleId=${this.datas2?.id}`)
+      .getAuthSingle(BaseUrl.vehicle_view_ass + `?vehicleId=${this.datas2?.id}`)
       .subscribe(
         (data: any) => {
           this.datas = data.data;
@@ -245,18 +245,6 @@ export class VehicleRegAssessmentComponent implements OnInit {
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
-  }
-
-  edit(data: any) {
-    const setData = {
-      update: true,
-      data: data,
-    };
-    // this.service.setMessage(setData);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
   }
 
   ngOnInit(): void {

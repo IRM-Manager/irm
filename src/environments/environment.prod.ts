@@ -66,4 +66,5 @@ export const BaseUrl = {
   vehicle_gen_bill: 'bill/api/v1/vehicle/',
   vehicle_doc: 'mla/api/v1/vehicledoc/',
   vehicle_renew: 'mla/api/v1/newvehicle/renewal/',
+  vehicle_view_ass: 'assessment/api/v1/mla/listassessmentbyvehicle/',
 };

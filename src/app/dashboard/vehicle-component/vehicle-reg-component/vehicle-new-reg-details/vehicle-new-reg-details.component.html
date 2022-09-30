@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="feedbackForm" id="ngForm" #fform="ngForm" (ngSubmit)="onSubmit()">
         <p>
             <!-- Vehicle Model -->
             <mat-form-field class="half-width" appearance="outline">
@@ -84,35 +84,33 @@
             <!-- plate -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Select Plate Number</mat-label>
-                <mat-select matInput formControlName="plate" required>
-                    <mat-option *ngFor="let p of plateMsg;" [value]="p">{{ p?.name }}</mat-option>
+                <mat-select *ngIf="!renew" matInput formControlName="plate" required>
+                    <mat-option *ngFor="let p of plateMsg;" [value]="p">{{ p?.name }} ({{ p?.type }})</mat-option>
                 </mat-select>
+                <input *ngIf="renew" matInput formControlName="plate" required>
                 <mat-error>{{formErrors.plate}}</mat-error>
+            </mat-form-field>
+        </p>
+        <p *ngIf="renew">
+            <!-- Vehicle usage -->
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Vehicle usage</mat-label>
+                <mat-select matInput formControlName="vehicle_usage" required>
+                    <mat-option value="private">Private</mat-option>
+                    <mat-option value="commercial">Commercial</mat-option>
+                    <mat-option value="government">Government</mat-option>
+                    <mat-option value="fancy">Fancy</mat-option>
+                </mat-select>
+                <mat-error>{{formErrors.vehicle_usage}}</mat-error>
             </mat-form-field>
         </p>
     
         <div class="final_submit">
             <button *ngIf="update || renew" mat-button class="verify2" (click)="back()" type="button">Back</button>
-            <button *ngIf="update" type="submit" mat-button type="button" class="verify" (click)="updateVeh()">
-                <span *ngIf="!loading">Update</span>
-                <div *ngIf="loading" class="loader">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                </div>
-            </button>
-            <button *ngIf="renew" type="submit" mat-button type="button" class="verify" (click)="onSubmit()">
-                <span *ngIf="!loading">Renew</span>
-                <div *ngIf="loading" class="loader">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                </div>
-            </button>
-            <button *ngIf="!update && !renew" type="submit" mat-button class="verify">
-                <span *ngIf="!loading">Save and continue</span>
+            <button type="submit" mat-button class="verify">
+                <span *ngIf="!loading && update">Update</span>
+                <span *ngIf="!loading && renew">Renew</span>
+                <span *ngIf="!loading && !renew && !update">Save and continue</span>
                 <div *ngIf="loading" class="loader">
                     <div class="bubble"></div>
                     <div class="bubble"></div>

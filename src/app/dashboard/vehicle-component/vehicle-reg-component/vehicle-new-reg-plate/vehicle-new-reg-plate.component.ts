@@ -38,8 +38,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
   total = 0.0;
   datas: any;
   vehicleRegType: any;
-  vehicleRegType2: any;
-  vehicleRegType3: any[] = [];
+  vehicleRegType2: any[] = [];
 
   stateVehicleitems: Observable<Vehicleitems[]>;
 
@@ -88,7 +87,6 @@ export class VehicleNewRegPlateComponent implements OnInit {
     if (this.datas?.data?.update == true) {
       this.update = true;
     }
-    this.sumValue();
     this.getRegType();
     console.log(this.vehicleRegType2);
   }
@@ -141,7 +139,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
     } else {
       this.loading = true;
     }
-    const data = { items: this.vehicleRegType2.concat(this.vehicleRegType3) };
+    const data = { items: this.vehicleRegType2 };
     this.httpService
       .postData(
         BaseUrl.vehicle_gen_ass +
@@ -154,7 +152,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
             this.generateBill(data?.data);
           } else {
             this.loading = false;
-            this.snackBar.open('Assessment generated Successfully', '', {
+            this.snackBar.open('Assessment generated successfully', '', {
               duration: 3000,
               panelClass: 'success',
               horizontalPosition: 'center',
@@ -276,7 +274,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
   }
 
   removeItem(id: number) {
-    this.vehicleRegType3.splice(id, 1);
+    this.vehicleRegType2.splice(id, 1);
     this.sumValue();
   }
 
@@ -284,10 +282,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
     const check = this.vehicleRegType2.filter((e: any) => {
       return e.id == data.id;
     });
-    const check2 = this.vehicleRegType3.filter((e: any) => {
-      return e.id == data.id;
-    });
-    if (check.length > 0 || check2.length > 0) {
+    if (check.length > 0) {
       this.snackBar.open('Item already exists.', '', {
         duration: 3000,
         panelClass: 'error',
@@ -295,7 +290,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
         verticalPosition: 'top',
       });
     } else {
-      this.vehicleRegType3.push(data);
+      this.vehicleRegType2.push(data);
     }
     this.sumValue();
   }
@@ -306,18 +301,20 @@ export class VehicleNewRegPlateComponent implements OnInit {
   }
 
   sumValue() {
-    let source = this.vehicleRegType2.concat(this.vehicleRegType3);
-    console.log(source);
-    let total: any = source.reduce(
-      (accumulator: any, current: any) => accumulator + current?.amount,
-      0
-    );
-    this.total = total;
+    const total = this.vehicleRegType2.reduce((accumulator, value) => {
+      return accumulator + value?.amount;
+    }, 0);
+    if (total) {
+      this.total = total;
+    } else {
+    }
   }
 
   back() {
     this._location.back();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sumValue();
+  }
 }

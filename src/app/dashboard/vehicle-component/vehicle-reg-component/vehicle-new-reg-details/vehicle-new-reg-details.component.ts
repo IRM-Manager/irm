@@ -49,6 +49,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     plate: '',
     engine_capacity: '',
     fuel: '',
+    vehicle_usage: '',
   };
 
   validationMessages: any = {
@@ -69,6 +70,8 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     },
     vin: {
       required: 'required.',
+      minlength: 'should not be less than 16 characters',
+      maxlength: 'should not be more than 16 characters',
     },
     plate: {
       required: 'required.',
@@ -81,6 +84,9 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     },
     fuel: {
       required: 'required.',
+    },
+    vehicle_usage: {
+      required: 'required',
     },
   };
 
@@ -114,7 +120,6 @@ export class VehicleNewRegDetailsComponent implements OnInit {
     } else if (this.datas?.renew == true) {
       this.renew = true;
       this.datas2 = this.service.getRegMessage2();
-      this.updateNewData();
     } else {
     }
     this.getRegType();
@@ -127,12 +132,20 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       make: ['', [Validators.required]],
       vehicle_type: ['', [Validators.required]],
       no_carry: ['', [Validators.required]],
-      vin: ['', [Validators.required]],
+      vin: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(16),
+          Validators.maxLength(16),
+        ],
+      ],
       year: ['', [Validators.required]],
       color: ['', [Validators.required]],
       plate: ['', [Validators.required]],
       engine_capacity: ['', [Validators.required]],
       fuel: ['', [Validators.required]],
+      vehicle_usage: [''],
     });
 
     this.feedbackForm.valueChanges.subscribe((data: any) =>
@@ -213,91 +226,85 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.onValueChanged();
-    const feed2 = this.feedbackFormDirective.invalid;
-    if (feed2) {
-      this.snackBar.open('Errors in Form fields please check it out.', '', {
-        duration: 5000,
-        panelClass: 'error',
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
-    } // end of if
-    else {
-      this.loading = true;
+    if (this.update) {
+      this.updateVeh();
+    } else {
+      this.onValueChanged();
       this.feedback = this.feedbackForm.value;
-      const vehicle_data = {
-        vin: this.renew == false ? this.feedback.vin : this.datas2?.data?.vin,
-        vehicletype:
-          this.renew == false
-            ? this.feedback.vehicle_type
-            : this.datas2?.data?.vehicletype?.id,
-        color: this.feedback.color,
-        make:
-          this.renew == false ? this.feedback.make : this.datas2?.data?.make,
-        model:
-          this.renew == false ? this.feedback.model : this.datas2?.data?.model,
-        engine_capacity: this.feedback.engine_capacity,
-        fuel_type: this.feedback.fuel,
-        vehicle_year:
-          this.renew == false
-            ? this.feedback.year
-            : this.datas2?.data?.vehicle_year,
-        carrying_capacity: this.feedback.no_carry,
-        platenoId: this.renew == false ? this.feedback.plate['id'] : 1,
-        vehicle_usage:
-          this.renew == false
-            ? this.feedback.plate['type']
-            : this.datas2?.data?.vehicle_usage,
-        plate_no: this.renew == false ? '' : this.datas2?.data?.plate_no,
-      };
-      if (this.renew == true) {
-        delete vehicle_data?.platenoId;
+      const feed2 = this.feedbackFormDirective.invalid;
+      if (feed2) {
+        this.snackBar.open('Errors in Form fields please check it out.', '', {
+          duration: 5000,
+          panelClass: 'error',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
       } else {
-        delete vehicle_data?.plate_no;
-      }
-      console.log(vehicle_data);
-      this.httpService
-        .postData(
-          this.renew == false
-            ? BaseUrl.list_vehicle +
-                `?tin=${this.datas[0]?.owner.state_tin}&regtype=${this.vehicleRegType?.id}`
-            : BaseUrl.vehicle_renew +
-                `?tin=${this.datas2?.data?.payer?.state_tin}&regtype=${this.datas2?.data?.reg_type?.id}`,
-          vehicle_data
-        )
-        .subscribe(
-          (data: any) => {
-            this.loading = false;
-            console.log(data);
-            const plate_data = {
-              type: 'plate',
-              data: data,
-            };
-            this.service.setRegMessage2(plate_data);
-            this.service.sendClickEvent2();
-          },
-          (err) => {
-            this.authService.checkExpired();
-            this.loading = false;
-            console.log(err);
-            this.snackBar.open(
-              err?.error?.message ||
-                err?.error?.msg ||
-                err?.error?.detail ||
-                err?.error?.status ||
-                'An Error Occured!',
-              '',
-              {
-                duration: 5000,
-                panelClass: 'error',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              }
-            );
-          }
-        );
-    } // end else
+        this.loading = true;
+        const vehicle_data: any = {
+          vin: this.feedback.vin,
+          vehicletype: this.feedback.vehicle_type,
+          color: this.feedback.color,
+          make: this.feedback.make,
+          model: this.feedback.model,
+          engine_capacity: this.feedback.engine_capacity,
+          fuel_type: this.feedback.fuel,
+          vehicle_year: this.feedback.year,
+          carrying_capacity: this.feedback.no_carry,
+          platenoId: this.feedback?.plate['id'],
+          vehicle_usage: !this.renew
+            ? this.feedback.plate['type']
+            : this.feedback.vehicle_usage,
+          plate_no: this.feedback.plate,
+        };
+        if (this.renew == true) {
+          delete vehicle_data?.platenoId;
+        } else {
+          delete vehicle_data?.plate_no;
+        }
+        console.log(vehicle_data);
+        this.httpService
+          .postData(
+            this.renew == false
+              ? BaseUrl.list_vehicle +
+                  `?tin=${this.datas[0]?.owner.state_tin}&regtype=${this.vehicleRegType?.id}`
+              : BaseUrl.vehicle_renew +
+                  `?tin=${this.datas?.state_tin}&regtype=${this.vehicleRegType?.id}`,
+            vehicle_data
+          )
+          .subscribe(
+            (data: any) => {
+              this.loading = false;
+              console.log(data);
+              const plate_data = {
+                type: 'plate',
+                data: data,
+              };
+              this.service.setRegMessage2(plate_data);
+              this.service.sendClickEvent2();
+            },
+            (err) => {
+              this.authService.checkExpired();
+              this.loading = false;
+              console.log(err);
+              this.snackBar.open(
+                err?.error?.message ||
+                  err?.error?.msg ||
+                  err?.error?.detail ||
+                  err?.error?.status ||
+                  'An Error Occured!',
+                '',
+                {
+                  duration: 5000,
+                  panelClass: 'error',
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                }
+              );
+            }
+          );
+      } // end else
+    }
   }
 
   // update

@@ -61,7 +61,7 @@ export interface Individual1 {
   occupation: string;
   employment_status: string;
   address: string;
-  office: string
+  office: string;
 }
 
 export interface manual {
@@ -92,7 +92,7 @@ export interface Business2 {
   email: string;
   company_type: string;
   address: string;
-  office: string;  
+  office: string;
   lga: string;
 }
 
@@ -166,6 +166,7 @@ export interface vehicle_details {
   plate: string;
   engine_capacity: string;
   fuel: string;
+  vehicle_usage: string;
 }
 
 export interface offence {

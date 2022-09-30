@@ -133,9 +133,6 @@
                         <div class="title2" *ngFor="let v of vehicleRegType2;">
                             {{ v?.name }}
                         </div>
-                        <div class="title2" *ngFor="let v of vehicleRegType3;">
-                            {{ v?.name }}
-                        </div>
                         <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
                     </div>
                 </div>
@@ -148,9 +145,6 @@
                 <div class="left_right">
                     <div class="left2">
                         <div class="title2" *ngFor="let v of vehicleRegType2;">
-                            {{ v?.duration || '12' }} Month
-                        </div>
-                        <div class="title2" *ngFor="let v of vehicleRegType3;">
                             {{ v?.duration || '12' }} Month
                         </div>
                         <div class="title2"></div>
@@ -176,9 +170,7 @@
                 <div class="deduction">Action</div>
                 <div class="left_right">
                     <div class="left2">
-                        <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType2;">
-                        </div>
-                        <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType3; let i = index" (click)="removeItem(i)">
+                        <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType2; let i = index" (click)="removeItem(i)">
                             Remove
                         </div>
                         <div class="title2"></div>
@@ -202,7 +194,7 @@
         </form>
 
         <div>
-            <button *ngIf="update == true" type="button" mat-button class="generate2" (click)="back()">Back</button>
+            <button *ngIf="update" type="button" mat-button class="generate2" (click)="back()">Back</button>
             <button mat-button class="generate2" (click)="generateAss(false)">
                 <span *ngIf="!loading">Save Assessment</span>
                 <div *ngIf="loading" class="loader">

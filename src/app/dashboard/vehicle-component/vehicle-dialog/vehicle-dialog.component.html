@@ -81,7 +81,7 @@
                                 <div class="left">
                                     <div class="title">Assessment Period</div>
                                     <div class="title">Tax Type</div>
-                                    <div class="title">No. Of employee</div>
+                                    <!-- <div class="title">No. Of employee</div> -->
                                     <div class="title">Currency</div>
                                     <div class="title">Date of assessment</div>
                                     <div class="title">Total Taxable Income</div>
@@ -100,7 +100,7 @@
                                     <div class="title" style="text-transform: uppercase;">
                                         {{ data.data?.assessment?.assess_type }}
                                     </div>
-                                    <div class="title">{{ data.data?.assessment?.employee_total }}</div>
+                                    <!-- <div class="title">{{ data.data?.assessment?.employee_total }}</div> -->
                                     <div class="title">NGN</div>
                                     <div class="title">{{ data.data?.created_at | date:'yyyy-MM-dd' }}</div>
                                     <div class="title">NGN {{ formatMoney(data.data?.assessment?.assessment_total || '0.00') }}</div>
@@ -163,7 +163,7 @@
     <div mat-dialog-content class="manual_container">
 
         <div>
-            <div class="manual_verify" *ngIf="data.type == 'manual' || data.type == 'manual2'">Kindly input your GTin to continue</div>
+            <div class="manual_verify" *ngIf="data.type == 'manual' || data.type === 'manual2'">Kindly input your GTin to continue</div>
             <div class="manual_verify" *ngIf="data.type == 'penalty'">Traffic Offences And Penalties</div>
             <div class="manual_verify" *ngIf="data.type == 'change-owner2'" >New Owner ID</div>
             <div class="manual_verify" *ngIf="data.type == 'reg-plate'" >Owner Tax payer ID</div>
@@ -180,7 +180,6 @@
                 <button mat-button class="upload_continue" *ngIf="data.type == 'change-owner2'" [routerLink]="['/dashboard/dashboard5/vehicle/approval/review']" mat-dialog-close>Proceed</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'penalty'" [routerLink]="['/dashboard/dashboard5/vehicle/offence']" mat-dialog-close>Verify</button>
                 <button mat-button class="upload_continue" *ngIf="data.type == 'reg-plate'" [routerLink]="['/dashboard/dashboard5/vehicle/new-plate']" mat-dialog-close>Continue</button> -->
-
                 <button mat-button class="upload_continue" (click)="checkTin()">
                     <span *ngIf="!loading">Continue</span>
                     <div *ngIf="loading" class="loader">
@@ -213,7 +212,7 @@
         <div class="kindly">Kindly Select the option that applies to the Tax payer</div>
 
         <div class="card blue" (click)="openDialog('', 'manual2')">New vehicle registration</div>
-        <!-- <div class="card yellow" (click)="openDialog('', 'manual')">Old new Registration</div> -->
+        <div class="card yellow" (click)="openDialog('', 'manual')">Old new Registration</div>
         <div class="card white" (click)="openDialog('', 'manual')">Bought from other Taxpayer</div>
         <div class="card red" (click)="openDialog('', 'manual')">Change of Ownership</div>
     </div>

@@ -125,15 +125,20 @@ export class VehicleDialogComponent implements OnInit {
             this.loading = false;
             this.dialogRef.disableClose = false;
             console.log(data);
-            const setData = {
-              update: false,
-              data: data.data,
-            };
             // this.service.setRegMessage(setData);
             // this.router.navigate(['/dashboard/dashboard5/vehicle/reg']);
             if (this.data.type == 'reg-plate') {
               this.service.setCustomerPlateRegMessage(data.data);
               this.router.navigate(['/dashboard/dashboard5/vehicle/new-plate']);
+            } else if (this.data.type == 'manual') {
+              let data2 = data.data;
+              data2.renew = true;
+              const plate_data = {
+                type: 'detail',
+              };
+              this.service.setRegVehicleMessage(data2);
+              this.service.setRegMessage2(plate_data);
+              this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
             }
             this.dialogRef.close();
           },
