@@ -12,13 +12,12 @@ import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-vehicle-new-reg',
-  templateUrl: './vehicle-new-reg.component.html',
-  encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./vehicle-new-reg.component.scss'],
+  selector: 'app-change-owner-new-reg',
+  templateUrl: './change-owner-new-reg.component.html',
+  styleUrls: ['./change-owner-new-reg.component.scss'],
 })
-export class VehicleNewRegComponent implements OnInit {
-  viewMode = 'detail';
+export class ChangeOwnerNewRegComponent implements OnInit {
+  viewMode = 'assessment';
   clickEventSubscription?: Subscription;
   datas: any;
 
@@ -36,20 +35,20 @@ export class VehicleNewRegComponent implements OnInit {
     this.clickEventSubscription = this.service
       .getClickEvent2()
       .subscribe((data: any) => {
-        const datas: any = this.service.getRegMessage2();
-        this.viewMode = datas.type;
+        // const datas: any = this.service.getRegMessage2();
+        // this.viewMode = datas.type;
       });
-    this.datas = this.service.getRegVehicleMessage();
-    if (this.datas) {
-      if (this.datas?.vehregtype == 'plate') {
-        this.viewMode = 'plate';
-      } else {
-        this.viewMode = 'detail';
-      }
-    } else {
-      this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
-    }
-    this.getRegType();
+    // this.datas = this.service.getRegVehicleMessage();
+    // if (this.datas) {
+    //   if (this.datas?.vehregtype == 'plate') {
+    //     this.viewMode = 'plate';
+    //   } else {
+    //     this.viewMode = 'detail';
+    //   }
+    // } else {
+    //   this.router.navigate([`/dashboard/dashboard5/vehicle/reg-vehicle`]);
+    // }
+    // this.getRegType();
   }
 
   getRegType() {

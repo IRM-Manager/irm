@@ -1,20 +1,13 @@
 <div class="wrapper">
 
     <div class="header">
-        <div class="soft_pattern">
-            Adamu Aliyu
-            <span class="material-icons-round icons-rounded">verified_user</span>
-        </div>
-        <div class="reg_buss">GTin: 4434434343</div>
-        <p></p>
-        <div>
-            <span class="reg_buss">Registered vehicle for {{ htmlYear }}</span>
-            <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
-                <span class="change" style="color: #5EA55A;">Change Year</span>
-            </button>
-            <mat-menu #menu2 class="choose-year-menu">
-                <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" class="mat-menu">{{ year.year }}</button>
-            </mat-menu>
+        <div class="header-card">
+            <div class="header-blue" (click)="openDialog('', 'change-owner')">
+                Click for Cars registered In Gombe
+            </div>
+            <div class="header-red" (click)="openDialog('', 'change-owner-out')">
+                Click for Cars registered Outside Gombe
+            </div>
         </div>
     </div>
 
@@ -24,7 +17,7 @@
             <div class="header2">
 
                 <div class="indcom">
-                    List of Registered vehicle
+                    Pending Approvals
                 </div>
 
                 <div class="search_icon_header">
@@ -47,11 +40,7 @@
                     <button matSuffix mat-icon-button class="form-dashboard_select">
                         <span class="material-icons-outlined icons-rounded">filter_alt</span>
                     </button>
-                </div>    
-
-                <div class="spacer"></div>
-
-                <button mat-button class="apply-ass" [routerLink]="['/dashboard/dashboard5/vehicle/new-reg']">Add new</button>
+                </div>
 
             </div>
 
@@ -69,16 +58,16 @@
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
                                 <td class="align-middle text-center">{{ data.assessment_date }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
+                                    <button mat-button class="paid" *ngIf="data.assessment.remitted">
                                         Active
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.assessment.remitted == false">
+                                    <button mat-button class="pending" *ngIf="!data.assessment.remitted">
                                         change of ownership
                                     </button>
                                 </td>
@@ -87,18 +76,15 @@
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data)">View Documents and receipts</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'change-owner2')">
-                                            Transfer vehicle ownership
-                                        </button>
-                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')" style="color: #3C66A3;">
-                                            View Bill
-                                        </button>
+                                        <button mat-menu-item="mat-menu-item" (click)="viewAss(data)">Review Request</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'approve')">Approve Request</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'decline')">Deny Request</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Bill</button>
                                     </mat-menu>
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

@@ -1,9 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import {
-  Component,
-  ElementRef, OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, shareReplay } from 'rxjs';
 
@@ -44,5 +40,7 @@ export class AppPublicSidenavComponent implements OnInit {
   //   d.scrollTo({ left: 0, top: 0, behavior: 'smooth'});
   // }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

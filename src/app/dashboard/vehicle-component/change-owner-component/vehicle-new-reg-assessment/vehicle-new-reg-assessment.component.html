@@ -1,0 +1,62 @@
+<div class="wrapper">
+
+    <div class="gen_table" style="margin-top: 2rem;">
+        <form novalidate="novalidate" [formGroup]="feedbackForm" id="ngForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+                <!-- name -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Full name</mat-label>
+                    <input matInput formControlName="name" required>
+                        <mat-error>{{ formErrors.name }}</mat-error>
+                    </mat-form-field>
+                    <!-- state -->
+                    <mat-form-field class="half-width" appearance="outline">
+                        <mat-label>State of residence</mat-label>
+                        <mat-select matInput formControlName="state" #singleSelect required>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching" placeholderlabel="search state..." noentriesfoundlabel="no matching state found"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let option of filteredBanks | async" [value]="option.name">
+                                <span>{{option.name}}</span>
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{formErrors.state}}</mat-error>
+                        <mat-hint align="end" (click)="addState()" *ngIf="stateError && !stateLoading">
+                            <button>Reload</button>
+                        </mat-hint>
+                        <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <!-- number -->
+                    <mat-form-field class="half-width" appearance="outline">
+                        <mat-label>Contact Number</mat-label>
+                        <input matInput formControlName="number" type="tel" required>
+                            <mat-error>{{formErrors.number}}</mat-error>
+                        </mat-form-field>
+                        <!-- address -->
+                        <mat-form-field class="half-width" appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="address" type="tel" required>
+                                <mat-error>{{formErrors.address}}</mat-error>
+                            </mat-form-field>
+                        </p>
+
+                        <div class="final_submit">
+                            <button mat-button="mat-button" class="verify2" type="button">Back</button>
+                            <button type="submit" mat-button="mat-button" class="verify">
+                                <span *ngIf="!loading">Save and continue</span>
+                                <div *ngIf="loading" class="loader">
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                    <div class="bubble"></div>
+                                </div>
+                            </button>
+                        </div>
+
+                    </form>
+                    <div style="clear: both;"></div>
+
+                </div>
+            </div>

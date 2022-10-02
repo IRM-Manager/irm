@@ -1,4 +1,4 @@
-<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+<div class="generate-dialog" *ngIf="data.type === 'generate_bill'">
 
     <div mat-dialog-content class="print-section" id="print-section">
 
@@ -53,8 +53,8 @@
                         </div>
                         <div class="tin">
                             <span style="color: #3C66A3;">Bill Staus: </span> 
-                            <span *ngIf="data.data?.bill_status == true" class="gen-success">Paid</span>
-                            <span *ngIf="data.data?.bill_status == false" class="gen-failed">Not-paid</span>
+                            <span *ngIf="data.data?.bill_status" class="gen-success">Paid</span>
+                            <span *ngIf="!data.data?.bill_status" class="gen-failed">Not-paid</span>
                         </div>
                     </div>
 
@@ -152,8 +152,9 @@
 <!-- Manual upload layout -->
 
 <div class="manual_file-dialog" 
-    *ngIf="data.type == 'manual' || data.type == 'manual2' || data.type == 'change-owner' 
-        || data.type == 'penalty' || data.type == 'change-owner2' || data.type == 'reg-plate'">
+    *ngIf="data.type === 'manual' || data.type === 'manual2' || data.type === 'change-owner' 
+        || data.type === 'penalty' || data.type === 'change-owner2' || data.type === 'reg-plate'
+        || data.type === 'change-owner-out'">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -163,10 +164,12 @@
     <div mat-dialog-content class="manual_container">
 
         <div>
-            <div class="manual_verify" *ngIf="data.type == 'manual' || data.type === 'manual2'">Kindly input your GTin to continue</div>
-            <div class="manual_verify" *ngIf="data.type == 'penalty'">Traffic Offences And Penalties</div>
-            <div class="manual_verify" *ngIf="data.type == 'change-owner2'" >New Owner ID</div>
-            <div class="manual_verify" *ngIf="data.type == 'reg-plate'" >Owner Tax payer ID</div>
+            <div class="manual_verify" *ngIf="data.type === 'manual' || data.type === 'manual2' ||
+            data.type === 'change-owner-out'">Kindly input your GTin to continue</div>
+            <div class="manual_verify" *ngIf="data.type === 'penalty'">Traffic Offences And Penalties</div>
+            <div class="manual_verify" *ngIf="data.type === 'change-owner2'">New Owner ID</div>
+            <div class="manual_verify" *ngIf="data.type === 'change-owner'">Vehicle Registration No.</div>
+            <div class="manual_verify" *ngIf="data.type === 'reg-plate'" >Owner Tax payer ID</div>
 
             <form [formGroup]="manualForm" class="manual_form">
                 <mat-form-field class="half-width" appearance="outline">
@@ -200,7 +203,7 @@
 
 
 <!-- Vehicle Registration -->
-<div class="regis-layout" *ngIf="data.type == 'regis'">
+<div class="regis-layout" *ngIf="data.type === 'regis'">
     <div class="regis-layout-header">
         <p class="regis-layout-header-back" mat-dialog-close>
             <span class="material-icons">keyboard_backspace</span>
@@ -220,7 +223,7 @@
 
 <!-- Approve request layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'approve'">
+<div class="manual_file-dialog" *ngIf="data.type === 'approve'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -242,7 +245,7 @@
 
 <!-- Approve request layout2 -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'delay-approve'">
+<div class="manual_file-dialog" *ngIf="data.type === 'delay-approve'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -261,7 +264,7 @@
 
 <!-- Success layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'success'">
+<div class="manual_file-dialog" *ngIf="data.type === 'success'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -287,7 +290,7 @@
 
 <!-- Decline layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'decline'">
+<div class="manual_file-dialog" *ngIf="data.type === 'decline'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -317,7 +320,7 @@
 
 <!-- Document Receipt layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'receipt' " id="print-receipt"
+<div class="manual_file-dialog" *ngIf="data.type === 'receipt' " id="print-receipt"
  style="height: 70vh;">
 
     <div class="receipt-header">
@@ -427,7 +430,7 @@
 
 <!-- Plate Number layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'plate' " id="print-receipt"
+<div class="manual_file-dialog" *ngIf="data.type === 'plate' " id="print-receipt"
  style="height: 70vh;">
 
     <div class="receipt-header" style="margin-top: 1rem;">

@@ -32,6 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 // components
 import { DialogComponent } from '../../dashboard/dialog/dialog.component';
 import { FooterComponent } from '../../dashboard/footer/footer.component';
@@ -51,10 +52,10 @@ import { StampSideNavListComponent } from '../stamp-duties-component/stamp-side-
 import { TaxpayerDialogComponent } from '../tax-payer-layout/taxpayer-dialog/taxpayer-dialog.component';
 import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
 import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
-import { VehicleNewRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-assessment/vehicle-new-reg-assessment.component';
+import { VehicleNewRegAssessmentComponent } from '../vehicle-component/change-owner-component/vehicle-new-reg-assessment/vehicle-new-reg-assessment.component';
 import { VehicleNewRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-details/vehicle-new-reg-details.component';
 import { VehicleNewRegPlateComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg-plate/vehicle-new-reg-plate.component';
-import { VehicleRegDetailsComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-details/vehicle-reg-details.component';
+import { VehicleRegDetailsComponent } from '../vehicle-component/change-owner-component/vehicle-reg-details/vehicle-reg-details.component';
 import { WitholdingSidenavListComponent } from '../withholding-tax-component/witholding-sidenav-list/witholding-sidenav-list.component';
 
 @NgModule({
@@ -121,6 +122,7 @@ import { WitholdingSidenavListComponent } from '../withholding-tax-component/wit
     FormsModule,
     ReactiveFormsModule,
     NgxPrintModule,
+    NgxMatSelectSearchModule,
   ],
   exports: [
     // components

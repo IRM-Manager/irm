@@ -9,10 +9,10 @@
     </div>
 
     <div class="container">
-        <button mat-button class="button" [class.active]="viewMode == 'detail'">
+        <button mat-button class="button" [class.active]="viewMode === 'detail'">
             Vehicle Details
         </button>
-        <button mat-button class="button" [class.active]="viewMode == 'plate'">
+        <button mat-button class="button" [class.active]="viewMode === 'plate'">
             Assessment
         </button>
         <!-- <button mat-button class="button" (click)="viewMode = 'plate'" [class.active]="viewMode == 'plate'">

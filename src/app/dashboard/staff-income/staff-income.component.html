@@ -4,8 +4,8 @@
     <div class="reg_buss">Registered Business</div>
 
     <div class="buttons_p">
-        <button mat-button class="buttons1" [class.active]="viewMode == 'file'" (click)="viewMode = 'file'">Use file Format</button>
-        <button mat-button class="buttons2" [class.active]="viewMode == 'input'" (click)="viewMode = 'input'">Input Manually</button>
+        <button mat-button class="buttons1" [class.active]="viewMode === 'file'" (click)="viewMode = 'file'">Use file Format</button>
+        <button mat-button class="buttons2" [class.active]="viewMode === 'input'" (click)="viewMode = 'input'">Input Manually</button>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
                 List of added Employee(s)
             </div>
 
-            <div *ngIf="type == false">
+            <div *ngIf="!type">
                 <div class="main">
                     <div class="sn">S/N</div>
                     <div class="tin">Tax ID</div>
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div *ngIf="type == true">
+            <div *ngIf="type">
 
                 <div class="table-container">
                     <div class="table-responsive">
@@ -108,7 +108,7 @@
                             </tr>
                             </thead>
                             <!-- payee -->
-                            <tbody *ngIf="datas?.length != 0">
+                            <tbody *ngIf="datas?.length !== 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle">{{i+1}}</td>
                                     <td class="align-middle">{{ data.employeeTin }}</td>
@@ -135,7 +135,7 @@
                                     <td class="align-middle view_payee"><span (click)="Edit(data, i)">Edit</span></td>
                                 </tr>
                             </tbody>
-                            <tbody *ngIf="datas?.length == 0">
+                            <tbody *ngIf="datas?.length === 0">
                                 <tr>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>
@@ -266,7 +266,7 @@
                 List of added Employee(s)
             </div>
 
-            <div *ngIf="type2 == false">
+            <div *ngIf="!type2">
                 <div class="main">
                     <div class="sn">S/N</div>
                     <div class="tin">Tax ID</div>
@@ -289,7 +289,7 @@
                 </div>
             </div>
 
-            <div *ngIf="type2 == true">
+            <div *ngIf="type2">
 
                 <div class="table-container">
                     <div class="table-responsive">
@@ -314,7 +314,7 @@
                             </tr>
                             </thead>
                             <!-- payee -->
-                            <tbody *ngIf="datas?.length != 0">
+                            <tbody *ngIf="datas?.length !== 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle">{{i+1}}</td>
                                     <td class="align-middle">{{ data.employeeTin }}</td>
@@ -341,7 +341,7 @@
                                     <td class="align-middle view_payee"><span (click)="Edit(data, i)">Edit</span></td>
                                 </tr>
                             </tbody>
-                            <tbody *ngIf="datas?.length == 0">
+                            <tbody *ngIf="datas?.length === 0">
                                 <tr>
                                     <td class="no-data-available">No data!</td>
                                     <td class="no-data-available">No data!</td>

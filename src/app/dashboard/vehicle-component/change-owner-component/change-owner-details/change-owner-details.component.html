@@ -1,0 +1,232 @@
+<div class="approval-wrapper">
+
+    <!-- <mat-toolbar class="headerr" style="margin-top: 1rem;">
+        <div class="reg_buss">Sales Agreement</div>
+        <span class="spacer"></span>
+        <div class="soft_pattern" style="cursor: pointer;">View documents</div>
+    </mat-toolbar> -->
+
+    <div class="mat-accordion">
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState" (closed)="!panelOpenState">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Vehicle Details
+                    </mat-panel-title>
+                    <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
+                </mat-expansion-panel-header>
+                <div class="panel-container">
+
+                    <table
+                        class="panel-table" fxLayoutGap="50px">
+                        <!-- 1 -->
+                        <tbody>
+                            <tr>
+                                <td class="title">Issue Date:</td>
+                                <td class="sub-title">2018-11-11</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Vehicle Make:</td>
+                                <td class="sub-title">Toyota highlander</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Chasis Number:</td>
+                                <td class="sub-title">JTEDP21A040041522</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Address:</td>
+                                <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Owner:</td>
+                                <td class="sub-title">Matthew Adeboye</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Phone Number:</td>
+                                <td class="sub-title">07034725207</td>
+                            </tr>
+                        </tbody>
+                        <!-- 2 -->
+                        <tbody>
+                            <tr>
+                                <td class="title">Private:</td>
+                                <td class="sub-title">33e33232323</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Vehicle Type:</td>
+                                <td class="sub-title">SUV</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Engine Number:</td>
+                                <td class="sub-title">Na</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Gross weight:</td>
+                                <td class="sub-title">1472</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Max carrier:</td>
+                                <td class="sub-title">7</td>
+                            </tr>
+                        </tbody>
+                        <!-- 3 -->
+                    </table>
+
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="panel-container2">
+
+        <div class="header-details_p">
+            <div class="header-details">New owner Details</div>
+            <div class="name">Adamu Musa</div>
+            <div class="gtin">GTIN: 107788</div>
+            <div class="jtbtin">JTBTIN: 10778878</div>
+            <div class="indi">Individual Tax Payer</div>
+            <div class="verify">Not-Verified</div>
+            <div class="not-verify">Verified User</div>
+        </div>
+
+        <table
+            class="panel-table" fxLayoutGap="50px">
+            <!-- 1 -->
+            <tbody>
+                <tr>
+                    <td class="title">Date Registration:</td>
+                    <td class="sub-title">2018-11-11</td>
+                </tr>
+                <tr>
+                    <td class="title">Address:</td>
+                    <td class="sub-title">Toyota highlander</td>
+                </tr>
+                <tr>
+                    <td class="title">LGA:</td>
+                    <td class="sub-title">JTEDP21A040041522</td>
+                </tr>
+                <tr>
+                    <td class="title">Email:</td>
+                    <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                </tr>
+                <tr>
+                    <td class="title">Phone Number:</td>
+                    <td class="sub-title">Matthew Adeboye</td>
+                </tr>
+                <tr>
+                    <td class="title">Mode of identification:</td>
+                    <td class="sub-title">07034725207</td>
+                </tr>
+                <tr>
+                    <td class="title">Business type:</td>
+                    <td class="sub-title">07034725207</td>
+                </tr>
+            </tbody>
+            <!-- 2 -->
+            <tbody>
+                <tr>
+                    <td class="title">Date of birth:</td>
+                    <td class="sub-title">33e33232323</td>
+                </tr>
+                <tr>
+                    <td class="title">Age:</td>
+                    <td class="sub-title">SUV</td>
+                </tr>
+                <tr>
+                    <td class="title">Selected tax office:</td>
+                    <td class="sub-title">Na</td>
+                </tr>
+                <tr>
+                    <td class="title">Business status:</td>
+                    <td class="sub-title">1472</td>
+                </tr>
+                <tr>
+                    <td class="title">Employer:</td>
+                    <td class="sub-title">7</td>
+                </tr>
+            </tbody>
+            <!-- 3 -->
+        </table>
+
+    </div>
+
+    <!-- Old owner details -->
+
+    <div class="panel-container2" *ngIf="newOwner">
+
+        <div class="header-details_p">
+            <div class="header-details">Old owner Details</div>
+            <div class="name">Adamu Musa</div>
+            <div class="gtin">GTIN: 107788</div>
+            <div class="jtbtin">JTBTIN: 10778878</div>
+            <div class="indi">Individual Tax Payer</div>
+            <div class="verify">Not-Verified</div>
+            <div class="not-verify">Verified User</div>
+        </div>
+
+        <table
+            class="panel-table" fxLayoutGap="50px">
+            <!-- 1 -->
+            <tbody>
+                <tr>
+                    <td class="title">Date Registration:</td>
+                    <td class="sub-title">2018-11-11</td>
+                </tr>
+                <tr>
+                    <td class="title">Address:</td>
+                    <td class="sub-title">Toyota highlander</td>
+                </tr>
+                <tr>
+                    <td class="title">LGA:</td>
+                    <td class="sub-title">JTEDP21A040041522</td>
+                </tr>
+                <tr>
+                    <td class="title">Email:</td>
+                    <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
+                </tr>
+                <tr>
+                    <td class="title">Phone Number:</td>
+                    <td class="sub-title">Matthew Adeboye</td>
+                </tr>
+                <tr>
+                    <td class="title">Mode of identification:</td>
+                    <td class="sub-title">07034725207</td>
+                </tr>
+                <tr>
+                    <td class="title">Business type:</td>
+                    <td class="sub-title">07034725207</td>
+                </tr>
+            </tbody>
+            <!-- 2 -->
+            <tbody>
+                <tr>
+                    <td class="title">Date of birth:</td>
+                    <td class="sub-title">33e33232323</td>
+                </tr>
+                <tr>
+                    <td class="title">Age:</td>
+                    <td class="sub-title">SUV</td>
+                </tr>
+                <tr>
+                    <td class="title">Selected tax office:</td>
+                    <td class="sub-title">Na</td>
+                </tr>
+                <tr>
+                    <td class="title">Business status:</td>
+                    <td class="sub-title">1472</td>
+                </tr>
+                <tr>
+                    <td class="title">Employer:</td>
+                    <td class="sub-title">7</td>
+                </tr>
+            </tbody>
+            <!-- 3 -->
+        </table>
+    </div>
+
+    <div style="text-align: right; padding-bottom: 1rem;">
+        <button mat-button class="generate" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner/assessment']">process</button>
+    </div>
+
+</div>

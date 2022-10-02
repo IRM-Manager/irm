@@ -196,7 +196,7 @@
 
     <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>
-        <button type="submit" form="ngForm" mat-button class="verify" (click)="submit()" [disabled]="disabled == true">
+        <button type="submit" form="ngForm" mat-button class="verify" (click)="submit()" [disabled]="!disabled">
             <span *ngIf="!loading">Continue</span>
             <div *ngIf="loading" class="loader">
                 <div class="bubble"></div>
@@ -209,7 +209,7 @@
 
     <div class="final_submit" *ngIf="update">
         <button mat-button class="verify2" (click)="back()">Back</button>
-        <button form="ngForm" mat-button class="verify" (click)="submitUpdate()" [disabled]="disabled == true">
+        <button form="ngForm" mat-button class="verify" (click)="submitUpdate()" [disabled]="disabled">
             <span *ngIf="!Updateloading">Update</span>
             <div *ngIf="Updateloading" class="loader">
                 <div class="bubble"></div>

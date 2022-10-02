@@ -1,0 +1,200 @@
+<div class="assessment-wrapper">
+
+    <div class="mat-accordion">
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState"
+                                 (closed)="!panelOpenState">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Vehicle Details
+                </mat-panel-title>
+                <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
+              </mat-expansion-panel-header>
+              <div class="panel-container">
+                
+                <table class="panel-table" fxLayoutGap="50px">
+                    <!-- 1 -->
+                    <tbody>
+                        <tr>
+                            <td class="title">Issue Date:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.created_at | date:'yyyy-MM-dd' }}
+                                {{ datas?.data?.created_at | date:'yyyy-MM-dd' }} 23-45-2223
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Model:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.model ||
+                                datas?.data?.model }} toyota
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Make:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.make ||
+                                datas?.data?.make }} camry
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Chasis Number:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vin ||
+                                datas?.data?.vin }} 32323233232
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Owner</td>
+                            <td class="sub-title">{{ datas?.data?.data?.payer.taxpayer_name ||
+                                datas?.data?.payer.taxpayer_name }} ayagba lokt
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Phone Number:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.payer.phone ||
+                                datas?.data?.payer.phone }} 081183348434
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- 2 -->
+                    <tbody>
+                        <tr>
+                            <td class="title">Vehicle Usage:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vehicle_usage ||
+                                datas?.data?.vehicle_usage }} private
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Plate Number:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.plate_no ||
+                                datas?.data?.plate_no }} GM443434
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Type:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.vehicletype?.name ||
+                                datas?.data?.vehicletype?.name }} BUS
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Engine Capacity:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.engine_capacity ||
+                                datas?.data?.engine_capacity }} 12.44-323
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Color:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.color ||
+                                datas?.data?.color }} Red
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Max carrier:</td>
+                            <td class="sub-title">{{ datas?.data?.data?.carrying_capacity ||
+                                datas?.data?.carrying_capacity }} 12
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- 3 -->
+                </table>
+    
+              </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <!-- second table -->
+
+    <div class="gen_table">
+        <div class="column">
+
+            <!--  -->
+            <div class="column1">
+                <div class="employee-salary">Description</div>
+                <div class="left_right">
+                    <div class="left">
+                        <div class="title2" *ngFor="let v of vehicleRegType2;">
+                            {{ v?.name }}
+                        </div>
+                        <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Duration</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2" *ngFor="let v of vehicleRegType2;">
+                            {{ v?.duration || '12' }} Month
+                        </div>
+                        <div class="title2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Amount (NGN)</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2" *ngFor="let v of vehicleRegType2;">
+                            {{ v?.amount }}
+                        </div>
+                        <div class="title2" style="font-weight: 550;">{{ formatMoney(total || '0.00') }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="column2">
+                <div class="deduction">Action</div>
+                <div class="left_right">
+                    <div class="left2">
+                        <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType2; let i = index" (click)="removeItem(i)">
+                            Remove
+                        </div>
+                        <div class="title2"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="clear: both;"></div>
+
+        <div class="add">Add other Items</div>
+
+        <form [formGroup]="manualForm" class="manual_form">
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Vehicle Items</mat-label>
+                <mat-select matInput formControlName="item">
+                    <mat-option *ngFor="let i of vehicleRegType;" (click)="addItem(i)" value="Formal">{{ i?.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <div>
+            <button *ngIf="update" type="button" mat-button class="generate2" (click)="back()">Back</button>
+            <button mat-button class="generate2" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']">
+                <span *ngIf="!loading">Save Assessment</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+            <button mat-button class="generate" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']">
+                <span *ngIf="!loading2">Save & Generate Bill</span>
+                <div *ngIf="loading2" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
+        </div>
+
+    </div>
+
+</div>

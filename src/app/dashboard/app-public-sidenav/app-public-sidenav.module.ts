@@ -85,11 +85,10 @@ import { TransBillsComponent } from '../trans-bills/trans-bills.component';
 import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
 import { VehicleDialogComponent } from '../vehicle-component/vehicle-dialog/vehicle-dialog.component';
 import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
-import { VehicleRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg/vehicle-reg.component';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
 import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
-import { ChangeOwnerComponent } from '../vehicle-component/change-owner/change-owner.component';
+import { ChangeOwnerComponent } from '../vehicle-component/change-owner-component/change-owner/change-owner.component';
 import { PlateComponent } from '../vehicle-component/plate/plate.component';
 import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
 import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
@@ -108,6 +107,9 @@ import { StampDutiesDialogComponent } from '../stamp-duties-component/stamp-duti
 import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
 import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
 import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
+import { ChangeOwnerDetailsComponent } from '../vehicle-component/change-owner-component/change-owner-details/change-owner-details.component';
+import { ChangeOwnerAssessmentComponent } from '../vehicle-component/change-owner-component/change-owner-assessment/change-owner-assessment.component';
+import { ChangeOwnerNewRegComponent } from '../vehicle-component/change-owner-component/change-owner-new-reg/change-owner-new-reg.component';
 
 @NgModule({
   declarations: [
@@ -165,7 +167,6 @@ import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-
     // vehicle
     VehicleOnboardComponent,
     VehicleBillsComponent,
-    VehicleRegComponent,
     RegisteredVehicleComponent,
     VehicleDocumentComponent,
     ChangeOwnerComponent,
@@ -179,6 +180,9 @@ import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-
     VehicleNewRegComponent,
     VehicleCustomerPlateComponent,
     VehicleRegAssessmentComponent,
+    ChangeOwnerDetailsComponent,
+    ChangeOwnerAssessmentComponent,
+    ChangeOwnerNewRegComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,

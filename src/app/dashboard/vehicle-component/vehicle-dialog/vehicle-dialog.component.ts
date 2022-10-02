@@ -112,9 +112,17 @@ export class VehicleDialogComponent implements OnInit {
       );
   }
 
+  changeOwnerTin() {
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/change-owner/details',
+    ]);
+  }
+
   checkTin() {
     if (this.data.type == 'manual2') {
       this.checkVehicleTin();
+    } else if (this.data.type == 'change-owner') {
+      this.changeOwnerTin();
     } else {
       this.loading = true;
       console.log(this.manualForm.value);
@@ -125,8 +133,6 @@ export class VehicleDialogComponent implements OnInit {
             this.loading = false;
             this.dialogRef.disableClose = false;
             console.log(data);
-            // this.service.setRegMessage(setData);
-            // this.router.navigate(['/dashboard/dashboard5/vehicle/reg']);
             if (this.data.type == 'reg-plate') {
               this.service.setCustomerPlateRegMessage(data.data);
               this.router.navigate(['/dashboard/dashboard5/vehicle/new-plate']);
@@ -139,6 +145,10 @@ export class VehicleDialogComponent implements OnInit {
               this.service.setRegVehicleMessage(data2);
               this.service.setRegMessage2(plate_data);
               this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
+            } else if (this.data.type == 'change-owner-out') {
+              this.router.navigate([
+                '/dashboard/dashboard5/vehicle/change-owner/new-reg',
+              ]);
             }
             this.dialogRef.close();
           },

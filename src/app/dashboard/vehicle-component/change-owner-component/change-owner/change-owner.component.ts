@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -10,9 +10,9 @@ import { AppState, selectAllYear } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../models/irm';
-import { VehicleServiceService } from '../service/vehicle-service.service';
-import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+import { Year } from '../../../models/irm';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
   selector: 'app-change-owner',
@@ -20,7 +20,7 @@ import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.compone
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner.component.scss'],
 })
-export class ChangeOwnerComponent implements OnInit {
+export class ChangeOwnerComponent implements OnInit, OnDestroy {
   search: string = '';
   loading = false;
   disabled = false;

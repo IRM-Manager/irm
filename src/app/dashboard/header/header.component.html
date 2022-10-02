@@ -1,4 +1,4 @@
-<mat-toolbar class="nav" *ngIf="type == 'tax'">
+<mat-toolbar class="nav" *ngIf="type === 'tax'">
 
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
@@ -26,7 +26,7 @@
 </mat-toolbar>
 
 <!-- nav2 -->
-<mat-toolbar class="nav2" *ngIf="type == 'reg_tax'">
+<mat-toolbar class="nav2" *ngIf="type === 'reg_tax'">
 
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
@@ -54,7 +54,7 @@
 
 
 <!-- nav3 -->
-<mat-toolbar class="nav3" *ngIf="type == 'payee'">
+<mat-toolbar class="nav3" *ngIf="type === 'payee'">
 
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
@@ -69,7 +69,7 @@
 
 
 <!-- nav4 -->
-<mat-toolbar class="nav4" *ngIf="type == 'mda'">
+<mat-toolbar class="nav4" *ngIf="type === 'mda'">
 
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
@@ -96,7 +96,7 @@
 </mat-toolbar>
 
 <!-- dashboard  -->
-<mat-toolbar class="nav5" *ngIf="type == 'tax_dashboard'">
+<mat-toolbar class="nav5" *ngIf="type === 'tax_dashboard'">
 
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
@@ -125,7 +125,7 @@
 
 
 <!-- overview  -->
-<div class="nav5" *ngIf="type == 'tax_dashboard2'">
+<div class="nav5" *ngIf="type === 'tax_dashboard2'">
     <div style="padding-top: 1rem;">
         <span class="dashboard-text2">PayE Overview</span>
         <span class="payee_note">Note: This statistic are all MDA generated only</span>

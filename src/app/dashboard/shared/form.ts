@@ -169,6 +169,13 @@ export interface vehicle_details {
   vehicle_usage: string;
 }
 
+export interface change_owner_vehicle {
+  name: string;
+  state: string;
+  number: string;
+  address: string;
+}
+
 export interface offence {
   violation: string;
   fine: string;
