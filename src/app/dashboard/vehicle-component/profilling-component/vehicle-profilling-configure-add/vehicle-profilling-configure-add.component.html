@@ -42,10 +42,46 @@
                 <mat-form-field *ngIf="type" class="half-width" appearance="outline">
                     <mat-label>Vehicle Type</mat-label>
                     <mat-select matInput formControlName="capacity" required>
-                        <mat-option value="1.2-1.6">Canter, Bus & Pick Up</mat-option>
-                        <mat-option value="1.7-2.0">Tipper And Lorry</mat-option>
-                        <mat-option value="2.1-3.0">Canter, Bus & Pick Up</mat-option>
-                        <mat-option value="3.1">Tipper And Lorry</mat-option>
+                        <mat-option value="suv">
+                            <!-- <img width="60" height="40" class="car-image" src="assets/images/suv.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">SUV</span>
+                        </mat-option>
+                        <mat-option value="hatchback">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/hatchback.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Hatchback</span>
+                        </mat-option>
+                        <mat-option value="crossover">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/cross.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Crossover</span>
+                        </mat-option>
+                        <mat-option value="vonvertible">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/convertible.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Convertible</span>
+                        </mat-option>
+                        <mat-option value="sedan">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/sedan.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Sedan</span>
+                        </mat-option>
+                        <mat-option value="sports car">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/sport.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Sports Car</span>
+                        </mat-option>
+                        <mat-option value="coupe">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/coupe.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Coupe</span>
+                        </mat-option>
+                        <mat-option value="minivan">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/minivan.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Minivan</span>
+                        </mat-option>
+                        <mat-option value="station wagon">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/wagon.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Station Wagon</span>
+                        </mat-option>
+                        <mat-option value="pickup truck">
+                            <!-- <img width="60" height="60" class="car-image" src="assets/images/truck.jpg" alt=""> -->
+                            <span style="margin-left: 10px;">Pickup Truck</span>
+                        </mat-option>
                     </mat-select>
                     <mat-error>{{ formErrors.capacity }}</mat-error>
                 </mat-form-field>
