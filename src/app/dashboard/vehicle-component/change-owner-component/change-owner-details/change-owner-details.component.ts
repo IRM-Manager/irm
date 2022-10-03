@@ -6,6 +6,7 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
 @Component({
   selector: 'app-change-owner-details',
   templateUrl: './change-owner-details.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner-details.component.scss'],
 })
 export class ChangeOwnerDetailsComponent implements OnInit {

@@ -24,10 +24,25 @@ import { VehicleServiceService } from '../service/vehicle-service.service';
 export class VehicleDialogComponent implements OnInit {
   manualForm!: FormGroup;
   manualForm2!: FormGroup;
+  profillingForm!: FormGroup;
   isdelete = false;
   loading = false;
   errorMsg: any;
   formError: any;
+
+  formErrors: any = {
+    name: '',
+    vehicle_usage: '',
+  };
+
+  validationMessages: any = {
+    name: {
+      required: 'required.',
+    },
+    vehicle_usage: {
+      required: 'required.',
+    },
+  };
 
   constructor(
     public dialogRef: MatDialogRef<VehicleDialogComponent>,
@@ -44,6 +59,7 @@ export class VehicleDialogComponent implements OnInit {
   ) {
     this.createManualForm2();
     this.createManualForm3();
+    this.profileForm();
     if (this.data.type == 'manual') {
       dialogRef.disableClose = true;
     }
@@ -60,6 +76,39 @@ export class VehicleDialogComponent implements OnInit {
     this.manualForm2 = this.fb.group({
       body: ['', [Validators.required]],
     });
+  }
+
+  profileForm() {
+    this.profillingForm = this.fb.group({
+      name: ['', [Validators.required]],
+      vehicle_usage: ['', [Validators.required]],
+    });
+    this.profillingForm.valueChanges.subscribe((data: any) =>
+      this.onValueChanged(data)
+    );
+    this.onValueChanged(); // (re)set validation messages now
+  }
+
+  onValueChanged(data?: any) {
+    if (!this.profillingForm) {
+      return;
+    }
+    const form = this.profillingForm;
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        // clear previous error message (if any)
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] = messages[key];
+            }
+          }
+        }
+      }
+    }
   }
 
   checkVehicleTin() {
@@ -118,11 +167,17 @@ export class VehicleDialogComponent implements OnInit {
     ]);
   }
 
+  profilling() {
+    this.dialogRef.close();
+  }
+
   checkTin() {
     if (this.data.type == 'manual2') {
       this.checkVehicleTin();
     } else if (this.data.type == 'change-owner') {
       this.changeOwnerTin();
+    } else if (this.data.type == 'profilling') {
+      this.profilling();
     } else {
       this.loading = true;
       console.log(this.manualForm.value);

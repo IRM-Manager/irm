@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="type == 'home'">
+<div class="wrapper" *ngIf="type === 'home'">
     <div class="button">
         <div class="logo_p">
             <img class="logo" [routerLink]="['/dashboard']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
@@ -96,42 +96,42 @@
 
 <!-- payee layout -->
 
-<div class="wrapper2" *ngIf="type == 'payee'">
+<div class="wrapper2" *ngIf="type === 'payee'">
   <app-payee-sidenav-list></app-payee-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- dashboard layout -->
 
-<div class="wrapper2" *ngIf="type == 'dashboard'">
+<div class="wrapper2" *ngIf="type === 'dashboard'">
   <app-dashboard-sidenav-list></app-dashboard-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Tax payer layout -->
 
-<div class="wrapper2" *ngIf="type == 'tax_payer'">
+<div class="wrapper2" *ngIf="type === 'tax_payer'">
   <app-taxpayer-sidenav-list></app-taxpayer-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Admin Console Layout -->
 
-<div class="wrapper2" *ngIf="type == 'admin-console'">
+<div class="wrapper2" *ngIf="type === 'admin-console'">
   <app-admin-sidenav-list></app-admin-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- MDA Layout -->
 
-<div class="wrapper2" *ngIf="type == 'mda'">
+<div class="wrapper2" *ngIf="type === 'mda'">
   <app-mda-sidenav-list></app-mda-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Direct Accessment layout -->
 
-<div class="wrapper2" *ngIf="type == 'direct'">
+<div class="wrapper2" *ngIf="type === 'direct'">
   <app-direct-sidenav-list></app-direct-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
@@ -139,7 +139,7 @@
 
 <!-- Vehicle layout -->
 
-<div class="wrapper2" *ngIf="type == 'vehicle'">
+<div class="wrapper2" *ngIf="type === 'vehicle'">
   <app-side-nav-list></app-side-nav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
@@ -147,21 +147,21 @@
 
 <!-- Account -->
 
-<div class="wrapper2" *ngIf="type == 'account'">
+<div class="wrapper2" *ngIf="type === 'account'">
     <app-profile-sidenav-list></app-profile-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Witholding -->
 
-<div class="wrapper2" *ngIf="type == 'witholding'">
+<div class="wrapper2" *ngIf="type === 'witholding'">
     <app-witholding-sidenav-list></app-witholding-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- stamp duties -->
 
-<div class="wrapper2" *ngIf="type == 'stamp'">
+<div class="wrapper2" *ngIf="type === 'stamp'">
     <app-stamp-side-nav-list></app-stamp-side-nav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>

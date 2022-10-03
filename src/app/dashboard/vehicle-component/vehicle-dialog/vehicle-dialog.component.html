@@ -527,7 +527,7 @@
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Vehicle Type:</span>
-                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.vehicletype.name }}</span>
+                    <span class="black-receipt-header-text">{{ data?.data?.vehicle_detail?.vehicletype?.name }}</span>
                 </div>
                 <div>
                     <span class="blue-receipt-header-text">Max carrier:</span>
@@ -535,5 +535,58 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<!-- Vehicle Profile layout -->
+<div class="manual_file-dialog" *ngIf="data.type === 'profilling'">
+    <div class="upload_cancel_button">
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div mat-dialog-content class="manual_container">
+
+        <div>
+            <div class="manual_verify">Create new vehicle profile</div>
+            
+            <form [formGroup]="profillingForm" class="profilling_form">
+                <p>
+                    <mat-form-field class="profile-width" appearance="outline">
+                        <mat-label>Name of of profile</mat-label>
+                        <input matInput formControlName="name" required>
+                        <mat-error>{{formErrors.name}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <!-- Vehicle usage -->
+                    <mat-form-field class="profile-width" appearance="outline">
+                        <mat-label>Vehicle Usage</mat-label>
+                        <mat-select matInput formControlName="vehicle_usage" required>
+                            <mat-option value="private">Private</mat-option>
+                            <mat-option value="commercial">Commercial</mat-option>
+                            <mat-option value="government">Government</mat-option>
+                            <mat-option value="fancy">Fancy</mat-option>
+                        </mat-select>
+                        <mat-error>{{formErrors.vehicle_usage}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <div>
+                    <button mat-button class="upload_continue_profile" (click)="checkTin()">
+                        <span *ngIf="!loading">Create</span>
+                        <div *ngIf="loading" class="loader">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>

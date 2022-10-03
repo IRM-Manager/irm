@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-change-owner-assessment',
   templateUrl: './change-owner-assessment.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner-assessment.component.scss'],
 })
 export class ChangeOwnerAssessmentComponent implements OnInit {

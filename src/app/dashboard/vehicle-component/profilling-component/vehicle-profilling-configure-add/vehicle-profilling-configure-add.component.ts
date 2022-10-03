@@ -2,42 +2,52 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { offence } from 'src/app/dashboard/shared/form';
+import { profilling } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
-import { VehicleServiceService } from '../service/vehicle-service.service';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-vehicle-offence',
-  templateUrl: './vehicle-offence.component.html',
+  selector: 'app-vehicle-profilling-configure-add',
+  templateUrl: './vehicle-profilling-configure-add.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./vehicle-offence.component.scss'],
+  styleUrls: ['./vehicle-profilling-configure-add.component.scss'],
 })
-export class VehicleOffenceComponent implements OnInit {
+export class VehicleProfillingConfigureAddComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
 
   feedbackForm: any = FormGroup;
-  feedback!: offence;
+  feedback!: profilling;
   plateMsg: any;
   panelOpenState = false;
   loading = false;
+  type = false;
 
   formErrors: any = {
-    violation: '',
-    fine: '',
-    penalty: '',
+    name: '',
+    type: '',
+    capacity: '',
+    duration: '',
+    amount: '',
   };
 
   validationMessages: any = {
-    violation: {
+    name: {
       required: 'required.',
     },
-    fine: {
+    type: {
       required: 'required.',
     },
-    penalty: {
+    capacity: {
+      required: 'required.',
+    },
+    duration: {
+      required: 'required.',
+    },
+    amount: {
       required: 'required.',
     },
   };
@@ -48,19 +58,23 @@ export class VehicleOffenceComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private _location: Location,
+    private router: Router,
     private service: VehicleServiceService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
     this.createForm();
     this.authService.checkExpired();
+    // this.feedbackForm.controls['year'].disable();
   }
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      violation: ['', [Validators.required]],
-      fine: ['', [Validators.required]],
-      penalty: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      duration: ['', [Validators.required]],
+      capacity: ['', [Validators.required]],
+      amount: ['', [Validators.required]],
+      type: ['', [Validators.required]],
     });
 
     this.feedbackForm.valueChanges.subscribe((data: any) =>
@@ -106,12 +120,18 @@ export class VehicleOffenceComponent implements OnInit {
       this.loading = true;
       this.feedback = this.feedbackForm.value;
       console.log(this.feedback);
-      this.openDialog('', 'generate_bill');
+      this.router.navigate([
+        '/dashboard/dashboard5/vehicle/profilling/configure',
+      ]);
     } // end else
   }
 
   back() {
     this._location.back();
+  }
+
+  changeType(type: boolean) {
+    this.type = type;
   }
 
   openDialog(data: any, type: string) {

@@ -182,6 +182,14 @@ export interface offence {
   penalty: string;
 }
 
+export interface profilling {
+  name: string;
+  type: string;
+  capacity: string;
+  duration: string;
+  amount: string;
+}
+
 export interface witholding {
   category: string;
   name: string;

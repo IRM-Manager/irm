@@ -226,6 +226,19 @@
   font-weight: 500;
 }
 
+.upload_continue_profile {
+  background: #b9a005 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  padding: 0.8rem;
+  width: 20rem;
+  text-align: center;
+  opacity: 1;
+  font: normal normal normal 14px/16px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
 .manual_file-dialog {
   width: 30rem;
   padding-left: 3rem;
@@ -266,6 +279,10 @@
 
 .half-width {
   margin-right: 15px;
+}
+
+.profile-width {
+  width: 20rem;
 }
 
 .dont-have {

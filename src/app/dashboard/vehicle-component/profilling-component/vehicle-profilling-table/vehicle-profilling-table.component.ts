@@ -6,16 +6,16 @@ import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { VehicleServiceService } from '../service/vehicle-service.service';
-import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
-  selector: 'app-plate',
-  templateUrl: './plate.component.html',
+  selector: 'app-vehicle-profilling-table',
+  templateUrl: './vehicle-profilling-table.component.html',
   encapsulation: ViewEncapsulation.Emulated,
-  styleUrls: ['./plate.component.scss'],
+  styleUrls: ['./vehicle-profilling-table.component.scss'],
 })
-export class PlateComponent implements OnDestroy, OnInit {
+export class VehicleProfillingTableComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;

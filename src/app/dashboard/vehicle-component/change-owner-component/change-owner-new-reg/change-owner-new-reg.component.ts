@@ -14,6 +14,7 @@ import { BaseUrl } from 'src/environments/environment';
 @Component({
   selector: 'app-change-owner-new-reg',
   templateUrl: './change-owner-new-reg.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner-new-reg.component.scss'],
 })
 export class ChangeOwnerNewRegComponent implements OnInit {

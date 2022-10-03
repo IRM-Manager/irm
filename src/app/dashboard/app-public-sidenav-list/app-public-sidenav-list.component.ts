@@ -167,7 +167,8 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/document' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner/details' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/change-owner/assessment' ||
+      this.router.url ==
+        '/dashboard/dashboard5/vehicle/change-owner/assessment' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner/new-reg' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-plate' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-plate/create' ||
@@ -176,7 +177,12 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/approval/review' ||
       this.router.url == '/dashboard/dashboard5/vehicle/new-reg' ||
       this.router.url == '/dashboard/dashboard5/vehicle/new-plate' ||
-      this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle/assessment'
+      this.router.url ==
+        '/dashboard/dashboard5/vehicle/reg-vehicle/assessment' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/profilling' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/profilling/configure' ||
+      this.router.url ==
+        '/dashboard/dashboard5/vehicle/profilling/configure/create'
     ) {
       this.type = 'vehicle';
     }
