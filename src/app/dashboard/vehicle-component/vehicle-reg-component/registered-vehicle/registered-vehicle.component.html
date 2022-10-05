@@ -79,10 +79,10 @@
                                 <td class="align-middle text-center">{{ data?.vehicle_usage }}</td>
                                 <td class="align-middle text-center">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data?.assessment[0]?.remitted">
+                                    <button mat-button class="paid" *ngIf="data?.assessment[0]?.remitted === true">
                                         Paid
                                     </button>
-                                    <button mat-button class="pending" *ngIf="!data?.assessment[0]?.remitted">
+                                    <button mat-button class="pending" *ngIf="data?.assessment[0]?.remitted === false">
                                         Not-paid
                                     </button>
                                 </td>

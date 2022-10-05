@@ -63,7 +63,7 @@
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle">{{ data?.vehicleId?.make }} {{ data?.vehicleId?.model }}</td>
@@ -72,10 +72,10 @@
                                 <td class="align-middle text-center">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">{{ data?.expiry_date | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="pending" *ngIf="data?.payment_status == 'not-paid'">
+                                    <button mat-button class="pending" *ngIf="data?.payment_status === 'not-paid'">
                                         {{ data?.payment_status }}
                                     </button>
-                                    <button mat-button class="paid" *ngIf="data?.payment_status != 'not-paid'">
+                                    <button mat-button class="paid" *ngIf="data?.payment_status !== 'not-paid'">
                                         {{ data?.payment_status }}
                                     </button>
                                 </td>
@@ -97,7 +97,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
