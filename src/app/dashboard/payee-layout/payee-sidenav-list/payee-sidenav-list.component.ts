@@ -62,7 +62,7 @@ export class PayeeSidenavListComponent implements OnInit {
   addYear() {
     this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
       (data: any) => {
-        console.log(data)
+        console.log(data);
         this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
       },
       (err) => {}

@@ -1,4 +1,4 @@
-<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+<div class="generate-dialog" *ngIf="data.type === 'generate_bill'">
 
     <div mat-dialog-content class="print-section" id="print-section">
 
@@ -120,7 +120,7 @@
 
 <!-- generate notice bill -->
 
-<div class="notice-generate_bill" mat-dialog-content *ngIf="data.type == 'gen-bill'" id="printSeaction">
+<div class="notice-generate_bill" mat-dialog-content *ngIf="data.type === 'gen-bill'" id="printSeaction">
     <div class="notice-gen_logo">
         <img class="notice-logo" src="assets/images/gombelogo.png" alt="IRM"/>
     </div>
@@ -204,7 +204,7 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' || data.type == 'manual2' ">
+<div class="manual_file-dialog" *ngIf="data.type === 'manual' || data.type === 'manual2' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -214,8 +214,8 @@
     <div mat-dialog-content class="manual_container">
 
         <div>
-            <div class="manual_filling" *ngIf="data.type == 'manual'">Self Assessment</div>
-            <div class="manual_filling" *ngIf="data.type == 'manual2'">Best of judgment Assessment</div>
+            <div class="manual_filling" *ngIf="data.type === 'manual'">Self Assessment</div>
+            <div class="manual_filling" *ngIf="data.type === 'manual2'">Best of judgment Assessment</div>
             <div class="manual_verify">Kindly verify the employee GTin before you proceed</div>
 
             <form [formGroup]="manualForm" class="manual_form">
@@ -249,7 +249,7 @@
 
 <!-- Check Status layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'check_status' ">
+<div class="manual_file-dialog" *ngIf="data.type === 'check_status' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -285,7 +285,7 @@
 
 <!-- View image -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'view_image' ">
+<div class="manual_file-dialog" *ngIf="data.type === 'view_image' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -302,7 +302,7 @@
 
 <!-- success dialog box -->
 
-<div class="direct-success" *ngIf="data.type == 'success' ">
+<div class="direct-success" *ngIf="data.type === 'success' ">
    
     <div class="direct-success2">
 
@@ -321,7 +321,7 @@
 
 <!-- Verify Bill -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'verify-bill' ">
+<div class="manual_file-dialog" *ngIf="data.type === 'verify-bill' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>

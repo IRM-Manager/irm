@@ -270,6 +270,78 @@ export class VehicleDialogComponent implements OnInit {
       );
   }
 
+  appproveRequest(data: any, status: string) {
+    if (
+      status == 'disapproved' &&
+      (this.manualForm2.value.body == '' ||
+        this.manualForm2.value.body == undefined ||
+        this.manualForm2.value.body == null)
+    ) {
+      this.snackBar.open('Please provide a Reason', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.dialogRef.disableClose = true;
+      this.loading = true;
+      const data2 = {
+        status: status,
+        reason:
+          status == 'approved'
+            ? 'Your change of ownrship has been approved'
+            : this.manualForm2.value.body,
+      };
+      console.log(data2);
+      this.httpService
+        .postData(BaseUrl.vehicle_decide_change + `?id=${data?.id}`, data2)
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            this.dialogRef.disableClose = false;
+            this.snackBar.open('Success', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            if (status == 'approved') {
+              this.dialogRef.close({ id: data?.data?.id, status: status });
+              this.dialog.open(VehicleDialogComponent, {
+                data: {
+                  type: 'success',
+                  data: data?.data,
+                },
+              });
+            } else {
+              this.dialogRef.close({ id: data?.data?.id, status: status });
+            }
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            this.dialogRef.disableClose = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
+    }
+  }
+
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();

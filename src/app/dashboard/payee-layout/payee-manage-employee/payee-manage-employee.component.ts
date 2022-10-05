@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { PayeeServiceService } from '../service/payee-service.service';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-manage-employee.component.scss'],
 })
-export class PayeeManageEmployeeComponent implements OnInit {
+export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -166,7 +166,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
       data: data,
     };
     this.payeeService.setManualMessage(pastData);
-    this.payeeService.setAsYearMessage({yearId: data.taxYear});
+    this.payeeService.setAsYearMessage({ yearId: data.taxYear });
     this.router.navigate(['dashboard/dashboard3/taxpayer/payee/manual/add']);
   }
 
@@ -220,7 +220,7 @@ export class PayeeManageEmployeeComponent implements OnInit {
       data: data,
     };
     this.payeeService.setManualMessage(pastData);
-    this.payeeService.setAsYearMessage({yearId: data.taxYear});
+    this.payeeService.setAsYearMessage({ yearId: data.taxYear });
     this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage-edit']);
   }
 

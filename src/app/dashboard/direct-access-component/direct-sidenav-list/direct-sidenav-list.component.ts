@@ -24,7 +24,9 @@ export class DirectSidenavListComponent implements OnInit {
     this.onPublicHeaderToggleSidenav();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

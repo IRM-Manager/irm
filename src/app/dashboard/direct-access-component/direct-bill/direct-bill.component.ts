@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component'
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./direct-bill.component.scss'],
 })
-export class DirectBillComponent implements OnInit {
+export class DirectBillComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;

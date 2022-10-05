@@ -27,8 +27,8 @@
     <!-- table container -->
 
     <div class="table-container">
-        <div class="PayE" *ngIf="datas?.da_type == 'self'">Direct Assessment (Self assessment)</div>
-        <div class="PayE" *ngIf="datas?.da_type == 'boj'">Direct Assessment (Best of Judgment)</div>
+        <div class="PayE" *ngIf="datas?.da_type === 'self'">Direct Assessment (Self assessment)</div>
+        <div class="PayE" *ngIf="datas?.da_type === 'boj'">Direct Assessment (Best of Judgment)</div>
 
         <div
             class="left_right_container">
@@ -57,8 +57,8 @@
                             <div class="title" style="text-transform: uppercase;">{{ datas?.da_type }}</div>
                             <div class="title">NGN</div>
                             <div class="title">{{ datas?.assessment?.created_at | date:'medium' }}</div>
-                            <div class="title" *ngIf="datas?.assessment?.remitted == true" style="color: #038541;">Paid</div>
-                            <div class="title" *ngIf="datas?.assessment?.remitted == false" style="color: #DD5F5F;">Not-Paid</div>
+                            <div class="title" *ngIf="datas?.assessment?.remitted" style="color: #038541;">Paid</div>
+                            <div class="title" *ngIf="!datas?.assessment?.remitted" style="color: #DD5F5F;">Not-Paid</div>
                             <div class="title" (click)="openDialog(datas, 'check_status')" 
                                 style="color: #3C66A3; font-weight: 550; cursor: pointer;">
                                 View

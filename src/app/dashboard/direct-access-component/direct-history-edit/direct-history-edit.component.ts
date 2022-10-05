@@ -172,5 +172,7 @@ export class DirectHistoryEditComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

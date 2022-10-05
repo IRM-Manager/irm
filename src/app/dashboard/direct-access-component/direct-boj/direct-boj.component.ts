@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ gsap.registerPlugin(ScrollTrigger);
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./direct-boj.component.scss'],
 })
-export class DirectBojComponent implements OnInit {
+export class DirectBojComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -105,9 +105,7 @@ export class DirectBojComponent implements OnInit {
     });
     this.isLoading = true;
     this.httpService
-      .getAuthSingle(
-        BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
+      .getAuthSingle(BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`)
       .subscribe(
         (data: any) => {
           this.datas = data.results;
@@ -133,9 +131,7 @@ export class DirectBojComponent implements OnInit {
     });
     this.is_reload = true;
     this.httpService
-      .getAuthSingle(
-        BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
+      .getAuthSingle(BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`)
       .subscribe(
         (data: any) => {
           this.datas = data.results;

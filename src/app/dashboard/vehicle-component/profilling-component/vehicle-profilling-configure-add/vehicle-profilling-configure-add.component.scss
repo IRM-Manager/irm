@@ -157,16 +157,6 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
     background: $radio-color;
   }
 
-  .mat-select-panel .mat-option {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    padding-top: 1rem;
-    padding-bottom: 0.5rem;
-  }
-  //   ::ng-deep .mat-option {
-  //   }
-
   .loader {
     display: flex;
     justify-content: center;

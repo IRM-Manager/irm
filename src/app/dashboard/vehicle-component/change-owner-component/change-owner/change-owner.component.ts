@@ -2,15 +2,10 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Store } from '@ngrx/store';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AddYear } from 'src/app/actions/irm.action';
-import { AppState, selectAllYear } from 'src/app/reducers';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../../models/irm';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
@@ -34,15 +29,6 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
-  years: any;
-  htmlYear = new Date().getFullYear();
-
-  stateYear: Observable<Year[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
-
   formErrors: any = {};
 
   validationMessages: any = {};
@@ -52,17 +38,10 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private dialog: MatDialog,
     private httpService: HttpService,
-    private store: Store<AppState>,
     private snackBar: MatSnackBar,
     private service: VehicleServiceService
   ) {
     this.authService.checkExpired();
-    this.stateYear = store.select(selectAllYear);
-    //
-    // const get_year: any = this.service.getAYearMessage();
-    // this.htmlYear = get_year?.yearId || new Date().getFullYear();
-    //
-    this.listYear();
   }
 
   formatDate(data: any) {
@@ -79,9 +58,11 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.status.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.reason.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.vehicleId?.payer?.taxpayer_name
+          .toLowerCase()
+          .startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
@@ -95,76 +76,42 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
       lengthChange: false,
       info: false,
     };
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
     this.isLoading = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.isLoading = false;
-          console.log(data);
-        },
-        (err) => {
-          this.isLoading = false;
-          this.authService.checkExpired();
-        }
-      );
-  }
-
-  reload(id?: any) {
-    const getHtmlYear = this.years?.filter((name: any) => {
-      return name.year == this.htmlYear;
-    });
-    this.is_reload = true;
-    this.httpService
-      .getAuthSingle(
-        BaseUrl.list_direct + `?yearId=${id || getHtmlYear[0]?.id}`
-      )
-      .subscribe(
-        (data: any) => {
-          this.datas = data.results;
-          this.searchData = data.results;
-          this.is_reload = false;
-          this.isLoading = false;
-          this.snackBar.open('Loaded', '', {
-            duration: 3000,
-            panelClass: 'success',
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
-          console.log(data);
-        },
-        (err) => {
-          this.is_reload = false;
-          this.authService.checkExpired();
-        }
-      );
-  }
-
-  listYear() {
-    this.stateYear?.forEach((e) => {
-      if (e.length > 0) {
-        this.years = e[0].data;
-        this.renderTable();
-      } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
-          (data: any) => {
-            this.years = data.results;
-            this.renderTable();
-            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
-          },
-          (err) => {
-            this.authService.checkExpired();
-          }
-        );
+    this.httpService.getAuthSingle(BaseUrl.vehicle_owner).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.isLoading = false;
+        console.log(data);
+      },
+      (err) => {
+        this.isLoading = false;
+        this.authService.checkExpired();
       }
-    });
+    );
+  }
+
+  reload() {
+    this.is_reload = true;
+    this.httpService.getAuthSingle(BaseUrl.vehicle_owner).subscribe(
+      (data: any) => {
+        this.datas = data.results;
+        this.searchData = data.results;
+        this.is_reload = false;
+        this.isLoading = false;
+        this.snackBar.open('Loaded', '', {
+          duration: 3000,
+          panelClass: 'success',
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        console.log(data);
+      },
+      (err) => {
+        this.is_reload = false;
+        this.authService.checkExpired();
+      }
+    );
   }
 
   viewAss(data: any) {
@@ -172,24 +119,34 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
     // this.service.setAYearMessage({
     //   yearId: data.assessment.assessment_year || this.htmlYear,
     // });
-    this.router.navigate([
-      '/dashboard/dashboard5/vehicle/document',
-    ]);
+    this.router.navigate(['/dashboard/dashboard5/vehicle/document']);
   }
 
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();
-    this.dialog.open(VehicleDialogComponent, {
+    const dialogRef = this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,
         data: data,
       },
     });
-  }
-
-  chooseYear(year: any) {
-    this.htmlYear = year.year;
-    this.reload(year.id);
+    // after dialog close
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.status === 'approved') {
+        // update table data
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            dat.status = 'approved';
+          }
+        });
+      } else if (result?.status === 'disapproved') {
+        this.datas.filter((dat: any, index: any) => {
+          if (dat.id == result.id) {
+            dat.status = 'disapproved';
+          }
+        });
+      }
+    });
   }
 
   formatMoney(n: any) {

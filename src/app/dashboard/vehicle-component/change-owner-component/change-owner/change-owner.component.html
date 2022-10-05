@@ -51,34 +51,36 @@
                         <thead>
                             <tr>
                                 <th class="align-middle text-center">S/N</th>
-                                <th class="align-middle text-center">Vehicle details</th>
-                                <th class="align-middle text-center">Generated date</th>
-                                <th class="align-middle text-center">Payment status</th>
-                                <th class="align-middle text-center">Actions</th>
+                                <th class="align-middle text-center">Description</th>
+                                <th class="align-middle text-center">Request Status</th>
+                                <th class="align-middle text-center">Requested by</th>
+                                <th class="align-middle text-center">Request date</th>
+                                <th class="align-middle text-center">Acions</th>
                             </tr>
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
-                                <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
-                                <td class="align-middle text-center">{{ data.assessment_date }}</td>
+                                <td class="align-middle">{{ data?.reason }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.assessment.remitted">
-                                        Active
+                                    <button mat-button class="paid" *ngIf="data.status === 'approved'">
+                                        {{ data?.status }}
                                     </button>
-                                    <button mat-button class="pending" *ngIf="!data.assessment.remitted">
-                                        change of ownership
+                                    <button mat-button class="pending" *ngIf="data.status !== 'approved'">
+                                        {{ data?.status }}
                                     </button>
                                 </td>
+                                <td class="align-middle">{{ data?.vehicleId?.payer?.taxpayer_name }}</td>
+                                <td class="align-middle text-center">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
                                     <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item="mat-menu-item" (click)="viewAss(data)">Review Request</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'approve')">Approve Request</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'decline')">Deny Request</button>
+                                        <button mat-menu-item="mat-menu-item" *ngIf="data.status !== 'approved'" (click)="openDialog(data, 'approve')">Approve Request</button>
+                                        <button mat-menu-item="mat-menu-item" *ngIf="data.status === 'approved'" (click)="openDialog(data, 'decline')">Deny Request</button>
                                         <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Bill</button>
                                     </mat-menu>
                                 </td>
@@ -86,6 +88,7 @@
                         </tbody>
                         <tbody *ngIf="datas?.length === 0">
                             <tr>
+                                <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

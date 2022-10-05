@@ -68,57 +68,6 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     margin-bottom: 10px;
     opacity: 1;
   }
-
-  // .form-select {
-  //   width: 9rem;
-  //   border-radius: 10px;
-  //   background: $white;
-  //   border: 1px solid $white;
-  //   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04),
-  //     inset 0px 4px 4px rgba(229, 229, 229, 0.3);
-  // }
-
-  // .form-label {
-  //   font: normal normal normal 14px/19px Montserrat;
-  //   letter-spacing: 0px;
-  //   color: #565656;
-  //   font-weight: 500;
-  //   text-transform: capitalize;
-  //   opacity: 1;
-  // }
-
-  // input[type="date"]::-webkit-calendar-picker-indicator {
-  //   background-image: url("/assets/images/Icon material-date-range.svg");
-  // }
-
-  // .form-control {
-  //   padding: 6px 10px;
-  //   font: normal normal normal 13px/16px Montserrat;
-  //   letter-spacing: 0px;
-  //   color: #565656;
-  //   opacity: 1;
-  //   font-weight: 500;
-  //   padding: 0.7rem;
-  // }
-
-  // .form-line {
-  //   margin-left: 10px;
-  //   margin-right: 10px;
-  // }
-
-  // .fa-p {
-  //   margin-left: 10px;
-  //   margin-top: 30px;
-  //   border-radius: 50%;
-  // }
-
-  // .fa-search {
-  //   color: #565656;
-  //   font-size: 25px;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  // }
 }
 
 ::ng-deep .choose-year-menu.mat-menu-panel {
@@ -284,7 +233,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     text-align: center;
   }
 
-  tr th:nth-child(7) {
+  tr th:last-child {
     border-right: unset;
   }
 
@@ -307,22 +256,22 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     opacity: 1;
     font: normal normal normal 12px/15px Montserrat;
     letter-spacing: 0px;
-    color: #FFFFFF;
+    color: #ffffff;
     opacity: 1;
     width: 4rem;
-    padding: .3rem;
+    padding: 0.3rem;
     border-radius: 10px;
   }
 
   .pending {
-    background: #B9A005 0% 0% no-repeat padding-box;
+    background: #b9a005 0% 0% no-repeat padding-box;
     opacity: 1;
     font: normal normal normal 12px/15px Montserrat;
     letter-spacing: 0px;
-    color: #FFFFFF;
+    color: #ffffff;
     opacity: 1;
     width: 4rem;
-    padding: .3rem;
+    padding: 0.3rem;
     border-radius: 10px;
   }
 

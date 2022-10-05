@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <!-- individual -->
-                    <tbody *ngIf="datas?.length != 0">
+                    <tbody *ngIf="datas?.length !== 0">
                         <tr *ngFor="let data of datas; let i=index" (click)="goToPayee(data)">
                             <td class="align-middle" style="text-align: center;">{{i+1}}</td>
                         <td class="align-middle">{{ data.company.state_tin }}</td>
@@ -62,18 +62,9 @@
                         <td class="align-middle">{{ data.company.lga_id.name }}</td>
                         <td class="align-middle">{{ data.company.phone }}</td>
                         <td class="align-middle">{{ data.company.location.name }}</td>
-                        <!-- <td class="align-middle" style="text-align: center;">
-                            <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
-                                <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item="mat-menu-item">View Tax History</button>
-                                <button mat-menu-item="mat-menu-item">Assets</button>
-                            </mat-menu>
-                        </td> -->
                         </tr>
                     </tbody>
-                    <tbody *ngIf="datas?.length == 0">
+                    <tbody *ngIf="datas?.length === 0">
                         <tr>
                             <td class="no-data-available" style="text-align: center;">No data!</td>
                             <td class="no-data-available" style="text-align: center;">No data!</td>

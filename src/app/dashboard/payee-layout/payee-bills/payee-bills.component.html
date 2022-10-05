@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <!-- individual -->
-                    <tbody *ngIf="datas?.length != 0">
+                    <tbody *ngIf="datas?.length !== 0">
                         <tr *ngFor="let data of datas; let i=index">
                             <td class="bold align-middle">{{ data.duration }}</td>
                             <td class="align-middle">{{ data.no_emp }}</td>
@@ -56,7 +56,7 @@
                                 <button mat-button class="assess">Re - Assess</button>
                             </td>
                         </tr>
-                    <tbody *ngIf="datas?.length == 0">
+                    <tbody *ngIf="datas?.length === 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { PayeeServiceService } from '../service/payee-service.service';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-business-list.component.scss'],
 })
-export class PayeeBusinessListComponent implements OnInit {
+export class PayeeBusinessListComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;

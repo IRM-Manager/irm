@@ -194,7 +194,9 @@ export class SelfCreateComponent implements OnInit {
     this.snackBar.dismiss();
     this.feedback2 = this.feedbackForm2.value;
     const get_source = this.collectedSourceData.filter((name: any) => {
-      return name?.sources?.toLowerCase() == this.feedback2?.source?.toLowerCase();
+      return (
+        name?.sources?.toLowerCase() == this.feedback2?.source?.toLowerCase()
+      );
     });
     if (get_source.length !== 0) {
       this.snackBar.open(`${this.feedback2.source} already exists!`, '', {
@@ -209,7 +211,7 @@ export class SelfCreateComponent implements OnInit {
           sources: this.feedback2.source,
           income: this.feedback2.amount,
           fileName: this.filename,
-          doc: this.image || "",
+          doc: this.image || '',
         };
         this.collectedSourceData.push(data);
         this.feedbackForm2.controls['source'].reset();
@@ -238,7 +240,9 @@ export class SelfCreateComponent implements OnInit {
     this.snackBar.dismiss();
     this.feedback2 = this.feedbackForm2.value;
     const get_source = this.collectedDeductionData.filter((name: any) => {
-      return name?.sources?.toLowerCase() == this.feedback2?.deduction?.toLowerCase();
+      return (
+        name?.sources?.toLowerCase() == this.feedback2?.deduction?.toLowerCase()
+      );
     });
     if (get_source.length !== 0) {
       this.snackBar.open(`${this.feedback2.deduction} already exists!`, '', {
@@ -253,7 +257,7 @@ export class SelfCreateComponent implements OnInit {
           sources: this.feedback2.deduction,
           amount: this.feedback2.amount2,
           fileName: this.filename2,
-          doc: this.image2 || "",
+          doc: this.image2 || '',
         };
         this.collectedDeductionData.push(data);
         this.feedbackForm2.controls['deduction'].reset();
@@ -497,5 +501,7 @@ export class SelfCreateComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

@@ -67,7 +67,7 @@
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{ data.assessment.assessment_year }}</td>
                                 <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
@@ -76,10 +76,10 @@
                                 <td class="align-middle text-center">{{ data.assessment_date }}</td>
                                 <td class="align-middle text-center">{{ data.assessment.assess_code }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.assessment.remitted == true">
+                                    <button mat-button class="paid" *ngIf="data.assessment.remitted">
                                         Paid
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.assessment.remitted == false">
+                                    <button mat-button class="pending" *ngIf="!data.assessment.remitted">
                                         Not-paid
                                     </button>
                                 </td>
@@ -96,7 +96,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
                                 <td class="no-data-available" style="text-align: center;">No data!</td>
                                 <td class="no-data-available" style="text-align: center;">No data!</td>

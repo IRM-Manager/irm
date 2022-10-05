@@ -216,8 +216,8 @@
 
         <div class="card blue" (click)="openDialog('', 'manual2')">New vehicle registration</div>
         <div class="card yellow" (click)="openDialog('', 'manual')">Old new Registration</div>
-        <div class="card white" (click)="openDialog('', 'manual')">Bought from other Taxpayer</div>
-        <div class="card red" (click)="openDialog('', 'manual')">Change of Ownership</div>
+        <!-- <div class="card white" (click)="openDialog('', 'manual')">Bought from other Taxpayer</div>
+        <div class="card red" (click)="openDialog('', 'manual')">Change of Ownership</div> -->
     </div>
 </div>
 
@@ -233,10 +233,18 @@
     <div mat-dialog-content class="approve_container">
         <div>Kindly Note That upon approval</div>
         <div>Vehicle ownership will be moved to 
-            <span class="approve-blue">Adamu Musa with GTIN 123456</span>
+            <span class="approve-blue">{{ data?.data?.vehicleId?.payer?.taxpayer_name }}</span>
         </div>
         <div>
-            <button mat-button class="understand" (click)="openDialog('', 'success')">I Understand</button>
+            <button mat-button class="understand" (click)="appproveRequest(data?.data, 'approved')">
+                <span *ngIf="!loading">I Understand</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
         </div>
         <button mat-button mat-dialog-close class="approve-cancel">Cancel</button>
     </div>
@@ -280,7 +288,7 @@
         <div>Approved successfully Vehicle ownership moved</div>
         
         <div class="success-blue">
-            Adamu Musa with GTIN 123456
+            {{ data?.data?.vehicleId?.payer?.taxpayer_name }} with GTIN {{ data?.data?.vehicleId?.payer?.state_tin }}
         </div>
         <button mat-button mat-dialog-close class="understand2">Continue</button>
     </div>
@@ -311,8 +319,16 @@
         </form>
 
         <div class="descline-button">
-            <button mat-button mat-dialog-close class="cancel2">Cancel</button>
-            <button mat-button mat-dialog-close class="understand2">Deny and Send</button>
+            <button type="button" role="button" mat-button mat-dialog-close class="cancel2">Cancel</button>
+            <button mat-button class="understand2" (click)="appproveRequest(data?.data, 'disapproved')">
+                <span *ngIf="!loading">Deny and Send</span>
+                <div *ngIf="loading" class="loader">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </button>
         </div>
     </div>
 </div>
@@ -555,7 +571,7 @@
             <form [formGroup]="profillingForm" class="profilling_form">
                 <p>
                     <mat-form-field class="profile-width" appearance="outline">
-                        <mat-label>Name of of profile</mat-label>
+                        <mat-label>Name of profile</mat-label>
                         <input matInput formControlName="name" required>
                         <mat-error>{{formErrors.name}}</mat-error>
                     </mat-form-field>

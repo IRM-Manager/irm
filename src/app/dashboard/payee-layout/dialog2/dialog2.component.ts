@@ -183,7 +183,7 @@ export class Dialog2Component implements OnInit {
         .subscribe(
           (data: any) => {
             this.loading = false;
-            this.snackBar.open("Registration Successful", '', {
+            this.snackBar.open('Registration Successful', '', {
               duration: 3000,
               panelClass: 'success',
               horizontalPosition: 'center',
@@ -218,5 +218,7 @@ export class Dialog2Component implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

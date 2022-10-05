@@ -16,7 +16,7 @@
             Pay as you Earn
         </p>
 
-        <div *ngIf="payee_type == 'payee'">
+        <div *ngIf="payee_type === 'payee'">
             <p class="dash-text2" [routerLink]="['/dashboard/dashboard3/taxpayer/payee/assessment']" routerLinkActive="active">
                 Create new Assessment
             </p>

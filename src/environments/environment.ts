@@ -71,6 +71,8 @@ export const BaseUrl = {
   vehicle_doc: 'mla/api/v1/vehicledoc/',
   vehicle_renew: 'mla/api/v1/newvehicle/renewal/',
   vehicle_view_ass: 'assessment/api/v1/mla/listassessmentbyvehicle/',
+  vehicle_owner: 'mla/api/v1/vehiclechange/',
+  vehicle_decide_change: 'mla/api/v1/vehiclechange/decidechange/',
 };
 
 /*

@@ -12,7 +12,9 @@ import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component'
 export class OnboardComponent implements OnInit {
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 
   openDialog(data: any, type: string) {
     this.snackBar.dismiss();

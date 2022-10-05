@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.compone
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-bills.component.scss'],
 })
-export class VehicleBillsComponent implements OnInit {
+export class VehicleBillsComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -39,10 +39,6 @@ export class VehicleBillsComponent implements OnInit {
   htmlYear = new Date().getFullYear();
 
   stateYear: Observable<Year[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
 
   formErrors: any = {};
 
