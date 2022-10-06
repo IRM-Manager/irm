@@ -240,6 +240,12 @@ export class VehicleDialogComponent implements OnInit {
               this.service.setRegMessage2(plate_data);
               this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
             } else if (this.data.type == 'change-owner-out') {
+              let data2 = data.data;
+              const plate_data = {
+                type: 'detail',
+              };
+              this.service.setRegVehicleMessage(data2);
+              this.service.setRegMessage2(plate_data);
               this.router.navigate([
                 '/dashboard/dashboard5/vehicle/change-owner/new-reg',
               ]);

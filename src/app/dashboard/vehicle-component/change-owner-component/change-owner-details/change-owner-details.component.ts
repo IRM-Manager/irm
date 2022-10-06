@@ -78,7 +78,11 @@ export class ChangeOwnerDetailsComponent implements OnInit {
     this.httpService
       .postData(
         BaseUrl.vehicle_owner +
-          `?vehicleId=${this.datas?.old?.id}&tin=${this.datas?.new?.state_tin}&regtype=${this.vehicleRegType?.id}`,
+          `?vehicleId=${
+            this.datas?.old?.id || this.datas?.data2?.vehicleId?.id
+          }&tin=${this.datas?.new?.state_tin}&regtype=${
+            this.vehicleRegType?.id
+          }`,
         {}
       )
       .subscribe(

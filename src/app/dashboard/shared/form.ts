@@ -171,7 +171,7 @@ export interface vehicle_details {
 
 export interface change_owner_vehicle {
   name: string;
-  state: string;
+  tin: string;
   number: string;
   address: string;
 }

@@ -41,7 +41,7 @@
             <!-- Vehicle Chassis Number / VIN -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle Chassis Number / VIN</mat-label>
-                <input matInput formControlName="vin" required>
+                <input matInput formControlName="vin" type="tel" required>
                 <mat-error>{{formErrors.vin}}</mat-error>
             </mat-form-field>
             <!-- year -->
@@ -84,14 +84,11 @@
             <!-- plate -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Select Plate Number</mat-label>
-                <mat-select *ngIf="!renew" matInput formControlName="plate" required>
-                    <mat-option *ngFor="let p of plateMsg;" [value]="p">{{ p?.name }} ({{ p?.type }})</mat-option>
-                </mat-select>
-                <input *ngIf="renew" matInput formControlName="plate" required>
+                <input matInput formControlName="plate" required>
                 <mat-error>{{formErrors.plate}}</mat-error>
             </mat-form-field>
         </p>
-        <p *ngIf="renew">
+        <p>
             <!-- Vehicle usage -->
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Vehicle usage</mat-label>
@@ -106,11 +103,9 @@
         </p>
     
         <div class="final_submit">
-            <button *ngIf="update || renew" mat-button class="verify2" (click)="back()" type="button">Back</button>
+            <button mat-button class="verify2" (click)="back()" type="button">Back</button>
             <button type="submit" mat-button class="verify">
-                <span *ngIf="!loading && update">Update</span>
-                <span *ngIf="!loading && renew">Renew</span>
-                <span *ngIf="!loading && !renew && !update">Save and continue</span>
+                <span>Save and continue</span>
                 <div *ngIf="loading" class="loader">
                     <div class="bubble"></div>
                     <div class="bubble"></div>

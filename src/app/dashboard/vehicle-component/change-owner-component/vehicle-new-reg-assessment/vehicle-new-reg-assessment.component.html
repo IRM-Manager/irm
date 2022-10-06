@@ -9,22 +9,11 @@
                     <input matInput formControlName="name" required>
                         <mat-error>{{ formErrors.name }}</mat-error>
                     </mat-form-field>
-                    <!-- state -->
+                    <!-- tin -->
                     <mat-form-field class="half-width" appearance="outline">
-                        <mat-label>State of residence</mat-label>
-                        <mat-select matInput formControlName="state" #singleSelect required>
-                            <mat-option>
-                                <ngx-mat-select-search [formControl]="bankCtrl" [searching]="searching" placeholderlabel="search state..." noentriesfoundlabel="no matching state found"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let option of filteredBanks | async" [value]="option.name">
-                                <span>{{option.name}}</span>
-                            </mat-option>
-                        </mat-select>
-                        <mat-error>{{formErrors.state}}</mat-error>
-                        <mat-hint align="end" (click)="addState()" *ngIf="stateError && !stateLoading">
-                            <button>Reload</button>
-                        </mat-hint>
-                        <mat-hint *ngIf="stateLoading">Loading...</mat-hint>
+                        <mat-label>GTin</mat-label>
+                        <input matInput formControlName="tin" type="tel" required>
+                        <mat-error>{{formErrors.tin}}</mat-error>
                     </mat-form-field>
                 </p>
                 <p>
@@ -37,13 +26,13 @@
                         <!-- address -->
                         <mat-form-field class="half-width" appearance="outline">
                             <mat-label>Address</mat-label>
-                            <input matInput formControlName="address" type="tel" required>
+                            <input matInput formControlName="address" required>
                                 <mat-error>{{formErrors.address}}</mat-error>
                             </mat-form-field>
                         </p>
 
                         <div class="final_submit">
-                            <button mat-button="mat-button" class="verify2" type="button">Back</button>
+                            <button mat-button="mat-button" class="verify2" type="button" (click)="back()">Back</button>
                             <button type="submit" mat-button="mat-button" class="verify">
                                 <span *ngIf="!loading">Save and continue</span>
                                 <div *ngIf="loading" class="loader">

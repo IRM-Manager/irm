@@ -74,6 +74,7 @@ export const BaseUrl = {
   vehicle_owner: 'mla/api/v1/vehiclechange/',
   vehicle_decide_change: 'mla/api/v1/vehiclechange/decidechange/',
   vehicle_by_plate: 'mla/api/v1/vehiclechange/getvehicleplates/',
+  vehicle_owner_out: 'mla/api/v1/vehiclechange/ownershipchange/',
 };
 
 /*

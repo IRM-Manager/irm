@@ -77,6 +77,7 @@ $ind-font2: normal normal normal 15px/20px Montserrat;
 
   .verify2 {
     width: 150px;
+    margin-right: 20px;
     @include veryfy(
       $back: unset,
       $color: #b9a005,

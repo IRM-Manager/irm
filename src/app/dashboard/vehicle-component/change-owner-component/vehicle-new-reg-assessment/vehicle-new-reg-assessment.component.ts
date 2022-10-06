@@ -1,40 +1,15 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { change_owner_vehicle } from 'src/app/dashboard/shared/form';
-import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
-import { AppState, selectAllStates } from 'src/app/reducers/index';
-import { AddStates } from '../../../../actions/irm.action';
-import { States } from '../../../models/irm';
-import { STATE, stateLogo } from '../../../shared/form';
 import { Store } from '@ngrx/store';
-import {
-  ReplaySubject,
-  Subject,
-  Observable,
-  debounceTime,
-  delay,
-  filter,
-  map,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { AppState } from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
 
 @Component({
   selector: 'app-vehicle-new-reg-assessment',
@@ -48,20 +23,11 @@ export class VehicleNewRegAssessmentComponent implements OnInit {
   feedbackForm: any = FormGroup;
   feedback!: change_owner_vehicle;
   loading = false;
-  bankCtrl: FormControl = new FormControl();
-  filteredBanks: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(1);
-  option = STATE;
-  searching = false;
-  protected _onDestroy = new Subject<void>();
-  stateError: boolean = false;
-  stateLoading = false;
-  state: any;
-
-  stateStates: Observable<States[]>;
+  datas: any;
 
   formErrors: any = {
     name: '',
-    state: '',
+    tin: '',
     number: '',
     address: '',
   };
@@ -70,7 +36,7 @@ export class VehicleNewRegAssessmentComponent implements OnInit {
     name: {
       required: 'required.',
     },
-    state: {
+    tin: {
       required: 'required.',
     },
     number: {
@@ -84,19 +50,20 @@ export class VehicleNewRegAssessmentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
     private router: Router,
     private httpService: HttpService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private authService: AuthService,
+    private service: VehicleServiceService
   ) {
-    this.stateStates = store.select(selectAllStates);
     this.createForm();
+    this.datas = this.service.getRegMessage2();
   }
 
   createForm() {
     this.feedbackForm = this.fb.group({
       name: ['', [Validators.required]],
-      state: ['', [Validators.required]],
+      tin: ['', [Validators.required]],
       number: ['', [Validators.required]],
       address: ['', [Validators.required]],
     });
@@ -142,78 +109,71 @@ export class VehicleNewRegAssessmentComponent implements OnInit {
     } else {
       this.loading = true;
       console.log(this.feedback);
-      this.router.navigate([
-        '/dashboard/dashboard5/vehicle/change-owner/details',
-      ]);
+      const vehicle_data = this.datas?.data;
+      vehicle_data.oldownerdetails = {
+        previousownerName: this.feedback.name,
+        previousownerAddress: this.feedback.address,
+        previousownerPhone: this.feedback.number,
+        previousownerTIN: this.feedback.tin,
+      };
+      const regtype = vehicle_data?.regtype;
+      const tin = vehicle_data?.tin;
+      delete vehicle_data.regtype;
+      delete vehicle_data.tin;
+      console.log(vehicle_data);
+      this.httpService
+        .postData(
+          BaseUrl.vehicle_owner_out + `?tin=${tin}&regtype=${regtype}`,
+          vehicle_data
+        )
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            console.log(data);
+            const data2 = {
+              old: undefined,
+              new: data?.data?.vehicleId?.payer,
+              data2: data?.data,
+            };
+            this.service.setOwnerViewMessage(data2);
+            this.router.navigate([
+              '/dashboard/dashboard5/vehicle/change-owner/details',
+            ]);
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     }
   } // end else
 
-  addState() {
-    this.stateLoading = true;
-    this.stateStates.forEach((e) => {
-      if (e.length > 0) {
-        this.option = e[0].data;
-        this.state = e[0].data;
-        this.filteredBanks.next(e[0].data);
-        // update form resident lga
-        let coun = e[0].data?.filter(
-          (name: any) => name.name.toLowerCase() == 'gombe'
-        );
-        //
-        this.stateLoading = false;
-      } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
-          (data: any) => {
-            this.option = data.results;
-            this.state = data.results;
-            this.filteredBanks.next(data.results);
-            this.stateLoading = false;
-            //
-            this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
-          },
-          (err) => {
-            this.stateLoading = false;
-            this.stateError = true;
-          }
-        );
-      }
-    });
-    // end of state
+  back() {
+    const plate_data = {
+      type: 'detail',
+      data: this.datas?.data,
+      back: true,
+    };
+    this.service.setRegMessage2(plate_data);
+    this.service.sendClickEvent2();
   }
 
   ngOnInit(): void {
-    this.addState();
-
-    this.bankCtrl.valueChanges
-      .pipe(
-        filter((search) => !!search),
-        tap(() => (this.searching = true)),
-        takeUntil(this._onDestroy),
-        debounceTime(200),
-        map((searchC) => {
-          const filterValue = searchC.toLowerCase();
-          if (!this.option) {
-            return [];
-          }
-          // simulate server fetching and filtering data
-          // return this.option.filter((bank: any) => bank.name.toLowerCase().includes(filterValue));
-          return this.option.filter(
-            (bank: any) => bank.name.toLowerCase().indexOf(filterValue) > -1
-          );
-        }),
-        delay(100),
-        takeUntil(this._onDestroy)
-      )
-      .subscribe(
-        (filteredBanks) => {
-          this.searching = false;
-          this.filteredBanks.next(filteredBanks);
-        },
-        (error) => {
-          // no errors in our simulated example
-          this.searching = false;
-          // handle error...
-        }
-      );
+    console.log();
   }
 }

@@ -31,15 +31,18 @@
                             </tr>
                             <tr>
                                 <td class="title">Vehicle Make:</td>
-                                <td class="sub-title">{{ datas?.old?.make || datas?.data2?.vehicleId?.make }}</td>
+                                <td class="sub-title">{{ datas?.old?.make || 
+                                    datas?.data2?.vehicleId?.make }}</td>
                             </tr>
                             <tr>
                                 <td class="title">Chasis Number:</td>
-                                <td class="sub-title">{{ datas?.old?.vin || datas?.data2?.vehicleId?.vin }}</td>
+                                <td class="sub-title">{{ datas?.old?.vin || 
+                                    datas?.data2?.vehicleId?.vin }}</td>
                             </tr>
                             <tr>
                                 <td class="title">Plate Number:</td>
-                                <td class="sub-title">{{ datas?.old?.plate_no || datas?.data2?.vehicleId?.plate_no }}</td>
+                                <td class="sub-title">{{ datas?.old?.plate_no || 
+                                    datas?.data2?.vehicleId?.plate_no }}</td>
                             </tr>
                             <tr>
                                 <td class="title">Owner:</td>
@@ -48,7 +51,8 @@
                             </tr>
                             <tr>
                                 <td class="title">Vehicle color:</td>
-                                <td class="sub-title">{{ datas?.old?.color || datas?.data2?.vehicleId?.color }}</td>
+                                <td class="sub-title">{{ datas?.old?.color || 
+                                    datas?.data2?.vehicleId?.color }}</td>
                             </tr>
                         </tbody>
                         <!-- 2 -->
@@ -70,7 +74,8 @@
                             </tr>
                             <tr>
                                 <td class="title">Fuel Type:</td>
-                                <td class="sub-title">{{ datas?.old?.fuel_type || datas?.data2?.vehicleId?.fuel_type }}</td>
+                                <td class="sub-title">{{ datas?.old?.fuel_type || 
+                                    datas?.data2?.vehicleId?.fuel_type }}</td>
                             </tr>
                             <tr>
                                 <td class="title">Max carrier:</td>
@@ -79,7 +84,8 @@
                             </tr>
                             <tr>
                                 <td class="title">Vehicle Year:</td>
-                                <td class="sub-title">{{ datas?.old?.vehicle_year || datas?.data2?.vehicleId?.vehicle_year }}
+                                <td class="sub-title">{{ datas?.old?.vehicle_year || 
+                                    datas?.data2?.vehicleId?.vehicle_year }}
                                 </td>
                             </tr>
                         </tbody>
@@ -139,7 +145,7 @@
                 </tr>
                 <tr>
                     <td class="title">Business type:</td>
-                    <td class="sub-title">{{ datas?.new?.occupation?.name }}</td>
+                    <td class="sub-title">{{ datas?.new?.occupation?.name || datas?.new?.business_sector }}</td>
                 </tr>
             </tbody>
             <!-- 3 -->
@@ -148,13 +154,13 @@
     </div>
 
     <!-- Old owner details -->
-
     <div class="panel-container2">
-
         <div class="header-details_p">
             <div class="header-details">Old owner Details</div>
-            <div class="name">{{ datas?.old?.payer?.taxpayer_name }}</div>
-            <div class="gtin">GTIN: {{ datas?.old?.payer?.state_tin }}</div>
+            <div class="name">{{ datas?.old?.payer?.taxpayer_name || 
+                datas?.data2?.previousownerName }}</div>
+            <div class="gtin">GTIN: {{ datas?.old?.payer?.state_tin ||
+                datas?.data2?.previousownerTIN }}</div>
             <div class="indi">{{ datas?.old?.payer?.payer_type }} Tax Payer</div>
             <div class="verify" *ngIf="datas?.old?.payer?.is_verified">Verified User</div>
             <div class="not-verify" *ngIf="!datas?.old?.payer?.is_verified">Not-Verified</div>
@@ -170,7 +176,8 @@
                 </tr>
                 <tr>
                     <td class="title">Address:</td>
-                    <td class="sub-title">{{ datas?.old?.payer?.address }}</td>
+                    <td class="sub-title">{{ datas?.old?.payer?.address ||
+                        datas?.data2?.previousownerAddress }}</td>
                 </tr>
                 <tr>
                     <td class="title">LGA:</td>
@@ -182,7 +189,8 @@
                 </tr>
                 <tr>
                     <td class="title">Phone Number:</td>
-                    <td class="sub-title">{{ datas?.old?.payer?.phone }}</td>
+                    <td class="sub-title">{{ datas?.old?.payer?.phone ||
+                        datas?.data2?.previousownerPhone }}</td>
                 </tr>
             </tbody>
             <!-- 2 -->
@@ -197,7 +205,7 @@
                 </tr>
                 <tr>
                     <td class="title">Business type:</td>
-                    <td class="sub-title">{{ datas?.old?.payer?.occupation?.name }}</td>
+                    <td class="sub-title">{{ datas?.old?.payer?.occupation?.name || datas?.old?.payer?.business_sector }}</td>
                 </tr>
             </tbody>
             <!-- 3 -->
