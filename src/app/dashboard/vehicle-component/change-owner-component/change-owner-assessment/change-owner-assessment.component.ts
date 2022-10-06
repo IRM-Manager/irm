@@ -246,7 +246,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
     this.stateVehicleitems.forEach((e: any) => {
       if (e.length > 0) {
         const data = e[0].data.filter((name: any) => {
-          return name?.name.toLowerCase() == 'new registrations';
+          return name?.name.toLowerCase() == 'change of ownership';
         });
         this.vehicleRegType = data[0]?.items_ids;
         this.reg_loading = false;
@@ -256,7 +256,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
           .getAuthSingle(BaseUrl.vehicle_regtype)
           .subscribe((data: any) => {
             const data2 = data.results.filter((name: any) => {
-              return name?.name.toLowerCase() == 'new registrations';
+              return name?.name.toLowerCase() == 'change of ownership';
             });
             this.vehicleRegType = data2[0]?.items_ids;
             this.store.dispatch(
