@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-reg-assessment.component.scss'],
 })
-export class VehicleRegAssessmentComponent implements OnInit {
+export class VehicleRegAssessmentComponent implements OnDestroy, OnInit {
   search: string = '';
   dtOptions: DataTables.Settings = {};
   datas2: any;

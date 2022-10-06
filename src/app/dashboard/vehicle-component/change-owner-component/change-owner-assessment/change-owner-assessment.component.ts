@@ -79,16 +79,19 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
     this.createManualForm2();
     this.stateVehicleitems = store.select(selectAllVehicleitems);
     this.authService.checkExpired();
-    // this.datas = this.service.getRegMessage2();
-    // const vehicleRegType2: any = this.service.getRegMessage2();
-    // this.vehicleRegType2 =
-    //   vehicleRegType2?.data?.data?.reg_type?.items_ids ||
-    //   vehicleRegType2?.data2?.revitems;
-    // if (this.datas?.data?.update == true) {
-    //   this.update = true;
-    // }
-    // this.getRegType();
-    console.log(this.vehicleRegType2);
+    this.datas = this.service.getRegMessage2();
+    if (this.datas) {
+      const vehicleRegType2: any = this.service.getRegMessage2();
+      this.vehicleRegType2 =
+        vehicleRegType2?.data?.reg_type?.items_ids;
+      if (this.datas?.update) {
+        this.update = true;
+      }
+    } else {
+      this.router.navigate(['/dashboard/dashboard5/vehicle/change-owner']);
+    }
+    this.getRegType();
+    console.log(this.datas);
   }
 
   createForm() {
@@ -142,8 +145,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
     const data = { items: this.vehicleRegType2 };
     this.httpService
       .postData(
-        BaseUrl.vehicle_gen_ass +
-          `?vehicleId=${this.datas?.data?.data?.id || this.datas?.data?.id}`,
+        BaseUrl.vehicle_gen_ass + `?vehicleId=${this.datas?.data?.id}`,
         data
       )
       .subscribe(
@@ -158,7 +160,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
               horizontalPosition: 'center',
               verticalPosition: 'top',
             });
-            this.loading = false;
+            this.service.setAssMessage(this.datas?.data);
             this.router.navigate([
               '/dashboard/dashboard5/vehicle/reg-vehicle/assessment',
             ]);
@@ -192,10 +194,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
     this.httpService
       .postData(
         BaseUrl.vehicle_gen_bill +
-          `?assessId=${data.id}&tin=${
-            this.datas?.data?.data?.payer?.state_tin ||
-            this.datas?.data?.payer?.state_tin
-          }`,
+          `?assessId=${data.id}&tin=${this.datas?.data?.payer?.state_tin}`,
         {}
       )
       .subscribe(
@@ -204,10 +203,10 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
           console.log(data.data);
           this.openDialog(
             data?.data[0] || data?.data,
-            this.datas?.data?.data || this.datas?.data,
-            'generate_bill'
+            this.datas?.data,
+            'delay-approve2'
           );
-          this.router.navigate(['/dashboard/dashboard5/vehicle/reg-vehicle']);
+          this.router.navigate(['/dashboard/dashboard5/vehicle/change-owner']);
         },
         (err) => {
           this.authService.checkExpired();

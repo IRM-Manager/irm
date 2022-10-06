@@ -115,11 +115,17 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
   }
 
   viewAss(data: any) {
-    // this.service.setviewSelfMessage(data);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/document']);
+    const data2 = {
+      // old: data?.vehicleId,
+      old: undefined,
+      new: data?.vehicleId?.payer,
+      update: true,
+      data2: data,
+    };
+    this.service.setOwnerViewMessage(data2);
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/change-owner/details',
+    ]);
   }
 
   openDialog(data: any, type: string) {

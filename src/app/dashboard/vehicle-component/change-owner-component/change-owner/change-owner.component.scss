@@ -289,8 +289,20 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     border-radius: 10px;
   }
 
-  .pending {
+  .decline {
     background: #d56545 0% 0% no-repeat padding-box;
+    opacity: 1;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    font-weight: 500;
+    color: #ffffff;
+    opacity: 1;
+    padding: 0.3rem;
+    border-radius: 10px;
+  }
+
+  .pending {
+    background: #B9A005 0% 0% no-repeat padding-box;
     opacity: 1;
     font: normal normal normal 12px/15px Montserrat;
     letter-spacing: 0px;

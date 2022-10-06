@@ -11,6 +11,7 @@ export class VehicleServiceService {
   setVehicleType: string | undefined;
   assMessage: string | undefined;
   docMessage: string | undefined;
+  ownerMessage: string | undefined;
   private subject = new Subject<any>();
   regMessage2: string | undefined;
   RegVehicleMessage: string | undefined;
@@ -103,5 +104,14 @@ export class VehicleServiceService {
 
   getDocMessage() {
     return this.docMessage;
+  }
+
+  // For vehicle change of ownership view
+  setOwnerViewMessage(data: any) {
+    this.ownerMessage = data;
+  }
+
+  getOwnerViewMessage() {
+    return this.ownerMessage;
   }
 }

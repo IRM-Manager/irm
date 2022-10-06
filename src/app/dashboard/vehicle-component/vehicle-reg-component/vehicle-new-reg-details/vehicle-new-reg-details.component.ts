@@ -205,18 +205,32 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   getRegType() {
     this.stateVehicleItems.forEach((e: any) => {
       if (e.length > 0) {
-        const data = e[0].data.filter((name: any) => {
-          return name?.name.toLowerCase() == 'new registrations';
-        });
-        this.vehicleRegType = data[0];
+        if (this.renew) {
+          const data = e[0].data.filter((name: any) => {
+            return name?.name.toLowerCase() == 'renewal registrations';
+          });
+          this.vehicleRegType = data[0];
+        } else {
+          const data = e[0].data.filter((name: any) => {
+            return name?.name.toLowerCase() == 'new registrations';
+          });
+          this.vehicleRegType = data[0];
+        }
       } else {
         this.httpService
           .getAuthSingle(BaseUrl.vehicle_regtype)
           .subscribe((data: any) => {
-            const data2 = data.results.filter((name: any) => {
-              return name?.name.toLowerCase() == 'new registrations';
-            });
-            this.vehicleRegType = data2[0];
+            if (this.renew) {
+              const data2 = data.results.filter((name: any) => {
+                return name?.name.toLowerCase() == 'renewal registrations';
+              });
+              this.vehicleRegType = data2[0];
+            } else {
+              const data2 = data.results.filter((name: any) => {
+                return name?.name.toLowerCase() == 'new registrations';
+              });
+              this.vehicleRegType = data2[0];
+            }
             this.store.dispatch(
               new AddVehicleitems([{ id: 1, data: data.results }])
             );

@@ -118,11 +118,17 @@ export class VehicleApprovalComponent implements OnInit, OnDestroy {
   }
 
   viewAss(data: any) {
-    // this.service.setviewSelfMessage(data);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    this.router.navigate(['/dashboard/dashboard5/vehicle/approval/review']);
+    const data2 = {
+      // old: data?.vehicleId,
+      old: undefined,
+      new: data?.vehicleId?.payer,
+      update: true,
+      data2: data,
+    };
+    this.service.setOwnerViewMessage(data2);
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/change-owner/details',
+    ]);
   }
 
   openDialog(data: any, type: string) {
@@ -155,18 +161,6 @@ export class VehicleApprovalComponent implements OnInit, OnDestroy {
   formatMoney(n: any) {
     const tostring = n.toString();
     return (Math.round(tostring * 100) / 100).toLocaleString();
-  }
-
-  edit(data: any) {
-    const setData = {
-      update: true,
-      data: data,
-    };
-    // this.service.setMessage(setData);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
   }
 
   ngOnInit(): void {

@@ -19,37 +19,42 @@
                         <tr>
                             <td class="title">Issue Date:</td>
                             <td class="sub-title">{{ datas?.data?.data?.created_at | date:'yyyy-MM-dd' }}
-                                {{ datas?.data?.created_at | date:'yyyy-MM-dd' }} 23-45-2223
+                                {{ datas?.data?.created_at | date:'yyyy-MM-dd' }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Model:</td>
                             <td class="sub-title">{{ datas?.data?.data?.model ||
-                                datas?.data?.model }} toyota
+                                datas?.data?.model }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Make:</td>
                             <td class="sub-title">{{ datas?.data?.data?.make ||
-                                datas?.data?.make }} camry
+                                datas?.data?.make }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Chasis Number:</td>
                             <td class="sub-title">{{ datas?.data?.data?.vin ||
-                                datas?.data?.vin }} 32323233232
+                                datas?.data?.vin }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Owner</td>
                             <td class="sub-title">{{ datas?.data?.data?.payer.taxpayer_name ||
-                                datas?.data?.payer.taxpayer_name }} ayagba lokt
+                                datas?.data?.payer.taxpayer_name }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Phone Number:</td>
                             <td class="sub-title">{{ datas?.data?.data?.payer.phone ||
-                                datas?.data?.payer.phone }} 081183348434
+                                datas?.data?.payer.phone }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Vehicle Year:</td>
+                            <td class="sub-title">{{ datas?.data?.vehicle_year }}
                             </td>
                         </tr>
                     </tbody>
@@ -58,37 +63,37 @@
                         <tr>
                             <td class="title">Vehicle Usage:</td>
                             <td class="sub-title">{{ datas?.data?.data?.vehicle_usage ||
-                                datas?.data?.vehicle_usage }} private
+                                datas?.data?.vehicle_usage }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Plate Number:</td>
                             <td class="sub-title">{{ datas?.data?.data?.plate_no ||
-                                datas?.data?.plate_no }} GM443434
+                                datas?.data?.plate_no }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Type:</td>
                             <td class="sub-title">{{ datas?.data?.data?.vehicletype?.name ||
-                                datas?.data?.vehicletype?.name }} BUS
+                                datas?.data?.vehicletype?.name }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Engine Capacity:</td>
                             <td class="sub-title">{{ datas?.data?.data?.engine_capacity ||
-                                datas?.data?.engine_capacity }} 12.44-323
+                                datas?.data?.engine_capacity }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Vehicle Color:</td>
                             <td class="sub-title">{{ datas?.data?.data?.color ||
-                                datas?.data?.color }} Red
+                                datas?.data?.color }}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">Max carrier:</td>
                             <td class="sub-title">{{ datas?.data?.data?.carrying_capacity ||
-                                datas?.data?.carrying_capacity }} 12
+                                datas?.data?.carrying_capacity }}
                             </td>
                         </tr>
                     </tbody>
@@ -175,7 +180,7 @@
 
         <div>
             <button *ngIf="update" type="button" mat-button class="generate2" (click)="back()">Back</button>
-            <button mat-button class="generate2" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']">
+            <button mat-button class="generate2" (click)="generateAss(false)">
                 <span *ngIf="!loading">Save Assessment</span>
                 <div *ngIf="loading" class="loader">
                     <div class="bubble"></div>
@@ -184,7 +189,7 @@
                     <div class="bubble"></div>
                 </div>
             </button>
-            <button mat-button class="generate" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']">
+            <button mat-button class="generate" (click)="generateAss(true)">
                 <span *ngIf="!loading2">Save & Generate Bill</span>
                 <div *ngIf="loading2" class="loader">
                     <div class="bubble"></div>

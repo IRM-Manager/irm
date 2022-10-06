@@ -173,7 +173,8 @@
 
             <form [formGroup]="manualForm" class="manual_form">
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>GTin</mat-label>
+                    <mat-label *ngIf="data.type !== 'change-owner'">GTin</mat-label>
+                    <mat-label *ngIf="data.type === 'change-owner'">Plate No.</mat-label>
                     <input matInput formControlName="tin">
                 </mat-form-field>
 
@@ -194,7 +195,7 @@
                 </button>
             </form>
 
-            <div class="dont-have">Don’t Have a GTin? Register</div>
+            <div class="dont-have" *ngIf="data.type !== 'change-owner'">Don’t Have a GTin? Register</div>
         </div>
 
     </div>
@@ -252,21 +253,32 @@
 
 
 <!-- Approve request layout2 -->
-
-<div class="manual_file-dialog" *ngIf="data.type === 'delay-approve'">
+<div class="manual_file-dialog" *ngIf="data.type === 'delay-approve' || data.type === 'delay-approve2'">
     <div class="approve_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
         </button>
     </div>
 
-    <div mat-dialog-content class="approve_container">
+    <div mat-dialog-content class="approve_container" *ngIf="data.type === 'delay-approve'">
         <div>Kindly Note That all pending Liabilities</div>
         <div>will be add to the Bill and must be paid before approval of change of ownership</div>
         <div>
-            <button mat-button class="understand" (click)="changeOwner()">I Understand</button>
+            <button mat-button class="understand">I Understand</button>
         </div>
         <button mat-button mat-dialog-close class="approve-cancel">Cancel</button>
+    </div>
+    <!--  -->
+    <div mat-dialog-content class="success_container" *ngIf="data.type === 'delay-approve2'">
+        <div><img src="assets/images/Iconfeather-check-circle.svg" alt=""></div>
+        <div>Bill Successfully Generated</div>
+        <div>Note: The Change of ownership status is pending approval until Generated bill is paid and Investigation done.</div>
+        <div>
+            <button mat-button class="understand" (click)="changeOwner()">View Bill</button>
+        </div>
+        <button mat-button mat-dialog-close class="approve-cancel" [routerLink]="['/dashboard/dashboard5/vehicle/change-owner']">
+            Home
+        </button>
     </div>
 </div>
 

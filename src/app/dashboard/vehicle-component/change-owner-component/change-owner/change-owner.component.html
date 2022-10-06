@@ -67,7 +67,10 @@
                                     <button mat-button class="paid" *ngIf="data.status === 'approved'">
                                         {{ data?.status }}
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.status !== 'approved'">
+                                    <button mat-button class="decline" *ngIf="data.status === 'disapproved'">
+                                        {{ data?.status }}
+                                    </button>
+                                    <button mat-button class="pending" *ngIf="data.status === 'awaiting'">
                                         {{ data?.status }}
                                     </button>
                                 </td>

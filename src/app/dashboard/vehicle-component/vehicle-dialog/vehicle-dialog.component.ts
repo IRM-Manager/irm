@@ -162,9 +162,48 @@ export class VehicleDialogComponent implements OnInit {
   }
 
   changeOwnerTin() {
-    this.router.navigate([
-      '/dashboard/dashboard5/vehicle/change-owner/details',
-    ]);
+    this.dialogRef.disableClose = true;
+    this.loading = true;
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.vehicle_by_plate + `?plateno=${this.manualForm.value.tin}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.loading = false;
+          this.dialogRef.disableClose = false;
+          console.log(data);
+          const data2 = {
+            old: data.data,
+            new: undefined,
+          };
+          this.service.setOwnerViewMessage(data2);
+          this.router.navigate([
+            '/dashboard/dashboard5/vehicle/change-owner/details',
+          ]);
+          this.dialogRef.close();
+        },
+        (err) => {
+          this.authService.checkExpired();
+          this.loading = false;
+          this.dialogRef.disableClose = false;
+          console.log(err);
+          this.snackBar.open(
+            err?.error?.message ||
+              err?.error?.msg ||
+              err?.error?.detail ||
+              err?.error?.status ||
+              'An Error Occured!',
+            '',
+            {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      );
   }
 
   profilling() {
@@ -205,7 +244,7 @@ export class VehicleDialogComponent implements OnInit {
                 '/dashboard/dashboard5/vehicle/change-owner/new-reg',
               ]);
             }
-            this.dialogRef.close();
+            this.dialogRef.close({ data: data.data });
           },
           (err) => {
             this.authService.checkExpired();
@@ -359,7 +398,14 @@ export class VehicleDialogComponent implements OnInit {
 
   changeOwner() {
     this.router.navigate(['/dashboard/dashboard5/vehicle/change-owner']);
-    this.openDialog('', 'generate_bill');
+    this.dialogRef.close();
+    this.dialog.open(VehicleDialogComponent, {
+      data: {
+        type: 'generate_bill',
+        data: this.data?.data,
+        data2: this.data?.data2,
+      },
+    });
   }
 
   ngOnInit(): void {
