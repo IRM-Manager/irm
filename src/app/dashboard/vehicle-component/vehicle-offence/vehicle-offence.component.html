@@ -4,95 +4,144 @@
         <h3>Traffic Offences And Penalties</h3>
 
         <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState"
-                                 (closed)="!panelOpenState">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Tax payer details
-                </mat-panel-title>
-                <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
-              </mat-expansion-panel-header>
-              <div class="panel-container">
+            <mat-expansion-panel (opened)="panelOpenState" (closed)="!panelOpenState">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Tax payer details
+                    </mat-panel-title>
+                    <span class="material-icons-round arrow_drop_down">arrow_drop_down</span>
+                </mat-expansion-panel-header>
+                <div class="panel-container">
 
-                <div class="header-details_p">
-                    <div class="header-details">Taxpayer Details</div>
-                    <div class="name">Adamu Musa</div>
-                    <div class="gtin">GTIN: 107788</div>
-                    <div class="jtbtin">JTBTIN: 10778878</div>
-                    <div class="indi">Individual Tax Payer</div>
-                    <div class="verify">Not-Verified</div>
-                    <div class="not-verify">Verified User</div>
+                    <div class="header-details_p">
+                        <div class="header-details">Taxpayer Details</div>
+                        <div class="name">{{ datas?.taxpayer_name }}</div>
+                        <div class="gtin">GTIN: {{ datas?.state_tin }}</div>
+                        <div class="indi">{{ datas?.payer_type }} Tax Payer</div>
+                        <div class="verify" *ngIf="datas?.is_verified">Verified User</div>
+                        <div class="not-verify" *ngIf="!datas?.is_verified">Not-Verified</div>
+                    </div>
+            
+                    <table
+                        class="panel-table" fxLayoutGap="50px">
+                        <!-- 1 -->
+                        <tbody>
+                            <tr>
+                                <td class="title">Date Registration:</td>
+                                <td class="sub-title">{{ datas?.created_at | date:'yyyy-MM-dd' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Address:</td>
+                                <td class="sub-title">{{ datas?.address }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">LGA:</td>
+                                <td class="sub-title">{{ datas?.lga_id?.name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Email:</td>
+                                <td class="sub-title">{{ datas?.email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Phone Number:</td>
+                                <td class="sub-title">{{ datas?.phone }}</td>
+                            </tr>
+                        </tbody>
+                        <!-- 2 -->
+                        <tbody>
+                            <tr>
+                                <td class="title">Date of birth:</td>
+                                <td class="sub-title">{{ datas?.dob }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Selected tax office:</td>
+                                <td class="sub-title">{{ datas?.location?.name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Business type:</td>
+                                <td class="sub-title">{{ datas?.occupation?.name ||
+                                     datas?.business_sector }}</td>
+                            </tr>
+                        </tbody>
+                        <!-- 3 -->
+                    </table>
                 </div>
-                
-                <table class="panel-table" fxLayoutGap="50px">
-                    <!-- 1 -->
-                    <tbody>
-                        <tr>
-                            <td class="title">Date Registration:</td>
-                            <td class="sub-title">2018-11-11</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Address:</td>
-                            <td class="sub-title">Toyota highlander</td>
-                        </tr>
-                        <tr>
-                            <td class="title">LGA:</td>
-                            <td class="sub-title">JTEDP21A040041522</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Email:</td>
-                            <td class="sub-title">TONGA 1, STREET ARAB ROAD KUBWA ABUJA.</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Phone Number:</td>
-                            <td class="sub-title">Matthew Adeboye</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Mode of identification:</td>
-                            <td class="sub-title">07034725207</td>
-                        </tr>
-                    </tbody>
-                    <!-- 2 -->
-                    <tbody>
-                        <tr>
-                            <td class="title">Date of birth:</td>
-                            <td class="sub-title">33e33232323</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Age:</td>
-                            <td class="sub-title">SUV</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Selected tax office:</td>
-                            <td class="sub-title">Na</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Business status:</td>
-                            <td class="sub-title">1472</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Employer:</td>
-                            <td class="sub-title">7</td>
-                        </tr>
-                    </tbody>
-                    <!-- 3 -->
-                </table>
-    
-              </div>
             </mat-expansion-panel>
         </mat-accordion>
     </div>
 
-    <div class="form-container">
+    <div
+        class="form-container">
+        <!-- second table -->
+        <div class="gen_table">
+            <div
+                class="column">
+
+                <!--  -->
+                <div class="column1">
+                    <div class="employee-salary">Description</div>
+                    <div class="left_right">
+                        <div class="left">
+                            <div class="title2" *ngFor="let v of vehicleRegType2;">
+                                {{ v?.name }}
+                            </div>
+                            <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="column2">
+                    <div class="deduction">Duration</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title2" *ngFor="let v of vehicleRegType2;">
+                                {{ v?.duration || '12' }}
+                                Month
+                            </div>
+                            <div class="title2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="column2">
+                    <div class="deduction">Amount (NGN)</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title2" *ngFor="let v of vehicleRegType2;">
+                                {{ v?.amount }}
+                            </div>
+                            <div class="title2" style="font-weight: 550;">{{ formatMoney(total || '0.00') }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="column2">
+                    <div class="deduction">Action</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType2; let i = index" (click)="removeItem(i)">
+                                Remove
+                            </div>
+                            <div class="title2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+
         <div class="form-text">Traffic Offences And Penalties</div>
         <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-            <p class="gap">
+            <p
+                class="gap">
                 <!-- Choose Registration Type -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Violation</mat-label>
                     <mat-select matInput formControlName="violation" required>
-                        <mat-option value="Formal">Formal</mat-option>
-                        <mat-option value="Informal">Informal</mat-option>
+                        <mat-option *ngFor="let i of vehicleRegType;" [value]="i?.id">{{ i?.name }}</mat-option>
                     </mat-select>
                     <mat-error>{{ formErrors.violation }}</mat-error>
                 </mat-form-field>
@@ -101,32 +150,32 @@
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Fine (NGN)</mat-label>
                     <input matInput formControlName="fine" required type="number">
-                    <mat-error>{{formErrors.fine}}</mat-error>
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Additional Penalty</mat-label>
-                    <input matInput formControlName="penalty" required>
-                    <mat-error>{{formErrors.penalty}}</mat-error>
-                </mat-form-field>
-            </p>
+                        <mat-error>{{formErrors.fine}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="half-width" appearance="outline">
+                        <mat-label>Additional Penalty</mat-label>
+                        <input matInput formControlName="penalty" required>
+                            <mat-error>{{formErrors.penalty}}</mat-error>
+                        </mat-form-field>
+                    </p>
 
-            <div class="final_submit">
-                <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
-                <button type="submit" mat-button class="generate">
-                    <span *ngIf="!loading">Process</span>
-                    <div *ngIf="loading" class="loader">
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
+                    <div class="final_submit">
+                        <button type="button" mat-button class="cancel" (click)="addItem()">Save</button>
+                        <button type="submit" mat-button class="generate">
+                            <span *ngIf="!loading">Process</span>
+                            <div *ngIf="loading" class="loader">
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                                <div class="bubble"></div>
+                            </div>
+                        </button>
                     </div>
-                </button>
+
+                </form>
             </div>
 
-        </form>
-    </div>
 
-
-</div>
+        </div>

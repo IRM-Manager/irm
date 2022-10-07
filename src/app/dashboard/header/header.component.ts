@@ -249,6 +249,7 @@ export class HeaderComponent implements OnInit {
       this.router.url == '/dashboard/dashboard5/vehicle/bills' ||
       this.router.url == '/dashboard/dashboard5/vehicle/reg-vehicle' ||
       this.router.url == '/dashboard/dashboard5/vehicle/document' ||
+      this.router.url == '/dashboard/dashboard5/vehicle/penalty' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner' ||
       this.router.url == '/dashboard/dashboard5/vehicle/change-owner/details' ||
       this.router.url ==

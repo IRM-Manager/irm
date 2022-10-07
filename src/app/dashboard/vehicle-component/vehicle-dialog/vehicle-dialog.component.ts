@@ -249,6 +249,14 @@ export class VehicleDialogComponent implements OnInit {
               this.router.navigate([
                 '/dashboard/dashboard5/vehicle/change-owner/new-reg',
               ]);
+            }else if(this.data.type == 'penalty') {
+              const plate_data = {
+                data: data.data,
+              };
+              this.service.setOffenceMessage(plate_data);
+              this.router.navigate([
+                '/dashboard/dashboard5/vehicle/offence',
+              ]);
             }
             this.dialogRef.close({ data: data.data });
           },

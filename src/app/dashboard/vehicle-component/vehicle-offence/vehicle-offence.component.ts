@@ -1,13 +1,20 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { offence } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../service/vehicle-service.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+// state management
+import { Store } from '@ngrx/store';
+import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
+import { HttpService } from 'src/app/services/http.service';
+import { AddVehicleitems } from 'src/app/actions/irm.action';
+import { Vehicleitems } from 'src/app/dashboard/models/irm';
+import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vehicle-offence',
@@ -23,6 +30,13 @@ export class VehicleOffenceComponent implements OnInit {
   plateMsg: any;
   panelOpenState = false;
   loading = false;
+  reg_loading = false;
+  vehicleRegType2: any[] = [];
+  vehicleRegType: any;
+  total = 0;
+  datas: any;
+
+  stateVehicleitems: Observable<Vehicleitems[]>;
 
   formErrors: any = {
     violation: '',
@@ -50,10 +64,17 @@ export class VehicleOffenceComponent implements OnInit {
     private _location: Location,
     private service: VehicleServiceService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private httpService: HttpService,
+    private store: Store<AppState>
   ) {
+    this.stateVehicleitems = store.select(selectAllVehicleitems);
     this.createForm();
     this.authService.checkExpired();
+    const data: any = this.service.getOffenceMessage();
+    this.datas = data?.data;
+    this.vehicleRegType2 = data?.data?.revitems;
+    this.getRegType();
   }
 
   createForm() {
@@ -121,6 +142,76 @@ export class VehicleOffenceComponent implements OnInit {
         type: type,
         data: data,
       },
+    });
+  }
+
+  removeItem(id: number) {
+    this.vehicleRegType2.splice(id, 1);
+    // this.sumValue();
+  }
+
+  addItem() {
+    // const check = this.vehicleRegType2.filter((e: any) => {
+    //   return e.id == data.id;
+    // });
+    // if (check.length > 0) {
+    //   this.snackBar.open('Item already exists.', '', {
+    //     duration: 3000,
+    //     panelClass: 'error',
+    //     horizontalPosition: 'center',
+    //     verticalPosition: 'top',
+    //   });
+    // } else {
+    //   this.vehicleRegType2.push(data);
+    // }
+    this.sumValue();
+  }
+
+  formatMoney(n: any) {
+    const tostring = n.toString();
+    return (Math.round(tostring * 100) / 100).toLocaleString();
+  }
+
+  sumValue() {
+    const total = this.vehicleRegType2.reduce((accumulator, value) => {
+      return accumulator + value?.amount;
+    }, 0);
+    if (total) {
+      this.total = total;
+    } else {
+    }
+  }
+
+  getRegType() {
+    this.reg_loading = true;
+    this.stateVehicleitems.forEach((e: any) => {
+      if (e.length > 0) {
+        const data = e[0].data.filter((name: any) => {
+          return name?.name.toLowerCase() == 'change of ownership';
+        });
+        this.vehicleRegType = data[0]?.items_ids;
+        this.reg_loading = false;
+        console.log(this.vehicleRegType);
+        console.log(e[0].data);
+      } else {
+        this.httpService
+          .getAuthSingle(BaseUrl.vehicle_regtype)
+          .subscribe((data: any) => {
+            const data2 = data.results.filter((name: any) => {
+              return name?.name.toLowerCase() == 'change of ownership';
+            });
+            this.vehicleRegType = data2[0]?.items_ids;
+            this.store.dispatch(
+              new AddVehicleitems([{ id: 1, data: data.results }])
+            );
+            this.reg_loading = false;
+            console.log(data);
+          }),
+          (error: any) => {
+            this.reg_loading = false;
+            console.log(error);
+          };
+      }
     });
   }
 

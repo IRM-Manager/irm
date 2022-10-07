@@ -113,6 +113,7 @@ import { ChangeOwnerNewRegComponent } from '../vehicle-component/change-owner-co
 import { VehicleProfillingConfigureAddComponent } from '../vehicle-component/profilling-component/vehicle-profilling-configure-add/vehicle-profilling-configure-add.component';
 import { VehicleProfillingConfigureTableComponent } from '../vehicle-component/profilling-component/vehicle-profilling-configure-table/vehicle-profilling-configure-table.component';
 import { VehicleProfillingTableComponent } from '../vehicle-component/profilling-component/vehicle-profilling-table/vehicle-profilling-table.component';
+import { VehiclePenaltyComponent } from '../vehicle-component/vehicle-penalty/vehicle-penalty.component';
 
 @NgModule({
   declarations: [
@@ -189,6 +190,7 @@ import { VehicleProfillingTableComponent } from '../vehicle-component/profilling
     VehicleProfillingTableComponent,
     VehicleProfillingConfigureTableComponent,
     VehicleProfillingConfigureAddComponent,
+    VehiclePenaltyComponent,
     // profile
     ProfileViewComponent,
     ProfileEditComponent,

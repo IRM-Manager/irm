@@ -245,9 +245,7 @@ export class VehicleRegDetailsComponent implements OnInit {
     this.feedbackForm.controls['engine_capacity'].patchValue(
       data?.engine_capacity
     );
-    this.feedbackForm.controls['vehicle_usage'].patchValue(
-      data?.vehicle_usage
-    );
+    this.feedbackForm.controls['vehicle_usage'].patchValue(data?.vehicle_usage);
     this.feedbackForm.controls['fuel'].patchValue(data?.fuel_type);
     this.feedbackForm.patchValue({ make: data?.make });
     this.feedbackForm.patchValue({ model: data?.model });
