@@ -300,12 +300,13 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
   }
 
   sumValue() {
-    const total = this.vehicleRegType2.reduce((accumulator, value) => {
+    const total = this.vehicleRegType2?.reduce((accumulator, value) => {
       return accumulator + value?.amount;
     }, 0);
     if (total) {
       this.total = total;
     } else {
+      this.total = 0;
     }
   }
 
