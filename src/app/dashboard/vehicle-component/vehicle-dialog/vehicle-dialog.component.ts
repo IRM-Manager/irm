@@ -231,7 +231,7 @@ export class VehicleDialogComponent implements OnInit {
               this.service.setCustomerPlateRegMessage(data.data);
               this.router.navigate(['/dashboard/dashboard5/vehicle/new-plate']);
             } else if (this.data.type == 'manual') {
-              let data2 = data.data;
+              let data2 = data?.data;
               data2.renew = true;
               const plate_data = {
                 type: 'detail',
@@ -240,7 +240,7 @@ export class VehicleDialogComponent implements OnInit {
               this.service.setRegMessage2(plate_data);
               this.router.navigate(['/dashboard/dashboard5/vehicle/new-reg']);
             } else if (this.data.type == 'change-owner-out') {
-              let data2 = data.data;
+              let data2 = data?.data;
               const plate_data = {
                 type: 'detail',
               };
@@ -251,7 +251,7 @@ export class VehicleDialogComponent implements OnInit {
               ]);
             }else if(this.data.type == 'penalty') {
               const plate_data = {
-                data: data.data,
+                data: data?.data,
               };
               this.service.setOffenceMessage(plate_data);
               this.router.navigate([

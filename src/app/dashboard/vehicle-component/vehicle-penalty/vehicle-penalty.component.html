@@ -53,8 +53,8 @@
                                 <th class="align-middle text-center">S/N</th>
                                 <th class="align-middle text-center">Offence details</th>
                                 <th class="align-middle text-center">Assessment code</th>
-                                <th class="align-middle text-center">Generated date</th>
                                 <th class="align-middle text-center">Total</th>
+                                <th class="align-middle text-center">Generated date</th>
                                 <th class="align-middle text-center">Status</th>
                                 <th class="align-middle text-center">Actions</th>
                             </tr>
@@ -64,7 +64,7 @@
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle">
-                                    <span *ngFor="let p of data?.revitems">{{ p?.name }}</span>
+                                    <span *ngFor="let p of data?.revitems">({{ p?.name }}) </span>
                                 </td>
                                 <td class="align-middle text-center">
                                     {{ data?.assess_code }}

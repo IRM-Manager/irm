@@ -116,9 +116,21 @@ export class SideNavListComponent implements OnInit {
     );
   }
 
+  getOffences() {
+    this.httpService
+      .getAuthSingle(BaseUrl.vehicle_offence)
+      .subscribe((data: any) => {
+        this.service.setPenaltyMessage(data?.data);
+      }),
+      (error: any) => {
+        this.authService.checkExpired();
+      };
+  }
+
   ngOnInit(): void {
     this.plateStat();
     this.vehicleType();
+    this.getOffences();
   }
 
   public onPublicHeaderToggleSidenav = () => {

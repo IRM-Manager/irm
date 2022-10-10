@@ -72,4 +72,7 @@ export const BaseUrl = {
   vehicle_by_plate: 'mla/api/v1/vehiclechange/getvehicleplates/',
   vehicle_owner_out: 'mla/api/v1/vehiclechange/ownershipchange/',
   vehiclenoassessment: 'assessment/api/v1/mla/listnonvehicleassessment/',
+  vehicle_offence:
+    'refdata/api/v1/revitem/getrevbymda/?mdaid=3&has_asset=False',
+  vehicle_add_offence: 'assessment/api/v1/mla/createnonvehiclecharges/',
 };

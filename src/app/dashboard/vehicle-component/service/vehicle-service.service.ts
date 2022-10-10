@@ -13,6 +13,7 @@ export class VehicleServiceService {
   docMessage: string | undefined;
   ownerMessage: string | undefined;
   offenceMessage: string | undefined;
+  penaltyMessage: string | undefined;
   private subject = new Subject<any>();
   regMessage2: string | undefined;
   RegVehicleMessage: string | undefined;
@@ -123,5 +124,14 @@ export class VehicleServiceService {
 
   getOffenceMessage() {
     return this.offenceMessage;
+  }
+
+  // For get offence and penalties
+  setPenaltyMessage(data: any) {
+    this.penaltyMessage = data;
+  }
+
+  getPenaltyMessage() {
+    return this.penaltyMessage;
   }
 }

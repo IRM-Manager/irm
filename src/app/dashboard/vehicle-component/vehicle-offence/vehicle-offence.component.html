@@ -141,28 +141,27 @@
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Violation</mat-label>
                     <mat-select matInput formControlName="violation" required>
-                        <mat-option *ngFor="let i of vehicleRegType;" [value]="i?.id">{{ i?.name }}</mat-option>
+                        <mat-option *ngFor="let i of vehicleRegType;" [value]="i" (click)="addItem(i)">
+                            {{ i?.name }}
+                        </mat-option>
                     </mat-select>
                     <mat-error>{{ formErrors.violation }}</mat-error>
+                    <mat-hint *ngIf="reg_loading" align="end">loading...</mat-hint>
+                    <mat-hint *ngIf="reg_error">
+                        <button (click)="getOffences()">Reload</button>
+                    </mat-hint>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Fine (NGN)</mat-label>
-                    <input matInput formControlName="fine" required type="number">
+                    <input matInput formControlName="fine" type="tel">
                         <mat-error>{{formErrors.fine}}</mat-error>
                     </mat-form-field>
                 </p>
-                <p>
-                    <mat-form-field class="half-width" appearance="outline">
-                        <mat-label>Additional Penalty</mat-label>
-                        <input matInput formControlName="penalty" required>
-                            <mat-error>{{formErrors.penalty}}</mat-error>
-                        </mat-form-field>
-                    </p>
 
                     <div class="final_submit">
-                        <button type="button" mat-button class="cancel" (click)="addItem()">Save</button>
+                        <button type="button" mat-button class="cancel" (click)="save()">Save</button>
                         <button type="submit" mat-button class="generate">
                             <span *ngIf="!loading">Process</span>
                             <div *ngIf="loading" class="loader">
@@ -173,9 +172,6 @@
                             </div>
                         </button>
                     </div>
-
                 </form>
             </div>
-
-
         </div>

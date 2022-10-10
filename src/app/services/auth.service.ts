@@ -49,11 +49,15 @@ export class AuthService {
           this.snackBar.open(error.error.detail, '', {
             duration: 5000,
             panelClass: 'error',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
           });
         } else if (error.status === 0) {
           this.snackBar.open('Error', '', {
             duration: 5000,
             panelClass: 'error',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
           });
         }
         return of(false);
@@ -76,6 +80,8 @@ export class AuthService {
       this.snackBar.open('Please Relogin', '', {
         duration: 5000,
         panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
       });
       this.router.navigate(['']);
     } else if (!RisExpired && !isExpired) {
@@ -115,6 +121,8 @@ export class AuthService {
     this.snackBar.open('Logout successful', '', {
       duration: 5000,
       panelClass: 'success',
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
     this.removeTokens();
     this.router.navigate(['/']);

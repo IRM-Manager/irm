@@ -15,6 +15,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { AddVehicleitems } from 'src/app/actions/irm.action';
 import { Vehicleitems } from 'src/app/dashboard/models/irm';
 import { BaseUrl } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-offence',
@@ -30,28 +31,21 @@ export class VehicleOffenceComponent implements OnInit {
   plateMsg: any;
   panelOpenState = false;
   loading = false;
+  reg_error = false;
   reg_loading = false;
   vehicleRegType2: any[] = [];
+  vehicleRegType3 = 0;
   vehicleRegType: any;
   total = 0;
   datas: any;
 
-  stateVehicleitems: Observable<Vehicleitems[]>;
-
   formErrors: any = {
     violation: '',
     fine: '',
-    penalty: '',
   };
 
   validationMessages: any = {
     violation: {
-      required: 'required.',
-    },
-    fine: {
-      required: 'required.',
-    },
-    penalty: {
       required: 'required.',
     },
   };
@@ -61,27 +55,31 @@ export class VehicleOffenceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router,
     private _location: Location,
     private service: VehicleServiceService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private httpService: HttpService,
-    private store: Store<AppState>
+    private httpService: HttpService
   ) {
-    this.stateVehicleitems = store.select(selectAllVehicleitems);
     this.createForm();
     this.authService.checkExpired();
     const data: any = this.service.getOffenceMessage();
-    this.datas = data?.data;
+    this.datas = data?.data?.payer || data?.data;
     this.vehicleRegType2 = data?.data?.revitems;
-    this.getRegType();
+    this.vehicleRegType = this.service.getPenaltyMessage();
+    if (this.datas) {
+    } else {
+      this.router.navigate([`/dashboard/dashboard5/vehicle/penalty`]);
+    }
+    this.getOffences();
+    this.sumValue();
   }
 
   createForm() {
     this.feedbackForm = this.fb.group({
       violation: ['', [Validators.required]],
-      fine: ['', [Validators.required]],
-      penalty: ['', [Validators.required]],
+      fine: [''],
     });
 
     this.feedbackForm.valueChanges.subscribe((data: any) =>
@@ -114,6 +112,7 @@ export class VehicleOffenceComponent implements OnInit {
 
   onSubmit() {
     this.onValueChanged();
+    this.feedback = this.feedbackForm.value;
     const feed2 = this.feedbackFormDirective.invalid;
     if (feed2) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
@@ -125,9 +124,43 @@ export class VehicleOffenceComponent implements OnInit {
     } // end of if
     else {
       this.loading = true;
-      this.feedback = this.feedbackForm.value;
-      console.log(this.feedback);
-      this.openDialog('', 'generate_bill');
+      this.httpService
+        .postData(
+          BaseUrl.vehicle_add_offence + `?tin=${this.datas?.state_tin}`,
+          { items: this.vehicleRegType2 }
+        )
+        .subscribe(
+          (data: any) => {
+            this.loading = false;
+            console.log(data);
+            let plate_data = data?.data;
+            plate_data.assessment = plate_data;
+            plate_data.bill_status = plate_data.remitted;
+            plate_data.bill_code = plate_data.assess_code;
+            plate_data.bill_total = plate_data.assessment_total;
+            this.router.navigate([`/dashboard/dashboard5/vehicle/penalty`]);
+            this.openDialog(plate_data, '', 'generate_bill');
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     } // end else
   }
 
@@ -135,36 +168,51 @@ export class VehicleOffenceComponent implements OnInit {
     this._location.back();
   }
 
-  openDialog(data: any, type: string) {
+  openDialog(data: any, data2: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(VehicleDialogComponent, {
       data: {
         type: type,
         data: data,
+        data2: data2,
       },
     });
   }
 
   removeItem(id: number) {
     this.vehicleRegType2.splice(id, 1);
-    // this.sumValue();
+    this.sumValue();
   }
 
-  addItem() {
-    // const check = this.vehicleRegType2.filter((e: any) => {
-    //   return e.id == data.id;
-    // });
-    // if (check.length > 0) {
-    //   this.snackBar.open('Item already exists.', '', {
-    //     duration: 3000,
-    //     panelClass: 'error',
-    //     horizontalPosition: 'center',
-    //     verticalPosition: 'top',
-    //   });
-    // } else {
-    //   this.vehicleRegType2.push(data);
-    // }
-    this.sumValue();
+  addItem(data: any) {
+    this.vehicleRegType3 = data?.id;
+    this.feedbackForm.patchValue({ fine: this.formatMoney(data?.amount || 0) });
+    this.feedbackForm.controls['fine'].disable();
+  }
+
+  save() {
+    const getExisting = this.vehicleRegType2?.filter((name: any) => {
+      return name.id === this.vehicleRegType3;
+    });
+    if (getExisting?.length > 0) {
+      this.snackBar.open('Already exists.', '', {
+        duration: 3000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.snackBar.dismiss();
+      const data = this.vehicleRegType?.filter((name: any) => {
+        return name.id === this.vehicleRegType3;
+      });
+      try {
+        this.vehicleRegType2 = this.vehicleRegType2.concat(data[0]);
+      } catch (e) {
+        this.vehicleRegType2 = [data[0]];
+      }
+      this.sumValue();
+    }
   }
 
   formatMoney(n: any) {
@@ -173,7 +221,7 @@ export class VehicleOffenceComponent implements OnInit {
   }
 
   sumValue() {
-    const total = this.vehicleRegType2.reduce((accumulator, value) => {
+    const total = this.vehicleRegType2?.reduce((accumulator, value) => {
       return accumulator + value?.amount;
     }, 0);
     if (total) {
@@ -182,37 +230,27 @@ export class VehicleOffenceComponent implements OnInit {
     }
   }
 
-  getRegType() {
+  getOffences() {
     this.reg_loading = true;
-    this.stateVehicleitems.forEach((e: any) => {
-      if (e.length > 0) {
-        const data = e[0].data.filter((name: any) => {
-          return name?.name.toLowerCase() == 'change of ownership';
-        });
-        this.vehicleRegType = data[0]?.items_ids;
-        this.reg_loading = false;
-        console.log(this.vehicleRegType);
-        console.log(e[0].data);
-      } else {
-        this.httpService
-          .getAuthSingle(BaseUrl.vehicle_regtype)
-          .subscribe((data: any) => {
-            const data2 = data.results.filter((name: any) => {
-              return name?.name.toLowerCase() == 'change of ownership';
-            });
-            this.vehicleRegType = data2[0]?.items_ids;
-            this.store.dispatch(
-              new AddVehicleitems([{ id: 1, data: data.results }])
-            );
-            this.reg_loading = false;
-            console.log(data);
-          }),
-          (error: any) => {
-            this.reg_loading = false;
-            console.log(error);
-          };
-      }
-    });
+    this.reg_error = false;
+    if (this.vehicleRegType) {
+      this.reg_error = false;
+      this.reg_loading = false;
+    } else {
+      this.httpService
+        .getAuthSingle(BaseUrl.vehicle_offence)
+        .subscribe((data: any) => {
+          this.reg_loading = false;
+          this.reg_error = false;
+          this.vehicleRegType = data?.data;
+          console.log(data);
+        }),
+        (error: any) => {
+          this.reg_loading = false;
+          this.reg_error = false;
+          console.log(error);
+        };
+    }
   }
 
   ngOnInit(): void {

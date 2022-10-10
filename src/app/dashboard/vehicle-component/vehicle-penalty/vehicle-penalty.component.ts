@@ -122,7 +122,7 @@ export class VehiclePenaltyComponent implements OnDestroy, OnInit {
       update: true,
       data: data,
     };
-    this.service.setOffenceMessage(data);
+    this.service.setOffenceMessage(data2);
     this.router.navigate(['/dashboard/dashboard5/vehicle/offence']);
   }
 
