@@ -77,12 +77,12 @@ export class AuthService {
       this.refreshToken();
     } else if (RisExpired) {
       this.logout();
-      this.snackBar.open('Please Relogin', '', {
-        duration: 5000,
-        panelClass: 'error',
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      // this.snackBar.open('Please Relogin', '', {
+      //   duration: 5000,
+      //   panelClass: 'error',
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      // });
       this.router.navigate(['']);
     } else if (!RisExpired && !isExpired) {
       this.refreshToken();
