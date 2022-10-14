@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MatDialogRef,
@@ -22,6 +28,8 @@ import { VehicleServiceService } from '../service/vehicle-service.service';
   styleUrls: ['./vehicle-dialog.component.css'],
 })
 export class VehicleDialogComponent implements OnInit {
+  @ViewChild('ffprofile') ProfileFormDirective: any;
+
   manualForm!: FormGroup;
   manualForm2!: FormGroup;
   profillingForm!: FormGroup;
@@ -207,18 +215,29 @@ export class VehicleDialogComponent implements OnInit {
   }
 
   profilling() {
-    const setData = {
-      type: 'create',
-      data: {
-        name: this.profillingForm.value.name,
-        vehicle_usage: this.profillingForm.value.vehicle_usage,
-      },
-    };
-    this.service.setProfileMessage(setData);
-    this.router.navigate([
-      '/dashboard/dashboard5/vehicle/profilling/configure/create',
-    ]);
-    this.dialogRef.close();
+    this.onValueChanged();
+    const feed2 = this.ProfileFormDirective.invalid;
+    if (feed2) {
+      this.snackBar.open('Errors in Form fields please check it out.', '', {
+        duration: 5000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      const setData = {
+        type: 'create',
+        data: {
+          name: this.profillingForm.value.name,
+          vehicle_usage: this.profillingForm.value.vehicle_usage,
+        },
+      };
+      this.service.setProfileMessage(setData);
+      this.router.navigate([
+        '/dashboard/dashboard5/vehicle/profilling/configure/create',
+      ]);
+      this.dialogRef.close();
+    }
   }
 
   checkTin() {

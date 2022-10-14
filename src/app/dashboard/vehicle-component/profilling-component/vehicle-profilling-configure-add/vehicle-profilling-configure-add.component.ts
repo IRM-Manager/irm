@@ -266,6 +266,23 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
+    } else if (
+      this.feedback.capacity == undefined ||
+      this.feedback.capacity == '' ||
+      this.feedback.capacity == null ||
+      this.feedback.duration == undefined ||
+      this.feedback.duration == '' ||
+      this.feedback.duration == null ||
+      this.feedback.amount == undefined ||
+      this.feedback.amount == '' ||
+      this.feedback.amount == null
+    ) {
+      this.snackBar.open('Cannot add incomplete data!', '', {
+        duration: 3000,
+        panelClass: 'error',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     } else {
       this.vehicleRegType2.push(data);
       this.sumValue();

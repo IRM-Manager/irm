@@ -580,7 +580,7 @@
         <div>
             <div class="manual_verify">Create new vehicle profile</div>
             
-            <form [formGroup]="profillingForm" class="profilling_form">
+            <form novalidate [formGroup]="profillingForm" #ffprofile="ngForm" class="profilling_form">
                 <p>
                     <mat-form-field class="profile-width" appearance="outline">
                         <mat-label>Name of profile</mat-label>
