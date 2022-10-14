@@ -24,7 +24,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash"
+              "lodash",
+              "highcharts",
+              "qrcode"
             ],
             "outputPath": "dist/irm",
             "index": "src/index.html",

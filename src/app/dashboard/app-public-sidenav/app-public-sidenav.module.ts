@@ -25,12 +25,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { DataTablesModule } from 'angular-datatables';
 import { ChartModule } from 'angular-highcharts';
 import { QrCodeModule } from 'ng-qrcode';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
+import { NgxPrintModule } from 'ngx-print';
 // import { CdkMenuModule } from '@angular/cdk/menu';
 // components
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
@@ -241,8 +243,10 @@ import { VehiclePenaltyComponent } from '../vehicle-component/vehicle-penalty/ve
     MatBadgeModule,
     MatChipsModule,
     LoadingBarModule,
+    LoadingBarRouterModule,
     QrCodeModule,
     NgxDocViewerModule,
+    NgxPrintModule,
     // CdkMenuModule
   ],
 })
