@@ -163,8 +163,10 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
       const data = {
         name: this.datas?.name,
         vehicle_usage: this.datas?.vehicle_usage,
+        itemid: this.datas?.itemid || this.datas?.itemId,
         data: this.vehicleRegType2,
       };
+      console.log(data);
       if (this.update) {
         this.httpService
           .updateData(BaseUrl.vehicle_profile, data, `/${this.datas?.id}/`)
@@ -172,6 +174,12 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
             (data: any) => {
               this.loading = false;
               console.log(data.data);
+              this.snackBar.open('Success', '', {
+                duration: 3000,
+                panelClass: 'success',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
               this.router.navigate([
                 '/dashboard/dashboard5/vehicle/profilling',
               ]);
@@ -203,6 +211,12 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
             (data: any) => {
               this.loading = false;
               console.log(data.data);
+              this.snackBar.open('Success', '', {
+                duration: 3000,
+                panelClass: 'success',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
               this.router.navigate([
                 '/dashboard/dashboard5/vehicle/profilling',
               ]);

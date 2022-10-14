@@ -31,7 +31,6 @@ import { QrCodeModule } from 'ng-qrcode';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { PublicSharedModuleModule } from '../public-shared-module/public-shared-module.module';
-
 // import { CdkMenuModule } from '@angular/cdk/menu';
 // components
 import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';

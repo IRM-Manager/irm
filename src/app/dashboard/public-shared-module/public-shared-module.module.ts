@@ -33,6 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { DataTablesModule } from 'angular-datatables';
 // components
 import { DialogComponent } from '../../dashboard/dialog/dialog.component';
 import { FooterComponent } from '../../dashboard/footer/footer.component';
@@ -123,6 +124,7 @@ import { WitholdingSidenavListComponent } from '../withholding-tax-component/wit
     ReactiveFormsModule,
     NgxPrintModule,
     NgxMatSelectSearchModule,
+    DataTablesModule,
   ],
   exports: [
     // components
@@ -175,6 +177,7 @@ import { WitholdingSidenavListComponent } from '../withholding-tax-component/wit
     FormsModule,
     ReactiveFormsModule,
     NgxPrintModule,
+    DataTablesModule,
   ],
 })
 export class PublicSharedModuleModule {}

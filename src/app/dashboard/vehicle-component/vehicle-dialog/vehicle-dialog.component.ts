@@ -13,13 +13,17 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { VehicleServiceService } from '../service/vehicle-service.service';
+// state management
+import { Store } from '@ngrx/store';
+import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
+import { AddVehicleitems } from '../../../actions/irm.action';
+import { Vehicleitems } from '../../models/irm';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-vehicle-dialog',
@@ -35,8 +39,12 @@ export class VehicleDialogComponent implements OnInit {
   profillingForm!: FormGroup;
   isdelete = false;
   loading = false;
+  vehicle_reg_loading = false;
+  vehicle_reg_error = false;
   errorMsg: any;
   formError: any;
+  stateVehicleItems: Observable<Vehicleitems[]>;
+  vehicle_reg_type: any;
 
   formErrors: any = {
     name: '',
@@ -65,6 +73,7 @@ export class VehicleDialogComponent implements OnInit {
     private fb: FormBuilder,
     private service: VehicleServiceService
   ) {
+    this.stateVehicleItems = store.select(selectAllVehicleitems);
     this.createManualForm2();
     this.createManualForm3();
     this.profileForm();
@@ -228,7 +237,8 @@ export class VehicleDialogComponent implements OnInit {
       const setData = {
         type: 'create',
         data: {
-          name: this.profillingForm.value.name,
+          name: this.profillingForm.value.name?.name,
+          itemid: this.profillingForm.value.name?.id,
           vehicle_usage: this.profillingForm.value.vehicle_usage,
         },
       };
@@ -450,7 +460,33 @@ export class VehicleDialogComponent implements OnInit {
     });
   }
 
+  getVehicleType() {
+    this.vehicle_reg_loading = true;
+    this.stateVehicleItems.forEach((e: any) => {
+      if (e.length > 0) {
+        this.vehicle_reg_type = e[0].data;
+        this.vehicle_reg_loading = false;
+        this.vehicle_reg_error = false;
+      } else {
+        this.httpService.getAuthSingle(BaseUrl.vehicle_regtype).subscribe(
+          (data: any) => {
+            this.vehicle_reg_type = data.results;
+            this.store.dispatch(
+              new AddVehicleitems([{ id: 1, data: data.results }])
+            );
+            this.vehicle_reg_loading = false;
+            this.vehicle_reg_error = false;
+          },
+          (err) => {
+            this.vehicle_reg_loading = false;
+            this.vehicle_reg_error = true;
+          }
+        );
+      }
+    });
+  }
+
   ngOnInit(): void {
-    console.log(this.data);
+    this.getVehicleType();
   }
 }

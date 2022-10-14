@@ -584,8 +584,16 @@
                 <p>
                     <mat-form-field class="profile-width" appearance="outline">
                         <mat-label>Name of profile</mat-label>
-                        <input matInput formControlName="name" required>
+                        <mat-select matInput formControlName="name" required>
+                            <mat-option [value]="p" *ngFor="let p of vehicle_reg_type;">{{ p?.name }}</mat-option>
+                        </mat-select>
                         <mat-error>{{formErrors.name}}</mat-error>
+                        <mat-hint *ngIf="vehicle_reg_error && !vehicle_reg_loading" align="end" (click)="getVehicleType()">
+                            <button>Reload</button>
+                        </mat-hint>
+                        <mat-hint *ngIf="vehicle_reg_loading" align="end">
+                            loading...
+                        </mat-hint>
                     </mat-form-field>
                 </p>
                 <p>

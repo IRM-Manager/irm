@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { WitholdingDialogComponent } from '../witholding-dialog/witholding-dialo
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./witholding-table-component.component.scss'],
 })
-export class WitholdingTableComponentComponent implements OnInit {
+export class WitholdingTableComponentComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;

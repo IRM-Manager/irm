@@ -54,23 +54,23 @@
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle text-center">{{ data.name }}</td>
                                 <td class="align-middle text-center">{{ data.type }}</td>
                                 <td class="align-middle">
                                     {{ data.owner?.taxpayer_name }}
-                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified == true">verified_user</span>
+                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified === true">verified_user</span>
                                 </td>
                                 <td class="align-middle text-center">{{ formatMoney(0) }}</td>
                                 <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.isavailable == false">
+                                    <button mat-button class="paid" *ngIf="data.isavailable === false">
                                         Paid
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.isavailable == true">
+                                    <button mat-button class="pending" *ngIf="data.isavailable === true">
                                         Not-paid
                                     </button>
                                 </td>
@@ -87,7 +87,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
