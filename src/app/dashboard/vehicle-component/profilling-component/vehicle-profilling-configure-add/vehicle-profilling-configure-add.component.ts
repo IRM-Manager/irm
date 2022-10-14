@@ -87,6 +87,7 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
         this.update = true;
         this.datas = data?.data;
         this.vehicleRegType2 = data?.data?.data;
+        console.log(this.vehicleRegType2);
         this.updateNewData();
       } else {
         this.router.navigate(['/dashboard/dashboard5/vehicle/profilling']);
@@ -299,10 +300,10 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
       });
     } else {
       this.vehicleRegType2.push(data);
-      this.sumValue();
       this.feedbackForm.patchValue({ duration: '' });
       this.feedbackForm.patchValue({ amount: '' });
       this.feedbackForm.controls['capacity'].patchValue('');
+      this.sumValue();
     }
   }
 
@@ -318,6 +319,7 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
     if (total) {
       this.total = total;
     } else {
+      this.total = 0;
     }
   }
 
@@ -332,6 +334,6 @@ export class VehicleProfillingConfigureAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log();
+    this.sumValue();
   }
 }
