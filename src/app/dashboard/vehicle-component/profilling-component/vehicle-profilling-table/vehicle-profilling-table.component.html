@@ -46,6 +46,7 @@
                                 <th class="align-middle text-center">S/N</th>
                                 <th class="align-middle text-center">Name</th>
                                 <th class="align-middle text-center">Usage</th>
+                                <th class="align-middle text-center">Date</th>
                                 <th class="align-middle text-center">Actions</th>
                             </tr>
                         </thead>
@@ -53,16 +54,17 @@
                         <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
-                                <td class="align-middle">{{ data.name }}</td>
-                                <td class="align-middle text-center">{{ data.type }}</td>
+                                <td class="align-middle">{{ data?.name }}</td>
+                                <td class="align-middle text-center">{{ data?.vehicle_usage }}</td>
+                                <td class="align-middle text-center">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
                                     <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item="mat-menu-item" [routerLink]="['/dashboard/dashboard5/vehicle/profilling/configure']">Configure Profile</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="edit(data)" style="color: #D56545;">
-                                            Delete Profile
+                                        <button mat-menu-item="mat-menu-item" (click)="view(data)">View Configuration</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="edit(data)" style="color: #3c66a3;">
+                                            Edit Profile
                                         </button>
                                     </mat-menu>
                                 </td>
@@ -70,6 +72,7 @@
                         </tbody>
                         <tbody *ngIf="datas?.length === 0">
                             <tr>
+                                <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>

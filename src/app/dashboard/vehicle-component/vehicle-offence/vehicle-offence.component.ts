@@ -1,21 +1,17 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { offence } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../service/vehicle-service.service';
-import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 // state management
-import { Store } from '@ngrx/store';
-import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
-import { HttpService } from 'src/app/services/http.service';
-import { AddVehicleitems } from 'src/app/actions/irm.action';
-import { Vehicleitems } from 'src/app/dashboard/models/irm';
-import { BaseUrl } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vehicle-offence',
@@ -114,7 +110,7 @@ export class VehicleOffenceComponent implements OnInit {
     this.onValueChanged();
     this.feedback = this.feedbackForm.value;
     const feed2 = this.feedbackFormDirective.invalid;
-    if (feed2) {
+    if (feed2 && this.vehicleRegType2.length == 0) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',

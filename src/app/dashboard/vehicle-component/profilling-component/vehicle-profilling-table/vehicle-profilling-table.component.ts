@@ -68,10 +68,9 @@ export class VehicleProfillingTableComponent implements OnDestroy, OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).startsWith(search.toLowerCase())
+        data?.name.toLowerCase().includes(search.toLowerCase()) ||
+        data?.vehicle_usage.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data?.created_at).includes(search.toLowerCase())
       );
     });
     this.datas = data;
@@ -86,7 +85,7 @@ export class VehicleProfillingTableComponent implements OnDestroy, OnInit {
       info: false,
     };
     this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_plateno).subscribe(
+    this.httpService.getAuthSingle(BaseUrl.vehicle_profile).subscribe(
       (data: any) => {
         this.datas = data.results;
         this.searchData = data.results;
@@ -102,7 +101,7 @@ export class VehicleProfillingTableComponent implements OnDestroy, OnInit {
 
   reload() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_plateno).subscribe(
+    this.httpService.getAuthSingle(BaseUrl.vehicle_profile).subscribe(
       (data: any) => {
         this.datas = data.results;
         this.searchData = data.results;
@@ -144,14 +143,24 @@ export class VehicleProfillingTableComponent implements OnDestroy, OnInit {
 
   edit(data: any) {
     const setData = {
-      update: true,
+      type: 'edit',
       data: data,
     };
-    // this.service.setMessage(setData);
-    // this.service.setAYearMessage({
-    //   yearId: data.assessment.assessment_year || this.htmlYear,
-    // });
-    // this.router.navigate(['/dashboard/dashboard5/direct/self/create']);
+    this.service.setProfileMessage(setData);
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/profilling/configure/create',
+    ]);
+  }
+
+  view(data: any) {
+    const setData = {
+      type: 'view',
+      data: data,
+    };
+    this.service.setProfileMessage(setData);
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/profilling/configure',
+    ]);
   }
 
   plateStat() {

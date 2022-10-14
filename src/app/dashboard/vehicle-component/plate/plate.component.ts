@@ -68,9 +68,11 @@ export class PlateComponent implements OnDestroy, OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().startsWith(search.toLowerCase()) ||
-        data.phone.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.name.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.type.toLowerCase().startsWith(search.toLowerCase()) ||
+        data?.owner?.taxpayer_name
+          .toLowerCase()
+          .startsWith(search.toLowerCase()) ||
         this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });

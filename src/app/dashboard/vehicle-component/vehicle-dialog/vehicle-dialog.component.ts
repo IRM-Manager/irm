@@ -207,6 +207,17 @@ export class VehicleDialogComponent implements OnInit {
   }
 
   profilling() {
+    const setData = {
+      type: 'create',
+      data: {
+        name: this.profillingForm.value.name,
+        vehicle_usage: this.profillingForm.value.vehicle_usage,
+      },
+    };
+    this.service.setProfileMessage(setData);
+    this.router.navigate([
+      '/dashboard/dashboard5/vehicle/profilling/configure/create',
+    ]);
     this.dialogRef.close();
   }
 
@@ -249,14 +260,12 @@ export class VehicleDialogComponent implements OnInit {
               this.router.navigate([
                 '/dashboard/dashboard5/vehicle/change-owner/new-reg',
               ]);
-            }else if(this.data.type == 'penalty') {
+            } else if (this.data.type == 'penalty') {
               const plate_data = {
                 data: data?.data,
               };
               this.service.setOffenceMessage(plate_data);
-              this.router.navigate([
-                '/dashboard/dashboard5/vehicle/offence',
-              ]);
+              this.router.navigate(['/dashboard/dashboard5/vehicle/offence']);
             }
             this.dialogRef.close({ data: data.data });
           },

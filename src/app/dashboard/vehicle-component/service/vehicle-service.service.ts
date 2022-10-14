@@ -14,9 +14,10 @@ export class VehicleServiceService {
   ownerMessage: string | undefined;
   offenceMessage: string | undefined;
   penaltyMessage: string | undefined;
-  private subject = new Subject<any>();
   regMessage2: string | undefined;
   RegVehicleMessage: string | undefined;
+  profileMessage: string | undefined;
+  private subject = new Subject<any>();
   private subject2 = new Subject<any>();
   constructor() {}
 
@@ -126,12 +127,21 @@ export class VehicleServiceService {
     return this.offenceMessage;
   }
 
-  // For get offence and penalties
+  // For set offence and penalties
   setPenaltyMessage(data: any) {
     this.penaltyMessage = data;
   }
 
   getPenaltyMessage() {
     return this.penaltyMessage;
+  }
+
+  // For set profile message
+  setProfileMessage(data: any) {
+    this.profileMessage = data;
+  }
+
+  getProfileMessage() {
+    return this.profileMessage;
   }
 }

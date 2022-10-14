@@ -207,7 +207,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
       if (e.length > 0) {
         if (this.renew) {
           const data = e[0].data.filter((name: any) => {
-            return name?.name.toLowerCase() == 'renewal registrations';
+            return name?.name.toLowerCase() == 'renewal registration';
           });
           this.vehicleRegType = data[0];
         } else {
@@ -222,7 +222,7 @@ export class VehicleNewRegDetailsComponent implements OnInit {
           .subscribe((data: any) => {
             if (this.renew) {
               const data2 = data.results.filter((name: any) => {
-                return name?.name.toLowerCase() == 'renewal registrations';
+                return name?.name.toLowerCase() == 'renewal registration';
               });
               this.vehicleRegType = data2[0];
             } else {

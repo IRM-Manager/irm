@@ -6,7 +6,7 @@
             <div class="header2">
 
                 <div class="indcom">
-                    Vehicle license
+                {{ stat?.name }}
                 </div>
 
                 <div class="search_icon_header">
@@ -29,11 +29,7 @@
                     <button matSuffix mat-icon-button class="form-dashboard_select">
                         <span class="material-icons-outlined icons-rounded">filter_alt</span>
                     </button>
-                </div>    
-
-                <div class="spacer"></div>
-
-                <button mat-button class="apply-ass" [routerLink]="['/dashboard/dashboard5/vehicle/profilling/configure/create']">Add configuration</button>
+                </div>
 
             </div>
 
@@ -44,36 +40,18 @@
                         <thead>
                             <tr>
                                 <th class="align-middle text-center">S/N</th>
-                                <th class="align-middle text-center">Name of configurations</th>
-                                <th class="align-middle text-center">Revenue Items</th>
                                 <th class="align-middle text-center">Engine capacity/ Vehicle type</th>
+                                <th class="align-middle text-center">Amount</th>
                                 <th class="align-middle text-center">Duration</th>
-                                <th class="align-middle text-center">Actions</th>
                             </tr>
                         </thead>
                         <!-- individual -->
                         <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
-                                <td class="align-middle text-center">{{ data.name }}</td>
-                                <td class="align-middle text-center">{{ data.type }}</td>
-                                <td class="align-middle">
-                                    {{ data?.owner?.taxpayer_name }}
-                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified">verified_user</span>
-                                </td>
-                                <!-- <td class="align-middle text-center">{{ data.owner }}</td> -->
-                                <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle text-center">
-                                    <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
-                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
-                                    </button>
-                                    <mat-menu #menu="matMenu">
-                                        <button mat-menu-item="mat-menu-item" [routerLink]="['/dashboard/dashboard5/vehicle/profilling/configure/create']">Edit</button>
-                                        <button mat-menu-item="mat-menu-item" (click)="edit(data)" style="color: #D56545;">
-                                            Delete Configuration
-                                        </button>
-                                    </mat-menu>
-                                </td>
+                                <td class="align-middle text-center">{{ data?.name }}</td>
+                                <td class="align-middle text-center">{{ formatMoney(data?.amount) }}</td>
+                                <td class="align-middle text-center">{{ data?.duration }}</td>
                             </tr>
                         </tbody>
                         <tbody *ngIf="datas?.length === 0">
@@ -82,27 +60,8 @@
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
-                                <td class="no-data-available text-center">No data!</td>
-                                <td class="no-data-available text-center">No data!</td>
                             </tr>
                         </tbody>
-
-                        <div *ngIf="isLoading" class="loader loading">
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                        </div>
-
-                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
-                            <span *ngIf="!is_reload">Reload</span>
-                            <div *ngIf="is_reload" class="loader">
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                                <div class="bubble"></div>
-                            </div>
-                        </button>
 
                     </table>
                 </div>

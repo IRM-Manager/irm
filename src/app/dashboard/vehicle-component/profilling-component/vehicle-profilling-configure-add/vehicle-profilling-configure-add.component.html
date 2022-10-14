@@ -5,6 +5,69 @@
     </mat-toolbar>
 
     <div class="form-container">
+
+        <!-- second table -->
+        <div class="gen_table">
+            <div
+                class="column">
+
+                <!--  -->
+                <div class="column1">
+                    <div class="employee-salary">Description</div>
+                    <div class="left_right">
+                        <div class="left">
+                            <div class="title2" *ngFor="let v of vehicleRegType2;">
+                                {{ v?.name }}
+                            </div>
+                            <div class="title2" style="font-weight: 550;">TOTAL PAYABLE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="column2">
+                    <div class="deduction">Duration</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title2" *ngFor="let v of vehicleRegType2;">
+                                {{ v?.duration || '12' }}
+                                Month
+                            </div>
+                            <div class="title2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="column2">
+                    <div class="deduction">Amount (NGN)</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title2" *ngFor="let v of vehicleRegType2;">
+                                {{ v?.amount }}
+                            </div>
+                            <div class="title2" style="font-weight: 550;">{{ formatMoney(total || '0.00') }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="column2">
+                    <div class="deduction">Action</div>
+                    <div class="left_right">
+                        <div class="left2">
+                            <div class="title2" style="cursor: pointer;" *ngFor="let v of vehicleRegType2; let i = index" (click)="removeItem(i)">
+                                Remove
+                            </div>
+                            <div class="title2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+
+
         <div class="form-text">Profile configuration</div>
         <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p class="gap">
@@ -13,6 +76,19 @@
                     <mat-label>Name of configuration</mat-label>
                     <input matInput formControlName="name" required>
                     <mat-error>{{formErrors.name}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p class="gap">
+                <!-- name -->
+                <mat-form-field class="half-width" appearance="outline">
+                    <mat-label>Vehicle Usage</mat-label>
+                    <mat-select matInput formControlName="vehicle_usage" required>
+                        <mat-option value="private">Private</mat-option>
+                        <mat-option value="commercial">Commercial</mat-option>
+                        <mat-option value="government">Government</mat-option>
+                        <mat-option value="fancy">Fancy</mat-option>
+                    </mat-select>
+                    <mat-error>{{formErrors.vehicle_usage}}</mat-error>
                 </mat-form-field>
             </p>
             <p>
@@ -90,7 +166,7 @@
                 <!-- duration -->
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Duration</mat-label>
-                    <input matInput formControlName="duration" required>
+                    <input matInput formControlName="duration" type="number" required>
                     <mat-error>{{formErrors.duration}}</mat-error>
                 </mat-form-field>
             </p>
@@ -104,9 +180,10 @@
             </p>
 
             <div class="final_submit">
-                <button type="button" mat-button class="cancel" (click)="back()">Cancel</button>
+                <button type="button" mat-button class="cancel" (click)="addItem()">Save</button>
                 <button type="submit" mat-button class="generate">
-                    <span *ngIf="!loading">Save</span>
+                    <span *ngIf="!loading && !update">Submit</span>
+                    <span *ngIf="!loading && update">Update</span>
                     <div *ngIf="loading" class="loader">
                         <div class="bubble"></div>
                         <div class="bubble"></div>

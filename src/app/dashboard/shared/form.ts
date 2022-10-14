@@ -184,6 +184,7 @@ export interface offence {
 
 export interface profilling {
   name: string;
+  vehicle_usage: string;
   type: string;
   capacity: string;
   duration: string;

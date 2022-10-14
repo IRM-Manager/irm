@@ -79,6 +79,7 @@ export const BaseUrl = {
   vehicle_offence:
     'refdata/api/v1/revitem/getrevbymda/?mdaid=3&has_asset=False',
   vehicle_add_offence: 'assessment/api/v1/mla/createnonvehiclecharges/',
+  vehicle_profile: 'mla/api/v1/vehicleprofile',
 };
 
 /*
