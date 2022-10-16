@@ -83,7 +83,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
     const vehicleRegType2: any = this.service.getRegMessage2();
     this.vehicleRegType2 =
       vehicleRegType2?.data?.data?.reg_type?.items_ids ||
-      vehicleRegType2?.data2?.revitems;
+      vehicleRegType2?.data2?.revitems || [];
     if (this.datas?.data?.update == true) {
       this.update = true;
     }
@@ -304,6 +304,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
       });
     } else {
       this.vehicleRegType2.push(data);
+      console.log(data);
     }
     this.sumValue();
   }
