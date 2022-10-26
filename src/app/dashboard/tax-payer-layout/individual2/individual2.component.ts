@@ -68,7 +68,6 @@ export class Individual2Component implements OnDestroy, OnInit {
 
   feedbackForm1: any = FormGroup;
   loading = false;
-  disabled = false;
   payer_data: any;
 
   floatLabelControl = new FormControl('employed');
@@ -299,7 +298,6 @@ export class Individual2Component implements OnDestroy, OnInit {
     } // end of if
     else {
       this.loading = true;
-      this.disabled = true;
 
       this.feedback1 = this.feedbackForm1.value;
       let coun = this.state.filter(
@@ -333,7 +331,6 @@ export class Individual2Component implements OnDestroy, OnInit {
       this.httpService.postData(BaseUrl.add_ind_payer, data).subscribe(
         (data: any) => {
           this.loading = false;
-          this.disabled = false;
           this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
           this.openDialog(data.data);
         },
@@ -341,7 +338,6 @@ export class Individual2Component implements OnDestroy, OnInit {
           console.log(err);
           this.authService.checkExpired();
           this.loading = false;
-          this.disabled = false;
           this.snackBar.open(
             err?.error?.msg || err?.error?.detail || err.error?.msg?.email || 
             err.error?.msg?.phone || 'An Error Occured!',
@@ -362,7 +358,6 @@ export class Individual2Component implements OnDestroy, OnInit {
   submitUpdate() {
     this.onValueChanged1();
     const feed1 = this.feedbackFormDirective1.invalid;
-
     if (feed1) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,

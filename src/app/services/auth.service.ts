@@ -118,12 +118,6 @@ export class AuthService {
     this.adminService.setAdminMessage(undefined);
     this.adminService.sendClickEvent();
     this.store.dispatch(new RemoveProfile([{ id: 1, data: [] }]));
-    this.snackBar.open('Logout successful', '', {
-      duration: 5000,
-      panelClass: 'success',
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
     this.removeTokens();
     this.router.navigate(['/']);
   }

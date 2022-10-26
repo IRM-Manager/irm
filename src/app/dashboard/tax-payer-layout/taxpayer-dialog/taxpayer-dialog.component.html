@@ -1,4 +1,4 @@
-<div class="regis-layout" *ngIf="data.type == 'regis'">
+<div class="regis-layout" *ngIf="data.type === 'regis'">
     <div class="header">
         <p class="back" mat-dialog-close>
             <span class="material-icons">keyboard_backspace</span>
@@ -9,15 +9,15 @@
         <div class="header-text">TAX PAYER REGISTRATION</div>
         <div class="kindly">Kindly Select the option that applies to the Tax payer</div>
 
-        <div class="card blue" (click)="ninReg()">Tax Payer has register NIN</div>
-        <div class="card yellow" (click)="ninReg2()">Tax Payer Not registered have NIN</div>
-        <div class="card red" (click)="ninReg3()">Tax Payer is a registered Business</div>
+        <div class="card blue" (click)="ninReg()">Register with NIN</div>
+        <div class="card yellow" (click)="ninReg2()">Register without NIN</div>
+        <div class="card red" (click)="ninReg3()">Register as a Business</div>
 
     </div>
 </div>
 
 <!-- taxpayer form -->
-<div class="tax-payer-form " *ngIf="data.type == 'nin-regis'">
+<div class="tax-payer-form " *ngIf="data.type === 'nin-regis'">
     <div class="header">
         <p class="back" mat-dialog-close>
             <span class="material-icons">keyboard_backspace</span>
@@ -115,7 +115,7 @@
 </div>
 
 
-<div class="success-layout" *ngIf="data.type == 'success'">
+<div class="success-layout" *ngIf="data.type === 'success'">
     <div class="body">
         
         <div class="body-green">

@@ -44,7 +44,7 @@
                                 </tr>
                             </thead>
                             <!-- individual -->
-                            <tbody *ngIf="datas?.length != 0">
+                            <tbody *ngIf="datas?.length !== 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle text-center">{{i+1}}</td>
                                     <td class="align-middle">
@@ -60,25 +60,25 @@
                                         </button>
                                         <mat-menu #menu="matMenu">
                                             <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="redirectData(data, 'view-user')">View profile</button>
-                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu">Reset Password</button>
+                                            <!-- <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu">Reset Password</button> -->
                                             <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="redirectData(data, 'edit-user')">Edit profile</button>
                                         </mat-menu>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <mat-icon (click)="openDialog(data, 'delete-user')" 
-                                        *ngIf="data.is_active" class="table-icon-success" 
+                                        <button mat-button (click)="openDialog(data, 'delete-user')" 
+                                        *ngIf="data.is_active" class="table-icon-delete" 
                                         matTooltipPosition="above"
-                                        matTooltip=" Deactivate this Account">brightness_1</mat-icon>
+                                        matTooltip=" Deactivate this Account">Deactivate</button>
                                         <!--  -->
-                                        <mat-icon (click)="openDialog(data, 'delete-user')" 
+                                        <button mat-button (click)="openDialog(data, 'delete-user')" 
                                         *ngIf="!data.is_active" 
-                                        class="table-icon-delete" 
+                                        class="table-icon-success" 
                                         matTooltipPosition="above" 
-                                        matTooltip="Activate this Account">brightness_1</mat-icon>
+                                        matTooltip="Activate this Account">Activate</button>
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody *ngIf="datas?.length == 0">
+                            <tbody *ngIf="datas?.length === 0">
                                 <tr>
                                     <td class="no-data-available text-center">No data!</td>
                                     <td class="no-data-available text-center">No data!</td>
@@ -98,7 +98,7 @@
                                 <div class="bubble"></div>
                             </div>
 
-                            <button mat-raised-button="mat-raised-button" *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
+                            <button mat-raised-button="mat-raised-button" *ngIf="datas?.length === 0" class="reload" (click)="Reload()">
                                 <span *ngIf="!is_reload">RELOAD</span>
                                 <div *ngIf="is_reload" class="loader">
                                     <div class="bubble"></div>
@@ -108,7 +108,7 @@
                                 </div>
                             </button>
 
-                            <button *ngIf="datas?.length != 0" mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
+                            <button *ngIf="datas?.length !== 0" mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
                                 <span *ngIf="!is_reload">Reload</span>
                                 <div *ngIf="is_reload" class="loader">
                                     <div class="bubble"></div>
