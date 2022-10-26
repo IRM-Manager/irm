@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { AdminServiceService } from '../service/admin-service.service';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./admin-department.component.scss'],
 })
-export class AdminDepartmentComponent implements OnInit {
+export class AdminDepartmentComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;

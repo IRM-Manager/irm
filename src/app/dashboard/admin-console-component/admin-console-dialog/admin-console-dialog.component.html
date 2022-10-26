@@ -1,6 +1,6 @@
 <!-- activate and deactivate user -->
 <div
-    class="delete-wrapper" *ngIf="data.type =='delete-user'">
+    class="delete-wrapper" *ngIf="data.type === 'delete-user'">
     <!-- deactivate user -->
     <div class="delete-payer">
         <div *ngIf="data.data.is_active" mat-dialog-content class="delete-payer-text">Do you really want to Deactivate these User? <span style="font-weight: 500;">{{ data.data.username }}</span></div>
@@ -37,7 +37,7 @@
 
 <!-- add department -->
 
-<div class="department" *ngIf="data.type =='add-department'">
+<div class="department" *ngIf="data.type === 'add-department'">
     <div class="create-department">Create department</div>
     <form class="department-form" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
         <p>
@@ -78,7 +78,7 @@
 
 <!-- Add location -->
 
-<div class="department" *ngIf="data.type =='add-location'">
+<div class="department" *ngIf="data.type === 'add-location'">
     <div class="create-department">Create Location (Office)</div>
     <form class="department-form" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
         <p>
@@ -120,9 +120,9 @@
 
 <!-- update department or location -->
 
-<div class="department" *ngIf="data.type == 'edit-department' || data.type == 'edit-location'">
-    <div class="create-department" *ngIf="data.type =='edit-department'">Edit department => ({{ data.data.name }})</div>
-    <div class="create-department" *ngIf="data.type =='edit-location'">Edit Location => ({{ data.data.name }})</div>
+<div class="department" *ngIf="data.type === 'edit-department' || data.type === 'edit-location'">
+    <div class="create-department" *ngIf="data.type ==='edit-department'">Edit department => ({{ data.data.name }})</div>
+    <div class="create-department" *ngIf="data.type ==='edit-location'">Edit Location => ({{ data.data.name }})</div>
     <form class="department-form" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onUpdate()">
         <p>
             <!-- name -->
