@@ -88,17 +88,17 @@
                                 <!-- individual -->
                                 <tbody *ngIf="datas?.length !== 0">
                                     <tr *ngFor="let data of datas; let i=index">
-                                        <td class="align-middle">{{i+1}}</td>
-                                        <td class="align-middle">{{ data.employeeTin }}</td>
+                                        <td class="align-middle text-center">{{i+1}}</td>
+                                        <td class="align-middle text-center">{{ data.employeeTin }}</td>
                                         <td class="align-middle">{{ data.employee }}</td>
-                                        <td class="align-middle">{{ formatMoney(data.gross_income) }}</td>
-                                        <td class="align-middle">{{ formatMoney(data.compute_annualtax) }}</td>
-                                        <td class="align-middle">{{ formatMoney(data.compute_montax) }}</td>
-                                        <td class="align-middle">
+                                        <td class="align-middle text-center">{{ formatMoney(data.gross_income) }}</td>
+                                        <td class="align-middle text-center">{{ formatMoney(data.compute_annualtax) }}</td>
+                                        <td class="align-middle text-center">{{ formatMoney(data.compute_montax) }}</td>
+                                        <td class="align-middle text-center">
                                             <div class="table-status-red" *ngIf="!data.status">Inactive</div>
                                             <div class="table-status-green" *ngIf="data.status">Active</div>
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="align-middle text-center">
                                             <button mat-button [matMenuTriggerFor]="editMenu">
                                                 <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                             </button>
@@ -116,14 +116,14 @@
                                 </tbody>
                                 <tbody *ngIf="datas?.length === 0">
                                     <tr>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
-                                        <td class="no-data-available" style="text-align: center;">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
+                                        <td class="no-data-available text-center">No data!</td>
                                         <!-- <td class="no-data-available" style="text-align: center;">No data!</td> -->
                                     </tr>
                                 </tbody>

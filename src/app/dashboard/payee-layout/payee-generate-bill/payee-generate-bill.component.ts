@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { PayeeServiceService } from '../service/payee-service.service';
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-generate-bill.component.scss'],
 })
-export class PayeeGenerateBillComponent implements OnInit {
+export class PayeeGenerateBillComponent implements OnDestroy, OnInit {
   search: string = '';
   loading = false;
   disabled = false;
@@ -91,10 +91,9 @@ export class PayeeGenerateBillComponent implements OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.tin.toLowerCase().includes(search.toLowerCase()) ||
-        data.organisation_name.toLowerCase().includes(search.toLowerCase()) ||
-        data.phone.toLowerCase().includes(search.toLowerCase()) ||
-        this.formatDate(data?.created_at).includes(search.toLowerCase())
+        data?.bill_code.toLowerCase().includes(search.toLowerCase()) ||
+        data?.payer?.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
+        this.formatDate(data?.bill_date).includes(search.toLowerCase())
       );
     });
     this.datas = data;

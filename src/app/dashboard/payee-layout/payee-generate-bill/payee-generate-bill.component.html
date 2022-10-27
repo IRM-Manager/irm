@@ -71,22 +71,22 @@
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
-                                <td class="align-middle" style="text-align: center;">{{i+1}}</td>
+                                <td class="align-middle text-center" >{{i+1}}</td>
                                 <td class="align-middle">{{ data.payer.taxpayer_name }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ formatMoney(data.bill_total) }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ data.bill_date | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle" style="text-align: center;">{{ data.bill_code }}</td>
-                                <td class="align-middle" style="text-align: center;">
-                                    <span class="paid" *ngIf="data.bill_status == true">
+                                <td class="align-middle text-center" >{{ formatMoney(data.bill_total) }}</td>
+                                <td class="align-middle text-center" >{{ data.bill_date | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle text-center" >{{ data.bill_code }}</td>
+                                <td class="align-middle text-center" >
+                                    <span class="paid" *ngIf="data.bill_status === true">
                                         Paid
                                     </span>
-                                    <span class="pending" *ngIf="data.bill_status == false">
+                                    <span class="pending" *ngIf="data.bill_status === false">
                                         Not-paid
                                     </span>
                                 </td>
-                                <th class="align-middle" style="text-align: center;">
+                                <th class="align-middle text-center" >
                                     <button mat-button [matMenuTriggerFor]="menu" class="ellipsis">
                                         <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                     </button>
@@ -96,15 +96,15 @@
                                 </th>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
-                                <td class="no-data-available" style="text-align: center;">No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
+                                <td class="no-data-available text-center" >No data!</td>
                             </tr>
                         </tbody>
 

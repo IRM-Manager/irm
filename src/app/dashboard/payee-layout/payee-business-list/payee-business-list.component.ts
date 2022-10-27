@@ -65,11 +65,11 @@ export class PayeeBusinessListComponent implements OnDestroy, OnInit {
   modelChange(search: any) {
     const data = this.searchData?.filter((data: any) => {
       return (
-        data.state_tin.includes(search.toLowerCase()) ||
-        data.lga_id.name.toLowerCase().includes(search.toLowerCase()) ||
-        data.phone.includes(search) ||
-        data.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
-        data.location.name.toLowerCase().includes(search.toLowerCase())
+        data?.state_tin.includes(search.toLowerCase()) ||
+        data?.lga_id?.name.toLowerCase().includes(search.toLowerCase()) ||
+        data?.phone.includes(search) ||
+        data?.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
+        data?.location?.name.toLowerCase().includes(search.toLowerCase())
         // this.formatDate(data?.created_at).startsWith(search.toLowerCase())
       );
     });
