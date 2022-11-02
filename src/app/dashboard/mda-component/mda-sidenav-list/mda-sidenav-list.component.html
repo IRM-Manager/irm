@@ -1,8 +1,7 @@
 <div class="wrapper2">
     <div class="button">
         <div class="logo_p">
-            <img class="logo" [routerLink]="['/preview']" src="assets/images/side_nav_logo.svg" alt="IRM"/>
-
+            <img class="logo" [routerLink]="['/preview']" src="assets/images/gombelogo.png" alt="IRM"/>
             <button mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
                 <mat-icon>menu</mat-icon>
             </button>
@@ -17,7 +16,7 @@
             MDA COLLECTION
         </p>
 
-        <p class="dash-text" [routerLink]="['/dashboard/dashboard3/mda/generate']" routerLinkActive="active">
+        <p class="dash-text" (click)="openDialog('', 'manual')" routerLinkActive="active">
             Generate/Pay MDA bill
         </p>
 

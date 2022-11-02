@@ -41,6 +41,7 @@ export class AuthService {
   login(user: { username: string; password: string }): Observable<boolean> {
     return this.http.post<any>(this.base_url + BaseUrl.login, user).pipe(
       tap((tokens: any) => {
+        this.logout();
         this.storeTokens(tokens);
       }),
       mapTo(true),

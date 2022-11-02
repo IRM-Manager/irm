@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
@@ -11,7 +9,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { Year } from '../../models/irm';
-import { VehicleServiceService } from '../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 
 @Component({

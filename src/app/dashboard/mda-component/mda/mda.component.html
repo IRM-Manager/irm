@@ -71,8 +71,8 @@
                 <!-- service_name -->
                 <mat-form-field class="full" appearance="outline">
                     <mat-label>Name of Service/Purpose</mat-label>
-                    <input matInput formControlName="service_name" [matAutocomplete]="auto" required>
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <input matInput formControlName="service_name" [matAutocomplete]="auto2" required>
+                    <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
                             {{option}}
                         </mat-option>

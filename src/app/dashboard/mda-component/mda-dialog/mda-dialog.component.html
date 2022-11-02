@@ -1,4 +1,4 @@
-<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+<div class="generate-dialog" *ngIf="data.type === 'generate_bill'">
     <div class="payee_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -89,7 +89,7 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' ">
+<div class="manual_file-dialog" *ngIf="data.type === 'manual' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -100,16 +100,25 @@
 
         <div>
             <div class="manual_filling">MDA Collection</div>
-            <div class="manual_verify">Kindly verify the employee Tin before you proceed</div>
+            <div class="manual_verify">Kindly verify the employee GTin before you proceed</div>
 
             <form [formGroup]="manualForm" class="manual_form">
 
                 <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>TIN</mat-label>
+                    <mat-label>GTIN</mat-label>
                     <input matInput formControlName="tin">
                 </mat-form-field>
 
-                <button mat-button class="upload_continue" mat-dialog-close>Continue</button>
+                <button mat-button class="upload_continue" (click)="checkTin()">
+                    <span *ngIf="!loading">Continue</span>
+                    <div *ngIf="loading" class="loader">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                </button>
+
             </form>
         </div>
 

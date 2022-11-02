@@ -1,21 +1,52 @@
 <div class="wrapper">
 
+    <div class="header">
+
+        <div>
+            <span class="reg_buss">Generated Bills for MDA {{ htmlYear }}</span>
+            <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
+                <span class="change" style="color: #5EA55A;">Change Year</span>
+            </button>
+            <mat-menu #menu2 class="choose-year-menu">
+                <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" class="mat-menu">{{ year.year }}</button>
+            </mat-menu>
+        </div>
+    </div>
+
     <div>
         <div class="verify">
 
-            <mat-toolbar class="header2">
+            <div class="header2">
+
                 <div class="indcom">
-                    Generated Bills
+                    Generated MDA Bills
                 </div>
-                <div class="spacer"></div>
-                <div class="search_icon_p">
-                    <form class="search-form">
-                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text"
-                            class="input">
+
+                <div class="search_icon_header">
+                    <form class="search-form_header">
+                        <button matSuffix mat-icon-button class="form-icon_header">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
                     </form>
-                    <mat-icon class="search_icon">search</mat-icon>
                 </div>
-            </mat-toolbar>
+        
+                <div class="dashboard_select">
+                    <select class="form-select form-select2" placeholder="Filters">
+                        <option class="option-white" disabled>Filters333333331</option>
+                        <option selected>Filters</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button matSuffix mat-icon-button class="form-dashboard_select">
+                        <span class="material-icons-outlined icons-rounded">filter_alt</span>
+                    </button>
+                </div>    
+
+                <div class="spacer"></div>
+
+            </div>
 
             <div class="table-container">
                 <div class="table-responsive">
@@ -23,58 +54,68 @@
                         class="row-border table table-striped table-hover table-borderless">
                         <thead>
                             <tr>
-                                <th>S/N</th>
-                                <th>Tax ID</th>
-                                <th>Tax payer</th>
-                                <th>Total Bill</th>
-                                <th>MDA</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <th></th>
-                                <th></th>
+                                <th class="align-middle text-center">S/N</th>
+                                <th class="align-middle text-center">GTin</th>
+                                <th class="align-middle text-center">MDA</th>
+                                <th class="align-middle text-center">Taxpayer Name</th>
+                                <th class="align-middle text-center">Total amount (NGN)</th>
+                                <th class="align-middle text-center">Generated date</th>
+                                <th class="align-middle text-center">Bill Number</th>
+                                <th class="align-middle text-center">Payment status</th>
+                                <th class="align-middle text-center">Actions</th>
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
-                                <td class="align-middle">{{i+1}}</td>
-                                <td class="align-middle">{{ data.tin }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
-                                <td class="align-middle">{{ data?.created_at | date:'yyyy-MM-dd' }}</td>
-                                <td class="align-middle">{{ data.organisation_name }}</td>
+                                <td class="align-middle text-center">{{i+1}}</td>
+                                <td class="align-middle text-center">{{ data?.payer?.state_tin }}</td>
+                                <td class="align-middle text-center">{{ data?.assessment?.assess_code }}</td>
                                 <td class="align-middle">
-                                    <!-- <button mat-button class="paid">
-                                        paid
-                                    </button> -->
-                                    <button mat-button class="pending">
-                                        pending
+                                    {{ data?.payer?.taxpayer_name }}
+                                    <span *ngIf="data?.paye?.is_verified" class="material-icons-round icons-rounded">verified_user</span>
+                                </td>
+                                <td class="align-middle text-center">{{ formatMoney(data?.bill_total) }}</td>
+                                <td class="align-middle text-center">{{ data?.assessment?.assessment_date | date:'yyyy-MM-dd' }}</td>
+                                <td class="align-middle text-center">{{ data?.bill_code }}</td>
+                                <td class="align-middle text-center">
+                                    <button mat-button class="paid" *ngIf="data.assessment.remitted">
+                                        Paid
+                                    </button>
+                                    <button mat-button class="pending" *ngIf="!data.assessment.remitted">
+                                        Not-paid
                                     </button>
                                 </td>
-                                <td class="align-middle">
-                                    <button mat-button class="blue-color"
-                                        (click)="OpenDialog(data, 'generate_bill')">View Bill</button>
-                                </td>
-                                <td class="align-middle">
-                                    <button mat-button class="blue-color"
-                                        (click)="OpenDialog(data, 'generate_bill')">Print Bill</button>
-                                </td>
-                                <td class="align-middle">
-                                    <button mat-button class="blue-color" (click)="OpenDialog(data, 'manual')">Pay
-                                        Online</button>
+                                <td class="align-middle text-center">
+                                    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!gen_loading.includes(data.id)" class="ellipsis">
+                                        <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    <button mat-button class="ellipsis" *ngIf="gen_loading.includes(data.id)">
+                                        <i class="fa fa-circle-o-notch rotate" aria-hidden="true"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')">View Bill</button>
+                                        <button mat-menu-item="mat-menu-item" (click)="openDialog(data, 'generate_bill')" style="color: #3C66A3;">
+                                            Pay online
+                                        </button>
+                                        <button mat-menu-item="mat-menu-item" (click)="deleteBill(data)" style="color: #d56545;">
+                                            delete
+                                        </button>
+                                    </mat-menu>
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
-                                <td class="no-data-available">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
+                                <td class="no-data-available text-center">No data!</td>
                             </tr>
                         </tbody>
 
@@ -85,8 +126,8 @@
                             <div class="bubble"></div>
                         </div>
 
-                        <button mat-raised-button *ngIf="datas?.length == 0" class="reload" (click)="Reload()">
-                            <span *ngIf="!is_reload">RELOAD</span>
+                        <button mat-raised-button="mat-raised-button" class="reload" (click)="reload()">
+                            <span *ngIf="!is_reload">Reload</span>
                             <div *ngIf="is_reload" class="loader">
                                 <div class="bubble"></div>
                                 <div class="bubble"></div>
@@ -94,6 +135,7 @@
                                 <div class="bubble"></div>
                             </div>
                         </button>
+
                     </table>
                 </div>
             </div>

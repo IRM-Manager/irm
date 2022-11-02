@@ -132,7 +132,6 @@ export class MDAComponent implements OnInit {
   onSubmit() {
     this.onValueChanged3();
     const feed = this.feedbackFormDirective3.invalid;
-
     if (feed) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
