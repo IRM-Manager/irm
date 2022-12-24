@@ -200,5 +200,7 @@ export class ProfileChangePasswordComponent implements OnInit {
     } // end else
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log()
+  }
 }
