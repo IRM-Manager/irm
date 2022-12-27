@@ -3,9 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 // state management
-import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { AppState } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -37,7 +35,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   constructor(
     private router: Router,
     private direct: ActivatedRoute,
-    private store: Store<AppState>,
     private authService: AuthService,
     private httpService: HttpService,
     private dialog: MatDialog,

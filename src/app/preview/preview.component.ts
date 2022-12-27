@@ -1,6 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Store } from '@ngrx/store';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { Observable } from 'rxjs';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,9 +21,18 @@ import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-preview',
+  standalone: true,
+  imports: [
+    CommonModule,
+    LoadingBarRouterModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+  ],
   templateUrl: './preview.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewComponent implements OnInit {
   stateProfile: Observable<Profile[]>;
@@ -25,7 +43,6 @@ export class PreviewComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private snackBar: MatSnackBar,
     private store: Store<AppState>,
     private httpService: HttpService,
     private adminService: ProfileServiceService

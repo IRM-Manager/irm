@@ -55,7 +55,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { PreviewComponent } from './preview/preview.component';
 import { reducers } from './reducers/index';
 import { HttpService } from './services/http.service';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
@@ -67,7 +66,6 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
   declarations: [
     AppComponent,
     HomeComponent,
-    PreviewComponent,
     SignupComponent,
     ForgetPasswordComponent,
   ],

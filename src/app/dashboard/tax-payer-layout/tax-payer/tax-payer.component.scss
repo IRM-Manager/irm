@@ -1,31 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-$header-color: 1px solid #42a845;
-$header-back: rgba(62, 95, 168, 0.05);
-$header-back2: #ffffff 0% 0% no-repeat padding-box;
-$ind-back: #ffffff 0% 0% no-repeat padding-box;
-$white: #ffffff;
-$ind-border: 1px solid #45a841;
-$ind-font: normal normal normal 12px/15px Montserrat;
-$ind-color: #565656;
-$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
-$active-back: #387499 0% 0% no-repeat padding-box;
-$panel-text: normal normal medium 12px/15px Montserrat;
-$panel-color: #3c66a3;
-$icon-color: #45669e;
-$wrapper-back: #f5f7fa;
-$thead: #ffffff 0% 0% no-repeat padding-box;
-$thead-text: normal normal normal 12px/15px Montserrat;
-$thead-text-color: #3c66a3;
-$tbody-back: normal normal normal 15px/19px Montserrat;
-$tbody-color: #565656;
-$animate-form: 0.5px solid #37a85d;
-$green: #37a85d;
-$red: #bc333e;
-$form-icon-color: rgba(27, 87, 63, 0.54);
-$placeholder-font: normal normal normal 15px/24px Montserrat;
-
 .wrapper {
   padding-left: 20px;
   padding-right: 20px;
@@ -55,18 +29,18 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
 
   .search-form_header {
     vertical-align: top;
-    background: $white;
+    background: var(--white);
     border: 1px solid rgba(60, 102, 163, 0.5);
   }
 
   input[type="text"] {
-    background: $white;
+    background: var(--white);
     box-sizing: border-box;
-    border: 1px solid $white;
+    border: 1px solid var(--white);
     border-radius: 2px;
     height: 35px;
     width: 25vw;
-    font: $placeholder-font;
+    font: normal normal normal 15px/24px var(--mont);
     padding-left: 1px;
   }
 
@@ -75,7 +49,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   }
 
   .form-icon_header {
-    color: $form-icon-color;
+    color: rgba(27, 87, 63, 0.54);
     margin-left: 10px;
     border-radius: 50%;
   }
@@ -101,22 +75,22 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   .dashboard_select {
     margin-left: 5px;
     border: 1px solid rgba(60, 102, 163, 0.5);
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: var(--white) 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .form-dashboard_select {
-    color: #000000;
+    color: var(--black);
   }
 
   .option-white {
-    color: $white;
+    color: var(--white);
   }
 
   .option-white:hover {
-    color: $white;
+    color: var(--white);
   }
 
   .form-selecta-tax {
@@ -128,14 +102,14 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     border-radius: 10px;
     margin-right: 5px;
     border: 0.5px solid #707070;
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: var(--white) 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .icon-drop-down {
-    color: #3c66a3;
+    color: var(--blue);
     font-size: 40px;
   }
 
@@ -145,7 +119,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
 }
 
 .header2 {
-  background: $header-back2;
+  background: var(--white) 0% 0% no-repeat padding-box;
   padding: 1.5rem 1rem 1.5rem 1rem;
   margin-top: 1rem;
   width: 100%;
@@ -155,20 +129,19 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   }
 
   .indcom {
-    font: $panel-text;
     letter-spacing: 0px;
-    color: $panel-color;
+    color: var(--blue);
     font-weight: 500;
     font-size: 14px;
   }
 
   .create-new {
-    background: #b9a005 0% 0% no-repeat padding-box;
+    background: var(--yellow-bg);
     opacity: 1;
     text-transform: capitalize;
-    font: normal normal normal 15px/20px Montserrat;
+    font: normal normal normal 15px/20px var(--mont);
     letter-spacing: 0px;
-    color: $white;
+    color: var(--white);
     border-radius: 5px;
     padding: 0.5rem;
   }
@@ -179,33 +152,38 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   width: 100%;
 
   table {
-    border: none;
+    border-top: 1.5px solid rgba(112, 112, 112, 0.5);
+    border-bottom: none;
     margin-bottom: 1rem;
   }
 
   thead tr {
-    background: $thead;
+    background: var(--white) 0% 0% no-repeat padding-box;
     text-align: left;
-    font: $thead-text;
+    font: normal normal normal 12px/15px var(--mont);
     letter-spacing: 0px;
-    color: $thead-text-color;
+    color: var(--blue);
   }
 
   tbody tr {
-    font: $tbody-back;
+    font: normal normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
-    color: $tbody-color;
+    color: #565656;
   }
 
   tr th {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
-    border-right: 1.5px solid rgba(112, 112, 112, 0.5);
+    border: 1.5px solid rgba(112, 112, 112, 0.5);
     text-align: center;
   }
 
   tr th:nth-child(7) {
     border-right: unset;
+  }
+
+  tr th:nth-child(1) {
+    border-left: unset;
   }
 
   .ellipsis {
@@ -218,7 +196,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
 
   .icons-rounded {
     vertical-align: middle;
-    color: #038541;
+    color: var(--green);
     font-size: 17px;
   }
 
@@ -227,9 +205,9 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   }
 
   .reload {
-    background: $wrapper-back;
-    color: $ind-border;
-    font: $tbody-back;
+    background: #f5f7fa;
+
+    font: normal normal normal 15px/19px var(--mont);
     font-weight: 500;
     margin-top: 1.5rem;
     border-radius: 5px;
@@ -256,22 +234,22 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   }
 
   .bubble:nth-child(1) {
-    background: $panel-color;
+    background: var(--blue);
   }
 
   .bubble:nth-child(2) {
     animation-delay: 180ms;
-    background: $panel-color;
+    background: var(--blue);
   }
 
   .bubble:nth-child(3) {
     animation-delay: 360ms;
-    background: $panel-color;
+    background: var(--blue);
   }
 
   .bubble:nth-child(4) {
     animation-delay: 540ms;
-    background: $panel-color;
+    background: var(--blue);
   }
 
   @keyframes expand {
@@ -316,21 +294,20 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   }
 
   ::ng-deep .table-striped > tbody > tr:nth-of-type(odd) {
-    background: $header-back;
+    background: rgba(62, 95, 168, 0.05);
   }
 
   ::ng-deep .table-striped:hover > tbody:hover > tr:nth-of-type(even):hover {
-    background: $wrapper-back !important;
+    background: #f5f7fa !important;
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_length select {
-    border: $ind-border;
-    font: $tbody-back;
+    font: normal normal normal 15px/19px var(--mont);
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_length label {
-    color: $tbody-color;
-    font: $tbody-back;
+    color: #565656;
+    font: normal normal normal 15px/19px var(--mont);
   }
 
   ::ng-deep .dataTables_wrapper .dataTables_filter {
@@ -342,7 +319,7 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
   .dataTables_wrapper .dataTables_info,
   .dataTables_wrapper .dataTables_processing,
   .dataTables_wrapper .dataTables_paginate {
-    font: $tbody-back;
+    font: normal normal normal 15px/19px var(--mont);
     font-weight: 400;
     letter-spacing: 0.3px;
   }

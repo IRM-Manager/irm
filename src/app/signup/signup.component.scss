@@ -1,11 +1,8 @@
-$white: #ffffff;
-$black: black;
-
 .main {
   .nav {
     height: 5rem;
     padding: 1rem;
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: var(--white) 0% 0% no-repeat padding-box;
     opacity: 1;
     position: sticky;
     position: -webkit-sticky;
@@ -41,7 +38,7 @@ $black: black;
 
   .login-container {
     width: 35rem;
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: var(--white) 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 10px;
     opacity: 1;
@@ -68,7 +65,7 @@ $black: black;
   .login-text {
     font: normal normal normal 20px/24px Montserrat;
     letter-spacing: 0px;
-    color: #038541;
+    color: var(--green);
     font-weight: 500;
     opacity: 1;
     margin-top: -3rem;
@@ -86,16 +83,13 @@ $black: black;
     margin-left: 20px;
   }
 
-
   ::ng-deep .mat-form-field-underline,
   ::ng-deep .mat-form-field-ripple {
     background: grey;
   }
 
   ::ng-deep .mat-input-element {
-    caret-color: $black;
   }
-
   mat-label {
     color: grey;
     font: normal normal normal 14px/19px Montserrat;
@@ -113,7 +107,6 @@ $black: black;
 
   input[type="text"],
   input[type="password"] {
-    caret-color: $black;
     background: none;
   }
 
@@ -122,14 +115,14 @@ $black: black;
   }
 
   .submit {
-    background: #B9A005 0% 0% no-repeat padding-box;
+    background: #b9a005 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
     width: 10rem;
     text-align: center;
     font: normal normal normal 15px/19px Montserrat;
     letter-spacing: 0px;
-    color: #ffffff;
+    color: var(--white);
     padding: 0.7rem;
     margin-top: 1.5rem;
   }
@@ -170,22 +163,22 @@ $black: black;
   }
 
   .bubble:nth-child(1) {
-    background: $white;
+    background: var(--white);
   }
 
   .bubble:nth-child(2) {
     animation-delay: 180ms;
-    background: $white;
+    background: var(--white);
   }
 
   .bubble:nth-child(3) {
     animation-delay: 360ms;
-    background: $white;
+    background: var(--white);
   }
 
   .bubble:nth-child(4) {
     animation-delay: 540ms;
-    background: $white;
+    background: var(--white);
   }
 
   @keyframes expand {

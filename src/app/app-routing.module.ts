@@ -18,7 +18,14 @@ const routes: Routes = [
     component: ForgetPasswordComponent,
     canActivate: [LoginGuard],
   },
-  { path: 'preview', component: PreviewComponent, canLoad: [IsLoggedInGuard] },
+  {
+    path: 'preview',
+    loadComponent: () =>
+      import('../app/preview/preview.component').then(
+        (m) => m.PreviewComponent
+      ),
+    canLoad: [IsLoggedInGuard],
+  },
   {
     path: 'dashboard',
     loadChildren: () =>
@@ -43,7 +50,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       preloadingStrategy: NetworkAwarePreloadingStrategyService2Service,
     }),
-    LoadingBarRouterModule
+    LoadingBarRouterModule,
   ],
   exports: [RouterModule],
 })

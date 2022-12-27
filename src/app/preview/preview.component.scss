@@ -1,17 +1,10 @@
-$white: #ffffff;
-$text1-font: normal normal 18px/20px Montserrat;
-$nav-color: #038541 0% 0% no-repeat padding-box;
-$text1-font: normal normal 15px/19px Montserrat;
-$text2-font: normal normal 300 12px/15px Montserrat;
-$right1-font: normal normal 400 15px/19px Montserrat;
-
 .preview_wrapper {
   background: rgba(60, 102, 163, 0.1);
   min-height: 100%;
 
   .nav_preview {
-    color: $white;
-    background: $nav-color;
+    color: var(--white);
+    background: var(--green) 0% 0% no-repeat padding-box;
     height: 90px;
     position: sticky;
     position: -webkit-sticky;
@@ -38,17 +31,17 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     }
 
     .module {
-      font: $text1-font;
+      font: normal normal 18px/20px var(--mont);
       letter-spacing: 0px;
       font-weight: 500;
-      color: $white;
+      color: var(--white);
       text-transform: capitalize;
       opacity: 1;
       margin-left: 3rem;
     }
 
     .bell-icon {
-      color: $white;
+      color: var(--white);
       margin-right: 30px;
     }
 
@@ -61,21 +54,21 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     }
 
     .left_text1 {
-      @include theme($theme: $text1-font);
+      @include theme($theme: normal normal 18px/20px var(--mont));
       font-weight: bold;
     }
 
     .left_text2 {
-      @include theme($theme: $text2-font);
+      @include theme($theme: normal normal 300 12px/15px var(--mont));
       margin-top: 2px;
     }
 
     .right_text1 {
-      @include theme($theme: $right1-font);
+      @include theme($theme: normal normal 400 15px/19px var(--mont));
     }
 
     .right_text2 {
-      @include theme($theme: $text1-font);
+      @include theme($theme: normal normal 18px/20px var(--mont));
       font-weight: bold;
     }
 
@@ -87,8 +80,8 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     .button-menu {
       outline: none;
       background: none;
-      background: $white 0% 0% no-repeat padding-box;
-      border: 1px solid $white;
+      background: var(--white) 0% 0% no-repeat padding-box;
+      border: 1px solid var(--white);
       opacity: 1;
       margin-right: 2rem;
       padding: 0.5rem;
@@ -132,17 +125,13 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
   .container {
     padding: 3rem 3rem 4rem 3rem;
-    // display: flex;
-    // justify-content: left;
-    // align-items: center;
-    // flex-wrap: wrap;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 30px;
   }
 
   .card {
-    background: $white 0% 0% no-repeat padding-box;
+    background: var(--white) 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
     padding: 1rem;
@@ -162,7 +151,7 @@ $right1-font: normal normal 400 15px/19px Montserrat;
 
   .text {
     margin-left: 5px;
-    font: normal normal normal 15px/19px Montserrat;
+    font: normal normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
     font-weight: 500;
     color: #ffffff;

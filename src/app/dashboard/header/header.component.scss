@@ -1,65 +1,45 @@
-$nav-color: #038541 0% 0% no-repeat padding-box;
-$nav-color2: #038541 0% 0% no-repeat padding-box;
-$white: #ffffff;
-$text1-font: normal normal 15px/19px Montserrat;
-$text2-font: normal normal 300 12px/15px Montserrat;
-$right1-font: normal normal 400 15px/19px Montserrat;
-$payee: transparent linear-gradient(142deg, #6f7d9b 0%, #191f1d 100%) 0% 0%
-  no-repeat padding-box;
-$mda: transparent linear-gradient(142deg, #364e83 0%, #4e5ba5 100%) 0% 0%
-  no-repeat padding-box;
-$green: #45a841;
-$form-icon-color: rgba(27, 87, 63, 0.54);
-$placeholder-font: normal normal normal 15px/24px Montserrat;
-$dash-font: normal normal medium 15px/24px Montserrat;
-$dash-text-color: #565656;
-$export-back: #ffffff 0% 0% no-repeat padding-box;
-$export-border: 0.5px solid #20b07e;
-$green2: #36a861;
-$nav3-font: normal normal normal 12px/15px Montserrat;
-$nav3-color: #38729b;
-
 .nav {
-  background: $nav-color;
+  background: var(--green) 0% 0% no-repeat padding-box;
 }
 
 .nav2 {
-  background: $nav-color2;
+  background: var(--green) 0% 0% no-repeat padding-box;
 }
 
 .nav3 {
-  background: $payee;
+  background: transparent linear-gradient(142deg, #6f7d9b 0%, #191f1d 100%) 0%
+    0% no-repeat padding-box;
 
   .payee_button {
-    font: $nav3-font;
+    font: normal normal normal 12px/15px var(--mont);
     letter-spacing: 0px;
-    color: $nav3-color;
+    color: #38729b;
     font-weight: 500;
     padding: 1rem;
     opacity: 1;
     border: 0.5px solid #5ea55a;
     border-radius: 10px;
-    background: $white;
+    background: var(--white);
   }
 
   ::ng-deep .mat-menu-item {
-    font: $nav3-font;
+    font: normal normal normal 12px/15px var(--mont);
     letter-spacing: 0px;
-    color: $green;
     font-weight: 500;
     opacity: 1;
   }
 }
 
 .nav4 {
-  background: $mda;
+  background: transparent linear-gradient(142deg, #364e83 0%, #4e5ba5 100%) 0%
+    0% no-repeat padding-box;
 }
 
 .nav,
 .nav2,
 .nav3,
 .nav4 {
-  color: $white;
+  color: var(--white);
   padding-top: 2.5rem;
   position: sticky;
   position: -webkit-sticky;
@@ -69,8 +49,7 @@ $nav3-color: #38729b;
   opacity: 1;
 
   .hambugger {
-    background: $white;
-    color: $green;
+    background: var(--white);
     margin-right: 10px;
   }
 
@@ -84,21 +63,21 @@ $nav3-color: #38729b;
   }
 
   .left_text1 {
-    @include theme($theme: $text1-font);
+    @include theme($theme: normal normal 15px/19px var(--mont));
     font-weight: bold;
   }
 
   .left_text2 {
-    @include theme($theme: $text2-font);
+    @include theme($theme: normal normal 300 14px/17px var(--mont));
     margin-top: 2px;
   }
 
   .right_text1 {
-    @include theme($theme: $right1-font);
+    @include theme($theme: normal normal 400 15px/19px var(--mont));
   }
 
   .right_text2 {
-    @include theme($theme: $text1-font);
+    @include theme($theme: normal normal 15px/19px var(--mont));
     font-weight: bold;
   }
 
@@ -128,24 +107,24 @@ $nav3-color: #38729b;
   opacity: 1;
 
   .hambugger {
-    background: $white;
-    color: $green2;
+    background: var(--white);
+    color: var(--green);
     margin-right: 10px;
   }
 
   .dashboard-text {
     text-transform: capitalize;
-    font: $dash-font;
+    font: normal normal medium 15px/24px var(--mont);
     letter-spacing: 0.14px;
-    color: $dash-text-color;
+    color: #565656;
     opacity: 1;
   }
 
   .dashboard-text2 {
     text-transform: capitalize;
-    font: $dash-font;
+    font: normal normal medium 15px/24px var(--mont);
     letter-spacing: 0.14px;
-    color: $dash-text-color;
+    color: #565656;
     padding-left: 20px;
     font-size: 18px;
     font-weight: 500;
@@ -154,9 +133,9 @@ $nav3-color: #38729b;
 
   .payee_note {
     margin-left: 20px;
-    font: normal normal normal 15px/24px Montserrat;
+    font: normal normal normal 15px/24px var(--mont);
     letter-spacing: 0.14px;
-    color: #ff0707;
+    color: var(--red);
     font-weight: 500;
     opacity: 1;
   }
@@ -175,17 +154,17 @@ $nav3-color: #38729b;
   .search-form {
     margin-right: 10px;
     vertical-align: top;
-    background: $white;
+    background: var(--white);
   }
 
   input[type="text"] {
-    background: $white;
+    background: var(--white);
     box-sizing: border-box;
-    border: 1px solid $white;
+    border: 1px solid var(--white);
     border-radius: 2px;
     height: 35px;
     width: 40vw;
-    font: $placeholder-font;
+    font: normal normal normal 15px/24px var(--mont);
     padding-left: 15px;
   }
 
@@ -194,27 +173,27 @@ $nav3-color: #38729b;
   }
 
   .form-icon {
-    color: $form-icon-color;
+    color: rgba(27, 87, 63, 0.54);
     margin-left: 10px;
   }
 
   .example-icon {
-    background: $export-back;
-    border: 2px solid $green2;
-    border: $export-border;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 2px solid var(--green);
+    border: 0.5px solid var(--green);
     border-radius: 10px;
     opacity: 1;
   }
 
   .example-icon mat-icon {
-    color: $green2;
+    color: var(--green);
     opacity: 1;
   }
 
   .export-report {
-    font: $placeholder-font;
+    font: normal normal normal 15px/24px var(--mont);
     letter-spacing: 0px;
-    color: $dash-text-color;
+    color: #565656;
     font-weight: 500;
     opacity: 1;
   }

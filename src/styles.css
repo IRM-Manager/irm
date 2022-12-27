@@ -4,33 +4,46 @@
 @import "~material-icons/iconfont/material-icons.css";
 @import "../node_modules/font-awesome/css/font-awesome";
 
+:root {
+  --white: #ffffff;
+  --inter: Inter;
+  --mont: Montserrat;
+  --roboto: Roboto;
+  --black: #000000;
+  --red: #b5130e;
+  --green: #038541;
+  --orange: orange;
+  --blue: #3c66a3;
+  --yellow-bg: #b9a005 0% 0% no-repeat padding-box;
+}
+
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: var(--roboto), "Helvetica Neue", sans-serif;
 }
 
 .success {
-  color: #ffffff;
-  background: #038541;
+  color: var(--white);
+  background: var(--green);
 }
 
 .error {
-  color: #ffffff;
-  background: #b5130e;
+  color: var(--white);
+  background: var(--red);
 }
 
 .warning {
-  color: orange;
+  color: var(--orange);
 }
 
 .cdk-overlay-container
   .cdk-overlay-backdrop.cdk-overlay-dark-backdrop.cdk-overlay-backdrop-showing {
-  background: #000000 0% 0% no-repeat padding-box;
-  opacity: 0.6;
+  background: rgba(3, 133, 65, 0.2);
+  backdrop-filter: blur(6px);
 }
 
 .mat-dialog-container {
@@ -41,26 +54,4 @@ body {
   overflow-y: auto;
   margin-top: 1rem;
   margin-bottom: 2rem;
-}
-
-#gradient-0 stop {
-  stop-color: #506ef9;
-}
-
-#gradient-0 stop[offset="0"] {
-  stop-opacity: 0.25;
-}
-
-#gradient-0 stop[offset="1"] {
-  stop-opacity: 0;
-}
-
-.highcharts-color-0 {
-  fill: #506ef9;
-  stroke: #506ef9;
-}
-
-.highcharts-color-0 .highcharts-area {
-  fill-opacity: 1;
-  fill: url(#gradient-0);
 }
