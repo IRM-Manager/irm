@@ -32,7 +32,7 @@ import { HttpService } from '../services/http.service';
   templateUrl: './preview.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./preview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewComponent implements OnInit {
   stateProfile: Observable<Profile[]>;
