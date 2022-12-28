@@ -1,7 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { BaseUrl } from 'src/environments/environment';
 import { signup } from '../dashboard/shared/form';
 import { HttpService } from '../services/http.service';
@@ -9,6 +22,18 @@ import { MustMatch } from '../_helpers/must-match.validators';
 
 @Component({
   selector: 'app-signup',
+  standalone: true,
+  imports: [
+    CommonModule,
+    LoadingBarRouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+  ],
   templateUrl: './signup.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./signup.component.scss'],
@@ -34,7 +59,7 @@ export class SignupComponent implements OnInit {
   validationMessages: any = {
     name: {
       required: 'required.',
-      pattern: 'firstname and lastname required.'
+      pattern: 'firstname and lastname required.',
     },
     phone: {
       required: 'required.',
@@ -66,12 +91,16 @@ export class SignupComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit(): void {}
-
   createForm() {
     this.feedbackForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.pattern("^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$")]],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern("^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$"),
+          ],
+        ],
         username: ['', [Validators.required]],
         phone: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
@@ -142,7 +171,7 @@ export class SignupComponent implements OnInit {
         password: this.feedback.password,
         username: this.feedback.username,
       };
-      console.log(user)
+      console.log(user);
       // perform post
       this.httpService.postRegisterData(BaseUrl.register, user).subscribe(
         (data: any) => {
@@ -161,16 +190,12 @@ export class SignupComponent implements OnInit {
           this.loading = false;
           this.disabled = false;
           if (err.status == 400) {
-            this.snackBar.open(
-              err?.error?.message,
-              '',
-              {
-                duration: 5000,
-                panelClass: 'error',
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              }
-            );
+            this.snackBar.open(err?.error?.message, '', {
+              duration: 5000,
+              panelClass: 'error',
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
           } else {
             this.snackBar.open(
               err?.error?.msg || err?.error?.detail || 'An Error Occured!',
@@ -187,5 +212,9 @@ export class SignupComponent implements OnInit {
       );
       // end of subscribe
     }
+  }
+
+  ngOnInit(): void {
+    console.log();
   }
 }

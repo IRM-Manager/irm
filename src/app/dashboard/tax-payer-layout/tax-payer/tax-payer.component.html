@@ -1,6 +1,5 @@
 <div class="wrapper">
 
-
     <div class="header">
 
         <div class="dashboard_select-tax">
@@ -71,7 +70,7 @@
                     <tr *ngFor="let data of datas; let i=index">
                         <td class="align-middle text-center">{{i+1}}</td>
                         <td class="align-middle text-center">{{ data.state_tin }}</td>
-                        <td class="align-middle">{{ data.taxpayer_name }}
+                        <td class="align-middle text-center">{{ data.taxpayer_name }}
                             <span class="material-icons-round icons-rounded" *ngIf="data.is_verified">verified_user</span>
                         </td>
                         <td class="align-middle text-center">{{ data.lga_id.name }}</td>
@@ -110,20 +109,9 @@
                     <div class="bubble"></div>
                 </div>
 
-                <button mat-raised-button *ngIf="datas?.length === 0" class="reload" (click)="reload()">
-                    <span *ngIf="!is_reload">Reload</span>
-                    <div *ngIf="is_reload" class="loader">
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                    </div>
-                </button>
+                <button mat-raised-button class="reload" (click)="reload()">Reload</button>
             </table>
         </div>
     </div>
-
-
-
 
 </div>

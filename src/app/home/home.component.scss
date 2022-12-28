@@ -35,7 +35,7 @@
     margin-bottom: 3rem;
     width: 23rem;
     background: var(--white) 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #00000029;
+    box-shadow: 0px 3px 6px var(--card-shadow);
     border-radius: 10px;
     opacity: 1;
     position: absolute;
@@ -77,7 +77,7 @@
   }
 
   mat-label {
-    color: #00000029;
+    color: var(--card-shadow);
     opacity: 0.5;
   }
 
@@ -89,7 +89,7 @@
 
   input[type="text"],
   input[type="password"] {
-    caret-color: var(--black);
+    caret-color: var(--card-shadow);
     background: none;
   }
 

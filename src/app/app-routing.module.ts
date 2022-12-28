@@ -1,22 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { IsLoggedInGuard } from './guards/IsloggedIn.guards';
 import { LoginGuard } from './guards/login.guards';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
-import { HomeComponent } from './home/home.component';
-import { PreviewComponent } from './preview/preview.component';
-import { SignupGuard } from './guards/signup.guards';
-import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-import { SignupComponent } from './signup/signup.component';
-import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [LoginGuard] },
-  { path: 'register', component: SignupComponent, canActivate: [SignupGuard] },
+  {
+    path: '',
+    loadComponent: () =>
+      import('../app/home/home.component').then((m) => m.HomeComponent),
+    canLoad: [LoginGuard],
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('../app/signup/signup.component').then((m) => m.SignupComponent),
+    canLoad: [LoginGuard],
+  },
   {
     path: 'forget-password',
-    component: ForgetPasswordComponent,
-    canActivate: [LoginGuard],
+    loadComponent: () =>
+      import('../app/forget-password/forget-password.component').then(
+        (m) => m.ForgetPasswordComponent
+      ),
+    canLoad: [LoginGuard],
   },
   {
     path: 'preview',

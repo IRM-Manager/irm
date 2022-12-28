@@ -1,13 +1,35 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { BaseUrl } from 'src/environments/environment';
 import { NIN } from '../dashboard/shared/form';
 import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-forget-password',
+  standalone: true,
+  imports: [
+    CommonModule,
+    LoadingBarRouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './forget-password.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./forget-password.component.scss'],
@@ -34,13 +56,10 @@ export class ForgetPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private httpService: HttpService,
-    private router: Router
+    private httpService: HttpService
   ) {
     this.createForm();
   }
-
-  ngOnInit(): void {}
 
   createForm() {
     this.feedbackForm = this.fb.group({
@@ -79,46 +98,52 @@ export class ForgetPasswordComponent implements OnInit {
     this.loading = true;
     this.disabled = true;
     this.feedback = this.feedbackForm.value;
-    this.httpService.getSingleNoAuth(BaseUrl.reset_password + this.feedback.nin).subscribe(
-      (data: any) => {
-        this.loading = false;
-        this.disabled = false;
-        this.feedbackFormDirective.resetForm();
-        this.snackBar.open(data.res, '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      },
-      (err: any) => {
-        console.log(err);
-        this.loading = false;
-        this.disabled = false;
-        if (err.status == 400) {
-          this.snackBar.open(err?.error?.message, '', {
-            duration: 5000,
-            panelClass: 'error',
+    this.httpService
+      .getSingleNoAuth(BaseUrl.reset_password + this.feedback.nin)
+      .subscribe(
+        (data: any) => {
+          this.loading = false;
+          this.disabled = false;
+          this.feedbackFormDirective.resetForm();
+          this.snackBar.open(data.res, '', {
+            duration: 3000,
+            panelClass: 'success',
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-        } else {
-          this.snackBar.open(
-            err?.error?.msg ||
-              err?.error?.detail ||
-              err?.error?.message ||
-              'An Error Occured!',
-            '',
-            {
+        },
+        (err: any) => {
+          console.log(err);
+          this.loading = false;
+          this.disabled = false;
+          if (err.status == 400) {
+            this.snackBar.open(err?.error?.message, '', {
               duration: 5000,
               panelClass: 'error',
               horizontalPosition: 'center',
               verticalPosition: 'top',
-            }
-          );
+            });
+          } else {
+            this.snackBar.open(
+              err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.message ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
         }
-      }
-    );
+      );
     // end of subscribe
+  }
+
+  ngOnInit(): void {
+    console.log();
   }
 }

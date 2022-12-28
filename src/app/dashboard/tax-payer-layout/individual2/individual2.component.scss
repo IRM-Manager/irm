@@ -1,24 +1,3 @@
-$header-color: 1px solid #B9A005;
-$header-back: #f6fbf6;
-$ind-back: #ffffff 0% 0% no-repeat padding-box;
-$white: #ffffff;
-$ind-border: 1px solid #B9A005;
-$ind-font: normal normal normal 12px/15px Montserrat;
-$ind-color: #565656;
-$create-back: #B9A005 0% 0% no-repeat padding-box;
-$active-back: #387499 0% 0% no-repeat padding-box;
-$select-color: #565656;
-$form-color: #565656;
-$label-color: #565656;
-$session-h2-font: normal normal 15px/19px Montserrat;
-$session-h2-color: #3C66A3;
-$verify-hover-b: #B9A005 0% 0% no-repeat padding-box;
-$verify-hover-box: 0px 3px 6px #00000029;
-$radio-color: #3c66a3;
-$back-border: 1px solid #B9A005;
-$back-color: #B9A005;
-$continue-back: #B9A005 0% 0% no-repeat padding-box;
-
 .wrapper {
   padding-left: 20px;
 }
@@ -38,11 +17,10 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
     width: 170px;
     height: 170px;
   }
-
 }
 
 .session {
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: var(--white) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   padding: 1em 1em 0 1em;
   margin-top: 2rem;
@@ -52,9 +30,9 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
   overflow: hidden;
 
   .session-header {
-    font: $session-h2-font;
+    font: normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
-    color: $session-h2-color;
+    color: var(--blue);
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -62,11 +40,11 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
   }
 
   input[type="text"] {
-    background: $label-color;
+    background: var(--form-gray);
   }
 
   ::ng-deep .mat-select-arrow {
-    color: $select-color;
+    color: var(--form-gray);
     opacity: 1;
   }
 
@@ -74,16 +52,17 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
     margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
   }
 
   mat-error {
     text-transform: capitalize;
-    font: normal normal normal 13px/20px Montserrat;
+    font: normal normal normal 14px/20px var(--mont);
     letter-spacing: 0px;
   }
 
   mat-form-field {
-    color: 1px solid $form-color;
+    color: 1px solid var(--form-gray);
   }
 
   .half-width {
@@ -93,62 +72,61 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
   ::ng-deep .mat-step-header .mat-step-icon-selected,
   .mat-step-header .mat-step-icon-state-done,
   .mat-step-header .mat-step-icon-state-edit {
-    background-color: $form-color;
+    background-color: var(--form-gray);
   }
 
   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: $form-color;
+    color: var(--form-gray);
   }
 
   ::ng-deep
     .mat-form-field-appearance-outline.mat-focused
     .mat-form-field-outline-thick {
-    color: $form-color;
+    color: var(--form-gray);
   }
 
   ::ng-deep .mat-input-element {
-    caret-color: $form-color;
+    caret-color: var(--form-gray);
   }
 
   ::ng-deep .mat-form-field-label {
-    color: $label-color;
+    color: var(--form-gray);
   }
 
   ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: $label-color;
+    color: var(--form-gray);
   }
 
   ::ng-deep .mat-form-field-underline,
   ::ng-deep .mat-form-field-ripple {
-    background: $radio-color;
+    background: var(--blue);
   }
 
   ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color: $radio-color;
+    background-color: var(--blue);
   }
 
   ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: $white; /*inner circle color change*/
+    background-color: var(--white); /*inner circle color change*/
   }
 
   ::ng-deep .mat-datepicker-toggle,
   .mat-datepicker-content .mat-calendar-next-button,
   .mat-datepicker-content .mat-calendar-previous-button {
-    color: black;
+    color: var(--form-gray);
   }
 
   ::ng-deep
     .mat-radio-button.mat-accent.mat-radio-checked
     .mat-radio-outer-circle {
-    border-color: $radio-color; /*outer ring color change*/
-    background: $radio-color;
+    border-color: var(--blue); /*outer ring color change*/
+    background: var(--blue);
   }
 
   .hint-error {
-    color: #f44336;
+    color: var(--red);
     text-transform: capitalize;
   }
-
 }
 
 @mixin theme($back, $color, $font, $border) {
@@ -172,34 +150,33 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
 .verify {
   width: 150px;
   @include theme(
-    $back: $continue-back,
-    $color: $white,
-    $font: $ind-font,
+    $back: var(--yellow-bg),
+    $color: var(--white),
+    $font: normal normal 12px/15px var(--mont),
     $border: unset
   );
 }
 
 .verify:disabled {
-  color: $white;
+  color: var(--white);
 }
 
 .verify2 {
   margin-right: 20px;
   width: 150px;
-  font-weight: 500;
   @include theme(
-    $back: $white,
-    $color: $back-color,
-    $font: $ind-font,
-    $border: $back-border
+    $back: var(--white),
+    $color: var(--yellow),
+    $font: normal normal 12px/15px var(--mont),
+    $border: 1px solid var(--yellow)
   );
 }
 
 .verify:hover,
 .verify2:hover {
-  background: $verify-hover-b;
-  box-shadow: $verify-hover-box;
-  color: $white;
+  background: var(--yellow-bg);
+  box-shadow: 0px 3px 6px var(--card-shadow);
+  color: var(--white);
 }
 
 .loader {
@@ -220,22 +197,22 @@ $continue-back: #B9A005 0% 0% no-repeat padding-box;
 }
 
 .bubble:nth-child(1) {
-  background: $white;
+  background: var(--white);
 }
 
 .bubble:nth-child(2) {
   animation-delay: 180ms;
-  background: $white;
+  background: var(--white);
 }
 
 .bubble:nth-child(3) {
   animation-delay: 360ms;
-  background: $white;
+  background: var(--white);
 }
 
 .bubble:nth-child(4) {
   animation-delay: 540ms;
-  background: $white;
+  background: var(--white);
 }
 
 @keyframes expand {

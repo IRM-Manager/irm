@@ -34,7 +34,6 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 export class DialogComponent implements OnInit {
   @ViewChild('manual') manualDirective: any;
   manualError = '';
-
   isdelete = false;
   year: any;
   choosen_year: number | undefined;
@@ -175,7 +174,7 @@ export class DialogComponent implements OnInit {
     this.httpService
       .deleteData(BaseUrl.delete_update_payer, this.data.data.id + '/')
       .subscribe(
-        (data: any) => {
+        () => {
           this.isdelete = false;
           this.confirmUploadErr = '';
           this.snackBar.open('TaxPayer successfully deleted', '', {
@@ -223,7 +222,7 @@ export class DialogComponent implements OnInit {
     this.httpService
       .deleteData(BaseUrl.delete_paye, this.data.data.id + '/')
       .subscribe(
-        (data: any) => {
+        () => {
           this.isdelete = false;
           this.confirmUploadErr = '';
           this.snackBar.open('Employee successfully deleted', '', {
@@ -303,13 +302,12 @@ export class DialogComponent implements OnInit {
       if (e.length > 0) {
         this.year = e[0].data;
       } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
-          (data: any) => {
+        this.httpService
+          .getSingleNoAuth(BaseUrl.list_year)
+          .subscribe((data: any) => {
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
             this.year = data.results;
-          },
-          (err) => {}
-        );
+          });
       }
     });
   }
@@ -333,7 +331,9 @@ export class DialogComponent implements OnInit {
               horizontalPosition: 'center',
               verticalPosition: 'top',
             });
-            this.payeeService.setAsYearMessage({yearId: this.data.data.year.year});
+            this.payeeService.setAsYearMessage({
+              yearId: this.data.data.year.year,
+            });
             this.payeeService.sendAsClickEvent();
             this.dialogRef.close({
               reload: true,

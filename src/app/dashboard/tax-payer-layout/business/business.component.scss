@@ -1,267 +1,224 @@
-$header-color: 1px solid #565656;
-$header-back: #ffffff 0% 0% no-repeat padding-box;
-$ind-back: #ffffff 0% 0% no-repeat padding-box;
-$white: #ffffff;
-$ind-border: 1px solid #565656;
-$ind-font: normal normal normal 12px/15px Montserrat;
-$ind-color: #565656;
-$create-back: #b9a005 0% 0% no-repeat padding-box;
-$active-back: #387499 0% 0% no-repeat padding-box;
-$select-color: #565656;
-$form-color: #565656;
-$label-color: #565656;
-$session-h2-font: normal normal 15px/19px Montserrat;
-$session-h2-color: #3c66a3;
-$verify-hover-b: #b9a005 0% 0% no-repeat padding-box;
-$verify-hover-box: 0px 3px 6px #00000029;
-$radio-color: #3c66a3;
-$back-border: 1px solid #b9a005;
-$back-color: #b9a005;
-$continue-back: #b9a005 0% 0% no-repeat padding-box;
-$nin-back: #b9a005 0% 0% no-repeat padding-box;
-$nin-shadow: 0px 3px 6px #00000029;
-
 .wrapper {
   padding-left: 20px;
   background: rgba(60, 102, 163, 0.03);
   padding: 2rem;
-}
 
-.session {
-  background: $header-back;
-  border-radius: 10px;
-  padding: 1rem 1em 0 1rem;
-  opacity: 1;
-  width: 50rem;
-  overflow: hidden;
-
-  .session-header {
-    font: $session-h2-font;
-    letter-spacing: 0px;
-    color: $session-h2-color;
-    font-weight: bold;
-    opacity: 1;
-  }
-
-  input[type="text"] {
-    background: $label-color;
-  }
-
-  ::ng-deep .mat-select-arrow {
-    color: $select-color;
-    opacity: 1;
-  }
-
-  .form1 {
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  mat-form-field {
-    color: 1px solid $form-color;
-  }
-
-  .half-width {
-    width: 100%;
-  }
-
-  .radio_button {
-    margin-left: 30px;
-  }
-
-  @mixin veryfy($back, $color, $font, $border) {
-    letter-spacing: 0px;
-    font: $font;
-    background: $back;
-    border: $border;
+  .session {
+    background: var(--white) 0% 0% no-repeat padding-box;
     border-radius: 10px;
-    color: $color;
-    font-weight: 500;
+    padding: 1rem 1em 0 1rem;
     opacity: 1;
-    padding: 1rem;
-    box-shadow: $nin-shadow;
-  }
+    width: 50rem;
+    overflow: hidden;
 
-  .verify {
-    width: 150px;
-    @include veryfy(
-      $back: $nin-back,
-      $color: $white,
-      $font: $ind-font,
-      $border: unset
-    );
-  }
+    .session-header {
+      font: normal normal 15px/19px var(--mont);
+      letter-spacing: 0px;
+      color: var(--blue);
+      font-weight: bold;
+      opacity: 1;
+    }
 
-  ::ng-deep .mat-step-header .mat-step-icon-selected,
-  .mat-step-header .mat-step-icon-state-done,
-  .mat-step-header .mat-step-icon-state-edit {
-    background-color: $form-color;
-  }
+    input[type="text"] {
+      background: var(--form-gray);
+    }
 
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: $form-color;
-  }
+    ::ng-deep .mat-select-arrow {
+      color: var(--form-gray);
+      opacity: 1;
+    }
 
-  ::ng-deep
-    .mat-form-field-appearance-outline.mat-focused
-    .mat-form-field-outline-thick {
-    color: $form-color;
-  }
+    .form1 {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
 
-  ::ng-deep .mat-input-element {
-    caret-color: $form-color;
-  }
+    mat-form-field {
+      color: 1px solid var(--form-gray);
+    }
 
-  ::ng-deep .mat-form-field-label {
-    color: $label-color;
-  }
+    .half-width {
+      width: 100%;
+    }
 
-  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: $label-color;
-  }
+    .radio_button {
+      margin-left: 30px;
+    }
 
-  ::ng-deep .mat-form-field-underline,
-  ::ng-deep .mat-form-field-ripple {
-    background: $radio-color;
-  }
+    ::ng-deep .mat-step-header .mat-step-icon-selected,
+    .mat-step-header .mat-step-icon-state-done,
+    .mat-step-header .mat-step-icon-state-edit {
+      background-color: var(--form-gray);
+    }
 
-  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color: $radio-color;
-  }
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: var(--form-gray);
+    }
 
-  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: $white; /*inner circle color change*/
-  }
+    ::ng-deep
+      .mat-form-field-appearance-outline.mat-focused
+      .mat-form-field-outline-thick {
+      color: var(--form-gray);
+    }
 
-  ::ng-deep .mat-datepicker-toggle,
-  .mat-datepicker-content .mat-calendar-next-button,
-  .mat-datepicker-content .mat-calendar-previous-button {
-    color: black;
-  }
+    ::ng-deep .mat-input-element {
+      caret-color: var(--form-gray);
+    }
 
-  ::ng-deep
-    .mat-radio-button.mat-accent.mat-radio-checked
-    .mat-radio-outer-circle {
-    border-color: $radio-color; /*outer ring color change*/
-    background: $radio-color;
-  }
+    ::ng-deep .mat-form-field-label {
+      color: var(--form-gray);
+    }
 
-  .hint-error {
-    color: #f44336;
-  }
+    ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+      color: var(--form-gray);
+    }
 
-  .mat-error {
-    text-transform: capitalize;
-    font: normal normal normal 13px/20px Montserrat;
-    letter-spacing: 0px;
-  }
-}
+    ::ng-deep .mat-form-field-underline,
+    ::ng-deep .mat-form-field-ripple {
+      background: var(--blue);
+    }
 
-@mixin theme($back, $color, $font, $border) {
-  letter-spacing: 0px;
-  font: $font;
-  background: $back;
-  border: $border;
-  border-radius: 10px;
-  color: $color;
-  font-weight: 500;
-  opacity: 1;
-  padding: 1rem;
-}
+    ::ng-deep
+      .mat-radio-button.mat-accent
+      .mat-radio-ripple
+      .mat-ripple-element {
+      background-color: var(--blue);
+    }
 
-.final_submit {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  right: 0;
-}
+    ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+      background-color: var(--white); /*inner circle color change*/
+    }
 
-.verify {
-  width: 150px;
-  font-weight: 500;
-  @include theme(
-    $back: $continue-back,
-    $color: $white,
-    $font: $ind-font,
-    $border: unset
-  );
-}
+    ::ng-deep .mat-datepicker-toggle,
+    .mat-datepicker-content .mat-calendar-next-button,
+    .mat-datepicker-content .mat-calendar-previous-button {
+      color: var(--form-gray);
+    }
 
-.verify:disabled {
-  color: $white;
-}
+    ::ng-deep
+      .mat-radio-button.mat-accent.mat-radio-checked
+      .mat-radio-outer-circle {
+      border-color: var(--blue); /*outer ring color change*/
+      background: var(--blue);
+    }
 
-.verify2 {
-  margin-right: 20px;
-  width: 150px;
-  @include theme(
-    $back: $white,
-    $color: $back-color,
-    $font: $ind-font,
-    $border: $back-border
-  );
-}
+    .hint-error {
+      color: var(--red);
+    }
 
-.verify:hover,
-.verify2:hover {
-  background: $verify-hover-b;
-  box-shadow: $verify-hover-box;
-  color: $white;
-}
+    .mat-error {
+      text-transform: capitalize;
+      font: normal normal normal 13px/20px var(--mont);
+      letter-spacing: 0px;
+    }
 
-.loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5em 0 0.5em 0;
-}
+    @mixin theme($back, $color, $font, $border) {
+      letter-spacing: 0px;
+      font: $font;
+      background: $back;
+      border: $border;
+      border-radius: 10px;
+      color: $color;
+      font-weight: 500;
+      opacity: 1;
+      padding: 1rem;
+    }
 
-.bubble {
-  animation: expand 0.75s ease-in-out infinite;
-  border-radius: 20px;
-  display: inline-block;
-  transform-origin: center center;
-  margin: 0 3px;
-  width: 7px;
-  height: 7px;
-}
+    .final_submit {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      right: 0;
+    }
 
-.bubble:nth-child(1) {
-  background: $white;
-}
+    .verify {
+      width: 150px;
+      @include theme(
+        $back: var(--yellow-bg),
+        $color: var(--white),
+        $font: normal normal 15px/19px var(--mont),
+        $border: unset
+      );
+    }
 
-.bubble:nth-child(2) {
-  animation-delay: 180ms;
-  background: $white;
-}
+    .verify:disabled {
+      color: var(--white);
+    }
 
-.bubble:nth-child(3) {
-  animation-delay: 360ms;
-  background: $white;
-}
+    .verify2 {
+      margin-right: 20px;
+      width: 150px;
+      @include theme(
+        $back: var(--white),
+        $color: var(--yellow-bg),
+        $font: normal normal 15px/19px var(--mont),
+        $border: unset
+      );
+    }
 
-.bubble:nth-child(4) {
-  animation-delay: 540ms;
-  background: $white;
-}
+    .verify:hover,
+    .verify2:hover {
+      background: var(--yellow-bg);
+      color: var(--white);
+    }
 
-@keyframes expand {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.55);
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5em 0 0.5em 0;
+    }
+
+    .bubble {
+      animation: expand 0.75s ease-in-out infinite;
+      border-radius: 20px;
+      display: inline-block;
+      transform-origin: center center;
+      margin: 0 3px;
+      width: 7px;
+      height: 7px;
+    }
+
+    .bubble:nth-child(1) {
+      background: var(--white);
+    }
+
+    .bubble:nth-child(2) {
+      animation-delay: 180ms;
+      background: var(--white);
+    }
+
+    .bubble:nth-child(3) {
+      animation-delay: 360ms;
+      background: var(--white);
+    }
+
+    .bubble:nth-child(4) {
+      animation-delay: 540ms;
+      background: var(--white);
+    }
+
+    @keyframes expand {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.55);
+      }
+    }
   }
 }
 
 @media (max-width: 1400px) {
-  .session {
-    width: 95%;
-    overflow-x: hidden;
-  }
+  .wrapper {
+    .session {
+      width: 95%;
+      overflow-x: hidden;
 
-  .header {
-    width: 95%;
-    overflow-x: hidden;
+      .header {
+        width: 95%;
+        overflow-x: hidden;
+      }
+    }
   }
 }

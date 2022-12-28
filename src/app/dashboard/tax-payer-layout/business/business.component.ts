@@ -5,18 +5,17 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-// state management
 import { Store } from '@ngrx/store';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -29,14 +28,14 @@ import {
   ReplaySubject,
   Subject,
   takeUntil,
-  tap
+  tap,
 } from 'rxjs';
 import {
   AppState,
   selectAllComPayer,
   selectAllLocation,
   selectAllProfile,
-  selectAllStates
+  selectAllStates,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -56,28 +55,22 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./business.component.scss'],
 })
 export class BusinessComponent implements OnDestroy, OnInit {
+  @ViewChild('fform3') feedbackFormDirective3: any;
   @ViewChild('card', { static: true })
   card!: ElementRef<HTMLDivElement>;
-
-  @ViewChild('fform3') feedbackFormDirective3: any;
-
   feedbackForm3: any = FormGroup;
   loading = false;
   disabled = false;
-
   feedback3!: Business2;
   payer_data: any;
-
   update = false;
   Updateloading = false;
-
   bankCtrl3: FormControl = new FormControl();
   bankCtrl4: FormControl = new FormControl();
   filteredBanks3: ReplaySubject<stateLogo[]> = new ReplaySubject<stateLogo[]>(
     1
   );
   filteredBanks4: ReplaySubject<lgaLogo[]> = new ReplaySubject<lgaLogo[]>(1);
-
   option2 = STATE;
   options3 = LGA;
   searching3 = false;
@@ -89,9 +82,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
   lgaLoading2 = false;
   state2: any;
   lga2: any;
-
   editDetails: any;
-
   stateStates: Observable<States[]>;
   stateProfile: Observable<Profile[]>;
   stateComPayer: Observable<ComPayer[]>;
@@ -325,7 +316,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
               new AddLocation([{ id: 1, data: data.results }])
             );
           },
-          (err) => {
+          () => {
             this.stateLoading2 = false;
             this.stateError2 = true;
           }
@@ -343,7 +334,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
         this.filteredBanks4.next(data.data);
         this.lgaLoading2 = false;
       },
-      (err: any) => {
+      () => {
         this.lgaLoading2 = false;
         this.lgaError2 = true;
       }
@@ -419,7 +410,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
           this.editDetails.data.id + '/'
         )
         .subscribe(
-          (data: any) => {
+          () => {
             this.Updateloading = false;
             this.router.navigate(['/dashboard/dashboard2/taxpayer/non']);
             this.snackBar.open('Update company payer successful', '', {
@@ -489,14 +480,11 @@ export class BusinessComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.authService.checkExpired();
-
     this.addState();
     this.addLocation();
     this.updateValue();
     this.initAnimations();
-
     // second layer
-
     this.bankCtrl3.valueChanges
       .pipe(
         filter((search) => !!search),
@@ -522,7 +510,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
           this.searching3 = false;
           this.filteredBanks3.next(filteredBanks);
         },
-        (error) => {
+        () => {
           // no errors in our simulated example
           this.searching3 = false;
           // handle error...
@@ -555,7 +543,7 @@ export class BusinessComponent implements OnDestroy, OnInit {
           this.searching4 = false;
           this.filteredBanks4.next(filteredBanks4);
         },
-        (error) => {
+        () => {
           // no errors in our simulated example
           this.searching4 = false;
           // handle error...

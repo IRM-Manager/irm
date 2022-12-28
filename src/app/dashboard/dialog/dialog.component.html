@@ -1,8 +1,7 @@
 <div class="wrapper">
 
     <!--  payee employee -->
-
-    <div *ngIf="data.type =='payee2'" class="payee2" id="print-section2">
+    <div *ngIf="data.type === 'payee2'" class="payee2" id="print-section2">
         <div class="header2">
 
             <div class="header-text">individual employee breakdown of pay</div>
@@ -20,11 +19,9 @@
                 <div class="column3 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="dark">Date -
                         <span class="blue_year">{{data.data.taxYear}}</span>
-                        <!-- <span class="blue_year">2021</span> <span class="dark">2022</span> -->
                     </div>
                 </div>
             </div>
-
         </div>
         <div style="clear: both;"></div>
         <div class="clear-both"></div>
@@ -55,11 +52,6 @@
                         <td class="align-middle">{{formatMoney(data.data.tp)}}</td>
                         <td class="align-middle">33,333,000.00</td>
                     </tr>
-                    <!-- <tr>
-                        <td class="align-middle">Other allowance</td>
-                        <td class="align-middle"></td>
-                        <td class="align-middle"></td>
-                    </tr> -->
                     <tr>
                         <td></td>
                         <td class="align-middle total_gross">Total Gross</td>
@@ -110,8 +102,7 @@
 
 
     <!-- generate bill -->
-
-    <div *ngIf="data.type =='gen_bill'" class="gen_bill_p" id="print-section">
+    <div *ngIf="data.type === 'gen_bill'" class="gen_bill_p" id="print-section">
         <div class="header3">
 
             <div class="header-text">business pay as you earn bill</div>
@@ -125,12 +116,10 @@
                     <div class="dark">Registered Business</div>
                 </div>
                 <div class="column_gen2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <!-- <div class="brn_image"><img src="assets/images/login_left.svg" alt=""></div> -->
                     <div class="dark">BRN3244YH4H</div>
                     <div class="dark">(&#8358;) 12,000,000.00</div>
                 </div>
             </div>
-
         </div>
         <div style="clear: both;"></div>
         <div class="clear-both2"></div>
@@ -195,14 +184,11 @@
             </div>
 
         </mat-dialog-content>
-
-
-
     </div>
 
-    <!-- delete payer -->
 
-    <div *ngIf="data.type =='delete-payer'" class="delete-payer">
+    <!-- delete payer -->
+    <div *ngIf="data.type === 'delete-payer'" class="delete-payer">
         <h5 mat-dialog-title class="delete-payer-text">Delete employee with Tax ID: <span
                 class="delete-payer-tin">{{data.data.state_tin}}</span></h5>
         <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Payer? This process cannot
@@ -224,11 +210,8 @@
         <div *ngIf="confirmUploadErr"  class="payee-error-response">{{ confirmUploadErr }}</div>
     </div>
 
-
-
     <!-- delete payee -->
-
-    <div *ngIf="data.type =='delete-payee'" class="delete-payer">
+    <div *ngIf="data.type === 'delete-payee'" class="delete-payer">
         <h5 mat-dialog-title class="delete-payer-text">Delete Employee with Tax ID: <span class="delete-payer-tin">{{
                 data.data.employeeTin }}</span></h5>
         <div mat-dialog-content class="delete-payer-text">Do you really want to delete these Employee? This process
@@ -252,12 +235,10 @@
     </div>
 
 
-
     <!-- payee file input -->
-    <div *ngIf="data.type =='file_upload'">
+    <div *ngIf="data.type === 'file_upload'">
 
         <div class="payee-sidenav2">
-
             <div class="header">
                 <div>
                     <div class="leftt1 left1">
@@ -295,18 +276,13 @@
             </mat-dialog-content>
             <mat-dialog-actions>
             </mat-dialog-actions>
-
         </div>
-
     </div>
 
 
-
     <!-- payee file manual Input -->
-    <div *ngIf="data.type =='manual'">
-
+    <div *ngIf="data.type === 'manual'">
         <div class="payee-sidenav2">
-
             <div class="header">
                 <div>
                     <div class="leftt1 left1">
@@ -349,18 +325,14 @@
             </mat-dialog-content>
             <mat-dialog-actions>
             </mat-dialog-actions>
-
         </div>
-
     </div>
 
 
-
     <!-- Extract data information -->
-    <div *ngIf="data.type =='extract'" class="extract">
+    <div *ngIf="data.type === 'extract'" class="extract">
 
         <div class="payee-sidenav2">
-
             <div class="header">
                 <div>
                     <div class="leftt1 left1">{{data.data.data2.company.organisation_name}}</div>
@@ -377,13 +349,12 @@
             <mat-dialog-content class="mat-typography ind_com extract-payee-container">
 
                 <div class="payee-{{data.data.error}}-response">{{ data.data.data.status }}</div>
-
                 <div class="payee_lists">
                     List of added Employee(s) <span style="margin-left: 10px;">(Preview)</span>
                 </div>
 
                 <!-- consolidated success -->
-                <table *ngIf="data.data.error == 'error' && (data.data.is_con || !data.data.is_con) " class="payee_lists_table table table-borderless table-striped">
+                <table *ngIf="data.data.error === 'error' && (data.data.is_con || !data.data.is_con) " class="payee_lists_table table table-borderless table-striped">
                     <thead>
                         <tr>
                             <th class="title align-middle">S/N</th>
@@ -411,9 +382,8 @@
                         </tr>
                     </tbody>
                 </table>
-
                 <!-- consolidated success -->
-                <table *ngIf="data.data.is_con && data.data.error == 'success'" class="payee_lists_table table table-borderless table-striped">
+                <table *ngIf="data.data.is_con && data.data.error === 'success'" class="payee_lists_table table table-borderless table-striped">
                     <thead>
                         <tr>
                             <th class="title align-middle">S/N</th>
@@ -443,8 +413,7 @@
                 </table>
 
                 <!-- Non consolidated success -->
-
-                <table *ngIf="data.data.error == 'success' && !data.data.is_con" class="payee_lists_table table table-borderless table-striped">
+                <table *ngIf="data.data.error === 'success' && !data.data.is_con" class="payee_lists_table table table-borderless table-striped">
                     <thead>
                         <tr>
                             <th class="title align-middle">S/N</th>
@@ -483,8 +452,8 @@
 
             </mat-dialog-content>
             <mat-dialog-actions align="end">
-                <div *ngIf="data.data.error == 'success'" class="extract_note">Note: Only {{payee_data.length}} employee will be added</div>
-                <button *ngIf="data.data.error == 'success'" mat-button class="extract_continue" (click)="extract_continue()">
+                <div *ngIf="data.data.error === 'success'" class="extract_note">Note: Only {{payee_data.length}} employee will be added</div>
+                <button *ngIf="data.data.error === 'success'" mat-button class="extract_continue" (click)="extract_continue()">
                     <span *ngIf="!isExtract">Save and continue</span>
                     <div *ngIf="isExtract" class="loader_delete">
                         <div class="bubble_delete"></div>
@@ -496,7 +465,5 @@
                 <!-- redirected to taxable income page -->
             </mat-dialog-actions>
         </div>
-
     </div>
-
 </div>

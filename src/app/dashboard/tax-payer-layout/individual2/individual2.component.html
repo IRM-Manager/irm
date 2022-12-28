@@ -10,7 +10,7 @@
         <div class="session-header" *ngIf="update">Update individual Taxpayer Account</div>
 
         <form #card class="form1" id="ngForm" novalidate 
-        [formGroup]="feedbackForm1" #fform1="ngForm" fxLayoutGap="15px">
+                [formGroup]="feedbackForm1" #fform1="ngForm">
             <p>
                 <!-- title -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -98,7 +98,9 @@
                     <mat-label>LGA of residence</mat-label>
                     <mat-select matInput formControlName="lga" #singleSelect required id="lga">
                         <mat-option>
-                            <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderlabel="search LGA..." noentriesfoundlabel="no matching lga found"></ngx-mat-select-search>
+                            <ngx-mat-select-search [formControl]="bankCtrl2" [searching]="searching2" placeholderlabel="search LGA..." 
+                                noentriesfoundlabel="no matching lga found">
+                            </ngx-mat-select-search>
                         </mat-option>
                         <mat-option
                             *ngFor="let lgaOption of filteredBanks2 | async" [value]="lgaOption.id">
@@ -188,11 +190,8 @@
                     </mat-select>
                 </mat-form-field>
             </p>
-
         </form>
-
     </div>
-
 
     <div class="final_submit" *ngIf="!update">
         <button mat-button class="verify2" (click)="back()">Back</button>

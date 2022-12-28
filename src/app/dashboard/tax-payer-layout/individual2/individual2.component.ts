@@ -1,4 +1,4 @@
-import { DatePipe, Location } from '@angular/common';
+import { CommonModule, DatePipe, Location } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -11,14 +11,22 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 // state management
 import { Store } from '@ngrx/store';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -51,11 +59,33 @@ import { IndPayer, Locationn, States, Occupation } from '../../models/irm';
 import { Individual1, LGA, lgaLogo, STATE, stateLogo } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-individual2',
+  standalone: true,
+  imports: [
+    CommonModule,
+    LoadingBarRouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    NgxMatSelectSearchModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './individual2.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./individual2.component.scss'],
@@ -63,19 +93,14 @@ gsap.registerPlugin(ScrollTrigger);
 export class Individual2Component implements OnDestroy, OnInit {
   @ViewChild('card', { static: true })
   card!: ElementRef<HTMLDivElement>;
-
   @ViewChild('fform1') feedbackFormDirective1: any;
-
   feedbackForm1: any = FormGroup;
   loading = false;
   payer_data: any;
-
   floatLabelControl = new FormControl('employed');
   feedback1!: Individual1;
   includedFields: any;
-
   isFormDisabled = false;
-
   bankCtrl: FormControl = new FormControl();
   bankCtrl2: FormControl = new FormControl();
   bankCtrl3: FormControl = new FormControl();
@@ -105,13 +130,10 @@ export class Individual2Component implements OnDestroy, OnInit {
   state: any;
   state2: any;
   lga: any;
-
   occLoading = false;
   occError = false;
   list_occupation: any;
-
   editDetails: any;
-
   stateStates: Observable<States[]>;
   stateInd: Observable<IndPayer[]>;
   stateLocation: Observable<Locationn[]>;
@@ -172,7 +194,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     tin: {
       minlength: 'must be at least 11 characters long.',
       maxlength: 'cannot be more than 11 characters long.',
-    }
+    },
   };
 
   constructor(
@@ -190,7 +212,6 @@ export class Individual2Component implements OnDestroy, OnInit {
   ) {
     this.authService.checkExpired();
     this.createForm1();
-
     this.stateStates = store.select(selectAllStates);
     this.stateInd = store.select(selectAllIndPayer);
     this.stateLocation = store.select(selectAllLocation);
@@ -242,8 +263,7 @@ export class Individual2Component implements OnDestroy, OnInit {
     this.feedbackForm1 = this.fb.group({
       title: [''],
       firstname: ['', [Validators.required]],
-      tin: ['', [Validators.minLength(11),
-        Validators.maxLength(11),]],
+      tin: ['', [Validators.minLength(11), Validators.maxLength(11)]],
       surname: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       birth: ['', [Validators.required]],
@@ -284,7 +304,6 @@ export class Individual2Component implements OnDestroy, OnInit {
     }
   }
 
-
   submit() {
     this.onValueChanged1();
     const feed1 = this.feedbackFormDirective1.invalid;
@@ -304,12 +323,16 @@ export class Individual2Component implements OnDestroy, OnInit {
         (name: any) => name.name.toLowerCase() == 'gombe'
       );
 
-      const date = this.datepipe.transform(this.feedbackForm1.controls['birth'].value, 'YYYY-MM-dd');
-      console.log(date)
+      const date = this.datepipe.transform(
+        this.feedbackForm1.controls['birth'].value,
+        'YYYY-MM-dd'
+      );
+      console.log(date);
       let data: any = {
         first_name: this.payer_data.firstname || this.feedback1.firstname,
         gender: this.payer_data.gender || this.feedback1.gender,
-        dob: date || this.datepipe.transform(this.feedback1.birth, 'YYYY-MM-dd'),
+        dob:
+          date || this.datepipe.transform(this.feedback1.birth, 'YYYY-MM-dd'),
         state_origin: this.feedback1.state,
         lga_id: this.feedback1.lga,
         occupation: this.feedback1.occupation,
@@ -339,8 +362,11 @@ export class Individual2Component implements OnDestroy, OnInit {
           this.authService.checkExpired();
           this.loading = false;
           this.snackBar.open(
-            err?.error?.msg || err?.error?.detail || err.error?.msg?.email || 
-            err.error?.msg?.phone || 'An Error Occured!',
+            err?.error?.msg ||
+              err?.error?.detail ||
+              err.error?.msg?.email ||
+              err.error?.msg?.phone ||
+              'An Error Occured!',
             '',
             {
               duration: 5000,
@@ -419,23 +445,23 @@ export class Individual2Component implements OnDestroy, OnInit {
             this.Updateloading = false;
             this.router.navigate(['/dashboard/dashboard2/taxpayer/ind']);
             this.dialog.closeAll();
-            this.snackBar.open("Update individual payer successful",
-              '',
-              {
-                duration: 3000,
-                panelClass: 'success',
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom',
-              }
-            );
+            this.snackBar.open('Update individual payer successful', '', {
+              duration: 3000,
+              panelClass: 'success',
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            });
           },
           (err: any) => {
             console.log(err);
             this.authService.checkExpired();
             this.Updateloading = false;
             this.snackBar.open(
-              err?.error?.message || err?.error?.detail || err.error?.msg?.email || 
-              err.error?.msg?.phone || 'An Error Occured',
+              err?.error?.message ||
+                err?.error?.detail ||
+                err.error?.msg?.email ||
+                err.error?.msg?.phone ||
+                'An Error Occured',
               '',
               {
                 duration: 5000,
@@ -493,7 +519,7 @@ export class Individual2Component implements OnDestroy, OnInit {
             //
             this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.stateLoading = false;
             this.stateError = true;
           }
@@ -511,7 +537,7 @@ export class Individual2Component implements OnDestroy, OnInit {
         this.filteredBanks2.next(data.data);
         this.lgaLoading = false;
       },
-      (err: any) => {
+      () => {
         this.lgaLoading = false;
         this.lgaError = true;
       }
@@ -537,7 +563,7 @@ export class Individual2Component implements OnDestroy, OnInit {
               new AddLocation([{ id: 1, data: data.results }])
             );
           },
-          (err) => {
+          () => {
             this.stateLoading2 = false;
             this.stateError2 = true;
           }
@@ -564,7 +590,7 @@ export class Individual2Component implements OnDestroy, OnInit {
               new AddOccupation([{ id: 1, data: data.results }])
             );
           },
-          (err) => {
+          () => {
             this.occLoading = false;
             this.occError = true;
           }
@@ -588,12 +614,14 @@ export class Individual2Component implements OnDestroy, OnInit {
         const data = this.editDetails;
         this.feedbackForm1.patchValue({ firstname: data.data.first_name });
         this.feedbackForm1.patchValue({ surname: data.data.surname });
-        this.feedbackForm1.patchValue({ tin: data.data.jtb_tin || "" });
+        this.feedbackForm1.patchValue({ tin: data.data.jtb_tin || '' });
         this.feedbackForm1.patchValue({ gender: data.data.gender });
         this.feedbackForm1.patchValue({ birth: data.data.dob });
         this.feedbackForm1.controls['state'].patchValue(data.data.state_origin);
         this.feedbackForm1.controls['lga'].patchValue(data.data.lga_id.id);
-        this.feedbackForm1.controls['occupation'].patchValue(data.data.occupation.id);
+        this.feedbackForm1.controls['occupation'].patchValue(
+          data.data.occupation.id
+        );
         this.floatLabelControl = new FormControl(data.data.employment_status);
         this.feedbackForm1.patchValue({ contact: data.data.phone });
         this.feedbackForm1.patchValue({ contact_email: data.data.email });
@@ -660,7 +688,7 @@ export class Individual2Component implements OnDestroy, OnInit {
           this.searching = false;
           this.filteredBanks.next(filteredBanks);
         },
-        (error) => {
+        () => {
           // no errors in our simulated example
           this.searching = false;
           // handle error...
@@ -693,7 +721,7 @@ export class Individual2Component implements OnDestroy, OnInit {
           this.searching2 = false;
           this.filteredBanks2.next(filteredBanks);
         },
-        (error) => {
+        () => {
           // no errors in our simulated example
           this.searching = false;
           // handle error...
@@ -727,7 +755,7 @@ export class Individual2Component implements OnDestroy, OnInit {
           this.searching3 = false;
           this.filteredBanks3.next(filteredBanks);
         },
-        (error) => {
+        () => {
           // no errors in our simulated example
           this.searching3 = false;
           // handle error...

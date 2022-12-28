@@ -15,6 +15,9 @@
   --orange: orange;
   --blue: #3c66a3;
   --yellow-bg: #b9a005 0% 0% no-repeat padding-box;
+  --yellow: #b9a005;
+  --form-gray: #565656;
+  --card-shadow: #00000029;
 }
 
 html,

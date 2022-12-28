@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-// state management
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -21,16 +20,12 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   search: string = '';
   active: any = 'ind';
   left_text!: string;
-  is_reload = false;
   isLoading = false;
 
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
 
   constructor(
     private router: Router,
@@ -130,9 +125,7 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   }
 
   reload() {
-    this.is_reload = true;
     this.renderTable();
-    this.is_reload = false;
   }
 
   changeActive(type: any) {

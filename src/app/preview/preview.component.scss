@@ -48,7 +48,7 @@
     @mixin theme($theme) {
       letter-spacing: 0px;
       font: $theme;
-      color: #3c66a3;
+      color: var(--blue);
       text-align: left;
       margin-left: 10px;
     }
@@ -74,7 +74,7 @@
 
     .identity {
       font-size: 20px;
-      color: #3c66a3;
+      color: var(--blue);
     }
 
     .button-menu {
@@ -106,7 +106,7 @@
 
     .loader {
       border: 5px solid #aac7f4;
-      border-top: 5px solid #3c66a3;
+      border-top: 5px solid var(--blue);
       border-radius: 50%;
       width: 10px;
       height: 10px;
@@ -135,8 +135,6 @@
     border-radius: 10px;
     opacity: 1;
     padding: 1rem;
-    // width: 10rem;
-    // margin-bottom: 30px;
     height: 5rem;
     display: flex;
     justify-content: center;
@@ -150,7 +148,7 @@
   }
 
   .text {
-    margin-left: 5px;
+    margin-left: 10px;
     font: normal normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
     font-weight: 500;
@@ -172,7 +170,7 @@
   }
 
   .payee-background {
-    @include background-theme($theme: #3c66a3 0% 0% no-repeat padding-box);
+    @include background-theme($theme: var(--blue) 0% 0% no-repeat padding-box);
   }
 
   .direct-background {

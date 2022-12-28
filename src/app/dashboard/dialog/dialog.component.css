@@ -29,9 +29,9 @@
 }
 
 .left2 {
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
   font-weight: 500;
   word-wrap: break-word;
@@ -39,16 +39,16 @@
 }
 
 .left1 {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
   font-weight: 500;
   word-wrap: break-word;
 }
 
 .right2 {
-  font: normal normal normal 13px/17px Montserrat;
+  font: normal normal normal 13px/17px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   color: #565656;
@@ -61,29 +61,29 @@
   position: absolute;
   top: 0;
   right: 0;
-  color: #038541;
+  color: var(--green);
   opacity: 1;
   border-radius: 50%;
 }
 
 .title {
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   font-weight: 500;
   opacity: 1;
 }
 
 .title2 {
-  font: normal normal medium 12px/15px Montserrat;
+  font: normal normal medium 12px/15px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   cursor: pointer;
   opacity: 1;
 }
 
 .sub_title {
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
   color: #565656;
   font-weight: 500;
@@ -91,7 +91,7 @@
 }
 
 .director {
-  color: #038541;
+  color: var(--green);
   cursor: pointer;
 }
 
@@ -111,10 +111,10 @@
   border: 1px solid #40a84a;
   border-radius: 10px;
   opacity: 1;
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
-  background: #ffffff;
-  color: #038541;
+  background: var(--white);
+  color: var(--green);
   width: 150px;
   text-align: center;
   padding: 1rem;
@@ -122,13 +122,13 @@
 }
 
 .continue {
-  background: #B9A005 0% 0% no-repeat padding-box;
+  background: var(--yellow-bg) 0% 0% no-repeat padding-box;
   border-radius: 5px;
   text-align: left;
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
-  color: #ffffff;
-  padding: .9rem;
+  color: var(--white);
+  padding: 0.9rem;
   width: 150px;
   text-align: center;
   margin: 10px;
@@ -136,7 +136,6 @@
 }
 
 /* payee  */
-
 .header2 {
   padding-top: 1rem;
 }
@@ -152,16 +151,16 @@
 }
 
 .payee_edit_text {
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
-  color: #038541;
+  color: var(--green);
   font-weight: 500;
   margin-top: 10px;
   opacity: 1;
 }
 
 .payee_delete_text {
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
   color: #ff0000;
   margin-top: 10px;
@@ -192,16 +191,16 @@
 .header-text {
   text-align: center;
   margin-bottom: 1.5rem;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 550;
-  color: #3c66a3;
+  color: var(--blue);
   text-transform: uppercase;
   opacity: 1;
 }
 
 .dark {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   color: #565656;
@@ -210,10 +209,10 @@
 
 .blue,
 .blue_year {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
 }
 
@@ -223,12 +222,12 @@
 }
 
 .table_headline {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   padding: 0.5rem;
-  color: #3c66a3;
-  background: #ffffff 0% 0% no-repeat padding-box;
+  color: var(--blue);
+  background: var(--white) 0% 0% no-repeat padding-box;
   border: 1px solid #bce0fd;
   opacity: 1;
 }
@@ -238,7 +237,7 @@
 }
 
 .table-striped > tbody > tr:nth-of-type(even) {
-  background: #ffffff;
+  background: var(--white);
   opacity: 1;
 }
 
@@ -247,15 +246,15 @@
 }
 
 .payee_table_strip tr th {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   font-weight: 500;
   opacity: 1;
 }
 
 .total_gross {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 550;
   color: #565656;
@@ -263,17 +262,17 @@
 }
 
 .total_blue_gross {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 550;
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
 }
 
 .error_icon {
   margin-left: 5px;
   vertical-align: middle;
-  color: #ed0330;
+  color: var(--red);
   font-size: 15px;
   opacity: 1;
 }
@@ -286,8 +285,8 @@
 .gross_print_p {
   margin-bottom: 2rem;
   vertical-align: middle;
-  font: normal normal normal 15px/19px Montserrat;
-  color: #42a845;
+  font: normal normal normal 15px/19px var(--mont);
+  color: var(--green);
   font-weight: 500;
   cursor: pointer;
   opacity: 1;
@@ -298,7 +297,6 @@
 }
 
 /* generate bill */
-
 #print-section {
   width: 50rem;
 }
@@ -324,7 +322,7 @@
 }
 
 .gen_pending {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   margin-left: 10px;
@@ -337,27 +335,27 @@
 }
 
 .gen_total {
-  font: normal normal normal 17px/20px Montserrat;
+  font: normal normal normal 17px/20px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #ff0031;
+  color: var(--red);
   opacity: 1;
 }
 
 .gen_total_round {
   border-radius: 50%;
-  border: 2px solid #30b46c;
+  border: 2px solid var(--green);
   margin-left: 20px;
   border-bottom-width: thick;
-  font: normal normal normal 17px/20px Montserrat;
+  font: normal normal normal 17px/20px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #ff0031;
+  color: var(--red);
   opacity: 1;
 }
 
 .gen_body_text {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 400;
   color: #565656;
@@ -369,8 +367,8 @@
 }
 
 .col4 {
-  color: #ffffff;
-  background: #ffffff;
+  color: var(--white);
+  background: var(--white);
   opacity: 0.05;
 }
 
@@ -379,7 +377,7 @@
 }
 
 .gen_main_f {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
   color: #565656;
@@ -389,7 +387,7 @@
 
 .gen_main_s,
 .gen_main_t {
-  font: italic normal normal 12px/15px Montserrat;
+  font: italic normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   font-style: italic;
@@ -401,8 +399,8 @@
   margin-bottom: 10px;
   margin-left: 7rem;
   vertical-align: middle;
-  font: normal normal normal 15px/19px Montserrat;
-  color: #42a845;
+  font: normal normal normal 15px/19px var(--mont);
+  color: var(--green);
   font-weight: 500;
   cursor: pointer;
   opacity: 1;
@@ -420,27 +418,27 @@
 }
 
 .delete-payer-text {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   margin-top: 10px;
   text-align: center;
 }
 
 .delete-payer-tin {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
 }
 
 .cancel-payer-button {
   background: #f1f1f1;
-  color: black;
-  font: normal normal normal 15px/19px Montserrat;
+  color: var(--black);
+  font: normal normal normal 15px/19px var(--mont);
   padding: 0.7rem;
   border-radius: 10px;
 }
 
 .delete-payer-button {
   background: #bc333e;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   color: white;
   padding: 0.7rem;
   border-radius: 10px;
@@ -565,43 +563,43 @@
 }
 
 .payee-error-response {
-  color: #E9322C;
-  padding: .6rem;
-  border: 1px solid #E9322C;
+  color: var(--red);
+  padding: 0.6rem;
+  border: 1px solid var(--red);
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
 }
 
 .payee-success-response {
-  color: #038541;
-  padding: .6rem;
-  border: 1px solid #038541;
+  color: var(--green);
+  padding: 0.6rem;
+  border: 1px solid var(--green);
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
 }
 
 .tax_return_year {
   margin-bottom: 1rem;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   font-weight: 500;
   opacity: 1;
 }
 
 .payee_lists {
-  font: normal normal medium 12px/19px Montserrat;
+  font: normal normal medium 12px/19px var(--mont);
   letter-spacing: 0px;
-  color: #3c66a3;
-  background: #ffffff;
+  color: var(--blue);
+  background: var(--white);
   padding: 1rem;
   font-weight: 500;
   margin-bottom: 5px;
@@ -609,14 +607,14 @@
 }
 
 .payee_lists_table thead {
-  background: #ffffff;
-  font: normal normal medium 12px/19px Montserrat;
+  background: var(--white);
+  font: normal normal 12px/19px var(--mont);
   font-weight: 500;
 }
 
 .payee_lists_table tbody tr {
   color: rgba(86, 86, 86, 0.7);
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -624,7 +622,7 @@
 /*  */
 
 .employee_filling {
-  font: normal normal normal 16px/20px Montserrat;
+  font: normal normal normal 16px/20px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
   color: #565656;
@@ -633,7 +631,7 @@
 }
 
 .employee_filling2 {
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   letter-spacing: 0px;
   color: #565656;
   margin-top: 10px;
@@ -642,7 +640,6 @@
 }
 
 /* extract */
-
 .extract_data_success,
 .extract_data_warning {
   opacity: 1;
@@ -651,10 +648,10 @@
   padding: 0.5rem;
   border-radius: 20px;
   text-align: center;
-  font: normal normal normal 12px/8px Montserrat;
+  font: normal normal normal 12px/8px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--white);
   text-transform: capitalize;
   font-size: 10px;
   display: flex;
@@ -663,7 +660,7 @@
 }
 
 .extract_data_success {
-  background: #B9A005 0% 0% no-repeat padding-box;
+  background: var(--yellow-bg) 0% 0% no-repeat padding-box;
 }
 
 .extract_data_warning {
@@ -676,23 +673,23 @@
 }
 
 .extract_continue {
-  background: #3c66a3 0% 0% no-repeat padding-box;
-  border: 0.5px solid #038541;
+  background: var(--blue) 0% 0% no-repeat padding-box;
+  border: 0.5px solid var(--green);
   opacity: 1;
   padding: 1rem;
   margin-left: 10px;
-  font: normal normal normal 12px/15px Montserrat;
+  font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   margin-top: 1rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  color: #ffffff;
+  color: var(--white);
   opacity: 1;
 }
 
 .extract_note {
-  font: normal normal normal 12px/8px Montserrat;
+  font: normal normal normal 12px/8px var(--mont);
   letter-spacing: 0px;
   color: #a33c3c;
   font-weight: 500;
@@ -703,7 +700,7 @@
 
 .material-icons-round {
   vertical-align: middle;
-  color: #038541;
+  color: var(--green);
 }
 
 .table-icon-delete {
@@ -714,22 +711,22 @@
 ::ng-deep .mat-step-header .mat-step-icon-selected,
 .mat-step-header .mat-step-icon-state-done,
 .mat-step-header .mat-step-icon-state-edit {
-  background-color: #3C66A3;
+  background-color: var(--blue);
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #3C66A3;
+  color: var(--blue);
   border-radius: unset;
 }
 
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
-  color: #3C66A3;
+  color: var(--blue);
 }
 
 ::ng-deep .mat-input-element {
-  caret-color: #3C66A3;
+  caret-color: var(--blue);
 }
 
 ::ng-deep .mat-form-field-label {
@@ -742,22 +739,22 @@
 
 ::ng-deep .mat-form-field-underline,
 ::ng-deep .mat-form-field-ripple {
-  background: #3c66a3;
+  background: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: #3c66a3;
+  background-color: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #ffffff; /*inner circle color change*/
+  background-color: var(--white); /*inner circle color change*/
 }
 
 ::ng-deep
   .mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
-  border-color: #3c66a3; /*outer ring color change*/
-  background: #3c66a3;
+  border-color: var(--blue); /*outer ring color change*/
+  background: var(--blue);
 }
 
 /* end of dropdown */

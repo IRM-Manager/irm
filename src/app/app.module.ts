@@ -5,7 +5,7 @@ import {
   ModuleWithProviders,
   NgModule,
   Optional,
-  SkipSelf,
+  SkipSelf
 } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -49,26 +49,18 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { DataTablesModule } from 'angular-datatables';
-import { NgxPrintModule } from 'ngx-print';
 import 'hammerjs';
+import { NgxPrintModule } from 'ngx-print';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { reducers } from './reducers/index';
 import { HttpService } from './services/http.service';
 import { NetworkAwarePreloadingStrategyService2Service } from './services/network-aware-preloading-strategy.service';
 import { AuthInterceptor } from './_helpers/auth.interceptor';
-import { SignupComponent } from './signup/signup.component';
-import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    SignupComponent,
-    ForgetPasswordComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
