@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { MDA, Tin } from '../../shared/form';
+import { MDA } from '../../shared/form';
 
 @Component({
   selector: 'app-mda',
@@ -14,12 +14,10 @@ import { MDA, Tin } from '../../shared/form';
 })
 export class MDAComponent implements OnInit {
   @ViewChild('fform3') feedbackFormDirective3: any;
-
   feedbackForm3: any = FormGroup;
   feedback3!: MDA;
   loading2 = false;
   disabled2 = false;
-
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
   options2: string[] = ['One', 'Two', 'Three'];
@@ -127,7 +125,6 @@ export class MDAComponent implements OnInit {
   //   this.feedbackForm3.get('contact').reset();
   //   this.feedbackForm3.get('contact_email').reset();
   // }
-
 
   onSubmit() {
     this.onValueChanged3();

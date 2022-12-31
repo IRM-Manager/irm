@@ -27,20 +27,15 @@ export class MdaTableComponent implements OnDestroy, OnInit {
   clickEventSubscription?: Subscription;
   isLoading = false;
   gen_loading: any[] = [];
-
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   years: any;
   htmlYear = new Date().getFullYear();
-
   stateYear: Observable<Year[]>;
-
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -146,7 +141,7 @@ export class MdaTableComponent implements OnDestroy, OnInit {
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

@@ -135,7 +135,7 @@
     border-radius: 10px;
     opacity: 1;
     padding: 1rem;
-    height: 5rem;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -152,7 +152,7 @@
     font: normal normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
     font-weight: 500;
-    color: #ffffff;
+    color: var(--white);
     text-transform: capitalize;
     opacity: 1;
   }

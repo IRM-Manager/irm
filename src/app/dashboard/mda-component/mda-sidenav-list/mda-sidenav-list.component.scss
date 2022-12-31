@@ -1,16 +1,5 @@
-$white: #ffffff;
-$panel-text: normal normal normal 15px/19px Montserrat;
-$panel-text2: normal normal 300 15px/19px Montserrat;
-$panel-text2-active: #ffffff66;
-$text1-font: normal normal 15px/19px Montserrat;
-$text2-font: normal normal 300 12px/15px Montserrat;
-$right1-font: normal normal 400 15px/19px Montserrat;
-$green: #45a841;
-$pay-as-you-earn: rgba(255, 255, 255, 0.5);
-$pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
-
 .wrapper2 {
-  color: $white;
+  color: var(--white);
   overflow-y: auto;
 
   .logo_p {
@@ -25,7 +14,7 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
   }
 
   %shared-dash-text {
-    font: $panel-text;
+    font: normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
     cursor: pointer;
     font-weight: 500;
@@ -39,8 +28,8 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 
     .hambugger {
       float: right;
-      background: $white;
-      color: $green;
+      background: var(--white);
+      color: var(--green);
       margin-right: -10px;
     }
 
@@ -55,14 +44,14 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
     }
 
     .active {
-      background: $panel-text2-active;
+      background: #ffffff66;
     }
 
     .back {
       vertical-align: middle;
-      font: $panel-text;
+      font: normal normal 15px/19px var(--mont);
       letter-spacing: 0px;
-      color: $white;
+      color: var(--white);
       margin-top: 2rem;
       font-weight: 500;
       cursor: pointer;
@@ -75,8 +64,8 @@ $pay-as-you-earn-font: normal normal 700 20px/24px Montserrat;
 
     .pay_as_you_earn {
       margin-top: 1rem;
-      color: $pay-as-you-earn;
-      font: $pay-as-you-earn-font;
+      color: rgba(255, 255, 255, 0.5);
+      font: normal normal 700 20px/24px var(--mont);
       letter-spacing: 0px;
       cursor: pointer;
     }

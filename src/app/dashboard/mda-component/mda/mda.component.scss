@@ -1,69 +1,39 @@
-$header-color: 1px solid #42a845;
-$header-back: rgba(62, 95, 168, 0.05);
-$ind-back: #ffffff 0% 0% no-repeat padding-box;
-$white: #ffffff;
-$ind-border: 1px solid #45a841;
-$ind-font: normal normal normal 12px/15px Montserrat;
-$ind-color: #565656;
-$create-back: transparent linear-gradient(180deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
-$active-back: #387499 0% 0% no-repeat padding-box;
-$select-color: #3ea84e;
-$form-color: #37a85d;
-$label-color: #565656;
-$session-h2-font: normal normal 15px/19px Montserrat;
-$session-h2-color: #8650ae;
-$verify-hover-b: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%)
-  0% 0% no-repeat padding-box;
-$verify-hover-box: 0px 3px 6px #00000029;
-$radio-color: #3c66a3;
-$back-border: 1px solid #40a84a;
-$back-color: #44a843;
-$continue-back: transparent linear-gradient(150deg, #3e5fa8 0%, #2aa977 100%) 0%
-  0% no-repeat padding-box;
-$nin-back: transparent linear-gradient(180deg, #4be63d 0%, #2aa977 100%) 0% 0%
-  no-repeat padding-box;
-$nin-shadow: 0px 3px 6px #00000029;
-$lock: #37a85c;
-$drop-down: #3e538f;
-
 .wrapper {
   padding-left: 20px;
 }
 
 .session {
-  background: $header-back;
+  background: rgba(62, 95, 168, 0.05);
   padding: 1em 1em 0 1em;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 32px;
+  margin-bottom: 32px;
   opacity: 1;
-  width: 50rem;
-  // width: 90%;
+  width: 800px;
   padding-left: 20px;
 
   .session-header {
-    font: $session-h2-font;
+    font: normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
-    color: $session-h2-color;
+    color: #8650ae;
     font-weight: bold;
     opacity: 1;
   }
 
   input[type="text"] {
-    background: $label-color;
+    background: var(--form-gray);
   }
 
   ::ng-deep .mat-select-arrow {
-    color: $select-color;
+    color: var(--green);
     opacity: 1;
   }
 
   .form1 {
-    margin-top: 1rem;
+    margin-top: 16px;
   }
 
   mat-form-field {
-    color: 1px solid $form-color;
+    color: 1px solid var(--green);
   }
 
   @mixin form($width) {
@@ -104,23 +74,23 @@ $drop-down: #3e538f;
   }
 
   .lock {
-    color: $lock;
+    color: var(--green);
   }
 
   .drop_down {
-    color: $drop-down;
+    color: #3e538f;
   }
 
   mat-error {
     text-transform: capitalize;
     transition: all 0.5s;
-    font: $ind-font;
+    font: normal normal normal 12px/15px var(--mont);
     letter-spacing: 0px;
   }
 
   .final_submit {
-    margin-top: 3rem;
-    padding-bottom: 3rem;
+    margin-top: 48px;
+    padding-bottom: 48px;
 
     @mixin theme($back, $color, $font, $border) {
       letter-spacing: 0px;
@@ -131,40 +101,44 @@ $drop-down: #3e538f;
       color: $color;
       font-weight: 500;
       opacity: 1;
-      padding: 1rem;
+      padding: 16px;
     }
 
     .verify {
       width: 150px;
       font-weight: 500;
       @include theme(
-        $back: $continue-back,
-        $color: $white,
-        $font: $ind-font,
+        $back: transparent
+          linear-gradient(150deg, var(--blue) 0%, var(--green) 100%) 0% 0%
+          no-repeat padding-box,
+        $color: var(--white),
+        $font: normal normal normal 12px/15px var(--mont),
         $border: unset
       );
     }
 
     .verify:disabled {
-      color: $white;
+      color: var(--white);
     }
 
     .verify2 {
       margin-right: 20px;
       width: 150px;
       @include theme(
-        $back: $white,
-        $color: $back-color,
-        $font: $ind-font,
-        $border: $back-border
+        $back: var(--white),
+        $color: var(--green),
+        $font: normal normal normal 12px/15px var(--mont),
+        $border: 1px solid var(--green)
       );
     }
 
     .verify:hover,
     .verify2:hover {
-      background: $verify-hover-b;
-      box-shadow: $verify-hover-box;
-      color: $white;
+      background: transparent
+        linear-gradient(180deg, #4be63d 0%, var(--green) 100%) 0% 0% no-repeat
+        padding-box;
+      box-shadow: 0px 3px 6px var(--card-shadow);
+      color: var(--white);
     }
 
     .loader {
@@ -185,22 +159,22 @@ $drop-down: #3e538f;
     }
 
     .bubble:nth-child(1) {
-      background: $white;
+      background: var(--white);
     }
 
     .bubble:nth-child(2) {
       animation-delay: 180ms;
-      background: $white;
+      background: var(--white);
     }
 
     .bubble:nth-child(3) {
       animation-delay: 360ms;
-      background: $white;
+      background: var(--white);
     }
 
     .bubble:nth-child(4) {
       animation-delay: 540ms;
-      background: $white;
+      background: var(--white);
     }
 
     @keyframes expand {
@@ -216,51 +190,50 @@ $drop-down: #3e538f;
   ::ng-deep .mat-step-header .mat-step-icon-selected,
   .mat-step-header .mat-step-icon-state-done,
   .mat-step-header .mat-step-icon-state-edit {
-    background-color: $form-color;
+    background-color: var(--green);
   }
 
   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: $form-color;
+    color: var(--green);
   }
 
   ::ng-deep
     .mat-form-field-appearance-outline.mat-focused
     .mat-form-field-outline-thick {
-    color: $form-color;
+    color: var(--green);
   }
 
   ::ng-deep .mat-input-element {
-    caret-color: $form-color;
+    caret-color: var(--green);
   }
 
   ::ng-deep .mat-form-field-label {
-    color: $label-color;
+    color: var(--form-gray);
   }
 
   ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: $label-color;
+    color: var(--form-gray);
   }
 
   ::ng-deep .mat-form-field-underline,
   ::ng-deep .mat-form-field-ripple {
-    background: $radio-color;
+    background: var(--blue);
   }
 
   ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color: $radio-color;
+    background-color: var(--blue);
   }
 
   ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: $white; /*inner circle color change*/
+    background-color: var(--white); /*inner circle color change*/
   }
 
   ::ng-deep
     .mat-radio-button.mat-accent.mat-radio-checked
     .mat-radio-outer-circle {
-    border-color: $radio-color; /*outer ring color change*/
-    background: $radio-color;
+    border-color: var(--blue); /*outer ring color change*/
+    background: var(--blue);
   }
-
 }
 
 @media (max-width: 1400px) {
