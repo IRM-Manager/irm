@@ -2,9 +2,11 @@ import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
+import { MdaServiceService } from '../service/mda-service.service';
 
 @Component({
   selector: 'app-mda-sidenav-list',
@@ -14,14 +16,15 @@ import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
 })
 export class MdaSidenavListComponent implements OnInit {
   constructor(
-    private router: Router,
+    private httpService: HttpService,
     public shared: ToggleNavService,
     private _location: Location,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private service: MdaServiceService
   ) {}
 
-  PayeeBack() {
+  payeeBack() {
     this._location.back();
   }
 
@@ -39,8 +42,14 @@ export class MdaSidenavListComponent implements OnInit {
     });
   }
 
+  saveMda() {
+    this.httpService.getAuthSingle(BaseUrl.mda_list).subscribe((data: any) => {
+      this.service.setMdaMessage(data?.data);
+    });
+  }
+
   ngOnInit(): void {
-    console.log();
+    this.saveMda();
   }
 
   public onPublicHeaderToggleSidenav = () => {

@@ -14,11 +14,12 @@
                 <div class="generate_left">
                     <div class="left-column">
                         <span class="status">Bill status</span>
-                        <span class="pending">Pending</span>
+                        <span class="pending" *ngIf="!data?.data?.bill_status">Pending</span>
+                        <span class="paid" *ngIf="data?.data?.bill_status">Paid</span>
                     </div>
-                    <div class="tin">TIN: IRM1244325</div>
-                    <div class="com_name">Softpattern Pattern Technology</div>
-                    <div class="reg_buss">Registered Business</div>
+                    <div class="tin">TIN: {{ data?.data?.payer?.state_tin }}</div>
+                    <div class="com_name">{{ data?.data?.payer?.taxpayer_name }}</div>
+                    <div class="reg_buss">Registered {{ data?.data?.payer?.payer_type }}</div>
                 </div>
                 <div class="generate_right">
 
@@ -32,8 +33,7 @@
                                     <div class="title">No. Of employee</div>
                                     <div class="title">Currency</div>
                                     <div class="title">Date of assessment</div>
-                                    <div class="title">Ministry</div>
-                                    <div class="title">Items</div>
+                                    <div class="title">Bill Number</div>
                                     <div class="title2">TOTAL PAYE PAYABLE</div>
                                 </div>
                             </div>
@@ -44,14 +44,13 @@
                             <div class="deduction">Amount</div>
                             <div class="left_right">
                                 <div class="left2">
-                                    <div class="title">January</div>
-                                    <div class="title">PAYE</div>
-                                    <div class="title">2</div>
+                                    <div class="title">{{ data?.data?.assessment?.assessment_month }}</div>
+                                    <div class="title">{{ data?.data?.assessment?.assess_name }}</div>
+                                    <div class="title">{{ data?.data?.assessment?.employee_total }}</div>
                                     <div class="title">NGN</div>
-                                    <div class="title">01/12/2020</div>
-                                    <div class="title">NGN 10,000</div>
-                                    <div class="title">NGN 10,000</div>
-                                    <div class="title2">NGN 10,000</div>
+                                    <div class="title">{{ data?.data?.assessment?.assessment_date | date:'yyyy-MM-dd' }}</div>
+                                    <div class="title">{{ data?.data?.bill_code }}</div>
+                                    <div class="title2">NGN {{ formatMoney(data?.data?.bill_total || 0) }} </div>
                                 </div>
                             </div>
                         </div>

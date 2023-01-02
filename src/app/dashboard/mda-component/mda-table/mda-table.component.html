@@ -1,20 +1,20 @@
 <div class="wrapper">
 
     <div class="header">
-        <div>
-            <span class="reg_buss">Generated Bills for MDA {{ htmlYear }}</span>
-            <button mat-button="mat-button" [matMenuTriggerFor]="menu2">
-                <span class="change" style="color: #5EA55A;">Change Year</span>
-            </button>
-            <mat-menu #menu2 class="choose-year-menu">
-                <button mat-menu-item="mat-menu-item" *ngFor="let year of years" (click)="chooseYear(year)" class="mat-menu">{{ year.year }}</button>
-            </mat-menu>
-        </div>
+        <div class="reg_buss">Generated Bills for MDA</div>
+        <form>
+            <label for="form">From</label><br>
+            <input [ngModel]="from" (ngModelChange)="fromChange($event)" name="from" type="date" ngModel>
+            
+        </form>
+        <form>
+            <label for="to">To</label><br>
+            <input [ngModel]="to" (ngModelChange)="toChange($event)" name="to" type="date" ngModel>
+        </form>
     </div>
 
     <div>
         <div class="verify">
-
             <div class="header2">
 
                 <div class="indcom">
@@ -29,19 +29,6 @@
                         <input [ngModel]="search" (ngModelChange)="modelChange($event)" name="search" type="text" placeholder="Search for TaxID, Tax name., etc">
                     </form>
                 </div>
-        
-                <div class="dashboard_select">
-                    <select class="form-select form-select2" placeholder="Filters">
-                        <option class="option-white" disabled>.......................</option>
-                        <option selected>Filters</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <button matSuffix mat-icon-button class="form-dashboard_select">
-                        <span class="material-icons-outlined icons-rounded">filter_alt</span>
-                    </button>
-                </div>    
 
                 <div class="spacer"></div>
 
@@ -69,8 +56,8 @@
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle text-center">{{ data?.payer?.state_tin }}</td>
-                                <td class="align-middle text-center">{{ data?.assessment?.assess_code }}</td>
-                                <td class="align-middle">
+                                <td class="align-middle text-center">{{ data?.assessment?.assess_name }}</td>
+                                <td class="align-middle text-center">
                                     {{ data?.payer?.taxpayer_name }}
                                     <span *ngIf="data?.paye?.is_verified" class="material-icons-round icons-rounded">verified_user</span>
                                 </td>
@@ -78,10 +65,10 @@
                                 <td class="align-middle text-center">{{ data?.assessment?.assessment_date | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">{{ data?.bill_code }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.assessment.remitted">
+                                    <button mat-button class="paid" *ngIf="data.assessment?.remitted">
                                         Paid
                                     </button>
-                                    <button mat-button class="pending" *ngIf="!data.assessment.remitted">
+                                    <button mat-button class="pending" *ngIf="!data.assessment?.remitted">
                                         Not-paid
                                     </button>
                                 </td>

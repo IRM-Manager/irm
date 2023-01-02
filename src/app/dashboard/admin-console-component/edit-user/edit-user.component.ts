@@ -3,7 +3,7 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,10 +21,15 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
-  AppState, selectAllDepartment, selectAllGroup, selectAllLocation
+  AppState,
+  selectAllDepartment,
+  selectAllGroup,
+  selectAllLocation,
 } from 'src/app/reducers/index';
 import {
-  AddDepartment, AddGroup, AddLocation
+  AddDepartment,
+  AddGroup,
+  AddLocation,
 } from '../../../actions/irm.action';
 import { Department, Group, Locationn } from '../../models/irm';
 import { AdminServiceService } from '../service/admin-service.service';
@@ -254,7 +259,7 @@ export class EditUserComponent implements OnInit {
           phone: this.datas.data.phone,
           is_staff: this.datas.data.is_staff,
         };
-        console.log(correct_data)
+        console.log(correct_data);
         this.httpService
           .updateData(BaseUrl.edit_user, correct_data, this.datas.data.id)
           .subscribe(
@@ -393,7 +398,7 @@ export class EditUserComponent implements OnInit {
             //
             this.store.dispatch(new AddGroup([{ id: 1, data: data.data }]));
           },
-          (err: any) => {
+          () => {
             this.authService.checkExpired();
           }
         );
@@ -441,7 +446,7 @@ export class EditUserComponent implements OnInit {
               new AddDepartment([{ id: 1, data: data.results }])
             );
           },
-          (err: any) => {
+          () => {
             this.authService.checkExpired();
           }
         );
@@ -489,7 +494,7 @@ export class EditUserComponent implements OnInit {
               new AddLocation([{ id: 1, data: data.results }])
             );
           },
-          (err: any) => {
+          () => {
             this.authService.checkExpired();
           }
         );

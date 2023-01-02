@@ -2,16 +2,12 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // state management
-import { Store } from '@ngrx/store';
-import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { BaseUrl } from 'src/environments/environment';
-import { Year } from '../../models/irm';
-import { AddYear } from 'src/app/actions/irm.action';
 //
-import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
 
 @Component({
   selector: 'app-mda-table',
@@ -21,6 +17,8 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class MdaTableComponent implements OnDestroy, OnInit {
   search: string = '';
+  from: string = '';
+  to: string = '';
   loading = false;
   disabled = false;
   is_reload = false;
@@ -32,9 +30,6 @@ export class MdaTableComponent implements OnDestroy, OnInit {
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-  years: any;
-  htmlYear = new Date().getFullYear();
-  stateYear: Observable<Year[]>;
   formErrors: any = {};
   validationMessages: any = {};
 
@@ -42,16 +37,9 @@ export class MdaTableComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private httpService: HttpService,
-    private store: Store<AppState>,
     private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
-    this.stateYear = store.select(selectAllYear);
-    //
-    // const get_year: any = this.service.getAYearMessage();
-    // this.htmlYear = get_year?.yearId || new Date().getFullYear();
-    //
-    this.listYear();
   }
 
   formatDate(data: any) {
@@ -76,6 +64,9 @@ export class MdaTableComponent implements OnDestroy, OnInit {
           .toLowerCase()
           .includes(search.toLowerCase()) ||
         data.bill_code.toLowerCase().includes(search.toLowerCase()) ||
+        data.assessment?.assess_name
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
         this.formatDate(data?.assessment?.assessment_date).includes(
           search.toLowerCase()
         )
@@ -84,7 +75,10 @@ export class MdaTableComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable(id?: any) {
+  renderTable() {
+    var d = new Date();
+    const to = this.formatDate(new Date());
+    console.log(to);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
@@ -92,68 +86,67 @@ export class MdaTableComponent implements OnDestroy, OnInit {
       info: false,
     };
     this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_gen_bill).subscribe(
-      (data: any) => {
-        this.datas = data.data;
-        this.searchData = data.data;
-        this.isLoading = false;
-        console.log(data);
-      },
-      (err) => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.mda_bills +
+          `sdt=${this.formatDate(d.setDate(d.getDate() - 1))}&edt=${to}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data?.data;
+          this.searchData = data?.data;
+          this.isLoading = false;
+          console.log(data);
+        },
+        () => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
-  reload(id?: any) {
+  reload() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_gen_bill).subscribe(
-      (data: any) => {
-        this.datas = data.data;
-        this.searchData = data.data;
-        this.is_reload = false;
-        this.isLoading = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        console.log(data);
-      },
-      (err) => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(BaseUrl.mda_bills + `sdt=${this.from}&edt=${this.to}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data?.data;
+          this.searchData = data?.data;
+          this.is_reload = false;
+          this.isLoading = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
-  listYear() {
-    this.stateYear?.forEach((e) => {
-      if (e.length > 0) {
-        this.years = e[0].data;
-        this.renderTable();
-      } else {
-        this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
-          (data: any) => {
-            this.years = data.results;
-            this.renderTable();
-            this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
-          },
-          () => {
-            this.authService.checkExpired();
-          }
-        );
-      }
-    });
+  fromChange(search: any) {
+    this.from = search;
+    this.reload();
+    console.log(this.from);
+  }
+
+  toChange(search: any) {
+    this.to = search;
+    console.log(this.to);
+    this.reload();
   }
 
   // delete bill
   deleteBill(data2: any) {
     this.gen_loading.push(data2.id);
     this.httpService
-      .deleteData(BaseUrl.vehicle_gen_bill, data2.id + '/')
+      .deleteData(BaseUrl.mda_delete_bill, data2.id + '/')
       .subscribe(
         (data: any) => {
           const index = this.gen_loading.indexOf(data2.id);
@@ -205,11 +198,6 @@ export class MdaTableComponent implements OnDestroy, OnInit {
         data: data,
       },
     });
-  }
-
-  chooseYear(year: any) {
-    this.htmlYear = year.year;
-    this.reload(year.id);
   }
 
   formatMoney(n: any) {

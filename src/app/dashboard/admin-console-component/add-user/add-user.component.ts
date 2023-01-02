@@ -146,47 +146,6 @@ export class AddUserComponent implements OnInit {
         office: this.feedback.office,
       };
       console.log(data);
-
-      // this.httpService.postData(BaseUrl.add_com_payer, data).subscribe(
-      //   (data: any) => {
-      //     this.loading = false;
-      //     this.disabled = false;
-      //     // this.snackBar.open('Registration successful', '', {
-      //     //   duration: 3000,
-      //     //   panelClass: 'success',
-      //     //   horizontalPosition: 'center',
-      //     //   verticalPosition: 'top',
-      //     // });\
-      //     this.feedbackFormDirective.resetForm()
-      //     let datas2: any = [];
-      //     this.stateComPayer.forEach((e) => {
-      //       if (e.length > 0) {
-      //         let datas = Object.assign([], e[0].data);
-      //         datas.unshift(data.data);
-      //         datas2 = datas;
-      //       }
-      //     });
-      //     this.store.dispatch(new RemoveComPayer([{ id: 1, data: [] }]));
-      //     this.store.dispatch(new AddComPayer([{ id: 1, data: datas2 }]));
-      //     this.router.navigate(['/dashboard/dashboard2/taxpayer']);
-      //     this.OpenDialog(data.data);
-      //   },
-      //   (err: any) => {
-      //     console.log(err);
-      //     this.loading2 = false;
-      //     this.disabled2 = false;
-      //     this.snackBar.open(
-      //       err?.error?.msg || err?.error?.detail || 'An Error Occured!',
-      //       '',
-      //       {
-      //         duration: 5000,
-      //         panelClass: 'error',
-      //         horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //       }
-      //     );
-      //   }
-      // );
     } // end else
   }
 

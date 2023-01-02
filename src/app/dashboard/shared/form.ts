@@ -102,17 +102,13 @@ export interface payee2 {
 }
 
 export interface MDA {
-  title: string;
   firstname: string;
-  middlename: string;
   surname: string;
   contact: string;
   contact_email: string;
   mda_name: string;
   service_name: string;
   amount: string;
-  amount2: string;
-  description: string;
 }
 
 export interface individual_create {

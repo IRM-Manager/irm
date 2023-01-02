@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { MDA } from '../../shared/form';
+import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
+import { MdaServiceService } from '../service/mda-service.service';
 
 @Component({
   selector: 'app-mda',
@@ -18,14 +23,18 @@ export class MDAComponent implements OnInit {
   feedback3!: MDA;
   loading2 = false;
   disabled2 = false;
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
-  options2: string[] = ['One', 'Two', 'Three'];
+  options2: string[] = [];
   filteredOptions2: Observable<string[]> | undefined;
+  datas: any;
+  mdaList: any;
+  mdaLoading = false;
+  mdaError = false;
+  currentMdaRev: any;
 
   formErrors: any = {
     firstname: '',
-    middlename: '',
     surname: '',
     contact: '',
     contact_email: '',
@@ -35,9 +44,6 @@ export class MDAComponent implements OnInit {
 
   validationMessages: any = {
     firstname: {
-      required: 'required.',
-    },
-    middlename: {
       required: 'required.',
     },
     surname: {
@@ -63,26 +69,49 @@ export class MDAComponent implements OnInit {
     private fb: FormBuilder,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
-    private authService: AuthService
+    private router: Router,
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private service: MdaServiceService
   ) {
     this.authService.checkExpired();
+    this.datas = this.service.getMessage();
+
+    if (this.datas?.type == 'mda') {
+    } else {
+      this.router.navigate([`/dashboard/dashboard3/mda`]);
+    }
+
+    this.mdaList = this.service.getMdaMessage();
+    if (this.mdaList) {
+      this.mdaError = false;
+      this.mdaList.filter((name: any) => {
+        this.options.push(name?.name);
+      });
+    } else {
+      this.mdaError = true;
+    }
+
     this.createForm3();
-    this.feedbackForm3.controls['amount'].disable();
+    this.feedbackForm3.patchValue({ firstname: this.datas?.data.first_name });
+    this.feedbackForm3.patchValue({ surname: this.datas?.data.surname });
+    this.feedbackForm3.patchValue({ contact: this.datas?.data.phone });
+    this.feedbackForm3.patchValue({ contact_email: this.datas?.data.email });
+    this.feedbackForm3.controls['firstname'].disable();
+    this.feedbackForm3.controls['surname'].disable();
+    this.feedbackForm3.controls['contact'].disable();
+    this.feedbackForm3.controls['contact_email'].disable();
   }
 
   createForm3() {
     this.feedbackForm3 = this.fb.group({
-      title: [''],
       firstname: ['', [Validators.required]],
-      middlename: ['', [Validators.required]],
       surname: ['', [Validators.required]],
       contact: ['', [Validators.required]],
       contact_email: ['', [Validators.required, Validators.email]],
       mda_name: ['', [Validators.required]],
       service_name: ['', [Validators.required]],
       amount: [''],
-      amount2: [''],
-      description: [''],
     });
 
     this.feedbackForm3.valueChanges.subscribe((data: any) =>
@@ -113,19 +142,6 @@ export class MDAComponent implements OnInit {
     }
   }
 
-  // RemoveFormData() {
-  //   this.feedbackForm3.get('firstname').reset();
-  //   this.feedbackForm3.get('middlename').reset();
-  //   this.feedbackForm3.get('surname').reset();
-  //   this.feedbackForm3.get('title').reset();
-  //   this.feedbackForm3.get('mda_name').reset();
-  //   this.feedbackForm3.get('service_name').reset();
-  //   this.feedbackForm3.get('amount').reset();
-  //   this.feedbackForm3.get('description').reset();
-  //   this.feedbackForm3.get('contact').reset();
-  //   this.feedbackForm3.get('contact_email').reset();
-  // }
-
   onSubmit() {
     this.onValueChanged3();
     const feed = this.feedbackFormDirective3.invalid;
@@ -140,10 +156,104 @@ export class MDAComponent implements OnInit {
     else {
       this.loading2 = true;
       this.disabled2 = true;
-      this.feedback3 = this.feedbackForm3.value;
-      // this.feedbackFormDirective3.resetForm();
+      this.feedback3 = this.feedbackForm3.getRawValue();
+      let http_data: any;
+      this.currentMdaRev.filter((name: any) => {
+        if (name?.name == this.feedback3.service_name) {
+          http_data = name;
+        }
+      });
       console.log(this.feedback3);
+      this.httpService
+        .postData(BaseUrl.mda_genetae_bill + this.datas?.data.state_tin, {
+          item_id: http_data?.mdaid?.id,
+          amount: this.feedback3.amount,
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data.data);
+            this.openDialog(data?.data, 'generate_bill');
+            this.router.navigate(['/dashboard/dashboard3/mda/bill']);
+          },
+          (err) => {
+            this.authService.checkExpired();
+            this.loading2 = false;
+            this.disabled2 = false;
+            console.log(err);
+            this.snackBar.open(
+              err?.error?.message ||
+                err?.error?.msg ||
+                err?.error?.detail ||
+                err?.error?.status ||
+                'An Error Occured!',
+              '',
+              {
+                duration: 5000,
+                panelClass: 'error',
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        );
     }
+  }
+
+  getMdaRev(search: string) {
+    let id = '';
+    this.mdaList.filter((name: any) => {
+      if (name?.name == search) {
+        id = name?.id;
+      }
+    });
+    this.httpService
+      .getAuthSingle(BaseUrl.rev_mda + id)
+      .subscribe((data: any) => {
+        this.currentMdaRev = data?.data;
+        data?.data.filter((name: any) => {
+          this.options2.push(name?.name);
+        });
+        this.filteredOptions2 = this.feedbackForm3
+          .get('service_name')
+          .valueChanges.pipe(
+            startWith(''),
+            map((value: string) => this._filter2(value))
+          );
+      });
+  }
+
+  getRevMdaAmt(search: string) {
+    this.currentMdaRev.filter((name: any) => {
+      if (name?.name == search) {
+        this.feedbackForm3.patchValue({ amount: name?.amount });
+        this.feedbackForm3.controls['amount'].disable();
+      }
+    });
+  }
+
+  saveMda() {
+    this.mdaLoading = true;
+    this.mdaError = false;
+    this.httpService.getAuthSingle(BaseUrl.mda_list).subscribe(
+      (data: any) => {
+        this.mdaLoading = false;
+        this.mdaError = false;
+        this.mdaList = data?.data;
+        data?.data.filter((name: any) => {
+          this.options.push(name?.name);
+        });
+        this.filteredOptions = this.feedbackForm3
+          .get('mda_name')
+          .valueChanges.pipe(
+            startWith(''),
+            map((value: string) => this._filter(value))
+          );
+      },
+      () => {
+        this.mdaLoading = false;
+        this.mdaError = true;
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -159,6 +269,16 @@ export class MDAComponent implements OnInit {
         startWith(''),
         map((value: string) => this._filter2(value))
       );
+  }
+
+  openDialog(data: any, type: string) {
+    this.snackBar.dismiss();
+    this.dialog.open(MdaDialogComponent, {
+      data: {
+        type: type,
+        data: data,
+      },
+    });
   }
 
   private _filter(value: string): string[] {

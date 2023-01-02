@@ -16,7 +16,7 @@ export class TaxpayerSidenavListComponent implements OnInit {
     private router: Router,
     public shared: ToggleNavService,
     private _location: Location,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
   PayeeBack() {
@@ -27,7 +27,9 @@ export class TaxpayerSidenavListComponent implements OnInit {
     this.onPublicHeaderToggleSidenav();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

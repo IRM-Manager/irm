@@ -6,28 +6,14 @@
 
         <form class="form1" novalidate [formGroup]="feedbackForm3" #fform3="ngForm" (ngSubmit)="onSubmit()">
             <p>
-                <!-- title -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Title</mat-label>
-                    <mat-select matInput formControlName="title">
-                        <mat-option value="mr">Mr.</mat-option>
-                        <mat-option value="mrs">Mrs.</mat-option>
-                    </mat-select>
-                </mat-form-field>
                 <!-- firstname -->
-                <mat-form-field class="half-width" appearance="outline">
+                <mat-form-field class="half" appearance="outline">
                     <mat-label>First name</mat-label>
                     <input matInput formControlName="firstname" required>
                     <mat-error>{{formErrors.firstname}}</mat-error>
                 </mat-form-field>
-                <!-- middlename -->
-                <mat-form-field class="half-width" appearance="outline">
-                    <mat-label>Middle name</mat-label>
-                    <input matInput formControlName="middlename" required>
-                    <mat-error>{{formErrors.middlename}}</mat-error>
-                </mat-form-field>
                 <!-- surname -->
-                <mat-form-field class="half-width" appearance="outline">
+                <mat-form-field class="half" appearance="outline">
                     <mat-label>Surname</mat-label>
                     <input matInput formControlName="surname" required>
                     <mat-error>{{formErrors.surname}}</mat-error>
@@ -57,13 +43,18 @@
                     <mat-label>Name of MDA</mat-label>
                     <input matInput formControlName="mda_name" [matAutocomplete]="auto" required>
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                            (click)="getMdaRev(option)">
                             {{option}}
                         </mat-option>
                     </mat-autocomplete>
                     <button type="button" matSuffix mat-icon-button class="drop_down">
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </button>
+                    <mat-hint *ngIf="mdaLoading" align="end">Loading...</mat-hint>
+                    <mat-hint *ngIf="mdaError" align="end">
+                        <button type="button" (click)="saveMda()">Reload</button>
+                    </mat-hint>
                     <mat-error>{{formErrors.mda_name}}</mat-error>
                 </mat-form-field>
             </p>
@@ -73,7 +64,8 @@
                     <mat-label>Name of Service/Purpose</mat-label>
                     <input matInput formControlName="service_name" [matAutocomplete]="auto2" required>
                     <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                        <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option"
+                            (click)="getRevMdaAmt(option)">
                             {{option}}
                         </mat-option>
                     </mat-autocomplete>
@@ -92,27 +84,11 @@
                         <mat-icon>lock</mat-icon>
                     </button>
                 </mat-form-field>
-                <!-- amount2 -->
-                <mat-form-field class="half" appearance="outline">
-                    <mat-label>Type In the amount (&#8358;) (Optional)</mat-label>
-                    <input matInput formControlName="amount2" type="number">
-                    <button type="button" matSuffix mat-icon-button class="lock">
-                        <mat-icon>lock</mat-icon>
-                    </button>
-                </mat-form-field>
-            </p>
-            <p>
-                <!-- description -->
-                <mat-form-field class="full" appearance="outline">
-                    <mat-label>Description(Optional)</mat-label>
-                    <textarea matInput formControlName="description"></textarea>
-                </mat-form-field>
             </p>
 
             <div class="final_submit">
-                <button type="button" mat-button class="verify2">Generate Bill</button>
                 <button type="submit" mat-button class="verify" [disabled]="disabled2 === true">
-                    <span *ngIf="!loading2">Make Payment</span>
+                    <span *ngIf="!loading2">Generate Bill</span>
                     <div *ngIf="loading2" class="loader">
                         <div class="bubble"></div>
                         <div class="bubble"></div>

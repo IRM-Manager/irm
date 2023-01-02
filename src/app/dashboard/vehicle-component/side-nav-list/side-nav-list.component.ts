@@ -89,7 +89,7 @@ export class SideNavListComponent implements OnInit {
           new AddVehicleitems([{ id: 1, data: data.results }])
         );
       },
-      (err) => {}
+      () => {}
     );
   }
 
@@ -99,7 +99,7 @@ export class SideNavListComponent implements OnInit {
         console.log(data);
         this.service.setPlateStat(data.data);
       },
-      (err) => {
+      () => {
         this.authService.checkExpired();
       }
     );
@@ -110,7 +110,7 @@ export class SideNavListComponent implements OnInit {
       (data: any) => {
         this.service.setVehicleTypeMessage(data.results);
       },
-      (err) => {
+      () => {
         this.authService.checkExpired();
       }
     );
@@ -122,7 +122,7 @@ export class SideNavListComponent implements OnInit {
       .subscribe((data: any) => {
         this.service.setPenaltyMessage(data?.data);
       }),
-      (error: any) => {
+      () => {
         this.authService.checkExpired();
       };
   }

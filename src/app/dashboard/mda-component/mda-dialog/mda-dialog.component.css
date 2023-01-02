@@ -5,7 +5,7 @@
 
 .title-header {
   text-transform: uppercase;
-  font: normal normal 15px/19px var(--mont);
+  font: normal normal 18px/25px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
   color: var(--blue);
@@ -55,6 +55,15 @@
   letter-spacing: 0px;
   font-weight: 500;
   color: var(--yellow);
+  opacity: 1;
+  text-transform: capitalize;
+}
+
+.paid {
+  font: normal normal 15px/19px var(--mont);
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: var(--green);
   opacity: 1;
   text-transform: capitalize;
 }

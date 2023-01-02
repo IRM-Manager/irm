@@ -8,12 +8,11 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 // state management
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { MdaServiceService } from '../service/mda-service.service';
 
 @Component({
   selector: 'app-mda-dialog',
@@ -32,7 +31,7 @@ export class MdaDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
-    private store: Store<AppState>,
+    private service: MdaServiceService,
     private router: Router,
     public shared: ToggleNavService,
     private authService: AuthService,
@@ -62,13 +61,11 @@ export class MdaDialogComponent implements OnInit {
             this.dialogRef.disableClose = false;
             console.log(data);
             if (this.data.type == 'manual') {
-              let data2 = data?.data;
-              data2.renew = true;
               const plate_data = {
-                type: 'detail',
+                type: 'mda',
+                data: data?.data,
               };
-              // this.service.setRegVehicleMessage(data2);
-              // this.service.setRegMessage2(plate_data);
+              this.service.setMessage(plate_data);
               this.router.navigate(['/dashboard/dashboard3/mda/generate']);
             }
             this.dialogRef.close({ data: data.data });
