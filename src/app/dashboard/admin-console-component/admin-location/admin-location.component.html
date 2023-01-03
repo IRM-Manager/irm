@@ -1,12 +1,11 @@
 <div class="wrapper">
-
     <div>
         <div class="verify">
 
             <div class="department">Location | Showing Lists of all Locations (Offices)</div>
 
             <mat-toolbar class="header3">
-                <button mat-button class="add_user" (click)="OpenDialog('', 'add-location')">
+                <button mat-button class="add_user" (click)="openDialog('', 'add-location')">
                     Add location
                 </button>
             </mat-toolbar>
@@ -42,27 +41,27 @@
                                 </tr>
                             </thead>
                             <!-- individual -->
-                            <tbody *ngIf="datas?.length != 0">
+                            <tbody *ngIf="datas?.length !== 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle text-center">{{i+1}}</td>
                                     <td class="align-middle text-center">{{ data.name }}</td>
                                     <td class="align-middle text-center">{{ data.code }}</td>
                                     <td class="align-middle text-center">{{ data.usercount }}</td>
                                     <td class="align-middle text-center">
-                                        <span class="view" *ngIf="getLoding != data.id" (click)="getAssignUsers(data, data.id)">View</span>
-                                        <span *ngIf="getLoding == data.id" class="fa fa-cog fa-lg loader-spin" aria-hidden="true"></span>
+                                        <span class="view" *ngIf="getLoding !== data.id" (click)="getAssignUsers(data, data.id)">View</span>
+                                        <span *ngIf="getLoding === data.id" class="fa fa-cog fa-lg loader-spin" aria-hidden="true"></span>
                                     </td>
                                     <td class="align-middle text-center">
                                         <button mat-button [matMenuTriggerFor]="menu">
                                             <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="OpenDialog(data, 'edit-location')">Edit</button>
+                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="openDialog(data, 'edit-location')">Edit</button>
                                         </mat-menu>
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody *ngIf="datas?.length == 0">
+                            <tbody *ngIf="datas?.length === 0">
                                 <tr>
                                     <td class="no-data-available text-center">No data!</td>
                                     <td class="no-data-available text-center">No data!</td>
@@ -80,7 +79,7 @@
                                 <div class="bubble"></div>
                             </div>
 
-                            <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
+                            <button mat-raised-button class="reload" (click)="reload2()">
                                 <span *ngIf="!is_reload">Reload</span>
                                 <div *ngIf="is_reload" class="loader">
                                     <div class="bubble"></div>

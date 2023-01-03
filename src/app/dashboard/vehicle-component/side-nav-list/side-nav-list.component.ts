@@ -1,8 +1,8 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 // state management
@@ -13,9 +13,13 @@ import { AddVehicleitems } from '../../../actions/irm.action';
 import { BaseUrl } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../service/vehicle-service.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-side-nav-list',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './side-nav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./side-nav-list.component.scss'],

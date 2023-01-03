@@ -1,21 +1,49 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { manual } from '../../shared/form';
-import { PayeeServiceService } from '../service/payee-service.service';
-// state management
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { AddYear } from '../../../actions/irm.action';
 import { Year } from '../../models/irm';
+import { manual } from '../../shared/form';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-manual-input',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatSelectModule,
+    MatRadioModule,
+  ],
   templateUrl: './payee-manual-input.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-manual-input.component.scss'],
@@ -26,25 +54,19 @@ export class PayeeManualInputComponent implements OnInit {
   form!: FormGroup;
   form2!: FormGroup;
   form3!: FormGroup;
-
   consolidate: any = 0;
   hmo: any = 0;
   other: any = 0;
-
   basic: any = 0;
   housing: any = 0;
   tp: any = 0;
-
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: manual;
   loading = false;
-
   datas: any;
   datas2: any;
   acceptedData: any;
-
   years: any;
   stateYear: Observable<Year[]>;
 
@@ -266,7 +288,6 @@ export class PayeeManualInputComponent implements OnInit {
       });
     } else {
       this.loading = true;
-
       const data: any = {
         other_deductions: this.other || 0,
         pension: this.form2.value.floatLabelControl2 == 'true' ? true : false,
@@ -280,7 +301,7 @@ export class PayeeManualInputComponent implements OnInit {
         basic: this.basic || 0,
         housing: this.housing || 0,
         tp: this.tp || 0,
-        employerTin: this.datas2.employerTin
+        employerTin: this.datas2.employerTin,
       };
       if (this.form.value.floatLabelControl == 'true') {
         delete data.basic;
@@ -414,7 +435,7 @@ export class PayeeManualInputComponent implements OnInit {
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
             this.years = data.results;
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

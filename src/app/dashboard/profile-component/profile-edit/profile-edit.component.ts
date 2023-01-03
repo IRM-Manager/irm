@@ -1,20 +1,42 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { editUser } from '../../shared/form';
-import { Store } from '@ngrx/store';
-import { ProfileServiceService } from '../service/profile-service.service';
-import { Observable } from 'rxjs';
-import { AppState, selectAllProfile } from 'src/app/reducers/index';
 import { AddProfile, RemoveProfile } from '../../../actions/irm.action';
 import { Profile } from '../../../dashboard/models/irm';
+import { editUser } from '../../shared/form';
+import { ProfileServiceService } from '../service/profile-service.service';
 
 @Component({
   selector: 'app-profile-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './profile-edit.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./profile-edit.component.scss'],
@@ -26,7 +48,6 @@ export class ProfileEditComponent implements OnInit {
   feedback!: editUser;
   loading = false;
   disabled = false;
-
   stateProfile: Observable<Profile[]>;
 
   formErrors: any = {
@@ -59,13 +80,13 @@ export class ProfileEditComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private service: ProfileServiceService,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
     this.authService.checkExpired();
     this.createForm();
     //
     this.stateProfile = store.select(selectAllProfile);
-    // 
+    //
     this.datas = this.service.getAdminMessage();
     if (this.datas) {
     } else {
@@ -123,12 +144,12 @@ export class ProfileEditComponent implements OnInit {
     else {
       this.loading = true;
       this.disabled = true;
-      // 
+      //
       let get_group_ids: any = [];
-      this.datas.groups
+      this.datas.groups;
       this.datas.groups.filter((name: any) => {
-        get_group_ids.push(name.id)
-      })
+        get_group_ids.push(name.id);
+      });
       this.feedback = this.feedbackForm.value;
       let data = {
         first_name: this.feedback.first_name,
@@ -149,14 +170,14 @@ export class ProfileEditComponent implements OnInit {
             this.disabled = false;
             // reset form value
             this.feedbackFormDirective.resetForm();
-            // 
+            //
             this.snackBar.open('Update Successful', '', {
               duration: 4000,
               panelClass: 'success',
               horizontalPosition: 'center',
               verticalPosition: 'top',
             });
-            this.store.dispatch(new AddProfile([{ id: 1, data: data }]))
+            this.store.dispatch(new AddProfile([{ id: 1, data: data }]));
             this.router.navigate(['/dashboard/dashboard5/account']);
           },
           (err: any) => {

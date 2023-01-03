@@ -1,9 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { Router, RouterModule } from '@angular/router';
 import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-onboard',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    FlexLayoutModule,
+    RouterModule,
+  ],
   templateUrl: './payee-onboard.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-onboard.component.scss'],
@@ -17,7 +29,7 @@ export class PayeeOnboardComponent implements OnInit {
   ) {
     //
     this.datas = this.payeeService.getMessage();
-    console.log(this.datas)
+    console.log(this.datas);
     if (this.datas) {
     } else {
       this.router.navigate([
@@ -27,5 +39,7 @@ export class PayeeOnboardComponent implements OnInit {
     //
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

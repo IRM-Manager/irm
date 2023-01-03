@@ -1,7 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -12,6 +22,21 @@ import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.compone
 @Component({
   selector: 'app-plate',
   templateUrl: './plate.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    FlexLayoutModule,
+    RouterModule,
+    MatTooltipModule,
+  ],
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./plate.component.scss'],
 })
@@ -25,7 +50,6 @@ export class PlateComponent implements OnDestroy, OnInit {
   stat: any;
   total_count: number = 0;
   active_page: number = 0;
-
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
@@ -33,11 +57,9 @@ export class PlateComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
-    private router: Router,
     private authService: AuthService,
     private dialog: MatDialog,
     private httpService: HttpService,
@@ -95,7 +117,7 @@ export class PlateComponent implements OnDestroy, OnInit {
         this.isLoading = false;
         console.log(data);
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
@@ -118,7 +140,7 @@ export class PlateComponent implements OnDestroy, OnInit {
         });
         console.log(data);
       },
-      (err) => {
+      () => {
         this.is_reload = false;
         this.authService.checkExpired();
       }

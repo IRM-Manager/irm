@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
@@ -15,14 +15,36 @@ import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
 import { AdminServiceService } from '../service/admin-service.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-admin-console',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatIconModule,
+    RouterModule,
+    DataTablesModule,
+    MatMenuModule,
+    MatToolbarModule,
+  ],
   templateUrl: './admin-console.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./admin-console.component.scss'],
 })
-export class AdminConsoleComponent implements OnInit {
+export class AdminConsoleComponent implements OnInit, OnDestroy {
   search: string = '';
   loading = false;
   disabled = false;
@@ -90,7 +112,7 @@ export class AdminConsoleComponent implements OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
@@ -123,7 +145,7 @@ export class AdminConsoleComponent implements OnInit {
           verticalPosition: 'top',
         });
       },
-      (err) => {
+      () => {
         this.is_reload = false;
         this.authService.checkExpired();
       }

@@ -1,7 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -12,6 +21,19 @@ import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.comp
 
 @Component({
   selector: 'app-tax-payer',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+  ],
   templateUrl: './tax-payer.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./tax-payer.component.scss'],
@@ -21,7 +43,6 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   active: any = 'ind';
   left_text!: string;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   searchData: any;

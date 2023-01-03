@@ -1,6 +1,12 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -9,19 +15,38 @@ import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 // state management
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vehicle-offence',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatExpansionModule,
+  ],
   templateUrl: './vehicle-offence.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-offence.component.scss'],
 })
 export class VehicleOffenceComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: offence;
   plateMsg: any;

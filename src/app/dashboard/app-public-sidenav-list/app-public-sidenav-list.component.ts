@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,7 +6,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 // state management
 import { Store } from '@ngrx/store';
 import {
@@ -14,46 +14,79 @@ import {
   selectAllDepartment,
   selectAllGroup,
   selectAllLocation,
-  selectAllProfile,
   selectAllOccupation,
+  selectAllProfile,
 } from 'src/app/reducers/index';
 import {
   AddDepartment,
   AddGroup,
   AddLocation,
-  AddProfile,
   AddOccupation,
+  AddProfile,
 } from '../../actions/irm.action';
 import {
   Department,
   Group,
   Locationn,
-  Profile,
   Occupation,
+  Profile,
 } from '../models/irm';
 //
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { AdminSidenavListComponent } from '../admin-console-component/admin-sidenav-list/admin-sidenav-list.component';
+import { BottomSidenavMenuComponent } from '../bottom-sidenav-menu/bottom-sidenav-menu.component';
+import { DashboardSidenavListComponent } from '../dashboard-component/dashboard-sidenav-list/dashboard-sidenav-list.component';
+import { DirectSidenavListComponent } from '../direct-access-component/direct-sidenav-list/direct-sidenav-list.component';
+import { MdaSidenavListComponent } from '../mda-component/mda-sidenav-list/mda-sidenav-list.component';
+import { PayeeSidenavListComponent } from '../payee-layout/payee-sidenav-list/payee-sidenav-list.component';
+import { ProfileSidenavListComponent } from '../profile-component/profile-sidenav-list/profile-sidenav-list.component';
 import { ProfileServiceService } from '../profile-component/service/profile-service.service';
 import { ToggleNavService } from '../sharedService/toggle-nav.service';
+import { StampSideNavListComponent } from '../stamp-duties-component/stamp-side-nav-list/stamp-side-nav-list.component';
+import { TaxpayerSidenavListComponent } from '../tax-payer-layout/taxpayer-sidenav-list/taxpayer-sidenav-list.component';
+import { SideNavListComponent } from '../vehicle-component/side-nav-list/side-nav-list.component';
+import { WitholdingSidenavListComponent } from '../withholding-tax-component/witholding-sidenav-list/witholding-sidenav-list.component';
 
 @Component({
   selector: 'app-app-public-sidenav-list',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    RouterModule,
+    MatExpansionModule,
+    BottomSidenavMenuComponent,
+    PayeeSidenavListComponent,
+    DashboardSidenavListComponent,
+    TaxpayerSidenavListComponent,
+    AdminSidenavListComponent,
+    MdaSidenavListComponent,
+    DirectSidenavListComponent,
+    SideNavListComponent,
+    ProfileSidenavListComponent,
+    WitholdingSidenavListComponent,
+    StampSideNavListComponent,
+  ],
   templateUrl: './app-public-sidenav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./app-public-sidenav-list.component.scss'],
 })
 export class AppPublicSidenavListComponent implements OnInit {
   @Output() public publicsidenavClose = new EventEmitter();
-
   clickEventSubscription?: Subscription;
   panelOpenState = false;
   profile: any;
   type: any;
   payee_type: any;
-
   stateProfile: Observable<Profile[]>;
   stateGroup: Observable<Group[]>;
   stateDepartment: Observable<Department[]>;
@@ -104,11 +137,7 @@ export class AppPublicSidenavListComponent implements OnInit {
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/manage-edit' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual-input' ||
       this.router.url == '/dashboard/dashboard3/taxpayer/payee/lists-view' ||
-      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual/add' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/access' ||
-      this.router.url ==
-        '/dashboard/dashboard4/taxpayer/payee/access/staff-input' ||
-      this.router.url == '/dashboard/dashboard4/taxpayer/payee/bills'
+      this.router.url == '/dashboard/dashboard3/taxpayer/payee/manual/add'
     ) {
       this.type = 'payee';
     }
@@ -219,24 +248,11 @@ export class AppPublicSidenavListComponent implements OnInit {
     }
   }
 
-  PayeeBack() {
-    // this.shared.PayeesendClickEvent('');
-    // this.shared.PayeesenddataEvent('');
-    // this.shared.setMessage(undefined);
-    // this.shared.setMessage2(undefined);
-    // this.shared.setMessage3(undefined);
-    // this.shared.sendPayeeHeaderButtonClickEvent(false);
-    // this.router.navigate(['/dashboard']);
+  payeeBack() {
     this._location.back();
   }
 
-  PayeeBusinessBack() {
-    // this.shared.PayeesenddataEvent('');
-    // this.shared.setMessage(undefined);
-    // this.shared.setMessage2(undefined);
-    // this.shared.setMessage3(undefined);
-    // this.shared.sendPayeeHeaderButtonClickEvent(false);
-    // this.router.navigate(['/dashboard3/taxpayer/payee']);
+  payeeBusinessBack() {
     this.router.navigate(['/preview']);
   }
 
@@ -248,7 +264,7 @@ export class AppPublicSidenavListComponent implements OnInit {
     return this.authService.getJwtToken();
   }
 
-  AddProfile() {
+  addProfile() {
     this.stateProfile.forEach((e) => {
       if (e.length > 0) {
         this.profile = e[0].data;
@@ -293,46 +309,42 @@ export class AppPublicSidenavListComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  AddGroup() {
-    this.httpService.getAuthSingle(BaseUrl.list_group).subscribe(
-      (data: any) => {
+  addGroup() {
+    this.httpService
+      .getAuthSingle(BaseUrl.list_group)
+      .subscribe((data: any) => {
         this.store.dispatch(new AddGroup([{ id: 1, data: data.data }]));
-      },
-      (err) => {}
-    );
+      });
   }
 
-  AddDepartment() {
-    this.httpService.getAuthSingle(BaseUrl.list_department).subscribe(
-      (data: any) => {
+  addDepartment() {
+    this.httpService
+      .getAuthSingle(BaseUrl.list_department)
+      .subscribe((data: any) => {
         this.store.dispatch(new AddDepartment([{ id: 1, data: data.results }]));
-      },
-      (err) => {}
-    );
+      });
   }
 
-  AddLocation() {
-    this.httpService.getAuthSingle(BaseUrl.list_location).subscribe(
-      (data: any) => {
+  addLocation() {
+    this.httpService
+      .getAuthSingle(BaseUrl.list_location)
+      .subscribe((data: any) => {
         this.store.dispatch(new AddLocation([{ id: 1, data: data.results }]));
-      },
-      (err) => {}
-    );
+      });
   }
 
   addOccupation() {
-    this.httpService.getSingleNoAuth(BaseUrl.list_occupation).subscribe(
-      (data: any) => {
+    this.httpService
+      .getSingleNoAuth(BaseUrl.list_occupation)
+      .subscribe((data: any) => {
         this.store.dispatch(new AddOccupation([{ id: 1, data: data.results }]));
-      },
-      (err) => {}
-    );
+      });
   }
 
   ngOnInit(): void {
-    this.AddProfile();
-    this.AddGroup();
-    this.AddDepartment();
+    this.addProfile();
+    this.addGroup();
+    this.addDepartment();
     this.addOccupation();
   }
 

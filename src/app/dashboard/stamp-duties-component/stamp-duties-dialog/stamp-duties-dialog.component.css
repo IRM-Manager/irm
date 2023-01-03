@@ -1,386 +1,385 @@
 /* generate notice bill */
 
 .tin {
-    font: normal normal normal 15px/19px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #565656;
-    opacity: 1;
+  font: normal normal normal 15px/19px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--form-grey);
+  opacity: 1;
+}
+
+.com_name {
+  font: normal normal normal 15px/19px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--blue);
+  opacity: 1;
+  margin-top: 5px;
+}
+
+.reg_buss {
+  font: normal normal normal 15px/19px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--form-grey);
+  opacity: 1;
+  margin-top: 5px;
+}
+
+.generate-dialog {
+  margin: auto;
+  width: 30rem;
+  padding-left: 2.5rem;
+  padding-right: 2rem;
+}
+
+.gen_logo_p {
+  text-align: center;
+}
+
+.gen_logo_p img {
+  width: 100px;
+  height: 100px;
+}
+
+.payee_cancel_button {
+  text-align: right;
+  color: var(--blue);
+}
+
+.title-header {
+  text-transform: uppercase;
+  font: normal normal normal 15px/19px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--blue);
+  text-transform: uppercase;
+  opacity: 1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.generate_left {
+  float: left;
+  width: 33%;
+}
+
+.generate_center {
+  float: right;
+  width: 33%;
+}
+
+.left-column {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tin {
+  font: normal normal normal 15px/19px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  margin-top: 5px;
+  color: var(--form-grey);
+  opacity: 1;
+}
+
+.gen-success {
+  color: var(--green);
+}
+
+.gen-failed {
+  color: var(--red);
+}
+
+.column {
+  margin: auto;
+  clear: both;
+}
+
+.column1 {
+  float: left;
+  width: 50%;
+}
+
+.column2 {
+  float: left;
+  width: 50%;
+}
+
+.employee-salary,
+.deduction {
+  background: var(--blue) 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 0.6rem 15px;
+  font: normal normal normal 14px/17px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--white);
+}
+
+.left_right {
+  display: flex;
+}
+
+.left {
+  float: left;
+  width: 100%;
+}
+
+.left2 {
+  float: left;
+  width: 100%;
+}
+
+.title {
+  font: normal normal normal 13px/16px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--form-grey);
+  opacity: 1;
+  vertical-align: middle;
+  padding: 15px;
+  height: 1rem;
+}
+
+.title2 {
+  font: normal normal normal 13px/16px var(--mont);
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: var(--form-grey);
+  opacity: 1;
+  vertical-align: middle;
+  text-transform: uppercase;
+  height: 1rem;
+  padding: 15px;
+}
+
+.print_p {
+  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.print {
+  font: normal normal normal 15px/19px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--yellow);
+  opacity: 1;
+  text-transform: capitalize;
+  padding: 0.4rem;
+}
+
+.print_delete {
+  color: #dd5f5f;
+  vertical-align: middle;
+}
+
+.loader-spin {
+  color: #dd5f5f;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  .com_name {
-    font: normal normal normal 15px/19px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #3c66a3;
-    opacity: 1;
-    margin-top: 5px;
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .reg_buss {
-    font: normal normal normal 15px/19px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #565656;
-    opacity: 1;
-    margin-top: 5px;
+}
+
+.note {
+  margin-top: 1rem;
+  font: italic normal normal 13px/15px var(--mont);
+  letter-spacing: 0px;
+  font-weight: 500;
+  color: var(--form-grey);
+  opacity: 1;
+}
+
+/* Manual upload css */
+
+.upload_file-dialog {
+  width: 40rem;
+  padding-left: 5rem;
+  margin-right: 3rem;
+}
+
+.upload_cancel_button {
+  text-align: right;
+  color: var(--green);
+}
+
+.upload_continue {
+  background: var(--yellow-bg);
+  border-radius: 10px;
+  padding: 0.8rem;
+  width: 8rem;
+  text-align: center;
+  opacity: 1;
+  font: normal normal normal 14px/16px var(--mont);
+  letter-spacing: 0px;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.manual_file-dialog {
+  width: 30rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.manual_container {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  background: #f5f7fa 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  padding: 1rem;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.manual_filling {
+  font: normal normal normal 17px/25px var(--mont);
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--form-grey);
+  text-align: left;
+  opacity: 1;
+}
+
+.manual_verify {
+  font: normal normal normal 17px/25px var(--mont);
+  letter-spacing: 0px;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  color: var(--form-grey);
+  opacity: 1;
+}
+
+.half-width {
+  margin-right: 15px;
+}
+
+.dont-have {
+  font: normal normal normal 14px/17px var(--mont);
+  letter-spacing: 0px;
+  color: var(--green);
+  font-weight: 500;
+  opacity: 1;
+  cursor: pointer;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: var(--green) !important;
+  background-color: var(--white) !important;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: var(--green);
+}
+
+::ng-deep .mat-input-element {
+  caret-color: var(--green);
+}
+
+::ng-deep .mat-form-field-label {
+  color: var(--form-grey);
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--form-grey);
+}
+
+::ng-deep .mat-form-field-underline,
+::ng-deep .mat-form-field-ripple {
+  background: var(--blue);
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: var(--blue);
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: var(--white); /*inner circle color change*/
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: var(--blue); /*outer ring color change*/
+  background: var(--blue);
+}
+
+mat-error {
+  font: normal normal normal 14px/17px var(--mont);
+  letter-spacing: 0px;
+}
+
+/* loader container */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 0 0.5em 0;
+}
+
+.bubble {
+  animation: expand 0.75s ease-in-out infinite;
+  border-radius: 20px;
+  display: inline-block;
+  transform-origin: center center;
+  margin: 0 3px;
+  width: 7px;
+  height: 7px;
+}
+
+.bubble:nth-child(1) {
+  background: var(--white);
+}
+
+.bubble:nth-child(2) {
+  animation-delay: 180ms;
+  background: var(--white);
+}
+
+.bubble:nth-child(3) {
+  animation-delay: 360ms;
+  background: var(--white);
+}
+
+.bubble:nth-child(4) {
+  animation-delay: 540ms;
+  background: var(--white);
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(1);
   }
-  
-  .generate-dialog {
-    margin: auto;
-    width: 30rem;
-    padding-left: 2.5rem;
-    padding-right: 2rem;
+  25% {
+    transform: scale(1.55);
   }
-  
-  .gen_logo_p {
-    text-align: center;
+}
+
+@media print {
+  .print_p,
+  .notice-print_p,
+  .print-receipt,
+  .receipt_cancel_button {
+    display: none;
   }
-  
-  .gen_logo_p img {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .payee_cancel_button {
-    text-align: right;
-    color: #3c66a3;
-  }
-  
-  .title-header {
-    text-transform: uppercase;
-    font: normal normal normal 15px/19px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #3c66a3;
-    text-transform: uppercase;
-    opacity: 1;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .generate_left {
-    float: left;
-    width: 33%;
-  }
-  
-  .generate_center {
-    float: right;
-    width: 33%;
-  }
-  
-  .left-column {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .tin {
-    font: normal normal normal 15px/19px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    margin-top: 5px;
-    color: #565656;
-    opacity: 1;
-  }
-  
-  .gen-success {
-    color: #038541;
-  }
-  
-  .gen-failed {
-    color: #e9322c;
-  }
-  
-  .column {
-    margin: auto;
-    clear: both;
-  }
-  
-  .column1 {
-    float: left;
-    width: 50%;
-  }
-  
-  .column2 {
-    float: left;
-    width: 50%;
-  }
-  
-  .employee-salary,
-  .deduction {
-    background: #3c66a3 0% 0% no-repeat padding-box;
-    opacity: 1;
-    padding: 0.6rem 15px;
-    font: normal normal normal 14px/17px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #ffffff;
-  }
-  
-  .left_right {
-    display: flex;
-  }
-  
-  .left {
-    float: left;
-    width: 100%;
-  }
-  
-  .left2 {
-    float: left;
-    width: 100%;
-  }
-  
-  .title {
-    font: normal normal normal 13px/16px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #565656;
-    opacity: 1;
-    vertical-align: middle;
-    padding: 15px;
-    height: 1rem;
-  }
-  
-  .title2 {
-    font: normal normal normal 13px/16px Montserrat;
-    font-weight: 600;
-    letter-spacing: 0px;
-    color: #565656;
-    opacity: 1;
-    vertical-align: middle;
-    text-transform: uppercase;
-    height: 1rem;
-    padding: 15px;
-  }
-  
-  .print_p {
-    margin-bottom: 2rem;
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .print {
-    font: normal normal normal 15px/19px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #b9a005;
-    opacity: 1;
-    text-transform: capitalize;
-    padding: 0.4rem;
-  }
-  
-  .print_delete {
-    color: #dd5f5f;
-    vertical-align: middle;
-  }
-  
-  .loader-spin {
-    color: #dd5f5f;
-    animation: spin 3s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .note {
-    margin-top: 1rem;
-    font: italic normal normal 13px/15px Montserrat;
-    letter-spacing: 0px;
-    font-weight: 500;
-    color: #565656;
-    opacity: 1;
-  }
-  
-  /* Manual upload css */
-  
-  .upload_file-dialog {
-    width: 40rem;
-    padding-left: 5rem;
-    margin-right: 3rem;
-  }
-  
-  .upload_cancel_button {
-    text-align: right;
-    color: #038541;
-  }
-  
-  .upload_continue {
-    background: #b9a005 0% 0% no-repeat padding-box;
-    border-radius: 10px;
-    padding: 0.8rem;
-    width: 8rem;
-    text-align: center;
-    opacity: 1;
-    font: normal normal normal 14px/16px Montserrat;
-    letter-spacing: 0px;
-    color: #ffffff;
-    font-weight: 500;
-  }
-  
-  .manual_file-dialog {
-    width: 30rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-  
-  .manual_container {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    background: #f5f7fa 0% 0% no-repeat padding-box;
-    border-radius: 20px;
-    padding: 1rem;
-    opacity: 1;
-    display: flex;
+
+  .receipt-header {
     justify-content: center;
-    align-items: center;
-    height: 40vh;
   }
-  
-  .manual_filling {
-    font: normal normal normal 17px/25px Montserrat;
-    font-weight: 500;
-    letter-spacing: 0px;
-    color: #565656;
-    text-align: left;
-    opacity: 1;
-  }
-  
-  .manual_verify {
-    font: normal normal normal 17px/25px Montserrat;
-    letter-spacing: 0px;
-    font-weight: 500;
-    margin-top: 15px;
-    margin-bottom: 30px;
-    color: #565656;
-    opacity: 1;
-  }
-  
-  .half-width {
-    margin-right: 15px;
-  }
-  
-  .dont-have {
-    font: normal normal normal 14px/17px Montserrat;
-    letter-spacing: 0px;
-    color: #038541;
-    font-weight: 500;
-    opacity: 1;
-    cursor: pointer;
-  }
-  
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: #038541 !important;
-    background-color: #ffffff !important;
-  }
-  
-  ::ng-deep
-    .mat-form-field-appearance-outline.mat-focused
-    .mat-form-field-outline-thick {
-    color: #038541;
-  }
-  
-  ::ng-deep .mat-input-element {
-    caret-color: #038541;
-  }
-  
-  ::ng-deep .mat-form-field-label {
-    color: #565656;
-  }
-  
-  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: #565656;
-  }
-  
-  ::ng-deep .mat-form-field-underline,
-  ::ng-deep .mat-form-field-ripple {
-    background: #3c66a3;
-  }
-  
-  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color: #3c66a3;
-  }
-  
-  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: #ffffff; /*inner circle color change*/
-  }
-  
-  ::ng-deep
-    .mat-radio-button.mat-accent.mat-radio-checked
-    .mat-radio-outer-circle {
-    border-color: #3c66a3; /*outer ring color change*/
-    background: #3c66a3;
-  }
-  
-  mat-error {
-    font: normal normal normal 14px/17px Montserrat;
-    letter-spacing: 0px;
-  }
-  
-  /* loader container */
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5em 0 0.5em 0;
-  }
-  
-  .bubble {
-    animation: expand 0.75s ease-in-out infinite;
-    border-radius: 20px;
-    display: inline-block;
-    transform-origin: center center;
-    margin: 0 3px;
-    width: 7px;
-    height: 7px;
-  }
-  
-  .bubble:nth-child(1) {
-    background: #ffffff;
-  }
-  
-  .bubble:nth-child(2) {
-    animation-delay: 180ms;
-    background: #ffffff;
-  }
-  
-  .bubble:nth-child(3) {
-    animation-delay: 360ms;
-    background: #ffffff;
-  }
-  
-  .bubble:nth-child(4) {
-    animation-delay: 540ms;
-    background: #ffffff;
-  }
-  
-  @keyframes expand {
-    0% {
-      transform: scale(1);
-    }
-    25% {
-      transform: scale(1.55);
-    }
-  }
-  
-  @media print {
-    .print_p,
-    .notice-print_p,
-    .print-receipt,
-    .receipt_cancel_button {
-      display: none;
-    }
-  
-    .receipt-header {
-      justify-content: center;
-    }
-  }
-  
+}

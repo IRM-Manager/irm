@@ -11,7 +11,6 @@
 
     <mat-sidenav-content (scroll)="handleScroll($event)" class="mat-sidenav-content">
         <app-header (publicsidenavToggle)="publicsidenav.toggle()">
-
         </app-header>
         <div class="main2">
             <router-outlet (publicsidenavToggle2)="publicsidenav.toggle()"></router-outlet>

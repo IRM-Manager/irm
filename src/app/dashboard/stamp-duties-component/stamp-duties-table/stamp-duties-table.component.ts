@@ -1,7 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -11,18 +19,29 @@ import { StampDutiesDialogComponent } from '../stamp-duties-dialog/stamp-duties-
 
 @Component({
   selector: 'app-stamp-duties-table',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+  ],
   templateUrl: './stamp-duties-table.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./stamp-duties-table.component.scss'],
 })
-export class StampDutiesTableComponent implements OnInit {
+export class StampDutiesTableComponent implements OnInit, OnDestroy {
   search: string = '';
   loading = false;
   disabled = false;
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
@@ -30,7 +49,6 @@ export class StampDutiesTableComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -82,7 +100,7 @@ export class StampDutiesTableComponent implements OnInit {
         this.isLoading = false;
         console.log(data);
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
@@ -105,7 +123,7 @@ export class StampDutiesTableComponent implements OnInit {
         });
         console.log(data);
       },
-      (err) => {
+      () => {
         this.is_reload = false;
         this.authService.checkExpired();
       }

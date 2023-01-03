@@ -1,9 +1,7 @@
-<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+<div class="generate-dialog" *ngIf="data.type === 'generate_bill'">
 
     <div mat-dialog-content class="print-section" id="print-section">
-
         <div>
-
             <div class="gen_logo_p">
                 <img class="logo" src="assets/images/gombelogo.png" alt="IRM"/>
             </div>
@@ -135,7 +133,7 @@
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual'">
+<div class="manual_file-dialog" *ngIf="data.type === 'manual'">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -143,9 +141,8 @@
     </div>
 
     <div mat-dialog-content class="manual_container">
-
         <div>
-            <div class="manual_verify" *ngIf="data.type == 'manual'">Kindly input your GTin to continue</div>
+            <div class="manual_verify" *ngIf="data.type === 'manual'">Kindly input your GTin to continue</div>
 
             <form [formGroup]="manualForm" class="manual_form">
                 <mat-form-field class="half-width" appearance="outline">
@@ -166,6 +163,5 @@
 
             <div class="dont-have">Don’t Have a GTin? Register</div>
         </div>
-
     </div>
 </div>

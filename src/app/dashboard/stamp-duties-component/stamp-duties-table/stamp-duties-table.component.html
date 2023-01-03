@@ -3,7 +3,6 @@
         <div class="verify">
 
             <div class="header2">
-
                 <div class="indcom">
                     Assessment History
                 </div>
@@ -31,9 +30,7 @@
                 </div>    
 
                 <div class="spacer"></div>
-
                 <button mat-button class="apply-ass" (click)="openDialog('', 'manual')">Apply new Stamp Duties</button>
-
             </div>
 
             <div class="table-container">
@@ -54,23 +51,23 @@
                             </tr>
                         </thead>
                         <!-- individual -->
-                        <tbody *ngIf="datas?.length != 0">
+                        <tbody *ngIf="datas?.length !== 0">
                             <tr *ngFor="let data of datas; let i=index">
                                 <td class="align-middle text-center">{{i+1}}</td>
                                 <td class="align-middle text-center">{{ data.name }}</td>
                                 <td class="align-middle text-center">{{ data.type }}</td>
                                 <td class="align-middle">
                                     {{ data.owner?.taxpayer_name }}
-                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified == true">verified_user</span>
+                                    <span class="material-icons-round icons-rounded" *ngIf="data.owner?.is_verified">verified_user</span>
                                 </td>
                                 <td class="align-middle text-center">{{ formatMoney(0) }}</td>
                                 <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">{{ data.created_at | date:'yyyy-MM-dd' }}</td>
                                 <td class="align-middle text-center">
-                                    <button mat-button class="paid" *ngIf="data.isavailable == false">
+                                    <button mat-button class="paid" *ngIf="!data.isavailable">
                                         Paid
                                     </button>
-                                    <button mat-button class="pending" *ngIf="data.isavailable == true">
+                                    <button mat-button class="pending" *ngIf="data.isavailable">
                                         Not-paid
                                     </button>
                                 </td>
@@ -87,7 +84,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="datas?.length == 0">
+                        <tbody *ngIf="datas?.length === 0">
                             <tr>
                                 <td class="no-data-available text-center">No data!</td>
                                 <td class="no-data-available text-center">No data!</td>
@@ -117,7 +114,6 @@
                                 <div class="bubble"></div>
                             </div>
                         </button>
-
                     </table>
                 </div>
             </div>

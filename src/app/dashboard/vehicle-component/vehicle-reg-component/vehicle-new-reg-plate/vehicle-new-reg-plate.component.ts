@@ -1,25 +1,49 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subscription } from 'rxjs';
-import { offence } from 'src/app/dashboard/shared/form';
-import { AuthService } from 'src/app/services/auth.service';
-import { VehicleServiceService } from '../../service/vehicle-service.service';
-import { Location } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
-// state management
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
-import { HttpService } from 'src/app/services/http.service';
+import { Observable, Subscription } from 'rxjs';
 import { AddVehicleitems } from 'src/app/actions/irm.action';
 import { Vehicleitems } from 'src/app/dashboard/models/irm';
-//
+import { offence } from 'src/app/dashboard/shared/form';
+import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
   selector: 'app-vehicle-new-reg-plate',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatExpansionModule,
+  ],
   templateUrl: './vehicle-new-reg-plate.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-new-reg-plate.component.scss'],
@@ -39,9 +63,7 @@ export class VehicleNewRegPlateComponent implements OnInit {
   datas: any;
   vehicleRegType: any;
   vehicleRegType2: any[] = [];
-
   stateVehicleitems: Observable<Vehicleitems[]>;
-
   manualForm!: FormGroup;
 
   formErrors: any = {
@@ -83,7 +105,8 @@ export class VehicleNewRegPlateComponent implements OnInit {
     const vehicleRegType2: any = this.service.getRegMessage2();
     this.vehicleRegType2 =
       vehicleRegType2?.data?.data?.reg_type?.items_ids ||
-      vehicleRegType2?.data2?.revitems || [];
+      vehicleRegType2?.data2?.revitems ||
+      [];
     if (this.datas?.data?.update == true) {
       this.update = true;
     }

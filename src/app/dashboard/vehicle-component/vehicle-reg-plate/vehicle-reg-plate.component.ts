@@ -1,5 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -7,6 +12,14 @@ import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vehicle-reg-plate',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatToolbarModule,
+  ],
   templateUrl: './vehicle-reg-plate.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-reg-plate.component.scss'],
@@ -119,5 +132,7 @@ export class VehicleRegPlateComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

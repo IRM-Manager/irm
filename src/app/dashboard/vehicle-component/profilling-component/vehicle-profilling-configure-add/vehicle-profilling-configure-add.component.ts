@@ -1,9 +1,23 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subscription } from 'rxjs';
 import { profilling } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,13 +28,26 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
 
 @Component({
   selector: 'app-vehicle-profilling-configure-add',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+    MatSelectModule,
+  ],
   templateUrl: './vehicle-profilling-configure-add.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-profilling-configure-add.component.scss'],
 })
 export class VehicleProfillingConfigureAddComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: profilling;
   datas: any;

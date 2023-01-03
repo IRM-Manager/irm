@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
@@ -10,7 +10,16 @@ import { AppState, selectAllDepartment } from 'src/app/reducers/index';
 import { AddDepartment, RemoveDepartment } from '../../../actions/irm.action';
 import { Department } from '../../models/irm';
 //
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -19,6 +28,20 @@ import { AdminServiceService } from '../service/admin-service.service';
 
 @Component({
   selector: 'app-admin-department',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    RouterModule,
+    DataTablesModule,
+    MatMenuModule,
+    MatToolbarModule,
+  ],
   templateUrl: './admin-department.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./admin-department.component.scss'],
@@ -99,7 +122,7 @@ export class AdminDepartmentComponent implements OnDestroy, OnInit {
             this.dtTrigger.next;
             this.isLoading = false;
           },
-          (err) => {
+          () => {
             this.isLoading = false;
             this.authService.checkExpired();
           }
@@ -166,7 +189,7 @@ export class AdminDepartmentComponent implements OnDestroy, OnInit {
     this.router.navigate([`/dashboard/dashboard5/${type}`]);
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(AdminConsoleDialogComponent, {
       data: {

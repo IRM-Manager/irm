@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Inject,
@@ -5,15 +6,22 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-// state management
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { NgxPrintModule } from 'ngx-print';
 import { Observable } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
@@ -27,6 +35,20 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    RouterModule,
+    MatDialogModule,
+    MatSelectModule,
+    NgxPrintModule,
+  ],
   templateUrl: './dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./dialog.component.css'],
@@ -70,33 +92,6 @@ export class DialogComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
-  }
-
-  StaffIncome() {
-    const data = {
-      type: 'staff-income',
-      is_type: false,
-    };
-    this.shared.setMessage(this.data.data);
-    this.shared.setMessage2(this.data.data);
-    this.shared.PayeesendClickEvent(data);
-    this.shared.PayeesenddataEvent(data);
-    this.router.navigate(['/dashboard/dashboard4/taxpayer/payee/access']);
-    this.shared.sendPayeeHeaderButtonClickEvent(true);
-  }
-
-  StaffIncome2() {
-    const data = {
-      type: 'staff-income',
-      is_type: false,
-    };
-    this.shared.setMessage(this.data.data);
-    this.shared.setMessage2(this.data.data);
-    this.shared.PayeesendClickEvent(data);
-    this.shared.PayeesenddataEvent(data);
-    this.router.navigate([
-      '/dashboard/dashboard4/taxpayer/payee/access/staff-input',
-    ]);
   }
 
   // manual input chaeck tax id http function

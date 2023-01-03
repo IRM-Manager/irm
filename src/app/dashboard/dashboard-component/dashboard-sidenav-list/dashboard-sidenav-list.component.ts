@@ -1,29 +1,22 @@
-import { Location } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-dashboard-sidenav-list',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './dashboard-sidenav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./dashboard-sidenav-list.component.scss'],
 })
 export class DashboardSidenavListComponent implements OnInit {
-  constructor(
-    private router: Router,
-    public shared: ToggleNavService,
-    private _location: Location
-  ) {}
+  constructor(public shared: ToggleNavService, private _location: Location) {}
 
-  PayeeBack() {
+  payeeBack() {
     this._location.back();
   }
 
@@ -31,7 +24,9 @@ export class DashboardSidenavListComponent implements OnInit {
     this.onPublicHeaderToggleSidenav();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

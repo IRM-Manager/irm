@@ -5,35 +5,70 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  MatDialogRef,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
   MatDialog,
+  MatDialogModule,
+  MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { VehicleServiceService } from '../service/vehicle-service.service';
 // state management
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
+import { QrCodeModule } from 'ng-qrcode';
+import { NgxPrintModule } from 'ngx-print';
+import { Observable } from 'rxjs';
 import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
 import { AddVehicleitems } from '../../../actions/irm.action';
 import { Vehicleitems } from '../../models/irm';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-vehicle-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatDialogModule,
+    FlexLayoutModule,
+    QrCodeModule,
+    NgxPrintModule,
+    RouterModule,
+    MatSelectModule,
+  ],
   templateUrl: './vehicle-dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-dialog.component.css'],
 })
 export class VehicleDialogComponent implements OnInit {
   @ViewChild('ffprofile') ProfileFormDirective: any;
-
   manualForm!: FormGroup;
   manualForm2!: FormGroup;
   profillingForm!: FormGroup;
@@ -477,7 +512,7 @@ export class VehicleDialogComponent implements OnInit {
             this.vehicle_reg_loading = false;
             this.vehicle_reg_error = false;
           },
-          (err) => {
+          () => {
             this.vehicle_reg_loading = false;
             this.vehicle_reg_error = true;
           }

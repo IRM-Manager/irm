@@ -1,27 +1,46 @@
-import { Location } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-tax-payer-create',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    DateAgoPipe,
+  ],
   templateUrl: './tax-payer-create.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./tax-payer-create.component.scss'],
 })
-export class TaxPayerCreateComponent implements OnInit {
+export class TaxPayerCreateComponent implements OnInit, OnDestroy {
   datas: any;
   isdelete = false;
   search: string = '';
-
   is_reload = false;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datasTable: any[] = [];
   searchData: any;

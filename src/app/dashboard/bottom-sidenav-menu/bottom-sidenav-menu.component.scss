@@ -12,9 +12,6 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100vw;
-    // position: sticky;
-    // position: -webkit-sticky;
-    // z-index: 1000;
   }
 
   .category {
@@ -75,10 +72,13 @@ $right1-font: normal normal 400 15px/19px Montserrat;
     height: 10px;
     animation: spin 5s linear infinite;
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
 
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }

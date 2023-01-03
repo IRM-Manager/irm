@@ -29,33 +29,33 @@ export interface Payee {
 }
 
 export interface User {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface Group {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface Department {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface Locationn {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface Occupation {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 export interface Vehicleitems {
-    id: number;
-    data: any;
+  id: number;
+  data: any;
 }
 
 // export interface Special_Order {

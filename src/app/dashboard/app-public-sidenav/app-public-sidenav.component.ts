@@ -1,11 +1,41 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { map, Observable, shareReplay } from 'rxjs';
+import { AppPublicSidenavListComponent } from '../app-public-sidenav-list/app-public-sidenav-list.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-app-public-sidenav',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    AppPublicSidenavListComponent,
+    LoadingBarRouterModule,
+    MatSidenavModule,
+    HeaderComponent,
+  ],
   templateUrl: './app-public-sidenav.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./app-public-sidenav.component.scss'],
 })
 export class AppPublicSidenavComponent implements OnInit {
@@ -23,7 +53,6 @@ export class AppPublicSidenavComponent implements OnInit {
   div!: ElementRef;
 
   constructor(
-    private router: Router,
     private breakpointObserver: BreakpointObserver //  @Inject(DOCUMENT) private document: Document
   ) {}
 

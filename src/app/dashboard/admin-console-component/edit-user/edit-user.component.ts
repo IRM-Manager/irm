@@ -5,7 +5,13 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,10 +22,22 @@ import { BaseUrl } from 'src/environments/environment';
 import { add_user } from '../../shared/form';
 // chips
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
 // state management
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import {
   AppState,
   selectAllDepartment,
@@ -39,6 +57,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-edit-user',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    RouterModule,
+    DataTablesModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+  ],
   templateUrl: './edit-user.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./edit-user.component.scss'],
@@ -47,11 +81,8 @@ export class EditUserComponent implements OnInit {
   // form animation
   @ViewChild('card', { static: true })
   card!: ElementRef<HTMLDivElement>;
-
   @ViewChild('fform') feedbackFormDirective: any;
-
   datas: any;
-
   feedbackForm: any = FormGroup;
   feedback!: add_user;
   loading = false;
@@ -60,12 +91,10 @@ export class EditUserComponent implements OnInit {
   list_group: any;
   list_department: any;
   list_location: any;
-
   options: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
   options2: string[] = [];
   filteredOptions2: Observable<string[]> | undefined;
-
   // chips
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredGroup: Observable<string[]>;
@@ -73,7 +102,7 @@ export class EditUserComponent implements OnInit {
   allGroup: string[] = [];
   allGroup2: string[] = [];
   @ViewChild('groupInput') groupInput!: ElementRef<HTMLInputElement>;
-
+  // state management
   stateGroup: Observable<Group[]>;
   stateDepartment: Observable<Department[]>;
   stateLocation: Observable<Locationn[]>;
@@ -359,7 +388,7 @@ export class EditUserComponent implements OnInit {
   }
 
   // add group
-  AddGroup() {
+  addGroup() {
     this.stateGroup.forEach((e) => {
       if (e.length > 0) {
         this.list_group = e[0].data;
@@ -407,7 +436,7 @@ export class EditUserComponent implements OnInit {
   }
 
   // add department
-  AddDepartment() {
+  addDepartment() {
     this.stateDepartment.forEach((e) => {
       if (e.length > 0) {
         this.list_department = e[0].data;
@@ -455,7 +484,7 @@ export class EditUserComponent implements OnInit {
   }
 
   // add location
-  AddLocation() {
+  addLocation() {
     this.stateLocation.forEach((e) => {
       if (e.length > 0) {
         this.list_location = e[0].data;
@@ -519,9 +548,9 @@ export class EditUserComponent implements OnInit {
       map((value: any) => this._filter2(value))
     );
 
-    this.AddDepartment();
-    this.AddGroup();
-    this.AddLocation();
+    this.addDepartment();
+    this.addGroup();
+    this.addLocation();
   }
 
   //

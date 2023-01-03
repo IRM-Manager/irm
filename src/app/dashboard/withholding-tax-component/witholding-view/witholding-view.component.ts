@@ -1,16 +1,20 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { BaseUrl } from 'src/environments/environment';
 import { WitholdingServiceService } from '../service/witholding-service.service';
 import { WitholdingDialogComponent } from '../witholding-dialog/witholding-dialog.component';
 
 @Component({
   selector: 'app-witholding-view',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './witholding-view.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./witholding-view.component.scss'],
@@ -93,5 +97,7 @@ export class WitholdingViewComponent implements OnInit {
     //   );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

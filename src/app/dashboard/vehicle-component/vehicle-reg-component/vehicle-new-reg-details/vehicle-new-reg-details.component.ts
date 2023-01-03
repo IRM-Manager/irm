@@ -1,28 +1,50 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { vehicle_details } from 'src/app/dashboard/shared/form';
+import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { VehicleServiceService } from '../../service/vehicle-service.service';
-import { Location } from '@angular/common';
-// state management
-import { Store } from '@ngrx/store';
-import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
 import { AddVehicleitems } from '../../../../actions/irm.action';
 import { Vehicleitems } from '../../../models/irm';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
 
 @Component({
   selector: 'app-vehicle-new-reg-details',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+  ],
   templateUrl: './vehicle-new-reg-details.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-new-reg-details.component.scss'],
 })
 export class VehicleNewRegDetailsComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: vehicle_details;
   plateMsg: any;
@@ -35,7 +57,6 @@ export class VehicleNewRegDetailsComponent implements OnInit {
   datas2: any;
   vehicleType: any;
   vehicleRegType: any;
-
   stateVehicleItems: Observable<Vehicleitems[]>;
 
   formErrors: any = {

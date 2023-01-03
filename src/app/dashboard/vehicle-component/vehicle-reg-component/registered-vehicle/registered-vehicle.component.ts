@@ -1,9 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
@@ -16,6 +23,18 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
 
 @Component({
   selector: 'app-registered-vehicle',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+  ],
   templateUrl: './registered-vehicle.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./registered-vehicle.component.scss'],
@@ -33,15 +52,9 @@ export class RegisteredVehicleComponent implements OnDestroy, OnInit {
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   years: any;
   htmlYear = new Date().getFullYear();
-
   stateYear: Observable<Year[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
 
   formErrors: any = {};
 
@@ -103,7 +116,7 @@ export class RegisteredVehicleComponent implements OnDestroy, OnInit {
         this.isLoading = false;
         console.log(data);
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
@@ -127,7 +140,7 @@ export class RegisteredVehicleComponent implements OnDestroy, OnInit {
         });
         console.log(data);
       },
-      (err) => {
+      () => {
         this.is_reload = false;
         this.authService.checkExpired();
       }
@@ -146,7 +159,7 @@ export class RegisteredVehicleComponent implements OnDestroy, OnInit {
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

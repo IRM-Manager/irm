@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -5,8 +6,20 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,6 +32,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-add-user',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    RouterModule,
+  ],
   templateUrl: './add-user.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./add-user.component.scss'],
@@ -26,14 +51,11 @@ gsap.registerPlugin(ScrollTrigger);
 export class AddUserComponent implements OnInit {
   @ViewChild('card', { static: true })
   card!: ElementRef<HTMLDivElement>;
-
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: add_user;
   loading = false;
   disabled = false;
-
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
   options2: string[] = ['One', 'Two', 'Three'];

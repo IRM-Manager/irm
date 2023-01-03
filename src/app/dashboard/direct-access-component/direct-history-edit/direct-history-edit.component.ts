@@ -1,6 +1,8 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,6 +13,8 @@ import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-direct-history-edit',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './direct-history-edit.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./direct-history-edit.component.scss'],
@@ -19,6 +23,7 @@ export class DirectHistoryEditComponent implements OnInit {
   isdelete = false;
   genLoading = false;
   datas: any;
+  
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,

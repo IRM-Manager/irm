@@ -17,7 +17,6 @@
         </p>
 
         <form novalidate id="ngForm" [formGroup]="feedbackForm" #fform="ngForm">
-
             <p>
                 <!-- TIN -->
                 <mat-form-field class="half-width" appearance="outline">
@@ -47,7 +46,6 @@
                     </mat-select>
                     <mat-error>{{formErrors.year}}</mat-error>
                 </mat-form-field>
-
             </p>
 
             <!-- Current employer -->
@@ -56,14 +54,10 @@
                 <input matInput formControlName="company_name" required>
                 <mat-error>{{formErrors.company_name}}</mat-error>
             </mat-form-field>
-
         </form>
-
-
     </div>
 
     <!-- table container -->
-
     <div class="table-container">
 
         <div class="column1">
@@ -71,10 +65,10 @@
             <div class="left_right">
                 <div class="left">
                     <div class="title">Is consolidated?</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'true'">Consolidated Gross</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'false'">Basic</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'false'">Housing</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'false'">Transportation</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'true'">Consolidated Gross</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'false'">Basic</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'false'">Housing</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'false'">Transportation</div>
                     <div class="title">Annual Gross Pay</div>
                     <div class="title">Taxable Income</div>
                     <div class="title">Annual Tax Liability</div>
@@ -90,28 +84,28 @@
                         </form>
                     </div>
                     <!-- gross -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'true' ">
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'true' ">
                         <form>
                             <input name="consolidate"
                                 type="number" class="consolidate_input" [(ngModel)]="consolidate">
                         </form>
                     </div>
                     <!-- basic -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'false' ">
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'false' ">
                         <form>
                             <input name="basic"
                                 type="number" class="consolidate_input" [(ngModel)]="basic">
                         </form>
                     </div>
                     <!-- housing -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'false' ">
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'false' ">
                         <form>
                             <input name="housing"
                                 type="number" class="consolidate_input" [(ngModel)]="housing">
                         </form>
                     </div>
                     <!-- tp -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'false' ">
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'false' ">
                         <form>
                             <input name="tp"
                                 type="number" class="consolidate_input" [(ngModel)]="tp">
@@ -123,7 +117,6 @@
                     <div class="sub-title">{{formatMoney(acceptedData?.compute_montax || 0)}} (NGN)</div>
                 </div>
             </div>
-
         </div>
 
         <div class="column2">
@@ -197,7 +190,5 @@
                 </div>
             </button>
         </div>
-
     </div>
-
 </div>

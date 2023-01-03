@@ -6,7 +6,7 @@ import { Subject, Observable } from 'rxjs';
 })
 export class AdminServiceService {
   regMessage: string | undefined;
-  DepLocMessage: string | undefined;
+  depLocMessage: string | undefined;
   private subject = new Subject<any>();
   constructor() {}
 
@@ -19,11 +19,11 @@ export class AdminServiceService {
   }
 
   setDepLocMessage(data: any) {
-    this.DepLocMessage = data;
+    this.depLocMessage = data;
   }
 
   getDepLocMessage() {
-    return this.DepLocMessage;
+    return this.depLocMessage;
   }
 
   sendClickEvent() {

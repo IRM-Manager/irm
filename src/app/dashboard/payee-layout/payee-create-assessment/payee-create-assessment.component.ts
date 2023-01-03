@@ -1,29 +1,51 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { create_assessment } from '../../shared/form';
 import { PayeeServiceService } from '../service/payee-service.service';
-// state management
+import { CommonModule } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
-import { map, Observable, startWith, Subject, Subscription } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
+import { BaseUrl } from 'src/environments/environment';
 import { AddYear } from '../../../actions/irm.action';
 import { Year } from '../../models/irm';
-import { BaseUrl } from 'src/environments/environment';
-//
 
 @Component({
   selector: 'app-payee-create-assessment',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatAutocompleteModule,
+  ],
   templateUrl: './payee-create-assessment.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-create-assessment.component.scss'],
 })
 export class PayeeCreateAssessmentComponent implements OnInit {
   @ViewChild('fform3') feedbackFormDirective3: any;
-
   feedbackForm3: any = FormGroup;
   feedback!: create_assessment;
   loading = false;
@@ -153,7 +175,7 @@ export class PayeeCreateAssessmentComponent implements OnInit {
               );
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

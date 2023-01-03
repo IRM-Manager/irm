@@ -76,10 +76,8 @@ export class PayeeServiceService {
   getAsClickEvent(): Observable<any> {
     return this.aSsubject.asObservable();
   }
-  //
 
   // download sample csv format
-
   downloadFile(data: any, filename = 'data', type: string) {
     let csvData = '';
     if (type == 'con') {

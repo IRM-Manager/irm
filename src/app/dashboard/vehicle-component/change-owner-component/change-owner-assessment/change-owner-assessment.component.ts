@@ -1,32 +1,59 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subscription } from 'rxjs';
-import { offence } from 'src/app/dashboard/shared/form';
-import { AuthService } from 'src/app/services/auth.service';
-import { VehicleServiceService } from '../../service/vehicle-service.service';
-import { Location } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
-// state management
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
-import { HttpService } from 'src/app/services/http.service';
+import { Observable, Subscription } from 'rxjs';
 import { AddVehicleitems } from 'src/app/actions/irm.action';
 import { Vehicleitems } from 'src/app/dashboard/models/irm';
-//
-import { BaseUrl } from 'src/environments/environment';
+import { offence } from 'src/app/dashboard/shared/form';
+import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { VehicleServiceService } from '../../service/vehicle-service.service';
+import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
+import { BaseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-change-owner-assessment',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatExpansionModule,
+    MatSelectModule,
+    FlexLayoutModule,
+  ],
   templateUrl: './change-owner-assessment.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner-assessment.component.scss'],
 })
 export class ChangeOwnerAssessmentComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: offence;
   plateMsg: any;
@@ -39,9 +66,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
   datas: any;
   vehicleRegType: any;
   vehicleRegType2: any[] = [];
-
   stateVehicleitems: Observable<Vehicleitems[]>;
-
   manualForm!: FormGroup;
 
   formErrors: any = {
@@ -82,8 +107,7 @@ export class ChangeOwnerAssessmentComponent implements OnInit {
     this.datas = this.service.getRegMessage2();
     if (this.datas) {
       const vehicleRegType2: any = this.service.getRegMessage2();
-      this.vehicleRegType2 =
-        vehicleRegType2?.data?.reg_type?.items_ids;
+      this.vehicleRegType2 = vehicleRegType2?.data?.reg_type?.items_ids;
       if (this.datas?.update) {
         this.update = true;
       }

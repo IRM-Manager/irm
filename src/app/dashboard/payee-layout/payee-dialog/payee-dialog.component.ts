@@ -1,24 +1,52 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { QrCodeModule } from 'ng-qrcode';
+import { NgxPrintModule } from 'ngx-print';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-// state management
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers/index';
-import { PayeeServiceService } from '../service/payee-service.service';
 import { BaseUrl } from 'src/environments/environment';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDialogModule,
+    QrCodeModule,
+    RouterModule,
+    NgxPrintModule,
+    MatRadioModule,
+  ],
   templateUrl: './payee-dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-dialog.component.css'],
@@ -39,7 +67,6 @@ export class PayeeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
-    private router: Router,
     public shared: ToggleNavService,
     private authService: AuthService,
     private payeeService: PayeeServiceService,
@@ -162,7 +189,7 @@ export class PayeeDialogComponent implements OnInit {
     this.httpService
       .deleteData(BaseUrl.payee_delete_gen_bill, this.data.data.id + '/')
       .subscribe(
-        (data: any) => {
+        () => {
           this.isdelete = false;
           this.snackBar.open('Assessment Bill successfully deleted', '', {
             duration: 3000,

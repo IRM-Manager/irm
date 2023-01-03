@@ -1,6 +1,6 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
@@ -8,13 +8,25 @@ import { BaseUrl } from 'src/environments/environment';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.component';
 // state management
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
 import { AddVehicleitems } from '../../../../actions/irm.action';
 import { Vehicleitems } from '../../../models/irm';
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-change-owner-details',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatExpansionModule,
+  ],
   templateUrl: './change-owner-details.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner-details.component.scss'],
@@ -26,7 +38,6 @@ export class ChangeOwnerDetailsComponent implements OnInit {
   loading = false;
   update = false;
   vehicleRegType: any;
-
   stateVehicleItems: Observable<Vehicleitems[]>;
 
   constructor(

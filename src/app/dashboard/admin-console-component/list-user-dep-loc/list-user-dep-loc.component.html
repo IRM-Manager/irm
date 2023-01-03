@@ -44,7 +44,7 @@
                                 </tr>
                             </thead>
                             <!-- individual -->
-                            <tbody *ngIf="datas?.length != 0">
+                            <tbody *ngIf="datas?.length !== 0">
                                 <tr *ngFor="let data of datas; let i=index">
                                     <td class="align-middle text-center">{{i+1}}</td>
                                     <td class="align-middle">
@@ -78,7 +78,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody *ngIf="datas?.length == 0">
+                            <tbody *ngIf="datas?.length === 0">
                                 <tr>
                                     <td class="no-data-available text-center">No data!</td>
                                     <td class="no-data-available text-center">No data!</td>

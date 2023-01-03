@@ -4,15 +4,35 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { VehicleServiceService } from '../../service/vehicle-service.service';
 // state management
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { AppState, selectAllVehicleitems } from 'src/app/reducers/index';
-import { AddVehicleitems } from '../../../../actions/irm.action';
-import { Vehicleitems } from '../../../models/irm';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { AddVehicleitems } from '../../../../actions/irm.action';
+import { Vehicleitems } from '../../../models/irm';
+import { VehicleNewRegAssessmentComponent } from '../vehicle-new-reg-assessment/vehicle-new-reg-assessment.component';
+import { VehicleRegDetailsComponent } from '../vehicle-reg-details/vehicle-reg-details.component';
 
 @Component({
   selector: 'app-change-owner-new-reg',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    VehicleRegDetailsComponent,
+    VehicleNewRegAssessmentComponent,
+  ],
   templateUrl: './change-owner-new-reg.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./change-owner-new-reg.component.scss'],

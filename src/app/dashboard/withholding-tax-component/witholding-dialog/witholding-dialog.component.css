@@ -1,27 +1,27 @@
 /* generate notice bill */
 
 .tin {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
 .com_name {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
   margin-top: 5px;
 }
 
 .reg_buss {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   margin-top: 5px;
 }
@@ -44,15 +44,15 @@
 
 .payee_cancel_button {
   text-align: right;
-  color: #3c66a3;
+  color: var(--blue);
 }
 
 .title-header {
   text-transform: uppercase;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   text-transform: uppercase;
   opacity: 1;
   text-align: center;
@@ -75,20 +75,20 @@
 }
 
 .tin {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
   margin-top: 5px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
 .gen-success {
-  color: #038541;
+  color: var(--green);
 }
 
 .gen-failed {
-  color: #e9322c;
+  color: var(--red);
 }
 
 .column {
@@ -108,13 +108,13 @@
 
 .employee-salary,
 .deduction {
-  background: #3c66a3 0% 0% no-repeat padding-box;
+  background: var(--blue) 0% 0% no-repeat padding-box;
   opacity: 1;
   padding: 0.6rem 15px;
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #ffffff;
+  color: var(--white);
 }
 
 .left_right {
@@ -132,10 +132,10 @@
 }
 
 .title {
-  font: normal normal normal 13px/16px Montserrat;
+  font: normal normal normal 13px/16px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   vertical-align: middle;
   padding: 15px;
@@ -143,10 +143,10 @@
 }
 
 .title2 {
-  font: normal normal normal 13px/16px Montserrat;
+  font: normal normal normal 13px/16px var(--mont);
   font-weight: 600;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   vertical-align: middle;
   text-transform: uppercase;
@@ -163,10 +163,10 @@
 }
 
 .print {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #b9a005;
+  color: var(--yellow);
   opacity: 1;
   text-transform: capitalize;
   padding: 0.4rem;
@@ -193,10 +193,10 @@
 
 .note {
   margin-top: 1rem;
-  font: italic normal normal 13px/15px Montserrat;
+  font: italic normal normal 13px/15px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -210,19 +210,19 @@
 
 .upload_cancel_button {
   text-align: right;
-  color: #038541;
+  color: var(--green);
 }
 
 .upload_continue {
-  background: #b9a005 0% 0% no-repeat padding-box;
+  background: var(--yellow) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   padding: 0.8rem;
   width: 8rem;
   text-align: center;
   opacity: 1;
-  font: normal normal normal 14px/16px Montserrat;
+  font: normal normal normal 14px/16px var(--mont);
   letter-spacing: 0px;
-  color: #ffffff;
+  color: var(--white);
   font-weight: 500;
 }
 
@@ -246,21 +246,21 @@
 }
 
 .manual_filling {
-  font: normal normal normal 17px/25px Montserrat;
+  font: normal normal normal 17px/25px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   text-align: left;
   opacity: 1;
 }
 
 .manual_verify {
-  font: normal normal normal 17px/25px Montserrat;
+  font: normal normal normal 17px/25px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   margin-top: 15px;
   margin-bottom: 30px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -269,59 +269,59 @@
 }
 
 .dont-have {
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   letter-spacing: 0px;
-  color: #038541;
+  color: var(--green);
   font-weight: 500;
   opacity: 1;
   cursor: pointer;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #038541 !important;
-  background-color: #ffffff !important;
+  color: var(--green) !important;
+  background-color: var(--white) !important;
 }
 
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
-  color: #038541;
+  color: var(--green);
 }
 
 ::ng-deep .mat-input-element {
-  caret-color: #038541;
+  caret-color: var(--green);
 }
 
 ::ng-deep .mat-form-field-label {
-  color: #565656;
+  color: var(--form-gray);
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #565656;
+  color: var(--form-gray);
 }
 
 ::ng-deep .mat-form-field-underline,
 ::ng-deep .mat-form-field-ripple {
-  background: #3c66a3;
+  background: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: #3c66a3;
+  background-color: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #ffffff; /*inner circle color change*/
+  background-color: var(--white); /*inner circle color change*/
 }
 
 ::ng-deep
   .mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
-  border-color: #3c66a3; /*outer ring color change*/
-  background: #3c66a3;
+  border-color: var(--blue); /*outer ring color change*/
+  background: var(--blue);
 }
 
 mat-error {
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   letter-spacing: 0px;
 }
 
@@ -344,22 +344,22 @@ mat-error {
 }
 
 .bubble:nth-child(1) {
-  background: #ffffff;
+  background: var(--white);
 }
 
 .bubble:nth-child(2) {
   animation-delay: 180ms;
-  background: #ffffff;
+  background: var(--white);
 }
 
 .bubble:nth-child(3) {
   animation-delay: 360ms;
-  background: #ffffff;
+  background: var(--white);
 }
 
 .bubble:nth-child(4) {
   animation-delay: 540ms;
-  background: #ffffff;
+  background: var(--white);
 }
 
 @keyframes expand {

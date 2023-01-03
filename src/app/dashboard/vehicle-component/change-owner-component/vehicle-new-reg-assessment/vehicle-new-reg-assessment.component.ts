@@ -1,10 +1,24 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { change_owner_vehicle } from 'src/app/dashboard/shared/form';
 
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import { AppState } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -13,6 +27,19 @@ import { VehicleServiceService } from '../../service/vehicle-service.service';
 
 @Component({
   selector: 'app-vehicle-new-reg-assessment',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+  ],
   templateUrl: './vehicle-new-reg-assessment.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-new-reg-assessment.component.scss'],

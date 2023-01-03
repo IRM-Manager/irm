@@ -1,13 +1,17 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { StampDutiesDialogComponent } from '../stamp-duties-dialog/stamp-duties-dialog.component';
 
 @Component({
   selector: 'app-stamp-side-nav-list',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './stamp-side-nav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./stamp-side-nav-list.component.scss'],
@@ -39,7 +43,9 @@ export class StampSideNavListComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 
   public onPublicHeaderToggleSidenav = () => {
     this.shared.sendHeaderClickEvent();

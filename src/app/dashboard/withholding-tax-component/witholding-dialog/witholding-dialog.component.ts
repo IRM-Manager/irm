@@ -1,12 +1,27 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { QrCodeModule } from 'ng-qrcode';
+import { NgxPrintModule } from 'ngx-print';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -15,6 +30,21 @@ import { WitholdingServiceService } from '../service/witholding-service.service'
 
 @Component({
   selector: 'app-witholding-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+    QrCodeModule,
+    MatDialogModule,
+    NgxPrintModule,
+  ],
   templateUrl: './witholding-dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./witholding-dialog.component.css'],

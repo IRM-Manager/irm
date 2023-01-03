@@ -1,7 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -9,6 +22,19 @@ import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-manage-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatRadioModule,
+  ],
   templateUrl: './payee-manage-edit.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-manage-edit.component.scss'],
@@ -18,7 +44,6 @@ export class PayeeManageEditComponent implements OnInit {
   form!: FormGroup;
   form2!: FormGroup;
   form3!: FormGroup;
-
   datas: any;
   datas2: any;
   isdelete = false;
@@ -29,7 +54,7 @@ export class PayeeManageEditComponent implements OnInit {
     private router: Router,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.createForm();
     //
@@ -79,7 +104,7 @@ export class PayeeManageEditComponent implements OnInit {
     this.httpService
       .deleteData(BaseUrl.delete_paye, this.datas.id + '/')
       .subscribe(
-        (data: any) => {
+        () => {
           this.isdelete = false;
           this.snackBar.open('Employee successfully deleted', '', {
             duration: 3000,
@@ -87,9 +112,7 @@ export class PayeeManageEditComponent implements OnInit {
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          this.router.navigate([
-            `/dashboard/dashboard3/taxpayer/payee/manage`,
-          ]);
+          this.router.navigate([`/dashboard/dashboard3/taxpayer/payee/manage`]);
         },
         (err) => {
           this.isdelete = false;
@@ -124,9 +147,9 @@ export class PayeeManageEditComponent implements OnInit {
     });
   }
 
-  back(){
-    this.payeeService.setAsYearMessage({yearId: this.datas.taxYear});
-    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage'])
+  back() {
+    this.payeeService.setAsYearMessage({ yearId: this.datas.taxYear });
+    this.router.navigate(['/dashboard/dashboard3/taxpayer/payee/manage']);
   }
 
   ngOnInit(): void {

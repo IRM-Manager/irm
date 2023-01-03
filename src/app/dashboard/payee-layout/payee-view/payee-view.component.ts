@@ -1,16 +1,33 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { QrCodeModule } from 'ng-qrcode';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
+import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { PayeeDialogComponent } from '../payee-dialog/payee-dialog.component';
 import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-view',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    FlexLayoutModule,
+    QrCodeModule,
+    DateAgoPipe,
+  ],
   templateUrl: './payee-view.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-view.component.scss'],

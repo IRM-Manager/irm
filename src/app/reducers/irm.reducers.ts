@@ -311,7 +311,6 @@ export function reducer(state: State = initialState, action: Actions): State {
 
     //     case KonpayActions.ExampleActionTypes2.GetSpecial_Order:
     //         return { ...state, special_order: adapterSpecial_Order.removeOne(1, state.special_order) };
-
     default:
       return state;
   }

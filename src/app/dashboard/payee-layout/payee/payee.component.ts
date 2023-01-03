@@ -9,8 +9,16 @@ import { BaseUrl } from 'src/environments/environment';
 import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { PayeeServiceService } from '../service/payee-service.service';
-// state management
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { AddYear } from '../../../actions/irm.action';
 import { Year } from '../../models/irm';
@@ -18,6 +26,19 @@ import { Year } from '../../models/irm';
 
 @Component({
   selector: 'app-payee',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+  ],
   templateUrl: './payee.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee.component.scss'],
@@ -100,7 +121,9 @@ export class PayeeComponent implements OnDestroy, OnInit {
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
-          `tin=${this.datas2?.company?.state_tin}&yearId=${id || get_year[0]?.id}`
+          `tin=${this.datas2?.company?.state_tin}&yearId=${
+            id || get_year[0]?.id
+          }`
       )
       .subscribe(
         (data: any) => {
@@ -110,7 +133,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
           this.dtTrigger.next;
           this.isLoading = false;
         },
-        (err) => {
+        () => {
           this.isLoading = false;
           this.authService.checkExpired();
         }
@@ -143,7 +166,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
             verticalPosition: 'top',
           });
         },
-        (err) => {
+        () => {
           this.is_reload = false;
           this.authService.checkExpired();
         }
@@ -187,7 +210,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

@@ -1,15 +1,12 @@
-<div class="generate-dialog" *ngIf="data.type =='generate_bill'">
+<div class="generate-dialog" *ngIf="data.type === 'generate_bill'">
 
     <div mat-dialog-content class="print-section" id="print-section">
-
         <div>
-
             <div class="gen_logo_p">
                 <img class="logo" src="assets/images/gombelogo.png" alt="IRM"/>
             </div>
 
             <div class="generate_container">
-
                 <div class="gen-left-container" style="margin-bottom: 1.5rem;">
                     <div class="generate_left">
                         <div class="tin">GTin: {{ data.data.payer.state_tin }}</div>
@@ -39,9 +36,7 @@
                             centerImageSize="undefined">
                         </qr-code>
                     </div>
-
                     <div style="clear: both;"></div>
-
                 </div>
 
                 <div class="gen_table">
@@ -79,14 +74,11 @@
                             </div>
                         </div>
                     </div>
-
                     <div style="clear: both;"></div>
-
                 </div>
             </div>
 
             <div class="card-actions">
-
                 <div class="note">NOTE : generated assessment will expire in 48 Hours (14/11/2018, 9:30am),
                     payment can be paid using payment mobile App or use payment Platform.
                 </div>
@@ -110,9 +102,7 @@
                         <i *ngIf="isdelete" class="fa fa-circle-o-notch fa-lg loader-spin" aria-hidden="true"></i>
                     </button>
                 </div>
-    
             </div>
-
         </div>
     </div>
 </div>
@@ -120,7 +110,7 @@
 
 <!-- upload file layout -->
 
-<div class="upload_file-dialog" *ngIf="data.type =='upload_file'">
+<div class="upload_file-dialog" *ngIf="data.type === 'upload_file'">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -186,16 +176,14 @@
                 </div>
             </button>
         </div>
-
     </div>
-
 </div>
 
 
 
 <!-- Manual upload layout -->
 
-<div class="manual_file-dialog" *ngIf="data.type == 'manual' ">
+<div class="manual_file-dialog" *ngIf="data.type === 'manual' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
             <mat-icon>close</mat-icon>
@@ -222,15 +210,12 @@
                     [routerLink]="['/dashboard/dashboard3/taxpayer/payee/manual-input']">Continue</button>
             </form>
         </div>
-
     </div>
-
 </div>
 
 
 <!-- generate notice bill -->
-
-<div class="notice-generate_bill" mat-dialog-content *ngIf="data.type == 'gen-bill'" id="printSeaction">
+<div class="notice-generate_bill" mat-dialog-content *ngIf="data.type === 'gen-bill'" id="printSeaction">
     <div class="notice-gen_logo">
         <img class="notice-logo" src="assets/images/gombelogo.png" alt="IRM"/>
     </div>
@@ -308,5 +293,4 @@
             </button> -->
         </div>
     </div>
-
 </div>

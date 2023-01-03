@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -6,8 +6,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 //
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DataTablesModule } from 'angular-datatables';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
@@ -15,11 +23,24 @@ import { AdminServiceService } from '../service/admin-service.service';
 
 @Component({
   selector: 'app-list-user-dep-loc',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    DataTablesModule,
+    MatMenuModule,
+    MatToolbarModule,
+  ],
   templateUrl: './list-user-dep-loc.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./list-user-dep-loc.component.scss'],
 })
-export class ListUserDepLocComponent implements OnInit {
+export class ListUserDepLocComponent implements OnInit, OnDestroy {
   search: string = '';
   loading = false;
   disabled = false;
@@ -120,7 +141,7 @@ export class ListUserDepLocComponent implements OnInit {
             verticalPosition: 'top',
           });
         },
-        (err) => {
+        () => {
           this.is_reload = false;
           this.authService.checkExpired();
         }

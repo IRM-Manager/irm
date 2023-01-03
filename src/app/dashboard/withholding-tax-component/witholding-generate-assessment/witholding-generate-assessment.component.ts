@@ -1,16 +1,19 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { BaseUrl } from 'src/environments/environment';
 import { WitholdingServiceService } from '../service/witholding-service.service';
 import { WitholdingDialogComponent } from '../witholding-dialog/witholding-dialog.component';
 
 @Component({
   selector: 'app-witholding-generate-assessment',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './witholding-generate-assessment.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./witholding-generate-assessment.component.scss'],
@@ -19,6 +22,7 @@ export class WitholdingGenerateAssessmentComponent implements OnInit {
   isdelete = false;
   genLoading = false;
   datas: any;
+  
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
@@ -93,5 +97,7 @@ export class WitholdingGenerateAssessmentComponent implements OnInit {
     //   );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

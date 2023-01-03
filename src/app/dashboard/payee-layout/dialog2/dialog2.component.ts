@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -6,12 +6,23 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -23,23 +34,30 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-dialog2',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSelectModule,
+  ],
   templateUrl: './dialog2.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./dialog2.component.scss'],
 })
 export class Dialog2Component implements OnInit {
   @ViewChild('fform2') feedbackFormDirective2: any;
-
   loading = false;
   disabled = false;
   is_ind = true;
   regis_data: any;
   errorMsg: any;
-
-  // company verification
   feedbackForm2: any = FormGroup;
   feedback2!: com_verify;
-
   clickEventSubscription?: Subscription;
 
   formErrors: any = {

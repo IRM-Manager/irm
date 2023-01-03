@@ -1,7 +1,10 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
@@ -10,6 +13,8 @@ import { MdaServiceService } from '../service/mda-service.service';
 
 @Component({
   selector: 'app-mda-sidenav-list',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './mda-sidenav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./mda-sidenav-list.component.scss'],

@@ -1,13 +1,20 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { HttpService } from 'src/app/services/http.service';
@@ -19,6 +26,18 @@ import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-generate-bill',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+  ],
   templateUrl: './payee-generate-bill.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-generate-bill.component.scss'],
@@ -30,29 +49,20 @@ export class PayeeGenerateBillComponent implements OnDestroy, OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   years: any;
   htmlYear = new Date().getFullYear();
-
   stateYear: Observable<Year[]>;
 
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
-
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
     private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
@@ -92,7 +102,9 @@ export class PayeeGenerateBillComponent implements OnDestroy, OnInit {
     const data = this.searchData?.filter((data: any) => {
       return (
         data?.bill_code.toLowerCase().includes(search.toLowerCase()) ||
-        data?.payer?.taxpayer_name.toLowerCase().includes(search.toLowerCase()) ||
+        data?.payer?.taxpayer_name
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
         this.formatDate(data?.bill_date).includes(search.toLowerCase())
       );
     });
@@ -124,7 +136,7 @@ export class PayeeGenerateBillComponent implements OnDestroy, OnInit {
           this.isLoading = false;
           console.log(data);
         },
-        (err) => {
+        () => {
           this.isLoading = false;
           this.authService.checkExpired();
         }
@@ -161,7 +173,7 @@ export class PayeeGenerateBillComponent implements OnDestroy, OnInit {
           });
           console.log(data);
         },
-        (err) => {
+        () => {
           this.is_reload = false;
           this.authService.checkExpired();
         }
@@ -180,7 +192,7 @@ export class PayeeGenerateBillComponent implements OnDestroy, OnInit {
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

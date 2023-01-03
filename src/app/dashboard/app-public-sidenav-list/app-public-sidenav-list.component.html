@@ -48,32 +48,6 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Taxes
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <span class="vertical2"></span>
-                    <p class="panel_text">Direct Assessment</p>
-                    <p class="panel_text" [routerLink]="['/dashboard3/taxpayer/payee']" routerLinkActive="active">
-                        Pay-As-You-Earn (PAYE)</p>
-                </mat-expansion-panel> -->
-
-        <!-- <mat-expansion-panel (opened)="panelOpenState = true"
-                               (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Taxes on Assets
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <span class="vertical3"></span>
-                    <p class="panel_text">Vehicle</p>
-                    <p class="panel_text">Land</p>
-                    <p class="panel_text">Building</p>
-                    <p class="panel_text">Businesses</p>
-                </mat-expansion-panel> -->
-
         <mat-expansion-panel hidetoggle="true">
             <mat-expansion-panel-header #panelH2 (click)="panelH2._toggle()" class="mda">
                 <mat-panel-title [routerLink]="['/dashboard/dashboard3/taxpayer/mda']" routerLinkActive="active">
@@ -81,56 +55,41 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
         </mat-expansion-panel>
-
-        <!-- <mat-expansion-panel>
-                    <mat-expansion-panel-header class="mda" #panelH3 (click)="panelH3._toggle()">
-                        <mat-panel-title>
-                            Reference Data
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel> -->
     </div>
-
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- payee layout -->
-
 <div class="wrapper2" *ngIf="type === 'payee'">
   <app-payee-sidenav-list></app-payee-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- dashboard layout -->
-
 <div class="wrapper2" *ngIf="type === 'dashboard'">
   <app-dashboard-sidenav-list></app-dashboard-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Tax payer layout -->
-
 <div class="wrapper2" *ngIf="type === 'tax_payer'">
   <app-taxpayer-sidenav-list></app-taxpayer-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Admin Console Layout -->
-
 <div class="wrapper2" *ngIf="type === 'admin-console'">
   <app-admin-sidenav-list></app-admin-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- MDA Layout -->
-
 <div class="wrapper2" *ngIf="type === 'mda'">
   <app-mda-sidenav-list></app-mda-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Direct Accessment layout -->
-
 <div class="wrapper2" *ngIf="type === 'direct'">
   <app-direct-sidenav-list></app-direct-sidenav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
@@ -138,7 +97,6 @@
 
 
 <!-- Vehicle layout -->
-
 <div class="wrapper2" *ngIf="type === 'vehicle'">
   <app-side-nav-list></app-side-nav-list>
   <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
@@ -146,21 +104,18 @@
 
 
 <!-- Account -->
-
 <div class="wrapper2" *ngIf="type === 'account'">
     <app-profile-sidenav-list></app-profile-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- Witholding -->
-
 <div class="wrapper2" *ngIf="type === 'witholding'">
     <app-witholding-sidenav-list></app-witholding-sidenav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>
 </div>
 
 <!-- stamp duties -->
-
 <div class="wrapper2" *ngIf="type === 'stamp'">
     <app-stamp-side-nav-list></app-stamp-side-nav-list>
     <app-bottom-sidenav-menu></app-bottom-sidenav-menu>

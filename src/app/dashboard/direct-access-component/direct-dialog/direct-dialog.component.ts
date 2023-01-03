@@ -1,15 +1,30 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-// state management
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
+import { QrCodeModule } from 'ng-qrcode';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { NgxPrintModule } from 'ngx-print';
 import { AppState } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -19,6 +34,22 @@ import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-direct-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatDialogModule,
+    QrCodeModule,
+    NgxDocViewerModule,
+    NgxPrintModule,
+  ],
   templateUrl: './direct-dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./direct-dialog.component.css'],

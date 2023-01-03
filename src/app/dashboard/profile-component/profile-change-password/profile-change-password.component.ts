@@ -1,7 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -12,6 +23,17 @@ import { ProfileServiceService } from '../service/profile-service.service';
 
 @Component({
   selector: 'app-profile-change-password',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './profile-change-password.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./profile-change-password.component.scss'],
@@ -25,7 +47,6 @@ export class ProfileChangePasswordComponent implements OnInit {
   disabled = false;
   hide = true;
   hide2 = true;
-
   clickEventSubscription?: Subscription;
 
   formErrors: any = {
@@ -56,21 +77,18 @@ export class ProfileChangePasswordComponent implements OnInit {
     private httpService: HttpService,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private router: Router,
     private service: ProfileServiceService
   ) {
     this.authService.checkExpired();
     this.createForm();
     //
     this.datas = this.service.getAdminMessage();
-    this.clickEventSubscription = this.service
-      .getClickEvent()
-      .subscribe((data: any) => {
-        this.datas = this.service.getAdminMessage();
-      });
+    this.clickEventSubscription = this.service.getClickEvent().subscribe(() => {
+      this.datas = this.service.getAdminMessage();
+    });
   }
 
-  // 
+  //
   createForm() {
     this.feedbackForm = this.fb.group(
       {
@@ -149,7 +167,7 @@ export class ProfileChangePasswordComponent implements OnInit {
       this.httpService
         .updateData(BaseUrl.change_password, data, this.datas?.id + '/')
         .subscribe(
-          (data: any) => {
+          () => {
             this.loading = false;
             this.disabled = false;
             // reset form field
@@ -201,6 +219,6 @@ export class ProfileChangePasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log()
+    console.log();
   }
 }

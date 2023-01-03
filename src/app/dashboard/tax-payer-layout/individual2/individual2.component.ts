@@ -5,30 +5,35 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 // state management
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {
   debounceTime,
   delay,
@@ -38,32 +43,23 @@ import {
   ReplaySubject,
   Subject,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs';
 import {
   AppState,
   selectAllIndPayer,
-  selectAllLocation,
-  selectAllStates,
-  selectAllOccupation,
+  selectAllLocation, selectAllOccupation, selectAllStates
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import {
-  AddLocation,
-  AddStates,
-  AddOccupation,
+  AddLocation, AddOccupation, AddStates
 } from '../../../actions/irm.action';
-import { IndPayer, Locationn, States, Occupation } from '../../models/irm';
+import { IndPayer, Locationn, Occupation, States } from '../../models/irm';
 import { Individual1, LGA, lgaLogo, STATE, stateLogo } from '../../shared/form';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 
 gsap.registerPlugin(ScrollTrigger);
 

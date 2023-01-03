@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -10,6 +9,15 @@ import { AppState, selectAllYear } from 'src/app/reducers/index';
 import { AddYear } from '../../../actions/irm.action';
 import { Year } from '../../models/irm';
 //
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DataTablesModule } from 'angular-datatables';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -19,6 +27,19 @@ import { PayeeServiceService } from '../service/payee-service.service';
 
 @Component({
   selector: 'app-payee-manage-employee',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+  ],
   templateUrl: './payee-manage-employee.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-manage-employee.component.scss'],
@@ -30,7 +51,6 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas: any[] = [];
   datas2: any;
@@ -40,12 +60,7 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
   stateYear: Observable<Year[]>;
   htmlYear = new Date().getFullYear();
 
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
-
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -121,7 +136,7 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
           this.isLoading = false;
           console.log(data);
         },
-        (err) => {
+        () => {
           this.isLoading = false;
           this.authService.checkExpired();
         }
@@ -153,7 +168,7 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
           });
           console.log(data);
         },
-        (err) => {
+        () => {
           this.is_reload = false;
           this.authService.checkExpired();
         }
@@ -236,7 +251,7 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

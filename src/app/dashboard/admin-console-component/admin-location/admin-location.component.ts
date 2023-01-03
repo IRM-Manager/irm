@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -10,20 +10,37 @@ import { AppState, selectAllLocation } from 'src/app/reducers/index';
 import { AddLocation, RemoveLocation } from '../../../actions/irm.action';
 import { Locationn } from '../../models/irm';
 //
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
-import { AdminServiceService } from '../service/admin-service.service';
 import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
+import { AdminServiceService } from '../service/admin-service.service';
 
 @Component({
   selector: 'app-admin-location',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    FormsModule,
+    MatIconModule,
+    DataTablesModule,
+    MatMenuModule,
+    MatToolbarModule,
+  ],
   templateUrl: './admin-location.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./admin-location.component.scss'],
 })
-export class AdminLocationComponent implements OnInit {
+export class AdminLocationComponent implements OnInit, OnDestroy {
   search: string = '';
   loading = false;
   getLoding = 0;
@@ -78,7 +95,7 @@ export class AdminLocationComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
-      info : false
+      info: false,
     };
     this.isLoading = true;
     this.stateLocation?.forEach((e) => {
@@ -98,7 +115,7 @@ export class AdminLocationComponent implements OnInit {
             this.dtTrigger.next;
             this.isLoading = false;
           },
-          (err) => {
+          () => {
             this.isLoading = false;
             this.authService.checkExpired();
           }
@@ -129,7 +146,7 @@ export class AdminLocationComponent implements OnInit {
           verticalPosition: 'top',
         });
       },
-      (err) => {
+      () => {
         this.is_reload = false;
         this.authService.checkExpired();
       }
@@ -143,13 +160,13 @@ export class AdminLocationComponent implements OnInit {
         const datas = {
           location: data_type,
           department: undefined,
-          data: data.results
-        }
+          data: data.results,
+        };
         this.service.setDepLocMessage(datas);
         this.router.navigate(['/dashboard/dashboard5/dep-loc']);
         this.getLoding = 0;
       },
-      (err) => {
+      () => {
         this.getLoding = 0;
         this.authService.checkExpired();
       }
@@ -165,7 +182,7 @@ export class AdminLocationComponent implements OnInit {
     this.router.navigate([`/dashboard/dashboard5/${type}`]);
   }
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(AdminConsoleDialogComponent, {
       data: {

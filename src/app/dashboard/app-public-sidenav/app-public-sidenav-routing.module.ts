@@ -24,7 +24,6 @@ import { SelfCreateComponent } from '../direct-access-component/self-create/self
 import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
 import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
 import { MDAComponent } from '../mda-component/mda/mda.component';
-import { PayeeAssessmentComponent } from '../payee-layout/payee-assessment/payee-assessment.component';
 import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
 import { PayeeCreateAssessmentComponent } from '../payee-layout/payee-create-assessment/payee-create-assessment.component';
 import { PayeeGenerateBillComponent } from '../payee-layout/payee-generate-bill/payee-generate-bill.component';
@@ -32,46 +31,44 @@ import { PayeeManageEditComponent } from '../payee-layout/payee-manage-edit/paye
 import { PayeeManageEmployeeComponent } from '../payee-layout/payee-manage-employee/payee-manage-employee.component';
 import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/payee-manual-input.component';
 import { PayeeOnboardComponent } from '../payee-layout/payee-onboard/payee-onboard.component';
-import { PayeeOverviewComponent } from '../payee-layout/payee-overview/payee-overview.component';
 import { PayeeViewComponent } from '../payee-layout/payee-view/payee-view.component';
 import { PayeeComponent } from '../payee-layout/payee/payee.component';
 import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
 import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
 import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
-import { BusinessComponent } from '../tax-payer-layout/business/business.component';
-import { Individual2Component } from '../tax-payer-layout/individual2/individual2.component';
-import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
-import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
-import { TransBillsComponent } from '../trans-bills/trans-bills.component';
-import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
-import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
-import { AppPublicSidenavComponent } from './app-public-sidenav.component';
-import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
-import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
-import { ChangeOwnerComponent } from '../vehicle-component/change-owner-component/change-owner/change-owner.component';
-import { PlateComponent } from '../vehicle-component/plate/plate.component';
-import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
-import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
-import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
-import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
-import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
-import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component';
-import { WitholdingApplyComponent } from '../withholding-tax-component/witholding-apply/witholding-apply.component';
-import { WitholdingGenerateAssessmentComponent } from '../withholding-tax-component/witholding-generate-assessment/witholding-generate-assessment.component';
-import { WitholdingTableComponentComponent } from '../withholding-tax-component/witholding-table-component/witholding-table-component.component';
-import { WitholdingViewComponent } from '../withholding-tax-component/witholding-view/witholding-view.component';
 import { StampDutiesApplyComponent } from '../stamp-duties-component/stamp-duties-apply/stamp-duties-apply.component';
 import { StampDutiesAssessmentComponent } from '../stamp-duties-component/stamp-duties-assessment/stamp-duties-assessment.component';
 import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
 import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
-import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
-import { ChangeOwnerDetailsComponent } from '../vehicle-component/change-owner-component/change-owner-details/change-owner-details.component';
+import { BusinessComponent } from '../tax-payer-layout/business/business.component';
+import { Individual2Component } from '../tax-payer-layout/individual2/individual2.component';
+import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
+import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
 import { ChangeOwnerAssessmentComponent } from '../vehicle-component/change-owner-component/change-owner-assessment/change-owner-assessment.component';
+import { ChangeOwnerDetailsComponent } from '../vehicle-component/change-owner-component/change-owner-details/change-owner-details.component';
 import { ChangeOwnerNewRegComponent } from '../vehicle-component/change-owner-component/change-owner-new-reg/change-owner-new-reg.component';
+import { ChangeOwnerComponent } from '../vehicle-component/change-owner-component/change-owner/change-owner.component';
+import { PlateComponent } from '../vehicle-component/plate/plate.component';
 import { VehicleProfillingConfigureAddComponent } from '../vehicle-component/profilling-component/vehicle-profilling-configure-add/vehicle-profilling-configure-add.component';
 import { VehicleProfillingConfigureTableComponent } from '../vehicle-component/profilling-component/vehicle-profilling-configure-table/vehicle-profilling-configure-table.component';
 import { VehicleProfillingTableComponent } from '../vehicle-component/profilling-component/vehicle-profilling-table/vehicle-profilling-table.component';
+import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
+import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
+import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
+import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component';
+import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
+import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
 import { VehiclePenaltyComponent } from '../vehicle-component/vehicle-penalty/vehicle-penalty.component';
+import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
+import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
+import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
+import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
+import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
+import { WitholdingApplyComponent } from '../withholding-tax-component/witholding-apply/witholding-apply.component';
+import { WitholdingGenerateAssessmentComponent } from '../withholding-tax-component/witholding-generate-assessment/witholding-generate-assessment.component';
+import { WitholdingTableComponentComponent } from '../withholding-tax-component/witholding-table-component/witholding-table-component.component';
+import { WitholdingViewComponent } from '../withholding-tax-component/witholding-view/witholding-view.component';
+import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 
 const routes: Routes = [
   {
@@ -100,16 +97,6 @@ const routes: Routes = [
       {
         path: 'dashboard3/taxpayer/payee/lists',
         component: PayeeComponent,
-        canLoad: [IsLoggedInGuard],
-      },
-      {
-        path: 'dashboard4/taxpayer/payee/access',
-        component: PayeeAssessmentComponent,
-        canLoad: [IsLoggedInGuard],
-      },
-      {
-        path: 'dashboard4/taxpayer/payee/access/:id',
-        component: PayeeAssessmentComponent,
         canLoad: [IsLoggedInGuard],
       },
       {
@@ -153,11 +140,6 @@ const routes: Routes = [
         canLoad: [IsLoggedInGuard],
       },
       {
-        path: 'dashboard4/taxpayer/payee/overview',
-        component: PayeeOverviewComponent,
-        canLoad: [IsLoggedInGuard],
-      },
-      {
         path: 'dashboard3/taxpayer/payee/manual/add',
         component: PayeeManualInputComponent,
         canLoad: [IsLoggedInGuard],
@@ -182,11 +164,6 @@ const routes: Routes = [
       {
         path: 'dashboard22/taxpayer',
         component: TaxPayerCreateComponent,
-        canLoad: [IsLoggedInGuard],
-      },
-      {
-        path: 'dashboard4/taxpayer/payee/bills',
-        component: TransBillsComponent,
         canLoad: [IsLoggedInGuard],
       },
       // ADMIN CONSOLE

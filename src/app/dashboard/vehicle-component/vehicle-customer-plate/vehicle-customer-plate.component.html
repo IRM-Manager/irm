@@ -3,8 +3,8 @@
     <div class="header">
         <div class="soft_pattern">
             {{ datas?.taxpayer_name }}
-            <span class="material-icons-round round-success" *ngIf="datas?.is_verified == true">verified_user</span>
-            <span class="material-icons-round round-failed" *ngIf="datas?.is_verified == false">gpp_maybe</span>
+            <span class="material-icons-round round-success" *ngIf="datas?.is_verified">verified_user</span>
+            <span class="material-icons-round round-failed" *ngIf="!datas?.is_verified">gpp_maybe</span>
         </div>
         <div class="reg_buss">GTin: {{ datas?.state_tin }}</div>
     </div>
@@ -75,9 +75,6 @@
                     </div>
                 </button>
             </div>
-
         </form>
     </div>
-
-
 </div>

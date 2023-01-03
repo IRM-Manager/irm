@@ -1,9 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// state management
 import { BaseUrl } from 'src/environments/environment';
-//
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -11,6 +15,15 @@ import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
 
 @Component({
   selector: 'app-mda-table',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    DataTablesModule,
+    FormsModule,
+    MatMenuModule,
+  ],
   templateUrl: './mda-table.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./mda-table.component.scss'],

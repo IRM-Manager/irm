@@ -1,7 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -11,6 +20,19 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
 
 @Component({
   selector: 'app-vehicle-reg-assessment',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+    DataTablesModule,
+  ],
   templateUrl: './vehicle-reg-assessment.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-reg-assessment.component.scss'],

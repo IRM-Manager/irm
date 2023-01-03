@@ -1,7 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
@@ -13,6 +22,19 @@ import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.compone
 
 @Component({
   selector: 'app-vehicle-bills',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+  ],
   templateUrl: './vehicle-bills.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-bills.component.scss'],
@@ -25,20 +47,16 @@ export class VehicleBillsComponent implements OnDestroy, OnInit {
   clickEventSubscription?: Subscription;
   isLoading = false;
   gen_loading: any[] = [];
-
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   years: any;
   htmlYear = new Date().getFullYear();
-
   stateYear: Observable<Year[]>;
 
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -102,7 +120,7 @@ export class VehicleBillsComponent implements OnDestroy, OnInit {
         this.isLoading = false;
         console.log(data);
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
@@ -144,7 +162,7 @@ export class VehicleBillsComponent implements OnDestroy, OnInit {
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

@@ -1,26 +1,53 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subscription } from 'rxjs';
 import { offence } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
-import { VehicleServiceService } from '../service/vehicle-service.service';
-import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
-import { Router } from '@angular/router';
-import { BaseUrl } from 'src/environments/environment';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
+import { VehicleServiceService } from '../service/vehicle-service.service';
+import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 
 @Component({
   selector: 'app-vehicle-customer-plate',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+    MatSelectModule,
+  ],
   templateUrl: './vehicle-customer-plate.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-customer-plate.component.scss'],
 })
 export class VehicleCustomerPlateComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
-
   feedbackForm: any = FormGroup;
   feedback!: offence;
   datas: any;
@@ -285,5 +312,7 @@ export class VehicleCustomerPlateComponent implements OnInit {
     return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

@@ -1,12 +1,15 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { Router, RouterModule } from '@angular/router';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.component';
 
 @Component({
   selector: 'app-taxpayer-sidenav-list',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './taxpayer-sidenav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./taxpayer-sidenav-list.component.scss'],

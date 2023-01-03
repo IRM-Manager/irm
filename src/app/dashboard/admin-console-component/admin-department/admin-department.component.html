@@ -6,7 +6,7 @@
             <div class="department">Department | Showing Lists of all Departments</div>
 
             <mat-toolbar class="header3">
-                <button mat-button class="add_user" (click)="OpenDialog('', 'add-department')">
+                <button mat-button class="add_user" (click)="openDialog('', 'add-department')">
                     Add department
                 </button>
             </mat-toolbar>
@@ -57,7 +57,7 @@
                                             <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="OpenDialog(data, 'edit-department')">Edit</button>
+                                            <button mat-menu-item="mat-menu-item" style="color: #5EA55A;" class="mat-menu" (click)="openDialog(data, 'edit-department')">Edit</button>
                                         </mat-menu>
                                     </td>
                                 </tr>
@@ -80,7 +80,7 @@
                                 <div class="bubble"></div>
                             </div>
 
-                            <button mat-raised-button="mat-raised-button" class="reload" (click)="reload2()">
+                            <button mat-raised-button class="reload" (click)="reload2()">
                                 <span *ngIf="!is_reload">Reload</span>
                                 <div *ngIf="is_reload" class="loader">
                                     <div class="bubble"></div>
@@ -95,6 +95,4 @@
                 </div>
             </div>
         </div>
-
-
-    </div>
+</div>

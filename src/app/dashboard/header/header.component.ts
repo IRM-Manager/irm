@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,10 +7,12 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavigationEnd, Router } from '@angular/router';
-// state management
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import {
@@ -37,22 +40,21 @@ import { ToggleNavService } from '../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatToolbarModule],
   templateUrl: './header.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   @Output() public publicsidenavToggle = new EventEmitter();
-
   left_text1!: string;
   left_text2!: string;
   type: any;
   profile: any;
   hide = true;
   companyData: any;
-
   clickEventSubscription?: Subscription;
-
   stateProfile: Observable<Profile[]>;
   stateStates: Observable<States[]>;
   stateYear: Observable<Year[]>;
@@ -74,15 +76,12 @@ export class HeaderComponent implements OnInit {
       .subscribe((data: any) => {
         this.hide = false;
       });
-
     this.authService.checkExpired();
-
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
         this.currentRoute();
       }
     });
-
     this.stateProfile = store.select(selectAllProfile);
     this.stateStates = store.select(selectAllStates);
     this.stateYear = store.select(selectAllYear);
@@ -311,7 +310,7 @@ export class HeaderComponent implements OnInit {
     return this.authService.getJwtToken();
   }
 
-  AddProfile() {
+  addProfile() {
     this.stateProfile.forEach((e) => {
       if (e.length > 0) {
         this.profile = e[0].data;
@@ -325,7 +324,7 @@ export class HeaderComponent implements OnInit {
             this.profile = data.data;
             console.log('http_profile', data);
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );
@@ -333,46 +332,42 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  AddYear() {
-    this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
-      (data: any) => {
+  addYear() {
+    this.httpService
+      .getSingleNoAuth(BaseUrl.list_year)
+      .subscribe((data: any) => {
         this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
-      },
-      (err) => {}
-    );
+      });
   }
 
   addIndividualPayer() {
-    this.httpService.getAuthSingle(BaseUrl.list_ind_payer).subscribe(
-      (data: any) => {
+    this.httpService
+      .getAuthSingle(BaseUrl.list_ind_payer)
+      .subscribe((data: any) => {
         if (data.responsecode == '01') {
         } else {
           this.store.dispatch(new AddIndPayer([{ id: 1, data: data.data }]));
         }
-      },
-      (err) => {}
-    );
+      });
   }
 
   addCompanyPayer() {
-    this.httpService.getAuthSingle(BaseUrl.list_com_payer).subscribe(
-      (data: any) => {
+    this.httpService
+      .getAuthSingle(BaseUrl.list_com_payer)
+      .subscribe((data: any) => {
         if (data.responsecode == '01') {
         } else {
           this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
         }
-      },
-      (err) => {}
-    );
+      });
   }
 
-  AddState() {
-    this.httpService.getSingleNoAuth(BaseUrl.list_state).subscribe(
-      (data: any) => {
+  addState() {
+    this.httpService
+      .getSingleNoAuth(BaseUrl.list_state)
+      .subscribe((data: any) => {
         this.store.dispatch(new AddStates([{ id: 1, data: data.results }]));
-      },
-      (err) => {}
-    );
+      });
   }
 
   limit(title: any, limit = 11) {
@@ -404,7 +399,7 @@ export class HeaderComponent implements OnInit {
     this.hide = true;
   };
 
-  OpenDialog(data: any, type: string) {
+  openDialog(data: any, type: string) {
     this.snackBar.dismiss();
     this.dialog.open(DialogComponent, {
       data: {
@@ -415,9 +410,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.AddProfile();
-    this.AddState();
-    this.AddYear();
+    this.addProfile();
+    this.addState();
+    this.addYear();
     this.addCompanyPayer();
     this.addIndividualPayer();
   }

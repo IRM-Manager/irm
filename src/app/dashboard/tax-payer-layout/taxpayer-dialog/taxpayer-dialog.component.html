@@ -8,11 +8,9 @@
     <div class="body">
         <div class="header-text">TAX PAYER REGISTRATION</div>
         <div class="kindly">Kindly Select the option that applies to the Tax payer</div>
-
         <div class="card blue" (click)="ninReg()">Register with NIN</div>
         <div class="card yellow" (click)="ninReg2()">Register without NIN</div>
         <div class="card red" (click)="ninReg3()">Register as a Business</div>
-
     </div>
 </div>
 
@@ -49,7 +47,6 @@
                 </mat-form-field>
             </p>
 
-
             <p>
                 <mat-form-field class="full-width">
                     <mat-label>Date of Birth</mat-label>
@@ -71,9 +68,7 @@
                     </div>
                 </button>
             </div>
-
             <div class="dont" (click)="ninReg2()">Tax payer don’t have NIN? Click here</div>
-
         </form>
 
         <form *ngIf="!is_ind" class="nin-regis-form" id="ngForm2" novalidate [formGroup]="feedbackForm2" #fform2="ngForm">
@@ -108,9 +103,7 @@
                     </div>
                 </button>
             </div>
-
         </form>
-
     </div>
 </div>
 
@@ -129,5 +122,4 @@
     <div style="text-align: center;">
         <button mat-button class="go-back" mat-dialog-close>back</button>
     </div>
-
 </div>

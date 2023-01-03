@@ -6,8 +6,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class DirectServiceService {
   regMessage: string | undefined;
-  DepLocMessage: string | undefined;
-  ViewSelf: string | undefined;
+  viewSelf: string | undefined;
   yearAMessage: string | undefined;
   yearBMessage: string | undefined;
   private subject = new Subject<any>();
@@ -24,11 +23,11 @@ export class DirectServiceService {
 
   // self view details
   setviewSelfMessage(data: any) {
-    this.ViewSelf = data;
+    this.viewSelf = data;
   }
 
   getviewSelfMessage() {
-    return this.ViewSelf;
+    return this.viewSelf;
   }
 
   sendClickEvent() {

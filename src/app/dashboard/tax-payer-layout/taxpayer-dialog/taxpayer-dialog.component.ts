@@ -1,19 +1,35 @@
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -23,6 +39,22 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 
 @Component({
   selector: 'app-taxpayer-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+  ],
   templateUrl: './taxpayer-dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./taxpayer-dialog.component.scss'],
@@ -30,18 +62,13 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 export class TaxpayerDialogComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
   @ViewChild('fform2') feedbackFormDirective2: any;
-
-  // ind verification
   feedbackForm: any = FormGroup;
   feedback!: ind_verify;
   loading = false;
   disabled = false;
   is_ind = true;
-
-  // company verification
   feedbackForm2: any = FormGroup;
   feedback2!: com_verify;
-
   clickEventSubscription?: Subscription;
 
   formErrors: any = {
@@ -282,5 +309,7 @@ export class TaxpayerDialogComponent implements OnInit {
     this.shared.sendchangeRegTypeClickEvent();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

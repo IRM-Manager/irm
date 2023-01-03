@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 // state management
 import { Store } from '@ngrx/store';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
@@ -10,15 +8,34 @@ import { BaseUrl } from 'src/environments/environment';
 import { AddYear } from '../../../actions/irm.action';
 import { Year } from '../../models/irm';
 //
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { DataTablesModule } from 'angular-datatables';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
-import { PayeeServiceService } from '../../payee-layout/service/payee-service.service';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
 
 @Component({
   selector: 'app-direct-bill',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+  ],
   templateUrl: './direct-bill.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./direct-bill.component.scss'],
@@ -30,40 +47,29 @@ export class DirectBillComponent implements OnDestroy, OnInit {
   is_reload = false;
   clickEventSubscription?: Subscription;
   isLoading = false;
-
   dtOptions: DataTables.Settings = {};
   datas2: any;
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
   years: any;
   htmlYear = new Date().getFullYear();
-
   stateYear: Observable<Year[]>;
-
-  private readonly JWT_TOKEN = BaseUrl.jwt_token;
-  private readonly REFRESH_TOKEN = BaseUrl.refresh_token;
-  private helper = new JwtHelperService();
 
   formErrors: any = {};
 
   validationMessages: any = {};
 
   constructor(
-    private router: Router,
-    private direct: ActivatedRoute,
     private authService: AuthService,
     private dialog: MatDialog,
     public shared: ToggleNavService,
     private httpService: HttpService,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar,
-    private payeeService: PayeeServiceService
+    private snackBar: MatSnackBar
   ) {
     this.authService.checkExpired();
     this.stateYear = store.select(selectAllYear);
-
     this.htmlYear = new Date().getFullYear();
     this.listYear();
   }
@@ -73,7 +79,6 @@ export class DirectBillComponent implements OnDestroy, OnInit {
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');

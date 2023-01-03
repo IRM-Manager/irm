@@ -1,7 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -11,11 +19,23 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
 
 @Component({
   selector: 'app-vehicle-document',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+  ],
   templateUrl: './vehicle-document.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./vehicle-document.component.scss'],
 })
-export class VehicleDocumentComponent implements OnInit {
+export class VehicleDocumentComponent implements OnInit, OnDestroy {
   search: string = '';
   loading = false;
   disabled = false;
@@ -29,7 +49,6 @@ export class VehicleDocumentComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -90,7 +109,7 @@ export class VehicleDocumentComponent implements OnInit {
           this.isLoading = false;
           console.log(data);
         },
-        (err) => {
+        () => {
           this.isLoading = false;
           this.authService.checkExpired();
         }
@@ -115,7 +134,7 @@ export class VehicleDocumentComponent implements OnInit {
           });
           console.log(data);
         },
-        (err) => {
+        () => {
           this.is_reload = false;
           this.authService.checkExpired();
         }

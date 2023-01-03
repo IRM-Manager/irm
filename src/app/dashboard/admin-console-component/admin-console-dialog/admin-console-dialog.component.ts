@@ -1,9 +1,22 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,36 +24,52 @@ import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { department } from '../../shared/form';
 // state management
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   AppState,
   selectAllDepartment,
-  selectAllLocation,
+  selectAllLocation
 } from 'src/app/reducers/index';
 import {
   AddDepartment,
   AddLocation,
   RemoveDepartment,
-  RemoveLocation,
+  RemoveLocation
 } from '../../../actions/irm.action';
 import { Department, Locationn } from '../../models/irm';
 //
 
 @Component({
   selector: 'app-admin-console-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    RouterModule,
+    MatDialogModule,
+  ],
   templateUrl: './admin-console-dialog.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./admin-console-dialog.component.css'],
 })
 export class AdminConsoleDialogComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any;
-
   loading = false;
   disabled = false;
-
   feedbackForm: any = FormGroup;
   feedback!: department;
-
   stateDepartment: Observable<Department[]>;
   stateLocation: Observable<Locationn[]>;
 
@@ -296,8 +325,6 @@ export class AdminConsoleDialogComponent implements OnInit {
         );
     }
   }
-
-  //
 
   //  deactivate activate user
   deactivateActivate() {

@@ -1,9 +1,3 @@
-$white: #ffffff;
-$soft-pattern-font: normal normal normal 15px/19px Montserrat;
-$soft-pattern-color: #3c66a3;
-$tin-color: #565656;
-$reg-buss-font: normal normal normal 15px/19px Montserrat;
-
 .payee_wrapper {
   padding-left: 24px;
 
@@ -16,7 +10,7 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
   }
 
   .card {
-    background: $white 0% 0% no-repeat padding-box;
+    background: var(--white) 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
     padding: 16px;
@@ -37,17 +31,17 @@ $reg-buss-font: normal normal normal 15px/19px Montserrat;
 
   .text {
     margin-left: 10px;
-    font: normal normal normal 15px/19px Montserrat;
+    font: normal normal normal 15px/19px var(--mont);
     letter-spacing: 0px;
     font-weight: 500;
-    color: #3c66a3;
+    color: var(--blue);
     opacity: 1;
     text-transform: capitalize;
   }
 
   .mat-badge-content {
     background: #dd5f5f;
-    font: normal normal normal 15px/25px Montserrat;
+    font: normal normal normal 15px/25px var(--mont);
     font-weight: 500;
     letter-spacing: 0px;
     color: #f0f0f0;

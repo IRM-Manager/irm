@@ -16,15 +16,15 @@
 
 .payee_cancel_button {
   text-align: right;
-  color: #3c66a3;
+  color: var(--blue);
 }
 
 .title-header {
   text-transform: uppercase;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   text-transform: uppercase;
   opacity: 1;
   text-align: center;
@@ -47,20 +47,20 @@
 }
 
 .tin {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
   margin-top: 5px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
 .gen-success {
-  color: #038541;
+  color: var(--green);
 }
 
 .gen-failed {
-  color: #e9322c;
+  color: var(--red);
 }
 
 .column {
@@ -83,10 +83,10 @@
   background: #697692 0% 0% no-repeat padding-box;
   opacity: 1;
   padding: 0.6rem 15px;
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #ffffff;
+  color: var(--white);
   opacity: 1;
 }
 
@@ -105,10 +105,10 @@
 }
 
 .title {
-  font: normal normal normal 13px/16px Montserrat;
+  font: normal normal normal 13px/16px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   vertical-align: middle;
   padding: 15px;
@@ -116,10 +116,10 @@
 }
 
 .title2 {
-  font: normal normal normal 13px/16px Montserrat;
+  font: normal normal normal 13px/16px var(--mont);
   font-weight: 600;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   vertical-align: middle;
   text-transform: uppercase;
@@ -136,10 +136,10 @@
 }
 
 .print {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #b9a005;
+  color: var(--yellow);
   opacity: 1;
   text-transform: capitalize;
   padding: 0.4rem;
@@ -166,10 +166,10 @@
 
 .note {
   margin-top: 1rem;
-  font: italic normal normal 13px/15px Montserrat;
+  font: italic normal normal 13px/15px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -208,28 +208,28 @@
 }
 
 .notice-title {
-  font: normal normal normal 14px/20px Montserrat;
+  font: normal normal normal 14px/20px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   margin-top: 5px;
   opacity: 1;
 }
 
 .notice-header2-title {
-  font: normal normal normal 17px/21px Montserrat;
+  font: normal normal normal 17px/21px var(--mont);
   font-weight: 550;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
 .notice-header2-body {
-  font: normal normal normal 14px/30px Montserrat;
+  font: normal normal normal 14px/30px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
   line-height: 35px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -238,34 +238,34 @@
 }
 
 .notice-thankyou {
-  font: normal normal normal 14px/20px Montserrat;
+  font: normal normal normal 14px/20px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
 .notice-header4 {
-  font: normal normal normal 17px/21px Montserrat;
+  font: normal normal normal 17px/21px var(--mont);
   font-weight: 550;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   padding-bottom: 0.7rem;
-  border-bottom: 2px solid #565656;
+  border-bottom: 2px solid var(--form-gray);
 }
 
 .notice-column {
   width: 100%;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #565656;
+  border-bottom: 2px solid var(--form-gray);
 }
 
 .titlec {
-  font: normal normal normal 13px/16px Montserrat;
+  font: normal normal normal 13px/16px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
   vertical-align: middle;
   padding: 15px;
@@ -280,10 +280,10 @@
 }
 
 .notice-print {
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #b9a005;
+  color: var(--yellow);
   opacity: 1;
   text-transform: capitalize;
   padding: 0.4rem;
@@ -299,42 +299,42 @@
 
 .upload_cancel_button {
   text-align: right;
-  color: #2aa977;
+  color: var(--green);
 }
 
 .upload_title {
-  font: normal normal normal 16px/20px Montserrat;
+  font: normal normal normal 16px/20px var(--mont);
   font-weight: 550;
   letter-spacing: 0px;
   text-transform: capitalize;
   margin-top: 10px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
 .upload_sub_title {
-  font: normal normal normal 14px/16px Montserrat;
+  font: normal normal normal 14px/16px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #565656;
+  color: var(--form-gray);
   margin-top: 5px;
   opacity: 1;
 }
 
 .blue_title {
-  font: normal normal normal 14px/16px Montserrat;
+  font: normal normal normal 14px/16px var(--mont);
   font-weight: 550;
   letter-spacing: 0px;
-  color: #3c66a3;
+  color: var(--blue);
   margin-top: 5px;
   opacity: 1;
 }
 
 .upload_choose {
-  font: normal normal normal 14px/16px Montserrat;
+  font: normal normal normal 14px/16px var(--mont);
   letter-spacing: 0px;
   font-weight: 550;
-  color: #000000;
+  color: var(--black);
   opacity: 1;
   margin-top: 15px;
 }
@@ -345,18 +345,18 @@
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: #3c66a3;
+  background-color: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #ffffff; /*inner circle color change*/
+  background-color: var(--white); /*inner circle color change*/
 }
 
 ::ng-deep
   .mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
-  border-color: #3c66a3; /*outer ring color change*/
-  background: #3c66a3;
+  border-color: var(--blue); /*outer ring color change*/
+  background: var(--blue);
 }
 
 .upload-file-input {
@@ -373,40 +373,40 @@
 }
 
 .browse1 {
-  font: normal normal 600 14px/17px Montserrat;
+  font: normal normal 600 14px/17px var(--mont);
   letter-spacing: 0px;
   text-transform: uppercase;
   opacity: 1;
 }
 
 .browse2 {
-  font: normal normal 600 14px/17px Montserrat;
+  font: normal normal 600 14px/17px var(--mont);
   letter-spacing: 0px;
   text-transform: uppercase;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
 }
 
 .supported {
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #000000;
+  color: var(--black);
   opacity: 1;
 }
 
 .file_size {
-  font: normal normal normal 14px/17px Montserrat;
+  font: normal normal normal 14px/17px var(--mont);
   letter-spacing: 0px;
-  color: #000000;
+  color: var(--black);
   font-weight: 500;
   opacity: 1;
 }
 
 .file_name {
-  font: normal normal normal 18px/25px Montserrat;
+  font: normal normal normal 18px/25px var(--mont);
   letter-spacing: 0px;
-  color: #000000;
+  color: var(--black);
   font-weight: 550;
   opacity: 1;
 }
@@ -418,26 +418,26 @@
 }
 
 .upload_continue {
-  background: #b9a005 0% 0% no-repeat padding-box;
+  background: var(--yellow) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   padding: 0.8rem;
   width: 8rem;
   text-align: center;
   opacity: 1;
-  font: normal normal normal 14px/16px Montserrat;
+  font: normal normal normal 14px/16px var(--mont);
   letter-spacing: 0px;
-  color: #ffffff;
+  color: var(--white);
   font-weight: 500;
 }
 
 .error-response {
-  color: #e9322c;
+  color: var(--red);
   padding: 0.6rem;
-  border: 1px solid #e9322c;
+  border: 1px solid var(--red);
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font: normal normal normal 15px/19px Montserrat;
+  font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
 }
@@ -451,18 +451,18 @@
 }
 
 .manual_title {
-  font: normal normal normal 16px/25px Montserrat;
+  font: normal normal normal 16px/25px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #3c66a3;
+  color: var(--blue);
   opacity: 1;
 }
 
 .manual_tin {
-  font: normal normal normal 15px/30px Montserrat;
+  font: normal normal normal 15px/30px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -480,21 +480,21 @@
 }
 
 .manual_filling {
-  font: normal normal normal 17px/25px Montserrat;
+  font: normal normal normal 17px/25px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   text-align: left;
   opacity: 1;
 }
 
 .manual_verify {
-  font: normal normal normal 13px/19px Montserrat;
+  font: normal normal normal 13px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
   margin-top: 15px;
   margin-bottom: 20px;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -504,7 +504,7 @@
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #37a85d !important;
-  background-color: #ffffff !important;
+  background-color: var(--white) !important;
 }
 
 ::ng-deep
@@ -518,31 +518,31 @@
 }
 
 ::ng-deep .mat-form-field-label {
-  color: #565656;
+  color: var(--form-gray);
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #565656;
+  color: var(--form-gray);
 }
 
 ::ng-deep .mat-form-field-underline,
 ::ng-deep .mat-form-field-ripple {
-  background: #3c66a3;
+  background: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: #3c66a3;
+  background-color: var(--blue);
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #ffffff; /*inner circle color change*/
+  background-color: var(--white); /*inner circle color change*/
 }
 
 ::ng-deep
   .mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
-  border-color: #3c66a3; /*outer ring color change*/
-  background: #3c66a3;
+  border-color: var(--blue); /*outer ring color change*/
+  background: var(--blue);
 }
 
 .loader {
@@ -563,22 +563,22 @@
 }
 
 .bubble:nth-child(1) {
-  background: #ffffff;
+  background: var(--white);
 }
 
 .bubble:nth-child(2) {
   animation-delay: 180ms;
-  background: #ffffff;
+  background: var(--white);
 }
 
 .bubble:nth-child(3) {
   animation-delay: 360ms;
-  background: #ffffff;
+  background: var(--white);
 }
 
 .bubble:nth-child(4) {
   animation-delay: 540ms;
-  background: #ffffff;
+  background: var(--white);
 }
 
 @keyframes expand {

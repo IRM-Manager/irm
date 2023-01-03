@@ -1,18 +1,36 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder, FormGroup, FormsModule,
+  ReactiveFormsModule, Validators
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { offence } from 'src/app/dashboard/shared/form';
 import { AuthService } from 'src/app/services/auth.service';
-import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { BaseUrl } from 'src/environments/environment';
 import { HttpService } from 'src/app/services/http.service';
 import { WitholdingServiceService } from '../../withholding-tax-component/service/witholding-service.service';
 
 @Component({
   selector: 'app-stamp-duties-apply',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSelectModule,
+  ],
   templateUrl: './stamp-duties-apply.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./stamp-duties-apply.component.scss'],
@@ -174,5 +192,7 @@ export class StampDutiesApplyComponent implements OnInit {
     return (Math.round(tostring * 100) / 100).toLocaleString();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log();
+  }
 }

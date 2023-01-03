@@ -1,52 +1,74 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subscription } from 'rxjs';
-import { directAss } from '../../shared/form';
-// state management
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
+import { Observable, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { Year } from '../../models/irm';
+import { directAss } from '../../shared/form';
 import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
 import { DirectServiceService } from '../service/direct-service.service';
 
 @Component({
   selector: 'app-self-create',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+    FlexLayoutModule,
+    MatSelectModule,
+  ],
   templateUrl: './self-create.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./self-create.component.scss'],
 })
 export class SelfCreateComponent implements OnInit {
   @ViewChild('fform2') feedbackFormDirective2: any;
-
   loading = false;
   disabled = false;
   update = false;
   datas: any;
   years: any;
-
   formData = new FormData();
   image: any;
   filename: any;
-
   // 2
   formData2 = new FormData();
   image2: any;
   filename2: any;
-
   collectedSourceData: any = [];
   collectedDeductionData: any = [];
   totalValue: any;
-
   feedbackForm2: any = FormGroup;
   feedback2!: directAss;
-
   clickEventSubscription?: Subscription;
   stateYear: Observable<Year[]>;
 
@@ -483,7 +505,7 @@ export class SelfCreateComponent implements OnInit {
             this.years = data.results;
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );

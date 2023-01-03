@@ -1,8 +1,9 @@
-import {
-  Component, OnInit, ViewEncapsulation
-} from '@angular/core';
-import { Router } from '@angular/router';
-// state management
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState, selectAllProfile } from 'src/app/reducers/index';
@@ -14,6 +15,14 @@ import { Profile } from '../models/irm';
 
 @Component({
   selector: 'app-bottom-sidenav-menu',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    MatMenuModule,
+  ],
   templateUrl: './bottom-sidenav-menu.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./bottom-sidenav-menu.component.scss'],
@@ -24,7 +33,6 @@ export class BottomSidenavMenuComponent implements OnInit {
   loading = false;
 
   constructor(
-    private router: Router,
     private authService: AuthService,
     private httpService: HttpService,
     private store: Store<AppState>
@@ -47,7 +55,7 @@ export class BottomSidenavMenuComponent implements OnInit {
             this.loading = false;
             console.log('http_profile', data.data);
           },
-          (err: any) => {
+          () => {
             this.authService.checkExpired();
             this.loading = false;
           }

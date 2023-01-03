@@ -8,8 +8,8 @@
         <div class="header-container">
             <div class="soft_pattern">
                 {{ datas?.employee }}
-                <span class="material-icons-round round-success" *ngIf="datas?.status == true">verified_user</span>
-                <span class="material-icons-round round-failed" *ngIf="datas?.status == false ">gpp_maybe</span>
+                <span class="material-icons-round round-success" *ngIf="datas?.status">verified_user</span>
+                <span class="material-icons-round round-failed" *ngIf="!datas?.status">gpp_maybe</span>
             </div>
             <div class="reg_buss">GTin: {{ datas?.employeeTin }}</div>
             <div class="reg_buss">Tax Year: {{ datas.taxYear }}</div>
@@ -31,7 +31,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -44,10 +43,10 @@
             <div class="left_right">
                 <div class="left">
                     <div class="title">Is consolidated?</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'yes'">Consolidated Gross</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'no'">Basic</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'no'">Housing</div>
-                    <div class="title" *ngIf="form.value.floatLabelControl == 'no'">Transportation</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'yes'">Consolidated Gross</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'no'">Basic</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'no'">Housing</div>
+                    <div class="title" *ngIf="form.value.floatLabelControl === 'no'">Transportation</div>
                     <div class="title">Annual Gross Pay</div>
                     <div class="title">Taxable Income</div>
                     <div class="title">Annual Tax Liability</div>
@@ -63,13 +62,13 @@
                         </form>
                     </div>
                     <!-- gross -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'yes' ">{{formatMoney(datas?.gross_income || 0)}}</div>
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'yes' ">{{formatMoney(datas?.gross_income || 0)}}</div>
                     <!-- basic -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'no' ">{{formatMoney(datas?.basic || 0)}}</div>
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'no' ">{{formatMoney(datas?.basic || 0)}}</div>
                     <!-- housing -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'no' ">{{formatMoney(datas?.housing || 0)}}</div>
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'no' ">{{formatMoney(datas?.housing || 0)}}</div>
                     <!-- tp -->
-                    <div class="sub-title" *ngIf="form.value.floatLabelControl == 'no' ">{{formatMoney(datas?.tp || 0)}}</div>
+                    <div class="sub-title" *ngIf="form.value.floatLabelControl === 'no' ">{{formatMoney(datas?.tp || 0)}}</div>
                     <div class="sub-title">{{formatMoney(datas?.gross_income || 0)}} (NGN)</div>
                     <div class="sub-title">{{formatMoney(datas?.compute_taxable || 0)}} (NGN)</div>
                     <div class="sub-title">{{formatMoney(datas?.compute_annualtax || 0)}} (NGN)</div>
@@ -114,9 +113,6 @@
                 </div>
             </div>
         </div>
-
         <div style="clear: both; padding-top: 3rem;"></div>
-
     </div>
-
 </div>

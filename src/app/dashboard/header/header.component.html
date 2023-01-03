@@ -1,33 +1,4 @@
-<mat-toolbar class="nav" *ngIf="type === 'tax'">
-
-    <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
-        <mat-icon>menu</mat-icon>
-    </button>
-
-
-    <div class="left">
-        <div class="left_text1">{{left_text1}}</div>
-        <div class="left_text2">{{left_text2}}</div>
-    </div>
-
-    <span class="spacer"></span>
-
-    <div class="d-h-l">
-        <div class="category">
-            <div>
-                <div class="right_text1">Welcome, {{ limit(profile?.department?.name || '') }}</div>
-                <div class="right_text2" *ngIf="profile">{{limit(profile.first_name)}}</div>
-                <div class="right_text2" *ngIf="!profile">{{limit('Unknown')}}</div>
-            </div>
-            <span class="material-icons category-icon identity">perm_identity</span>
-        </div>
-    </div>
-
-</mat-toolbar>
-
-<!-- nav2 -->
-<mat-toolbar class="nav2" *ngIf="type === 'reg_tax'">
-
+<mat-toolbar class="nav" *ngIf="type === 'tax' || type === 'reg_tax'">
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
@@ -49,13 +20,11 @@
             <span class="material-icons category-icon identity">perm_identity</span>
         </div>
     </div>
-
 </mat-toolbar>
 
 
 <!-- nav3 -->
 <mat-toolbar class="nav3" *ngIf="type === 'payee'">
-
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
@@ -64,13 +33,11 @@
         <div class="left_text1">{{left_text1}}</div>
         <div class="left_text2">{{left_text2}}</div>
     </div>
-
 </mat-toolbar>
 
 
 <!-- nav4 -->
 <mat-toolbar class="nav4" *ngIf="type === 'mda'">
-
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
@@ -92,12 +59,10 @@
             <span class="material-icons category-icon identity">perm_identity</span>
         </div>
     </div>
-
 </mat-toolbar>
 
 <!-- dashboard  -->
 <mat-toolbar class="nav5" *ngIf="type === 'tax_dashboard'">
-
     <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
         <mat-icon>menu</mat-icon>
     </button>
@@ -119,7 +84,6 @@
         <mat-icon>download_for_offline</mat-icon>
         <span class="export-report">Export Reports</span>
     </button>
-
 </mat-toolbar>
 
 
@@ -131,7 +95,6 @@
         <span class="payee_note">Note: This statistic are all MDA generated only</span>
     </div>
     <mat-toolbar class="nav5">
-
         <button *ngIf="!hide" mat-icon-button (click)="onPublicHeaderToggleSidenav()" class="hambugger">
             <mat-icon>menu</mat-icon>
         </button>
@@ -146,12 +109,9 @@
         </div>
 
         <div class="spacer"></div>
-
         <button mat-button class="example-icon">
             <mat-icon>download_for_offline</mat-icon>
             <span class="export-report">Export Reports</span>
         </button>
-
     </mat-toolbar>
-
 </div>

@@ -1,9 +1,7 @@
 <div class="generate-dialog" *ngIf="data.type === 'generate_bill'">
 
     <div mat-dialog-content class="print-section" id="print-section">
-
         <div>
-
             <div class="gen_logo_p">
                 <img class="logo" src="assets/images/gombelogo.png" alt="IRM"/>
             </div>
@@ -41,7 +39,6 @@
                     </div>
 
                     <div style="clear: both;"></div>
-
                 </div>
 
                 <div class="gen_table">
@@ -59,7 +56,6 @@
                                     <div class="title2">TOTAL PAYE PAYABLE</div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="column2">
@@ -119,7 +115,6 @@
 
 
 <!-- generate notice bill -->
-
 <div class="notice-generate_bill" mat-dialog-content *ngIf="data.type === 'gen-bill'" id="printSeaction">
     <div class="notice-gen_logo">
         <img class="notice-logo" src="assets/images/gombelogo.png" alt="IRM"/>
@@ -183,7 +178,6 @@
         </div>
 
         <div style="clear: both;"></div>
-
     </div>
 
     <div class="card-actions">
@@ -203,7 +197,6 @@
 
 
 <!-- Manual upload layout -->
-
 <div class="manual_file-dialog" *ngIf="data.type === 'manual' || data.type === 'manual2' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
@@ -237,18 +230,13 @@
                     </button>
                 </div>
             </form>
-
             <div *ngIf="errorMsg" class="self-error">{{ errorMsg }}</div>
-
         </div>
-
     </div>
-
 </div>
 
 
 <!-- Check Status layout -->
-
 <div class="manual_file-dialog" *ngIf="data.type === 'check_status' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
@@ -277,9 +265,7 @@
             <div class="deduction-text">{{formatMoney(d.amount || 0)}}</div>
             <div class="deduction_view" (click)="openDialog(d.doc, 'view_image')">View Doc</div>
         </div>
-
     </div>
-
 </div>
 
 
@@ -301,26 +287,18 @@
 
 
 <!-- success dialog box -->
-
 <div class="direct-success" *ngIf="data.type === 'success' ">
-   
     <div class="direct-success2">
-
         <img src="assets/images/Iconfeather-check-circle.svg" alt="">
-
         <div class="direct-success-submitted">Self assessment is successfully Submitted</div>
-
         <div>
             <button mat-button class="success-continue" mat-dialog-close>Continue</button>
         </div>
-
     </div>
-
 </div>
 
 
 <!-- Verify Bill -->
-
 <div class="manual_file-dialog" *ngIf="data.type === 'verify-bill' ">
     <div class="upload_cancel_button">
         <button mat-icon-button mat-dialog-close>
@@ -353,11 +331,7 @@
                     </button>
                 </div>
             </form>
-
             <div *ngIf="errorMsg" class="self-error">{{ errorMsg }}</div>
-
         </div>
-
     </div>
-
 </div>

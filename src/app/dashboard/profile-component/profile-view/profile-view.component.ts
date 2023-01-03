@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,6 +14,8 @@ import { ProfileServiceService } from '../service/profile-service.service';
 
 @Component({
   selector: 'app-profile-view',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './profile-view.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./profile-view.component.scss'],
@@ -31,7 +35,7 @@ export class ProfileViewComponent implements OnInit {
     this.stateProfile = store.select(selectAllProfile);
   }
 
-  AddProfile() {
+  addProfile() {
     this.stateProfile.forEach((e) => {
       if (e.length > 0) {
         this.profile = e[0].data;
@@ -43,7 +47,7 @@ export class ProfileViewComponent implements OnInit {
             this.store.dispatch(new AddProfile([{ id: 1, data: data.data }]));
             this.profile = data.data;
           },
-          (err) => {
+          () => {
             this.authService.checkExpired();
           }
         );
@@ -52,11 +56,11 @@ export class ProfileViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.AddProfile();
+    this.addProfile();
   }
 
   sendMessage() {
     this.service.setAdminMessage(this.profile);
-    this.router.navigate(['/dashboard/dashboard5/account/edit'])
+    this.router.navigate(['/dashboard/dashboard5/account/edit']);
   }
 }

@@ -1,9 +1,11 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { BaseUrl } from 'src/environments/environment';
 import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers/index';
 import { HttpService } from 'src/app/services/http.service';
@@ -11,6 +13,8 @@ import { AddYear } from '../../../actions/irm.action';
 
 @Component({
   selector: 'app-payee-sidenav-list',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './payee-sidenav-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./payee-sidenav-list.component.scss'],

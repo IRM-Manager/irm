@@ -1,7 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -11,6 +17,15 @@ import { WitholdingDialogComponent } from '../witholding-dialog/witholding-dialo
 
 @Component({
   selector: 'app-witholding-table-component',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    FormsModule,
+    MatIconModule,
+    MatMenuModule,
+    DataTablesModule,
+  ],
   templateUrl: './witholding-table-component.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./witholding-table-component.component.scss'],
@@ -82,7 +97,7 @@ export class WitholdingTableComponentComponent implements OnDestroy, OnInit {
         this.isLoading = false;
         console.log(data);
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
@@ -105,7 +120,7 @@ export class WitholdingTableComponentComponent implements OnDestroy, OnInit {
         });
         console.log(data);
       },
-      (err) => {
+      () => {
         this.is_reload = false;
         this.authService.checkExpired();
       }

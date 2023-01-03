@@ -1,4 +1,4 @@
-import { DatePipe, Location } from '@angular/common';
+import { CommonModule, DatePipe, Location } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -7,18 +7,30 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {
   debounceTime,
   delay,
@@ -50,6 +62,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-business',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatToolbarModule,
+    FlexLayoutModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    NgxMatSelectSearchModule,
+  ],
   templateUrl: './business.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./business.component.scss'],
