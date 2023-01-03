@@ -16,6 +16,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
@@ -44,6 +45,7 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
     ReactiveFormsModule,
     MatIconModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   templateUrl: './dialog2.component.html',
   encapsulation: ViewEncapsulation.Emulated,

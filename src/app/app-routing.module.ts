@@ -42,15 +42,6 @@ const routes: Routes = [
       ),
     canLoad: [IsLoggedInGuard],
   },
-  {
-    path: 'admin',
-    loadChildren: () =>
-      import('./admin/app-private-sidenav/app-private-sidenav.module').then(
-        (m) => m.AppPrivateSidenavModule
-      ),
-    // canActivate: [DashboardGuard],
-    // canLoad: [IsLoggedInGuard]
-  },
 ];
 
 @NgModule({

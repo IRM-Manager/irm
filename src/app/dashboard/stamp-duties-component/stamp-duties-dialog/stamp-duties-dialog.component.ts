@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
@@ -38,6 +39,7 @@ import { WitholdingServiceService } from '../../withholding-tax-component/servic
     MatIconModule,
     NgxPrintModule,
     QrCodeModule,
+    MatDialogModule,
   ],
   templateUrl: './stamp-duties-dialog.component.html',
   encapsulation: ViewEncapsulation.Emulated,

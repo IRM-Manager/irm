@@ -418,13 +418,13 @@
 }
 
 .upload_continue {
-  background: var(--yellow) 0% 0% no-repeat padding-box;
+  background: var(--yellow-bg);
   border-radius: 10px;
   padding: 0.8rem;
   width: 8rem;
   text-align: center;
   opacity: 1;
-  font: normal normal normal 14px/16px var(--mont);
+  font: normal normal 14px/16px var(--mont);
   letter-spacing: 0px;
   color: var(--white);
   font-weight: 500;

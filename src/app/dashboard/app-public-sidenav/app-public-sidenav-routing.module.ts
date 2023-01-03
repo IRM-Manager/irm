@@ -1,73 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// Guard
-import { IsLoggedInGuard } from 'src/app/guards/IsloggedIn.guards';
-//
-// module
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-//
-import { AddUserComponent } from '../admin-console-component/add-user/add-user.component';
-import { AdminConsoleComponent } from '../admin-console-component/admin-console/admin-console.component';
-import { AdminDepartmentComponent } from '../admin-console-component/admin-department/admin-department.component';
-import { AdminLocationComponent } from '../admin-console-component/admin-location/admin-location.component';
-import { EditUserComponent } from '../admin-console-component/edit-user/edit-user.component';
-import { ListUserDepLocComponent } from '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component';
-import { ViewUserComponent } from '../admin-console-component/view-user/view-user.component';
-import { DashboardComponent } from '../dashboard-component/dashboard/dashboard.component';
-import { BojCreateComponent } from '../direct-access-component/boj-create/boj-create.component';
-import { DirectBillComponent } from '../direct-access-component/direct-bill/direct-bill.component';
-import { DirectBojComponent } from '../direct-access-component/direct-boj/direct-boj.component';
-import { DirectHistoryEditComponent } from '../direct-access-component/direct-history-edit/direct-history-edit.component';
-import { DirectSelfComponent } from '../direct-access-component/direct-self/direct-self.component';
-import { OnboardComponent } from '../direct-access-component/onboard/onboard.component';
-import { SelfCreateComponent } from '../direct-access-component/self-create/self-create.component';
-import { MdaOnboardComponent } from '../mda-component/mda-onboard/mda-onboard.component';
-import { MdaTableComponent } from '../mda-component/mda-table/mda-table.component';
-import { MDAComponent } from '../mda-component/mda/mda.component';
-import { PayeeBusinessListComponent } from '../payee-layout/payee-business-list/payee-business-list.component';
-import { PayeeCreateAssessmentComponent } from '../payee-layout/payee-create-assessment/payee-create-assessment.component';
-import { PayeeGenerateBillComponent } from '../payee-layout/payee-generate-bill/payee-generate-bill.component';
-import { PayeeManageEditComponent } from '../payee-layout/payee-manage-edit/payee-manage-edit.component';
-import { PayeeManageEmployeeComponent } from '../payee-layout/payee-manage-employee/payee-manage-employee.component';
-import { PayeeManualInputComponent } from '../payee-layout/payee-manual-input/payee-manual-input.component';
-import { PayeeOnboardComponent } from '../payee-layout/payee-onboard/payee-onboard.component';
-import { PayeeViewComponent } from '../payee-layout/payee-view/payee-view.component';
-import { PayeeComponent } from '../payee-layout/payee/payee.component';
-import { ProfileChangePasswordComponent } from '../profile-component/profile-change-password/profile-change-password.component';
-import { ProfileEditComponent } from '../profile-component/profile-edit/profile-edit.component';
-import { ProfileViewComponent } from '../profile-component/profile-view/profile-view.component';
-import { StampDutiesApplyComponent } from '../stamp-duties-component/stamp-duties-apply/stamp-duties-apply.component';
-import { StampDutiesAssessmentComponent } from '../stamp-duties-component/stamp-duties-assessment/stamp-duties-assessment.component';
-import { StampDutiesTableComponent } from '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component';
-import { StampDutiesViewComponent } from '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component';
-import { BusinessComponent } from '../tax-payer-layout/business/business.component';
-import { Individual2Component } from '../tax-payer-layout/individual2/individual2.component';
-import { TaxPayerCreateComponent } from '../tax-payer-layout/tax-payer-create/tax-payer-create.component';
-import { TaxPayerComponent } from '../tax-payer-layout/tax-payer/tax-payer.component';
-import { ChangeOwnerAssessmentComponent } from '../vehicle-component/change-owner-component/change-owner-assessment/change-owner-assessment.component';
-import { ChangeOwnerDetailsComponent } from '../vehicle-component/change-owner-component/change-owner-details/change-owner-details.component';
-import { ChangeOwnerNewRegComponent } from '../vehicle-component/change-owner-component/change-owner-new-reg/change-owner-new-reg.component';
-import { ChangeOwnerComponent } from '../vehicle-component/change-owner-component/change-owner/change-owner.component';
-import { PlateComponent } from '../vehicle-component/plate/plate.component';
-import { VehicleProfillingConfigureAddComponent } from '../vehicle-component/profilling-component/vehicle-profilling-configure-add/vehicle-profilling-configure-add.component';
-import { VehicleProfillingConfigureTableComponent } from '../vehicle-component/profilling-component/vehicle-profilling-configure-table/vehicle-profilling-configure-table.component';
-import { VehicleProfillingTableComponent } from '../vehicle-component/profilling-component/vehicle-profilling-table/vehicle-profilling-table.component';
-import { VehicleApprovalReviewComponent } from '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component';
-import { VehicleApprovalComponent } from '../vehicle-component/vehicle-approval/vehicle-approval.component';
-import { VehicleBillsComponent } from '../vehicle-component/vehicle-bills/vehicle-bills.component';
-import { VehicleCustomerPlateComponent } from '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component';
-import { VehicleOffenceComponent } from '../vehicle-component/vehicle-offence/vehicle-offence.component';
-import { VehicleOnboardComponent } from '../vehicle-component/vehicle-onboard/vehicle-onboard.component';
-import { VehiclePenaltyComponent } from '../vehicle-component/vehicle-penalty/vehicle-penalty.component';
-import { RegisteredVehicleComponent } from '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component';
-import { VehicleDocumentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component';
-import { VehicleNewRegComponent } from '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component';
-import { VehicleRegAssessmentComponent } from '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component';
-import { VehicleRegPlateComponent } from '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component';
-import { WitholdingApplyComponent } from '../withholding-tax-component/witholding-apply/witholding-apply.component';
-import { WitholdingGenerateAssessmentComponent } from '../withholding-tax-component/witholding-generate-assessment/witholding-generate-assessment.component';
-import { WitholdingTableComponentComponent } from '../withholding-tax-component/witholding-table-component/witholding-table-component.component';
-import { WitholdingViewComponent } from '../withholding-tax-component/witholding-view/witholding-view.component';
+import { IsLoggedInGuard } from 'src/app/guards/IsloggedIn.guards';
 import { AppPublicSidenavComponent } from './app-public-sidenav.component';
 
 const routes: Routes = [
@@ -76,325 +10,525 @@ const routes: Routes = [
     component: AppPublicSidenavComponent,
     children: [
       // DASHBOARD
-      { path: '', component: DashboardComponent, canLoad: [IsLoggedInGuard] },
+      {
+        path: '',
+        loadComponent: () =>
+          import('../dashboard-component/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+        canLoad: [IsLoggedInGuard],
+      },
       // MDA
       {
         path: 'dashboard3/mda/generate',
-        component: MDAComponent,
+        loadComponent: () =>
+          import('../mda-component/mda/mda.component').then(
+            (m) => m.MDAComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/mda',
-        component: MdaOnboardComponent,
+        loadComponent: () =>
+          import('../mda-component/mda-onboard/mda-onboard.component').then(
+            (m) => m.MdaOnboardComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/mda/bill',
-        component: MdaTableComponent,
+        loadComponent: () =>
+          import('../mda-component/mda-table/mda-table.component').then(
+            (m) => m.MdaTableComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       // PAYEE
       {
         path: 'dashboard3/taxpayer/payee/lists',
-        component: PayeeComponent,
+        loadComponent: () =>
+          import('../payee-layout/payee/payee.component').then(
+            (m) => m.PayeeComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/business-list',
-        component: PayeeBusinessListComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-business-list/payee-business-list.component'
+          ).then((m) => m.PayeeBusinessListComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/assessment',
-        component: PayeeCreateAssessmentComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-create-assessment/payee-create-assessment.component'
+          ).then((m) => m.PayeeCreateAssessmentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/bill',
-        component: PayeeGenerateBillComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-generate-bill/payee-generate-bill.component'
+          ).then((m) => m.PayeeGenerateBillComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manage-edit',
-        component: PayeeManageEditComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-manage-edit/payee-manage-edit.component'
+          ).then((m) => m.PayeeManageEditComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manage',
-        component: PayeeManageEmployeeComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-manage-employee/payee-manage-employee.component'
+          ).then((m) => m.PayeeManageEmployeeComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manual-input',
-        component: PayeeManageEmployeeComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-manage-employee/payee-manage-employee.component'
+          ).then((m) => m.PayeeManageEmployeeComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee',
-        component: PayeeOnboardComponent,
+        loadComponent: () =>
+          import('../payee-layout/payee-onboard/payee-onboard.component').then(
+            (m) => m.PayeeOnboardComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/lists-view',
-        component: PayeeViewComponent,
+        loadComponent: () =>
+          import('../payee-layout/payee-view/payee-view.component').then(
+            (m) => m.PayeeViewComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/taxpayer/payee/manual/add',
-        component: PayeeManualInputComponent,
+        loadComponent: () =>
+          import(
+            '../payee-layout/payee-manual-input/payee-manual-input.component'
+          ).then((m) => m.PayeeManualInputComponent),
         canLoad: [IsLoggedInGuard],
       },
       // TAX PAYER
       {
         path: 'dashboard2/taxpayer/:id',
-        component: TaxPayerComponent,
+        loadComponent: () =>
+          import('../tax-payer-layout/tax-payer/tax-payer.component').then(
+            (m) => m.TaxPayerComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
-      { path: 'dashboard2/taxpayer', component: TaxPayerComponent },
+      {
+        path: 'dashboard2/taxpayer',
+        loadComponent: () =>
+          import('../tax-payer-layout/tax-payer/tax-payer.component').then(
+            (m) => m.TaxPayerComponent
+          ),
+        canLoad: [IsLoggedInGuard],
+      },
       {
         path: 'dashboard22/taxpayer/non/business',
-        component: BusinessComponent,
+        loadComponent: () =>
+          import('../tax-payer-layout/business/business.component').then(
+            (m) => m.BusinessComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard22/taxpayer/ind/individual',
-        component: Individual2Component,
+        loadComponent: () =>
+          import('../tax-payer-layout/individual2/individual2.component').then(
+            (m) => m.Individual2Component
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard22/taxpayer',
-        component: TaxPayerCreateComponent,
+        loadComponent: () =>
+          import(
+            '../tax-payer-layout/tax-payer-create/tax-payer-create.component'
+          ).then((m) => m.TaxPayerCreateComponent),
         canLoad: [IsLoggedInGuard],
       },
       // ADMIN CONSOLE
       {
         path: 'dashboard5/admin-console',
-        component: AdminConsoleComponent,
+        loadComponent: () =>
+          import(
+            '../admin-console-component/admin-console/admin-console.component'
+          ).then((m) => m.AdminConsoleComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/add-user',
-        component: AddUserComponent,
+        loadComponent: () =>
+          import('../admin-console-component/add-user/add-user.component').then(
+            (m) => m.AddUserComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/edit-user',
-        component: EditUserComponent,
+        loadComponent: () =>
+          import(
+            '../admin-console-component/edit-user/edit-user.component'
+          ).then((m) => m.EditUserComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/view-user',
-        component: ViewUserComponent,
+        loadComponent: () =>
+          import(
+            '../admin-console-component/view-user/view-user.component'
+          ).then((m) => m.ViewUserComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/department',
-        component: AdminDepartmentComponent,
+        loadComponent: () =>
+          import(
+            '../admin-console-component/admin-department/admin-department.component'
+          ).then((m) => m.AdminDepartmentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/location',
-        component: AdminLocationComponent,
+        loadComponent: () =>
+          import(
+            '../admin-console-component/admin-location/admin-location.component'
+          ).then((m) => m.AdminLocationComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/dep-loc',
-        component: ListUserDepLocComponent,
+        loadComponent: () =>
+          import(
+            '../admin-console-component/list-user-dep-loc/list-user-dep-loc.component'
+          ).then((m) => m.ListUserDepLocComponent),
         canLoad: [IsLoggedInGuard],
       },
       // DIRECT ACCESSMENT
       {
         path: 'dashboard5/direct',
-        component: OnboardComponent,
+        loadComponent: () =>
+          import('../direct-access-component/onboard/onboard.component').then(
+            (m) => m.OnboardComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/self',
-        component: DirectSelfComponent,
+        loadComponent: () =>
+          import(
+            '../direct-access-component/direct-self/direct-self.component'
+          ).then((m) => m.DirectSelfComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/boj',
-        component: DirectBojComponent,
+        loadComponent: () =>
+          import(
+            '../direct-access-component/direct-boj/direct-boj.component'
+          ).then((m) => m.DirectBojComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/bill',
-        component: DirectBillComponent,
+        loadComponent: () =>
+          import(
+            '../direct-access-component/direct-bill/direct-bill.component'
+          ).then((m) => m.DirectBillComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/history/view',
-        component: DirectHistoryEditComponent,
+        loadComponent: () =>
+          import(
+            '../direct-access-component/direct-history-edit/direct-history-edit.component'
+          ).then((m) => m.DirectHistoryEditComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/self/create',
-        component: SelfCreateComponent,
+        loadComponent: () =>
+          import(
+            '../direct-access-component/self-create/self-create.component'
+          ).then((m) => m.SelfCreateComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/direct/boj/create',
-        component: BojCreateComponent,
+        loadComponent: () =>
+          import(
+            '../direct-access-component/boj-create/boj-create.component'
+          ).then((m) => m.BojCreateComponent),
         canLoad: [IsLoggedInGuard],
       },
       // Vehicle
       {
         path: 'dashboard5/vehicle',
-        component: VehicleOnboardComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-onboard/vehicle-onboard.component'
+          ).then((m) => m.VehicleOnboardComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/bills',
-        component: VehicleBillsComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-bills/vehicle-bills.component'
+          ).then((m) => m.VehicleBillsComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/reg-vehicle',
-        component: RegisteredVehicleComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-reg-component/registered-vehicle/registered-vehicle.component'
+          ).then((m) => m.RegisteredVehicleComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/document',
-        component: VehicleDocumentComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-reg-component/vehicle-document/vehicle-document.component'
+          ).then((m) => m.VehicleDocumentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/change-owner',
-        component: ChangeOwnerComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/change-owner-component/change-owner/change-owner.component'
+          ).then((m) => m.ChangeOwnerComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/change-owner/details',
-        component: ChangeOwnerDetailsComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/change-owner-component/change-owner-details/change-owner-details.component'
+          ).then((m) => m.ChangeOwnerDetailsComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/change-owner/new-reg',
-        component: ChangeOwnerNewRegComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/change-owner-component/change-owner-new-reg/change-owner-new-reg.component'
+          ).then((m) => m.ChangeOwnerNewRegComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/change-owner/assessment',
-        component: ChangeOwnerAssessmentComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/change-owner-component/change-owner-assessment/change-owner-assessment.component'
+          ).then((m) => m.ChangeOwnerAssessmentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/reg-plate',
-        component: PlateComponent,
+        loadComponent: () =>
+          import('../vehicle-component/plate/plate.component').then(
+            (m) => m.PlateComponent
+          ),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/reg-plate/create',
-        component: VehicleRegPlateComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-reg-plate/vehicle-reg-plate.component'
+          ).then((m) => m.VehicleRegPlateComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/offence',
-        component: VehicleOffenceComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-offence/vehicle-offence.component'
+          ).then((m) => m.VehicleOffenceComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/approval',
-        component: VehicleApprovalComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-approval/vehicle-approval.component'
+          ).then((m) => m.VehicleApprovalComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/approval/review',
-        component: VehicleApprovalReviewComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-approval-review/vehicle-approval-review.component'
+          ).then((m) => m.VehicleApprovalReviewComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/new-reg',
-        component: VehicleNewRegComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-reg-component/vehicle-new-reg/vehicle-new-reg.component'
+          ).then((m) => m.VehicleNewRegComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/new-plate',
-        component: VehicleCustomerPlateComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-customer-plate/vehicle-customer-plate.component'
+          ).then((m) => m.VehicleCustomerPlateComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/reg-vehicle/assessment',
-        component: VehicleRegAssessmentComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-reg-component/vehicle-reg-assessment/vehicle-reg-assessment.component'
+          ).then((m) => m.VehicleRegAssessmentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/profilling',
-        component: VehicleProfillingTableComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/profilling-component/vehicle-profilling-table/vehicle-profilling-table.component'
+          ).then((m) => m.VehicleProfillingTableComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/profilling/configure',
-        component: VehicleProfillingConfigureTableComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/profilling-component/vehicle-profilling-configure-table/vehicle-profilling-configure-table.component'
+          ).then((m) => m.VehicleProfillingConfigureTableComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/profilling/configure/create',
-        component: VehicleProfillingConfigureAddComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/profilling-component/vehicle-profilling-configure-add/vehicle-profilling-configure-add.component'
+          ).then((m) => m.VehicleProfillingConfigureAddComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/vehicle/penalty',
-        component: VehiclePenaltyComponent,
+        loadComponent: () =>
+          import(
+            '../vehicle-component/vehicle-penalty/vehicle-penalty.component'
+          ).then((m) => m.VehiclePenaltyComponent),
         canLoad: [IsLoggedInGuard],
       },
       // Account
       {
         path: 'dashboard5/account',
-        component: ProfileViewComponent,
+        loadComponent: () =>
+          import(
+            '../profile-component/profile-view/profile-view.component'
+          ).then((m) => m.ProfileViewComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/account/edit',
-        component: ProfileEditComponent,
+        loadComponent: () =>
+          import(
+            '../profile-component/profile-edit/profile-edit.component'
+          ).then((m) => m.ProfileEditComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard5/account-password',
-        component: ProfileChangePasswordComponent,
+        loadComponent: () =>
+          import(
+            '../profile-component/profile-change-password/profile-change-password.component'
+          ).then((m) => m.ProfileChangePasswordComponent),
         canLoad: [IsLoggedInGuard],
       },
       // Witholding Tax
       {
         path: 'dashboard3/witholding',
-        component: WitholdingTableComponentComponent,
+        loadComponent: () =>
+          import(
+            '../withholding-tax-component/witholding-table-component/witholding-table-component.component'
+          ).then((m) => m.WitholdingTableComponentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/witholding/apply',
-        component: WitholdingApplyComponent,
+        loadComponent: () =>
+          import(
+            '../withholding-tax-component/witholding-apply/witholding-apply.component'
+          ).then((m) => m.WitholdingApplyComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/witholding/assessment',
-        component: WitholdingGenerateAssessmentComponent,
+        loadComponent: () =>
+          import(
+            '../withholding-tax-component/witholding-generate-assessment/witholding-generate-assessment.component'
+          ).then((m) => m.WitholdingGenerateAssessmentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/witholding/view',
-        component: WitholdingViewComponent,
+        loadComponent: () =>
+          import(
+            '../withholding-tax-component/witholding-view/witholding-view.component'
+          ).then((m) => m.WitholdingViewComponent),
         canLoad: [IsLoggedInGuard],
       },
       // stamp duties
       {
         path: 'dashboard3/stamp',
-        component: StampDutiesTableComponent,
+        loadComponent: () =>
+          import(
+            '../stamp-duties-component/stamp-duties-table/stamp-duties-table.component'
+          ).then((m) => m.StampDutiesTableComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/stamp/apply',
-        component: StampDutiesApplyComponent,
+        loadComponent: () =>
+          import(
+            '../stamp-duties-component/stamp-duties-apply/stamp-duties-apply.component'
+          ).then((m) => m.StampDutiesApplyComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/stamp/assessment',
-        component: StampDutiesAssessmentComponent,
+        loadComponent: () =>
+          import(
+            '../stamp-duties-component/stamp-duties-assessment/stamp-duties-assessment.component'
+          ).then((m) => m.StampDutiesAssessmentComponent),
         canLoad: [IsLoggedInGuard],
       },
       {
         path: 'dashboard3/stamp/view',
-        component: StampDutiesViewComponent,
+        loadComponent: () =>
+          import(
+            '../stamp-duties-component/stamp-duties-view/stamp-duties-view.component'
+          ).then((m) => m.StampDutiesViewComponent),
         canLoad: [IsLoggedInGuard],
       },
     ],

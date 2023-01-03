@@ -51,7 +51,7 @@
   font: normal normal normal 13px/17px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #565656;
+  color: var(--form-gray);
   margin-top: 5px;
   word-wrap: break-word;
   opacity: 1;
@@ -85,7 +85,7 @@
 .sub_title {
   font: normal normal normal 12px/15px var(--mont);
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   font-weight: 500;
   opacity: 1;
 }
@@ -103,7 +103,7 @@
 
 .icon {
   vertical-align: middle;
-  color: #3e5fa8;
+  color: var(--blue);
   opacity: 1;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .continue {
-  background: var(--yellow-bg) 0% 0% no-repeat padding-box;
+  background: var(--yellow-bg);
   border-radius: 5px;
   text-align: left;
   font: normal normal normal 12px/15px var(--mont);
@@ -203,7 +203,7 @@
   font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 500;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -257,7 +257,7 @@
   font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 550;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -358,7 +358,7 @@
   font: normal normal normal 15px/19px var(--mont);
   letter-spacing: 0px;
   font-weight: 400;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -380,7 +380,7 @@
   font: normal normal normal 15px/19px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   margin-bottom: 1rem;
   opacity: 1;
 }
@@ -391,7 +391,7 @@
   letter-spacing: 0px;
   font-weight: 500;
   font-style: italic;
-  color: #565656;
+  color: var(--form-gray);
   opacity: 1;
 }
 
@@ -437,9 +437,9 @@
 }
 
 .delete-payer-button {
-  background: #bc333e;
+  background: var(--red);
   font: normal normal normal 15px/19px var(--mont);
-  color: white;
+  color: var(--white);
   padding: 0.7rem;
   border-radius: 10px;
 }
@@ -462,22 +462,22 @@
 }
 
 .bubble_delete:nth-child(1) {
-  background: white;
+  background: var(--white);
 }
 
 .bubble_delete:nth-child(2) {
   animation-delay: 180ms;
-  background: white;
+  background: var(--white);
 }
 
 .bubble_delete:nth-child(3) {
   animation-delay: 360ms;
-  background: white;
+  background: var(--white);
 }
 
 .bubble_delete:nth-child(4) {
   animation-delay: 540ms;
-  background: white;
+  background: var(--white);
 }
 
 @keyframes expand {
@@ -522,7 +522,7 @@
 }
 
 .payee_com3 {
-  width: 25rem;
+  width: 440px;
   height: 15rem;
   margin-right: 2rem;
   margin-left: 2rem;
@@ -625,7 +625,7 @@
   font: normal normal normal 16px/20px var(--mont);
   font-weight: 500;
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   width: 100%;
   opacity: 1;
 }
@@ -633,7 +633,7 @@
 .employee_filling2 {
   font: normal normal normal 14px/17px var(--mont);
   letter-spacing: 0px;
-  color: #565656;
+  color: var(--form-gray);
   margin-top: 10px;
   width: 100%;
   opacity: 1;
@@ -660,7 +660,7 @@
 }
 
 .extract_data_success {
-  background: var(--yellow-bg) 0% 0% no-repeat padding-box;
+  background: var(--yellow-bg);
 }
 
 .extract_data_warning {
@@ -730,11 +730,11 @@
 }
 
 ::ng-deep .mat-form-field-label {
-  color: #565656;
+  color: var(--form-gray);
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #565656;
+  color: var(--form-gray);
 }
 
 ::ng-deep .mat-form-field-underline,
