@@ -13,8 +13,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { map, Observable, startWith } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -53,8 +51,6 @@ import { Department, Group, Locationn } from '../../models/irm';
 import { AdminServiceService } from '../service/admin-service.service';
 //
 
-gsap.registerPlugin(ScrollTrigger);
-
 @Component({
   selector: 'app-edit-user',
   standalone: true,
@@ -78,9 +74,6 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./edit-user.component.scss'],
 })
 export class EditUserComponent implements OnInit {
-  // form animation
-  @ViewChild('card', { static: true })
-  card!: ElementRef<HTMLDivElement>;
   @ViewChild('fform') feedbackFormDirective: any;
   datas: any;
   feedbackForm: any = FormGroup;
@@ -91,10 +84,16 @@ export class EditUserComponent implements OnInit {
   list_group: any;
   list_department: any;
   list_location: any;
-  options: string[] = [];
-  filteredOptions: Observable<string[]> | undefined;
+  //
   options2: string[] = [];
   filteredOptions2: Observable<string[]> | undefined;
+  // chips department
+  separatorKeysCodesD: number[] = [ENTER, COMMA];
+  filteredGroupD: Observable<string[]>;
+  groupsD: string[] = [];
+  allGroupD: string[] = [];
+  allGroupD2: string[] = [];
+  @ViewChild('groupInputD') groupInputD!: ElementRef<HTMLInputElement>;
   // chips
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredGroup: Observable<string[]>;
@@ -123,12 +122,12 @@ export class EditUserComponent implements OnInit {
     last_name: {
       required: 'required.',
     },
-    department: {
-      required: 'required.',
-    },
-    group: {
-      required: 'required.',
-    },
+    // department: {
+    //   required: 'required.',
+    // },
+    // group: {
+    //   required: 'required.',
+    // },
     office: {
       required: 'required.',
     },
@@ -162,6 +161,13 @@ export class EditUserComponent implements OnInit {
         group ? this._filterGroup(group) : this.allGroup.slice()
       )
     );
+    // department
+    this.filteredGroupD = this.feedbackForm.get('department').valueChanges.pipe(
+      startWith(null),
+      map((group: string | null) =>
+        group ? this._filterGroupD(group) : this.allGroupD.slice()
+      )
+    );
     // state
     this.stateGroup = store.select(selectAllGroup);
     this.stateDepartment = store.select(selectAllDepartment);
@@ -173,8 +179,8 @@ export class EditUserComponent implements OnInit {
     this.feedbackForm = this.fb.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
-      department: ['', [Validators.required]],
-      group: ['', [Validators.required]],
+      department: [''],
+      group: [''],
       office: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
     });
@@ -209,22 +215,9 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     this.onValueChanged();
-    const departmentt =
-      this.feedbackFormDirective.form.controls['department'].status;
-    const office = this.feedbackFormDirective.form.controls['office'].status;
-    const first_name =
-      this.feedbackFormDirective.form.controls['first_name'].status;
-    const last_name =
-      this.feedbackFormDirective.form.controls['last_name'].status;
-    const email = this.feedbackFormDirective.form.controls['email'].status;
-
-    if (
-      departmentt == 'INVALID' ||
-      office == 'INVALID' ||
-      first_name == 'INVALID' ||
-      last_name == 'INVALID' ||
-      email == 'INVALID'
-    ) {
+    console.log(this.feedbackForm.value);
+    const feed1 = this.feedbackFormDirective.invalid;
+    if (feed1) {
       this.snackBar.open('Errors in Form fields please check it out.', '', {
         duration: 5000,
         panelClass: 'error',
@@ -235,10 +228,14 @@ export class EditUserComponent implements OnInit {
     else {
       this.feedback = this.feedbackForm.value;
       let list_group_id: any = [];
+      let list_department_id: any = [];
       // get department id
-      const department = this.list_department.filter(
-        (name: any) => name.name == this.feedback.department
-      );
+      this.groupsD.filter((element: any) => {
+        const get_id = this.list_department.filter((name: any) => {
+          return name.name == element;
+        });
+        list_department_id.push(get_id[0].id);
+      });
       // get location id
       const form_location = this.list_location.filter(
         (name: any) => name.name == this.feedback.office
@@ -260,8 +257,8 @@ export class EditUserComponent implements OnInit {
         });
       }
       // check if department is valid
-      else if (department.length < 1) {
-        this.snackBar.open('Please Choose a valid department.', '', {
+      else if (list_department_id.length < 1) {
+        this.snackBar.open('Please Select a valid department.', '', {
           duration: 5000,
           panelClass: 'error',
           horizontalPosition: 'center',
@@ -281,7 +278,7 @@ export class EditUserComponent implements OnInit {
         let correct_data = {
           first_name: this.feedback.first_name,
           last_name: this.feedback.last_name,
-          department: department[0].id,
+          department: list_department_id,
           email: this.feedback.email,
           groups: list_group_id,
           location: form_location[0].id,
@@ -324,8 +321,7 @@ export class EditUserComponent implements OnInit {
     } // end else
   }
 
-  // chips
-
+  // chips for groups
   remove(fruit: string): void {
     const index = this.groups.indexOf(fruit);
     if (index >= 0) {
@@ -337,8 +333,8 @@ export class EditUserComponent implements OnInit {
     const index = this.groups.indexOf(event.option.viewValue);
     if (index == -1) {
       this.groups.push(event.option.viewValue);
-      this.groupInput.nativeElement.value = '';
-      this.feedbackForm.get('group').setValue(null);
+      this.groupInputD.nativeElement.value = '';
+      this.feedbackForm.get('department').setValue(null);
       //
       this.allGroup = this.allGroup2;
     }
@@ -357,34 +353,61 @@ export class EditUserComponent implements OnInit {
       group.toLowerCase().includes(filterValue)
     );
   }
-  // end of chips
+  // end of chips group
+
+  // chips for department
+  removeD(fruit: string): void {
+    const index = this.groupsD.indexOf(fruit);
+    if (index >= 0) {
+      this.groupsD.splice(index, 1);
+    }
+  }
+
+  selectedD(event: MatAutocompleteSelectedEvent): void {
+    const index = this.groupsD.indexOf(event.option.viewValue);
+    if (index == -1) {
+      this.groupsD.push(event.option.viewValue);
+      this.groupInputD.nativeElement.value = '';
+      this.feedbackForm.get('department').setValue(null);
+      //
+      this.allGroupD = this.allGroupD2;
+    }
+    // update the
+    this.filteredGroupD = this.feedbackForm.get('department').valueChanges.pipe(
+      startWith(null),
+      map((group: string | null) =>
+        group ? this._filterGroupD(group) : this.allGroupD.slice()
+      )
+    );
+  }
+
+  private _filterGroupD(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allGroupD.filter((group) =>
+      group.toLowerCase().includes(filterValue)
+    );
+  }
+  // end of chips for department
 
   // Update form field
   updateValue() {
-    this.feedbackForm.patchValue({ first_name: this.datas.data.first_name });
-    this.feedbackForm.patchValue({ last_name: this.datas.data.last_name });
-    this.feedbackForm.patchValue({ middle_name: this.datas.data?.middle_name });
+    this.feedbackForm.patchValue({ first_name: this.datas?.data?.first_name });
+    this.feedbackForm.patchValue({ last_name: this.datas?.data?.last_name });
     this.feedbackForm.patchValue({
-      department: this.datas.data?.department?.name,
+      middle_name: this.datas?.data?.middle_name,
     });
-    this.feedbackForm.patchValue({ office: this.datas.data?.location?.name });
-    this.feedbackForm.patchValue({ email: this.datas.data.email });
+    const datasD: any = [];
+    this.datas?.data?.department.forEach((element: any) => {
+      datasD.push(element.name);
+    });
+    this.groupsD = datasD;
+    this.feedbackForm.patchValue({ office: this.datas?.data?.location?.name });
+    this.feedbackForm.patchValue({ email: this.datas?.data.email });
     const datas: any = [];
-    this.datas.data?.groups.forEach((element: any) => {
+    this.datas?.data?.groups.forEach((element: any) => {
       datas.push(element.name);
     });
     this.groups = datas;
-  }
-
-  // animation
-  initAnimations(): void {
-    gsap.from(this.card.nativeElement.children, {
-      delay: 0.5,
-      duration: 0.4,
-      y: 40,
-      opacity: 0,
-      stagger: 0.15,
-    });
   }
 
   // add group
@@ -444,13 +467,16 @@ export class EditUserComponent implements OnInit {
         e[0].data.forEach((element: any) => {
           datas.push(element.name);
         });
-        this.options = datas;
         //
-        this.filteredOptions = this.feedbackForm
+        this.allGroupD = datas;
+        this.allGroupD2 = datas;
+        this.filteredGroup = this.feedbackForm
           .get('department')
           .valueChanges.pipe(
-            startWith(''),
-            map((value: string) => this._filter(value))
+            startWith(null),
+            map((group: string | null) =>
+              group ? this._filterGroupD(group) : this.allGroupD.slice()
+            )
           );
         //
         console.log('department_state', e[0].data);
@@ -462,13 +488,17 @@ export class EditUserComponent implements OnInit {
             data.results.forEach((element: any) => {
               datas.push(element.name);
             });
-            this.options = datas;
+
             //
-            this.filteredOptions = this.feedbackForm
+            this.allGroupD = datas;
+            this.allGroupD2 = datas;
+            this.filteredGroup = this.feedbackForm
               .get('department')
               .valueChanges.pipe(
-                startWith(''),
-                map((value: string) => this._filter(value))
+                startWith(null),
+                map((group: string | null) =>
+                  group ? this._filterGroupD(group) : this.allGroupD.slice()
+                )
               );
             //
             this.store.dispatch(
@@ -510,7 +540,7 @@ export class EditUserComponent implements OnInit {
             data.results.forEach((element: any) => {
               datas.push(element.name);
             });
-            this.options = datas;
+            this.options2 = datas;
             //
             this.filteredOptions2 = this.feedbackForm
               .get('office')
@@ -532,16 +562,7 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initAnimations();
-
     this.updateValue();
-
-    this.filteredOptions = this.feedbackForm
-      .get('department')
-      .valueChanges.pipe(
-        startWith(''),
-        map((value: string) => this._filter(value))
-      );
 
     this.filteredOptions2 = this.feedbackForm.get('office').valueChanges.pipe(
       startWith(''),
@@ -551,14 +572,6 @@ export class EditUserComponent implements OnInit {
     this.addDepartment();
     this.addGroup();
     this.addLocation();
-  }
-
-  //
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
   }
 
   private _filter2(value: string) {

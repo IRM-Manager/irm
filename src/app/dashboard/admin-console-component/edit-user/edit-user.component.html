@@ -6,7 +6,7 @@
     <div class="title">Edit User |</div>
 
     <div class="add-container">
-        <form #card class="form1" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <form class="form1" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>
                 <!-- firstname -->
                 <mat-form-field class="full-width" appearance="outline">
@@ -36,17 +36,30 @@
                 <!-- Choose department -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Choose department</mat-label>
-                    <input matInput formControlName="department" [matAutocomplete]="auto" required>
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                            {{option}}
-                        </mat-option>
+                    <mat-chip-list #chipList2 aria-label="department selection" required>
+                      <mat-chip
+                        *ngFor="let group of groupsD"
+                        (removed)="removeD(group)">
+                        {{ group }}
+                        <button class="chip_remove" matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                      <input
+                        #groupInputD
+                        matInput
+                        formControlName="department"
+                        [matAutocomplete]="auto4"
+                        [matChipInputFor]="chipList2"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodesD">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto4="matAutocomplete" (optionSelected)="selectedD($event)">
+                      <mat-option *ngFor="let group of filteredGroupD | async" [value]="group">
+                        {{ group }}
+                      </mat-option>
                     </mat-autocomplete>
-                    <button type="button" matSuffix mat-icon-button class="drop_down">
-                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                    </button>
                     <mat-error>{{formErrors.department}}</mat-error>
-                </mat-form-field>
+                  </mat-form-field>
             </p>
 
             <p>

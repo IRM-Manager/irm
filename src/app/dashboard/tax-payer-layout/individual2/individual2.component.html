@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <div class="header" *ngIf="!update && payer_data.photo ">
+    <div class="header" *ngIf="!update && payer_data?.photo ">
         <img [src]="displayImage(payer_data?.photo)" alt="">
     </div>
 

@@ -109,6 +109,7 @@ export class AdminConsoleComponent implements OnInit, OnDestroy {
       (data: any) => {
         this.datas = data.results;
         this.searchData = data.results;
+        console.log(data.results);
         this.dtTrigger.next;
         this.isLoading = false;
       },

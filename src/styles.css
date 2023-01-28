@@ -3,6 +3,9 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~material-icons/iconfont/material-icons.css";
 @import "../node_modules/font-awesome/css/font-awesome";
+@import "./assets/css/roboto.css";
+@import "./assets/css/montserrat.css";
+@import "./assets/css/inter.css";
 
 :root {
   --white: #ffffff;
@@ -29,18 +32,22 @@ body {
   font-family: var(--roboto), "Helvetica Neue", sans-serif;
 }
 
-.success {
+.mat-snack-bar-container.success {
   color: var(--white);
   background: var(--green);
 }
 
-.error {
+.mat-snack-bar-container.error {
   color: var(--white);
   background: var(--red);
 }
 
-.warning {
+.mat-snack-bar-container.warning {
   color: var(--orange);
+}
+
+.mat-simple-snackbar-action button {
+  color: var(--white);
 }
 
 .cdk-overlay-container

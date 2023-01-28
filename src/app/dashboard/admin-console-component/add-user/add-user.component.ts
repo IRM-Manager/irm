@@ -205,7 +205,6 @@ export class AddUserComponent implements OnInit {
 
   private _filter2(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options2.filter((option) =>
       option.toLowerCase().includes(filterValue)
     );
