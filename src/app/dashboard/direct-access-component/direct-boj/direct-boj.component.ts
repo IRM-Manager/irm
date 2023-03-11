@@ -7,11 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
 import { DataTablesModule } from 'angular-datatables';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PaginatorModule } from 'primeng/paginator';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
@@ -34,6 +34,7 @@ gsap.registerPlugin(ScrollTrigger);
     MatIconModule,
     MatMenuModule,
     DataTablesModule,
+    PaginatorModule,
   ],
   templateUrl: './direct-boj.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -54,9 +55,10 @@ export class DirectBojComponent implements OnDestroy, OnInit {
   years: any;
   htmlYear = new Date().getFullYear();
   stateYear: Observable<Year[]>;
+  totalRecords = 0;
+  current_page = 50;
 
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -113,11 +115,15 @@ export class DirectBojComponent implements OnDestroy, OnInit {
     });
     this.isLoading = true;
     this.httpService
-      .getAuthSingle(BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`)
+      .getAuthSingle(
+        BaseUrl.list_boj +
+          `?yearId=${id || getHtmlYear[0]?.id}&page=${this.current_page / 50}`
+      )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.isLoading = false;
           console.log(data);
         },
@@ -139,11 +145,50 @@ export class DirectBojComponent implements OnDestroy, OnInit {
     });
     this.is_reload = true;
     this.httpService
-      .getAuthSingle(BaseUrl.list_boj + `?yearId=${id || getHtmlYear[0]?.id}`)
+      .getAuthSingle(
+        BaseUrl.list_boj +
+          `?yearId=${id || getHtmlYear[0]?.id}&page=${this.current_page / 50}`
+      )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  paginateData(event?: any) {
+    this.is_reload = true;
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_boj +
+          `?yearId=${getHtmlYear[0]?.id}&page=${get_current_page / 50 || 1}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.is_reload = false;
           this.snackBar.open('Loaded', '', {
             duration: 3000,

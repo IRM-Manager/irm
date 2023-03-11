@@ -54,6 +54,8 @@ export class ListUserDepLocComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   formErrors: any = {};
   validationMessages: any = {};
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private router: Router,

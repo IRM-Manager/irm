@@ -18,13 +18,15 @@ export class HttpService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   postData(endpoint: any, data: any): Observable<any[]> {
-    return this.http
-      .post<any[]>(this.base_url + endpoint, data, this.httpOptions)
-      .pipe(retry(1));
+    return this.http.post<any[]>(
+      this.base_url + endpoint,
+      data,
+      this.httpOptions
+    );
   }
 
   postRegisterData(endpoint: any, data: any): Observable<any[]> {
-    return this.http.post<any[]>(this.base_url + endpoint, data).pipe(retry(1));
+    return this.http.post<any[]>(this.base_url + endpoint, data);
   }
 
   getSingleNoAuth(endpoint: any) {
@@ -60,8 +62,9 @@ export class HttpService {
   }
 
   deleteData(endpoint: any, id: any): Observable<any[]> {
-    return this.http
-      .delete<any[]>(this.base_url + endpoint + id, this.httpOptions)
-      .pipe(retry(1));
+    return this.http.delete<any[]>(
+      this.base_url + endpoint + id,
+      this.httpOptions
+    );
   }
 }

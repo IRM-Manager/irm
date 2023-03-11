@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Subject, Subscription } from 'rxjs';
 import { DateAgoPipe } from 'src/app/dashboard/pipes/date-ago.pipe';
 import { AuthService } from 'src/app/services/auth.service';
@@ -32,6 +33,7 @@ import { VehicleDialogComponent } from '../../vehicle-dialog/vehicle-dialog.comp
     MatMenuModule,
     DataTablesModule,
     DateAgoPipe,
+    PaginatorModule,
   ],
   templateUrl: './change-owner.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -49,6 +51,8 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
+  totalRecords = 0;
+  current_page = 50;
 
   formErrors: any = {};
   validationMessages: any = {};
@@ -89,49 +93,61 @@ export class ChangeOwnerComponent implements OnInit, OnDestroy {
     this.datas = data;
   }
 
-  renderTable(id?: any) {
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_owner).subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.isLoading = false;
-        console.log(data);
-      },
-      () => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.vehicle_owner + `?page=${get_current_page / 50 || 1}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.isLoading = false;
+          console.log(data);
+        },
+        () => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   reload() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_owner).subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.is_reload = false;
-        this.isLoading = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        console.log(data);
-      },
-      () => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(BaseUrl.vehicle_owner + `?page=${this.current_page / 50}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.is_reload = false;
+          this.isLoading = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   viewAss(data: any) {

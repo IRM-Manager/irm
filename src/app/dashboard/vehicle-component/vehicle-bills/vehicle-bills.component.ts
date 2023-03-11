@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Store } from '@ngrx/store';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
@@ -34,6 +35,7 @@ import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.compone
     MatMenuModule,
     DataTablesModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './vehicle-bills.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -55,6 +57,8 @@ export class VehicleBillsComponent implements OnDestroy, OnInit {
   years: any;
   htmlYear = new Date().getFullYear();
   stateYear: Observable<Year[]>;
+  totalRecords = 0;
+  current_page = 50;
 
   formErrors: any = {};
   validationMessages: any = {};
@@ -105,49 +109,63 @@ export class VehicleBillsComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable(id?: any) {
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_gen_bill).subscribe(
-      (data: any) => {
-        this.datas = data.data;
-        this.searchData = data.data;
-        this.isLoading = false;
-        console.log(data);
-      },
-      () => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.vehicle_gen_bill + `?page=${get_current_page / 50 || 1}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data?.results;
+          this.searchData = data?.results;
+          this.totalRecords = data?.count;
+          this.isLoading = false;
+          console.log(data);
+        },
+        () => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   reload(id?: any) {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.vehicle_gen_bill).subscribe(
-      (data: any) => {
-        this.datas = data.data;
-        this.searchData = data.data;
-        this.is_reload = false;
-        this.isLoading = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        console.log(data);
-      },
-      (err) => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.vehicle_gen_bill + `?page=${this.current_page / 50}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data?.results;
+          this.searchData = data?.results;
+          this.totalRecords = data?.count;
+          this.is_reload = false;
+          this.isLoading = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   listYear() {
@@ -158,7 +176,7 @@ export class VehicleBillsComponent implements OnDestroy, OnInit {
       } else {
         this.httpService.getSingleNoAuth(BaseUrl.list_year).subscribe(
           (data: any) => {
-            this.years = data.results;
+            this.years = data?.results;
             this.renderTable();
             this.store.dispatch(new AddYear([{ id: 1, data: data.results }]));
           },

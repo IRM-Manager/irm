@@ -412,6 +412,54 @@ $placeholder-font: normal normal normal 15px/24px Montserrat;
     }
   }
 
+  ::ng-deep .p-datatable .p-paginator-bottom {
+    background: unset;
+    border: unset;
+    margin-top: 30px;
+  }
+
+  ::ng-deep .p-paginator {
+    background: unset;
+  }
+
+  ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
+    font-family: var(--mont);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #c4c4c4;
+  }
+
+  ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    border-radius: unset;
+    color: var(--blue);
+    background: var(--white);
+    width: 30px;
+    height: 40px;
+  }
+
+  ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page:hover {
+    border-radius: unset;
+    color: var(--blue);
+    background: var(--white);
+    width: 30px;
+    height: 40px;
+  }
+
+  ::ng-deep .p-paginator .p-dropdown {
+    display: none;
+  }
+
+  ::ng-deep .p-paginator .p-paginator-current {
+    font-family: var(--sens);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #343434;
+  }
+
   ::ng-deep .dataTables_wrapper .dataTables_paginate .paginate_button {
     display: none !important;
   }

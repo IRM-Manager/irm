@@ -1,27 +1,28 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpService } from 'src/app/services/http.service';
-import { BaseUrl } from 'src/environments/environment';
-import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
-import { ToggleNavService } from '../../sharedService/toggle-nav.service';
-import { PayeeServiceService } from '../service/payee-service.service';
 import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AppState, selectAllYear } from 'src/app/reducers/index';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { AddYear } from '../../../actions/irm.action';
 import { Year } from '../../models/irm';
+import { PayeeDialogComponent } from '../../payee-layout/payee-dialog/payee-dialog.component';
+import { ToggleNavService } from '../../sharedService/toggle-nav.service';
+import { PayeeServiceService } from '../service/payee-service.service';
 //
 
 @Component({
@@ -38,6 +39,7 @@ import { Year } from '../../models/irm';
     MatMenuModule,
     DataTablesModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './payee.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -59,6 +61,8 @@ export class PayeeComponent implements OnDestroy, OnInit {
   stateYear: Observable<Year[]>;
   htmlYear = new Date().getFullYear();
   years: any;
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private router: Router,
@@ -108,6 +112,7 @@ export class PayeeComponent implements OnDestroy, OnInit {
   }
 
   renderTable(id?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
@@ -117,19 +122,19 @@ export class PayeeComponent implements OnDestroy, OnInit {
     const get_year = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;
     });
-    this.isLoading = true;
     this.httpService
       .getAuthSingle(
         BaseUrl.list_payee_ass +
           `tin=${this.datas2?.company?.state_tin}&yearId=${
             id || get_year[0]?.id
-          }`
+          }&page=${this.current_page / 50}`
       )
       .subscribe(
         (data: any) => {
           console.log(data);
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.dtTrigger.next;
           this.isLoading = false;
         },
@@ -150,13 +155,52 @@ export class PayeeComponent implements OnDestroy, OnInit {
         BaseUrl.list_payee_ass +
           `tin=${this.datas2.company?.state_tin}&yearId=${
             id || get_year_id[0]?.id
-          }`
+          }&page=${this.current_page / 50}`
       )
       .subscribe(
         (data: any) => {
           console.log(data);
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.dtTrigger.next;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  paginateData(event?: any) {
+    this.is_reload = true;
+    const get_year_id = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_payee_ass +
+          `tin=${this.datas2.company?.state_tin}&yearId=${
+            get_year_id[0]?.id
+          }&page=${get_current_page / 50}`
+      )
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.dtTrigger.next;
           this.is_reload = false;
           this.snackBar.open('Loaded', '', {

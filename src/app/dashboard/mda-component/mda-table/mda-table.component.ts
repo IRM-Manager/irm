@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BaseUrl } from 'src/environments/environment';
 import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
 import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
 
 @Component({
@@ -23,6 +24,7 @@ import { MdaDialogComponent } from '../mda-dialog/mda-dialog.component';
     DataTablesModule,
     FormsModule,
     MatMenuModule,
+    PaginatorModule,
   ],
   templateUrl: './mda-table.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -45,6 +47,8 @@ export class MdaTableComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   formErrors: any = {};
   validationMessages: any = {};
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private authService: AuthService,
@@ -88,7 +92,8 @@ export class MdaTableComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(event?: any) {
+    this.isLoading = true;
     var d = new Date();
     const to = this.formatDate(new Date());
     console.log(to);
@@ -98,16 +103,22 @@ export class MdaTableComponent implements OnDestroy, OnInit {
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
     this.httpService
       .getAuthSingle(
         BaseUrl.mda_bills +
-          `sdt=${this.formatDate(d.setDate(d.getDate() - 1))}&edt=${to}`
+          `sdt=${this.formatDate(d.setDate(d.getDate() - 1))}&edt=${to}&page=${
+            get_current_page / 50 || 1
+          }`
       )
       .subscribe(
         (data: any) => {
-          this.datas = data?.data;
-          this.searchData = data?.data;
+          this.datas = data?.results;
+          this.searchData = data?.results;
+          this.totalRecords = data?.count;
           this.isLoading = false;
           console.log(data);
         },
@@ -120,12 +131,20 @@ export class MdaTableComponent implements OnDestroy, OnInit {
 
   reload() {
     this.is_reload = true;
+    var d = new Date();
+    const to = this.formatDate(new Date());
     this.httpService
-      .getAuthSingle(BaseUrl.mda_bills + `sdt=${this.from}&edt=${this.to}`)
+      .getAuthSingle(
+        BaseUrl.mda_bills +
+          `sdt=${
+            this.from || this.formatDate(d.setDate(d.getDate() - 1))
+          }&edt=${this.to || to}&page=${this.current_page / 50}`
+      )
       .subscribe(
         (data: any) => {
-          this.datas = data?.data;
-          this.searchData = data?.data;
+          this.datas = data?.results;
+          this.searchData = data?.results;
+          this.totalRecords = data?.count;
           this.is_reload = false;
           this.isLoading = false;
           this.snackBar.open('Loaded', '', {

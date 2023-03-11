@@ -7,7 +7,7 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
 import { AppState, selectAllLocation } from 'src/app/reducers/index';
-import { AddLocation, RemoveLocation } from '../../../actions/irm.action';
+import { AddLocation } from '../../../actions/irm.action';
 import { Locationn } from '../../models/irm';
 //
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -35,6 +36,7 @@ import { AdminServiceService } from '../service/admin-service.service';
     DataTablesModule,
     MatMenuModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './admin-location.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -54,6 +56,8 @@ export class AdminLocationComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   stateLocation: Observable<Locationn[]>;
   validationMessages: any = {};
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private router: Router,
@@ -90,14 +94,18 @@ export class AdminLocationComponent implements OnInit, OnDestroy {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
     this.stateLocation?.forEach((e) => {
       if (e.length > 0) {
         this.datas = e[0].data;
@@ -105,21 +113,26 @@ export class AdminLocationComponent implements OnInit, OnDestroy {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.getAuthSingle(BaseUrl.list_location).subscribe(
-          (data: any) => {
-            this.store.dispatch(
-              new AddLocation([{ id: 1, data: data.results }])
-            );
-            this.datas = data.results;
-            this.searchData = data.results;
-            this.dtTrigger.next;
-            this.isLoading = false;
-          },
-          () => {
-            this.isLoading = false;
-            this.authService.checkExpired();
-          }
-        );
+        this.httpService
+          .getAuthSingle(
+            BaseUrl.list_location + `?page=${get_current_page / 50 || 1}`
+          )
+          .subscribe(
+            (data: any) => {
+              this.store.dispatch(
+                new AddLocation([{ id: 1, data: data.results }])
+              );
+              this.datas = data.results;
+              this.searchData = data.results;
+              this.totalRecords = data?.count;
+              this.dtTrigger.next;
+              this.isLoading = false;
+            },
+            () => {
+              this.isLoading = false;
+              this.authService.checkExpired();
+            }
+          );
       }
     });
   }
@@ -131,26 +144,27 @@ export class AdminLocationComponent implements OnInit, OnDestroy {
 
   reload2() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.list_location).subscribe(
-      (data: any) => {
-        this.store.dispatch(new RemoveLocation([{ id: 1, data: [] }]));
-        this.store.dispatch(new AddLocation([{ id: 1, data: data.results }]));
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.dtTrigger.next;
-        this.is_reload = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      },
-      () => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(BaseUrl.list_location + `?page=${this.current_page / 50}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.dtTrigger.next;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   getAssignUsers(data_type: any, id: number) {

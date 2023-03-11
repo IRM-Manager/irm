@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   FormBuilder,
   FormGroup,
@@ -6,27 +8,27 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subscription } from 'rxjs';
-import { directAss } from '../../shared/form';
-import { CommonModule } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { DataTablesModule } from 'angular-datatables';
+import { Observable, Subscription } from 'rxjs';
 import { AddYear } from 'src/app/actions/irm.action';
 import { AppState, selectAllYear } from 'src/app/reducers';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import { Year } from '../../models/irm';
+import { directAss } from '../../shared/form';
 import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component';
 import { DirectServiceService } from '../service/direct-service.service';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-boj-create',
@@ -39,8 +41,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatAutocompleteModule,
+    MatMenuModule,
+    DataTablesModule,
     FlexLayoutModule,
+    MatSelectModule,
   ],
   templateUrl: './boj-create.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -114,7 +118,7 @@ export class BojCreateComponent implements OnInit {
     this.datas = this.service.getMessage();
     console.log(this.datas);
     if (this.datas) {
-      if (this.datas.update) {
+      if (this.datas?.update) {
         this.update = true;
         this.updateValue();
       } else {
@@ -133,7 +137,7 @@ export class BojCreateComponent implements OnInit {
       amount: [''],
       deduction: [''],
       amount2: [''],
-      agree: [false, [Validators.required]],
+      // agree: [false, [Validators.required]],
     });
     this.feedbackForm2.valueChanges.subscribe((data: any) =>
       this.onValueChanged2(data)
@@ -164,12 +168,12 @@ export class BojCreateComponent implements OnInit {
   }
 
   updateValue() {
-    this.feedbackForm2.patchValue({ agree: true });
+    // this.feedbackForm2.patchValue({ agree: true });
     this.feedbackForm2.patchValue({
-      year: this.datas.data.year_id,
+      year: this?.datas?.data?.year_id,
     });
-    this.collectedSourceData = this.datas.data.incomes;
-    this.collectedDeductionData = this.datas.data.deductions;
+    this.collectedSourceData = this.datas?.data?.incomes;
+    this.collectedDeductionData = this.datas?.data?.deductions;
     this.sumValue();
   }
 
@@ -262,14 +266,14 @@ export class BojCreateComponent implements OnInit {
       );
     });
     if (get_source.length !== 0) {
-      this.snackBar.open(`${this.feedback2.deduction} already exists!`, '', {
+      this.snackBar.open(`${this.feedback2?.deduction} already exists!`, '', {
         duration: 3000,
         panelClass: 'warning',
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
     } else {
-      if (this.feedback2.amount2 && this.feedback2.deduction) {
+      if (this.feedback2?.amount2 && this.feedback2?.deduction) {
         const data = {
           sources: this.feedback2.deduction,
           amount: this.feedback2.amount2,
@@ -413,10 +417,10 @@ export class BojCreateComponent implements OnInit {
         }
       });
       const data = {
-        tin: this.datas.data.payer.state_tin,
+        tin: this.datas?.data?.payer?.state_tin,
         incomes: this.collectedSourceData,
         deductions: this.collectedDeductionData,
-        year_id: this.feedback2.year,
+        year_id: this.feedback2?.year,
       };
       console.log(data);
       this.httpService
@@ -463,11 +467,11 @@ export class BojCreateComponent implements OnInit {
 
   sumValue() {
     let source: any = this.collectedSourceData.reduce(
-      (accumulator: any, current: any) => accumulator + current.income,
+      (accumulator: any, current: any) => accumulator + current?.income,
       0
     );
     let deduction: any = this.collectedDeductionData.reduce(
-      (accumulator: any, current: any) => accumulator + current.amount,
+      (accumulator: any, current: any) => accumulator + current?.amount,
       0
     );
     this.totalValue = source + deduction;

@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -35,6 +36,7 @@ import { DirectDialogComponent } from '../direct-dialog/direct-dialog.component'
     MatIconModule,
     MatMenuModule,
     DataTablesModule,
+    PaginatorModule,
   ],
   templateUrl: './direct-bill.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -55,9 +57,10 @@ export class DirectBillComponent implements OnDestroy, OnInit {
   years: any;
   htmlYear = new Date().getFullYear();
   stateYear: Observable<Year[]>;
+  totalRecords = 0;
+  current_page = 50;
 
   formErrors: any = {};
-
   validationMessages: any = {};
 
   constructor(
@@ -109,16 +112,18 @@ export class DirectBillComponent implements OnDestroy, OnInit {
     this.isLoading = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.generate_direct_bill + `yearId=${id || getHtmlYear[0]?.id}`
+        BaseUrl.generate_direct_bill +
+          `yearId=${id || getHtmlYear[0]?.id}&page=${this.current_page / 50}`
       )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.isLoading = false;
           console.log(data);
         },
-        (err) => {
+        () => {
           this.isLoading = false;
           this.authService.checkExpired();
         }
@@ -137,12 +142,14 @@ export class DirectBillComponent implements OnDestroy, OnInit {
     this.is_reload = true;
     this.httpService
       .getAuthSingle(
-        BaseUrl.generate_direct_bill + `yearId=${id || getHtmlYear[0]?.id}`
+        BaseUrl.generate_direct_bill +
+          `yearId=${id || getHtmlYear[0]?.id}&page=${this.current_page / 50}`
       )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.is_reload = false;
           this.snackBar.open('Loaded', '', {
             duration: 3000,
@@ -152,7 +159,42 @@ export class DirectBillComponent implements OnDestroy, OnInit {
           });
           console.log(data);
         },
-        (err) => {
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  paginateData(event?: any) {
+    this.is_reload = true;
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.generate_direct_bill +
+          `yearId=${getHtmlYear[0]?.id}&page=${get_current_page / 50 || 1}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        () => {
           this.is_reload = false;
           this.authService.checkExpired();
         }

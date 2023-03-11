@@ -293,7 +293,7 @@ export class EditUserComponent implements OnInit {
         this.httpService
           .updateData(BaseUrl.edit_user, correct_data, this.datas.data.id)
           .subscribe(
-            (data: any) => {
+            () => {
               this.loading = false;
               this.disabled = false;
               // this.feedbackFormDirective.resetForm();

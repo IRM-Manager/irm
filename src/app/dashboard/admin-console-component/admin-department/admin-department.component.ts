@@ -7,7 +7,7 @@ import { ToggleNavService } from '../../sharedService/toggle-nav.service';
 // state management
 import { Store } from '@ngrx/store';
 import { AppState, selectAllDepartment } from 'src/app/reducers/index';
-import { AddDepartment, RemoveDepartment } from '../../../actions/irm.action';
+import { AddDepartment } from '../../../actions/irm.action';
 import { Department } from '../../models/irm';
 //
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -41,6 +42,7 @@ import { AdminServiceService } from '../service/admin-service.service';
     DataTablesModule,
     MatMenuModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './admin-department.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -60,6 +62,8 @@ export class AdminDepartmentComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   stateDepartment: Observable<Department[]>;
   validationMessages: any = {};
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private router: Router,
@@ -96,14 +100,18 @@ export class AdminDepartmentComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
     this.stateDepartment?.forEach((e) => {
       if (e.length > 0) {
         this.datas = e[0].data;
@@ -112,21 +120,26 @@ export class AdminDepartmentComponent implements OnDestroy, OnInit {
         this.dtTrigger.next;
         this.isLoading = false;
       } else {
-        this.httpService.getAuthSingle(BaseUrl.list_department).subscribe(
-          (data: any) => {
-            this.store.dispatch(
-              new AddDepartment([{ id: 1, data: data.results }])
-            );
-            this.datas = data.results;
-            this.searchData = data.results;
-            this.dtTrigger.next;
-            this.isLoading = false;
-          },
-          () => {
-            this.isLoading = false;
-            this.authService.checkExpired();
-          }
-        );
+        this.httpService
+          .getAuthSingle(
+            BaseUrl.list_department + `?page=${get_current_page / 50 || 1}`
+          )
+          .subscribe(
+            (data: any) => {
+              this.store.dispatch(
+                new AddDepartment([{ id: 1, data: data.results }])
+              );
+              this.datas = data.results;
+              this.searchData = data.results;
+              this.totalRecords = data?.count;
+              this.dtTrigger.next;
+              this.isLoading = false;
+            },
+            () => {
+              this.isLoading = false;
+              this.authService.checkExpired();
+            }
+          );
       }
     });
   }
@@ -138,26 +151,29 @@ export class AdminDepartmentComponent implements OnDestroy, OnInit {
 
   reload2() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.list_department).subscribe(
-      (data: any) => {
-        this.store.dispatch(new RemoveDepartment([{ id: 1, data: [] }]));
-        this.store.dispatch(new AddDepartment([{ id: 1, data: data.results }]));
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.dtTrigger.next;
-        this.is_reload = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      },
-      (err) => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_department + `?page=${this.current_page / 50}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.dtTrigger.next;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        (err) => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   getAssignUsers(data_type: any, id: number) {

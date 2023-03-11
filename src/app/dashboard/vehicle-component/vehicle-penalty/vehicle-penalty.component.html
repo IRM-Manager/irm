@@ -116,8 +116,8 @@
                                 <div class="bubble"></div>
                             </div>
                         </button>
-
                     </table>
+                    <p-paginator [rows]="50" [totalRecords]="totalRecords" (onPageChange)="renderTable($event)"></p-paginator>
                 </div>
             </div>
         </div>

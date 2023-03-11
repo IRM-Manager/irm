@@ -340,28 +340,6 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  addIndividualPayer() {
-    this.httpService
-      .getAuthSingle(BaseUrl.list_ind_payer)
-      .subscribe((data: any) => {
-        if (data.responsecode == '01') {
-        } else {
-          this.store.dispatch(new AddIndPayer([{ id: 1, data: data.data }]));
-        }
-      });
-  }
-
-  addCompanyPayer() {
-    this.httpService
-      .getAuthSingle(BaseUrl.list_com_payer)
-      .subscribe((data: any) => {
-        if (data.responsecode == '01') {
-        } else {
-          this.store.dispatch(new AddComPayer([{ id: 1, data: data.data }]));
-        }
-      });
-  }
-
   addState() {
     this.httpService
       .getSingleNoAuth(BaseUrl.list_state)
@@ -413,7 +391,5 @@ export class HeaderComponent implements OnInit {
     this.addProfile();
     this.addState();
     this.addYear();
-    this.addCompanyPayer();
-    this.addIndividualPayer();
   }
 }

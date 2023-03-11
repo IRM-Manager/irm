@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
@@ -39,6 +40,7 @@ import { PayeeServiceService } from '../service/payee-service.service';
     MatMenuModule,
     DataTablesModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './payee-manage-employee.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -59,6 +61,8 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
   years: any;
   stateYear: Observable<Year[]>;
   htmlYear = new Date().getFullYear();
+  totalRecords = 0;
+  current_page = 50;
 
   formErrors: any = {};
   validationMessages: any = {};
@@ -112,6 +116,7 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
   }
 
   renderTable(id?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
@@ -121,18 +126,18 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
     const getHtmlYear = this.years?.filter((name: any) => {
       return name.year == this.htmlYear;
     });
-    this.isLoading = true;
     this.httpService
       .getAuthSingle(
         BaseUrl.list_registered_employees +
           `comp_tin=${this.datas2?.company?.state_tin}&yearId=${
             id || getHtmlYear[0]?.id
-          }`
+          }&page=${this.current_page / 50}`
       )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.isLoading = false;
           console.log(data);
         },
@@ -153,12 +158,50 @@ export class PayeeManageEmployeeComponent implements OnDestroy, OnInit {
         BaseUrl.list_registered_employees +
           `comp_tin=${this.datas2?.company?.state_tin}&yearId=${
             id || getHtmlYear[0]?.id
-          }`
+          }&page=${this.current_page / 50}`
       )
       .subscribe(
         (data: any) => {
           this.datas = data.results;
           this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          console.log(data);
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
+  }
+
+  paginateData(event?: any) {
+    this.is_reload = true;
+    const getHtmlYear = this.years?.filter((name: any) => {
+      return name.year == this.htmlYear;
+    });
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(
+        BaseUrl.list_registered_employees +
+          `comp_tin=${this.datas2?.company?.state_tin}&yearId=${
+            getHtmlYear[0]?.id
+          }&page=${get_current_page / 50 || 1}`
+      )
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
           this.is_reload = false;
           this.snackBar.open('Loaded', '', {
             duration: 3000,

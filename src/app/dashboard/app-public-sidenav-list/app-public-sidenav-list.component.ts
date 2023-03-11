@@ -19,7 +19,6 @@ import {
 } from 'src/app/reducers/index';
 import {
   AddDepartment,
-  AddGroup,
   AddLocation,
   AddOccupation,
   AddProfile,
@@ -309,13 +308,13 @@ export class AppPublicSidenavListComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  addGroup() {
-    this.httpService
-      .getAuthSingle(BaseUrl.list_group)
-      .subscribe((data: any) => {
-        this.store.dispatch(new AddGroup([{ id: 1, data: data.data }]));
-      });
-  }
+  // addGroup() {
+  //   this.httpService
+  //     .getAuthSingle(BaseUrl.list_group)
+  //     .subscribe((data: any) => {
+  //       this.store.dispatch(new AddGroup([{ id: 1, data: data.data }]));
+  //     });
+  // }
 
   addDepartment() {
     this.httpService
@@ -343,7 +342,7 @@ export class AppPublicSidenavListComponent implements OnInit {
 
   ngOnInit(): void {
     this.addProfile();
-    this.addGroup();
+    // this.addGroup();
     this.addDepartment();
     this.addOccupation();
   }

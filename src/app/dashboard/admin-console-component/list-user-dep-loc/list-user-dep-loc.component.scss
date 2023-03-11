@@ -125,7 +125,6 @@ $form-icon-color: rgba(27, 87, 63, 0.54);
     margin-left: 10px;
     border-radius: 50%;
   }
-
 }
 
 .table-container {
@@ -163,7 +162,9 @@ $form-icon-color: rgba(27, 87, 63, 0.54);
     text-align: center;
   }
 
-  tr th:nth-child(6), tr th:nth-child(7), tr th:nth-child(8) {
+  tr th:nth-child(6),
+  tr th:nth-child(7),
+  tr th:nth-child(8) {
     border-right: unset;
   }
 

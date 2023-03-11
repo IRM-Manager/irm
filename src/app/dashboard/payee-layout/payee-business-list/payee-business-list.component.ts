@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 // state management
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -34,6 +35,7 @@ import { PayeeServiceService } from '../service/payee-service.service';
     MatMenuModule,
     DataTablesModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './payee-business-list.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -50,6 +52,8 @@ export class PayeeBusinessListComponent implements OnDestroy, OnInit {
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
+  totalRecords = 0;
+  current_page = 50;
 
   formErrors: any = {};
   validationMessages: any = {};
@@ -91,27 +95,33 @@ export class PayeeBusinessListComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable() {
-    const that = this;
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.list_payee).subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.dtTrigger.next;
-        this.isLoading = false;
-      },
-      () => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(BaseUrl.list_payee + `?page=${get_current_page / 50 || 1}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.dtTrigger.next;
+          this.isLoading = false;
+        },
+        () => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   ngOnInit(): void {
@@ -121,24 +131,27 @@ export class PayeeBusinessListComponent implements OnDestroy, OnInit {
 
   reload2() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.list_payee).subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.dtTrigger.next;
-        this.is_reload = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      },
-      () => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(BaseUrl.list_payee + `?page=${this.current_page / 50}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.dtTrigger.next;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   openDialog() {

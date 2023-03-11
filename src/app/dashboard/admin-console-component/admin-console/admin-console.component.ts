@@ -9,21 +9,22 @@ import { Store } from '@ngrx/store';
 import { AppState, selectAllUser } from 'src/app/reducers/index';
 import { User } from '../../models/irm';
 //
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { HttpService } from 'src/app/services/http.service';
-import { BaseUrl } from 'src/environments/environment';
-import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
-import { AdminServiceService } from '../service/admin-service.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
+import { BaseUrl } from 'src/environments/environment';
+import { AdminConsoleDialogComponent } from '../admin-console-dialog/admin-console-dialog.component';
+import { AdminServiceService } from '../service/admin-service.service';
 
 @Component({
   selector: 'app-admin-console',
@@ -39,6 +40,7 @@ import { DataTablesModule } from 'angular-datatables';
     DataTablesModule,
     MatMenuModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './admin-console.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -58,6 +60,8 @@ export class AdminConsoleComponent implements OnInit, OnDestroy {
   stateComPayer: Observable<User[]>;
   formErrors: any = {};
   validationMessages: any = {};
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private router: Router,
@@ -97,27 +101,34 @@ export class AdminConsoleComponent implements OnInit, OnDestroy {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       lengthChange: false,
       info: false,
     };
-    this.isLoading = true;
-    this.httpService.getAuthSingle(BaseUrl.list_user + '1').subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        console.log(data.results);
-        this.dtTrigger.next;
-        this.isLoading = false;
-      },
-      () => {
-        this.isLoading = false;
-        this.authService.checkExpired();
-      }
-    );
+
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
+
+    this.httpService
+      .getAuthSingle(BaseUrl.list_user + `${get_current_page / 50 || 1}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          console.log(data.results);
+          this.dtTrigger.next;
+          this.isLoading = false;
+        },
+        () => {
+          this.isLoading = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   ngOnInit(): void {
@@ -133,24 +144,27 @@ export class AdminConsoleComponent implements OnInit, OnDestroy {
 
   reload2() {
     this.is_reload = true;
-    this.httpService.getAuthSingle(BaseUrl.list_user + '1').subscribe(
-      (data: any) => {
-        this.datas = data.results;
-        this.searchData = data.results;
-        this.dtTrigger.next;
-        this.is_reload = false;
-        this.snackBar.open('Loaded', '', {
-          duration: 3000,
-          panelClass: 'success',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      },
-      () => {
-        this.is_reload = false;
-        this.authService.checkExpired();
-      }
-    );
+    this.httpService
+      .getAuthSingle(BaseUrl.list_user + `${this.current_page / 50}`)
+      .subscribe(
+        (data: any) => {
+          this.datas = data.results;
+          this.searchData = data.results;
+          this.totalRecords = data?.count;
+          this.dtTrigger.next;
+          this.is_reload = false;
+          this.snackBar.open('Loaded', '', {
+            duration: 3000,
+            panelClass: 'success',
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        },
+        () => {
+          this.is_reload = false;
+          this.authService.checkExpired();
+        }
+      );
   }
 
   redirectData(data: any, type: string) {

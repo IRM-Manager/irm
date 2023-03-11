@@ -12,12 +12,12 @@
 
     <div class="header" *ngIf="datas?.update">
         <div class="soft_pattern">
-            {{ datas?.data?.payer.taxpayer_name }}
-            <span class="material-icons-round icons-rounded" *ngIf="datas?.data?.payer.is_verified">
+            {{ datas?.data?.payer?.taxpayer_name }}
+            <span class="material-icons-round icons-rounded" *ngIf="datas?.data?.payer?.is_verified">
                 verified_user
             </span>
         </div>
-        <div class="reg_buss">GTin: {{ datas?.data?.payer.state_tin }}</div>
+        <div class="reg_buss">GTin: {{ datas?.data?.payer?.state_tin }}</div>
     </div>
 
     <div class="form-container">
@@ -30,8 +30,8 @@
                 <!-- year -->
                 <mat-form-field class="full-width">
                     <mat-label>Year of Assessment</mat-label>
-                    <mat-select matInput formControlName="year" required placeholder="Year of Assessment">
-                        <mat-option *ngFor="let y of years" [value]="y.id">{{ y.year }}</mat-option>
+                    <mat-select matinput formControlName="year" required placeholder="Year of Assessment">
+                        <mat-option *ngFor="let y of years" [value]="y?.id">{{ y?.year }}</mat-option>
                     </mat-select>
                     <mat-error>{{formErrors.year}}</mat-error>
                 </mat-form-field>
@@ -41,9 +41,9 @@
             <div class="form-header_p" *ngIf="collectedSourceData">
                 <div class="form-header" fxLayoutGap="50px" *ngFor="let data of collectedSourceData; let i=index">
                     <div>{{i+1}}.</div>
-                    <div>{{ data.sources }}</div>
-                    <div>NGN {{ formatMoney(data.income) }}</div>
-                    <div class="pdf">{{ limit(data.fileName) }}</div>
+                    <div>{{ data?.sources }}</div>
+                    <div>NGN {{ formatMoney(data?.income) }}</div>
+                    <div class="pdf">{{ limit(data?.fileName) }}</div>
                     <div>
                         <button type="button" mat-icon-button class="delete" (click)="deleteSource(i)">
                             <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
@@ -56,7 +56,7 @@
                 <!-- source -->
                 <mat-form-field class="full-width">
                     <mat-label>Source of income</mat-label>
-                    <mat-select matInput formControlName="source">
+                    <mat-select matinput formControlName="source">
                         <mat-option value="business">Business or Trade</mat-option>
                         <mat-option value="commissions">Commissions/Bonuses</mat-option>
                         <mat-option value="allowance">Allowance</mat-option>
@@ -91,8 +91,8 @@
             <div class="form-header_p" *ngIf="collectedSourceData">
                 <div class="form-header" fxLayoutGap="50px" *ngFor="let data of collectedDeductionData; let i=index">
                     <div>{{i+1}}.</div>
-                    <div>{{ data.sources }}</div>
-                    <div>NGN {{ formatMoney(data.amount) }}</div>
+                    <div>{{ data?.sources }}</div>
+                    <div>NGN {{ formatMoney(data?.amount) }}</div>
                     <div class="pdf">{{ limit(data.fileName) }}</div>
                     <div>
                         <button type="button" mat-icon-button class="delete" (click)="deleteDeduction(i)">
@@ -107,7 +107,7 @@
                 <!-- deduction -->
                 <mat-form-field class="full-width">
                     <mat-label>Deductions</mat-label>
-                    <mat-select matInput formControlName="deduction">
+                    <mat-select matinput formControlName="deduction">
                         <mat-option value="pension">Pension</mat-option>
                         <mat-option value="nhf">NHF</mat-option>
                         <mat-option value="gratuity">Gratuity</mat-option>
@@ -142,12 +142,11 @@
             </div>
 
             <div class="check-box">
-                <mat-checkbox
-                    class="check-box-box" matInput formControlName="agree" required="">
+                <!-- <mat-checkbox class="check-box-box" matInput formControlName="agree" required=""> -->
                     I here by acknowledge that all information and document provided above 
                     are true and I can be hold accountable and prosecuted for any false information provided
-                </mat-checkbox>
-                <mat-error>{{formErrors.agree}}</mat-error>
+                <!-- </mat-checkbox> -->
+                <!-- <mat-error>{{formErrors.agree}}</mat-error> -->
             </div>
 
 

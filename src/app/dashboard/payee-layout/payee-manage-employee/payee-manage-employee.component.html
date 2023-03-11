@@ -142,6 +142,7 @@
                                     </div>
                                 </button>
                             </table>
+                            <p-paginator [rows]="50" [totalRecords]="totalRecords" (onPageChange)="paginateData($event)"></p-paginator>
                         </div>
 
                         <div *ngIf="!is_reload && datas?.length === 0">

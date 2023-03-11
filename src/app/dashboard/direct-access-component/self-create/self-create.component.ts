@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -71,6 +72,7 @@ export class SelfCreateComponent implements OnInit {
   feedback2!: directAss;
   clickEventSubscription?: Subscription;
   stateYear: Observable<Year[]>;
+  // hideRequiredControl = new FormControl(false);
 
   formErrors: any = {
     year: '',
@@ -118,7 +120,7 @@ export class SelfCreateComponent implements OnInit {
     this.datas = this.service.getMessage();
     console.log(this.datas);
     if (this.datas) {
-      if (this.datas.update) {
+      if (this.datas?.update) {
         this.update = true;
         this.updateValue();
       } else {
@@ -137,7 +139,8 @@ export class SelfCreateComponent implements OnInit {
       amount: [''],
       deduction: [''],
       amount2: [''],
-      agree: [false, [Validators.required]],
+      // agree: [false, [Validators.required]],
+      // agree: this.hideRequiredControl,
     });
     this.feedbackForm2.valueChanges.subscribe((data: any) =>
       this.onValueChanged2(data)
@@ -168,12 +171,12 @@ export class SelfCreateComponent implements OnInit {
   }
 
   updateValue() {
-    this.feedbackForm2.patchValue({ agree: true });
+    // this.feedbackForm2.patchValue({ agree: true });
     this.feedbackForm2.patchValue({
-      year: this.datas.data.year_id,
+      year: this.datas?.data?.year_id,
     });
-    this.collectedSourceData = this.datas.data.incomes;
-    this.collectedDeductionData = this.datas.data.deductions;
+    this.collectedSourceData = this.datas?.data?.incomes;
+    this.collectedDeductionData = this.datas?.data?.deductions;
     this.sumValue();
   }
 
@@ -228,10 +231,10 @@ export class SelfCreateComponent implements OnInit {
         verticalPosition: 'top',
       });
     } else {
-      if (this.feedback2.amount && this.feedback2.source) {
+      if (this.feedback2?.amount && this.feedback2?.source) {
         const data = {
-          sources: this.feedback2.source,
-          income: this.feedback2.amount,
+          sources: this.feedback2?.source,
+          income: this.feedback2?.amount,
           fileName: this.filename,
           doc: this.image || '',
         };
@@ -417,10 +420,10 @@ export class SelfCreateComponent implements OnInit {
         }
       });
       const data = {
-        tin: this.datas.data.payer.state_tin,
+        tin: this.datas?.data?.payer?.state_tin,
         incomes: this.collectedSourceData,
         deductions: this.collectedDeductionData,
-        year_id: this.feedback2.year,
+        year_id: this.feedback2?.year,
       };
       console.log(data);
       this.httpService
@@ -467,11 +470,11 @@ export class SelfCreateComponent implements OnInit {
 
   sumValue() {
     let source: any = this.collectedSourceData.reduce(
-      (accumulator: any, current: any) => accumulator + current.income,
+      (accumulator: any, current: any) => accumulator + current?.income,
       0
     );
     let deduction: any = this.collectedDeductionData.reduce(
-      (accumulator: any, current: any) => accumulator + current.amount,
+      (accumulator: any, current: any) => accumulator + current?.amount,
       0
     );
     this.totalValue = source + deduction;

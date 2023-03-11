@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -33,6 +34,7 @@ import { TaxpayerDialogComponent } from '../taxpayer-dialog/taxpayer-dialog.comp
     MatMenuModule,
     DataTablesModule,
     MatToolbarModule,
+    PaginatorModule,
   ],
   templateUrl: './tax-payer.component.html',
   encapsulation: ViewEncapsulation.Emulated,
@@ -47,6 +49,8 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
   datas: any[] = [];
   searchData: any;
   dtTrigger: Subject<any> = new Subject<any>();
+  totalRecords = 0;
+  current_page = 50;
 
   constructor(
     private router: Router,
@@ -106,7 +110,8 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
     this.datas = data;
   }
 
-  renderTable() {
+  renderTable(event?: any) {
+    this.isLoading = true;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
@@ -114,26 +119,33 @@ export class TaxPayerComponent implements OnDestroy, OnInit {
       info: false,
     };
 
+    console.log(event);
+    const get_current_page = event?.first + 50;
+    this.current_page = get_current_page;
     let url = '';
-
     if (this.active == 'com') {
-      url = BaseUrl.list_com_payer;
+      url =
+        BaseUrl.list_com_payer +
+        `&page=${get_current_page / 50 || this.current_page / 50 || 1}`;
     } else if (this.active == 'all') {
-      url = BaseUrl.list_all_payer;
+      url =
+        BaseUrl.list_all_payer +
+        `&page=${get_current_page / 50 || this.current_page / 50 || 1}`;
     } else {
-      url = BaseUrl.list_ind_payer;
+      url =
+        BaseUrl.list_ind_payer +
+        `&page=${get_current_page / 50 || this.current_page / 50 || 1}`;
     }
-
-    this.isLoading = true;
     this.httpService.getAuthSingle(url).subscribe(
       (data: any) => {
-        console.log(data.results);
+        console.log(data);
         this.datas = data.results;
         this.searchData = data.results;
+        this.totalRecords = data?.count;
         this.dtTrigger.next;
         this.isLoading = false;
       },
-      (err) => {
+      () => {
         this.isLoading = false;
         this.authService.checkExpired();
       }
