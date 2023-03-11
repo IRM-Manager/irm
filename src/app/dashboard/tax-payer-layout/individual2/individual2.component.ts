@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -14,7 +14,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,18 +43,22 @@ import {
   ReplaySubject,
   Subject,
   takeUntil,
-  tap
+  tap,
 } from 'rxjs';
 import {
   AppState,
   selectAllIndPayer,
-  selectAllLocation, selectAllOccupation, selectAllStates
+  selectAllLocation,
+  selectAllOccupation,
+  selectAllStates,
 } from 'src/app/reducers/index';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { BaseUrl } from 'src/environments/environment';
 import {
-  AddLocation, AddOccupation, AddStates
+  AddLocation,
+  AddOccupation,
+  AddStates,
 } from '../../../actions/irm.action';
 import { IndPayer, Locationn, Occupation, States } from '../../models/irm';
 import { Individual1, LGA, lgaLogo, STATE, stateLogo } from '../../shared/form';
@@ -313,7 +317,6 @@ export class Individual2Component implements OnDestroy, OnInit {
     } // end of if
     else {
       this.loading = true;
-
       this.feedback1 = this.feedbackForm1.value;
       let coun = this.state.filter(
         (name: any) => name.name.toLowerCase() == 'gombe'
