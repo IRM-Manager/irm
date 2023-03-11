@@ -227,37 +227,42 @@ export class EditUserComponent implements OnInit {
     } // end of if
     else {
       this.feedback = this.feedbackForm.value;
-      let list_group_id: any = [];
+      // let list_group_id: any = [];
+      let list_perm_id: any = [];
       let list_department_id: any = [];
       // get department id
       this.groupsD.filter((element: any) => {
-        const get_id = this.list_department.filter((name: any) => {
+        const get_id = this.list_department.find((name: any) => {
           return name.name == element;
         });
-        list_department_id.push(get_id[0].id);
+        list_department_id.push(get_id.id);
+        for (const x of get_id.permission) {
+          list_perm_id.push(x?.id);
+        }
       });
+      // ewewfewfw
       // get location id
       const form_location = this.list_location.filter(
         (name: any) => name.name == this.feedback.office
       );
       // get group ids
-      this.groups.filter((element: any) => {
-        const get_id = this.list_group.filter((name: any) => {
-          return name.name == element;
-        });
-        list_group_id.push(get_id[0].id);
-      });
+      // this.groups.filter((element: any) => {
+      //   const get_id = this.list_group.filter((name: any) => {
+      //     return name.name == element;
+      //   });
+      //   list_group_id.push(get_id[0].id);
+      // });
       // check if group is valid
-      if (list_group_id.length < 1) {
-        this.snackBar.open('Please select a valid group.', '', {
-          duration: 5000,
-          panelClass: 'error',
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      }
+      // if (list_group_id.length < 1) {
+      //   this.snackBar.open('Please select a valid group.', '', {
+      //     duration: 5000,
+      //     panelClass: 'error',
+      //     horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      //   });
+      // }
       // check if department is valid
-      else if (list_department_id.length < 1) {
+      if (list_department_id.length < 1) {
         this.snackBar.open('Please Select a valid department.', '', {
           duration: 5000,
           panelClass: 'error',
@@ -278,9 +283,8 @@ export class EditUserComponent implements OnInit {
         let correct_data = {
           first_name: this.feedback.first_name,
           last_name: this.feedback.last_name,
-          department: list_department_id,
           email: this.feedback.email,
-          groups: list_group_id,
+          groups: { department: list_department_id, perm: list_perm_id },
           location: form_location[0].id,
           phone: this.datas.data.phone,
           is_staff: this.datas.data.is_staff,
@@ -451,6 +455,7 @@ export class EditUserComponent implements OnInit {
             this.store.dispatch(new AddGroup([{ id: 1, data: data.data }]));
           },
           () => {
+            console.log('group errorrrrrrr');
             this.authService.checkExpired();
           }
         );
@@ -470,7 +475,7 @@ export class EditUserComponent implements OnInit {
         //
         this.allGroupD = datas;
         this.allGroupD2 = datas;
-        this.filteredGroup = this.feedbackForm
+        this.filteredGroupD = this.feedbackForm
           .get('department')
           .valueChanges.pipe(
             startWith(null),
@@ -492,7 +497,7 @@ export class EditUserComponent implements OnInit {
             //
             this.allGroupD = datas;
             this.allGroupD2 = datas;
-            this.filteredGroup = this.feedbackForm
+            this.filteredGroupD = this.feedbackForm
               .get('department')
               .valueChanges.pipe(
                 startWith(null),

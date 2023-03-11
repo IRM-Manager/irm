@@ -20,19 +20,19 @@
                 </div>
             </div>
             <div class="department">Departments</div>
-            <div class="role_p">
-                <div class="paye">{{ datas?.data?.department?.name || 'None' }}</div>
-                <div class="edit" (click)="edit()">Edit</div>
+            <div class="role_p" *ngFor="let depart of datas?.data?.department">
+                <div class="paye">{{ depart?.name || 'None' }}</div>
+                <!-- <div class="edit" (click)="edit()">Edit</div> -->
             </div>
             <div class="department">Role</div>
             <div class="role_p" *ngFor="let role of datas?.data?.groups">
-                <div class="paye">{{ role.name }}</div>
-                <div class="edit" (click)="edit()">Edit</div>
+                <div class="paye">{{ role.name || 'None' }}</div>
+                <!-- <div class="edit" (click)="edit()">Edit</div> -->
             </div>
             <div class="department">OFFICE</div>
             <div class="role_p">
                 <div class="paye">{{ datas?.data?.location?.name || 'None' }}</div>
-                <div class="edit" (click)="edit()">Edit</div>
+                <!-- <div class="edit" (click)="edit()">Edit</div> -->
             </div>
         </div>
         <div class="view-user-right">

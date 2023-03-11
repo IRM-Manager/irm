@@ -37,6 +37,7 @@ export class ViewUserComponent implements OnInit {
     } else {
       this.router.navigate([`/dashboard/dashboard5/admin-console`]);
     }
+    console.log(this.datas, 'user dataaaaaa');
   }
 
   ngOnInit(): void {

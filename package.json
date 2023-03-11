@@ -43,6 +43,7 @@
     "jquery": "^3.6.0",
     "mammoth": "^1.4.21",
     "material-icons": "^1.10.7",
+    "network-information-types": "^0.1.1",
     "ng-qrcode": "^7.0.0",
     "ngx-doc-viewer": "^2.1.2",
     "ngx-mat-select-search": "^4.0.2",

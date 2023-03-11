@@ -25,7 +25,9 @@ export const BaseUrl = {
   get_payer_tin: 'user/api/v1/payer/payerbytin/?tin=',
   delete_update_payer: 'user/api/v1/payer/', // not when deleting payer add / after the id
   list_user: 'user/api/v1/allusers/?page=',
+
   list_group: 'user/api/v1/allgroup/',
+  
   list_department: 'user/api/v1/department/',
   list_location: 'user/api/v1/location/',
   edit_user: 'user/api/v1/profile/edit?id=',
